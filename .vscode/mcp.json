@@ -1,0 +1,21 @@
+{
+  "servers": {
+    "task-master-ai": {
+      "command": "npx",
+      "args": ["-y", "--package=task-master-ai", "task-master-ai"],
+      "type": "stdio"
+    },
+    "basic-memory": {
+      "command": "uvx",
+      "args": ["basic-memory", "--project", "perfil", "mcp"]
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "shadcn-ui": {
+      "command": "npx",
+      "args": ["@jpisnice/shadcn-ui-mcp-server"]
+    }
+  }
+}
