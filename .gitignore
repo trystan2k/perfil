@@ -19,6 +19,9 @@ node_modules
 .env
 !.env.test
 
+# generated types
+.astro/
+
 # Testing
 coverage
 
