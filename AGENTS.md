@@ -1,5 +1,19 @@
 # AGENTS.md – Coding Agent Guide for perfil
 
+## ⛔ CRITICAL: AUTHORIZATION REQUIRED
+
+**🚨 NEVER START ANY TASK WITHOUT EXPLICIT USER AUTHORIZATION 🚨**
+
+You MUST:
+- ❌ **NEVER** checkout branches
+- ❌ **NEVER** expand tasks
+- ❌ **NEVER** create feature branches
+- ❌ **NEVER** begin implementation
+- ❌ **NEVER** run git commands
+- ✅ **ALWAYS** wait for the user to explicitly tell you which task to start
+
+**When resuming from a summary, ask me what to do next before do anything else.**
+
 ## 📚 Onboarding
 
 At the start of each session, read:
