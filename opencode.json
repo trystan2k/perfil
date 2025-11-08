@@ -73,5 +73,22 @@
         "@jpisnice/shadcn-ui-mcp-server"
       ]
     }
+  },
+  "agent": {
+    "documenter": {
+      "mode":"primary",
+      "model": "github-copilot/gpt-5-mini",
+      "prompt": "You are a document writer. Focus on clear and concise documentation.",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "shadcn-ui*": false,
+        "playwright*": false,
+        "github*": false,
+        "chrome-devtools*": false,
+        "task-master-ai*": false
+    }
+    }
   }
 }
