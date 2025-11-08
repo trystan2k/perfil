@@ -38,4 +38,8 @@ For context about the project, see document [CONTEXT.md](docs/CONTEXT.md) if it 
 - **File structure**: Organize by feature/module, keep related files together
 - **No Cursor/Copilot rules present**
 
+## Taskmaster
+
+If you need to use Taskmaster, refer to the [TASK_MASTER.md](docs/TASK_MASTER.md) guide.
+
 _Refer to this guide for agentic coding in this repository. Update if new tools or rules are added._
