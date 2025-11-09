@@ -333,3 +333,80 @@ Design / responsiveness guidelines (mobile-first)
 - Session completion rate ≥ 80% for hosted games (start → finish)
 - Average time per round under 2 minutes (fast party flow)
 - Low MC friction: 90% of internal testers complete setup within 30s
+
+---
+
+## 12. 🌐 Internationalization (i18n)
+
+Goal: Provide multi-language support for UI and content so the app can be used in multiple locales (e.g., en, pt-BR, es).
+
+Recommended approach:
+- Use Astro's built-in i18n routing (astro.config.mjs i18n option) to generate localized routes and compute locale-aware URLs. Configure `i18n.locales` and `i18n.defaultLocale` and choose `routing.prefixDefaultLocale` behavior according to desired URL structure.
+- Store localized static pages under localized folders (e.g., `src/pages/en/`, `src/pages/pt-br/`) for static content and use Astro helper functions from `astro:i18n` to generate locale-aware links.
+- For runtime translations inside React islands, use a lightweight React i18n library (recommendation: `react-i18next`) to manage message bundles and dynamic UI translations. This pairs well with Astro routing: use Astro for route-level locale handling and `react-i18next` for component-level strings.
+- For content-driven translations (profiles, docs), keep localized JSON/data files or content collections per-locale (e.g., `public/data/profiles.en.json`, `public/data/profiles.pt-br.json`) or use Astro content collections with per-locale entries.
+
+Acceptance criteria:
+- `astro.config.mjs` includes an `i18n` block with supported locales and default locale.
+- Static pages are available under localized routes and links compute correctly with `astro:i18n` helpers.
+- React islands load and display translated UI strings using `react-i18next` or equivalent.
+
+
+## 13. 📱 Progressive Web App (PWA)
+
+Goal: Make the application installable and available offline for a better mobile experience and to support in-person play without network.
+
+Recommended approach:
+- Use Vite's PWA plugin (`vite-plugin-pwa`) integrated in the Astro project (via `astro` -> `vite` configuration) to generate the web app manifest and service worker at build time.
+- Provide a complete `manifest.webmanifest` (name, short_name, icons, start_url, display, background_color, theme_color) and register the generated service worker in a small client-side script inside the main layout.
+- Decide which assets and routes should be cached (app shell + static assets + profiles JSON). Use the plugin's Workbox or inject manifest options to configure runtime caching strategies for content and API routes.
+
+Acceptance criteria:
+- PWA manifest present and linked in HTML head.
+- Service worker registered and served after build (manual validation in Lighthouse) with offline fallback for basic screens and cached profiles data.
+- App is installable (manifest and service worker validated by Lighthouse or browser install prompt).
+
+
+## 14. 🧰 Developer Workflow: Git hooks (Husky + lint-staged) and Quality Gates
+
+Goal: Prevent common issues by enforcing checks on commit and push.
+
+Recommended approach:
+- Use Husky to install Git hooks and `lint-staged` to run tasks on staged files.
+- Pre-commit hook: run `pnpm run format` (biome format --write .), then `pnpm run lint` (biome check .), and `pnpm run typecheck` (tsc --noEmit && astro check). Use `lint-staged` to limit format/lint to changed files for speed and run full typecheck if needed.
+- Pre-push hook: run `pnpm test` (vitest) and `pnpm build` (astro build) to ensure tests and build pass before pushing branches upstream.
+
+Acceptance criteria:
+- Husky and lint-staged configured in `package.json` and Husky hooks installed.
+- Pre-commit executes format -> lint -> typecheck; pre-push executes test -> build.
+- Developers can run a single script to install hooks (`pnpm run prepare` or Husky install step).
+
+
+## 15. 🧪 Testing & Coverage Requirements
+
+Goal: Ensure a minimum quality level with code coverage enforcement.
+
+Recommended approach:
+- Configure Vitest to generate coverage reports using built-in coverage reporters (Istanbul via c8) and enable HTML and text-summary outputs.
+- Enforce global and per-file coverage thresholds in `vitest.config.ts` (minimum 80% for statements/branches/functions/lines globally and per-file thresholds as required).
+- Add an npm script for coverage (`pnpm test:coverage`) that runs vitest with coverage enabled and fails when thresholds are not met.
+
+Acceptance criteria:
+- `vitest.config.ts` includes coverage configuration and thresholds (>=80%).
+- `pnpm test:coverage` generates an HTML coverage report and fails when thresholds are not met.
+
+
+## 16. ⚙️ CI/CD: GitHub Actions + Deploy to Render
+
+Goal: Run quality checks on PRs and main branch and deploy successful builds to Render.
+
+Recommended approach:
+- Create a GitHub Actions workflow that runs on push and pull_request and executes the project's quality checks in sequence: `pnpm install`, `pnpm run lint`, `pnpm run typecheck`, `pnpm test`, and `pnpm run build`.
+- On success (e.g., push to main), the workflow will deploy the built site to Render. Use Render's deploy GitHub Action or the Render API with a service key stored in repo secrets (e.g., `RENDER_SERVICE_ID`, `RENDER_API_KEY`). The workflow should build the static assets and then call the Render deploy step.
+- CI must report status checks back to PRs so merging requires passing checks.
+
+Acceptance criteria:
+- A GitHub Actions workflow file exists that runs lint, typecheck, test, and build on PRs and pushes.
+- Deployment step configured to deploy to Render using repository secrets; instructions added for how to create/render the API key and service id in Render dashboard.
+
+PRD notes: these operational requirements (i18n, PWA, git hooks, coverage and CI/CD) are part of the core project non-functional requirements and must be implemented before M6: Release.
