@@ -1,38 +1,52 @@
-export interface Player {
-  id: string;
-  name: string;
-  score: number;
-}
+import { z } from 'zod';
 
-export interface Profile {
-  id: string;
-  category: string;
-  name: string;
-  clues: string[];
-  metadata?: {
-    language?: string;
-    difficulty?: 'easy' | 'medium' | 'hard';
-    source?: string;
-    [key: string]: unknown;
-  };
-}
+// Zod Schemas
+export const playerSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  score: z.number(),
+});
 
-export interface TurnState {
-  profileId: string;
-  activePlayerId: string;
-  cluesRead: number;
-  revealed: boolean;
-}
+export const profileMetadataSchema = z
+  .object({
+    language: z.string().optional(),
+    difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
+    source: z.string().optional(),
+  })
+  .catchall(z.unknown())
+  .optional();
 
-export interface GameSession {
-  id: string;
-  players: Player[];
-  currentTurn: TurnState | null;
-  remainingProfiles: string[];
-  totalCluesPerProfile: number;
-}
+export const profileSchema = z.object({
+  id: z.string(),
+  category: z.string().min(1),
+  name: z.string().min(1),
+  clues: z.array(z.string().min(1)).min(1).max(20),
+  metadata: profileMetadataSchema,
+});
 
-export interface ProfilesData {
-  version?: string;
-  profiles: Profile[];
-}
+export const profilesDataSchema = z.object({
+  version: z.string().optional(),
+  profiles: z.array(profileSchema).min(1),
+});
+
+export const turnStateSchema = z.object({
+  profileId: z.string(),
+  activePlayerId: z.string(),
+  cluesRead: z.number(),
+  revealed: z.boolean(),
+});
+
+export const gameSessionSchema = z.object({
+  id: z.string(),
+  players: z.array(playerSchema),
+  currentTurn: turnStateSchema.nullable(),
+  remainingProfiles: z.array(z.string()),
+  totalCluesPerProfile: z.number(),
+});
+
+// TypeScript Types
+export type Player = z.infer<typeof playerSchema>;
+export type Profile = z.infer<typeof profileSchema>;
+export type ProfilesData = z.infer<typeof profilesDataSchema>;
+export type TurnState = z.infer<typeof turnStateSchema>;
+export type GameSession = z.infer<typeof gameSessionSchema>;

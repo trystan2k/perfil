@@ -108,4 +108,32 @@ describe('useProfiles', () => {
     expect(result.current.isError).toBe(false);
     expect(result.current.data).toBeUndefined();
   });
+
+  it('should handle invalid JSON schema', async () => {
+    const invalidData = {
+      version: '1',
+      profiles: [
+        {
+          id: 'test-001',
+          category: 'Test',
+          name: 'Test',
+          clues: [], // Invalid: empty clues array
+        },
+      ],
+    };
+
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => invalidData,
+    } as Response);
+
+    const { result } = renderHook(() => useProfiles(), {
+      wrapper: createWrapper(),
+    });
+
+    await waitFor(() => expect(result.current.isError).toBe(true));
+
+    expect(result.current.data).toBeUndefined();
+    expect(result.current.error).toBeDefined();
+  });
 });
