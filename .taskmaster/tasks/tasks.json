@@ -9,8 +9,62 @@
         "testStrategy": "Run `pnpm astro check` to verify TypeScript setup. Execute `pnpm biome check .` to ensure linting rules are applied. Create a sample Vitest test for a basic React component and an Astro page to confirm the testing framework is correctly configured.",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize Astro Project with React Integration",
+            "description": "Create a new Astro project using the official `create astro` command, selecting the React template to establish the foundational project structure.",
+            "dependencies": [],
+            "details": "Execute `pnpm create astro@latest` in the terminal. Follow the interactive prompts to set up a new project. Select the 'Empty' template and explicitly add the 'React' integration when asked. This will generate the initial file structure including `astro.config.mjs` and `package.json`.",
+            "status": "done",
+            "testStrategy": "Run `pnpm dev` to start the development server and verify that the default Astro welcome page loads correctly in a browser. Then, run `pnpm astro check` to ensure the initial TypeScript configuration is valid."
+          },
+          {
+            "id": 2,
+            "title": "Install Core Application Dependencies",
+            "description": "Add all necessary npm packages for state management, data fetching, UI components, and utility libraries to the project's `package.json`.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use the pnpm package manager to add the following dependencies: `pnpm add react react-dom zustand @tanstack/react-query idb shadcn-ui tailwindcss-animate lucide-react`. This command will update the `package.json` and `pnpm-lock.yaml` files.",
+            "status": "done",
+            "testStrategy": "After installation, inspect the `package.json` file to confirm that all specified dependencies are listed. Run `pnpm install` again to ensure there are no peer dependency conflicts or installation errors."
+          },
+          {
+            "id": 3,
+            "title": "Integrate and Configure Tailwind CSS",
+            "description": "Use the Astro CLI to add and configure the Tailwind CSS integration, enabling utility-first styling for all components and pages.",
+            "dependencies": [
+              1
+            ],
+            "details": "Run the command `npx astro add tailwind`. This will install `tailwindcss` and its peer dependencies, create a `tailwind.config.mjs` file, and update the `astro.config.mjs` to include the Tailwind integration. Ensure a global CSS file imports the base Tailwind styles.",
+            "status": "done",
+            "testStrategy": "Create a test Astro page or component. Apply several Tailwind utility classes like `bg-blue-500`, `text-white`, and `p-4`. Start the dev server and verify in the browser that these styles are correctly applied to the element."
+          },
+          {
+            "id": 4,
+            "title": "Configure Biome for Code Linting and Formatting",
+            "description": "Set up Biome to enforce a consistent code style and identify potential issues across Astro, TypeScript, and React files.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a `biome.json` configuration file in the project root. Configure the `linter` and `formatter` to recognize `.astro`, `.ts`, and `.tsx` files. Add scripts to `package.json` for checking and formatting the code, such as `\"lint\": \"biome check .\"` and `\"format\": \"biome format --write .\"`.",
+            "status": "done",
+            "testStrategy": "Run `pnpm biome check .` on the existing codebase to ensure it passes without errors. Intentionally introduce a formatting mistake in a file, run `pnpm biome format --write .`, and verify that the tool automatically corrects the mistake."
+          },
+          {
+            "id": 5,
+            "title": "Set Up Vitest for Unit and Component Testing",
+            "description": "Configure the Vitest testing framework to support testing for both Astro pages and React components within the project.",
+            "dependencies": [
+              1
+            ],
+            "details": "Install necessary dev dependencies: `vitest`, `@astrojs/testing`, `@testing-library/react`, and `jsdom`. Create a `vitest.config.ts` file and configure it to use the Astro plugin and the `jsdom` environment. Add a `\"test\": \"vitest\"` script to `package.json`.",
+            "status": "done",
+            "testStrategy": "Create a basic React component test file (`*.test.tsx`) using React Testing Library to assert that a component renders correctly. Create a basic Astro page test (`*.test.ts`) using `@astrojs/testing` to load a page and check for an element. Run `pnpm test` and confirm all tests pass."
+          }
+        ]
       },
       {
         "id": 2,
@@ -137,7 +191,7 @@
     ],
     "metadata": {
       "created": "2025-11-08T14:18:57.049Z",
-      "updated": "2025-11-08T14:18:57.049Z",
+      "updated": "2025-11-08T14:35:21.786Z",
       "description": "Tasks for master context"
     }
   }

@@ -1,5 +1,19 @@
 # Development Workflow Guide
 
+## ⛔ CRITICAL: AUTHORIZATION REQUIRED
+
+**🚨 NEVER START ANY TASK WITHOUT EXPLICIT USER AUTHORIZATION 🚨**
+
+You MUST:
+- ❌ **NEVER** checkout branches without authorization
+- ❌ **NEVER** expand tasks without authorization
+- ❌ **NEVER** create feature branches without authorization
+- ❌ **NEVER** begin implementation without authorization
+- ❌ **NEVER** run git commands without authorization
+- ✅ **ALWAYS** wait for the user to explicitly tell you: "Start task #X" or similar
+
+**When resuming from a summary, ask me what to do next before do anything else.**
+
 ## ⚠️ ### FUNDAMENTAL PRINCIPLES
 
 THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout development. No item can be neglected. NEVER ASSUME ANYTHING - ALWAYS ASK IF IN DOUBT.

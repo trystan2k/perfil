@@ -1,9 +1,46 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.4/schema.json",
-  "extends": ["@favoritable/lint-config"],
+  "$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
-  }
+  },
+  "files": {
+    "includes": ["src/**/*.astro", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+    "ignoreUnknown": true
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "es5"
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/**/*.astro"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off"
+          }
+        }
+      },
+      "formatter": {
+        "enabled": true
+      }
+    }
+  ]
 }
