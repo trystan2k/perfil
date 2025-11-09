@@ -9,7 +9,7 @@
     "astro": "astro",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "typecheck": "astro check",
+    "typecheck": "tsc --noEmit && astro check",
     "test": "vitest",
     "complete-check": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build"
   },
