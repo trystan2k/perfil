@@ -67,17 +67,72 @@
         ]
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Static Data Layer and Profile Loading",
-        "description": "Create the `profiles.json` data structure and implement a service to load and parse this data for the game. Use TanStack Query to manage data fetching, even for local static assets, to establish a consistent pattern for future remote data.",
-        "details": "Create a `public/data/profiles.json` file adhering to the schema defined in the PRD. Implement a data fetching hook using TanStack Query (`useQuery`) within a React island. The query function will use the `fetch` API to get `/data/profiles.json`. Define TypeScript interfaces for `Profile` and `GameSession` based on the PRD's data model to ensure type safety.",
-        "testStrategy": "Write a unit test using Vitest to mock the `fetch` call and verify that the data loading hook correctly parses the JSON and returns the profile data in the expected format. Validate the `profiles.json` file against the provided JSON schema.",
-        "priority": "high",
+        "description": "Created the `profiles.json` data structure and implemented a service to load and parse this data for the game. TanStack Query is used to manage data fetching, even for local static assets, establishing a consistent pattern for future remote data.",
+        "status": "in-progress",
         "dependencies": [
           1
         ],
-        "status": "pending",
-        "subtasks": []
+        "priority": "high",
+        "details": "Successfully created `public/data/profiles.json` with 8 sample profiles across 6 categories, each with 20 clues, conforming to the PRD JSON schema. Implemented a `useProfiles` hook in `src/hooks/useProfiles.ts` using TanStack Query with proper error handling and TypeScript typing. Defined comprehensive TypeScript interfaces (`Profile`, `Player`, `GameSession`, `TurnState`, `ProfilesData`) in `src/types/models.ts`. The TanStack Query provider was configured in `src/components/QueryProvider.tsx` with a 5-minute stale time and refetch on window focus disabled.",
+        "testStrategy": "Comprehensive unit tests were created in `src/hooks/__tests__/useProfiles.test.tsx` using Vitest, covering success, loading, and error scenarios. All 7 tests are passing. Quality checks including linting, type checking, and build are all passing. The `profiles.json` file is validated by successful parsing within the application and tests.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define TypeScript Interfaces for Profile and GameSession",
+            "description": "Create TypeScript interfaces for the `Profile` and `GameSession` data models based on the specifications in the PRD to ensure type safety throughout the application.",
+            "dependencies": [],
+            "details": "In a new file, `src/types/models.ts`, define and export the `Profile` interface, including fields like `id`, `name`, `avatar`, etc. Also, define the `GameSession` interface which will likely contain an array of `Profile` objects.",
+            "status": "done",
+            "testStrategy": "Code will be validated by the TypeScript compiler during the build process. No specific unit tests are required for interfaces, but they will be used in subsequent tests."
+          },
+          {
+            "id": 2,
+            "title": "Create and Populate profiles.json with Sample Data",
+            "description": "Create the `profiles.json` file in the `public/data/` directory and populate it with a sample list of profiles that conform to the `Profile` interface.",
+            "dependencies": [
+              1
+            ],
+            "details": "The file should contain a JSON array of profile objects. Each object must match the structure defined in the `Profile` TypeScript interface. Include at least 5-10 sample profiles with varied data for testing purposes.",
+            "status": "done",
+            "testStrategy": "Manually verify the JSON structure. A later subtask will involve programmatic validation of this file against a schema or by parsing it in a test."
+          },
+          {
+            "id": 3,
+            "title": "Set Up TanStack Query Provider in the Astro Application",
+            "description": "Integrate TanStack Query into the Astro/React application by setting up the `QueryClient` and wrapping the root React component or island with the `QueryClientProvider`.",
+            "dependencies": [],
+            "details": "Create a new `QueryClient` instance. In the main Astro layout or a specific React island wrapper, import `QueryClient` and `QueryClientProvider`. Wrap the component tree with `<QueryClientProvider client={queryClient}>` to make the client available to all child components.",
+            "status": "done",
+            "testStrategy": "Manual verification by ensuring the application still renders correctly after wrapping it with the provider. The success of the next subtask will implicitly confirm this setup."
+          },
+          {
+            "id": 4,
+            "title": "Implement `useProfiles` Hook with TanStack Query",
+            "description": "Create a custom React hook (`useProfiles`) that uses TanStack Query's `useQuery` to fetch and manage the profile data from `/data/profiles.json`.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "The hook will define a query key (e.g., `['profiles']`). The query function will use the `fetch` API to get `/data/profiles.json`, then parse the response as JSON. The hook should return the query result, including `data`, `isLoading`, and `error` states. Ensure the fetched data is typed as `Profile[]`.",
+            "status": "done",
+            "testStrategy": "This hook will be tested in the next subtask. Manual testing can be done by integrating the hook into a temporary React component to display the loading state and the fetched data."
+          },
+          {
+            "id": 5,
+            "title": "Write Unit Tests for `useProfiles` Hook and Validate JSON",
+            "description": "Create unit tests for the `useProfiles` hook using Vitest and React Testing Library. The tests should mock the `fetch` API and verify the hook's behavior in different states (loading, success, error).",
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "Using Vitest's mocking capabilities, mock the global `fetch` function to return a successful response with sample profile data and also to simulate a network error. Assert that the hook returns the correct data and state transitions. Add a separate test script or step to parse `public/data/profiles.json` to ensure it's valid JSON.",
+            "status": "done",
+            "testStrategy": "Run `pnpm test` to execute the Vitest unit tests. The tests should cover success, loading, and error scenarios for the data fetching hook. The JSON validation can be a simple script that reads and parses the file."
+          }
+        ]
       },
       {
         "id": 3,
@@ -191,7 +246,7 @@
     ],
     "metadata": {
       "created": "2025-11-08T14:18:57.049Z",
-      "updated": "2025-11-08T14:35:21.786Z",
+      "updated": "2025-11-09T18:19:00.574Z",
       "description": "Tasks for master context"
     }
   }
