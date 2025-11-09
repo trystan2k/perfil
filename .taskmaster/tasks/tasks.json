@@ -2,7 +2,7 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "Project Setup and Tooling Configuration",
         "description": "Initialize the Astro project with the React integration. Configure all required development tools including Tailwind CSS, Biome for linting/formatting, and Vitest for testing.",
         "details": "Use `pnpm create astro@latest` with the React template. Install dependencies: `pnpm add react react-dom zustand @tanstack/react-query idb shadcn-ui tailwindcss-animate lucide-react`. Initialize Tailwind CSS with `npx astro add tailwind`. Configure `biome.json` to handle `.astro`, `.ts`, and `.tsx` files. Set up `vitest.config.ts` to work with Astro and React components, including `@astrojs/testing` and `@testing-library/react`.",
@@ -18,7 +18,8 @@
             "dependencies": [],
             "details": "Execute `pnpm create astro@latest` in the terminal. Follow the interactive prompts to set up a new project. Select the 'Empty' template and explicitly add the 'React' integration when asked. This will generate the initial file structure including `astro.config.mjs` and `package.json`.",
             "status": "done",
-            "testStrategy": "Run `pnpm dev` to start the development server and verify that the default Astro welcome page loads correctly in a browser. Then, run `pnpm astro check` to ensure the initial TypeScript configuration is valid."
+            "testStrategy": "Run `pnpm dev` to start the development server and verify that the default Astro welcome page loads correctly in a browser. Then, run `pnpm astro check` to ensure the initial TypeScript configuration is valid.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -29,7 +30,8 @@
             ],
             "details": "Use the pnpm package manager to add the following dependencies: `pnpm add react react-dom zustand @tanstack/react-query idb shadcn-ui tailwindcss-animate lucide-react`. This command will update the `package.json` and `pnpm-lock.yaml` files.",
             "status": "done",
-            "testStrategy": "After installation, inspect the `package.json` file to confirm that all specified dependencies are listed. Run `pnpm install` again to ensure there are no peer dependency conflicts or installation errors."
+            "testStrategy": "After installation, inspect the `package.json` file to confirm that all specified dependencies are listed. Run `pnpm install` again to ensure there are no peer dependency conflicts or installation errors.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -40,7 +42,8 @@
             ],
             "details": "Run the command `npx astro add tailwind`. This will install `tailwindcss` and its peer dependencies, create a `tailwind.config.mjs` file, and update the `astro.config.mjs` to include the Tailwind integration. Ensure a global CSS file imports the base Tailwind styles.",
             "status": "done",
-            "testStrategy": "Create a test Astro page or component. Apply several Tailwind utility classes like `bg-blue-500`, `text-white`, and `p-4`. Start the dev server and verify in the browser that these styles are correctly applied to the element."
+            "testStrategy": "Create a test Astro page or component. Apply several Tailwind utility classes like `bg-blue-500`, `text-white`, and `p-4`. Start the dev server and verify in the browser that these styles are correctly applied to the element.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -51,7 +54,8 @@
             ],
             "details": "Create a `biome.json` configuration file in the project root. Configure the `linter` and `formatter` to recognize `.astro`, `.ts`, and `.tsx` files. Add scripts to `package.json` for checking and formatting the code, such as `\"lint\": \"biome check .\"` and `\"format\": \"biome format --write .\"`.",
             "status": "done",
-            "testStrategy": "Run `pnpm biome check .` on the existing codebase to ensure it passes without errors. Intentionally introduce a formatting mistake in a file, run `pnpm biome format --write .`, and verify that the tool automatically corrects the mistake."
+            "testStrategy": "Run `pnpm biome check .` on the existing codebase to ensure it passes without errors. Intentionally introduce a formatting mistake in a file, run `pnpm biome format --write .`, and verify that the tool automatically corrects the mistake.",
+            "parentId": "undefined"
           },
           {
             "id": 5,
@@ -62,17 +66,18 @@
             ],
             "details": "Install necessary dev dependencies: `vitest`, `@astrojs/testing`, `@testing-library/react`, and `jsdom`. Create a `vitest.config.ts` file and configure it to use the Astro plugin and the `jsdom` environment. Add a `\"test\": \"vitest\"` script to `package.json`.",
             "status": "done",
-            "testStrategy": "Create a basic React component test file (`*.test.tsx`) using React Testing Library to assert that a component renders correctly. Create a basic Astro page test (`*.test.ts`) using `@astrojs/testing` to load a page and check for an element. Run `pnpm test` and confirm all tests pass."
+            "testStrategy": "Create a basic React component test file (`*.test.tsx`) using React Testing Library to assert that a component renders correctly. Create a basic Astro page test (`*.test.ts`) using `@astrojs/testing` to load a page and check for an element. Run `pnpm test` and confirm all tests pass.",
+            "parentId": "undefined"
           }
         ]
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Static Data Layer and Profile Loading",
         "description": "Created the `profiles.json` data structure and implemented a service to load and parse this data for the game. TanStack Query is used to manage data fetching, even for local static assets, establishing a consistent pattern for future remote data.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
-          1
+          "1"
         ],
         "priority": "high",
         "details": "Successfully created `public/data/profiles.json` with 8 sample profiles across 6 categories, each with 20 clues, conforming to the PRD JSON schema. Implemented a `useProfiles` hook in `src/hooks/useProfiles.ts` using TanStack Query with proper error handling and TypeScript typing. Defined comprehensive TypeScript interfaces (`Profile`, `Player`, `GameSession`, `TurnState`, `ProfilesData`) in `src/types/models.ts`. The TanStack Query provider was configured in `src/components/QueryProvider.tsx` with a 5-minute stale time and refetch on window focus disabled.",
@@ -85,7 +90,8 @@
             "dependencies": [],
             "details": "In a new file, `src/types/models.ts`, define and export the `Profile` interface, including fields like `id`, `name`, `avatar`, etc. Also, define the `GameSession` interface which will likely contain an array of `Profile` objects.",
             "status": "done",
-            "testStrategy": "Code will be validated by the TypeScript compiler during the build process. No specific unit tests are required for interfaces, but they will be used in subsequent tests."
+            "testStrategy": "Code will be validated by the TypeScript compiler during the build process. No specific unit tests are required for interfaces, but they will be used in subsequent tests.",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -96,7 +102,8 @@
             ],
             "details": "The file should contain a JSON array of profile objects. Each object must match the structure defined in the `Profile` TypeScript interface. Include at least 5-10 sample profiles with varied data for testing purposes.",
             "status": "done",
-            "testStrategy": "Manually verify the JSON structure. A later subtask will involve programmatic validation of this file against a schema or by parsing it in a test."
+            "testStrategy": "Manually verify the JSON structure. A later subtask will involve programmatic validation of this file against a schema or by parsing it in a test.",
+            "parentId": "undefined"
           },
           {
             "id": 3,
@@ -105,7 +112,8 @@
             "dependencies": [],
             "details": "Create a new `QueryClient` instance. In the main Astro layout or a specific React island wrapper, import `QueryClient` and `QueryClientProvider`. Wrap the component tree with `<QueryClientProvider client={queryClient}>` to make the client available to all child components.",
             "status": "done",
-            "testStrategy": "Manual verification by ensuring the application still renders correctly after wrapping it with the provider. The success of the next subtask will implicitly confirm this setup."
+            "testStrategy": "Manual verification by ensuring the application still renders correctly after wrapping it with the provider. The success of the next subtask will implicitly confirm this setup.",
+            "parentId": "undefined"
           },
           {
             "id": 4,
@@ -118,7 +126,8 @@
             ],
             "details": "The hook will define a query key (e.g., `['profiles']`). The query function will use the `fetch` API to get `/data/profiles.json`, then parse the response as JSON. The hook should return the query result, including `data`, `isLoading`, and `error` states. Ensure the fetched data is typed as `Profile[]`.",
             "status": "done",
-            "testStrategy": "This hook will be tested in the next subtask. Manual testing can be done by integrating the hook into a temporary React component to display the loading state and the fetched data."
+            "testStrategy": "This hook will be tested in the next subtask. Manual testing can be done by integrating the hook into a temporary React component to display the loading state and the fetched data.",
+            "parentId": "undefined"
           },
           {
             "id": 5,
@@ -130,152 +139,201 @@
             ],
             "details": "Using Vitest's mocking capabilities, mock the global `fetch` function to return a successful response with sample profile data and also to simulate a network error. Assert that the hook returns the correct data and state transitions. Add a separate test script or step to parse `public/data/profiles.json` to ensure it's valid JSON.",
             "status": "done",
-            "testStrategy": "Run `pnpm test` to execute the Vitest unit tests. The tests should cover success, loading, and error scenarios for the data fetching hook. The JSON validation can be a simple script that reads and parses the file."
+            "testStrategy": "Run `pnpm test` to execute the Vitest unit tests. The tests should cover success, loading, and error scenarios for the data fetching hook. The JSON validation can be a simple script that reads and parses the file.",
+            "parentId": "undefined"
           }
-        ]
+        ],
+        "updatedAt": "2025-11-09T18:52:16.737Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Game Session State Management with Zustand",
         "description": "Set up a global state management store using Zustand to handle the entire game session, including players, scores, turn state, and remaining profiles. This store will be the single source of truth for all interactive React components.",
         "details": "Create a Zustand store (`create` from 'zustand') that manages the `GameSession` state object. The store should include actions to: `createGame(playerNames: string[])`, `startGame(category: string)`, `nextClue()`, `passTurn()`, `awardPoints(playerId: string)`, and `endGame()`. The state should be typed using the interfaces defined in the PRD.",
         "testStrategy": "Write unit tests for the Zustand store using Vitest. Test each action individually to ensure it correctly mutates the state. For example, verify that `createGame` populates the `players` array and `awardPoints` correctly calculates and adds points to the specified player.",
         "priority": "high",
         "dependencies": [
-          1
+          "1"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Implement Player Setup and Game Creation UI",
         "description": "Develop the initial screen where the Master of Ceremonies (MC) can create a new game by entering player names. This will be an interactive React island component.",
         "details": "Create a React component, `GameSetup.tsx`, that will be hydrated as an Astro island. Use `shadcn/ui` components like `Input` for player names, `Button` for 'Add Player' and 'Start Game', and `Card` for layout. On 'Start Game', call the `createGame` action from the Zustand store with the list of player names and navigate to the main game screen.",
         "testStrategy": "Use React Testing Library to render the `GameSetup` component. Simulate user input by typing names and clicking buttons. Mock the Zustand store to verify that the correct actions are called with the expected payloads when the form is submitted.",
         "priority": "high",
         "dependencies": [
-          1,
-          3
+          "1",
+          "3"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Develop Core Game Screen Layout (Mobile-First)",
         "description": "Build the main game screen layout using Astro and Tailwind CSS, focusing on a mobile-first responsive design. This screen will host the interactive game components.",
         "details": "Create an Astro page, e.g., `src/pages/game/[sessionId].astro`. Use Tailwind CSS utility classes to implement a single-column layout for mobile and a multi-column layout for tablet/desktop. The layout should include placeholders for the player list/scoreboard, the clue card, and MC controls. Ensure touch targets are appropriately sized (>= 44px).",
         "testStrategy": "Use `@astrojs/testing`'s Container API to render the Astro page and assert that the basic layout structure is present. Manually test the responsiveness in a browser's developer tools across different breakpoints (mobile, tablet, desktop) to ensure the layout adapts correctly.",
         "priority": "medium",
         "dependencies": [
-          1
+          "1"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "Implement Turn Management and Clue Display",
         "description": "Create the interactive React component for the main game loop, which displays the active player, shows clues progressively, and handles turn advancement.",
         "details": "Develop a `GamePlay.tsx` React island. This component will subscribe to the Zustand store to get the `currentTurn` state. It will display the active player's name, the current clue number, and the clue text. Implement a 'Show Next Clue' button for the MC, which triggers the `nextClue` action in the store. Also, implement a 'Pass' button that triggers the `passTurn` action.",
         "testStrategy": "Unit test the `GamePlay` component with a mocked Zustand store. Verify that it correctly displays data from the store. Simulate clicks on 'Show Next Clue' and 'Pass' and assert that the corresponding store actions are called.",
         "priority": "high",
         "dependencies": [
-          2,
-          3,
-          4,
-          5
+          "2",
+          "3",
+          "4",
+          "5"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Implement Swipe-to-Reveal Answer Component",
         "description": "Build the swipeable card component that hides the answer. The MC can swipe right to reveal the answer for a 3-second timeout before it automatically hides again.",
         "details": "Create a `RevealAnswer.tsx` React component. Use a gesture library like `framer-motion` or a lightweight custom hook to detect a right swipe. The component's state will manage the revealed status. On reveal, display the answer and use a `setTimeout` to hide it after 3000ms. The answer text will be fetched from the game state.",
         "testStrategy": "In Vitest, use React Testing Library to render the component. Simulate the swipe gesture (if possible with the chosen library's testing utilities) or expose a test-only prop to trigger the reveal. Use `jest.useFakeTimers()` to control the `setTimeout` and verify that the answer hides automatically after the specified duration.",
         "priority": "high",
         "dependencies": [
-          5,
-          6
+          "5",
+          "6"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Implement MC Scoring Interaction",
         "description": "Enable the MC to award points to the player who guesses correctly. The player list should be interactive, allowing the MC to tap a player's name to trigger the scoring logic.",
         "details": "Enhance the player list UI within the `GamePlay.tsx` island. Make each player's name a clickable element (e.g., a `Button`). When the MC clicks a player's name, call the `awardPoints(playerId)` action from the Zustand store. The store action will calculate points based on `TOTAL_CLUES - (cluesRead - 1)` and update the player's score.",
         "testStrategy": "Test the scoring interaction within the `GamePlay` component test suite. Simulate a click on a player's name and verify that the `awardPoints` action is dispatched with the correct `playerId`. In the Zustand store tests, ensure the point calculation logic is correct for various `cluesRead` values.",
         "priority": "high",
         "dependencies": [
-          6
+          "6"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "Integrate Game Session Persistence with IndexedDB",
         "description": "Persist the game session state to IndexedDB to allow players to resume a game after a page refresh. Use the 'idb' library for a clean, promise-based API.",
         "details": "Create a utility module for IndexedDB interactions using the `idb` library. Subscribe to the Zustand store. Whenever the state changes, serialize it and save it to an IndexedDB object store. When the application loads, attempt to read from IndexedDB to rehydrate the store's initial state. This ensures the game state (players, scores, current turn) persists.",
         "testStrategy": "This is difficult to test in a pure Node environment. Write integration tests that run in a browser context (e.g., using Playwright or Cypress if added, or manual testing). For unit tests, mock the `idb` library to verify that the save/load functions are called correctly on store updates and application initialization.",
         "priority": "medium",
         "dependencies": [
-          3
+          "3"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "Implement Final Scoreboard and Game End Flow",
         "description": "Create the final scoreboard view that is displayed when the MC ends the game. The scoreboard should list all players ranked by their final scores.",
         "details": "Create a new Astro page `src/pages/scoreboard.astro` or a conditional view within the main game island. This component will read the final player list from the Zustand store, sort it by score in descending order, and display the results using a `Table` from `shadcn/ui`. Add a 'Finish Game' button to the main game UI that triggers the `endGame` action and navigates to this view.",
         "testStrategy": "Use React Testing Library to test the scoreboard component with a mock state containing a list of players with various scores. Verify that the players are rendered in the correct order. Use `@astrojs/testing` to test the navigation flow from the game page to the scoreboard page upon ending the game.",
         "priority": "medium",
         "dependencies": [
-          8
+          "8"
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "Implement Internationalization (i18n) Support",
         "description": "Integrate multi-language support using Astro's built-in i18n routing for localized pages and react-i18next for translating React island components. This includes localizing the profile data and UI text throughout the application.",
         "details": "1. **Configure Astro i18n**: Update `astro.config.mjs` to enable internationalized routing. Define a `defaultLocale` (e.g., 'en') and a list of `locales` (e.g., ['en', 'es']). Use the `routing: { prefixDefaultLocale: false }` strategy to avoid having `/en/` in the URL for the default language.\n2. **Localize Page Structure**: Create language-specific directories within `src/pages/` (e.g., `src/pages/es/`) for any static pages that need translation, or leverage Astro's `[lang]` dynamic parameter for shared layouts.\n3. **Integrate react-i18next**: Set up `react-i18next` for client-side translations within React islands. Create a configuration file (`src/i18n/config.ts`) to initialize i18next. Use `i18next-http-backend` to load translation files from `public/locales/[lang]/translation.json`. The current locale must be passed from the Astro page as a prop to the React island.\n4. **Localize Profile Data**: Modify the data loading service from Task #2. The `useProfiles` hook must be updated to fetch data from a locale-specific path, such as `/data/${locale}/profiles.json`. Create example localized data files: `public/data/en/profiles.json` and `public/data/es/profiles.json`.\n5. **Create Language Switcher**: Implement a UI component that allows users to switch between supported languages. This component should use Astro's `getRelativeLocaleUrl(locale)` utility to generate correct links for the current page in other languages.",
         "testStrategy": "1. **Unit Tests (Vitest)**: For React components using the `useTranslation` hook, mock the i18next provider and verify that components render the correct strings for a given language. Unit test the updated `useProfiles` hook to ensure it constructs the correct URL based on the locale prop passed to it.\n2. **Integration Tests (Astro Testing Library)**: Write integration tests to verify that Astro pages render with the correct `lang` attribute in the `<html>` tag. Test that the language switcher component generates the correct URLs using `getRelativeLocaleUrl`.\n3. **E2E / Manual Testing**: Perform a full smoke test for each supported locale. Navigate the entire application flow, from the home page through a full game session to the final scoreboard. Verify that all UI text is translated, localized profile data loads correctly, and routing between locales works as expected.",
         "status": "pending",
         "dependencies": [
-          2,
-          6
+          "2",
+          "6"
         ],
         "priority": "medium",
         "subtasks": []
       },
       {
-        "id": 12,
+        "id": "12",
         "title": "Implement Progressive Web App (PWA) Support",
         "description": "Integrate PWA features to make the application installable, work offline, and feel like a native app. This involves generating a service worker for caching assets and a web manifest for installation metadata using the vite-plugin-pwa library.",
         "details": "1. **Installation**: Add `vite-plugin-pwa` as a development dependency: `npm install vite-plugin-pwa -D`.\n2. **Configuration**: Update `astro.config.mjs` to include the PWA plugin in the Vite configuration. Configure the manifest with properties like `name`, `short_name`, `description`, `theme_color`, `background_color`, and specify paths to various icon sizes (e.g., 192x192, 512x512) in the `public/icons/` directory.\n3. **Service Worker Strategy**: Use the `generateSW` strategy within the plugin options. Configure `workbox` runtime caching rules. Create a rule for the app's static assets (JS, CSS, fonts) using a `StaleWhileRevalidate` strategy. Create a separate rule for the profiles JSON data endpoint using a `NetworkFirst` strategy to ensure users get the latest profiles when online but have a fallback for offline play.\n4. **Client-side Registration**: Create a small React component or client-side script (`<script is:inline>`) in the main layout (`src/layouts/Layout.astro`) to register the service worker. Consider using a library like `virtual:pwa-register/react` to provide users with a UI prompt to reload the page when a new version of the app is available.\n5. **Manifest Linking**: Ensure the web manifest is automatically linked in the `<head>` of the document by the plugin.",
         "testStrategy": "1. **Lighthouse Audit**: Run a Lighthouse audit in browser developer tools to validate PWA criteria, checking for installability, service worker registration, and offline support. Aim for a high PWA score.\n2. **Manual Offline Testing**: In the browser's developer tools, enable offline mode. Refresh the application to confirm that the app shell loads correctly from the cache. Verify that core functionalities, such as viewing the scoreboard and resuming a game session via IndexedDB, work as expected without a network connection.\n3. **Installation Test**: Test the 'Add to Home Screen' or 'Install App' functionality on both desktop (Chrome/Edge) and mobile (Android/iOS) devices to ensure the manifest and icons are configured correctly.\n4. **CI Verification**: Add a script to the CI pipeline that runs after the build command (`npm run build`) to verify that `dist/manifest.webmanifest` and `dist/sw.js` files are generated successfully, preventing regressions in the PWA configuration.",
         "status": "pending",
         "dependencies": [
-          9,
-          10
+          "9",
+          "10"
         ],
         "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": "13",
+        "title": "Configure Vitest Test Coverage",
+        "description": "Add test coverage collection and enforcement to the Vitest configuration and project scripts. Define coverage thresholds and a CI-friendly coverage report format.",
+        "details": "1. Update `vitest.config.ts` to enable coverage provider (e.g., 'c8' or 'istanbul') and configure coverage reporters (text, lcov).\n2. Add an npm script `test:coverage` that runs `vitest --coverage` and outputs an `lcov` report.\n3. Set minimum coverage thresholds (e.g., 80% statements, branches, functions, and lines) in the Vitest config so the test run fails when thresholds are not met.\n4. Add documentation in `docs/` (or PRD) describing how to run coverage locally and interpret the reports.",
+        "testStrategy": "1. Run `pnpm test:coverage` locally and verify that coverage artifacts are generated at `coverage/` and `coverage/lcov.info`.\n2. Add a failing test or lower the threshold to validate that the coverage enforcement fails the test run when coverage is under the threshold.\n3. Verify that CI can consume the `lcov` report for coverage badges or services like Codecov.",
+        "status": "pending",
+        "dependencies": [
+          "5"
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": "14",
+        "title": "Configure Git Hooks (Husky + lint-staged)",
+        "description": "Set up Husky and lint-staged to run formatting, linting, and tests automatically on pre-commit and pre-push hooks.",
+        "details": "1. Add dev dependencies: `husky` and `lint-staged`.\n2. Add a `prepare` script to `package.json` (e.g., `husky install`) to ensure husky hooks can be installed by contributors.\n3. Configure `lint-staged` in `package.json` to run `pnpm format --filter` (or `biome format --write`), `pnpm lint` for staged files, and optionally run `pnpm test --findRelatedTests` for changed files.\n4. Create Husky hooks: a pre-commit hook that runs `npx --no-install lint-staged` and a pre-push hook that runs `pnpm run complete-check` or `pnpm test` depending on desired strictness.",
+        "testStrategy": "1. Install the hooks locally by running `pnpm prepare` and verify `.husky` directory is created.\n2. Make a deliberate formatting/linting error, stage it, and attempt to commit; verify the pre-commit hook runs and blocks commits when linting fails.\n3. Verify pre-push hook behavior by attempting to push a branch with failing tests (or use a dry-run) and confirm the push is blocked until checks pass.",
+        "status": "pending",
+        "dependencies": [
+          "4",
+          "5"
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": "15",
+        "title": "Configure GitHub Actions CI (lint, typecheck, test, build, deploy)",
+        "description": "Create a GitHub Actions workflow that runs linting, type checking, tests, coverage, and build on PRs and pushes to `main`. Optionally add a deploy step to Render or the chosen hosting provider.",
+        "details": "1. Add `.github/workflows/ci.yml` with jobs for: install (pnpm install), lint (pnpm lint), typecheck (pnpm typecheck), test (pnpm test), coverage (pnpm test:coverage), and build (pnpm build).\n2. Configure matrix runs if necessary (node versions).\n3. Add artifacts upload for coverage reports and build artifacts.\n4. If deploying to Render, add a separate `deploy` job that runs on `workflow_run` or push to `main` and uses `render.sh` or the Render GH Action with secrets configured in repository settings.",
+        "testStrategy": "1. Create a branch and open a PR with an intentionally failing lint or test to confirm CI fails.\n2. Fix the issue and confirm CI passes.\n3. Verify coverage artifacts are uploaded and accessible in the workflow run UI.\n4. If deploy configured, verify a successful deploy to the chosen environment (staging) after merging to main or via a manual trigger.",
+        "status": "pending",
+        "dependencies": [
+          "4",
+          "5",
+          "13",
+          "14"
+        ],
+        "priority": "high",
         "subtasks": []
       }
     ],
     "metadata": {
-      "created": "2025-11-08T14:18:57.049Z",
-      "updated": "2025-11-09T18:48:32.373Z",
-      "description": "Tasks for master context"
+      "version": "1.0.0",
+      "lastModified": "2025-11-09T18:52:16.737Z",
+      "taskCount": 15,
+      "completedCount": 2,
+      "tags": [
+        "master"
+      ]
     }
   }
 }
