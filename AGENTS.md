@@ -57,3 +57,9 @@ For context about the project, see document [CONTEXT.md](docs/CONTEXT.md) if it 
 If you need to use Taskmaster, refer to the [TASK_MASTER.md](docs/TASK_MASTER.md) guide.
 
 _Refer to this guide for agentic coding in this repository. Update if new tools or rules are added._
+
+## Lessons learned logging rule
+
+Whenever the user tells the agent that it did something wrong, the agent MUST append an entry to `docs/LESSONS_LEARNED.md` describing the mistake and the correct way to do it according to the user's instruction. Entries should be concise, dated, and clearly state: (1) what was done incorrectly, and (2) the correct procedure.
+
+This rule is mandatory: do not modify `docs/LESSONS_LEARNED.md` except to append lessons when explicitly instructed by the user to record an error. The agent must not create or edit lessons for any other reason unless the user explicitly requests it.
