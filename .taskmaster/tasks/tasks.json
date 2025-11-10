@@ -288,7 +288,7 @@
         "description": "Add test coverage collection and enforcement to the Vitest configuration and project scripts. Define coverage thresholds and a CI-friendly coverage report format.",
         "details": "1. Update `vitest.config.ts` to enable coverage provider (e.g., 'c8' or 'istanbul') and configure coverage reporters (text, lcov).\n2. Add an npm script `test:coverage` that runs `vitest --coverage` and outputs an `lcov` report.\n3. Set minimum coverage thresholds (e.g., 80% statements, branches, functions, and lines) in the Vitest config so the test run fails when thresholds are not met.\n4. Add documentation in `docs/` (or PRD) describing how to run coverage locally and interpret the reports.",
         "testStrategy": "1. Run `pnpm test:coverage` locally and verify that coverage artifacts are generated at `coverage/` and `coverage/lcov.info`.\n2. Add a failing test or lower the threshold to validate that the coverage enforcement fails the test run when coverage is under the threshold.\n3. Verify that CI can consume the `lcov` report for coverage badges or services like Codecov.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           "5"
         ],
@@ -444,7 +444,7 @@
       ],
       "created": "2025-11-09T19:04:24.614Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-10T08:40:08.333Z"
+      "updated": "2025-11-10T08:51:52.727Z"
     }
   }
 }
