@@ -154,7 +154,7 @@
           "1"
         ],
         "priority": "high",
-        "details": "The Zustand store has been fully implemented in `src/stores/gameStore.ts` (commit 8e85ea4). It manages the `GameState` (extending `GameSession`) and includes all required actions: `createGame`, `startGame`, `nextClue`, `passTurn`, `awardPoints`, and `endGame`. The implementation includes game status tracking ('pending', 'active', 'completed'), wraparound turn cycling for players, and a scoring formula of `20 - cluesRead + 1` for correct answers. Full validation is in place for state transitions.",
+        "details": "The Zustand store has been fully implemented in `src/stores/gameStore.ts` (commit 8e85ea4). It manages the `GameState` (extending `GameSession`) and includes all required actions: `createGame`, `startGame`, `nextClue`, `passTurn`, `awardPoints`, and `endGame`. The implementation includes game status tracking ('pending', 'active', 'completed'), wraparound turn cycling for players, and a scoring formula of `20 - (cluesRead - 1)` for correct answers. Full validation is in place for state transitions.",
         "testStrategy": "A comprehensive unit test suite has been implemented using Vitest in `src/stores/__tests__/gameStore.test.ts`. The suite contains 46 passing tests that cover all store actions, state mutations, edge cases (e.g., non-existent players), and error conditions, ensuring the reliability of the state management logic.",
         "subtasks": [
           {
@@ -195,7 +195,7 @@
             "dependencies": [
               2
             ],
-            "details": "Implement the `awardPoints(playerId: string, points: number)` action. This function will find the player by their ID in the state, add the specified points to their current score, and update the state.",
+            "details": "Implement the `awardPoints(playerId: string)` action. This function will find the player by their ID in the state, automatically calculate the points to award based on the scoring formula, add those points to the player's current score, and update the state.",
             "status": "done",
             "testStrategy": "Write unit tests to verify that `awardPoints` correctly adds points to the specified player's score. Test edge cases like a non-existent `playerId` and awarding zero or negative points."
           },

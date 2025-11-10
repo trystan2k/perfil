@@ -147,6 +147,11 @@ export const useGameStore = create<GameState>((set) => ({
       const currentPlayerIndex = state.players.findIndex(
         (p) => p.id === state.currentTurn?.activePlayerId
       );
+
+      if (currentPlayerIndex === -1) {
+        throw new Error('Current active player not found');
+      }
+
       const nextPlayerIndex = (currentPlayerIndex + 1) % state.players.length;
       const nextPlayer = state.players[nextPlayerIndex];
 

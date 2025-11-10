@@ -68,7 +68,7 @@
 - Added 10 comprehensive tests covering normal flow, validation, and state preservation
 
 ### Modified/Created Files
-- `src/stores/gameStore.ts` (182 lines) - Complete Zustand store implementation
+- `src/stores/gameStore.ts` (181 lines) - Complete Zustand store implementation
   - GameState interface with 6 action methods
   - Full state management for game sessions
   - Error handling and validation throughout
@@ -85,7 +85,6 @@
   - Subtask 3.3: 13 tests (nextClue, passTurn)
   - Subtask 3.4: 11 tests (awardPoints)
   - Subtask 3.5: 10 tests (endGame)
-- All tests use act() from @testing-library/react for state updates
 - Tests verify both happy paths and error conditions
 - Total project tests: 54 passing (46 new + 8 existing)
 
@@ -105,7 +104,7 @@
   - Implement startGame action to activate game with category selection
   - Implement nextClue action to advance clue counter with 20-clue limit
   - Implement passTurn action to cycle through players with wraparound
-  - Implement awardPoints action with scoring formula (20 - cluesRead + 1)
+  - Implement awardPoints action with scoring formula 20 - (cluesRead - 1)
   - Implement endGame action to mark game as completed
   - Add comprehensive test suite with 46 tests covering all actions
   - Add validation for game state transitions and error conditions
@@ -120,7 +119,6 @@
 - Turn cycling uses modulo arithmetic for seamless wraparound
 - All state mutations are immutable (using spread operators)
 - Error handling validates all critical operations
-- Tests use act() wrapper for all Zustand state updates
 
 #### Technical Decisions Made
 1. **Timestamp-based IDs**: Simple and sufficient for local game sessions without backend
