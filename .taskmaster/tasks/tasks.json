@@ -322,7 +322,7 @@
               1
             ],
             "details": "In the `test.coverage` section of `vitest.config.ts`, add a `thresholds` object. Set minimum percentages for `statements`, `branches`, `functions`, and `lines` to 80 to enforce a baseline quality standard.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Temporarily lower one of the threshold values to be higher than the actual coverage. Run `pnpm test:coverage` and verify that the process exits with an error, confirming that the threshold enforcement is working."
           },
           {
@@ -444,7 +444,7 @@
       ],
       "created": "2025-11-09T19:04:24.614Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-10T08:38:00.180Z"
+      "updated": "2025-11-10T08:39:06.168Z"
     }
   }
 }
