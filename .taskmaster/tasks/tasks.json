@@ -477,7 +477,7 @@
         "description": "Create a GitHub Actions workflow that runs linting, type checking, tests, coverage, and build on PRs and pushes to `main`. Add a deploy step to Cloudflare Pages using wrangler-action.",
         "details": "1. Add `.github/workflows/ci.yml` with jobs for: install (pnpm install), lint (pnpm lint), typecheck (pnpm typecheck), test (pnpm test), coverage (pnpm test:coverage), and build (pnpm build).\n2. Configure matrix runs if necessary (node versions).\n3. Add artifacts upload for coverage reports and build artifacts.\n4. Add a separate `deploy` job that runs on `workflow_run` or push to `main` and uses `cloudflare/wrangler-action` with secrets configured in repository settings (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID).",
         "testStrategy": "1. Create a branch and open a PR with an intentionally failing lint or test to confirm CI fails.\n2. Fix the issue and confirm CI passes.\n3. Verify coverage artifacts are uploaded and accessible in the workflow run UI.\n4. Verify a successful deploy to Cloudflare Pages after merging to main or via a manual trigger.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           "4",
           "5",
@@ -492,7 +492,7 @@
             "description": "Initialize the `.github/workflows/ci.yml` file. Configure it to trigger on pull requests to `main` and pushes to `main`. Create the first job, `ci`, which checks out the code, sets up Node.js, and installs dependencies using `pnpm` with caching.",
             "dependencies": [],
             "details": "Use `actions/checkout@v4`, `actions/setup-node@v4` (with Node.js 20.x), and `pnpm/action-setup@v4`. The install step should run `pnpm install --frozen-lockfile`. The workflow should be named 'CI Pipeline'.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Push a commit with the new workflow file to a feature branch and open a PR to `main`. Verify the `ci` job runs and successfully completes the installation step."
           },
           {
@@ -503,7 +503,7 @@
               1
             ],
             "details": "Add `run: pnpm lint` and `run: pnpm typecheck` steps after the dependency installation step within the `ci` job. Ensure they run sequentially.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Introduce a deliberate linting error in a test branch and push. Verify the `lint` step fails. Fix it, then introduce a type error and verify the `typecheck` step fails. Finally, ensure the job passes with correct code."
           },
           {
@@ -514,7 +514,7 @@
               2
             ],
             "details": "Add a step `run: pnpm test:coverage` to the `ci` job. This relies on the Vitest coverage configuration from Task 13 being in place. This step should run after linting and type checking have passed.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Create a PR with a failing test to ensure the CI job fails at this step. After fixing it, verify the job passes and that the coverage command runs successfully."
           },
           {
@@ -525,7 +525,7 @@
               3
             ],
             "details": "Add a `run: pnpm build` step at the end of the `ci` job's validation sequence. This step confirms that all code and assets can be compiled and bundled without errors.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Push a commit and verify the build step completes successfully. If possible, introduce a configuration error that would only be caught at build time and confirm the step fails."
           },
           {
@@ -536,7 +536,7 @@
               4
             ],
             "details": "Use the `actions/upload-artifact@v4` action. Create one step to upload the `coverage/` directory as a 'coverage-report' artifact. Create a second step to upload the `dist/` directory as a 'build-artifacts' artifact.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "After a successful workflow run, navigate to the run's summary page on GitHub and verify that both 'coverage-report' and 'build-artifacts' are present and can be downloaded."
           },
           {
@@ -547,7 +547,7 @@
               5
             ],
             "details": "Create a `deploy` job that `needs: ci`. Add an `if: github.ref == 'refs/heads/main' && github.event_name == 'push'` condition. Use `actions/download-artifact` to get the 'build-artifacts'. Configure the Cloudflare Pages deploy step using `cloudflare/wrangler-action@v3` with the `pages-deploy` command. Store the Cloudflare API token and account ID as encrypted repository secrets (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`).",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Configure the Cloudflare API token and account ID secrets in the repository settings. Push a change to a feature branch and open a PR; verify the `deploy` job is skipped. Merge the PR to `main` and verify the `deploy` job runs and successfully triggers a deployment on Cloudflare Pages."
           }
         ]
