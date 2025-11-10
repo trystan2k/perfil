@@ -383,6 +383,10 @@ Based on your development guidelines, here are the **NO NO actions**:
 - **NEVER** skip existing patterns – Follow codebase conventions  
 - **NEVER** commit secrets or keys to repository  
 - **NEVER** modify code without first understanding the existing structure (use `serena_get_symbols_overview`)
+- **NEVER** use wildcard imports like `import * as React from 'react'` – ALWAYS import only needed elements:
+  - ✅ Correct: `import { forwardRef, type HTMLAttributes, type Ref } from 'react'`
+  - ❌ Wrong: `import * as React from 'react'`
+  - This improves tree-shaking, bundle size, and code clarity
 
 ---
 

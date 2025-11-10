@@ -35,3 +35,17 @@
   3. Only accept coverage below 100% if there's a valid reason (e.g., unreachable error handlers, framework constraints)
   4. Document any intentionally uncovered code with explanations
 - This ensures maximum code quality, catches edge cases, and makes future refactoring safer.
+
+2025-11-10 — NEVER USE WILDCARD REACT IMPORTS
+
+- Mistake: Using `import * as React from 'react'` instead of importing only the needed elements.
+- Correct procedure: ALWAYS import only the specific elements needed from React:
+  - ✅ Correct: `import { forwardRef, type HTMLAttributes, type Ref } from 'react'`
+  - ❌ Wrong: `import * as React from 'react'`
+  - ❌ Wrong: `import React from 'react'` (unless you need the default export)
+- Benefits:
+  1. Smaller bundle size (tree-shaking)
+  2. Clearer code showing exact dependencies
+  3. Better IDE autocomplete and type checking
+  4. Faster build times
+- This applies to all libraries, not just React - always prefer named imports over wildcard imports.
