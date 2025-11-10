@@ -403,10 +403,15 @@ Goal: Run quality checks on PRs and main branch and deploy successful builds to 
 Recommended approach:
 - Create a GitHub Actions workflow that runs on push and pull_request and executes the project's quality checks in sequence: `pnpm install`, `pnpm run lint`, `pnpm run typecheck`, `pnpm test`, and `pnpm run build`.
 - On success (e.g., push to main), the workflow will deploy the built site to Cloudflare Pages. Use the `cloudflare/wrangler-action` GitHub Action with appropriate secrets stored in repo secrets (e.g., `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`). The workflow should build the static assets and then call the Cloudflare Pages deploy step.
+- Use GitHub repository variables to configure the Cloudflare Pages project name (`CLOUDFLARE_PAGES_PROJECT_NAME`) for flexibility across environments.
+- Support manual deployments via `workflow_dispatch` trigger for on-demand releases.
 - CI must report status checks back to PRs so merging requires passing checks.
 
 Acceptance criteria:
 - A GitHub Actions workflow file exists that runs lint, typecheck, test, and build on PRs and pushes.
-- Deployment step configured to deploy to Cloudflare Pages using repository secrets; instructions added for how to create the API token and account ID in Cloudflare dashboard.
+- Deployment step configured to deploy to Cloudflare Pages using repository secrets and variables.
+- Required secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+- Required variable: `CLOUDFLARE_PAGES_PROJECT_NAME` (configured in repository variables).
+- Manual deployment trigger available via workflow_dispatch.
 
 PRD notes: these operational requirements (i18n, PWA, git hooks, coverage and CI/CD) are part of the core project non-functional requirements and must be implemented before M6: Release.

@@ -34,20 +34,26 @@ After initial implementation and review, refactored to use **two separate workfl
 
 ### 2. Deploy Workflow (`.github/workflows/deploy.yml`)
 
-**Triggers:** After successful CI workflow completion on `main` branch
+**Triggers:** 
+- After successful CI workflow completion on `main` branch
+- Manual dispatch via `workflow_dispatch` for on-demand deployments
 
 **Job: deploy**
-
-- **Condition:** Only runs if CI workflow succeeded
+- **Condition:** Only runs if CI workflow succeeded on main branch
 - **Process:**
   1. Checkout code
   2. Setup Node.js & pnpm (with caching)
   3. Install dependencies
   4. Build production bundle (fresh build, not using artifacts)
   5. Deploy to Cloudflare Pages using `wrangler-action@v3`
+- **Configuration:**
+  - Uses repository variable `CLOUDFLARE_PAGES_PROJECT_NAME` instead of hardcoded project name
+  - Provides flexibility to change project name without modifying workflow
 - **Required Secrets:**
   - `CLOUDFLARE_API_TOKEN`
   - `CLOUDFLARE_ACCOUNT_ID`
+- **Required Variables:**
+  - `CLOUDFLARE_PAGES_PROJECT_NAME` (e.g., "perfil")
 
 ### Architecture Decision: Why Separate Workflows?
 
@@ -173,9 +179,36 @@ on:
 ## Next Steps
 
 1. Configure Cloudflare Pages project in dashboard
-2. Add `CLOUDFLARE_API_TOKEN` secret to repository
-3. Add `CLOUDFLARE_ACCOUNT_ID` secret to repository
+2. Add repository secrets:
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+3. Add repository variable:
+   - `CLOUDFLARE_PAGES_PROJECT_NAME` (e.g., "perfil")
 4. Test full deployment flow with PR → merge → deploy
+5. Test manual deployment via workflow_dispatch
+
+## Post-Implementation Improvements
+
+After the initial implementation, the following improvements were made by the user:
+
+### 1. Added Manual Deployment Trigger
+- Added `workflow_dispatch` trigger to deploy workflow
+- Allows manual deployment on-demand without waiting for CI completion
+- Useful for hotfixes or manual production releases
+
+### 2. Parameterized Project Name
+- Changed from hardcoded project name (`perfil`) to repository variable
+- Now uses `${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME }}`
+- Benefits:
+  - Environment-agnostic workflow configuration
+  - Easier to reuse workflow across different projects/environments
+  - No workflow file changes needed when project name changes
+  - Follows best practice of separating configuration from code
+
+**Updated deploy command:**
+```yaml
+command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME }}
+```
 
 ## Lessons Learned
 
