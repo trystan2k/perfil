@@ -288,12 +288,55 @@
         "description": "Add test coverage collection and enforcement to the Vitest configuration and project scripts. Define coverage thresholds and a CI-friendly coverage report format.",
         "details": "1. Update `vitest.config.ts` to enable coverage provider (e.g., 'c8' or 'istanbul') and configure coverage reporters (text, lcov).\n2. Add an npm script `test:coverage` that runs `vitest --coverage` and outputs an `lcov` report.\n3. Set minimum coverage thresholds (e.g., 80% statements, branches, functions, and lines) in the Vitest config so the test run fails when thresholds are not met.\n4. Add documentation in `docs/` (or PRD) describing how to run coverage locally and interpret the reports.",
         "testStrategy": "1. Run `pnpm test:coverage` locally and verify that coverage artifacts are generated at `coverage/` and `coverage/lcov.info`.\n2. Add a failing test or lower the threshold to validate that the coverage enforcement fails the test run when coverage is under the threshold.\n3. Verify that CI can consume the `lcov` report for coverage badges or services like Codecov.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           "5"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Enable Coverage Provider and Reporters in Vitest Config",
+            "description": "Update the `vitest.config.ts` file to enable a coverage provider and configure the necessary reporters for generating coverage reports.",
+            "dependencies": [],
+            "details": "In `vitest.config.ts`, add a `test.coverage` configuration block. Set the `provider` to 'v8' (formerly 'c8'). Configure the `reporters` array to include 'text', 'html', and 'lcov' to support both console output and CI integration.",
+            "status": "in-progress",
+            "testStrategy": "After configuration, run `vitest --coverage` and verify that a `coverage/` directory is created containing an `lcov.info` file and an HTML report."
+          },
+          {
+            "id": 2,
+            "title": "Add `test:coverage` NPM Script",
+            "description": "Add a dedicated npm script in `package.json` to make running tests with coverage collection simple and consistent.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the `scripts` section of the `package.json` file, add a new script: `\"test:coverage\": \"vitest run --coverage\"`. Using `vitest run` ensures the tests execute once and exit, which is suitable for CI environments.",
+            "status": "pending",
+            "testStrategy": "Run `pnpm test:coverage` from the terminal and confirm that it executes the test suite and generates the coverage artifacts as configured in the previous step."
+          },
+          {
+            "id": 3,
+            "title": "Set and Enforce Minimum Coverage Thresholds",
+            "description": "Configure minimum coverage thresholds in the Vitest configuration to ensure the test suite fails if coverage drops below the defined percentages.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the `test.coverage` section of `vitest.config.ts`, add a `thresholds` object. Set minimum percentages for `statements`, `branches`, `functions`, and `lines` to 80 to enforce a baseline quality standard.",
+            "status": "pending",
+            "testStrategy": "Temporarily lower one of the threshold values to be higher than the actual coverage. Run `pnpm test:coverage` and verify that the process exits with an error, confirming that the threshold enforcement is working."
+          },
+          {
+            "id": 4,
+            "title": "Document Test Coverage Generation and Interpretation",
+            "description": "Add documentation explaining how developers can run the coverage script locally and how to interpret the generated reports.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create or update a document (e.g., `docs/testing.md` or `CONTRIBUTING.md`). Add a section that describes the `pnpm test:coverage` command and explains how to open the `coverage/index.html` file in a browser to view the detailed, line-by-line coverage report.",
+            "status": "pending",
+            "testStrategy": "Have a team member review the documentation for clarity and accuracy. They should be able to follow the instructions to run coverage and find the report without assistance."
+          }
+        ]
       },
       {
         "id": 14,
@@ -401,7 +444,7 @@
       ],
       "created": "2025-11-09T19:04:24.614Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-10T07:04:00.170Z"
+      "updated": "2025-11-10T07:51:22.258Z"
     }
   }
 }
