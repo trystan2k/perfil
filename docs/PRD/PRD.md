@@ -80,7 +80,7 @@ The MVP is multiplayer-only with a single device acting as the host (no online n
 | Testing | Vitest + React Testing Library for React/TypeScript code; use `@astrojs/testing` (Container API) for `.astro` files and integration tests |
 | Linting & Formatting | Biome is viable — configure Biome to handle `.astro`, TypeScript, JSX/TSX, and Tailwind rules; alternatively add `eslint` if needed but Biome can cover formatting and linting in one tool |
 | CI/CD | GitHub Actions (run tests and `astro build` on push/PR) |
-| Deployment | Render, Netlify, Vercel, or any static host supporting SSG deployments (Render recommended) |
+| Deployment | Cloudflare Pages (recommended), Netlify, Vercel, or any static host supporting SSG deployments |
 | Design | Tailwind CSS |
 
 **Technical Notes:**
@@ -396,17 +396,17 @@ Acceptance criteria:
 - `pnpm test:coverage` generates an HTML coverage report and fails when thresholds are not met.
 
 
-## 16. ⚙️ CI/CD: GitHub Actions + Deploy to Render
+## 16. ⚙️ CI/CD: GitHub Actions + Deploy to Cloudflare Pages
 
-Goal: Run quality checks on PRs and main branch and deploy successful builds to Render.
+Goal: Run quality checks on PRs and main branch and deploy successful builds to Cloudflare Pages.
 
 Recommended approach:
 - Create a GitHub Actions workflow that runs on push and pull_request and executes the project's quality checks in sequence: `pnpm install`, `pnpm run lint`, `pnpm run typecheck`, `pnpm test`, and `pnpm run build`.
-- On success (e.g., push to main), the workflow will deploy the built site to Render. Use Render's deploy GitHub Action or the Render API with a service key stored in repo secrets (e.g., `RENDER_SERVICE_ID`, `RENDER_API_KEY`). The workflow should build the static assets and then call the Render deploy step.
+- On success (e.g., push to main), the workflow will deploy the built site to Cloudflare Pages. Use the `cloudflare/wrangler-action` GitHub Action with appropriate secrets stored in repo secrets (e.g., `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`). The workflow should build the static assets and then call the Cloudflare Pages deploy step.
 - CI must report status checks back to PRs so merging requires passing checks.
 
 Acceptance criteria:
 - A GitHub Actions workflow file exists that runs lint, typecheck, test, and build on PRs and pushes.
-- Deployment step configured to deploy to Render using repository secrets; instructions added for how to create/render the API key and service id in Render dashboard.
+- Deployment step configured to deploy to Cloudflare Pages using repository secrets; instructions added for how to create the API token and account ID in Cloudflare dashboard.
 
 PRD notes: these operational requirements (i18n, PWA, git hooks, coverage and CI/CD) are part of the core project non-functional requirements and must be implemented before M6: Release.
