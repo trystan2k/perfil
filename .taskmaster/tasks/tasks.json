@@ -300,7 +300,7 @@
             "description": "Update the `vitest.config.ts` file to enable a coverage provider and configure the necessary reporters for generating coverage reports.",
             "dependencies": [],
             "details": "In `vitest.config.ts`, add a `test.coverage` configuration block. Set the `provider` to 'v8' (formerly 'c8'). Configure the `reporters` array to include 'text', 'html', and 'lcov' to support both console output and CI integration.",
-            "status": "in-progress",
+            "status": "done",
             "testStrategy": "After configuration, run `vitest --coverage` and verify that a `coverage/` directory is created containing an `lcov.info` file and an HTML report."
           },
           {
@@ -311,7 +311,7 @@
               1
             ],
             "details": "In the `scripts` section of the `package.json` file, add a new script: `\"test:coverage\": \"vitest run --coverage\"`. Using `vitest run` ensures the tests execute once and exit, which is suitable for CI environments.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Run `pnpm test:coverage` from the terminal and confirm that it executes the test suite and generates the coverage artifacts as configured in the previous step."
           },
           {
@@ -444,7 +444,7 @@
       ],
       "created": "2025-11-09T19:04:24.614Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-10T07:51:22.258Z"
+      "updated": "2025-11-10T08:38:00.180Z"
     }
   }
 }
