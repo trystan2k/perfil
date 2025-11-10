@@ -11,7 +11,17 @@
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit && astro check",
     "test": "vitest",
-    "complete-check": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build"
+    "complete-check": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,astro,json,css}": [
+      "biome format --write",
+      "biome check --write"
+    ],
+    "src/**/*.{ts,tsx}": [
+      "vitest related --run"
+    ]
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -37,7 +47,9 @@
     "@testing-library/user-event": "~14.6.1",
     "@vitejs/plugin-react": "~5.1.0",
     "happy-dom": "~20.0.10",
+    "husky": "~9.1.7",
     "jsdom": "~27.1.0",
+    "lint-staged": "~16.2.6",
     "typescript": "~5.9.3",
     "vitest": "~4.0.8"
   }
