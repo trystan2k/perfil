@@ -50,10 +50,6 @@ export function GameSetup() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      // Only add player if validation passes
-      if (!playerName.trim() || playerNames.length >= 8) {
-        return;
-      }
       handleAddPlayer();
     }
   };

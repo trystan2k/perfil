@@ -455,6 +455,45 @@ describe('GameSetup', () => {
       expect(addButton).toBeDisabled();
     });
 
+    it('should not add empty name even if handleAddPlayer is called programmatically', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+
+      // Type whitespace only
+      await user.type(input, '   ');
+
+      // Try to trigger via Enter (will call handleAddPlayer with whitespace)
+      await user.keyboard('{Enter}');
+
+      // Should not add player
+      expect(screen.queryByText(/players \(/i)).not.toBeInTheDocument();
+    });
+
+    it('should not exceed 8 players even if handleAddPlayer is called at limit', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+
+      // Add exactly 8 players using Enter key
+      for (let i = 1; i <= 8; i++) {
+        await user.clear(input);
+        await user.type(input, `Player${i}{Enter}`);
+      }
+
+      expect(screen.getByText('Players (8/8)')).toBeInTheDocument();
+
+      // Try to add 9th player via Enter
+      await user.clear(input);
+      await user.type(input, 'Player9{Enter}');
+
+      // Should still have only 8 players
+      expect(screen.getByText('Players (8/8)')).toBeInTheDocument();
+      expect(screen.queryByText('Player9')).not.toBeInTheDocument();
+    });
+
     it('should handle case-insensitive duplicate names', async () => {
       const user = userEvent.setup();
       render(<GameSetup />);
