@@ -1,17 +1,18 @@
-name: CI
+name: Deploy
 
 on:
-  pull_request:
-    branches:
-      - main
-  push:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
     branches:
       - main
 
 jobs:
-  quality-checks:
-    name: Quality Checks
+  deploy:
+    name: Deploy to Cloudflare Pages
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout code
@@ -42,30 +43,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run linting
-        run: pnpm lint
-
-      - name: Run type checking
-        run: pnpm typecheck
-
-      - name: Run tests with coverage
-        run: pnpm test:coverage
-
       - name: Build production bundle
         run: pnpm build
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        if: always()
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          name: coverage-report
-          path: coverage/
-          retention-days: 7
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        if: success()
-        with:
-          name: build-artifacts
-          path: dist/
-          retention-days: 1
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=perfil

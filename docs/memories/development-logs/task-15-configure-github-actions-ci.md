@@ -11,11 +11,15 @@ Create a comprehensive GitHub Actions CI/CD pipeline that runs quality checks (l
 
 ## Implementation Summary
 
-### CI Workflow (`.github/workflows/ci.yml`)
+### Final Architecture: Separate CI and Deploy Workflows
 
-Created a complete CI/CD pipeline with two jobs:
+After initial implementation and review, refactored to use **two separate workflows** for better separation of concerns:
 
-#### 1. CI Job: Quality Checks
+### 1. CI Workflow (`.github/workflows/ci.yml`)
+
+**Triggers:** Pull requests and pushes to `main`
+
+**Job: quality-checks**
 - **Environment:** Ubuntu Latest, Node.js 20.x, pnpm 9
 - **Caching:** pnpm store caching for faster subsequent runs
 - **Quality Gates:**
@@ -24,20 +28,40 @@ Created a complete CI/CD pipeline with two jobs:
   3. Test Coverage: `pnpm test:coverage` (Vitest with 80% thresholds)
   4. Build: `pnpm build` (Production bundle)
 - **Artifacts:**
-  - Coverage reports (`coverage/`)
-  - Build artifacts (`dist/`)
-  - Retention: 7 days
+  - Coverage reports (`coverage/`) - always uploaded, 7-day retention
+  - Build artifacts (`dist/`) - only on success, 1-day retention (for deploy workflow)
 
-#### 2. Deploy Job: Cloudflare Pages
-- **Trigger:** Only on successful pushes to `main` branch
-- **Dependencies:** Requires CI job success
+### 2. Deploy Workflow (`.github/workflows/deploy.yml`)
+
+**Triggers:** After successful CI workflow completion on `main` branch
+
+**Job: deploy**
+- **Condition:** Only runs if CI workflow succeeded
 - **Process:**
-  1. Downloads build artifacts from CI job
-  2. Deploys to Cloudflare Pages using `wrangler-action@v3`
-  3. Project name: `perfil`
+  1. Checkout code
+  2. Setup Node.js & pnpm (with caching)
+  3. Install dependencies
+  4. Build production bundle (fresh build, not using artifacts)
+  5. Deploy to Cloudflare Pages using `wrangler-action@v3`
 - **Required Secrets:**
   - `CLOUDFLARE_API_TOKEN`
   - `CLOUDFLARE_ACCOUNT_ID`
+
+### Architecture Decision: Why Separate Workflows?
+
+**Advantages of Two Workflows:**
+1. **Clearer Separation of Concerns** - CI checks vs deployment are independent
+2. **Better Observability** - Two workflow runs in GitHub UI for clear visibility
+3. **More Flexible** - Can trigger deployment manually or rerun without rerunning tests
+4. **Faster PR Feedback** - PRs only run CI checks, no deployment overhead
+5. **Industry Standard** - Separating CI from CD is a best practice
+6. **Easier to Maintain** - Each workflow has a single, clear purpose
+
+**Why Not Single Workflow:**
+- Single workflow uploads artifacts even on PRs (wasteful)
+- Mixed concerns in one file
+- Less flexible for manual deployments
+- Deploy job still requires conditional logic
 
 ## Documentation Updates
 
@@ -57,8 +81,15 @@ Updated all references from Render to Cloudflare Pages:
 
 ## Commits
 
+**Initial Implementation:**
 - `5a8c0d3`: Documentation updates (Render → Cloudflare Pages)
-- `972e7b5`: Complete CI/CD pipeline implementation
+- `972e7b5`: Complete CI/CD pipeline implementation (single workflow)
+- `a1d21b6`: Development log for task 15
+
+**Refactoring to Separate Workflows:**
+- Refactored from single workflow with two jobs to two separate workflows
+- Improved separation of concerns and flexibility
+- Deploy workflow now rebuilds (doesn't rely on artifacts from CI)
 
 ## Test Strategy
 
@@ -89,17 +120,28 @@ Updated all references from Render to Cloudflare Pages:
 
 6. **Deployment Verification:**
    - Configure Cloudflare secrets in repository settings
-   - Push to feature branch → verify deploy job skipped
-   - Merge to `main` → verify deploy job runs successfully
+   - Push to feature branch → verify deploy workflow does NOT trigger
+   - Merge to `main` → verify deploy workflow triggers after CI success
 
 ## Technical Details
 
-### Workflow Triggers
+### CI Workflow Triggers
 ```yaml
+# ci.yml
 on:
   pull_request:
     branches: [main]
   push:
+    branches: [main]
+```
+
+### Deploy Workflow Triggers
+```yaml
+# deploy.yml
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
     branches: [main]
 ```
 
@@ -108,9 +150,8 @@ on:
 - `actions/setup-node@v4`
 - `pnpm/action-setup@v4`
 - `actions/cache@v4`
-- `actions/upload-artifact@v4`
-- `actions/download-artifact@v4`
-- `cloudflare/wrangler-action@v3`
+- `actions/upload-artifact@v4` (CI workflow only)
+- `cloudflare/wrangler-action@v3` (Deploy workflow only)
 
 ### Quality Standards Enforced
 - Code style consistency (Biome)
@@ -127,11 +168,13 @@ on:
 
 ## Lessons Learned
 
-1. **Artifact Management:** Using artifacts to pass build output between jobs is cleaner than rebuilding in deploy job
-2. **Conditional Jobs:** The `needs` and `if` conditions ensure deploy only runs when appropriate
-3. **Caching Strategy:** pnpm store caching significantly reduces CI run time
-4. **Sequential Quality Gates:** Each check fails fast, providing quick feedback
-5. **Documentation Consistency:** Ensuring all docs reflect current deployment strategy is crucial
+1. **Separate Workflows are Better:** After review, refactored from single workflow to two separate workflows for clearer separation of concerns and better observability
+2. **workflow_run Trigger:** Using `workflow_run` to chain workflows is more flexible than job dependencies within a single workflow
+3. **Fresh Builds for Deploy:** Deploy workflow rebuilds instead of using artifacts, ensuring consistency and reducing artifact dependency issues
+4. **Conditional Uploads:** Use `if: always()` for coverage reports and `if: success()` for build artifacts to optimize artifact storage
+5. **Caching Strategy:** pnpm store caching significantly reduces CI run time
+6. **Sequential Quality Gates:** Each check fails fast, providing quick feedback
+7. **Documentation Consistency:** Ensuring all docs reflect current deployment strategy is crucial
 
 ## Related Tasks
 
