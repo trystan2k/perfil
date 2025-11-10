@@ -20,7 +20,8 @@ After initial implementation and review, refactored to use **two separate workfl
 **Triggers:** Pull requests and pushes to `main`
 
 **Job: quality-checks**
-- **Environment:** Ubuntu Latest, Node.js 20.x, pnpm 9
+
+- **Environment:** Ubuntu Latest, Node.js 24.x, pnpm 10
 - **Caching:** pnpm store caching for faster subsequent runs
 - **Quality Gates:**
   1. Lint: `pnpm lint` (Biome checks)
@@ -36,6 +37,7 @@ After initial implementation and review, refactored to use **two separate workfl
 **Triggers:** After successful CI workflow completion on `main` branch
 
 **Job: deploy**
+
 - **Condition:** Only runs if CI workflow succeeded
 - **Process:**
   1. Checkout code
@@ -50,6 +52,7 @@ After initial implementation and review, refactored to use **two separate workfl
 ### Architecture Decision: Why Separate Workflows?
 
 **Advantages of Two Workflows:**
+
 1. **Clearer Separation of Concerns** - CI checks vs deployment are independent
 2. **Better Observability** - Two workflow runs in GitHub UI for clear visibility
 3. **More Flexible** - Can trigger deployment manually or rerun without rerunning tests
@@ -58,6 +61,7 @@ After initial implementation and review, refactored to use **two separate workfl
 6. **Easier to Maintain** - Each workflow has a single, clear purpose
 
 **Why Not Single Workflow:**
+
 - Single workflow uploads artifacts even on PRs (wasteful)
 - Mixed concerns in one file
 - Less flexible for manual deployments
@@ -66,6 +70,7 @@ After initial implementation and review, refactored to use **two separate workfl
 ## Documentation Updates
 
 Updated all references from Render to Cloudflare Pages:
+
 - PRD section 16: CI/CD deployment strategy
 - Task Master task #15 and subtask 6
 - Verified no other Render hosting references exist
@@ -82,11 +87,13 @@ Updated all references from Render to Cloudflare Pages:
 ## Commits
 
 **Initial Implementation:**
+
 - `5a8c0d3`: Documentation updates (Render → Cloudflare Pages)
 - `972e7b5`: Complete CI/CD pipeline implementation (single workflow)
 - `a1d21b6`: Development log for task 15
 
 **Refactoring to Separate Workflows:**
+
 - Refactored from single workflow with two jobs to two separate workflows
 - Improved separation of concerns and flexibility
 - Deploy workflow now rebuilds (doesn't rely on artifacts from CI)
@@ -126,6 +133,7 @@ Updated all references from Render to Cloudflare Pages:
 ## Technical Details
 
 ### CI Workflow Triggers
+
 ```yaml
 # ci.yml
 on:
@@ -136,6 +144,7 @@ on:
 ```
 
 ### Deploy Workflow Triggers
+
 ```yaml
 # deploy.yml
 on:
@@ -146,6 +155,7 @@ on:
 ```
 
 ### Key Actions Used
+
 - `actions/checkout@v4`
 - `actions/setup-node@v4`
 - `pnpm/action-setup@v4`
@@ -154,6 +164,7 @@ on:
 - `cloudflare/wrangler-action@v3` (Deploy workflow only)
 
 ### Quality Standards Enforced
+
 - Code style consistency (Biome)
 - Type safety (TypeScript strict mode)
 - Test coverage thresholds (80% minimum)
@@ -185,6 +196,7 @@ on:
 ## Quality Check
 
 All checks passing:
+
 - ✅ Lint: No issues
 - ✅ Typecheck: No errors
 - ✅ Tests: 55 passing (4 test files)

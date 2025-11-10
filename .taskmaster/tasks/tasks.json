@@ -491,7 +491,7 @@
             "title": "Create Base CI Workflow with Triggers and Dependency Installation",
             "description": "Initialize the `.github/workflows/ci.yml` file. Configure it to trigger on pull requests to `main` and pushes to `main`. Create the first job, `ci`, which checks out the code, sets up Node.js, and installs dependencies using `pnpm` with caching.",
             "dependencies": [],
-            "details": "Use `actions/checkout@v4`, `actions/setup-node@v4` (with Node.js 20.x), and `pnpm/action-setup@v4`. The install step should run `pnpm install --frozen-lockfile`. The workflow should be named 'CI Pipeline'.",
+            "details": "Use `actions/checkout@v4`, `actions/setup-node@v4` (with Node.js 24.x), and `pnpm/action-setup@v4` (with pnpm 10). The install step should run `pnpm install --frozen-lockfile`. The workflow should be named 'CI Pipeline'.",
             "status": "done",
             "testStrategy": "Push a commit with the new workflow file to a feature branch and open a PR to `main`. Verify the `ci` job runs and successfully completes the installation step."
           },
