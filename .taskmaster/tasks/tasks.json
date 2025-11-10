@@ -146,17 +146,71 @@
         "updatedAt": "2025-11-09T18:52:16.737Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Game Session State Management with Zustand",
-        "description": "Set up a global state management store using Zustand to handle the entire game session, including players, scores, turn state, and remaining profiles. This store will be the single source of truth for all interactive React components.",
-        "details": "Create a Zustand store (`create` from 'zustand') that manages the `GameSession` state object. The store should include actions to: `createGame(playerNames: string[])`, `startGame(category: string)`, `nextClue()`, `passTurn()`, `awardPoints(playerId: string)`, and `endGame()`. The state should be typed using the interfaces defined in the PRD.",
-        "testStrategy": "Write unit tests for the Zustand store using Vitest. Test each action individually to ensure it correctly mutates the state. For example, verify that `createGame` populates the `players` array and `awardPoints` correctly calculates and adds points to the specified player.",
-        "priority": "high",
+        "description": "A global state management store has been set up using Zustand to handle the entire game session, including players, scores, turn state, and remaining profiles. This store serves as the single source of truth for all interactive React components.",
+        "status": "done",
         "dependencies": [
           "1"
         ],
-        "status": "pending",
-        "subtasks": []
+        "priority": "high",
+        "details": "The Zustand store has been fully implemented in `src/stores/gameStore.ts` (commit 8e85ea4). It manages the `GameState` (extending `GameSession`) and includes all required actions: `createGame`, `startGame`, `nextClue`, `passTurn`, `awardPoints`, and `endGame`. The implementation includes game status tracking ('pending', 'active', 'completed'), wraparound turn cycling for players, and a scoring formula of `20 - cluesRead + 1` for correct answers. Full validation is in place for state transitions.",
+        "testStrategy": "A comprehensive unit test suite has been implemented using Vitest in `src/stores/__tests__/gameStore.test.ts`. The suite contains 46 passing tests that cover all store actions, state mutations, edge cases (e.g., non-existent players), and error conditions, ensuring the reliability of the state management logic.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize Zustand Store and Define State Shape",
+            "description": "Create the basic structure for the game session store using Zustand. This includes installing the library, creating the store file, and defining the TypeScript interfaces for the game state (e.g., GameSession, Player, Turn).",
+            "dependencies": [],
+            "details": "Create a file `src/stores/gameStore.ts`. Use `create` from 'zustand' to initialize the store. Define the `GameState` interface including properties like `players`, `scores`, `currentTurn`, `remainingProfiles`, and `gameStatus`. Set the initial state for a new, unstarted game.",
+            "status": "done",
+            "testStrategy": "Verify the store initializes without errors. Write a simple unit test using Vitest to check that the initial state matches the expected default values."
+          },
+          {
+            "id": 2,
+            "title": "Implement `createGame` and `startGame` Actions",
+            "description": "Add the actions to the Zustand store for initializing a new game session with players and officially starting the game with a selected category.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement the `createGame(playerNames: string[])` action to populate the `players` array and initialize their scores to zero. Implement the `startGame(category: string)` action to set the game category and change the `gameStatus` from 'pending' to 'active'.",
+            "status": "done",
+            "testStrategy": "Write unit tests for `createGame` to ensure it correctly creates player objects from a list of names. Test `startGame` to verify it updates the `gameStatus` and `category` fields correctly."
+          },
+          {
+            "id": 3,
+            "title": "Implement `nextClue` and `passTurn` Actions",
+            "description": "Develop the actions responsible for managing the core gameplay loop: advancing to the next clue for the current player and passing the turn to the next player.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement the `nextClue()` action, which should increment the clue index for the current turn. Implement the `passTurn()` action, which should update the `currentTurn` state to point to the next player in the sequence, handling wraparound from the last player to the first.",
+            "status": "done",
+            "testStrategy": "Test `nextClue` to ensure it increments the clue counter and doesn't exceed the maximum number of clues. Test `passTurn` with multiple players to verify it correctly cycles through the player list."
+          },
+          {
+            "id": 4,
+            "title": "Implement `awardPoints` Action",
+            "description": "Create the action to award points to a specific player for a correct answer. This is a critical part of the game's scoring logic.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement the `awardPoints(playerId: string, points: number)` action. This function will find the player by their ID in the state, add the specified points to their current score, and update the state.",
+            "status": "done",
+            "testStrategy": "Write unit tests to verify that `awardPoints` correctly adds points to the specified player's score. Test edge cases like a non-existent `playerId` and awarding zero or negative points."
+          },
+          {
+            "id": 5,
+            "title": "Implement `endGame` Action",
+            "description": "Add the final action to the store that concludes the game session, transitioning the state to a 'finished' or 'completed' status.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement the `endGame()` action. This action should change the `gameStatus` to 'completed'. It could also perform any final calculations or state cleanup if necessary, preparing the state for display on a final scoreboard.",
+            "status": "done",
+            "testStrategy": "Test the `endGame` action to ensure it correctly updates the `gameStatus` property in the store. Verify that other actions might be disabled or behave differently when the game status is 'completed'."
+          }
+        ]
       },
       {
         "id": 4,
@@ -444,7 +498,7 @@
       ],
       "created": "2025-11-09T19:04:24.614Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-10T08:51:52.727Z"
+      "updated": "2025-11-10T14:21:54.170Z"
     }
   }
 }
