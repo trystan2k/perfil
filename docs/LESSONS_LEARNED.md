@@ -14,3 +14,14 @@
   3. Create the development log covering the entire task implementation (step 10)
   4. ONLY THEN proceed with commit and push (steps 11-12)
 - This ensures proper task tracking, documentation, and traceability for the project.
+
+2025-11-10 — ALWAYS UPDATE TASK AND SUBTASK STATUS BEFORE CLAIMING COMPLETION
+
+- Mistake: I claimed task #15 was complete and pushed all commits without marking subtasks as "done" or updating the main task status from "in-progress" to "done" in Task Master.
+- Correct procedure: According to DEV_WORKFLOW.md step 9, BEFORE claiming task completion, I MUST:
+  1. Mark ALL subtasks as "done" in Task Master (each subtask after completion)
+  2. Update the main task with complete implementation details
+  3. Mark the main task status as "done" in Task Master
+  4. Verify all statuses are correctly updated
+  5. ONLY THEN claim task completion to the user
+- This ensures accurate task tracking, prevents confusion about task status, and maintains proper project management records.

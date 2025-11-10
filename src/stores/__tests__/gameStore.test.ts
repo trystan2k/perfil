@@ -319,6 +319,26 @@ describe('gameStore', () => {
       expect(() => useGameStore.getState().passTurn()).toThrow('Cannot pass turn without players');
     });
 
+    it('should throw error when active player is not found in players array', () => {
+      // Manually corrupt the state to simulate active player not in players array
+      const currentTurn = useGameStore.getState().currentTurn;
+      expect(currentTurn).toBeDefined();
+
+      if (!currentTurn) {
+        throw new Error('Test setup failed: currentTurn should be defined');
+      }
+
+      useGameStore.setState({
+        ...useGameStore.getState(),
+        currentTurn: {
+          ...currentTurn,
+          activePlayerId: 'non-existent-player-id',
+        },
+      });
+
+      expect(() => useGameStore.getState().passTurn()).toThrow('Active player not found');
+    });
+
     it('should handle multiple consecutive passes', () => {
       const state = useGameStore.getState();
       const players = state.players;
