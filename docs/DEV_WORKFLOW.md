@@ -179,7 +179,8 @@ For tasks with subtasks, follow this cycle for each subtask:
 - **Action**: Before commit, ask me to review the changes and only continue after my ok
 - **Action**: Ask me if I did any code change during review. If so, review the changes and use this info for the commit
 - **Action**: Run `pnpm run complete-check` one final time before commit
-- **Action**: Commit with descriptive message following the pattern below
+- **🚨 CRITICAL**: ALWAYS ask for explicit permission before committing - NEVER commit without user confirmation
+- **Action**: Commit with descriptive message following the pattern below (only after receiving permission)
 - **Action**: Ask permission to push the subtask commit
 
 **Subtask commit message pattern**:
@@ -194,7 +195,8 @@ type(scope): brief description of actual work done
 
 ### 12. 💾 FINAL PUSH
 
-- **Action**: Ask permission for final push of all subtask commits to feature branch
+- **🚨 CRITICAL**: ALWAYS ask for explicit permission before pushing - NEVER push without user confirmation
+- **Action**: Ask permission for final push of all subtask commits to feature branch (only after receiving permission)
 - Only push when all subtasks are complete and documented
 - This push should include all subtask commits made during the task
 
@@ -352,6 +354,7 @@ Based on your development guidelines, here are the **NO NO actions**:
 - **NEVER** reference task or subtask IDs in commit messages - focus purely on the work done
 - **NEVER** create physical development logs for subtasks - only for complete tasks
 - **NEVER** bypass git hooks with `--no-verify` or similar flags - git hooks are mandatory quality gates
+- **🚨 NEVER EVER commit or push without explicit user confirmation** - ALWAYS ask first, no exceptions
 - Under **NO** circumstance commit code when there are issues from QA scripts (even warnings)  
 
 ---
@@ -383,6 +386,10 @@ Based on your development guidelines, here are the **NO NO actions**:
 - **NEVER** skip existing patterns – Follow codebase conventions  
 - **NEVER** commit secrets or keys to repository  
 - **NEVER** modify code without first understanding the existing structure (use `serena_get_symbols_overview`)
+- **NEVER** use wildcard imports like `import * as React from 'react'` – ALWAYS import only needed elements:
+  - ✅ Correct: `import { forwardRef, type HTMLAttributes, type Ref } from 'react'`
+  - ❌ Wrong: `import * as React from 'react'`
+  - This improves tree-shaking, bundle size, and code clarity
 
 ---
 

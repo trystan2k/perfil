@@ -31,7 +31,7 @@
     },
     "basic-memory": {
       "type": "local",
-      "command": ["uvx", "basic-memory", "--project", "perfil", "mcp"]
+      "command": ["uvx", "basic-memory", "mcp", "--project", "perfil"]
     },
     "github": {
       "type": "remote",

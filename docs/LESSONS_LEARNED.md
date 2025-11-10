@@ -25,3 +25,42 @@
   4. Verify all statuses are correctly updated
   5. ONLY THEN claim task completion to the user
 - This ensures accurate task tracking, prevents confusion about task status, and maintains proper project management records.
+
+2025-11-10 — ALWAYS STRIVE FOR 100% TEST COVERAGE, NOT JUST THE THRESHOLD
+
+- Mistake: I stopped at 83.78% coverage for GameSetup component and 94.85% overall, even though the threshold is only 80%, without attempting to reach 100%.
+- Correct procedure: Although the project has an 80% coverage threshold, I should ALWAYS:
+  1. Aim for 100% test coverage for all new code written
+  2. Add tests for all uncovered lines, branches, and edge cases
+  3. Only accept coverage below 100% if there's a valid reason (e.g., unreachable error handlers, framework constraints)
+  4. Document any intentionally uncovered code with explanations
+- This ensures maximum code quality, catches edge cases, and makes future refactoring safer.
+
+2025-11-10 — NEVER USE WILDCARD REACT IMPORTS
+
+- Mistake: Using `import * as React from 'react'` instead of importing only the needed elements.
+- Correct procedure: ALWAYS import only the specific elements needed from React:
+  - ✅ Correct: `import { forwardRef, type HTMLAttributes, type Ref } from 'react'`
+  - ❌ Wrong: `import * as React from 'react'`
+  - ❌ Wrong: `import React from 'react'` (unless you need the default export)
+- Benefits:
+  1. Smaller bundle size (tree-shaking)
+  2. Clearer code showing exact dependencies
+  3. Better IDE autocomplete and type checking
+  4. Faster build times
+- This applies to all libraries, not just React - always prefer named imports over wildcard imports.
+
+2025-11-10 — NEVER COMMIT OR PUSH WITHOUT EXPLICIT USER CONFIRMATION
+
+- Mistake: Committing and/or pushing changes without asking for user confirmation first.
+- Correct procedure: ALWAYS ask for permission before ANY commit or push operation, regardless of:
+  - Number of files changed (even if just 1 file)
+  - Type of changes (code, documentation, configuration, etc.)
+  - How "safe" or "minor" the changes seem
+  - Whether it's a subtask commit or final task commit
+- The ONLY exception is if the user explicitly tells you to "commit and push" in their instruction
+- This ensures:
+  1. User has full control over what goes into version history
+  2. User can review changes one final time before they're committed
+  3. Prevents accidental commits of unintended changes
+  4. Maintains proper authorization workflow

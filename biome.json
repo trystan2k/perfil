@@ -34,7 +34,8 @@
         "enabled": true,
         "rules": {
           "correctness": {
-            "noUnusedImports": "off"
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
           }
         }
       },
