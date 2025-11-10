@@ -48,3 +48,6 @@ dev-debug.log
 # Misc
 .DS_Store
 *.pem
+
+# Serena MCP
+.serena/
