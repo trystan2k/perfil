@@ -333,7 +333,7 @@
               2
             ],
             "details": "Create or update a document (e.g., `docs/testing.md` or `CONTRIBUTING.md`). Add a section that describes the `pnpm test:coverage` command and explains how to open the `coverage/index.html` file in a browser to view the detailed, line-by-line coverage report.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Have a team member review the documentation for clarity and accuracy. They should be able to follow the instructions to run coverage and find the report without assistance."
           }
         ]
@@ -444,7 +444,7 @@
       ],
       "created": "2025-11-09T19:04:24.614Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-10T08:39:06.168Z"
+      "updated": "2025-11-10T08:40:08.333Z"
     }
   }
 }
