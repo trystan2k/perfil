@@ -2,6 +2,9 @@
   "name": "perfil",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=20.17.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -24,17 +27,17 @@
     ]
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.2",
+    "@astrojs/react": "~4.4.2",
     "@astrojs/tailwind": "~6.0.2",
     "@tanstack/react-query": "~5.90.7",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/react": "~19.2.2",
+    "@types/react-dom": "~19.2.2",
     "astro": "~5.15.4",
     "idb": "~8.0.3",
     "lucide-react": "~0.553.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwindcss": "^3.4.18",
+    "react": "~19.2.0",
+    "react-dom": "~19.2.0",
+    "tailwindcss": "~3.4.18",
     "tailwindcss-animate": "~1.0.7",
     "zod": "~4.1.12",
     "zustand": "~5.0.8"
