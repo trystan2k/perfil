@@ -25,3 +25,13 @@
   4. Verify all statuses are correctly updated
   5. ONLY THEN claim task completion to the user
 - This ensures accurate task tracking, prevents confusion about task status, and maintains proper project management records.
+
+2025-11-10 — ALWAYS STRIVE FOR 100% TEST COVERAGE, NOT JUST THE THRESHOLD
+
+- Mistake: I stopped at 83.78% coverage for GameSetup component and 94.85% overall, even though the threshold is only 80%, without attempting to reach 100%.
+- Correct procedure: Although the project has an 80% coverage threshold, I should ALWAYS:
+  1. Aim for 100% test coverage for all new code written
+  2. Add tests for all uncovered lines, branches, and edge cases
+  3. Only accept coverage below 100% if there's a valid reason (e.g., unreachable error handlers, framework constraints)
+  4. Document any intentionally uncovered code with explanations
+- This ensures maximum code quality, catches edge cases, and makes future refactoring safer.
