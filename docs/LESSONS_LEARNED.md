@@ -49,3 +49,18 @@
   3. Better IDE autocomplete and type checking
   4. Faster build times
 - This applies to all libraries, not just React - always prefer named imports over wildcard imports.
+
+2025-11-10 — NEVER COMMIT OR PUSH WITHOUT EXPLICIT USER CONFIRMATION
+
+- Mistake: Committing and/or pushing changes without asking for user confirmation first.
+- Correct procedure: ALWAYS ask for permission before ANY commit or push operation, regardless of:
+  - Number of files changed (even if just 1 file)
+  - Type of changes (code, documentation, configuration, etc.)
+  - How "safe" or "minor" the changes seem
+  - Whether it's a subtask commit or final task commit
+- The ONLY exception is if the user explicitly tells you to "commit and push" in their instruction
+- This ensures:
+  1. User has full control over what goes into version history
+  2. User can review changes one final time before they're committed
+  3. Prevents accidental commits of unintended changes
+  4. Maintains proper authorization workflow
