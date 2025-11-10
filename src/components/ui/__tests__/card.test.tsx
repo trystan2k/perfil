@@ -24,6 +24,46 @@ describe('Card Components', () => {
     expect(title).toHaveClass('text-2xl', 'font-semibold');
   });
 
+  it('renders CardTitle as div by default', () => {
+    render(<CardTitle data-testid="card-title">Title</CardTitle>);
+    const title = screen.getByTestId('card-title');
+    expect(title.tagName).toBe('DIV');
+  });
+
+  it('renders CardTitle as h3 when specified', () => {
+    render(
+      <CardTitle as="h3" data-testid="card-title">
+        Title
+      </CardTitle>
+    );
+    const title = screen.getByTestId('card-title');
+    expect(title.tagName).toBe('H3');
+    expect(title).toHaveClass('text-2xl', 'font-semibold');
+  });
+
+  it('renders CardTitle as different heading levels', () => {
+    const { rerender } = render(
+      <CardTitle as="h1" data-testid="card-title">
+        Title
+      </CardTitle>
+    );
+    expect(screen.getByTestId('card-title').tagName).toBe('H1');
+
+    rerender(
+      <CardTitle as="h2" data-testid="card-title">
+        Title
+      </CardTitle>
+    );
+    expect(screen.getByTestId('card-title').tagName).toBe('H2');
+
+    rerender(
+      <CardTitle as="h4" data-testid="card-title">
+        Title
+      </CardTitle>
+    );
+    expect(screen.getByTestId('card-title').tagName).toBe('H4');
+  });
+
   it('renders CardDescription component', () => {
     render(<CardDescription data-testid="card-description">Description</CardDescription>);
     const description = screen.getByTestId('card-description');

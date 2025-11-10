@@ -394,4 +394,109 @@ describe('GameSetup', () => {
       expect(screen.getByRole('button', { name: /remove alice/i })).toBeInTheDocument();
     });
   });
+
+  describe('Validation Edge Cases', () => {
+    it('should not add empty player name when pressing Enter', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+
+      // Press Enter with empty input
+      await user.click(input);
+      await user.keyboard('{Enter}');
+
+      // Should not show player list counter
+      expect(screen.queryByText(/players \(/i)).not.toBeInTheDocument();
+    });
+
+    it('should not add whitespace-only player name when pressing Enter', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+
+      // Type spaces and press Enter
+      await user.type(input, '   {Enter}');
+
+      // Should not show player list counter
+      expect(screen.queryByText(/players \(/i)).not.toBeInTheDocument();
+    });
+
+    it('should not add 9th player when pressing Enter at 8-player limit', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+
+      // Add 8 players
+      for (let i = 1; i <= 8; i++) {
+        await user.clear(input);
+        await user.type(input, `Player ${i}{Enter}`);
+      }
+
+      expect(screen.getByText('Players (8/8)')).toBeInTheDocument();
+
+      // Try to add 9th player with Enter key
+      await user.clear(input);
+      await user.type(input, 'Player 9{Enter}');
+
+      // Should still have only 8 players
+      expect(screen.getByText('Players (8/8)')).toBeInTheDocument();
+      expect(screen.queryByText('Player 9')).not.toBeInTheDocument();
+    });
+
+    it('should not add player when clicking Add button with empty name', async () => {
+      render(<GameSetup />);
+
+      const addButton = screen.getByRole('button', { name: /add/i });
+
+      // Button should be disabled with empty input
+      expect(addButton).toBeDisabled();
+    });
+
+    it('should handle case-insensitive duplicate names', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+
+      // Add "Alice"
+      await user.type(input, 'Alice');
+      await user.click(addButton);
+
+      expect(screen.getByText('Alice')).toBeInTheDocument();
+
+      // Try to add "alice" (lowercase)
+      await user.type(input, 'alice');
+      await user.click(addButton);
+
+      // Should show error
+      expect(screen.getByText('Player name already exists')).toBeInTheDocument();
+
+      // Should not add duplicate
+      expect(screen.getByText('Players (1/8)')).toBeInTheDocument();
+    });
+
+    it('should handle case-insensitive duplicate names with Enter key', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+
+      // Add "Bob"
+      await user.type(input, 'Bob{Enter}');
+      expect(screen.getByText('Bob')).toBeInTheDocument();
+
+      // Try to add "BOB" (uppercase)
+      await user.type(input, 'BOB{Enter}');
+
+      // Should show error
+      expect(screen.getByText('Player name already exists')).toBeInTheDocument();
+
+      // Should not add duplicate
+      expect(screen.getByText('Players (1/8)')).toBeInTheDocument();
+    });
+  });
 });

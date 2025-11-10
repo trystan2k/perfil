@@ -15,7 +15,18 @@ export function GameSetup() {
   const handleAddPlayer = () => {
     const trimmedName = playerName.trim();
 
-    if (playerNames.includes(trimmedName)) {
+    // Validate empty name
+    if (!trimmedName) {
+      return;
+    }
+
+    // Validate player limit
+    if (playerNames.length >= 8) {
+      return;
+    }
+
+    // Check for duplicate names (case-insensitive)
+    if (playerNames.some((name) => name.toLowerCase() === trimmedName.toLowerCase())) {
       setError('Player name already exists');
       return;
     }
@@ -39,6 +50,10 @@ export function GameSetup() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
+      // Only add player if validation passes
+      if (!playerName.trim() || playerNames.length >= 8) {
+        return;
+      }
       handleAddPlayer();
     }
   };
@@ -47,7 +62,9 @@ export function GameSetup() {
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl">Game Setup</CardTitle>
+          <CardTitle as="h3" className="text-2xl">
+            Game Setup
+          </CardTitle>
           <CardDescription>
             Add players to start a new game. You need at least 2 players.
           </CardDescription>
