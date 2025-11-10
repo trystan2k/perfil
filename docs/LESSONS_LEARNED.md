@@ -64,3 +64,21 @@
   2. User can review changes one final time before they're committed
   3. Prevents accidental commits of unintended changes
   4. Maintains proper authorization workflow
+
+2025-11-11 — NEVER RETURN TO MAIN BRANCH BEFORE FEATURE BRANCH IS COMPLETE
+
+- Mistake: Checking out main branch after pushing the feature branch but before all task updates were completed and committed to the feature branch. Specifically, I returned to main after creating the PR but before marking the task as "done" in Task Master on the feature branch.
+- Correct procedure: STAY on the feature branch until ALL work is complete:
+  1. Implement all subtasks and mark them as "done"
+  2. Update the main task with implementation details
+  3. Mark the main task status as "done"
+  4. Create development logs
+  5. Commit ALL changes (including Task Master updates and logs)
+  6. Push to feature branch
+  7. Create Pull Request
+  8. ONLY THEN return to main branch
+- This ensures:
+  1. All task tracking updates are committed to the feature branch
+  2. The feature branch contains a complete history of the work
+  3. No orphaned changes remain uncommitted
+  4. Proper traceability in the PR and git history
