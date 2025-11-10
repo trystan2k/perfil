@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// For static build, provide a sample session path
+// In production, this would be dynamically generated or use SSR
+export function getStaticPaths() {
+  return [{ params: { sessionId: 'sample-session' } }];
+}
+
+// Get the sessionId from the URL params
+const { sessionId } = Astro.params;
+---
+
+<Layout title="Perfil - Game Session">
+	<main class="flex flex-col gap-4 p-4 max-w-screen-xl mx-auto min-h-screen md:gap-6 md:p-6">
+		<h1 class="text-2xl font-bold md:text-3xl">Game Session: {sessionId}</h1>
+		
+		<!-- Main content area - responsive layout -->
+		<!-- Mobile: single column | Tablet: 2 columns | Desktop: 3 columns -->
+		<div class="flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+			<!-- Section 1: Player List / Scoreboard -->
+			<section 
+				class="border-2 border-blue-500 bg-blue-50 dark:bg-blue-950 rounded-lg p-4 min-h-64"
+				aria-label="Player scoreboard"
+			>
+				<h2 class="text-xl font-semibold mb-4 text-blue-900 dark:text-blue-100">Players & Scores</h2>
+				<p class="text-muted-foreground">Scoreboard will be displayed here</p>
+			</section>
+
+			<!-- Section 2: Clue Card Display -->
+			<section 
+				class="border-2 border-green-500 bg-green-50 dark:bg-green-950 rounded-lg p-4 min-h-64 md:col-span-2 lg:col-span-1"
+				aria-label="Clue display area"
+			>
+				<h2 class="text-xl font-semibold mb-4 text-green-900 dark:text-green-100">Current Clue</h2>
+				<p class="text-muted-foreground">Clues will be revealed here</p>
+			</section>
+
+			<!-- Section 3: MC Controls -->
+			<section 
+				class="border-2 border-purple-500 bg-purple-50 dark:bg-purple-950 rounded-lg p-4 min-h-64"
+				aria-label="Master of Ceremonies controls"
+			>
+				<h2 class="text-xl font-semibold mb-4 text-purple-900 dark:text-purple-100">MC Controls</h2>
+				<p class="text-muted-foreground">Game controls will be here</p>
+				<!-- Ensure touch targets are >= 44px -->
+				<button class="mt-4 h-11 px-4 bg-purple-600 text-white rounded-md hover:bg-purple-700 min-w-44">
+					Sample Control Button
+				</button>
+			</section>
+		</div>
+	</main>
+</Layout>
