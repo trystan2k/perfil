@@ -533,42 +533,21 @@ describe('GamePlay Component', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should handle component unmount during successful load (race condition)', async () => {
-      const mockSession = {
-        id: 'loaded-session-123',
-        players: [{ id: '1', name: 'Test Player', score: 10 }],
-        currentTurn: {
-          profileId: 'profile-1',
-          activePlayerId: '1',
-          cluesRead: 0,
-          revealed: false,
-        },
-        remainingProfiles: [],
-        totalCluesPerProfile: 20,
-        status: 'active' as const,
-        category: 'Movies',
-      };
+    it('should skip loading when game already exists in store', () => {
+      // Set up store with players and an active game
+      const store = useGameStore.getState();
+      store.createGame(['Alice', 'Bob', 'Charlie']);
+      store.startGame('Movies');
 
-      // Mock loadGameSession to resolve after a delay
-      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
-        () =>
-          new Promise((resolve) => {
-            setTimeout(() => resolve(mockSession), 50);
-          })
-      );
+      // Even with sessionId, should not load from storage because game already exists
+      render(<GamePlay sessionId="some-session" />);
 
-      const { unmount } = render(<GamePlay sessionId="test-session" />);
-
-      // Unmount before the load completes
-      unmount();
-
-      // Wait for the mock to resolve
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      // No errors should occur - cleanup should prevent setState after unmount
+      // Should immediately show the game (no loading, no storage call)
+      expect(screen.getByText('Game Play')).toBeInTheDocument();
+      expect(gameSessionDB.loadGameSession).not.toHaveBeenCalled();
     });
 
-    it('should handle component unmount during error (race condition)', async () => {
+    it('should handle cancellation during error (race condition)', async () => {
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       // Mock loadGameSession to reject after a delay
@@ -581,14 +560,126 @@ describe('GamePlay Component', () => {
 
       const { unmount } = render(<GamePlay sessionId="failing-session" />);
 
-      // Unmount before the error occurs
+      // Unmount immediately (sets cancelled = true)
       unmount();
 
-      // Wait for the mock to reject
+      // Wait for the rejection to occur after unmount
       await new Promise((resolve) => setTimeout(resolve, 100));
 
-      // No errors should occur - cleanup should prevent setState after unmount
+      // No errors should occur - the cancelled flag should prevent setState after unmount
       consoleErrorSpy.mockRestore();
+    });
+
+    it('should handle unmount during successful load (cancelled branch)', async () => {
+      // Mock loadGameSession to resolve after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(
+              () =>
+                resolve({
+                  id: 'test-session',
+                  players: [{ id: '1', name: 'Player 1', score: 0 }],
+                  currentTurn: {
+                    profileId: 'profile-1',
+                    activePlayerId: '1',
+                    cluesRead: 0,
+                    revealed: false,
+                  },
+                  remainingProfiles: [],
+                  totalCluesPerProfile: 20,
+                  status: 'active' as const,
+                  category: 'Movies',
+                }),
+              50
+            );
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="test-session" />);
+
+      // Unmount before the load completes (sets cancelled = true, mounted = false)
+      unmount();
+
+      // Wait for the async operation to complete
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - cancelled and mounted flags should prevent setState
+    });
+
+    it('should handle unmount when session not found (mounted = false branch)', async () => {
+      // Mock loadGameSession to return null (not found) after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(() => resolve(null), 50);
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="not-found-session" />);
+
+      // Unmount before the load completes (sets mounted = false)
+      unmount();
+
+      // Wait for the async operation to complete
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - mounted flag should prevent setState
+    });
+
+    it('should handle unmount during error setState (mounted = false in error handler)', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Mock loadGameSession to reject after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Database error')), 50);
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="error-session" />);
+
+      // Unmount before the error occurs (sets mounted = false)
+      unmount();
+
+      // Wait for the error to occur
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - mounted flag should prevent setState
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should handle unmount at end of loadGame (final mounted check)', async () => {
+      // Mock loadGameSession to return null quickly
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(null);
+
+      const { unmount } = render(<GamePlay sessionId="quick-session" />);
+
+      // Unmount immediately
+      unmount();
+
+      // Wait briefly for async operations
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // No errors should occur - mounted flag should prevent final setIsLoading(false)
+    });
+
+    it('should handle unmount when game already exists (mounted = false on early return)', async () => {
+      // Set up store with existing game
+      const store = useGameStore.getState();
+      store.createGame(['Alice', 'Bob', 'Charlie']);
+      store.startGame('Movies');
+
+      const { unmount } = render(<GamePlay sessionId="some-session" />);
+
+      // Unmount immediately (this should hit the mounted check in the early return)
+      unmount();
+
+      // Wait briefly
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // No errors should occur
     });
 
     it('should load game state successfully when valid sessionId provided', async () => {

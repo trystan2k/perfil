@@ -131,3 +131,21 @@
   2. User can review what will be committed before it happens
   3. Prevents automatic commits when resuming from compacted conversations
   4. Maintains the authorization workflow regardless of session state
+
+2025-11-11 — ALWAYS ASK PERMISSION FOR ANY TEST COVERAGE DECREASE
+
+- Mistake: Making changes that decrease test coverage (even by 0.001%) without informing the user or asking for permission to accept the lower coverage.
+- Correct procedure: BEFORE committing/pushing any changes that decrease test coverage:
+  1. Run test coverage to verify the impact of changes
+  2. If coverage decreased by ANY amount (even 0.001%):
+     - IMMEDIATELY inform the user of the coverage decrease
+     - Show the old vs new coverage percentages
+     - Explain which files/lines are now uncovered
+     - EXPLICITLY ASK permission to accept the lower coverage
+  3. Wait for user approval before proceeding
+  4. NEVER assume small coverage decreases are acceptable without asking
+- This ensures:
+  1. User maintains control over code quality standards
+  2. No silent degradation of test coverage over time
+  3. Coverage decreases are conscious decisions, not accidents
+  4. Project maintains high quality standards consistently
