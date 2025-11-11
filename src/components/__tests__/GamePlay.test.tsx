@@ -519,6 +519,7 @@ describe('GamePlay Component', () => {
     });
 
     it('should show error when loading fails', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       vi.mocked(gameSessionDB.loadGameSession).mockRejectedValueOnce(new Error('Database error'));
 
       render(<GamePlay sessionId="failing-session" />);
@@ -528,6 +529,8 @@ describe('GamePlay Component', () => {
       expect(
         screen.getByText('Failed to load game session. Please try again.')
       ).toBeInTheDocument();
+
+      consoleErrorSpy.mockRestore();
     });
 
     it('should load game state successfully when valid sessionId provided', async () => {
