@@ -653,9 +653,11 @@ describe('GamePlay Component', () => {
       expect(updatedPlayer?.score).toBe(20);
 
       // Second round - show 3 clues
-      for (let i = 0; i < 3; i++) {
-        store.nextClue();
-      }
+      act(() => {
+        for (let i = 0; i < 3; i++) {
+          store.nextClue();
+        }
+      });
 
       rerender(<GamePlay />);
 
