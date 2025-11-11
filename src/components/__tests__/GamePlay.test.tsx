@@ -2,6 +2,7 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
+import * as gameSessionDB from '../../lib/gameSessionDB';
 import { GamePlay } from '../GamePlay';
 
 // Mock the gameSessionDB module to avoid IndexedDB issues in Node test environment
@@ -15,6 +16,9 @@ vi.mock('../../lib/gameSessionDB', () => ({
 
 describe('GamePlay Component', () => {
   beforeEach(() => {
+    // Reset mocks
+    vi.clearAllMocks();
+
     // Reset store before each test
     const store = useGameStore.getState();
     store.createGame(['Alice', 'Bob', 'Charlie']);
@@ -464,6 +468,98 @@ describe('GamePlay Component', () => {
 
       // Clues read should remain the same
       expect(cluesReadAfter).toBe(3);
+    });
+  });
+
+  describe('Session Loading and Error Handling', () => {
+    beforeEach(() => {
+      // Reset store to empty state for these tests (no game created)
+      useGameStore.setState({
+        id: '',
+        players: [],
+        currentTurn: null,
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'pending',
+        category: undefined,
+      });
+    });
+
+    it('should show loading state when sessionId is provided', async () => {
+      // Mock loadGameSession to delay resolution
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () => new Promise((resolve) => setTimeout(() => resolve(null), 100))
+      );
+
+      render(<GamePlay sessionId="test-session-123" />);
+
+      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      expect(screen.getByText('Loading game session...')).toBeInTheDocument();
+    });
+
+    it('should show error when session not found', async () => {
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValueOnce(null);
+
+      render(<GamePlay sessionId="non-existent-session" />);
+
+      // Wait for loading to complete
+      await screen.findByText('Error');
+      expect(
+        screen.getByText('Game session not found. Please start a new game.')
+      ).toBeInTheDocument();
+    });
+
+    it('should show error when loading fails', async () => {
+      vi.mocked(gameSessionDB.loadGameSession).mockRejectedValueOnce(new Error('Database error'));
+
+      render(<GamePlay sessionId="failing-session" />);
+
+      // Wait for loading to complete
+      await screen.findByText('Error');
+      expect(
+        screen.getByText('Failed to load game session. Please try again.')
+      ).toBeInTheDocument();
+    });
+
+    it('should load game state successfully when valid sessionId provided', async () => {
+      const mockSession = {
+        id: 'loaded-session-123',
+        players: [
+          { id: '1', name: 'Loaded Player 1', score: 10 },
+          { id: '2', name: 'Loaded Player 2', score: 20 },
+        ],
+        currentTurn: {
+          profileId: 'profile-1',
+          activePlayerId: '1',
+          cluesRead: 3,
+          revealed: false,
+        },
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'active' as const,
+        category: 'Sports',
+      };
+
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValueOnce(mockSession);
+
+      render(<GamePlay sessionId="loaded-session-123" />);
+
+      // Wait for loading to complete and game to render
+      await screen.findByText('Game Play');
+
+      // Verify loaded state
+      expect(screen.getByText('Category: Sports')).toBeInTheDocument();
+
+      // Use getAllByText since player names appear twice (active player + scoreboard)
+      const player1Elements = screen.getAllByText('Loaded Player 1');
+      expect(player1Elements.length).toBeGreaterThanOrEqual(1);
+
+      const player2Elements = screen.getAllByText('Loaded Player 2');
+      expect(player2Elements.length).toBeGreaterThanOrEqual(1);
+
+      // Verify scores are displayed
+      expect(screen.getByText('10 pts')).toBeInTheDocument();
+      expect(screen.getByText('20 pts')).toBeInTheDocument();
     });
   });
 

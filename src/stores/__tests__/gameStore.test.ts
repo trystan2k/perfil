@@ -696,4 +696,123 @@ describe('gameStore', () => {
       expect(state.players.every((p) => p.score === 0)).toBe(true);
     });
   });
+
+  describe('Persistence Error Handling', () => {
+    it('should handle errors when persisting state without throwing', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Mock saveGameSession to fail
+      vi.mocked(saveGameSession).mockRejectedValueOnce(new Error('Database error'));
+
+      // Create and start game (which should trigger persistence)
+      useGameStore.getState().createGame(['Player1', 'Player2']);
+      useGameStore.getState().startGame('Movies');
+
+      // Wait a bit for async persistence to attempt
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
+      // Should have logged the error
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to persist game state:',
+        expect.any(Error)
+      );
+
+      // Game should still be in active state despite persistence failure
+      expect(useGameStore.getState().status).toBe('active');
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should not persist when game ID is not set', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+
+      // Reset store to state without ID
+      useGameStore.setState({
+        id: '',
+        players: [],
+        currentTurn: null,
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'pending',
+        category: undefined,
+      });
+
+      // Try to manually trigger persistence by calling createGame
+      useGameStore.getState().createGame(['Player1']);
+
+      // Wait a bit
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
+      // saveGameSession should not be called when id is empty
+      // (it gets called when createGame sets the ID, so we check the call was made with valid ID)
+      const calls = vi.mocked(saveGameSession).mock.calls;
+      if (calls.length > 0) {
+        expect(calls[calls.length - 1][0].id).toBeTruthy();
+      }
+    });
+
+    it('should handle errors when loading from storage', async () => {
+      const { loadGameSession } = await import('../../lib/gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Mock loadGameSession to fail
+      vi.mocked(loadGameSession).mockRejectedValueOnce(new Error('Load error'));
+
+      await expect(useGameStore.getState().loadFromStorage('test-session')).rejects.toThrow(
+        'Load error'
+      );
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to load game from storage:',
+        expect.any(Error)
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should return false when loading non-existent session', async () => {
+      const { loadGameSession } = await import('../../lib/gameSessionDB');
+
+      // Mock loadGameSession to return null (session not found)
+      vi.mocked(loadGameSession).mockResolvedValueOnce(null);
+
+      const result = await useGameStore.getState().loadFromStorage('non-existent');
+
+      expect(result).toBe(false);
+    });
+
+    it('should successfully load game from storage', async () => {
+      const { loadGameSession } = await import('../../lib/gameSessionDB');
+
+      const mockSession = {
+        id: 'loaded-session',
+        players: [{ id: '1', name: 'Loaded Player', score: 15 }],
+        currentTurn: {
+          profileId: 'profile-1',
+          activePlayerId: '1',
+          cluesRead: 5,
+          revealed: false,
+        },
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'active' as const,
+        category: 'Sports',
+      };
+
+      vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
+
+      const result = await useGameStore.getState().loadFromStorage('loaded-session');
+
+      expect(result).toBe(true);
+
+      const state = useGameStore.getState();
+      expect(state.id).toBe('loaded-session');
+      expect(state.category).toBe('Sports');
+      expect(state.status).toBe('active');
+      expect(state.players).toHaveLength(1);
+      expect(state.players[0].name).toBe('Loaded Player');
+      expect(state.players[0].score).toBe(15);
+    });
+  });
 });

@@ -232,5 +232,21 @@ describe('gameSessionDB', () => {
 
       expect(mockDB.createObjectStore).not.toHaveBeenCalled();
     });
+
+    it('should reuse existing dbPromise on subsequent calls', async () => {
+      const { openDB } = await import('idb');
+      const { saveGameSession } = await import('../gameSessionDB');
+
+      // First call should initialize dbPromise
+      await saveGameSession(mockGameState);
+      const firstCallCount = vi.mocked(openDB).mock.calls.length;
+
+      // Second call should reuse the existing dbPromise
+      await saveGameSession({ ...mockGameState, id: 'game-456' });
+      const secondCallCount = vi.mocked(openDB).mock.calls.length;
+
+      // openDB should only be called once (for the first call)
+      expect(secondCallCount).toBe(firstCallCount);
+    });
   });
 });

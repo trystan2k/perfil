@@ -257,7 +257,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       return true;
     } catch (error) {
       console.error('Failed to load game from storage:', error);
-      return false;
+      throw error;
     }
   },
 }));
