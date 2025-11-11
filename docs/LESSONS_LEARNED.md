@@ -101,3 +101,18 @@
   3. Refactoring is safe because tests don't depend on internal structure
   4. No unnecessary code shipped to users
   5. Better separation of concerns between production and test code
+
+2025-11-11 — ALWAYS COMMIT TASK STATUS UPDATES WITH IMPLEMENTATION
+
+- Mistake: Completing a task implementation and committing the code changes, but forgetting to commit the Task Master status updates (marking task/subtasks as "done") in the same session/branch.
+- Correct procedure: ALWAYS commit task status updates together with the implementation:
+  1. Complete the implementation work
+  2. Mark subtasks/task as "done" in Task Master
+  3. Create development logs
+  4. Commit ALL changes together (code + Task Master updates + logs) in a single commit or ensure all are committed before pushing
+  5. The feature branch should contain both the implementation AND the updated task status
+- This ensures:
+  1. Task tracking stays synchronized with code changes
+  2. Complete traceability in version control
+  3. No orphaned task updates left uncommitted
+  4. Clear history of what was done when
