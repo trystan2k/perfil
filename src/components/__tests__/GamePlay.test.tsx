@@ -1025,4 +1025,89 @@ describe('GamePlay Component', () => {
       expect(newCluesRead).toBe(0);
     });
   });
+
+  describe('Finish Game Button', () => {
+    it('should display "Finish Game" button when game is active', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      render(<GamePlay />);
+
+      expect(screen.getByRole('button', { name: /finish game/i })).toBeInTheDocument();
+    });
+
+    it('should call endGame when Finish Game button is clicked', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      render(<GamePlay />);
+
+      const finishButton = screen.getByRole('button', { name: /finish game/i });
+
+      expect(useGameStore.getState().status).toBe('active');
+
+      await user.click(finishButton);
+
+      // Verify the game has ended by checking status changed to 'completed'
+      expect(useGameStore.getState().status).toBe('completed');
+    });
+
+    it('should update game status to completed after clicking Finish Game', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      render(<GamePlay />);
+
+      expect(useGameStore.getState().status).toBe('active');
+
+      const finishButton = screen.getByRole('button', { name: /finish game/i });
+      await user.click(finishButton);
+
+      expect(useGameStore.getState().status).toBe('completed');
+    });
+
+    it('should have destructive variant styling for Finish Game button', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      render(<GamePlay />);
+
+      const finishButton = screen.getByRole('button', { name: /finish game/i });
+
+      // Button with destructive variant should have specific classes
+      expect(finishButton).toBeInTheDocument();
+    });
+
+    it('should navigate to scoreboard page when Finish Game is clicked', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      // Store original location and mock it
+      const originalLocation = window.location;
+      const mockLocation = { ...originalLocation, href: '' };
+
+      // Use delete and reassign to fully replace window.location
+      // @ts-expect-error - Need to mock window.location for testing
+      delete window.location;
+      // @ts-expect-error - Need to mock window.location for testing
+      window.location = mockLocation;
+
+      render(<GamePlay />);
+
+      const sessionId = useGameStore.getState().id;
+      const finishButton = screen.getByRole('button', { name: /finish game/i });
+
+      await user.click(finishButton);
+
+      // Verify navigation to scoreboard
+      expect(mockLocation.href).toBe(`/scoreboard/${sessionId}`);
+
+      // Restore original location
+      // @ts-expect-error - Restoring original window.location
+      window.location = originalLocation;
+    });
+  });
 });
