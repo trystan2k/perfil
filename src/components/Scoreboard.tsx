@@ -20,12 +20,24 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
   const rankedPlayers = useMemo<RankedPlayer[]>(() => {
     if (!gameSession?.players) return [];
 
-    // Sort players by score (descending) and assign ranks
+    // Sort players by score (descending) and assign ranks with ties
     const sorted = [...gameSession.players].sort((a, b) => b.score - a.score);
-    return sorted.map((player, index) => ({
-      ...player,
-      rank: index + 1,
-    }));
+
+    // Assign ranks with ties: players with the same score get the same rank
+    let currentRank = 1;
+    let prevScore: number | null = null;
+
+    return sorted.map((player, index) => {
+      if (prevScore === null || player.score !== prevScore) {
+        currentRank = index + 1;
+      }
+      prevScore = player.score;
+
+      return {
+        ...player,
+        rank: currentRank,
+      };
+    });
   }, [gameSession]);
 
   if (isLoading) {

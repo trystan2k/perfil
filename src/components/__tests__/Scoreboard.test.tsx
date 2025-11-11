@@ -135,21 +135,21 @@ describe('Scoreboard', () => {
 
     expect(dataRows).toHaveLength(4);
 
-    // Bob and Diana tied for first with 200 points
+    // Bob and Diana tied for first with 200 points (both rank 1)
     expect(dataRows[0]).toHaveTextContent('Bob');
     expect(dataRows[0]).toHaveTextContent('200');
     expect(dataRows[0]).toHaveTextContent('🥇');
 
     expect(dataRows[1]).toHaveTextContent('Diana');
     expect(dataRows[1]).toHaveTextContent('200');
-    expect(dataRows[1]).toHaveTextContent('🥈');
+    expect(dataRows[1]).toHaveTextContent('🥇'); // Same rank as Bob
 
-    // Alice third with 150
+    // Alice third with 150 (rank 3, skipping rank 2)
     expect(dataRows[2]).toHaveTextContent('Alice');
     expect(dataRows[2]).toHaveTextContent('150');
     expect(dataRows[2]).toHaveTextContent('🥉');
 
-    // Charlie fourth with 100
+    // Charlie fourth with 100 (rank 4)
     expect(dataRows[3]).toHaveTextContent('Charlie');
     expect(dataRows[3]).toHaveTextContent('100');
     expect(dataRows[3]).toHaveTextContent('4');

@@ -34,7 +34,7 @@ const TableFooter = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTable
   ({ className, ...props }, ref) => (
     <tfoot
       ref={ref}
-      className={cn('border-t bg-muted/50 font-medium [&>tr]:last:border-b-0', className)}
+      className={cn('border-t bg-muted/50 font-medium [&>tr:last-child]:border-b-0', className)}
       {...props}
     />
   )
