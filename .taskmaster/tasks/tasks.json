@@ -312,8 +312,64 @@
           "4",
           "5"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create GamePlay.tsx Component and Connect to Zustand Store",
+            "description": "Set up the initial `GamePlay.tsx` file as a React island and establish a connection to the Zustand game store to subscribe to state changes, specifically focusing on the `currentTurn` state.",
+            "dependencies": [],
+            "details": "Create the file `src/components/GamePlay.tsx`. Import the `useGameStore` hook from the store file. Inside the component, call the hook to select and subscribe to the `currentTurn` object from the game state.",
+            "status": "done",
+            "testStrategy": "Render the component using React Testing Library with a mocked Zustand store provider. Verify that the component mounts without errors and can access an initial mock state."
+          },
+          {
+            "id": 2,
+            "title": "Display Active Player and Turn Information",
+            "description": "Using the state from the connected Zustand store, render the name of the currently active player and other relevant turn information.",
+            "dependencies": [
+              1
+            ],
+            "details": "Within the `GamePlay.tsx` component, access the `players` array and the `currentTurn.playerId` from the store state. Find the active player's object by matching the ID and render their name in a prominent UI element like an `<h2>` tag.",
+            "status": "done",
+            "testStrategy": "Unit test with a mocked store state. Provide a sample `players` array and a `currentTurn` object and assert that the correct player's name is rendered in the component's output."
+          },
+          {
+            "id": 3,
+            "title": "Render the Current Clue Number and Text",
+            "description": "Display the clue for the current turn, showing its number (e.g., \"Clue 1/5\") and the clue's text content based on the `cluesRead` state.",
+            "dependencies": [
+              1
+            ],
+            "details": "Fetch the current card and `currentTurn.cluesRead` from the store. Display the text of the clue at the index `cluesRead - 1` from the card's clues array. Also, render the progress, for example: `Clue ${currentTurn.cluesRead} of 5`.",
+            "status": "done",
+            "testStrategy": "Mock the store with a sample game card and a `currentTurn` state where `cluesRead` is 1. Verify that the component correctly renders the text of the first clue."
+          },
+          {
+            "id": 4,
+            "title": "Implement 'Show Next Clue' Button for MC",
+            "description": "Add a button labeled 'Show Next Clue'. When clicked, it should trigger the `nextClue` action in the Zustand store, causing the component to re-render with the next clue.",
+            "dependencies": [
+              1,
+              3
+            ],
+            "details": "Create a `<button>` element in the JSX. Add an `onClick` handler that calls the `nextClue` action, which should be destructured from the `useGameStore` hook. Ensure this button is only visible or enabled for the Master of Ceremonies (MC) role.",
+            "status": "done",
+            "testStrategy": "Using React Testing Library, find the button and simulate a click event. Mock the `nextClue` store action and assert that it was called exactly once after the click."
+          },
+          {
+            "id": 5,
+            "title": "Implement 'Pass' Button and Action",
+            "description": "Add a 'Pass' button that allows the MC to skip the current player's turn. Clicking this button should trigger the `passTurn` action in the Zustand store.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create a `<button>` element for passing the turn. Its `onClick` handler should call the `passTurn` action from the `useGameStore` hook. The component will then re-render to show the next player's turn based on the updated store state.",
+            "status": "done",
+            "testStrategy": "Simulate a click on the 'Pass' button using React Testing Library. Verify that the mocked `passTurn` action from the store is called, and check that the component subsequently displays the next player's name."
+          }
+        ]
       },
       {
         "id": 7,
@@ -639,7 +695,7 @@
       ],
       "created": "2025-11-10T23:20:34.591Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-10T23:28:54.216Z"
+      "updated": "2025-11-11T07:01:42.700Z"
     }
   }
 }
