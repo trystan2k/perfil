@@ -10,6 +10,7 @@ export function GamePlay() {
   const totalCluesPerProfile = useGameStore((state) => state.totalCluesPerProfile);
   const nextClue = useGameStore((state) => state.nextClue);
   const passTurn = useGameStore((state) => state.passTurn);
+  const awardPoints = useGameStore((state) => state.awardPoints);
 
   // Early return if no active game
   if (status !== 'active' || !currentTurn) {
@@ -36,6 +37,9 @@ export function GamePlay() {
 
   // Check if max clues reached
   const isMaxCluesReached = currentTurn.cluesRead >= totalCluesPerProfile;
+
+  // Check if points can be awarded (at least one clue has been read)
+  const canAwardPoints = currentTurn.cluesRead > 0;
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -79,6 +83,30 @@ export function GamePlay() {
             <Button onClick={passTurn} variant="outline">
               Pass
             </Button>
+          </div>
+
+          {/* Player Scoreboard */}
+          <div className="space-y-3">
+            <h4 className="text-lg font-semibold text-center">Players - Tap to Award Points</h4>
+            <div className="grid gap-2">
+              {players.map((player) => (
+                <Button
+                  key={player.id}
+                  onClick={() => awardPoints(player.id)}
+                  disabled={!canAwardPoints}
+                  variant={player.id === currentTurn.activePlayerId ? 'default' : 'outline'}
+                  className="w-full h-auto py-3 flex justify-between items-center"
+                >
+                  <span className="font-medium">{player.name}</span>
+                  <span className="text-lg font-bold">{player.score} pts</span>
+                </Button>
+              ))}
+            </div>
+            {!canAwardPoints && (
+              <p className="text-sm text-center text-muted-foreground">
+                Show at least one clue to award points
+              </p>
+            )}
           </div>
         </CardContent>
       </Card>

@@ -84,7 +84,11 @@ describe('GamePlay Component', () => {
 
       expect(activePlayer).toBeDefined();
       if (activePlayer) {
-        expect(screen.getByText(activePlayer.name)).toBeInTheDocument();
+        // Check for active player name in the active player section (has text-3xl class)
+        const activePlayerElement = screen.getByText(activePlayer.name, {
+          selector: '.text-3xl',
+        });
+        expect(activePlayerElement).toBeInTheDocument();
       }
       expect(screen.getByText('Current Player')).toBeInTheDocument();
     });
@@ -123,7 +127,10 @@ describe('GamePlay Component', () => {
 
       expect(initialPlayer).toBeDefined();
       if (initialPlayer) {
-        expect(screen.getByText(initialPlayer.name)).toBeInTheDocument();
+        const initialPlayerElement = screen.getByText(initialPlayer.name, {
+          selector: '.text-3xl',
+        });
+        expect(initialPlayerElement).toBeInTheDocument();
       }
 
       // Pass turn
@@ -139,7 +146,8 @@ describe('GamePlay Component', () => {
       expect(newPlayer).toBeDefined();
       if (newPlayer && initialPlayer) {
         expect(newPlayer.id).not.toBe(initialPlayer.id);
-        expect(screen.getByText(newPlayer.name)).toBeInTheDocument();
+        const newPlayerElement = screen.getByText(newPlayer.name, { selector: '.text-3xl' });
+        expect(newPlayerElement).toBeInTheDocument();
       }
     });
   });
@@ -345,7 +353,10 @@ describe('GamePlay Component', () => {
 
       expect(initialPlayer).toBeDefined();
       if (initialPlayer) {
-        expect(screen.getByText(initialPlayer.name)).toBeInTheDocument();
+        const initialPlayerElement = screen.getByText(initialPlayer.name, {
+          selector: '.text-3xl',
+        });
+        expect(initialPlayerElement).toBeInTheDocument();
       }
 
       // Click Pass button
@@ -360,7 +371,8 @@ describe('GamePlay Component', () => {
       expect(newPlayer).toBeDefined();
       if (newPlayer && initialPlayer) {
         expect(newPlayer.id).not.toBe(initialPlayer.id);
-        expect(screen.getByText(newPlayer.name)).toBeInTheDocument();
+        const newPlayerElement = screen.getByText(newPlayer.name, { selector: '.text-3xl' });
+        expect(newPlayerElement).toBeInTheDocument();
       }
     });
 
@@ -443,6 +455,308 @@ describe('GamePlay Component', () => {
 
       // Clues read should remain the same
       expect(cluesReadAfter).toBe(3);
+    });
+  });
+
+  describe('Player Scoreboard and Scoring Interaction', () => {
+    it('should render player scoreboard with header', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      render(<GamePlay />);
+
+      expect(screen.getByText('Players - Tap to Award Points')).toBeInTheDocument();
+    });
+
+    it('should display all players with their names and scores', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+
+      // Use getAllByText to find all instances of player names and scores
+      for (const player of players) {
+        const playerNameElements = screen.getAllByText(player.name);
+        expect(playerNameElements.length).toBeGreaterThanOrEqual(1);
+      }
+
+      // Check that there are exactly 3 instances of "0 pts" (one for each player)
+      const scoreElements = screen.getAllByText(/\d+ pts/);
+      expect(scoreElements).toHaveLength(3);
+    });
+
+    it('should disable all player buttons when no clues have been read', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+
+      for (const player of players) {
+        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        expect(button).toBeDisabled();
+      }
+    });
+
+    it('should show helper text when points cannot be awarded', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      render(<GamePlay />);
+
+      expect(screen.getByText('Show at least one clue to award points')).toBeInTheDocument();
+    });
+
+    it('should enable player buttons after showing first clue', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+
+      for (const player of players) {
+        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        expect(button).not.toBeDisabled();
+      }
+    });
+
+    it('should hide helper text when points can be awarded', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      expect(screen.queryByText('Show at least one clue to award points')).not.toBeInTheDocument();
+    });
+
+    it('should call awardPoints with correct player ID when player button is clicked', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+      const playerToClick = players[1]; // Click second player
+
+      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+
+      await user.click(button);
+
+      // Verify player received points (20 - (1 - 1) = 20 points for first clue)
+      const updatedPlayers = useGameStore.getState().players;
+      const updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
+
+      expect(updatedPlayer?.score).toBe(20);
+    });
+
+    it('should update displayed score after awarding points', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue();
+
+      const { rerender } = render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+      const playerToClick = players[0];
+
+      // Initially all players have 0 pts
+      const playerNameElements = screen.getAllByText(playerToClick.name);
+      expect(playerNameElements.length).toBeGreaterThanOrEqual(1);
+
+      const initialScoreElements = screen.getAllByText(/\d+ pts/);
+      expect(initialScoreElements).toHaveLength(3);
+
+      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      await user.click(button);
+
+      rerender(<GamePlay />);
+
+      // Should now show 20 pts for one player
+      expect(screen.getByText('20 pts')).toBeInTheDocument();
+    });
+
+    it('should award correct points based on cluesRead (first clue = 20 pts)', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue(); // cluesRead = 1
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+      const playerToClick = players[0];
+      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+
+      await user.click(button);
+
+      const updatedPlayers = useGameStore.getState().players;
+      const updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
+
+      // 20 - (1 - 1) = 20
+      expect(updatedPlayer?.score).toBe(20);
+    });
+
+    it('should award correct points based on cluesRead (fifth clue = 16 pts)', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+
+      // Show 5 clues
+      for (let i = 0; i < 5; i++) {
+        store.nextClue();
+      }
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+      const playerToClick = players[1];
+      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+
+      await user.click(button);
+
+      const updatedPlayers = useGameStore.getState().players;
+      const updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
+
+      // 20 - (5 - 1) = 16
+      expect(updatedPlayer?.score).toBe(16);
+    });
+
+    it('should accumulate points for multiple correct answers by same player', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue(); // First round
+
+      const { rerender } = render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+      const playerToClick = players[0];
+
+      // First correct answer
+      let button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      await user.click(button);
+
+      rerender(<GamePlay />);
+
+      // Verify first points awarded (20 pts)
+      let updatedPlayers = useGameStore.getState().players;
+      let updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
+      expect(updatedPlayer?.score).toBe(20);
+
+      // Second round - show 3 clues
+      act(() => {
+        for (let i = 0; i < 3; i++) {
+          store.nextClue();
+        }
+      });
+
+      rerender(<GamePlay />);
+
+      // Second correct answer
+      button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      await user.click(button);
+
+      updatedPlayers = useGameStore.getState().players;
+      updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
+
+      // 20 + (20 - (3 - 1)) = 20 + 18 = 38
+      expect(updatedPlayer?.score).toBe(38);
+    });
+
+    it('should highlight active player button with default variant', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const state = useGameStore.getState();
+      const activePlayer = state.players.find((p) => p.id === state.currentTurn?.activePlayerId);
+
+      expect(activePlayer).toBeDefined();
+      if (activePlayer) {
+        const activeButton = screen.getByRole('button', { name: new RegExp(activePlayer.name) });
+        // Default variant buttons don't have the 'outline' class
+        expect(activeButton).not.toHaveClass('outline');
+      }
+    });
+
+    it('should display non-active players with outline variant', () => {
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const state = useGameStore.getState();
+      const nonActivePlayers = state.players.filter(
+        (p) => p.id !== state.currentTurn?.activePlayerId
+      );
+
+      for (const player of nonActivePlayers) {
+        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        // Outline variant buttons have the class
+        expect(button).toHaveClass('border-input');
+      }
+    });
+
+    it('should allow awarding points to any player, not just active player', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+      const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+
+      // Find a non-active player
+      const nonActivePlayer = players.find((p) => p.id !== activePlayerId);
+
+      expect(nonActivePlayer).toBeDefined();
+      if (nonActivePlayer) {
+        const button = screen.getByRole('button', { name: new RegExp(nonActivePlayer.name) });
+
+        await user.click(button);
+
+        const updatedPlayers = useGameStore.getState().players;
+        const updatedPlayer = updatedPlayers.find((p) => p.id === nonActivePlayer.id);
+
+        expect(updatedPlayer?.score).toBe(20);
+      }
+    });
+
+    it('should start new turn after awarding points', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame('Movies');
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const initialPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+      const players = useGameStore.getState().players;
+      const playerToClick = players[0];
+
+      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      await user.click(button);
+
+      const newPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+      const newCluesRead = useGameStore.getState().currentTurn?.cluesRead;
+
+      // Should advance to next player and reset clues
+      expect(newPlayerId).not.toBe(initialPlayerId);
+      expect(newCluesRead).toBe(0);
     });
   });
 });
