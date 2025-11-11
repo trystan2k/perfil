@@ -45,6 +45,9 @@ const PERSIST_DEBOUNCE_MS = 300;
 /**
  * Persist current state to IndexedDB with debouncing
  * Uses session-specific timers to handle concurrent sessions correctly
+ *
+ * Note: This function is intentionally called without await (fire-and-forget)
+ * to avoid blocking state updates. Errors are logged but don't propagate.
  */
 async function persistState(state: GameState): Promise<void> {
   // Skip persistence during rehydration or if there's no active game session
@@ -87,7 +90,18 @@ async function persistState(state: GameState): Promise<void> {
 
 /**
  * Cancel all pending persistence operations
- * Should be called on app unmount or when cleanup is needed
+ *
+ * Use cases:
+ * - Call in test cleanup (afterEach/afterAll) to prevent timer leaks
+ * - Call before unloading the app to ensure graceful shutdown
+ * - Call when clearing all game data to cancel in-flight operations
+ *
+ * Example in tests:
+ * ```typescript
+ * afterEach(() => {
+ *   cancelPendingPersistence();
+ * });
+ * ```
  */
 export function cancelPendingPersistence(): void {
   for (const timer of persistTimers.values()) {
@@ -292,7 +306,8 @@ export const useGameStore = create<GameState>((set, get) => ({
         category: loadedState.category,
       });
 
-      // Remove session ID from rehydrating set after rehydration
+      // Remove session ID from rehydrating set immediately after set() completes
+      // This must be synchronous to prevent race conditions with persistState
       rehydratingSessionIds.delete(sessionId);
 
       return true;
