@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
@@ -1089,25 +1089,29 @@ describe('GamePlay Component', () => {
       const originalLocation = window.location;
       const mockLocation = { ...originalLocation, href: '' };
 
-      // Use delete and reassign to fully replace window.location
-      // @ts-expect-error - Need to mock window.location for testing
-      delete window.location;
-      // @ts-expect-error - Need to mock window.location for testing
-      window.location = mockLocation;
+      try {
+        // Use delete and reassign to fully replace window.location
+        // @ts-expect-error - Need to mock window.location for testing
+        delete window.location;
+        // @ts-expect-error - Need to mock window.location for testing
+        window.location = mockLocation;
 
-      render(<GamePlay />);
+        render(<GamePlay />);
 
-      const sessionId = useGameStore.getState().id;
-      const finishButton = screen.getByRole('button', { name: /finish game/i });
+        const finishButton = screen.getByRole('button', { name: /finish game/i });
+        const sessionId = useGameStore.getState().id;
 
-      await user.click(finishButton);
+        await user.click(finishButton);
 
-      // Verify navigation to scoreboard
-      expect(mockLocation.href).toBe(`/scoreboard/${sessionId}`);
-
-      // Restore original location
-      // @ts-expect-error - Restoring original window.location
-      window.location = originalLocation;
+        // Wait a bit for async handleFinishGame to complete
+        await waitFor(() => {
+          expect(mockLocation.href).toBe(`/scoreboard/${sessionId}`);
+        });
+      } finally {
+        // Restore original location (always executes)
+        // @ts-expect-error - Restoring original window.location
+        window.location = originalLocation;
+      }
     });
   });
 });

@@ -134,8 +134,10 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const canAwardPoints = currentTurn.cluesRead > 0;
 
   // Handle finishing the game and navigating to scoreboard
-  const handleFinishGame = () => {
+  const handleFinishGame = async () => {
     endGame();
+    // Small delay to allow persistence to start
+    await new Promise((resolve) => setTimeout(resolve, 50));
     // Navigate to scoreboard with the current session ID
     if (id) {
       window.location.href = `/scoreboard/${id}`;

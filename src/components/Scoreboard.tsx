@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import { loadGameSession, type PersistedGameState } from '@/lib/gameSessionDB';
+import { useMemo } from 'react';
+import { useGameSession } from '@/hooks/useGameSession';
 import type { Player } from '@/types/models';
+import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 
@@ -13,52 +14,21 @@ interface RankedPlayer extends Player {
 }
 
 export function Scoreboard({ sessionId }: ScoreboardProps) {
-  const [gameSession, setGameSession] = useState<PersistedGameState | null>(null);
-  const [rankedPlayers, setRankedPlayers] = useState<RankedPlayer[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: gameSession, isLoading, error, refetch } = useGameSession(sessionId);
 
-  useEffect(() => {
-    async function fetchGameSession() {
-      if (!sessionId) {
-        setError('No session ID provided');
-        setLoading(false);
-        return;
-      }
+  // Compute ranked players from game session data
+  const rankedPlayers = useMemo<RankedPlayer[]>(() => {
+    if (!gameSession?.players) return [];
 
-      try {
-        setLoading(true);
-        const session = await loadGameSession(sessionId);
+    // Sort players by score (descending) and assign ranks
+    const sorted = [...gameSession.players].sort((a, b) => b.score - a.score);
+    return sorted.map((player, index) => ({
+      ...player,
+      rank: index + 1,
+    }));
+  }, [gameSession]);
 
-        if (!session) {
-          setError('Game session not found');
-          setLoading(false);
-          return;
-        }
-
-        setGameSession(session);
-
-        // Sort players by score (descending) and assign ranks
-        const sorted = [...session.players].sort((a, b) => b.score - a.score);
-        const ranked = sorted.map((player, index) => ({
-          ...player,
-          rank: index + 1,
-        }));
-
-        setRankedPlayers(ranked);
-        setError(null);
-      } catch (err) {
-        console.error('Error loading game session:', err);
-        setError('Failed to load game session');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchGameSession();
-  }, [sessionId]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="text-center">
@@ -69,12 +39,41 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
   }
 
   if (error) {
+    const errorMessage = error.message || 'An unknown error occurred';
+    const isUserError =
+      errorMessage === 'No session ID provided' || errorMessage === 'Game session not found';
+
     return (
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4 text-red-600">Error</h1>
-          <p className="text-lg text-muted-foreground">{error}</p>
-        </div>
+        <Card className="w-full max-w-md p-6">
+          <div className="text-center">
+            <h1
+              className={`text-4xl font-bold mb-4 ${isUserError ? 'text-yellow-600' : 'text-red-600'}`}
+            >
+              {isUserError ? 'Not Found' : 'Error'}
+            </h1>
+            <p className="text-lg text-muted-foreground mb-4">{errorMessage}</p>
+            {!isUserError && (
+              <Button onClick={() => refetch()} variant="default">
+                Retry
+              </Button>
+            )}
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
+  // Handle edge case: empty players array
+  if (rankedPlayers.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Card className="w-full max-w-md p-6">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-2">No Players</h1>
+            <p className="text-muted-foreground">This game session has no players.</p>
+          </div>
+        </Card>
       </div>
     );
   }

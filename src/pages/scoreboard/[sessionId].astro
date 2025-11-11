@@ -3,14 +3,16 @@ import { QueryProvider } from '../../components/QueryProvider';
 import { Scoreboard as ScoreboardComponent } from '../../components/Scoreboard';
 import Layout from '../../layouts/Layout.astro';
 
-// For static build, provide a sample session path
-// In production, this would be dynamically generated or use SSR
-export function getStaticPaths() {
-  return [{ params: { sessionId: 'sample-session' } }];
-}
+// Enable SSR for this dynamic route
+export const prerender = false;
 
 // Get the sessionId from the URL params
 const { sessionId } = Astro.params;
+
+// Validate sessionId exists
+if (!sessionId) {
+  return Astro.redirect('/404');
+}
 ---
 
 <Layout title="Scoreboard - Perfil Game">

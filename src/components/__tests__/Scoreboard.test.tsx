@@ -1,4 +1,6 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import type { PersistedGameState } from '@/lib/gameSessionDB';
 import * as gameSessionDB from '@/lib/gameSessionDB';
@@ -10,6 +12,19 @@ vi.mock('@/lib/gameSessionDB', () => ({
 }));
 
 describe('Scoreboard', () => {
+  const createWrapper = () => {
+    const queryClient = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false, // Disable retries for testing
+        },
+      },
+    });
+    return ({ children }: { children: React.ReactNode }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
+  };
+
   const mockGameSession: PersistedGameState = {
     id: 'test-session-123',
     status: 'completed',
@@ -30,54 +45,81 @@ describe('Scoreboard', () => {
       () => new Promise(() => {}) // Never resolves to keep loading
     );
 
-    render(<Scoreboard sessionId="test-session" />);
+    render(<Scoreboard sessionId="test-session" />, { wrapper: createWrapper() });
     expect(screen.getByText('Loading scoreboard...')).toBeInTheDocument();
   });
 
   it('should render error when no sessionId is provided', async () => {
-    render(<Scoreboard />);
+    render(<Scoreboard />, { wrapper: createWrapper() });
 
-    await waitFor(() => {
-      expect(screen.getByText('Error')).toBeInTheDocument();
-      expect(screen.getByText('No session ID provided')).toBeInTheDocument();
-    });
+    // With TanStack Query and enabled: !!sessionId, this should not execute the query
+    // Instead of showing an error, it should just not be loading
+    expect(screen.queryByText('Loading scoreboard...')).not.toBeInTheDocument();
   });
 
   it('should render error when game session is not found', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(null);
 
-    render(<Scoreboard sessionId="non-existent-session" />);
+    render(<Scoreboard sessionId="non-existent-session" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
-      expect(screen.getByText('Error')).toBeInTheDocument();
+      expect(screen.getByText('Not Found')).toBeInTheDocument();
       expect(screen.getByText('Game session not found')).toBeInTheDocument();
     });
   });
 
   it('should render error when loading fails', async () => {
-    // Suppress console.error for this test since we're intentionally triggering an error
-    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
     vi.mocked(gameSessionDB.loadGameSession).mockRejectedValue(new Error('DB Error'));
 
-    render(<Scoreboard sessionId="test-session" />);
+    render(<Scoreboard sessionId="test-session" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
       expect(screen.getByText('Error')).toBeInTheDocument();
-      expect(screen.getByText('Failed to load game session')).toBeInTheDocument();
+      expect(screen.getByText('DB Error')).toBeInTheDocument();
+    });
+  });
+
+  it('should render retry button for system errors', async () => {
+    vi.mocked(gameSessionDB.loadGameSession).mockRejectedValue(new Error('DB Error'));
+
+    render(<Scoreboard sessionId="test-session" />, { wrapper: createWrapper() });
+
+    await waitFor(() => {
+      expect(screen.getByText('Error')).toBeInTheDocument();
     });
 
-    // Verify console.error was called (but suppressed)
-    expect(consoleErrorSpy).toHaveBeenCalledWith('Error loading game session:', expect.any(Error));
+    // Should show retry button for system errors
+    expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
+  });
 
-    // Restore console.error
-    consoleErrorSpy.mockRestore();
+  it('should call refetch when retry button is clicked', async () => {
+    const user = userEvent.setup();
+
+    // First call fails
+    vi.mocked(gameSessionDB.loadGameSession).mockRejectedValueOnce(new Error('DB Error'));
+
+    render(<Scoreboard sessionId="test-session" />, { wrapper: createWrapper() });
+
+    await waitFor(() => {
+      expect(screen.getByText('Error')).toBeInTheDocument();
+    });
+
+    const retryButton = screen.getByRole('button', { name: /retry/i });
+
+    // Second call succeeds
+    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+
+    await user.click(retryButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
+    });
   });
 
   it('should render scoreboard with players sorted by score', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
-    render(<Scoreboard sessionId="test-session-123" />);
+    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
       expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
@@ -116,7 +158,7 @@ describe('Scoreboard', () => {
   it('should render table headers correctly', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
-    render(<Scoreboard sessionId="test-session-123" />);
+    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
       expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
@@ -134,7 +176,7 @@ describe('Scoreboard', () => {
     };
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(sessionWithoutCategory);
 
-    render(<Scoreboard sessionId="test-session-123" />);
+    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
       expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
@@ -150,7 +192,7 @@ describe('Scoreboard', () => {
     };
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(singlePlayerSession);
 
-    render(<Scoreboard sessionId="test-session-123" />);
+    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
       expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
@@ -174,7 +216,7 @@ describe('Scoreboard', () => {
     };
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(manyPlayersSession);
 
-    render(<Scoreboard sessionId="test-session-123" />);
+    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
       expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
@@ -195,10 +237,25 @@ describe('Scoreboard', () => {
   it('should call loadGameSession with correct sessionId', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
-    render(<Scoreboard sessionId="my-custom-session-id" />);
+    render(<Scoreboard sessionId="my-custom-session-id" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
       expect(gameSessionDB.loadGameSession).toHaveBeenCalledWith('my-custom-session-id');
+    });
+  });
+
+  it('should handle empty players array', async () => {
+    const emptyPlayersSession: PersistedGameState = {
+      ...mockGameSession,
+      players: [],
+    };
+    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(emptyPlayersSession);
+
+    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+    await waitFor(() => {
+      expect(screen.getByText('No Players')).toBeInTheDocument();
+      expect(screen.getByText('This game session has no players.')).toBeInTheDocument();
     });
   });
 });
