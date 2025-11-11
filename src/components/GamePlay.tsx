@@ -20,6 +20,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const nextClue = useGameStore((state) => state.nextClue);
   const passTurn = useGameStore((state) => state.passTurn);
   const awardPoints = useGameStore((state) => state.awardPoints);
+  const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
 
   // Attempt to load game from storage on mount
@@ -132,6 +133,16 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   // Check if points can be awarded (at least one clue has been read)
   const canAwardPoints = currentTurn.cluesRead > 0;
 
+  // Handle finishing the game and navigating to scoreboard
+  const handleFinishGame = async () => {
+    // Await endGame to ensure state is persisted before navigation
+    await endGame();
+    // Navigate to scoreboard with the current session ID
+    if (id) {
+      window.location.href = `/scoreboard/${id}`;
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-full max-w-2xl">
@@ -198,6 +209,13 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 Show at least one clue to award points
               </p>
             )}
+          </div>
+
+          {/* Finish Game Button */}
+          <div className="flex justify-center pt-4 border-t">
+            <Button onClick={handleFinishGame} variant="destructive">
+              Finish Game
+            </Button>
           </div>
         </CardContent>
       </Card>

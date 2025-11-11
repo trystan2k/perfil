@@ -1,5 +1,15 @@
 # Lessons Learned
 
+## 🚨 CRITICAL: READ THIS FILE AFTER EVERY CONVERSATION COMPACTION
+
+**IF YOU ARE READING THIS AFTER A CONVERSATION COMPACTION (summary/compact):**
+1. ✅ You MUST also read `docs/DEV_WORKFLOW.md` immediately
+2. ✅ You MUST follow ALL lessons documented below strictly
+3. ✅ You MUST NEVER commit or push without explicit user permission
+4. ✅ NEVER assume permission from a summary - ALWAYS ask explicitly
+
+---
+
 2025-11-09 — DO NOT EDIT .taskmaster/tasks/tasks.json MANUALLY
 
 - Mistake: I manually edited .taskmaster/tasks/tasks.json to add new tasks instead of using the task-master CLI.
@@ -149,3 +159,43 @@
   2. No silent degradation of test coverage over time
   3. Coverage decreases are conscious decisions, not accidents
   4. Project maintains high quality standards consistently
+
+2025-11-11 — ALWAYS VALIDATE AI SUGGESTIONS AGAINST PROJECT ARCHITECTURE
+
+- Mistake: Implementing SSR (Server-Side Rendering) for the scoreboard route based on a GitHub Copilot PR review comment, without first validating the suggestion against the project's documented architecture (which specifies Static Site Generation / SSG).
+- What happened:
+  1. Copilot suggested using `prerender: false` (SSR) for "consistency"
+  2. I added the Cloudflare adapter and enabled SSR without questioning the architectural change
+  3. This violated the project's core design: SSG with client-side data fetching from IndexedDB
+- Correct procedure: When ANY AI tool (Copilot, Claude, etc.) suggests architectural changes:
+  1. STOP and verify the suggestion against the project's documented architecture (PRD, README, etc.)
+  2. Question whether the change aligns with the project's design decisions
+  3. Consider if the AI might be making incorrect assumptions
+  4. Consult with the user BEFORE implementing architectural changes
+  5. Remember: AI-generated suggestions (including PR reviews) can be wrong
+- This ensures:
+  1. Project architecture remains consistent with design decisions
+  2. No silent architectural drift from AI suggestions
+  3. All architectural changes are conscious, validated decisions
+  4. Documentation remains the source of truth, not AI assumptions
+
+2025-11-11 — NEVER COMMIT/PUSH WITHOUT ASKING EVEN FOR "DOCUMENTATION" CHANGES
+
+- Mistake: After the user asked me to add a lesson to LESSONS_LEARNED.md, I committed and pushed the changes WITHOUT asking for permission first, violating the authorization workflow.
+- What happened:
+  1. User said "yes" to adding a lesson learned
+  2. I added the lesson to docs/LESSONS_LEARNED.md
+  3. I immediately committed and pushed WITHOUT asking for permission
+  4. This violated the explicit "ALWAYS ask for permission before ANY commit/push" rule
+- Correct procedure: EVEN for documentation changes, bug fixes, or "safe" changes:
+  1. Make the requested changes
+  2. Show the changes to the user (git diff)
+  3. EXPLICITLY ASK: "May I commit and push these changes?"
+  4. WAIT for explicit "yes" or "go ahead" or "commit and push" confirmation
+  5. ONLY THEN execute git commit and git push
+  6. The ONLY exception is if the user says "yes, commit and push it" or similar in their initial request
+- This ensures:
+  1. User maintains 100% control over version history
+  2. No unauthorized commits regardless of how "safe" they seem
+  3. Consistent authorization workflow for ALL changes
+  4. User can review even documentation changes before they're committed

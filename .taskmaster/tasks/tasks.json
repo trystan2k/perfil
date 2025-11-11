@@ -494,8 +494,62 @@
         "dependencies": [
           "8"
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create `endGame` Action in Zustand Store",
+            "description": "Implement the `endGame` action in the game's Zustand store. This action will update the game state to indicate that the game has concluded, for example, by setting a `gameStatus` property to 'finished'.",
+            "dependencies": [],
+            "details": "In the primary game store file (e.g., `src/store/gameStore.ts`), add an `endGame` function to the store's actions. This function should modify the state to set a property like `gameStatus: 'finished'`. This status will be used by UI components to conditionally render different views.",
+            "status": "done",
+            "testStrategy": "Write a unit test for the Zustand store using Vitest. Call the `endGame` action and assert that the `gameStatus` in the state is correctly updated to 'finished'."
+          },
+          {
+            "id": 2,
+            "title": "Add 'Finish Game' Button to MC Game View",
+            "description": "Integrate a 'Finish Game' button into the main game interface, visible only to the Master of Ceremonies (MC). This button will trigger the game-ending logic.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the `GamePlay.tsx` component, add a new `Button` component from `shadcn/ui`. This button should be conditionally rendered based on the user's role (isMC). The button's `onClick` handler should call the `endGame` action from the Zustand store.",
+            "status": "done",
+            "testStrategy": "Using React Testing Library, render the `GamePlay.tsx` component with a mock store where the user is the MC. Find the 'Finish Game' button, simulate a click, and verify that the mocked `endGame` store action was called."
+          },
+          {
+            "id": 3,
+            "title": "Create Scoreboard Astro Page and Component Structure",
+            "description": "Create a new Astro page at `src/pages/scoreboard.astro` and a corresponding React component `Scoreboard.tsx` to display the final game results.",
+            "dependencies": [],
+            "details": "Create the file `src/pages/scoreboard.astro`. Inside this file, import and render a new React island component, `<Scoreboard client:load />`. Also, create the initial `Scoreboard.tsx` file in `src/components/`, which will serve as the container for the scoreboard UI.",
+            "status": "in-progress",
+            "testStrategy": "Use `@astrojs/testing` to verify that the `/scoreboard` route renders successfully without errors. The initial test can just check for a placeholder heading to confirm the page and component are linked correctly."
+          },
+          {
+            "id": 4,
+            "title": "Implement Scoreboard Data Fetching and Rendering",
+            "description": "Develop the `Scoreboard.tsx` component to fetch the player list from the Zustand store, sort players by their final score in descending order, and display the ranked list using a table.",
+            "dependencies": [
+              3
+            ],
+            "details": "In `Scoreboard.tsx`, use the Zustand store hook to subscribe to the `players` array. Implement a memoized sorting function using `useMemo` to sort the players by `score` descending. Use the `Table`, `TableHeader`, `TableRow`, `TableHead`, `TableBody`, and `TableCell` components from `shadcn/ui` to render the ranked list.",
+            "status": "pending",
+            "testStrategy": "Use React Testing Library to test the `Scoreboard.tsx` component. Provide a mock Zustand store with an unsorted list of players. Verify that the component renders a table and that the player rows appear in the correct, sorted order based on score."
+          },
+          {
+            "id": 5,
+            "title": "Implement Navigation to Scoreboard on Game End",
+            "description": "Add logic to the main game view to automatically redirect the user to the `/scoreboard` page when the game's status changes to 'finished' in the Zustand store.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "In the `GamePlay.tsx` component, use a `useEffect` hook that subscribes to the `gameStatus` from the Zustand store. When `gameStatus` changes to 'finished', use client-side navigation (e.g., `window.location.href = '/scoreboard'`) to redirect the user to the scoreboard page.",
+            "status": "pending",
+            "testStrategy": "In the `GamePlay.tsx` test suite, use a mock store. Simulate the state changing so that `gameStatus` becomes 'finished'. Verify that the navigation logic (e.g., `window.location.href` assignment) is triggered. This may require mocking `window.location`."
+          }
+        ]
       },
       {
         "id": 11,
@@ -768,7 +822,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-11T15:43:46.544Z"
+      "updated": "2025-11-11T21:58:07.960Z"
     }
   }
 }
