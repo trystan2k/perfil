@@ -727,29 +727,27 @@ describe('gameStore', () => {
     it('should not persist when game ID is not set', async () => {
       const { saveGameSession } = await import('../../lib/gameSessionDB');
 
-      // Reset store to state without ID
+      // Create a game first (this will cause persist with valid ID)
+      useGameStore.getState().createGame(['Player1', 'Player2']);
+
+      // Clear mock calls from the createGame
+      vi.mocked(saveGameSession).mockClear();
+
+      // Now manually clear the ID but keep other state (simulating edge case)
+      // This would trigger persistState but it should return early
+      const currentState = useGameStore.getState();
       useGameStore.setState({
+        ...currentState,
         id: '',
-        players: [],
-        currentTurn: null,
-        remainingProfiles: [],
-        totalCluesPerProfile: 20,
-        status: 'pending',
-        category: undefined,
       });
 
-      // Try to manually trigger persistence by calling createGame
-      useGameStore.getState().createGame(['Player1']);
+      // Try to trigger an action that calls persistState
+      // Since we can't call actions without ID, we directly test that
+      // setState with empty ID doesn't trigger persistence
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
-      // Wait a bit
-      await new Promise((resolve) => setTimeout(resolve, 50));
-
-      // saveGameSession should not be called when id is empty
-      // (it gets called when createGame sets the ID, so we check the call was made with valid ID)
-      const calls = vi.mocked(saveGameSession).mock.calls;
-      if (calls.length > 0) {
-        expect(calls[calls.length - 1][0].id).toBeTruthy();
-      }
+      // saveGameSession should not have been called after clearing ID
+      expect(saveGameSession).not.toHaveBeenCalled();
     });
 
     it('should handle errors when loading from storage', async () => {

@@ -485,6 +485,17 @@ describe('GamePlay Component', () => {
       });
     });
 
+    it('should render without loading when no sessionId provided and no game in store', () => {
+      render(<GamePlay />);
+
+      // Should show "No Active Game" immediately without loading
+      expect(screen.getByText('No Active Game')).toBeInTheDocument();
+      expect(screen.getByText('Please start a game first.')).toBeInTheDocument();
+
+      // Should not show loading state
+      expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+    });
+
     it('should show loading state when sessionId is provided', async () => {
       // Mock loadGameSession to delay resolution
       vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
