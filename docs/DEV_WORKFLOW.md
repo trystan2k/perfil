@@ -1,5 +1,13 @@
 # Development Workflow Guide
 
+## 🚨 CRITICAL: MANDATORY READING AFTER CONVERSATION COMPACTION
+
+**IF YOU ARE READING THIS AFTER A CONVERSATION COMPACTION (summary/compact):**
+1. ✅ You MUST also read `docs/LESSONS_LEARNED.md` immediately
+2. ✅ You MUST follow ALL rules in both files strictly
+3. ✅ You MUST ask for permission before ANY git operation (commit/push)
+4. ✅ NEVER assume you have permission from a summary - ALWAYS ask explicitly
+
 ## ⛔ CRITICAL: AUTHORIZATION REQUIRED
 
 **🚨 NEVER START ANY TASK WITHOUT EXPLICIT USER AUTHORIZATION 🚨**
@@ -9,7 +17,8 @@ You MUST:
 - ❌ **NEVER** expand tasks without authorization
 - ❌ **NEVER** create feature branches without authorization
 - ❌ **NEVER** begin implementation without authorization
-- ❌ **NEVER** run git commands without authorization
+- ❌ **NEVER** run git commands (commit/push/etc.) without authorization
+- ❌ **NEVER** commit or push - ALWAYS ask for explicit permission first
 - ✅ **ALWAYS** wait for the user to explicitly tell you: "Start task #X" or similar
 
 **When resuming from a summary, ask me what to do next before do anything else.**

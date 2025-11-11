@@ -1,15 +1,26 @@
 # AGENTS.md – Coding Agent Guide for perfil
 
+## 🚨 CRITICAL: MANDATORY READING AFTER CONVERSATION COMPACTION
+
+**AFTER ANY CONVERSATION COMPACTION (summary/compact action), you MUST:**
+1. ✅ **IMMEDIATELY** read `docs/DEV_WORKFLOW.md` in full
+2. ✅ **IMMEDIATELY** read `docs/LESSONS_LEARNED.md` in full
+3. ✅ **NEVER** proceed with ANY action until you've read both files
+4. ✅ **STRICTLY** follow all rules in these files - no exceptions
+
+**These files contain critical lessons about authorization violations you have made before.**
+
 ## ⛔ CRITICAL: AUTHORIZATION REQUIRED
 
 **🚨 NEVER START ANY TASK WITHOUT EXPLICIT USER AUTHORIZATION 🚨**
 
 You MUST:
-- ❌ **NEVER** checkout branches
-- ❌ **NEVER** expand tasks
-- ❌ **NEVER** create feature branches
-- ❌ **NEVER** begin implementation
-- ❌ **NEVER** run git commands
+- ❌ **NEVER** checkout branches without authorization
+- ❌ **NEVER** expand tasks without authorization
+- ❌ **NEVER** create feature branches without authorization
+- ❌ **NEVER** begin implementation without authorization
+- ❌ **NEVER** run git commands (including commit/push) without authorization
+- ❌ **NEVER** commit or push without explicit user permission - ALWAYS ask first
 - ✅ **ALWAYS** wait for the user to explicitly tell you which task to start
 
 **When resuming from a summary, ask me what to do next before do anything else.**
