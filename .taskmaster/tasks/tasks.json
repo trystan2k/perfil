@@ -2,7 +2,7 @@
   "master": {
     "tasks": [
       {
-        "id": "1",
+        "id": 1,
         "title": "Project Setup and Tooling Configuration",
         "description": "Initialize the Astro project with the React integration. Configure all required development tools including Tailwind CSS, Biome for linting/formatting, and Vitest for testing.",
         "details": "Use `pnpm create astro@latest` with the React template. Install dependencies: `pnpm add react react-dom zustand @tanstack/react-query idb shadcn-ui tailwindcss-animate lucide-react`. Initialize Tailwind CSS with `npx astro add tailwind`. Configure `biome.json` to handle `.astro`, `.ts`, and `.tsx` files. Set up `vitest.config.ts` to work with Astro and React components, including `@astrojs/testing` and `@testing-library/react`.",
@@ -72,7 +72,7 @@
         ]
       },
       {
-        "id": "2",
+        "id": 2,
         "title": "Static Data Layer and Profile Loading",
         "description": "Created the `profiles.json` data structure and implemented a service to load and parse this data for the game. TanStack Query is used to manage data fetching, even for local static assets, establishing a consistent pattern for future remote data.",
         "status": "done",
@@ -146,7 +146,7 @@
         "updatedAt": "2025-11-09T18:52:16.737Z"
       },
       {
-        "id": "3",
+        "id": 3,
         "title": "Game Session State Management with Zustand",
         "description": "A global state management store has been set up using Zustand to handle the entire game session, including players, scores, turn state, and remaining profiles. This store serves as the single source of truth for all interactive React components.",
         "status": "done",
@@ -218,7 +218,7 @@
         ]
       },
       {
-        "id": "4",
+        "id": 4,
         "title": "Implement Player Setup and Game Creation UI",
         "description": "Develop the initial screen where the Master of Ceremonies (MC) can create a new game by entering player names. This will be an interactive React island component.",
         "details": "Create a React component, `GameSetup.tsx`, that will be hydrated as an Astro island. Use `shadcn/ui` components like `Input` for player names, `Button` for 'Add Player' and 'Start Game', and `Card` for layout. On 'Start Game', call the `createGame` action from the Zustand store with the list of player names and navigate to the main game screen.",
@@ -233,7 +233,7 @@
         "updatedAt": "2025-11-10T19:07:01.114Z"
       },
       {
-        "id": "5",
+        "id": 5,
         "title": "Develop Core Game Screen Layout (Mobile-First)",
         "description": "Built the main game screen layout using Astro and Tailwind CSS, focusing on a mobile-first responsive design. This screen now hosts the interactive game components and is ready for future React island integration.",
         "status": "done",
@@ -305,7 +305,7 @@
         ]
       },
       {
-        "id": "6",
+        "id": 6,
         "title": "Implement Turn Management and Clue Display",
         "description": "Create the interactive React component for the main game loop, which displays the active player, shows clues progressively, and handles turn advancement.",
         "details": "Develop a `GamePlay.tsx` React island. This component will subscribe to the Zustand store to get the `currentTurn` state. It will display the active player's name, the current clue number, and the clue text. Implement a 'Show Next Clue' button for the MC, which triggers the `nextClue` action in the store. Also, implement a 'Pass' button that triggers the `passTurn` action.",
@@ -382,7 +382,7 @@
         ]
       },
       {
-        "id": "7",
+        "id": 7,
         "title": "Implement Swipe-to-Reveal Answer Component",
         "description": "Build the swipeable card component that hides the answer. The MC can swipe right to reveal the answer for a 3-second timeout before it automatically hides again.",
         "details": "Create a `RevealAnswer.tsx` React component. Use a gesture library like `framer-motion` or a lightweight custom hook to detect a right swipe. The component's state will manage the revealed status. On reveal, display the answer and use a `setTimeout` to hide it after 3000ms. The answer text will be fetched from the game state.",
@@ -459,7 +459,7 @@
         "updatedAt": "2025-11-11T12:54:05.573Z"
       },
       {
-        "id": "8",
+        "id": 8,
         "title": "Implement MC Scoring Interaction",
         "description": "Enable the MC to award points to the player who guesses correctly. The player list should be interactive, allowing the MC to tap a player's name to trigger the scoring logic.",
         "details": "Enhance the player list UI within the `GamePlay.tsx` island. Make each player's name a clickable element (e.g., a `Button`). When the MC clicks a player's name, call the `awardPoints(playerId)` action from the Zustand store. The store action will calculate points based on `TOTAL_CLUES - (cluesRead - 1)` and update the player's score.",
@@ -468,11 +468,11 @@
         "dependencies": [
           "6"
         ],
-        "status": "pending",
+        "status": "in-progress",
         "subtasks": []
       },
       {
-        "id": "9",
+        "id": 9,
         "title": "Integrate Game Session Persistence with IndexedDB",
         "description": "Persist the game session state to IndexedDB to allow players to resume a game after a page refresh. Use the 'idb' library for a clean, promise-based API.",
         "details": "Create a utility module for IndexedDB interactions using the `idb` library. Subscribe to the Zustand store. Whenever the state changes, serialize it and save it to an IndexedDB object store. When the application loads, attempt to read from IndexedDB to rehydrate the store's initial state. This ensures the game state (players, scores, current turn) persists.",
@@ -485,7 +485,7 @@
         "subtasks": []
       },
       {
-        "id": "10",
+        "id": 10,
         "title": "Implement Final Scoreboard and Game End Flow",
         "description": "Create the final scoreboard view that is displayed when the MC ends the game. The scoreboard should list all players ranked by their final scores.",
         "details": "Create a new Astro page `src/pages/scoreboard.astro` or a conditional view within the main game island. This component will read the final player list from the Zustand store, sort it by score in descending order, and display the results using a `Table` from `shadcn/ui`. Add a 'Finish Game' button to the main game UI that triggers the `endGame` action and navigates to this view.",
@@ -498,7 +498,7 @@
         "subtasks": []
       },
       {
-        "id": "11",
+        "id": 11,
         "title": "Implement Internationalization (i18n) Support",
         "description": "Integrate multi-language support using Astro's built-in i18n routing for localized pages and react-i18next for translating React island components. This includes localizing the profile data and UI text throughout the application.",
         "details": "1. **Configure Astro i18n**: Update `astro.config.mjs` to enable internationalized routing. Define a `defaultLocale` (e.g., 'en') and a list of `locales` (e.g., ['en', 'es']). Use the `routing: { prefixDefaultLocale: false }` strategy to avoid having `/en/` in the URL for the default language.\n2. **Localize Page Structure**: Create language-specific directories within `src/pages/` (e.g., `src/pages/es/`) for any static pages that need translation, or leverage Astro's `[lang]` dynamic parameter for shared layouts.\n3. **Integrate react-i18next**: Set up `react-i18next` for client-side translations within React islands. Create a configuration file (`src/i18n/config.ts`) to initialize i18next. Use `i18next-http-backend` to load translation files from `public/locales/[lang]/translation.json`. The current locale must be passed from the Astro page as a prop to the React island.\n4. **Localize Profile Data**: Modify the data loading service from Task #2. The `useProfiles` hook must be updated to fetch data from a locale-specific path, such as `/data/${locale}/profiles.json`. Create example localized data files: `public/data/en/profiles.json` and `public/data/es/profiles.json`.\n5. **Create Language Switcher**: Implement a UI component that allows users to switch between supported languages. This component should use Astro's `getRelativeLocaleUrl(locale)` utility to generate correct links for the current page in other languages.",
@@ -512,7 +512,7 @@
         "subtasks": []
       },
       {
-        "id": "12",
+        "id": 12,
         "title": "Implement Progressive Web App (PWA) Support",
         "description": "Integrate PWA features to make the application installable, work offline, and feel like a native app. This involves generating a service worker for caching assets and a web manifest for installation metadata using the vite-plugin-pwa library.",
         "details": "1. **Installation**: Add `vite-plugin-pwa` as a development dependency: `npm install vite-plugin-pwa -D`.\n2. **Configuration**: Update `astro.config.mjs` to include the PWA plugin in the Vite configuration. Configure the manifest with properties like `name`, `short_name`, `description`, `theme_color`, `background_color`, and specify paths to various icon sizes (e.g., 192x192, 512x512) in the `public/icons/` directory.\n3. **Service Worker Strategy**: Use the `generateSW` strategy within the plugin options. Configure `workbox` runtime caching rules. Create a rule for the app's static assets (JS, CSS, fonts) using a `StaleWhileRevalidate` strategy. Create a separate rule for the profiles JSON data endpoint using a `NetworkFirst` strategy to ensure users get the latest profiles when online but have a fallback for offline play.\n4. **Client-side Registration**: Create a small React component or client-side script (`<script is:inline>`) in the main layout (`src/layouts/Layout.astro`) to register the service worker. Consider using a library like `virtual:pwa-register/react` to provide users with a UI prompt to reload the page when a new version of the app is available.\n5. **Manifest Linking**: Ensure the web manifest is automatically linked in the `<head>` of the document by the plugin.",
@@ -526,7 +526,7 @@
         "subtasks": []
       },
       {
-        "id": "13",
+        "id": 13,
         "title": "Configure Vitest Test Coverage",
         "description": "Add test coverage collection and enforcement to the Vitest configuration and project scripts. Define coverage thresholds and a CI-friendly coverage report format.",
         "details": "1. Update `vitest.config.ts` to enable coverage provider (e.g., 'c8' or 'istanbul') and configure coverage reporters (text, lcov).\n2. Add an npm script `test:coverage` that runs `vitest --coverage` and outputs an `lcov` report.\n3. Set minimum coverage thresholds (e.g., 80% statements, branches, functions, and lines) in the Vitest config so the test run fails when thresholds are not met.\n4. Add documentation in `docs/` (or PRD) describing how to run coverage locally and interpret the reports.",
@@ -586,7 +586,7 @@
         ]
       },
       {
-        "id": "14",
+        "id": 14,
         "title": "Configure Git Hooks (Husky + lint-staged)",
         "description": "Configured Husky and lint-staged to run formatting, linting, and tests automatically on pre-commit and pre-push hooks. This ensures code quality and consistency before code is committed or pushed to the repository.",
         "status": "done",
@@ -671,7 +671,7 @@
         ]
       },
       {
-        "id": "15",
+        "id": 15,
         "title": "Configure GitHub Actions CI (lint, typecheck, test, build, deploy)",
         "description": "Create a GitHub Actions workflow that runs linting, type checking, tests, coverage, and build on PRs and pushes to `main`. Add a deploy step to Cloudflare Pages using wrangler-action.",
         "details": "1. Add `.github/workflows/ci.yml` with jobs for: install (pnpm install), lint (pnpm lint), typecheck (pnpm typecheck), test (pnpm test), coverage (pnpm test:coverage), and build (pnpm build).\n2. Configure matrix runs if necessary (node versions).\n3. Add artifacts upload for coverage reports and build artifacts.\n4. Add a separate `deploy` job that runs on `workflow_run` or push to `main` and uses `cloudflare/wrangler-action` with secrets configured in repository settings (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID).",
@@ -765,7 +765,10 @@
       "completedCount": 10,
       "tags": [
         "master"
-      ]
+      ],
+      "created": "2025-11-11T13:49:48.585Z",
+      "description": "Tasks for master context",
+      "updated": "2025-11-11T13:49:48.585Z"
     }
   }
 }
