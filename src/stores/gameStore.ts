@@ -35,10 +35,18 @@ const initialState: Omit<
   category: undefined,
 };
 
+// Flag to prevent persistence during rehydration from storage
+let isRehydrating = false;
+
 /**
  * Persist current state to IndexedDB
  */
 async function persistState(state: GameState): Promise<void> {
+  // Skip persistence during rehydration to avoid infinite loop
+  if (isRehydrating) {
+    return;
+  }
+
   // Only persist if there's an active game session
   if (!state.id) {
     return;
@@ -243,6 +251,9 @@ export const useGameStore = create<GameState>((set, get) => ({
         return false;
       }
 
+      // Set flag to prevent persistence during rehydration
+      isRehydrating = true;
+
       // Rehydrate the store with loaded state
       set({
         id: loadedState.id,
@@ -254,8 +265,12 @@ export const useGameStore = create<GameState>((set, get) => ({
         category: loadedState.category,
       });
 
+      // Reset flag after rehydration
+      isRehydrating = false;
+
       return true;
     } catch (error) {
+      isRehydrating = false;
       console.error('Failed to load game from storage:', error);
       throw error;
     }

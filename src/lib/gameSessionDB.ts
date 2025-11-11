@@ -45,6 +45,8 @@ export async function saveGameSession(state: PersistedGameState): Promise<void> 
 
 /**
  * Load game session state from IndexedDB by session ID
+ * @returns The session if found, null if not found
+ * @throws Error if database operation fails
  */
 export async function loadGameSession(sessionId: string): Promise<PersistedGameState | null> {
   try {
@@ -53,7 +55,7 @@ export async function loadGameSession(sessionId: string): Promise<PersistedGameS
     return session || null;
   } catch (error) {
     console.error('Failed to load game session from IndexedDB:', error);
-    return null;
+    throw error;
   }
 }
 
@@ -72,6 +74,8 @@ export async function deleteGameSession(sessionId: string): Promise<void> {
 
 /**
  * Get all saved game sessions
+ * @returns Array of all saved game sessions
+ * @throws Error if database operation fails
  */
 export async function getAllGameSessions(): Promise<PersistedGameState[]> {
   try {
@@ -79,7 +83,7 @@ export async function getAllGameSessions(): Promise<PersistedGameState[]> {
     return await db.getAll(STORE_NAME);
   } catch (error) {
     console.error('Failed to get all game sessions from IndexedDB:', error);
-    return [];
+    throw error;
   }
 }
 

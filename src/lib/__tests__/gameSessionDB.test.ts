@@ -117,15 +117,13 @@ describe('gameSessionDB', () => {
       expect(result).toBeNull();
     });
 
-    it('should return null and log error when loading fails', async () => {
+    it('should throw error and log when loading fails', async () => {
       const { loadGameSession } = await import('../gameSessionDB');
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const error = new Error('Load failed');
       mockDB.get.mockRejectedValueOnce(error);
 
-      const result = await loadGameSession('game-123');
-
-      expect(result).toBeNull();
+      await expect(loadGameSession('game-123')).rejects.toThrow('Load failed');
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         'Failed to load game session from IndexedDB:',
         error
@@ -171,15 +169,13 @@ describe('gameSessionDB', () => {
       expect(result).toEqual(sessions);
     });
 
-    it('should return empty array when getAll fails', async () => {
+    it('should throw error and log when getAll fails', async () => {
       const { getAllGameSessions } = await import('../gameSessionDB');
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const error = new Error('GetAll failed');
       mockDB.getAll.mockRejectedValueOnce(error);
 
-      const result = await getAllGameSessions();
-
-      expect(result).toEqual([]);
+      await expect(getAllGameSessions()).rejects.toThrow('GetAll failed');
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         'Failed to get all game sessions from IndexedDB:',
         error

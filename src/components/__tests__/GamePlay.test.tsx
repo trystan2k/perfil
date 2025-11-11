@@ -497,10 +497,8 @@ describe('GamePlay Component', () => {
     });
 
     it('should show loading state when sessionId is provided', async () => {
-      // Mock loadGameSession to delay resolution
-      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve(null), 100))
-      );
+      // Mock loadGameSession to return a never-resolving promise to keep component in loading state
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(() => new Promise(() => {}));
 
       render(<GamePlay sessionId="test-session-123" />);
 

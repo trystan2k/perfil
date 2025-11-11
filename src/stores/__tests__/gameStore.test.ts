@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '../gameStore';
 
@@ -709,13 +710,15 @@ describe('gameStore', () => {
       useGameStore.getState().createGame(['Player1', 'Player2']);
       useGameStore.getState().startGame('Movies');
 
-      // Wait a bit for async persistence to attempt
-      await new Promise((resolve) => setTimeout(resolve, 50));
-
-      // Should have logged the error
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'Failed to persist game state:',
-        expect.any(Error)
+      // Wait for persistence attempt to complete
+      await waitFor(
+        () => {
+          expect(consoleErrorSpy).toHaveBeenCalledWith(
+            'Failed to persist game state:',
+            expect.any(Error)
+          );
+        },
+        { timeout: 1000 }
       );
 
       // Game should still be in active state despite persistence failure
@@ -744,10 +747,13 @@ describe('gameStore', () => {
       // Try to trigger an action that calls persistState
       // Since we can't call actions without ID, we directly test that
       // setState with empty ID doesn't trigger persistence
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      // saveGameSession should not have been called after clearing ID
-      expect(saveGameSession).not.toHaveBeenCalled();
+      await waitFor(
+        () => {
+          // saveGameSession should not have been called after clearing ID
+          expect(saveGameSession).not.toHaveBeenCalled();
+        },
+        { timeout: 500 }
+      );
     });
 
     it('should handle errors when loading from storage', async () => {

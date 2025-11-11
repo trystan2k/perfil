@@ -24,10 +24,15 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
   // Attempt to load game from storage on mount
   useEffect(() => {
+    let cancelled = false;
+    let mounted = true;
+
     const loadGame = async () => {
       // If there's already a game loaded in the store, don't reload
       if (id) {
-        setIsLoading(false);
+        if (mounted) {
+          setIsLoading(false);
+        }
         return;
       }
 
@@ -35,19 +40,41 @@ export function GamePlay({ sessionId }: GamePlayProps) {
       if (sessionId) {
         try {
           const loaded = await loadFromStorage(sessionId);
+
+          // Check if the effect was cancelled (component unmounted or sessionId changed)
+          if (cancelled) {
+            return;
+          }
+
           if (!loaded) {
-            setLoadError('Game session not found. Please start a new game.');
+            if (mounted) {
+              setLoadError('Game session not found. Please start a new game.');
+            }
           }
         } catch (error) {
+          if (cancelled) {
+            return;
+          }
+
           console.error('Failed to load game session:', error);
-          setLoadError('Failed to load game session. Please try again.');
+          if (mounted) {
+            setLoadError('Failed to load game session. Please try again.');
+          }
         }
       }
 
-      setIsLoading(false);
+      if (mounted) {
+        setIsLoading(false);
+      }
     };
 
     loadGame();
+
+    // Cleanup function to prevent state updates after unmount
+    return () => {
+      cancelled = true;
+      mounted = false;
+    };
   }, [sessionId, id, loadFromStorage]);
 
   // Show loading state
