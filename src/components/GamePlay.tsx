@@ -37,16 +37,6 @@ export function GamePlay() {
   // Check if max clues reached
   const isMaxCluesReached = currentTurn.cluesRead >= totalCluesPerProfile;
 
-  const handleNextClue = () => {
-    if (!isMaxCluesReached) {
-      nextClue();
-    }
-  };
-
-  const handlePassTurn = () => {
-    passTurn();
-  };
-
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-full max-w-2xl">
@@ -83,10 +73,10 @@ export function GamePlay() {
 
           {/* MC Controls */}
           <div className="flex gap-4 justify-center">
-            <Button onClick={handleNextClue} disabled={isMaxCluesReached}>
+            <Button onClick={nextClue} disabled={isMaxCluesReached}>
               Show Next Clue
             </Button>
-            <Button onClick={handlePassTurn} variant="outline">
+            <Button onClick={passTurn} variant="outline">
               Pass
             </Button>
           </div>
