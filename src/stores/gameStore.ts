@@ -35,15 +35,19 @@ const initialState: Omit<
   category: undefined,
 };
 
-// Flag to prevent persistence during rehydration from storage
-let isRehydrating = false;
+// Track rehydration operations with a Set of session IDs to handle concurrency
+const rehydratingSessionIds = new Set<string>();
+
+// Debounce timer for persistence
+let persistTimer: ReturnType<typeof setTimeout> | null = null;
+const PERSIST_DEBOUNCE_MS = 300;
 
 /**
- * Persist current state to IndexedDB
+ * Persist current state to IndexedDB with debouncing
  */
 async function persistState(state: GameState): Promise<void> {
   // Skip persistence during rehydration to avoid infinite loop
-  if (isRehydrating) {
+  if (state.id && rehydratingSessionIds.has(state.id)) {
     return;
   }
 
@@ -52,21 +56,29 @@ async function persistState(state: GameState): Promise<void> {
     return;
   }
 
-  const persistedState: PersistedGameState = {
-    id: state.id,
-    players: state.players,
-    currentTurn: state.currentTurn,
-    remainingProfiles: state.remainingProfiles,
-    totalCluesPerProfile: state.totalCluesPerProfile,
-    status: state.status,
-    category: state.category,
-  };
-
-  try {
-    await saveGameSession(persistedState);
-  } catch (error) {
-    console.error('Failed to persist game state:', error);
+  // Clear existing timer to debounce rapid state changes
+  if (persistTimer) {
+    clearTimeout(persistTimer);
   }
+
+  // Schedule persistence after debounce delay
+  persistTimer = setTimeout(async () => {
+    const persistedState: PersistedGameState = {
+      id: state.id,
+      players: state.players,
+      currentTurn: state.currentTurn,
+      remainingProfiles: state.remainingProfiles,
+      totalCluesPerProfile: state.totalCluesPerProfile,
+      status: state.status,
+      category: state.category,
+    };
+
+    try {
+      await saveGameSession(persistedState);
+    } catch (error) {
+      console.error('Failed to persist game state:', error);
+    }
+  }, PERSIST_DEBOUNCE_MS);
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -251,8 +263,8 @@ export const useGameStore = create<GameState>((set, get) => ({
         return false;
       }
 
-      // Set flag to prevent persistence during rehydration
-      isRehydrating = true;
+      // Add session ID to rehydrating set to prevent persistence during rehydration
+      rehydratingSessionIds.add(sessionId);
 
       // Rehydrate the store with loaded state
       set({
@@ -265,12 +277,12 @@ export const useGameStore = create<GameState>((set, get) => ({
         category: loadedState.category,
       });
 
-      // Reset flag after rehydration
-      isRehydrating = false;
+      // Remove session ID from rehydrating set after rehydration
+      rehydratingSessionIds.delete(sessionId);
 
       return true;
     } catch (error) {
-      isRehydrating = false;
+      rehydratingSessionIds.delete(sessionId);
       console.error('Failed to load game from storage:', error);
       throw error;
     }
