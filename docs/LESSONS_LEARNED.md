@@ -82,3 +82,22 @@
   2. The feature branch contains a complete history of the work
   3. No orphaned changes remain uncommitted
   4. Proper traceability in the PR and git history
+
+2025-11-11 — NEVER INCLUDE TEST-ONLY CODE IN PRODUCTION COMPONENTS
+
+- Mistake: Adding test-specific code to production components, including:
+  - Hidden buttons with test IDs (`reveal-trigger`, `insufficient-drag-trigger`)
+  - Window-exposed test APIs (`window.__testRevealAnswer`)
+  - Exported functions or props solely for testing purposes
+- Correct procedure: Tests must ONLY simulate real user interactions:
+  1. DO NOT add ANY test-specific code to production components (no test IDs, no window APIs, no test-only exports)
+  2. Tests should ONLY perform actions a real user would perform (clicks, drags, keyboard input, etc.)
+  3. If code cannot be reached through user interactions, question whether it should exist at all
+  4. Accept lower coverage if code is genuinely unreachable by users (after careful consideration)
+  5. Prefer testing through the public API and user events, not internal implementation details
+- This ensures:
+  1. Production code is completely clean of test artifacts
+  2. Tests verify actual user experience, not implementation details
+  3. Refactoring is safe because tests don't depend on internal structure
+  4. No unnecessary code shipped to users
+  5. Better separation of concerns between production and test code
