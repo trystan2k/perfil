@@ -135,9 +135,8 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
   // Handle finishing the game and navigating to scoreboard
   const handleFinishGame = async () => {
-    endGame();
-    // Small delay to allow persistence to start
-    await new Promise((resolve) => setTimeout(resolve, 50));
+    // Await endGame to ensure state is persisted before navigation
+    await endGame();
     // Navigate to scoreboard with the current session ID
     if (id) {
       window.location.href = `/scoreboard/${id}`;

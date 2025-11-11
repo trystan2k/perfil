@@ -12,7 +12,7 @@ interface GameState extends GameSession {
   nextClue: () => void;
   passTurn: () => void;
   awardPoints: (playerId: string) => void;
-  endGame: () => void;
+  endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
 }
 
@@ -46,13 +46,14 @@ const PERSIST_DEBOUNCE_MS = 300;
  * Persist current state to IndexedDB with debouncing
  * Uses session-specific timers to handle concurrent sessions correctly
  *
- * Note: This function is intentionally called without await (fire-and-forget)
- * to avoid blocking state updates. Errors are logged but don't propagate.
+ * Note: This function is typically called without await (fire-and-forget)
+ * to avoid blocking state updates. For critical operations (like endGame),
+ * await the returned Promise to ensure persistence completes.
  */
-async function persistState(state: GameState): Promise<void> {
+function persistState(state: GameState): Promise<void> {
   // Skip persistence during rehydration or if there's no active game session
   if (!state.id || rehydratingSessionIds.has(state.id)) {
-    return;
+    return Promise.resolve();
   }
 
   const sessionId = state.id;
@@ -63,29 +64,33 @@ async function persistState(state: GameState): Promise<void> {
     clearTimeout(existingTimer);
   }
 
-  // Schedule persistence after debounce delay
-  const timer = setTimeout(async () => {
-    const persistedState: PersistedGameState = {
-      id: state.id,
-      players: state.players,
-      currentTurn: state.currentTurn,
-      remainingProfiles: state.remainingProfiles,
-      totalCluesPerProfile: state.totalCluesPerProfile,
-      status: state.status,
-      category: state.category,
-    };
+  // Return a Promise that resolves when persistence completes
+  return new Promise<void>((resolve) => {
+    // Schedule persistence after debounce delay
+    const timer = setTimeout(async () => {
+      const persistedState: PersistedGameState = {
+        id: state.id,
+        players: state.players,
+        currentTurn: state.currentTurn,
+        remainingProfiles: state.remainingProfiles,
+        totalCluesPerProfile: state.totalCluesPerProfile,
+        status: state.status,
+        category: state.category,
+      };
 
-    try {
-      await saveGameSession(persistedState);
-    } catch (error) {
-      console.error('Failed to persist game state:', error);
-    } finally {
-      // Clean up timer reference after persistence completes
-      persistTimers.delete(sessionId);
-    }
-  }, PERSIST_DEBOUNCE_MS);
+      try {
+        await saveGameSession(persistedState);
+      } catch (error) {
+        console.error('Failed to persist game state:', error);
+      } finally {
+        // Clean up timer reference after persistence completes
+        persistTimers.delete(sessionId);
+        resolve();
+      }
+    }, PERSIST_DEBOUNCE_MS);
 
-  persistTimers.set(sessionId, timer);
+    persistTimers.set(sessionId, timer);
+  });
 }
 
 /**
@@ -266,6 +271,8 @@ export const useGameStore = create<GameState>((set, get) => ({
     });
   },
   endGame: () => {
+    let persistPromise: Promise<void> | undefined;
+
     set((state) => {
       if (state.status === 'completed') {
         throw new Error('Game has already ended');
@@ -280,9 +287,11 @@ export const useGameStore = create<GameState>((set, get) => ({
         currentTurn: null,
       };
 
-      persistState({ ...state, ...newState });
+      persistPromise = persistState({ ...state, ...newState });
       return newState;
     });
+
+    return persistPromise || Promise.resolve();
   },
   loadFromStorage: async (sessionId: string): Promise<boolean> => {
     try {
