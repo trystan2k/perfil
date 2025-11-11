@@ -116,3 +116,18 @@
   2. Complete traceability in version control
   3. No orphaned task updates left uncommitted
   4. Clear history of what was done when
+
+2025-11-11 — ALWAYS ASK PERMISSION BEFORE COMMITS WHEN RESUMING FROM SUMMARY
+
+- Mistake: When resuming from a conversation summary and the user says "go on" or "continue", immediately proceeding with git commits/pushes without asking for explicit permission first.
+- Correct procedure: When resuming from a summary where the next step involves commits/pushes:
+  1. Read the summary to understand what work was done
+  2. Identify what remains to be committed/pushed
+  3. EXPLICITLY ASK the user for permission to commit/push those specific changes
+  4. Wait for user confirmation before executing any git commit or push commands
+  5. NEVER assume "go on" or "continue" means permission to commit - always ask explicitly
+- This ensures:
+  1. User maintains control over version history even across session boundaries
+  2. User can review what will be committed before it happens
+  3. Prevents automatic commits when resuming from compacted conversations
+  4. Maintains the authorization workflow regardless of session state

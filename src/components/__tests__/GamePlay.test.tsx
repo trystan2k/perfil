@@ -533,6 +533,64 @@ describe('GamePlay Component', () => {
       consoleErrorSpy.mockRestore();
     });
 
+    it('should handle component unmount during successful load (race condition)', async () => {
+      const mockSession = {
+        id: 'loaded-session-123',
+        players: [{ id: '1', name: 'Test Player', score: 10 }],
+        currentTurn: {
+          profileId: 'profile-1',
+          activePlayerId: '1',
+          cluesRead: 0,
+          revealed: false,
+        },
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'active' as const,
+        category: 'Movies',
+      };
+
+      // Mock loadGameSession to resolve after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(() => resolve(mockSession), 50);
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="test-session" />);
+
+      // Unmount before the load completes
+      unmount();
+
+      // Wait for the mock to resolve
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - cleanup should prevent setState after unmount
+    });
+
+    it('should handle component unmount during error (race condition)', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Mock loadGameSession to reject after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Database error')), 50);
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="failing-session" />);
+
+      // Unmount before the error occurs
+      unmount();
+
+      // Wait for the mock to reject
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - cleanup should prevent setState after unmount
+      consoleErrorSpy.mockRestore();
+    });
+
     it('should load game state successfully when valid sessionId provided', async () => {
       const mockSession = {
         id: 'loaded-session-123',

@@ -17,7 +17,7 @@
     "chrome-devtools": {
       "type": "local",
       "command": ["npx", "chrome-devtools-mcp@latest"],
-      "enabled": true
+      "enabled": false
     },
     "task-master-ai": {
       "type": "local",
@@ -66,7 +66,7 @@
       ]
     },
     "shadcn-ui": {
-      "enabled": true,
+      "enabled": false,
       "type": "local",
       "command": [
         "npx",

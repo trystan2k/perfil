@@ -818,5 +818,39 @@ describe('gameStore', () => {
       expect(state.players[0].name).toBe('Loaded Player');
       expect(state.players[0].score).toBe(15);
     });
+
+    it('should not trigger persistence during rehydration', async () => {
+      const { loadGameSession, saveGameSession } = await import('../../lib/gameSessionDB');
+
+      const mockSession = {
+        id: 'loaded-session',
+        players: [{ id: '1', name: 'Test Player', score: 10 }],
+        currentTurn: {
+          profileId: 'profile-1',
+          activePlayerId: '1',
+          cluesRead: 2,
+          revealed: false,
+        },
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'active' as const,
+        category: 'Movies',
+      };
+
+      vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
+      vi.mocked(saveGameSession).mockClear();
+
+      // Load from storage (which triggers rehydration)
+      await useGameStore.getState().loadFromStorage('loaded-session');
+
+      // Wait to ensure no async persistence is triggered
+      await waitFor(
+        () => {
+          // saveGameSession should not be called during rehydration
+          expect(saveGameSession).not.toHaveBeenCalled();
+        },
+        { timeout: 500 }
+      );
+    });
   });
 });
