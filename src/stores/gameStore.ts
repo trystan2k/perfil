@@ -38,12 +38,13 @@ const initialState: Omit<
 // Track rehydration operations with a Set of session IDs to handle concurrency
 const rehydratingSessionIds = new Set<string>();
 
-// Debounce timer for persistence
-let persistTimer: ReturnType<typeof setTimeout> | null = null;
+// Map of session-specific debounce timers to handle concurrent sessions safely
+const persistTimers = new Map<string, ReturnType<typeof setTimeout>>();
 const PERSIST_DEBOUNCE_MS = 300;
 
 /**
  * Persist current state to IndexedDB with debouncing
+ * Uses session-specific timers to handle concurrent sessions correctly
  */
 async function persistState(state: GameState): Promise<void> {
   // Skip persistence during rehydration or if there's no active game session
@@ -51,13 +52,16 @@ async function persistState(state: GameState): Promise<void> {
     return;
   }
 
-  // Clear existing timer to debounce rapid state changes
-  if (persistTimer) {
-    clearTimeout(persistTimer);
+  const sessionId = state.id;
+
+  // Clear existing timer for this session to debounce rapid state changes
+  const existingTimer = persistTimers.get(sessionId);
+  if (existingTimer) {
+    clearTimeout(existingTimer);
   }
 
   // Schedule persistence after debounce delay
-  persistTimer = setTimeout(async () => {
+  const timer = setTimeout(async () => {
     const persistedState: PersistedGameState = {
       id: state.id,
       players: state.players,
@@ -72,8 +76,24 @@ async function persistState(state: GameState): Promise<void> {
       await saveGameSession(persistedState);
     } catch (error) {
       console.error('Failed to persist game state:', error);
+    } finally {
+      // Clean up timer reference after persistence completes
+      persistTimers.delete(sessionId);
     }
   }, PERSIST_DEBOUNCE_MS);
+
+  persistTimers.set(sessionId, timer);
+}
+
+/**
+ * Cancel all pending persistence operations
+ * Should be called on app unmount or when cleanup is needed
+ */
+export function cancelPendingPersistence(): void {
+  for (const timer of persistTimers.values()) {
+    clearTimeout(timer);
+  }
+  persistTimers.clear();
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
