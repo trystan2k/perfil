@@ -1,8 +1,17 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
 import { GamePlay } from '../GamePlay';
+
+// Mock the gameSessionDB module to avoid IndexedDB issues in Node test environment
+vi.mock('../../lib/gameSessionDB', () => ({
+  saveGameSession: vi.fn().mockResolvedValue(undefined),
+  loadGameSession: vi.fn().mockResolvedValue(null),
+  deleteGameSession: vi.fn().mockResolvedValue(undefined),
+  getAllGameSessions: vi.fn().mockResolvedValue([]),
+  clearAllGameSessions: vi.fn().mockResolvedValue(undefined),
+}));
 
 describe('GamePlay Component', () => {
   beforeEach(() => {

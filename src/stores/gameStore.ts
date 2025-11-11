@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { loadGameSession, type PersistedGameState, saveGameSession } from '../lib/gameSessionDB';
 import type { GameSession, Player } from '../types/models';
 
 type GameStatus = 'pending' | 'active' | 'completed';
@@ -12,11 +13,18 @@ interface GameState extends GameSession {
   passTurn: () => void;
   awardPoints: (playerId: string) => void;
   endGame: () => void;
+  loadFromStorage: (sessionId: string) => Promise<boolean>;
 }
 
 const initialState: Omit<
   GameState,
-  'createGame' | 'startGame' | 'nextClue' | 'passTurn' | 'awardPoints' | 'endGame'
+  | 'createGame'
+  | 'startGame'
+  | 'nextClue'
+  | 'passTurn'
+  | 'awardPoints'
+  | 'endGame'
+  | 'loadFromStorage'
 > = {
   id: '',
   players: [],
@@ -27,7 +35,33 @@ const initialState: Omit<
   category: undefined,
 };
 
-export const useGameStore = create<GameState>((set) => ({
+/**
+ * Persist current state to IndexedDB
+ */
+async function persistState(state: GameState): Promise<void> {
+  // Only persist if there's an active game session
+  if (!state.id) {
+    return;
+  }
+
+  const persistedState: PersistedGameState = {
+    id: state.id,
+    players: state.players,
+    currentTurn: state.currentTurn,
+    remainingProfiles: state.remainingProfiles,
+    totalCluesPerProfile: state.totalCluesPerProfile,
+    status: state.status,
+    category: state.category,
+  };
+
+  try {
+    await saveGameSession(persistedState);
+  } catch (error) {
+    console.error('Failed to persist game state:', error);
+  }
+}
+
+export const useGameStore = create<GameState>((set, get) => ({
   ...initialState,
   createGame: (playerNames: string[]) => {
     const players: Player[] = playerNames.map((name, index) => ({
@@ -36,15 +70,18 @@ export const useGameStore = create<GameState>((set) => ({
       score: 0,
     }));
 
-    set({
+    const newState = {
       id: `game-${Date.now()}`,
       players,
       currentTurn: null,
       remainingProfiles: [],
       totalCluesPerProfile: 20,
-      status: 'pending',
+      status: 'pending' as GameStatus,
       category: undefined,
-    });
+    };
+
+    set(newState);
+    persistState({ ...get(), ...newState });
   },
   startGame: (category: string) => {
     set((state) => {
@@ -55,8 +92,8 @@ export const useGameStore = create<GameState>((set) => ({
       const randomPlayerIndex = Math.floor(Math.random() * state.players.length);
       const activePlayer = state.players[randomPlayerIndex];
 
-      return {
-        status: 'active',
+      const newState = {
+        status: 'active' as GameStatus,
         category,
         currentTurn: {
           profileId: '',
@@ -65,6 +102,9 @@ export const useGameStore = create<GameState>((set) => ({
           revealed: false,
         },
       };
+
+      persistState({ ...state, ...newState });
+      return newState;
     });
   },
   nextClue: () => {
@@ -77,12 +117,15 @@ export const useGameStore = create<GameState>((set) => ({
         throw new Error('Maximum clues reached');
       }
 
-      return {
+      const newState = {
         currentTurn: {
           ...state.currentTurn,
           cluesRead: state.currentTurn.cluesRead + 1,
         },
       };
+
+      persistState({ ...state, ...newState });
+      return newState;
     });
   },
   passTurn: () => {
@@ -108,12 +151,15 @@ export const useGameStore = create<GameState>((set) => ({
       const nextPlayerIndex = (currentPlayerIndex + 1) % state.players.length;
       const nextPlayer = state.players[nextPlayerIndex];
 
-      return {
+      const newState = {
         currentTurn: {
           ...state.currentTurn,
           activePlayerId: nextPlayer.id,
         },
       };
+
+      persistState({ ...state, ...newState });
+      return newState;
     });
   },
   awardPoints: (playerId: string) => {
@@ -156,7 +202,7 @@ export const useGameStore = create<GameState>((set) => ({
       const nextPlayer = state.players[nextPlayerIndex];
 
       // Reset turn for next profile
-      return {
+      const newState = {
         players: updatedPlayers,
         currentTurn: {
           profileId: '',
@@ -165,6 +211,9 @@ export const useGameStore = create<GameState>((set) => ({
           revealed: false,
         },
       };
+
+      persistState({ ...state, ...newState });
+      return newState;
     });
   },
   endGame: () => {
@@ -177,10 +226,38 @@ export const useGameStore = create<GameState>((set) => ({
         throw new Error('Cannot end a game that has not started');
       }
 
-      return {
-        status: 'completed',
+      const newState = {
+        status: 'completed' as GameStatus,
         currentTurn: null,
       };
+
+      persistState({ ...state, ...newState });
+      return newState;
     });
+  },
+  loadFromStorage: async (sessionId: string): Promise<boolean> => {
+    try {
+      const loadedState = await loadGameSession(sessionId);
+
+      if (!loadedState) {
+        return false;
+      }
+
+      // Rehydrate the store with loaded state
+      set({
+        id: loadedState.id,
+        players: loadedState.players,
+        currentTurn: loadedState.currentTurn,
+        remainingProfiles: loadedState.remainingProfiles,
+        totalCluesPerProfile: loadedState.totalCluesPerProfile,
+        status: loadedState.status,
+        category: loadedState.category,
+      });
+
+      return true;
+    } catch (error) {
+      console.error('Failed to load game from storage:', error);
+      return false;
+    }
   },
 }));

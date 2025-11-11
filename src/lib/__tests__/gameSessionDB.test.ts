@@ -1,0 +1,236 @@
+import type { IDBPDatabase, OpenDBCallbacks } from 'idb';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Mock the idb module
+vi.mock('idb', () => ({
+  openDB: vi.fn(),
+}));
+
+describe('gameSessionDB', () => {
+  let mockDB: {
+    put: ReturnType<typeof vi.fn>;
+    get: ReturnType<typeof vi.fn>;
+    delete: ReturnType<typeof vi.fn>;
+    getAll: ReturnType<typeof vi.fn>;
+    clear: ReturnType<typeof vi.fn>;
+    objectStoreNames: {
+      contains: ReturnType<typeof vi.fn>;
+    };
+    createObjectStore: ReturnType<typeof vi.fn>;
+  };
+
+  const mockGameState = {
+    id: 'game-123',
+    players: [
+      { id: 'player-1', name: 'Alice', score: 10 },
+      { id: 'player-2', name: 'Bob', score: 5 },
+    ],
+    currentTurn: {
+      profileId: 'profile-1',
+      activePlayerId: 'player-1',
+      cluesRead: 3,
+      revealed: false,
+    },
+    remainingProfiles: ['profile-2', 'profile-3'],
+    totalCluesPerProfile: 20,
+    status: 'active' as const,
+    category: 'Movies',
+  };
+
+  beforeEach(async () => {
+    // Reset modules to clear the cached dbPromise
+    vi.resetModules();
+
+    // Create mock DB object
+    mockDB = {
+      put: vi.fn().mockResolvedValue(undefined),
+      get: vi.fn().mockResolvedValue(null),
+      delete: vi.fn().mockResolvedValue(undefined),
+      getAll: vi.fn().mockResolvedValue([]),
+      clear: vi.fn().mockResolvedValue(undefined),
+      objectStoreNames: {
+        contains: vi.fn().mockReturnValue(false),
+      },
+      createObjectStore: vi.fn(),
+    };
+
+    // Mock the openDB function from idb
+    const { openDB } = await import('idb');
+    vi.mocked(openDB).mockImplementation(
+      async (_name: string, _version?: number, options?: OpenDBCallbacks<unknown>) => {
+        // Simulate upgrade if needed
+        if (options?.upgrade) {
+          // biome-ignore lint/suspicious/noExplicitAny: Required for test mocking - complex IDB types
+          options.upgrade(mockDB as unknown as IDBPDatabase, 0, 1, {} as any, {} as any);
+        }
+        return mockDB as unknown as IDBPDatabase;
+      }
+    );
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  describe('saveGameSession', () => {
+    it('should save game session to IndexedDB', async () => {
+      const { saveGameSession } = await import('../gameSessionDB');
+      await saveGameSession(mockGameState);
+
+      expect(mockDB.put).toHaveBeenCalledWith('game-sessions', mockGameState);
+    });
+
+    it('should handle errors when saving fails', async () => {
+      const { saveGameSession } = await import('../gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const error = new Error('Save failed');
+      mockDB.put.mockRejectedValueOnce(error);
+
+      await expect(saveGameSession(mockGameState)).rejects.toThrow('Save failed');
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to save game session to IndexedDB:',
+        error
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe('loadGameSession', () => {
+    it('should load game session from IndexedDB', async () => {
+      const { loadGameSession } = await import('../gameSessionDB');
+      mockDB.get.mockResolvedValueOnce(mockGameState);
+
+      const result = await loadGameSession('game-123');
+
+      expect(mockDB.get).toHaveBeenCalledWith('game-sessions', 'game-123');
+      expect(result).toEqual(mockGameState);
+    });
+
+    it('should return null when session is not found', async () => {
+      const { loadGameSession } = await import('../gameSessionDB');
+      mockDB.get.mockResolvedValueOnce(undefined);
+
+      const result = await loadGameSession('non-existent');
+
+      expect(mockDB.get).toHaveBeenCalledWith('game-sessions', 'non-existent');
+      expect(result).toBeNull();
+    });
+
+    it('should return null and log error when loading fails', async () => {
+      const { loadGameSession } = await import('../gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const error = new Error('Load failed');
+      mockDB.get.mockRejectedValueOnce(error);
+
+      const result = await loadGameSession('game-123');
+
+      expect(result).toBeNull();
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to load game session from IndexedDB:',
+        error
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe('deleteGameSession', () => {
+    it('should delete game session from IndexedDB', async () => {
+      const { deleteGameSession } = await import('../gameSessionDB');
+      await deleteGameSession('game-123');
+
+      expect(mockDB.delete).toHaveBeenCalledWith('game-sessions', 'game-123');
+    });
+
+    it('should handle errors when deletion fails', async () => {
+      const { deleteGameSession } = await import('../gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const error = new Error('Delete failed');
+      mockDB.delete.mockRejectedValueOnce(error);
+
+      await expect(deleteGameSession('game-123')).rejects.toThrow('Delete failed');
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to delete game session from IndexedDB:',
+        error
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe('getAllGameSessions', () => {
+    it('should get all game sessions from IndexedDB', async () => {
+      const { getAllGameSessions } = await import('../gameSessionDB');
+      const sessions = [mockGameState, { ...mockGameState, id: 'game-456' }];
+      mockDB.getAll.mockResolvedValueOnce(sessions);
+
+      const result = await getAllGameSessions();
+
+      expect(mockDB.getAll).toHaveBeenCalledWith('game-sessions');
+      expect(result).toEqual(sessions);
+    });
+
+    it('should return empty array when getAll fails', async () => {
+      const { getAllGameSessions } = await import('../gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const error = new Error('GetAll failed');
+      mockDB.getAll.mockRejectedValueOnce(error);
+
+      const result = await getAllGameSessions();
+
+      expect(result).toEqual([]);
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to get all game sessions from IndexedDB:',
+        error
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe('clearAllGameSessions', () => {
+    it('should clear all game sessions from IndexedDB', async () => {
+      const { clearAllGameSessions } = await import('../gameSessionDB');
+      await clearAllGameSessions();
+
+      expect(mockDB.clear).toHaveBeenCalledWith('game-sessions');
+    });
+
+    it('should handle errors when clearing fails', async () => {
+      const { clearAllGameSessions } = await import('../gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const error = new Error('Clear failed');
+      mockDB.clear.mockRejectedValueOnce(error);
+
+      await expect(clearAllGameSessions()).rejects.toThrow('Clear failed');
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to clear game sessions from IndexedDB:',
+        error
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe('database initialization', () => {
+    it('should create object store during upgrade if it does not exist', async () => {
+      const { saveGameSession } = await import('../gameSessionDB');
+      mockDB.objectStoreNames.contains.mockReturnValueOnce(false);
+
+      // Import and call one of the functions to trigger DB initialization
+      await saveGameSession(mockGameState);
+
+      expect(mockDB.createObjectStore).toHaveBeenCalledWith('game-sessions', { keyPath: 'id' });
+    });
+
+    it('should not create object store if it already exists', async () => {
+      const { saveGameSession } = await import('../gameSessionDB');
+      mockDB.objectStoreNames.contains.mockReturnValueOnce(true);
+
+      await saveGameSession(mockGameState);
+
+      expect(mockDB.createObjectStore).not.toHaveBeenCalled();
+    });
+  });
+});

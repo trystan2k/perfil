@@ -1,8 +1,17 @@
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGameStore } from '@/stores/gameStore';
 
-export function GamePlay() {
+interface GamePlayProps {
+  sessionId?: string;
+}
+
+export function GamePlay({ sessionId }: GamePlayProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  const id = useGameStore((state) => state.id);
   const currentTurn = useGameStore((state) => state.currentTurn);
   const players = useGameStore((state) => state.players);
   const status = useGameStore((state) => state.status);
@@ -11,6 +20,67 @@ export function GamePlay() {
   const nextClue = useGameStore((state) => state.nextClue);
   const passTurn = useGameStore((state) => state.passTurn);
   const awardPoints = useGameStore((state) => state.awardPoints);
+  const loadFromStorage = useGameStore((state) => state.loadFromStorage);
+
+  // Attempt to load game from storage on mount
+  useEffect(() => {
+    const loadGame = async () => {
+      // If there's already a game loaded in the store, don't reload
+      if (id) {
+        setIsLoading(false);
+        return;
+      }
+
+      // If a sessionId is provided, try to load it
+      if (sessionId) {
+        try {
+          const loaded = await loadFromStorage(sessionId);
+          if (!loaded) {
+            setLoadError('Game session not found. Please start a new game.');
+          }
+        } catch (error) {
+          console.error('Failed to load game session:', error);
+          setLoadError('Failed to load game session. Please try again.');
+        }
+      }
+
+      setIsLoading(false);
+    };
+
+    loadGame();
+  }, [sessionId, id, loadFromStorage]);
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              Loading...
+            </CardTitle>
+            <CardDescription>Loading game session...</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+
+  // Show error if loading failed
+  if (loadError) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              Error
+            </CardTitle>
+            <CardDescription>{loadError}</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
 
   // Early return if no active game
   if (status !== 'active' || !currentTurn) {
