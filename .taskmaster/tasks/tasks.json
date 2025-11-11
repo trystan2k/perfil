@@ -494,7 +494,7 @@
         "dependencies": [
           "8"
         ],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -522,7 +522,7 @@
             "description": "Create a new Astro page at `src/pages/scoreboard.astro` and a corresponding React component `Scoreboard.tsx` to display the final game results.",
             "dependencies": [],
             "details": "Create the file `src/pages/scoreboard.astro`. Inside this file, import and render a new React island component, `<Scoreboard client:load />`. Also, create the initial `Scoreboard.tsx` file in `src/components/`, which will serve as the container for the scoreboard UI.",
-            "status": "in-progress",
+            "status": "done",
             "testStrategy": "Use `@astrojs/testing` to verify that the `/scoreboard` route renders successfully without errors. The initial test can just check for a placeholder heading to confirm the page and component are linked correctly."
           },
           {
@@ -533,7 +533,7 @@
               3
             ],
             "details": "In `Scoreboard.tsx`, use the Zustand store hook to subscribe to the `players` array. Implement a memoized sorting function using `useMemo` to sort the players by `score` descending. Use the `Table`, `TableHeader`, `TableRow`, `TableHead`, `TableBody`, and `TableCell` components from `shadcn/ui` to render the ranked list.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Use React Testing Library to test the `Scoreboard.tsx` component. Provide a mock Zustand store with an unsorted list of players. Verify that the component renders a table and that the player rows appear in the correct, sorted order based on score."
           },
           {
@@ -546,7 +546,7 @@
               3
             ],
             "details": "In the `GamePlay.tsx` component, use a `useEffect` hook that subscribes to the `gameStatus` from the Zustand store. When `gameStatus` changes to 'finished', use client-side navigation (e.g., `window.location.href = '/scoreboard'`) to redirect the user to the scoreboard page.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "In the `GamePlay.tsx` test suite, use a mock store. Simulate the state changing so that `gameStatus` becomes 'finished'. Verify that the navigation logic (e.g., `window.location.href` assignment) is triggered. This may require mocking `window.location`."
           }
         ]
@@ -822,7 +822,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-11T21:58:07.960Z"
+      "updated": "2025-11-11T23:18:07.671Z"
     }
   }
 }
