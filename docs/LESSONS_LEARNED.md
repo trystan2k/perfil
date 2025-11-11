@@ -149,3 +149,22 @@
   2. No silent degradation of test coverage over time
   3. Coverage decreases are conscious decisions, not accidents
   4. Project maintains high quality standards consistently
+
+2025-11-11 — ALWAYS VALIDATE AI SUGGESTIONS AGAINST PROJECT ARCHITECTURE
+
+- Mistake: Implementing SSR (Server-Side Rendering) for the scoreboard route based on a GitHub Copilot PR review comment, without first validating the suggestion against the project's documented architecture (which specifies Static Site Generation / SSG).
+- What happened:
+  1. Copilot suggested using `prerender: false` (SSR) for "consistency"
+  2. I added the Cloudflare adapter and enabled SSR without questioning the architectural change
+  3. This violated the project's core design: SSG with client-side data fetching from IndexedDB
+- Correct procedure: When ANY AI tool (Copilot, Claude, etc.) suggests architectural changes:
+  1. STOP and verify the suggestion against the project's documented architecture (PRD, README, etc.)
+  2. Question whether the change aligns with the project's design decisions
+  3. Consider if the AI might be making incorrect assumptions
+  4. Consult with the user BEFORE implementing architectural changes
+  5. Remember: AI-generated suggestions (including PR reviews) can be wrong
+- This ensures:
+  1. Project architecture remains consistent with design decisions
+  2. No silent architectural drift from AI suggestions
+  3. All architectural changes are conscious, validated decisions
+  4. Documentation remains the source of truth, not AI assumptions
