@@ -1,11 +1,24 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
+import * as gameSessionDB from '../../lib/gameSessionDB';
 import { GamePlay } from '../GamePlay';
+
+// Mock the gameSessionDB module to avoid IndexedDB issues in Node test environment
+vi.mock('../../lib/gameSessionDB', () => ({
+  saveGameSession: vi.fn().mockResolvedValue(undefined),
+  loadGameSession: vi.fn().mockResolvedValue(null),
+  deleteGameSession: vi.fn().mockResolvedValue(undefined),
+  getAllGameSessions: vi.fn().mockResolvedValue([]),
+  clearAllGameSessions: vi.fn().mockResolvedValue(undefined),
+}));
 
 describe('GamePlay Component', () => {
   beforeEach(() => {
+    // Reset mocks
+    vi.clearAllMocks();
+
     // Reset store before each test
     const store = useGameStore.getState();
     store.createGame(['Alice', 'Bob', 'Charlie']);
@@ -455,6 +468,259 @@ describe('GamePlay Component', () => {
 
       // Clues read should remain the same
       expect(cluesReadAfter).toBe(3);
+    });
+  });
+
+  describe('Session Loading and Error Handling', () => {
+    beforeEach(() => {
+      // Reset store to empty state for these tests (no game created)
+      useGameStore.setState({
+        id: '',
+        players: [],
+        currentTurn: null,
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'pending',
+        category: undefined,
+      });
+    });
+
+    it('should render without loading when no sessionId provided and no game in store', () => {
+      render(<GamePlay />);
+
+      // Should show "No Active Game" immediately without loading
+      expect(screen.getByText('No Active Game')).toBeInTheDocument();
+      expect(screen.getByText('Please start a game first.')).toBeInTheDocument();
+
+      // Should not show loading state
+      expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+    });
+
+    it('should show loading state when sessionId is provided', async () => {
+      // Mock loadGameSession to return a never-resolving promise to keep component in loading state
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(() => new Promise(() => {}));
+
+      render(<GamePlay sessionId="test-session-123" />);
+
+      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      expect(screen.getByText('Loading game session...')).toBeInTheDocument();
+    });
+
+    it('should show error when session not found', async () => {
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValueOnce(null);
+
+      render(<GamePlay sessionId="non-existent-session" />);
+
+      // Wait for loading to complete
+      await screen.findByText('Error');
+      expect(
+        screen.getByText('Game session not found. Please start a new game.')
+      ).toBeInTheDocument();
+    });
+
+    it('should show error when loading fails', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.mocked(gameSessionDB.loadGameSession).mockRejectedValueOnce(new Error('Database error'));
+
+      render(<GamePlay sessionId="failing-session" />);
+
+      // Wait for loading to complete
+      await screen.findByText('Error');
+      expect(
+        screen.getByText('Failed to load game session. Please try again.')
+      ).toBeInTheDocument();
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should skip loading when game already exists in store', () => {
+      // Set up store with players and an active game
+      const store = useGameStore.getState();
+      store.createGame(['Alice', 'Bob', 'Charlie']);
+      store.startGame('Movies');
+
+      // Even with sessionId, should not load from storage because game already exists
+      render(<GamePlay sessionId="some-session" />);
+
+      // Should immediately show the game (no loading, no storage call)
+      expect(screen.getByText('Game Play')).toBeInTheDocument();
+      expect(gameSessionDB.loadGameSession).not.toHaveBeenCalled();
+    });
+
+    it('should handle cancellation during error (race condition)', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Mock loadGameSession to reject after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Database error')), 50);
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="failing-session" />);
+
+      // Unmount immediately (sets cancelled = true)
+      unmount();
+
+      // Wait for the rejection to occur after unmount
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - the cancelled flag should prevent setState after unmount
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should handle unmount during successful load (cancelled branch)', async () => {
+      // Mock loadGameSession to resolve after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(
+              () =>
+                resolve({
+                  id: 'test-session',
+                  players: [{ id: '1', name: 'Player 1', score: 0 }],
+                  currentTurn: {
+                    profileId: 'profile-1',
+                    activePlayerId: '1',
+                    cluesRead: 0,
+                    revealed: false,
+                  },
+                  remainingProfiles: [],
+                  totalCluesPerProfile: 20,
+                  status: 'active' as const,
+                  category: 'Movies',
+                }),
+              50
+            );
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="test-session" />);
+
+      // Unmount before the load completes (sets cancelled = true, mounted = false)
+      unmount();
+
+      // Wait for the async operation to complete
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - cancelled and mounted flags should prevent setState
+    });
+
+    it('should handle unmount when session not found (mounted = false branch)', async () => {
+      // Mock loadGameSession to return null (not found) after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(() => resolve(null), 50);
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="not-found-session" />);
+
+      // Unmount before the load completes (sets mounted = false)
+      unmount();
+
+      // Wait for the async operation to complete
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - mounted flag should prevent setState
+    });
+
+    it('should handle unmount during error setState (mounted = false in error handler)', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Mock loadGameSession to reject after a delay
+      vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
+        () =>
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error('Database error')), 50);
+          })
+      );
+
+      const { unmount } = render(<GamePlay sessionId="error-session" />);
+
+      // Unmount before the error occurs (sets mounted = false)
+      unmount();
+
+      // Wait for the error to occur
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // No errors should occur - mounted flag should prevent setState
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should handle unmount at end of loadGame (final mounted check)', async () => {
+      // Mock loadGameSession to return null quickly
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(null);
+
+      const { unmount } = render(<GamePlay sessionId="quick-session" />);
+
+      // Unmount immediately
+      unmount();
+
+      // Wait briefly for async operations
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // No errors should occur - mounted flag should prevent final setIsLoading(false)
+    });
+
+    it('should handle unmount when game already exists (mounted = false on early return)', async () => {
+      // Set up store with existing game
+      const store = useGameStore.getState();
+      store.createGame(['Alice', 'Bob', 'Charlie']);
+      store.startGame('Movies');
+
+      const { unmount } = render(<GamePlay sessionId="some-session" />);
+
+      // Unmount immediately (this should hit the mounted check in the early return)
+      unmount();
+
+      // Wait briefly
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // No errors should occur
+    });
+
+    it('should load game state successfully when valid sessionId provided', async () => {
+      const mockSession = {
+        id: 'loaded-session-123',
+        players: [
+          { id: '1', name: 'Loaded Player 1', score: 10 },
+          { id: '2', name: 'Loaded Player 2', score: 20 },
+        ],
+        currentTurn: {
+          profileId: 'profile-1',
+          activePlayerId: '1',
+          cluesRead: 3,
+          revealed: false,
+        },
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'active' as const,
+        category: 'Sports',
+      };
+
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValueOnce(mockSession);
+
+      render(<GamePlay sessionId="loaded-session-123" />);
+
+      // Wait for loading to complete and game to render
+      await screen.findByText('Game Play');
+
+      // Verify loaded state
+      expect(screen.getByText('Category: Sports')).toBeInTheDocument();
+
+      // Use getAllByText since player names appear twice (active player + scoreboard)
+      const player1Elements = screen.getAllByText('Loaded Player 1');
+      expect(player1Elements.length).toBeGreaterThanOrEqual(1);
+
+      const player2Elements = screen.getAllByText('Loaded Player 2');
+      expect(player2Elements.length).toBeGreaterThanOrEqual(1);
+
+      // Verify scores are displayed
+      expect(screen.getByText('10 pts')).toBeInTheDocument();
+      expect(screen.getByText('20 pts')).toBeInTheDocument();
     });
   });
 

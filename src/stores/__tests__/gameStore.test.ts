@@ -1,5 +1,15 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '../gameStore';
+
+// Mock the gameSessionDB module to avoid IndexedDB issues in Node test environment
+vi.mock('../../lib/gameSessionDB', () => ({
+  saveGameSession: vi.fn().mockResolvedValue(undefined),
+  loadGameSession: vi.fn().mockResolvedValue(null),
+  deleteGameSession: vi.fn().mockResolvedValue(undefined),
+  getAllGameSessions: vi.fn().mockResolvedValue([]),
+  clearAllGameSessions: vi.fn().mockResolvedValue(undefined),
+}));
 
 describe('gameStore', () => {
   beforeEach(() => {
@@ -685,6 +695,162 @@ describe('gameStore', () => {
 
       expect(state.status).toBe('completed');
       expect(state.players.every((p) => p.score === 0)).toBe(true);
+    });
+  });
+
+  describe('Persistence Error Handling', () => {
+    it('should handle errors when persisting state without throwing', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Mock saveGameSession to fail
+      vi.mocked(saveGameSession).mockRejectedValueOnce(new Error('Database error'));
+
+      // Create and start game (which should trigger persistence)
+      useGameStore.getState().createGame(['Player1', 'Player2']);
+      useGameStore.getState().startGame('Movies');
+
+      // Wait for persistence attempt to complete
+      await waitFor(
+        () => {
+          expect(consoleErrorSpy).toHaveBeenCalledWith(
+            'Failed to persist game state:',
+            expect.any(Error)
+          );
+        },
+        { timeout: 1000 }
+      );
+
+      // Game should still be in active state despite persistence failure
+      expect(useGameStore.getState().status).toBe('active');
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should not persist when game ID is not set', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+
+      // Create a game first (this will cause persist with valid ID)
+      useGameStore.getState().createGame(['Player1', 'Player2']);
+
+      // Clear mock calls from the createGame
+      vi.mocked(saveGameSession).mockClear();
+
+      // Now manually clear the ID but keep other state (simulating edge case)
+      // This would trigger persistState but it should return early
+      const currentState = useGameStore.getState();
+      useGameStore.setState({
+        ...currentState,
+        id: '',
+      });
+
+      // Try to trigger an action that calls persistState
+      // Since we can't call actions without ID, we directly test that
+      // setState with empty ID doesn't trigger persistence
+      await waitFor(
+        () => {
+          // saveGameSession should not have been called after clearing ID
+          expect(saveGameSession).not.toHaveBeenCalled();
+        },
+        { timeout: 500 }
+      );
+    });
+
+    it('should handle errors when loading from storage', async () => {
+      const { loadGameSession } = await import('../../lib/gameSessionDB');
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Mock loadGameSession to fail
+      vi.mocked(loadGameSession).mockRejectedValueOnce(new Error('Load error'));
+
+      await expect(useGameStore.getState().loadFromStorage('test-session')).rejects.toThrow(
+        'Load error'
+      );
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to load game from storage:',
+        expect.any(Error)
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should return false when loading non-existent session', async () => {
+      const { loadGameSession } = await import('../../lib/gameSessionDB');
+
+      // Mock loadGameSession to return null (session not found)
+      vi.mocked(loadGameSession).mockResolvedValueOnce(null);
+
+      const result = await useGameStore.getState().loadFromStorage('non-existent');
+
+      expect(result).toBe(false);
+    });
+
+    it('should successfully load game from storage', async () => {
+      const { loadGameSession } = await import('../../lib/gameSessionDB');
+
+      const mockSession = {
+        id: 'loaded-session',
+        players: [{ id: '1', name: 'Loaded Player', score: 15 }],
+        currentTurn: {
+          profileId: 'profile-1',
+          activePlayerId: '1',
+          cluesRead: 5,
+          revealed: false,
+        },
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'active' as const,
+        category: 'Sports',
+      };
+
+      vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
+
+      const result = await useGameStore.getState().loadFromStorage('loaded-session');
+
+      expect(result).toBe(true);
+
+      const state = useGameStore.getState();
+      expect(state.id).toBe('loaded-session');
+      expect(state.category).toBe('Sports');
+      expect(state.status).toBe('active');
+      expect(state.players).toHaveLength(1);
+      expect(state.players[0].name).toBe('Loaded Player');
+      expect(state.players[0].score).toBe(15);
+    });
+
+    it('should not trigger persistence during rehydration', async () => {
+      const { loadGameSession, saveGameSession } = await import('../../lib/gameSessionDB');
+
+      const mockSession = {
+        id: 'loaded-session',
+        players: [{ id: '1', name: 'Test Player', score: 10 }],
+        currentTurn: {
+          profileId: 'profile-1',
+          activePlayerId: '1',
+          cluesRead: 2,
+          revealed: false,
+        },
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'active' as const,
+        category: 'Movies',
+      };
+
+      vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
+      vi.mocked(saveGameSession).mockClear();
+
+      // Load from storage (which triggers rehydration)
+      await useGameStore.getState().loadFromStorage('loaded-session');
+
+      // Wait to ensure no async persistence is triggered
+      await waitFor(
+        () => {
+          // saveGameSession should not be called during rehydration
+          expect(saveGameSession).not.toHaveBeenCalled();
+        },
+        { timeout: 500 }
+      );
     });
   });
 });

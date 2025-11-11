@@ -101,3 +101,51 @@
   3. Refactoring is safe because tests don't depend on internal structure
   4. No unnecessary code shipped to users
   5. Better separation of concerns between production and test code
+
+2025-11-11 — ALWAYS COMMIT TASK STATUS UPDATES WITH IMPLEMENTATION
+
+- Mistake: Completing a task implementation and committing the code changes, but forgetting to commit the Task Master status updates (marking task/subtasks as "done") in the same session/branch.
+- Correct procedure: ALWAYS commit task status updates together with the implementation:
+  1. Complete the implementation work
+  2. Mark subtasks/task as "done" in Task Master
+  3. Create development logs
+  4. Commit ALL changes together (code + Task Master updates + logs) in a single commit or ensure all are committed before pushing
+  5. The feature branch should contain both the implementation AND the updated task status
+- This ensures:
+  1. Task tracking stays synchronized with code changes
+  2. Complete traceability in version control
+  3. No orphaned task updates left uncommitted
+  4. Clear history of what was done when
+
+2025-11-11 — ALWAYS ASK PERMISSION BEFORE COMMITS WHEN RESUMING FROM SUMMARY
+
+- Mistake: When resuming from a conversation summary and the user says "go on" or "continue", immediately proceeding with git commits/pushes without asking for explicit permission first.
+- Correct procedure: When resuming from a summary where the next step involves commits/pushes:
+  1. Read the summary to understand what work was done
+  2. Identify what remains to be committed/pushed
+  3. EXPLICITLY ASK the user for permission to commit/push those specific changes
+  4. Wait for user confirmation before executing any git commit or push commands
+  5. NEVER assume "go on" or "continue" means permission to commit - always ask explicitly
+- This ensures:
+  1. User maintains control over version history even across session boundaries
+  2. User can review what will be committed before it happens
+  3. Prevents automatic commits when resuming from compacted conversations
+  4. Maintains the authorization workflow regardless of session state
+
+2025-11-11 — ALWAYS ASK PERMISSION FOR ANY TEST COVERAGE DECREASE
+
+- Mistake: Making changes that decrease test coverage (even by 0.001%) without informing the user or asking for permission to accept the lower coverage.
+- Correct procedure: BEFORE committing/pushing any changes that decrease test coverage:
+  1. Run test coverage to verify the impact of changes
+  2. If coverage decreased by ANY amount (even 0.001%):
+     - IMMEDIATELY inform the user of the coverage decrease
+     - Show the old vs new coverage percentages
+     - Explain which files/lines are now uncovered
+     - EXPLICITLY ASK permission to accept the lower coverage
+  3. Wait for user approval before proceeding
+  4. NEVER assume small coverage decreases are acceptable without asking
+- This ensures:
+  1. User maintains control over code quality standards
+  2. No silent degradation of test coverage over time
+  3. Coverage decreases are conscious decisions, not accidents
+  4. Project maintains high quality standards consistently
