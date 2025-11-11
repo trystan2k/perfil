@@ -59,9 +59,9 @@ export function GamePlay() {
         <CardContent className="space-y-6">
           {/* Active Player Section */}
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold text-center">
+            <div className="text-3xl font-bold text-center">
               {activePlayer ? activePlayer.name : 'Unknown Player'}
-            </h2>
+            </div>
             <p className="text-center text-muted-foreground">Current Player</p>
           </div>
 
