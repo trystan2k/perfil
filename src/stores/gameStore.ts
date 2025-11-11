@@ -46,13 +46,8 @@ const PERSIST_DEBOUNCE_MS = 300;
  * Persist current state to IndexedDB with debouncing
  */
 async function persistState(state: GameState): Promise<void> {
-  // Skip persistence during rehydration to avoid infinite loop
-  if (state.id && rehydratingSessionIds.has(state.id)) {
-    return;
-  }
-
-  // Only persist if there's an active game session
-  if (!state.id) {
+  // Skip persistence during rehydration or if there's no active game session
+  if (!state.id || rehydratingSessionIds.has(state.id)) {
     return;
   }
 

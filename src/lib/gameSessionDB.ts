@@ -31,6 +31,18 @@ function getDB(): Promise<IDBPDatabase> {
 }
 
 /**
+ * Close the IndexedDB database connection
+ * Useful for cleanup, especially in tests or when closing the app
+ */
+export async function closeDB(): Promise<void> {
+  if (dbPromise) {
+    const db = await dbPromise;
+    db.close();
+    dbPromise = null;
+  }
+}
+
+/**
  * Save game session state to IndexedDB
  */
 export async function saveGameSession(state: PersistedGameState): Promise<void> {

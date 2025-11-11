@@ -46,9 +46,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           }
 
           if (!loaded) {
-            if (isMounted) {
-              setLoadError('Game session not found. Please start a new game.');
-            }
+            setLoadError('Game session not found. Please start a new game.');
           }
         } catch (error) {
           if (!isMounted) {
@@ -56,9 +54,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           }
 
           console.error('Failed to load game session:', error);
-          if (isMounted) {
-            setLoadError('Failed to load game session. Please try again.');
-          }
+          setLoadError('Failed to load game session. Please try again.');
         }
       }
 
