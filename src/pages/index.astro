@@ -5,6 +5,6 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Perfil - Game Setup">
-	<LanguageSwitcher client:load />
-	<GameSetup client:load />
+	<LanguageSwitcher client:only="react" />
+	<GameSetup client:only="react" />
 </Layout>

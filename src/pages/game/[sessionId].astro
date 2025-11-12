@@ -13,5 +13,5 @@ const { sessionId } = Astro.params;
 ---
 
 <Layout title="Perfil - Game Session">
-	<GamePlay sessionId={sessionId} client:load />
+	<GamePlay sessionId={sessionId} client:only="react" />
 </Layout>

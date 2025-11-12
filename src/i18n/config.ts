@@ -8,6 +8,7 @@ const supportedLngs = SUPPORTED_LOCALES;
 const fallbackLng = FALLBACK_LOCALE;
 
 let i18nInitialized = false;
+let initPromise: Promise<typeof i18next> | null = null;
 
 // Initialize i18next for React components - returns a promise
 export const initI18n = async (locale?: string) => {
@@ -20,7 +21,12 @@ export const initI18n = async (locale?: string) => {
     return i18next;
   }
 
-  await i18next
+  // If initialization is in progress, return the same promise
+  if (initPromise) {
+    return initPromise;
+  }
+
+  initPromise = i18next
     .use(HttpBackend) // Load translations from /locales/[lang]/translation.json
     .use(LanguageDetector) // Detect user language from browser
     .use(initReactI18next) // Integrate with React
@@ -41,10 +47,13 @@ export const initI18n = async (locale?: string) => {
         lookupLocalStorage: 'i18nextLng',
         caches: ['localStorage'],
       },
+    })
+    .then(() => {
+      i18nInitialized = true;
+      return i18next;
     });
 
-  i18nInitialized = true;
-  return i18next;
+  return initPromise;
 };
 
 export default i18next;

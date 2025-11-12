@@ -56,7 +56,7 @@ vi.mock('react-i18next', () => ({
     t: (key: string, params?: Record<string, unknown>) => {
       let translation = translations[key] || key;
       
-      // Handle interpolation for dynamic values like {{current}}, {{total}}, {{name}}, {{points}}, {{count}}, {{max}}, {{category}}
+      // Handle interpolation for dynamic values in translation strings
       if (params) {
         Object.entries(params).forEach(([paramKey, paramValue]) => {
           translation = translation.replace(`{{${paramKey}}}`, String(paramValue));

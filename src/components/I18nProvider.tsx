@@ -85,8 +85,8 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
   }
 
   return (
-    <I18nextProvider i18n={i18next}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </I18nextProvider>
+    <QueryClientProvider client={queryClient}>
+      <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
+    </QueryClientProvider>
   );
 }

@@ -11,7 +11,7 @@ export function LanguageSwitcher() {
   const currentLocale = i18n.language;
 
   const handleLanguageChange = (locale: string) => {
-    i18n.changeLanguage(locale);
+    i18n.changeLanguage(locale).catch(console.error);
   };
 
   return (
