@@ -1,8 +1,6 @@
 ---
 import { GamePlay } from '../../components/GamePlay';
-import { I18nProvider } from '../../components/I18nProvider';
 import Layout from '../../layouts/Layout.astro';
-import { detectLocale } from '../../lib/localeDetection';
 
 // For static build, provide a sample session path
 // In production, this would be dynamically generated or use SSR
@@ -12,14 +10,8 @@ export function getStaticPaths() {
 
 // Get the sessionId from the URL params
 const { sessionId } = Astro.params;
-
-// Detect locale from Astro config or Accept-Language header
-const acceptLanguage = Astro.request.headers.get('accept-language');
-const currentLocale = detectLocale(Astro.currentLocale, acceptLanguage);
 ---
 
 <Layout title="Perfil - Game Session">
-	<I18nProvider client:only="react" locale={currentLocale}>
-		<GamePlay sessionId={sessionId} client:load />
-	</I18nProvider>
+	<GamePlay sessionId={sessionId} client:load />
 </Layout>
