@@ -675,7 +675,7 @@
             "description": "Generate and add all necessary application icons to the public directory for the web manifest.",
             "dependencies": [],
             "details": "Create multiple sizes of the application icon, including at least 192x192 and 512x512 pixels. Also create a maskable icon. Place all generated PNG files into the `public/icons/` directory.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Check that all required icon files exist in the `public/icons/` directory and that they are correctly sized and formatted."
           },
           {
@@ -957,7 +957,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-12T09:35:31.979Z"
+      "updated": "2025-11-12T14:22:08.468Z"
     }
   }
 }
