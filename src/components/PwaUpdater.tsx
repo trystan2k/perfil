@@ -4,18 +4,7 @@ export function PwaUpdater() {
   const {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
-  } = useRegisterSW({
-    onRegistered(registration: ServiceWorkerRegistration | undefined) {
-      if (import.meta.env.DEV) {
-        console.log('SW Registered:', registration);
-      }
-    },
-    onRegisterError(error: Error) {
-      if (import.meta.env.DEV) {
-        console.error('SW registration error:', error);
-      }
-    },
-  });
+  } = useRegisterSW();
 
   const handleUpdate = () => {
     updateServiceWorker(true);
