@@ -37,6 +37,69 @@ export default defineConfig({
 						},
 					],
 				},
+				workbox: {
+					runtimeCaching: [
+						{
+							urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+							handler: 'CacheFirst',
+							options: {
+								cacheName: 'google-fonts-cache',
+								expiration: {
+									maxEntries: 10,
+									maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+								},
+								cacheableResponse: {
+									statuses: [0, 200],
+								},
+							},
+						},
+						{
+							urlPattern: /\.(?:js|css|woff2?)$/i,
+							handler: 'StaleWhileRevalidate',
+							options: {
+								cacheName: 'static-assets-cache',
+								expiration: {
+									maxEntries: 50,
+									maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+								},
+							},
+						},
+						{
+							urlPattern: /\/data\/.*\/profiles\.json$/i,
+							handler: 'NetworkFirst',
+							options: {
+								cacheName: 'profiles-data-cache',
+								expiration: {
+									maxEntries: 10,
+									maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+								},
+								networkTimeoutSeconds: 10,
+							},
+						},
+						{
+							urlPattern: /\/locales\/.*\/translation\.json$/i,
+							handler: 'CacheFirst',
+							options: {
+								cacheName: 'translations-cache',
+								expiration: {
+									maxEntries: 10,
+									maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+								},
+							},
+						},
+						{
+							urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/i,
+							handler: 'CacheFirst',
+							options: {
+								cacheName: 'images-cache',
+								expiration: {
+									maxEntries: 60,
+									maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+								},
+							},
+						},
+					],
+				},
 			}),
 		],
 	},

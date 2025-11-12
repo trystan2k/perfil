@@ -698,7 +698,7 @@
               1
             ],
             "details": "Within the PWA plugin options in `astro.config.mjs`, use the `generateSW` strategy. Configure `workbox` runtime caching rules. Set up a `StaleWhileRevalidate` rule for static assets (JS, CSS, fonts) and a `NetworkFirst` rule for the profiles JSON data endpoint.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Use the browser's developer tools (Application > Service Workers) to verify the service worker is registered. Go to the Network tab, enable offline mode, and reload the page to confirm that cached assets are served correctly."
           },
           {
@@ -957,7 +957,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-12T14:47:45.225Z"
+      "updated": "2025-11-12T14:49:39.477Z"
     }
   }
 }
