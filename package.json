@@ -67,7 +67,9 @@
     "jsdom": "~27.1.0",
     "lint-staged": "~16.2.6",
     "typescript": "~5.9.3",
+    "vite-plugin-pwa": "~1.1.0",
     "vitest": "~4.0.8",
+    "workbox-window": "~7.3.0",
     "wrangler": "~4.46.0"
   }
 }

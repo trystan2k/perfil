@@ -1,5 +1,6 @@
 ---
 import { I18nProvider } from '../components/I18nProvider';
+import { PwaUpdater } from '../components/PwaUpdater';
 import { FALLBACK_LOCALE } from '../i18n/locales';
 import '../styles/globals.css';
 
@@ -27,6 +28,7 @@ const currentLocale = FALLBACK_LOCALE;
     <I18nProvider client:only="react" locale={currentLocale}>
       <slot />
     </I18nProvider>
+    <PwaUpdater client:load />
   </body>
 </html>
 
