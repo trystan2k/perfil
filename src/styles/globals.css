@@ -109,3 +109,35 @@
     @apply px-2;
   }
 }
+
+/* PWA Updater Styles */
+.pwa-updater {
+  @apply fixed bottom-4 left-4 right-4 z-50;
+  @apply md:left-auto md:right-4 md:max-w-md;
+}
+
+.pwa-updater-content {
+  @apply bg-card border border-border rounded-lg shadow-lg p-4;
+  @apply animate-in slide-in-from-bottom-5 duration-300;
+}
+
+.pwa-updater-message {
+  @apply text-card-foreground font-medium mb-3 text-sm;
+}
+
+.pwa-updater-actions {
+  @apply flex gap-2;
+}
+
+.pwa-updater-button {
+  @apply px-4 py-2 rounded-md text-sm font-medium transition-colors;
+  @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+}
+
+.pwa-updater-button.primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.pwa-updater-button.secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+}
