@@ -687,7 +687,7 @@
               2
             ],
             "details": "In `astro.config.mjs`, configure the `manifest` property in the PWA plugin options. Set the `name`, `short_name`, `description`, `theme_color`, `background_color`, and `icons` array, pointing to the assets created in the previous step.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Build the project and inspect the generated `manifest.webmanifest` in the output directory to ensure all properties are correctly set. Use the browser's developer tools (Application > Manifest) to verify it's being read correctly."
           },
           {
@@ -957,7 +957,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-12T14:22:08.468Z"
+      "updated": "2025-11-12T14:47:45.225Z"
     }
   }
 }
