@@ -1,11 +1,13 @@
 ---
 import { GameSetup } from '../components/GameSetup';
-import { QueryProvider } from '../components/QueryProvider';
+import { I18nProvider } from '../components/I18nProvider';
 import Layout from '../layouts/Layout.astro';
+
+const currentLocale = Astro.currentLocale || 'en';
 ---
 
 <Layout title="Perfil - Game Setup">
-	<QueryProvider client:only="react">
+	<I18nProvider client:only="react" locale={currentLocale}>
 		<GameSetup client:load />
-	</QueryProvider>
+	</I18nProvider>
 </Layout>

@@ -1,0 +1,49 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "notFound": "Não Encontrado",
+    "retry": "Tentar Novamente",
+    "category": "Categoria",
+    "pts": "pts"
+  },
+  "gameSetup": {
+    "title": "Configuração do Jogo",
+    "description": "Adicione jogadores para iniciar um novo jogo. Você precisa de pelo menos 2 jogadores.",
+    "playerName": "Nome do Jogador",
+    "playerNamePlaceholder": "Digite o nome do jogador",
+    "add": "Adicionar",
+    "players": "Jogadores",
+    "startGame": "Iniciar Jogo",
+    "playerAlreadyExists": "O nome do jogador já existe",
+    "removePlayer": "Remover {{name}}"
+  },
+  "gamePlay": {
+    "title": "Jogo em Andamento",
+    "loadingSession": "Carregando sessão do jogo...",
+    "sessionNotFound": "Sessão do jogo não encontrada. Por favor inicie um novo jogo.",
+    "failedToLoad": "Falha ao carregar a sessão do jogo. Por favor tente novamente.",
+    "noActiveGame": "Nenhum Jogo Ativo",
+    "pleaseStartGame": "Por favor inicie um jogo primeiro.",
+    "currentPlayer": "Jogador Atual",
+    "clueProgress": "Pista {{current}} de {{total}}",
+    "showFirstClue": "Pressione \"Mostrar Próxima Pista\" para revelar a primeira pista",
+    "showNextClue": "Mostrar Próxima Pista",
+    "pass": "Passar",
+    "playersTitle": "Jogadores - Toque para Conceder Pontos",
+    "showOneClueToAward": "Mostre pelo menos uma pista para conceder pontos",
+    "finishGame": "Finalizar Jogo"
+  },
+  "scoreboard": {
+    "title": "Placar Final",
+    "loadingScoreboard": "Carregando placar...",
+    "noSessionId": "Nenhum ID de sessão fornecido",
+    "sessionNotFound": "Sessão do jogo não encontrada",
+    "unknownError": "Ocorreu um erro desconhecido",
+    "noPlayers": "Sem Jogadores",
+    "noPlayersDescription": "Esta sessão do jogo não tem jogadores.",
+    "rank": "Posição",
+    "player": "Jogador",
+    "score": "Pontuação"
+  }
+}

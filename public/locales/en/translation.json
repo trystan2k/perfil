@@ -1,0 +1,49 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "notFound": "Not Found",
+    "retry": "Retry",
+    "category": "Category",
+    "pts": "pts"
+  },
+  "gameSetup": {
+    "title": "Game Setup",
+    "description": "Add players to start a new game. You need at least 2 players.",
+    "playerName": "Player Name",
+    "playerNamePlaceholder": "Enter player name",
+    "add": "Add",
+    "players": "Players",
+    "startGame": "Start Game",
+    "playerAlreadyExists": "Player name already exists",
+    "removePlayer": "Remove {{name}}"
+  },
+  "gamePlay": {
+    "title": "Game Play",
+    "loadingSession": "Loading game session...",
+    "sessionNotFound": "Game session not found. Please start a new game.",
+    "failedToLoad": "Failed to load game session. Please try again.",
+    "noActiveGame": "No Active Game",
+    "pleaseStartGame": "Please start a game first.",
+    "currentPlayer": "Current Player",
+    "clueProgress": "Clue {{current}} of {{total}}",
+    "showFirstClue": "Press \"Show Next Clue\" to reveal the first clue",
+    "showNextClue": "Show Next Clue",
+    "pass": "Pass",
+    "playersTitle": "Players - Tap to Award Points",
+    "showOneClueToAward": "Show at least one clue to award points",
+    "finishGame": "Finish Game"
+  },
+  "scoreboard": {
+    "title": "Final Scoreboard",
+    "loadingScoreboard": "Loading scoreboard...",
+    "noSessionId": "No session ID provided",
+    "sessionNotFound": "Game session not found",
+    "unknownError": "An unknown error occurred",
+    "noPlayers": "No Players",
+    "noPlayersDescription": "This game session has no players.",
+    "rank": "Rank",
+    "player": "Player",
+    "score": "Score"
+  }
+}

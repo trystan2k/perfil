@@ -1,6 +1,6 @@
 ---
 import { GamePlay } from '../../components/GamePlay';
-import { QueryProvider } from '../../components/QueryProvider';
+import { I18nProvider } from '../../components/I18nProvider';
 import Layout from '../../layouts/Layout.astro';
 
 // For static build, provide a sample session path
@@ -11,10 +11,11 @@ export function getStaticPaths() {
 
 // Get the sessionId from the URL params
 const { sessionId } = Astro.params;
+const currentLocale = Astro.currentLocale || 'en';
 ---
 
 <Layout title="Perfil - Game Session">
-	<QueryProvider client:only="react">
+	<I18nProvider client:only="react" locale={currentLocale}>
 		<GamePlay sessionId={sessionId} client:load />
-	</QueryProvider>
+	</I18nProvider>
 </Layout>

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameSession } from '@/hooks/useGameSession';
 import type { Player } from '@/types/models';
 import { Button } from './ui/button';
@@ -14,6 +15,7 @@ interface RankedPlayer extends Player {
 }
 
 export function Scoreboard({ sessionId }: ScoreboardProps) {
+  const { t } = useTranslation();
   const { data: gameSession, isLoading, error, refetch } = useGameSession(sessionId);
 
   // Compute ranked players from game session data
@@ -44,7 +46,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     return (
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="text-center">
-          <p className="text-lg text-muted-foreground">Loading scoreboard...</p>
+          <p className="text-lg text-muted-foreground">{t('scoreboard.loading')}</p>
         </div>
       </div>
     );
@@ -82,8 +84,8 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
         <Card className="w-full max-w-md p-6">
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-2">No Players</h1>
-            <p className="text-muted-foreground">This game session has no players.</p>
+            <h1 className="text-2xl font-bold mb-2">{t('scoreboard.noPlayers.title')}</h1>
+            <p className="text-muted-foreground">{t('scoreboard.noPlayers.description')}</p>
           </div>
         </Card>
       </div>
@@ -93,10 +95,10 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="w-full max-w-2xl">
-        <h1 className="text-4xl font-bold text-center mb-2">Final Scoreboard</h1>
+        <h1 className="text-4xl font-bold text-center mb-2">{t('scoreboard.title')}</h1>
         {gameSession?.category && (
           <p className="text-center text-lg text-muted-foreground mb-8">
-            Category: {gameSession.category}
+            {t('scoreboard.category', { category: gameSession.category })}
           </p>
         )}
 
@@ -104,9 +106,9 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-20 text-center">Rank</TableHead>
-                <TableHead>Player</TableHead>
-                <TableHead className="w-24 text-right">Score</TableHead>
+                <TableHead className="w-20 text-center">{t('scoreboard.table.rank')}</TableHead>
+                <TableHead>{t('scoreboard.table.player')}</TableHead>
+                <TableHead className="w-24 text-right">{t('scoreboard.table.score')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
