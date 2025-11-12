@@ -10,40 +10,39 @@
   "gameSetup": {
     "title": "Configuración del Juego",
     "description": "Agrega jugadores para comenzar un nuevo juego. Necesitas al menos 2 jugadores.",
-    "playerName": "Nombre del Jugador",
+    "playerNameLabel": "Nombre del Jugador",
     "playerNamePlaceholder": "Ingresa el nombre del jugador",
-    "add": "Agregar",
-    "players": "Jugadores",
-    "startGame": "Iniciar Juego",
-    "playerAlreadyExists": "El nombre del jugador ya existe",
-    "removePlayer": "Eliminar {{name}}"
+    "addButton": "Agregar",
+    "playersLabel": "Jugadores",
+    "startButton": "Iniciar Juego",
+    "errors": {
+      "duplicateName": "El nombre del jugador ya existe"
+    },
+    "removePlayerAriaLabel": "Eliminar {{name}}"
   },
   "gamePlay": {
     "title": "Juego en Curso",
     "loadingSession": "Cargando sesión de juego...",
-    "sessionNotFound": "Sesión de juego no encontrada. Por favor inicia un nuevo juego.",
-    "failedToLoad": "Error al cargar la sesión de juego. Por favor intenta de nuevo.",
-    "noActiveGame": "No Hay Juego Activo",
-    "pleaseStartGame": "Por favor inicia un juego primero.",
+    "sessionNotFound": "Sesión de juego no encontrada. Por favor, inicia un nuevo juego.",
+    "failedToLoad": "Error al cargar la sesión de juego. Por favor, inténtalo de nuevo.",
+    "noActiveGame": "Sin Juego Activo",
+    "pleaseStartGame": "Por favor, inicia un juego primero.",
     "currentPlayer": "Jugador Actual",
     "clueProgress": "Pista {{current}} de {{total}}",
     "showFirstClue": "Presiona \"Mostrar Siguiente Pista\" para revelar la primera pista",
-    "showNextClue": "Mostrar Siguiente Pista",
-    "pass": "Pasar",
-    "playersTitle": "Jugadores - Toca para Otorgar Puntos",
-    "showOneClueToAward": "Muestra al menos una pista para otorgar puntos",
-    "finishGame": "Finalizar Juego"
+    "nextClueButton": "Mostrar Siguiente Pista",
+    "revealAnswerTitle": "Desliza para Revelar Respuesta",
+    "revealAnswerInstruction": "Desliza hacia arriba para ver la respuesta",
+    "answerTitle": "Respuesta",
+    "correctButton": "Correcto",
+    "incorrectButton": "Incorrecto",
+    "finishButton": "Finalizar Juego"
   },
   "scoreboard": {
-    "title": "Tabla de Posiciones Final",
-    "loadingScoreboard": "Cargando tabla de posiciones...",
-    "noSessionId": "No se proporcionó ID de sesión",
-    "sessionNotFound": "Sesión de juego no encontrada",
-    "unknownError": "Ocurrió un error desconocido",
-    "noPlayers": "Sin Jugadores",
-    "noPlayersDescription": "Esta sesión de juego no tiene jugadores.",
-    "rank": "Posición",
-    "player": "Jugador",
-    "score": "Puntuación"
+    "title": "Tabla de Posiciones",
+    "gameComplete": "¡Juego Completo!",
+    "playerColumn": "Jugador",
+    "scoreColumn": "Puntuación",
+    "returnButton": "Volver al Inicio"
   }
 }

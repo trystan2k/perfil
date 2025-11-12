@@ -67,3 +67,45 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Language Switcher Styles */
+.language-switcher {
+  @apply flex justify-center p-4;
+}
+
+.locale-list {
+  @apply flex gap-2 list-none m-0 p-0;
+}
+
+.locale-link {
+  @apply flex items-center gap-1.5 px-4 py-2 rounded-md no-underline;
+  @apply text-foreground bg-background border border-border;
+  @apply transition-all duration-200 text-sm font-medium;
+  @apply cursor-pointer;
+}
+
+.locale-link:hover {
+  @apply bg-accent border-accent;
+}
+
+.locale-link.active {
+  @apply bg-primary text-primary-foreground border-primary;
+}
+
+.locale-flag {
+  @apply text-xl leading-none;
+}
+
+.locale-name {
+  @apply text-sm;
+}
+
+@media (max-width: 640px) {
+  .locale-name {
+    @apply hidden;
+  }
+
+  .locale-link {
+    @apply px-2;
+  }
+}

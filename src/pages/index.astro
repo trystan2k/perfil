@@ -1,6 +1,7 @@
 ---
 import { GameSetup } from '../components/GameSetup';
 import { I18nProvider } from '../components/I18nProvider';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import Layout from '../layouts/Layout.astro';
 
 const currentLocale = Astro.currentLocale || 'en';
@@ -8,6 +9,7 @@ const currentLocale = Astro.currentLocale || 'en';
 
 <Layout title="Perfil - Game Setup">
 	<I18nProvider client:only="react" locale={currentLocale}>
+		<LanguageSwitcher client:load />
 		<GameSetup client:load />
 	</I18nProvider>
 </Layout>

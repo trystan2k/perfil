@@ -17,7 +17,7 @@
     "chrome-devtools": {
       "type": "local",
       "command": ["npx", "chrome-devtools-mcp@latest"],
-      "enabled": false
+      "enabled": true
     },
     "task-master-ai": {
       "type": "local",
@@ -42,7 +42,7 @@
       }
     },
     "playwright": {
-      "enabled": false,
+      "enabled": true,
       "type": "local",
       "command": [
         "npx",
