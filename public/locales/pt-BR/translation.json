@@ -13,7 +13,7 @@
     "playerNameLabel": "Nome do Jogador",
     "playerNamePlaceholder": "Digite o nome do jogador",
     "addButton": "Adicionar",
-    "playersLabel": "Jogadores",
+    "playersLabel": "Jogadores ({{count}}/{{max}})",
     "startButton": "Iniciar Jogo",
     "errors": {
       "duplicateName": "Nome do jogador já existe"
@@ -22,27 +22,45 @@
   },
   "gamePlay": {
     "title": "Jogo em Andamento",
-    "loadingSession": "Carregando sessão de jogo...",
-    "sessionNotFound": "Sessão de jogo não encontrada. Por favor, inicie um novo jogo.",
-    "failedToLoad": "Falha ao carregar a sessão de jogo. Por favor, tente novamente.",
-    "noActiveGame": "Nenhum Jogo Ativo",
-    "pleaseStartGame": "Por favor, inicie um jogo primeiro.",
+    "loading": {
+      "title": "Carregando Jogo",
+      "description": "Carregando sessão de jogo..."
+    },
+    "error": {
+      "title": "Erro"
+    },
+    "errors": {
+      "sessionNotFound": "Sessão de jogo não encontrada. Por favor, inicie um novo jogo.",
+      "loadFailed": "Falha ao carregar a sessão de jogo. Por favor, tente novamente."
+    },
+    "noActiveGame": {
+      "title": "Nenhum Jogo Ativo",
+      "description": "Por favor, inicie um jogo primeiro."
+    },
     "currentPlayer": "Jogador Atual",
-    "clueProgress": "Dica {{current}} de {{total}}",
-    "showFirstClue": "Pressione \"Mostrar Próxima Dica\" para revelar a primeira dica",
-    "nextClueButton": "Mostrar Próxima Dica",
-    "revealAnswerTitle": "Deslize para Revelar Resposta",
-    "revealAnswerInstruction": "Deslize para cima para ver a resposta",
-    "answerTitle": "Resposta",
-    "correctButton": "Correto",
-    "incorrectButton": "Incorreto",
-    "finishButton": "Finalizar Jogo"
+    "clueCount": "Dica {{current}} de {{total}}",
+    "pressShowNextClue": "Pressione \"Mostrar Próxima Dica\" para revelar a primeira dica",
+    "showNextClueButton": "Mostrar Próxima Dica",
+    "passButton": "Passar",
+    "playersAwardPoints": "Atribuir Pontos",
+    "points": "{{points}} pts",
+    "showClueToAwardPoints": "Mostre pelo menos uma dica para atribuir pontos",
+    "finishGameButton": "Finalizar Jogo",
+    "unknownPlayer": "Jogador Desconhecido",
+    "category": "Categoria: {{category}}"
   },
   "scoreboard": {
     "title": "Placar",
-    "gameComplete": "Jogo Completo!",
-    "playerColumn": "Jogador",
-    "scoreColumn": "Pontuação",
-    "returnButton": "Voltar ao Início"
+    "loading": "Carregando placar...",
+    "category": "Categoria: {{category}}",
+    "table": {
+      "rank": "Posição",
+      "player": "Jogador",
+      "score": "Pontuação"
+    },
+    "noPlayers": {
+      "title": "Sem Jogadores",
+      "description": "Nenhum jogador encontrado nesta sessão de jogo."
+    }
   }
 }

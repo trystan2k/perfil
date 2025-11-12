@@ -13,7 +13,7 @@
     "playerNameLabel": "Player Name",
     "playerNamePlaceholder": "Enter player name",
     "addButton": "Add",
-    "playersLabel": "Players",
+    "playersLabel": "Players ({{count}}/{{max}})",
     "startButton": "Start Game",
     "errors": {
       "duplicateName": "Player name already exists"
@@ -22,27 +22,45 @@
   },
   "gamePlay": {
     "title": "Game Play",
-    "loadingSession": "Loading game session...",
-    "sessionNotFound": "Game session not found. Please start a new game.",
-    "failedToLoad": "Failed to load game session. Please try again.",
-    "noActiveGame": "No Active Game",
-    "pleaseStartGame": "Please start a game first.",
+    "loading": {
+      "title": "Loading Game",
+      "description": "Loading game session..."
+    },
+    "error": {
+      "title": "Error"
+    },
+    "errors": {
+      "sessionNotFound": "Game session not found. Please start a new game.",
+      "loadFailed": "Failed to load game session. Please try again."
+    },
+    "noActiveGame": {
+      "title": "No Active Game",
+      "description": "Please start a game first."
+    },
     "currentPlayer": "Current Player",
-    "clueProgress": "Clue {{current}} of {{total}}",
-    "showFirstClue": "Press \"Show Next Clue\" to reveal the first clue",
-    "nextClueButton": "Show Next Clue",
-    "revealAnswerTitle": "Swipe to Reveal Answer",
-    "revealAnswerInstruction": "Swipe up to see the answer",
-    "answerTitle": "Answer",
-    "correctButton": "Correct",
-    "incorrectButton": "Incorrect",
-    "finishButton": "Finish Game"
+    "clueCount": "Clue {{current}} of {{total}}",
+    "pressShowNextClue": "Press \"Show Next Clue\" to reveal the first clue",
+    "showNextClueButton": "Show Next Clue",
+    "passButton": "Pass",
+    "playersAwardPoints": "Award Points",
+    "points": "{{points}} pts",
+    "showClueToAwardPoints": "Show at least one clue to award points",
+    "finishGameButton": "Finish Game",
+    "unknownPlayer": "Unknown Player",
+    "category": "Category: {{category}}"
   },
   "scoreboard": {
     "title": "Scoreboard",
-    "gameComplete": "Game Complete!",
-    "playerColumn": "Player",
-    "scoreColumn": "Score",
-    "returnButton": "Return to Home"
+    "loading": "Loading scoreboard...",
+    "category": "Category: {{category}}",
+    "table": {
+      "rank": "Rank",
+      "player": "Player",
+      "score": "Score"
+    },
+    "noPlayers": {
+      "title": "No Players",
+      "description": "No players found in this game session."
+    }
   }
 }
