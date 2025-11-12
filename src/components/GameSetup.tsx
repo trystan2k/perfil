@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useGameStore } from '@/stores/gameStore';
 
 export function GameSetup() {
+  const { t } = useTranslation();
   const [playerName, setPlayerName] = useState('');
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +29,7 @@ export function GameSetup() {
 
     // Check for duplicate names (case-insensitive)
     if (playerNames.some((name) => name.toLowerCase() === trimmedName.toLowerCase())) {
-      setError('Player name already exists');
+      setError(t('gameSetup.errors.duplicateName'));
       return;
     }
 
@@ -59,21 +61,19 @@ export function GameSetup() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle as="h3" className="text-2xl">
-            Game Setup
+            {t('gameSetup.title')}
           </CardTitle>
-          <CardDescription>
-            Add players to start a new game. You need at least 2 players.
-          </CardDescription>
+          <CardDescription>{t('gameSetup.description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Add Player Input */}
           <div className="space-y-2">
-            <Label htmlFor="playerName">Player Name</Label>
+            <Label htmlFor="playerName">{t('gameSetup.playerNameLabel')}</Label>
             <div className="flex gap-2">
               <Input
                 id="playerName"
                 type="text"
-                placeholder="Enter player name"
+                placeholder={t('gameSetup.playerNamePlaceholder')}
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -84,7 +84,7 @@ export function GameSetup() {
                 onClick={handleAddPlayer}
                 disabled={!playerName.trim() || playerNames.length >= 8}
               >
-                Add
+                {t('gameSetup.addButton')}
               </Button>
             </div>
           </div>
@@ -97,7 +97,7 @@ export function GameSetup() {
           {/* Players List */}
           {playerNames.length > 0 && (
             <div className="space-y-2">
-              <Label>Players ({playerNames.length}/8)</Label>
+              <Label>{t('gameSetup.playersLabel', { count: playerNames.length, max: 8 })}</Label>
               <div className="space-y-2">
                 {playerNames.map((name, index) => (
                   <div
@@ -109,7 +109,7 @@ export function GameSetup() {
                       variant="ghost"
                       size="sm"
                       onClick={() => handleRemovePlayer(index)}
-                      aria-label={`Remove ${name}`}
+                      aria-label={t('gameSetup.removePlayerAriaLabel', { name })}
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -126,7 +126,7 @@ export function GameSetup() {
             className="w-full"
             size="lg"
           >
-            Start Game
+            {t('gameSetup.startButton')}
           </Button>
         </CardContent>
       </Card>

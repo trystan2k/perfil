@@ -1,0 +1,70 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "notFound": "Not Found",
+    "retry": "Retry",
+    "category": "Category",
+    "pts": "pts"
+  },
+  "languageSwitcher": {
+    "ariaLabel": "Language selector",
+    "switchTo": "Switch to {{language}}"
+  },
+  "gameSetup": {
+    "title": "Game Setup",
+    "description": "Add players to start a new game. You need at least 2 players.",
+    "playerNameLabel": "Player Name",
+    "playerNamePlaceholder": "Enter player name",
+    "addButton": "Add",
+    "playersLabel": "Players ({{count}}/{{max}})",
+    "startButton": "Start Game",
+    "errors": {
+      "duplicateName": "Player name already exists"
+    },
+    "removePlayerAriaLabel": "Remove {{name}}"
+  },
+  "gamePlay": {
+    "title": "Game Play",
+    "loading": {
+      "title": "Loading Game",
+      "description": "Loading game session..."
+    },
+    "error": {
+      "title": "Error"
+    },
+    "errors": {
+      "sessionNotFound": "Game session not found. Please start a new game.",
+      "loadFailed": "Failed to load game session. Please try again."
+    },
+    "noActiveGame": {
+      "title": "No Active Game",
+      "description": "Please start a game first."
+    },
+    "currentPlayer": "Current Player",
+    "clueCount": "Clue {{current}} of {{total}}",
+    "pressShowNextClue": "Press \"Show Next Clue\" to reveal the first clue",
+    "showNextClueButton": "Show Next Clue",
+    "passButton": "Pass",
+    "playersAwardPoints": "Award Points",
+    "points": "{{points}} pts",
+    "showClueToAwardPoints": "Show at least one clue to award points",
+    "finishGameButton": "Finish Game",
+    "unknownPlayer": "Unknown Player",
+    "category": "Category: {{category}}"
+  },
+  "scoreboard": {
+    "title": "Scoreboard",
+    "loading": "Loading scoreboard...",
+    "category": "Category: {{category}}",
+    "table": {
+      "rank": "Rank",
+      "player": "Player",
+      "score": "Score"
+    },
+    "noPlayers": {
+      "title": "No Players",
+      "description": "No players found in this game session."
+    }
+  }
+}

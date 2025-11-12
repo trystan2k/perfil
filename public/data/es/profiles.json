@@ -1,0 +1,261 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0001",
+      "category": "Personas Famosas",
+      "name": "Albert Einstein",
+      "clues": [
+        "Nacido en Alemania en 1879",
+        "Desarrolló una teoría revolucionaria en física",
+        "Ganó el Premio Nobel de Física en 1921",
+        "Famoso por una ecuación que comienza con E=mc",
+        "Conocido por su cabello blanco desordenado",
+        "Trabajó en la Universidad de Princeton",
+        "Su teoría cambió nuestra comprensión del espacio y el tiempo",
+        "Huyó de la Alemania nazi en 1933",
+        "Tocaba el violín como pasatiempo",
+        "La teoría de la relatividad es su trabajo más famoso",
+        "Pacifista que luego lamentó su participación en el desarrollo de la bomba atómica",
+        "Nacido el Día Pi (14 de marzo)",
+        "Rechazó cirugía que podría haber prolongado su vida",
+        "Su cerebro fue preservado después de la muerte para estudio",
+        "Persona del Siglo de la Revista TIME",
+        "Famoso por decir: 'La imaginación es más importante que el conocimiento'",
+        "Le ofrecieron la presidencia de Israel pero la rechazó",
+        "Trabajó como oficinista de patentes al inicio de su carrera",
+        "Desarrolló la teoría del efecto fotoeléctrico",
+        "Su primer nombre significa 'noble' o 'brillante'"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
+    },
+    {
+      "id": "profile-0002",
+      "category": "Personas Famosas",
+      "name": "Leonardo da Vinci",
+      "clues": [
+        "Nacido en Italia en 1452",
+        "Maestro de múltiples disciplinas",
+        "Famoso por pintar una sonrisa misteriosa",
+        "Creó dibujos anatómicos detallados",
+        "Diseñó máquinas voladoras siglos antes del vuelo",
+        "Estudió en Florencia con Andrea del Verrocchio",
+        "Dejó muchas obras inacabadas",
+        "Pintó La Última Cena",
+        "Escribía al revés en escritura espejo",
+        "Diseñó tanques y submarinos",
+        "Vegetariano que compraba pájaros enjaulados para liberarlos",
+        "Nunca se casó ni tuvo hijos",
+        "Se mudó a Francia al final de su vida",
+        "Cuadernos llenos de inventos y observaciones",
+        "Pintó uno de los retratos más famosos de todos los tiempos",
+        "Trabajó para familias italianas poderosas",
+        "El sujeto no tiene cejas en la pintura famosa",
+        "Polímata del Renacimiento",
+        "Estudiaba la naturaleza obsesivamente",
+        "La Mona Lisa es su obra más famosa"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "historical-figures"
+      }
+    },
+    {
+      "id": "profile-0003",
+      "category": "Países",
+      "name": "Japón",
+      "clues": [
+        "Nación insular en Asia Oriental",
+        "Población superior a 125 millones",
+        "La capital tiene más de 13 millones de habitantes",
+        "Experimenta terremotos frecuentes",
+        "Famoso por las flores de cerezo",
+        "Sistema de tren bala llamado Shinkansen",
+        "Cuatro islas principales",
+        "Familia imperial antigua",
+        "Conocido por tecnología y robótica",
+        "El anime y el manga se originaron aquí",
+        "El Monte Fuji es el pico más alto",
+        "Usa tres sistemas de escritura",
+        "El sushi es un plato tradicional",
+        "Organizó los Juegos Olímpicos en 1964 y 2021",
+        "Guerreros samurái en el período histórico",
+        "La capital es Tokio",
+        "La bandera presenta un círculo rojo",
+        "Hacer reverencias es un saludo común",
+        "Conocido por la puntualidad estricta",
+        "Llamado 'Tierra del Sol Naciente'"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0004",
+      "category": "Películas",
+      "name": "Matrix",
+      "clues": [
+        "Estrenada en 1999",
+        "Dirigida por las Wachowskis",
+        "Película de acción de ciencia ficción",
+        "Presenta realidad virtual",
+        "Efectos especiales revolucionarios",
+        "Famosa por el efecto 'bullet time'",
+        "Protagonizada por Keanu Reeves",
+        "El protagonista aprende artes marciales por descarga",
+        "Elección entre píldora roja o azul",
+        "Los humanos son usados como baterías",
+        "Los agentes usan gafas de sol y auriculares",
+        "'No hay cuchara' es una línea famosa",
+        "Personaje llamado Morpheus",
+        "Código verde cayendo en la pantalla",
+        "Personaje Trinity",
+        "Ganó cuatro Óscar",
+        "El personaje principal es 'El Elegido'",
+        "Preguntas filosóficas sobre la realidad",
+        "Realidad simulada controlada por máquinas",
+        "El nombre del protagonista es Neo"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-0005",
+      "category": "Animales",
+      "name": "Pulpo",
+      "clues": [
+        "Invertebrado marino",
+        "Tiene tres corazones",
+        "Sangre azul debido al cobre",
+        "Puede cambiar de color instantáneamente",
+        "Ocho apéndices",
+        "Altamente inteligente",
+        "Puede apretarse a través de espacios diminutos",
+        "Se encuentra en arrecifes de coral y fondo oceánico",
+        "Lanza tinta cuando está amenazado",
+        "Vida corta de 1-5 años",
+        "No tiene huesos ni esqueleto",
+        "Puede regenerar brazos perdidos",
+        "Nueve cerebros en total",
+        "Excelentes resolviendo problemas",
+        "Puede abrir frascos y recipientes",
+        "Criaturas solitarias",
+        "Boca en forma de pico",
+        "Relacionado con el calamar",
+        "Algunas especies son venenosas",
+        "Muere después de la reproducción"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0006",
+      "category": "Tecnología",
+      "name": "Teléfono Inteligente",
+      "clues": [
+        "Se hizo popular en 2007",
+        "Combina múltiples dispositivos en uno",
+        "Interfaz de pantalla táctil",
+        "Puede acceder a internet",
+        "Tiene cámara incorporada",
+        "Navegación GPS",
+        "Miles de aplicaciones disponibles",
+        "Usado por miles de millones en todo el mundo",
+        "La mayoría de las personas lo revisan minutos después de despertar",
+        "Contiene acelerómetro y giroscopio",
+        "Puede hacer videollamadas",
+        "Reemplazó muchos dispositivos dedicados",
+        "La batería típicamente dura un día",
+        "Usa redes celulares",
+        "Las redes sociales son el uso principal",
+        "Revolucionó la fotografía",
+        "La mayoría tiene reconocimiento de huella digital o facial",
+        "Esencialmente una computadora de bolsillo",
+        "iPhone y Android son los más populares",
+        "La persona promedio pasa más de 3 horas diarias en él"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "modern-tech"
+      }
+    },
+    {
+      "id": "profile-0007",
+      "category": "Deportes",
+      "name": "Fútbol",
+      "clues": [
+        "Deporte más popular del mundo",
+        "Se juega principalmente con los pies",
+        "Balón redondo",
+        "Dos equipos de 11 jugadores",
+        "El objetivo es marcar en la portería del oponente",
+        "90 minutos de juego",
+        "Llamado football en la mayoría de los países",
+        "Copa del Mundo cada cuatro años",
+        "No se puede usar las manos excepto el portero",
+        "Tarjetas amarillas y rojas por faltas",
+        "Regla del fuera de juego",
+        "Penaltis desde 12 yardas",
+        "Saques de esquina y de banda",
+        "Se juega en césped o césped artificial",
+        "Campo rectangular con porterías en cada extremo",
+        "Cabezazo es usar la cabeza para golpear el balón",
+        "Miles de millones ven las finales de la Copa del Mundo",
+        "Ligas profesionales en todos los continentes",
+        "Messi y Ronaldo son jugadores famosos",
+        "También llamado 'el juego bonito'"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0008",
+      "category": "Personas Famosas",
+      "name": "Marie Curie",
+      "clues": [
+        "Nacida en Polonia en 1867",
+        "Científica pionera",
+        "Primera mujer en ganar un Premio Nobel",
+        "Única persona en ganar Nobel en dos ciencias",
+        "Estudió la radiactividad",
+        "Descubrió dos elementos",
+        "El polonio fue nombrado en honor a su patria",
+        "También descubrió el radio",
+        "Trabajó con su esposo Pierre",
+        "Realizó investigaciones en París",
+        "Murió por exposición a la radiación",
+        "Primera profesora mujer en la Universidad de París",
+        "Unidades móviles de rayos X en la Primera Guerra Mundial",
+        "Su hija también ganó el Premio Nobel",
+        "Superó la discriminación de género en la ciencia",
+        "Autodidacta en sus primeros años",
+        "Trabajó en un laboratorio tipo cobertizo",
+        "Ganó Nobel en Física y Química",
+        "Sus restos están en el Panteón de París",
+        "Pionera en el tratamiento del cáncer con radiación"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
+    }
+  ]
+}

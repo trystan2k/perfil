@@ -1,5 +1,4 @@
 ---
-import { QueryProvider } from '../../components/QueryProvider';
 import { Scoreboard as ScoreboardComponent } from '../../components/Scoreboard';
 import Layout from '../../layouts/Layout.astro';
 
@@ -14,7 +13,5 @@ const { sessionId } = Astro.params;
 ---
 
 <Layout title="Scoreboard - Perfil Game">
-	<QueryProvider client:only="react">
-		<ScoreboardComponent sessionId={sessionId} client:only="react" />
-	</QueryProvider>
+	<ScoreboardComponent sessionId={sessionId} client:only="react" />
 </Layout>

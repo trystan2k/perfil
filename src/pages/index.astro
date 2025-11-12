@@ -1,11 +1,10 @@
 ---
 import { GameSetup } from '../components/GameSetup';
-import { QueryProvider } from '../components/QueryProvider';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Perfil - Game Setup">
-	<QueryProvider client:only="react">
-		<GameSetup client:load />
-	</QueryProvider>
+	<LanguageSwitcher client:only="react" />
+	<GameSetup client:only="react" />
 </Layout>

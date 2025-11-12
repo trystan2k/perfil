@@ -1,6 +1,5 @@
 ---
 import { GamePlay } from '../../components/GamePlay';
-import { QueryProvider } from '../../components/QueryProvider';
 import Layout from '../../layouts/Layout.astro';
 
 // For static build, provide a sample session path
@@ -14,7 +13,5 @@ const { sessionId } = Astro.params;
 ---
 
 <Layout title="Perfil - Game Session">
-	<QueryProvider client:only="react">
-		<GamePlay sessionId={sessionId} client:load />
-	</QueryProvider>
+	<GamePlay sessionId={sessionId} client:only="react" />
 </Layout>

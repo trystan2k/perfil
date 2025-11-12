@@ -1,4 +1,6 @@
 ---
+import { I18nProvider } from '../components/I18nProvider';
+import { FALLBACK_LOCALE } from '../i18n/locales';
 import '../styles/globals.css';
 
 interface Props {
@@ -6,10 +8,14 @@ interface Props {
 }
 
 const { title = 'Perfil' } = Astro.props;
+
+// For SSG, we can't access request headers or Astro.currentLocale
+// Use fallback locale and let client-side i18next detect the user's language
+const currentLocale = FALLBACK_LOCALE;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -18,7 +24,9 @@ const { title = 'Perfil' } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <I18nProvider client:only="react" locale={currentLocale}>
+      <slot />
+    </I18nProvider>
   </body>
 </html>
 

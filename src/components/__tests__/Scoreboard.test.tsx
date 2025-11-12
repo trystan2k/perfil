@@ -112,7 +112,7 @@ describe('Scoreboard', () => {
     await user.click(retryButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
+      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
   });
 
@@ -122,7 +122,7 @@ describe('Scoreboard', () => {
     render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
-      expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
+      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
     // Check category is displayed
@@ -161,7 +161,7 @@ describe('Scoreboard', () => {
     render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
-      expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
+      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
     expect(screen.getByText('Rank')).toBeInTheDocument();
@@ -179,7 +179,7 @@ describe('Scoreboard', () => {
     render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
-      expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
+      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
     expect(screen.queryByText(/Category:/i)).not.toBeInTheDocument();
@@ -195,7 +195,7 @@ describe('Scoreboard', () => {
     render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
-      expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
+      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
     expect(screen.getByText('Solo Player')).toBeInTheDocument();
@@ -219,7 +219,7 @@ describe('Scoreboard', () => {
     render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
 
     await waitFor(() => {
-      expect(screen.getByText('Final Scoreboard')).toBeInTheDocument();
+      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
     const dataRows = screen.getAllByRole('row').slice(1);
@@ -255,7 +255,7 @@ describe('Scoreboard', () => {
 
     await waitFor(() => {
       expect(screen.getByText('No Players')).toBeInTheDocument();
-      expect(screen.getByText('This game session has no players.')).toBeInTheDocument();
+      expect(screen.getByText('No players found in this game session.')).toBeInTheDocument();
     });
   });
 });

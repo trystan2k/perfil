@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGameStore } from '@/stores/gameStore';
@@ -8,6 +9,7 @@ interface GamePlayProps {
 }
 
 export function GamePlay({ sessionId }: GamePlayProps) {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(!!sessionId);
   const [loadError, setLoadError] = useState<string | null>(null);
 
@@ -47,7 +49,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           }
 
           if (!loaded) {
-            setLoadError('Game session not found. Please start a new game.');
+            setLoadError(t('gamePlay.errors.sessionNotFound'));
           }
         } catch (error) {
           if (!isMounted) {
@@ -55,7 +57,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           }
 
           console.error('Failed to load game session:', error);
-          setLoadError('Failed to load game session. Please try again.');
+          setLoadError(t('gamePlay.errors.loadFailed'));
         }
       }
 
@@ -70,7 +72,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     return () => {
       isMounted = false;
     };
-  }, [sessionId, id, loadFromStorage]);
+  }, [sessionId, id, loadFromStorage, t]);
 
   // Show loading state
   if (isLoading) {
@@ -79,9 +81,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
-              Loading...
+              {t('gamePlay.loading.title')}
             </CardTitle>
-            <CardDescription>Loading game session...</CardDescription>
+            <CardDescription>{t('gamePlay.loading.description')}</CardDescription>
           </CardHeader>
         </Card>
       </div>
@@ -95,7 +97,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
-              Error
+              {t('gamePlay.error.title')}
             </CardTitle>
             <CardDescription>{loadError}</CardDescription>
           </CardHeader>
@@ -111,9 +113,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
-              No Active Game
+              {t('gamePlay.noActiveGame.title')}
             </CardTitle>
-            <CardDescription>Please start a game first.</CardDescription>
+            <CardDescription>{t('gamePlay.noActiveGame.description')}</CardDescription>
           </CardHeader>
         </Card>
       </div>
@@ -148,17 +150,17 @@ export function GamePlay({ sessionId }: GamePlayProps) {
       <Card className="w-full max-w-2xl">
         <CardHeader>
           <CardTitle as="h3" className="text-2xl">
-            Game Play
+            {t('gamePlay.title')}
           </CardTitle>
-          <CardDescription>Category: {category}</CardDescription>
+          <CardDescription>{t('gamePlay.category', { category })}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Active Player Section */}
           <div className="space-y-2">
             <div className="text-3xl font-bold text-center">
-              {activePlayer ? activePlayer.name : 'Unknown Player'}
+              {activePlayer ? activePlayer.name : t('gamePlay.unknownPlayer')}
             </div>
-            <p className="text-center text-muted-foreground">Current Player</p>
+            <p className="text-center text-muted-foreground">{t('gamePlay.currentPlayer')}</p>
           </div>
 
           {/* Clue Section */}
@@ -166,30 +168,33 @@ export function GamePlay({ sessionId }: GamePlayProps) {
             {currentTurn.cluesRead > 0 ? (
               <div className="text-center">
                 <p className="text-sm text-muted-foreground mb-2">
-                  Clue {currentTurn.cluesRead} of {totalCluesPerProfile}
+                  {t('gamePlay.clueCount', {
+                    current: currentTurn.cluesRead,
+                    total: totalCluesPerProfile,
+                  })}
                 </p>
                 <p className="text-lg font-medium">{currentClueText}</p>
               </div>
             ) : (
-              <p className="text-center text-muted-foreground">
-                Press "Show Next Clue" to reveal the first clue
-              </p>
+              <p className="text-center text-muted-foreground">{t('gamePlay.pressShowNextClue')}</p>
             )}
           </div>
 
           {/* MC Controls */}
           <div className="flex gap-4 justify-center">
             <Button onClick={nextClue} disabled={isMaxCluesReached}>
-              Show Next Clue
+              {t('gamePlay.showNextClueButton')}
             </Button>
             <Button onClick={passTurn} variant="outline">
-              Pass
+              {t('gamePlay.passButton')}
             </Button>
           </div>
 
           {/* Player Scoreboard */}
           <div className="space-y-3">
-            <h4 className="text-lg font-semibold text-center">Players - Tap to Award Points</h4>
+            <h4 className="text-lg font-semibold text-center">
+              {t('gamePlay.playersAwardPoints')}
+            </h4>
             <div className="grid gap-2">
               {players.map((player) => (
                 <Button
@@ -200,13 +205,15 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                   className="w-full h-auto py-3 flex justify-between items-center"
                 >
                   <span className="font-medium">{player.name}</span>
-                  <span className="text-lg font-bold">{player.score} pts</span>
+                  <span className="text-lg font-bold">
+                    {t('gamePlay.points', { points: player.score })}
+                  </span>
                 </Button>
               ))}
             </div>
             {!canAwardPoints && (
               <p className="text-sm text-center text-muted-foreground">
-                Show at least one clue to award points
+                {t('gamePlay.showClueToAwardPoints')}
               </p>
             )}
           </div>
@@ -214,7 +221,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           {/* Finish Game Button */}
           <div className="flex justify-center pt-4 border-t">
             <Button onClick={handleFinishGame} variant="destructive">
-              Finish Game
+              {t('gamePlay.finishGameButton')}
             </Button>
           </div>
         </CardContent>

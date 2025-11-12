@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import type { ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 
-async function fetchProfiles(): Promise<ProfilesData> {
-  const response = await fetch('/data/profiles.json');
+async function fetchProfiles(locale: string = 'en'): Promise<ProfilesData> {
+  const response = await fetch(`/data/${locale}/profiles.json`);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch profiles: ${response.statusText}`);
@@ -17,9 +18,14 @@ async function fetchProfiles(): Promise<ProfilesData> {
   return validatedData;
 }
 
-export function useProfiles() {
+export function useProfiles(locale?: string) {
+  const { i18n } = useTranslation();
+
+  // Use provided locale or automatically detect from i18next
+  const currentLocale = locale ?? i18n.language;
+
   return useQuery({
-    queryKey: ['profiles'],
-    queryFn: fetchProfiles,
+    queryKey: ['profiles', currentLocale],
+    queryFn: () => fetchProfiles(currentLocale),
   });
 }

@@ -60,7 +60,7 @@ describe('useProfiles', () => {
 
     expect(result.current.data).toEqual(mockProfilesData);
     expect(result.current.error).toBeNull();
-    expect(fetch).toHaveBeenCalledWith('/data/profiles.json');
+    expect(fetch).toHaveBeenCalledWith('/data/en/profiles.json');
   });
 
   it('should handle fetch errors', async () => {
@@ -135,5 +135,37 @@ describe('useProfiles', () => {
 
     expect(result.current.data).toBeUndefined();
     expect(result.current.error).toBeDefined();
+  });
+
+  it('should fetch profiles for Spanish locale', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockProfilesData,
+    } as Response);
+
+    const { result } = renderHook(() => useProfiles('es'), {
+      wrapper: createWrapper(),
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    expect(result.current.data).toEqual(mockProfilesData);
+    expect(fetch).toHaveBeenCalledWith('/data/es/profiles.json');
+  });
+
+  it('should fetch profiles for Portuguese locale', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockProfilesData,
+    } as Response);
+
+    const { result } = renderHook(() => useProfiles('pt-BR'), {
+      wrapper: createWrapper(),
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    expect(result.current.data).toEqual(mockProfilesData);
+    expect(fetch).toHaveBeenCalledWith('/data/pt-BR/profiles.json');
   });
 });

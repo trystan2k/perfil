@@ -1,0 +1,70 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "notFound": "Não Encontrado",
+    "retry": "Tentar Novamente",
+    "category": "Categoria",
+    "pts": "pts"
+  },
+  "languageSwitcher": {
+    "ariaLabel": "Seletor de idioma",
+    "switchTo": "Mudar para {{language}}"
+  },
+  "gameSetup": {
+    "title": "Configuração do Jogo",
+    "description": "Adicione jogadores para iniciar um novo jogo. Você precisa de pelo menos 2 jogadores.",
+    "playerNameLabel": "Nome do Jogador",
+    "playerNamePlaceholder": "Digite o nome do jogador",
+    "addButton": "Adicionar",
+    "playersLabel": "Jogadores ({{count}}/{{max}})",
+    "startButton": "Iniciar Jogo",
+    "errors": {
+      "duplicateName": "Nome do jogador já existe"
+    },
+    "removePlayerAriaLabel": "Remover {{name}}"
+  },
+  "gamePlay": {
+    "title": "Jogo em Andamento",
+    "loading": {
+      "title": "Carregando Jogo",
+      "description": "Carregando sessão de jogo..."
+    },
+    "error": {
+      "title": "Erro"
+    },
+    "errors": {
+      "sessionNotFound": "Sessão de jogo não encontrada. Por favor, inicie um novo jogo.",
+      "loadFailed": "Falha ao carregar a sessão de jogo. Por favor, tente novamente."
+    },
+    "noActiveGame": {
+      "title": "Nenhum Jogo Ativo",
+      "description": "Por favor, inicie um jogo primeiro."
+    },
+    "currentPlayer": "Jogador Atual",
+    "clueCount": "Dica {{current}} de {{total}}",
+    "pressShowNextClue": "Pressione \"Mostrar Próxima Dica\" para revelar a primeira dica",
+    "showNextClueButton": "Mostrar Próxima Dica",
+    "passButton": "Passar",
+    "playersAwardPoints": "Atribuir Pontos",
+    "points": "{{points}} pts",
+    "showClueToAwardPoints": "Mostre pelo menos uma dica para atribuir pontos",
+    "finishGameButton": "Finalizar Jogo",
+    "unknownPlayer": "Jogador Desconhecido",
+    "category": "Categoria: {{category}}"
+  },
+  "scoreboard": {
+    "title": "Placar",
+    "loading": "Carregando placar...",
+    "category": "Categoria: {{category}}",
+    "table": {
+      "rank": "Posição",
+      "player": "Jogador",
+      "score": "Pontuação"
+    },
+    "noPlayers": {
+      "title": "Sem Jogadores",
+      "description": "Nenhum jogador encontrado nesta sessão de jogo."
+    }
+  }
+}
