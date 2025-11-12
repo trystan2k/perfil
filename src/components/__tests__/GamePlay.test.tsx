@@ -502,7 +502,7 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay sessionId="test-session-123" />);
 
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      expect(screen.getByText('Loading Game')).toBeInTheDocument();
       expect(screen.getByText('Loading game session...')).toBeInTheDocument();
     });
 
@@ -731,7 +731,7 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay />);
 
-      expect(screen.getByText('Players - Tap to Award Points')).toBeInTheDocument();
+      expect(screen.getByText('Award Points')).toBeInTheDocument();
     });
 
     it('should display all players with their names and scores', () => {

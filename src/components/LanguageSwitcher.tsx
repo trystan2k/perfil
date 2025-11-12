@@ -7,7 +7,7 @@ const locales = [
 ];
 
 export function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const currentLocale = i18n.language;
 
   const handleLanguageChange = (locale: string) => {
@@ -15,7 +15,7 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <nav aria-label="Language selector" className="language-switcher">
+    <nav aria-label={t('languageSwitcher.ariaLabel')} className="language-switcher">
       <ul className="locale-list">
         {locales.map((locale) => {
           const isActive = currentLocale === locale.code;
@@ -27,7 +27,7 @@ export function LanguageSwitcher() {
                 onClick={() => handleLanguageChange(locale.code)}
                 aria-current={isActive ? 'page' : undefined}
                 className={`locale-link ${isActive ? 'active' : ''}`}
-                aria-label={`Switch to ${locale.name}`}
+                aria-label={t('languageSwitcher.switchTo', { language: locale.name })}
               >
                 <span className="locale-flag" aria-hidden="true">
                   {locale.flag}

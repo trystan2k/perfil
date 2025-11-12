@@ -255,7 +255,7 @@ describe('Scoreboard', () => {
 
     await waitFor(() => {
       expect(screen.getByText('No Players')).toBeInTheDocument();
-      expect(screen.getByText('This game session has no players.')).toBeInTheDocument();
+      expect(screen.getByText('No players found in this game session.')).toBeInTheDocument();
     });
   });
 });

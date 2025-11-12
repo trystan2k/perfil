@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import type { ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 
@@ -17,9 +18,14 @@ async function fetchProfiles(locale: string = 'en'): Promise<ProfilesData> {
   return validatedData;
 }
 
-export function useProfiles(locale: string = 'en') {
+export function useProfiles(locale?: string) {
+  const { i18n } = useTranslation();
+
+  // Use provided locale or automatically detect from i18next
+  const currentLocale = locale ?? i18n.language;
+
   return useQuery({
-    queryKey: ['profiles', locale],
-    queryFn: () => fetchProfiles(locale),
+    queryKey: ['profiles', currentLocale],
+    queryFn: () => fetchProfiles(currentLocale),
   });
 }

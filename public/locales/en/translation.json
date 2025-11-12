@@ -7,6 +7,10 @@
     "category": "Category",
     "pts": "pts"
   },
+  "languageSwitcher": {
+    "ariaLabel": "Language selector",
+    "switchTo": "Switch to {{language}}"
+  },
   "gameSetup": {
     "title": "Game Setup",
     "description": "Add players to start a new game. You need at least 2 players.",

@@ -10,7 +10,12 @@ let i18nInitialized = false;
 
 // Initialize i18next for React components - returns a promise
 export const initI18n = async (locale?: string) => {
+  // If already initialized, check if locale changed
   if (i18nInitialized) {
+    if (locale && i18next.language !== locale) {
+      // Change language dynamically without reinitializing
+      await i18next.changeLanguage(locale);
+    }
     return i18next;
   }
 

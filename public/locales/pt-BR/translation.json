@@ -7,6 +7,10 @@
     "category": "Categoria",
     "pts": "pts"
   },
+  "languageSwitcher": {
+    "ariaLabel": "Seletor de idioma",
+    "switchTo": "Mudar para {{language}}"
+  },
   "gameSetup": {
     "title": "Configuração do Jogo",
     "description": "Adicione jogadores para iniciar um novo jogo. Você precisa de pelo menos 2 jogadores.",

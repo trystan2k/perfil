@@ -3,8 +3,11 @@ import { GameSetup } from '../components/GameSetup';
 import { I18nProvider } from '../components/I18nProvider';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import Layout from '../layouts/Layout.astro';
+import { detectLocale } from '../lib/localeDetection';
 
-const currentLocale = Astro.currentLocale || 'en';
+// Detect locale from Astro config or Accept-Language header
+const acceptLanguage = Astro.request.headers.get('accept-language');
+const currentLocale = detectLocale(Astro.currentLocale, acceptLanguage);
 ---
 
 <Layout title="Perfil - Game Setup">
