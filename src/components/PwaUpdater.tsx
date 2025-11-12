@@ -6,10 +6,14 @@ export function PwaUpdater() {
     updateServiceWorker,
   } = useRegisterSW({
     onRegistered(registration: ServiceWorkerRegistration | undefined) {
-      console.log('SW Registered:', registration);
+      if (import.meta.env.DEV) {
+        console.log('SW Registered:', registration);
+      }
     },
     onRegisterError(error: Error) {
-      console.error('SW registration error:', error);
+      if (import.meta.env.DEV) {
+        console.error('SW registration error:', error);
+      }
     },
   });
 
@@ -26,14 +30,24 @@ export function PwaUpdater() {
   }
 
   return (
-    <div className="pwa-updater">
+    <div className="pwa-updater" role="alert" aria-live="polite">
       <div className="pwa-updater-content">
         <p className="pwa-updater-message">A new version is available!</p>
         <div className="pwa-updater-actions">
-          <button type="button" onClick={handleUpdate} className="pwa-updater-button primary">
+          <button
+            type="button"
+            onClick={handleUpdate}
+            className="pwa-updater-button primary"
+            aria-label="Reload to update application"
+          >
             Reload
           </button>
-          <button type="button" onClick={handleDismiss} className="pwa-updater-button secondary">
+          <button
+            type="button"
+            onClick={handleDismiss}
+            className="pwa-updater-button secondary"
+            aria-label="Dismiss update notification"
+          >
             Dismiss
           </button>
         </div>

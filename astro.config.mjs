@@ -65,7 +65,7 @@ export default defineConfig({
 							},
 						},
 						{
-							urlPattern: /\/data\/.*\/profiles\.json$/i,
+							urlPattern: /\/data\/[^/]+\/profiles\.json$/i,
 							handler: 'NetworkFirst',
 							options: {
 								cacheName: 'profiles-data-cache',
