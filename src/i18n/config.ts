@@ -2,9 +2,10 @@ import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpBackend from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
+import { FALLBACK_LOCALE, SUPPORTED_LOCALES } from './locales';
 
-const supportedLngs = ['en', 'es', 'pt-BR'];
-const fallbackLng = 'en';
+const supportedLngs = SUPPORTED_LOCALES;
+const fallbackLng = FALLBACK_LOCALE;
 
 let i18nInitialized = false;
 

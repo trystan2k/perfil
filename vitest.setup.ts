@@ -37,7 +37,7 @@ const translations: Record<string, string> = {
   'gamePlay.category': 'Category: {{category}}',
   'gamePlay.errors.sessionNotFound': 'Game session not found. Please start a new game.',
   'gamePlay.errors.loadFailed': 'Failed to load game session. Please try again.',
-  'scoreboard.title': 'Final Scoreboard',
+  'scoreboard.title': 'Scoreboard',
   'scoreboard.loading': 'Loading scoreboard...',
   'scoreboard.category': 'Category: {{category}}',
   'scoreboard.noPlayers.title': 'No Players',

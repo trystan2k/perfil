@@ -1,3 +1,5 @@
+import { FALLBACK_LOCALE, SUPPORTED_LOCALES } from '../i18n/locales';
+
 /**
  * Detects the user's preferred locale from various sources
  * @param astroCurrentLocale - Astro.currentLocale (if i18n configured)
@@ -8,11 +10,11 @@ export function detectLocale(
   astroCurrentLocale: string | undefined,
   acceptLanguageHeader: string | null | undefined
 ): string {
-  const supportedLocales = ['en', 'es', 'pt-BR'];
-  const fallbackLocale = 'en';
+  const supportedLocales = [...SUPPORTED_LOCALES];
+  const fallbackLocale = FALLBACK_LOCALE;
 
   // 1. Try Astro.currentLocale first (if i18n routing is configured)
-  if (astroCurrentLocale && supportedLocales.includes(astroCurrentLocale)) {
+  if (astroCurrentLocale && (supportedLocales as readonly string[]).includes(astroCurrentLocale)) {
     return astroCurrentLocale;
   }
 
