@@ -653,13 +653,66 @@
         "description": "Integrate PWA features to make the application installable, work offline, and feel like a native app. This involves generating a service worker for caching assets and a web manifest for installation metadata using the vite-plugin-pwa library.",
         "details": "1. **Installation**: Add `vite-plugin-pwa` as a development dependency: `npm install vite-plugin-pwa -D`.\n2. **Configuration**: Update `astro.config.mjs` to include the PWA plugin in the Vite configuration. Configure the manifest with properties like `name`, `short_name`, `description`, `theme_color`, `background_color`, and specify paths to various icon sizes (e.g., 192x192, 512x512) in the `public/icons/` directory.\n3. **Service Worker Strategy**: Use the `generateSW` strategy within the plugin options. Configure `workbox` runtime caching rules. Create a rule for the app's static assets (JS, CSS, fonts) using a `StaleWhileRevalidate` strategy. Create a separate rule for the profiles JSON data endpoint using a `NetworkFirst` strategy to ensure users get the latest profiles when online but have a fallback for offline play.\n4. **Client-side Registration**: Create a small React component or client-side script (`<script is:inline>`) in the main layout (`src/layouts/Layout.astro`) to register the service worker. Consider using a library like `virtual:pwa-register/react` to provide users with a UI prompt to reload the page when a new version of the app is available.\n5. **Manifest Linking**: Ensure the web manifest is automatically linked in the `<head>` of the document by the plugin.",
         "testStrategy": "1. **Lighthouse Audit**: Run a Lighthouse audit in browser developer tools to validate PWA criteria, checking for installability, service worker registration, and offline support. Aim for a high PWA score.\n2. **Manual Offline Testing**: In the browser's developer tools, enable offline mode. Refresh the application to confirm that the app shell loads correctly from the cache. Verify that core functionalities, such as viewing the scoreboard and resuming a game session via IndexedDB, work as expected without a network connection.\n3. **Installation Test**: Test the 'Add to Home Screen' or 'Install App' functionality on both desktop (Chrome/Edge) and mobile (Android/iOS) devices to ensure the manifest and icons are configured correctly.\n4. **CI Verification**: Add a script to the CI pipeline that runs after the build command (`npm run build`) to verify that `dist/manifest.webmanifest` and `dist/sw.js` files are generated successfully, preventing regressions in the PWA configuration.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           "9",
           "10"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install and Configure vite-plugin-pwa",
+            "description": "Install the `vite-plugin-pwa` library and add the basic plugin configuration to the Astro project's Vite settings.",
+            "dependencies": [],
+            "details": "Add `vite-plugin-pwa` as a development dependency by running `npm install vite-plugin-pwa -D`. Then, import the plugin into `astro.config.mjs` and add it to the `vite.plugins` array with an empty configuration object as a placeholder.",
+            "status": "done",
+            "testStrategy": "Verify the dependency is added to `package.json`. Run the development server to ensure the project builds without errors after adding the empty plugin configuration."
+          },
+          {
+            "id": 2,
+            "title": "Create PWA Icon Assets",
+            "description": "Generate and add all necessary application icons to the public directory for the web manifest.",
+            "dependencies": [],
+            "details": "Create multiple sizes of the application icon, including at least 192x192 and 512x512 pixels. Also create a maskable icon. Place all generated PNG files into the `public/icons/` directory.",
+            "status": "pending",
+            "testStrategy": "Check that all required icon files exist in the `public/icons/` directory and that they are correctly sized and formatted."
+          },
+          {
+            "id": 3,
+            "title": "Configure Web App Manifest",
+            "description": "Define the web app manifest properties within the PWA plugin configuration to control the app's appearance when installed.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "In `astro.config.mjs`, configure the `manifest` property in the PWA plugin options. Set the `name`, `short_name`, `description`, `theme_color`, `background_color`, and `icons` array, pointing to the assets created in the previous step.",
+            "status": "pending",
+            "testStrategy": "Build the project and inspect the generated `manifest.webmanifest` in the output directory to ensure all properties are correctly set. Use the browser's developer tools (Application > Manifest) to verify it's being read correctly."
+          },
+          {
+            "id": 4,
+            "title": "Implement Service Worker Caching Strategy",
+            "description": "Configure the service worker using the `generateSW` strategy to cache static assets and API data for offline availability.",
+            "dependencies": [
+              1
+            ],
+            "details": "Within the PWA plugin options in `astro.config.mjs`, use the `generateSW` strategy. Configure `workbox` runtime caching rules. Set up a `StaleWhileRevalidate` rule for static assets (JS, CSS, fonts) and a `NetworkFirst` rule for the profiles JSON data endpoint.",
+            "status": "pending",
+            "testStrategy": "Use the browser's developer tools (Application > Service Workers) to verify the service worker is registered. Go to the Network tab, enable offline mode, and reload the page to confirm that cached assets are served correctly."
+          },
+          {
+            "id": 5,
+            "title": "Implement Service Worker Registration and Update Prompt",
+            "description": "Add client-side code to register the service worker and provide a user interface for reloading the app when an update is available.",
+            "dependencies": [
+              4
+            ],
+            "details": "Create a new React component, e.g., `PwaUpdater.tsx`. Use the `useRegisterSW` hook from `virtual:pwa-register/react`. This component will render a button or toast notification prompting the user to reload when `needRefresh` is true. Add this component to the main layout file (`src/layouts/Layout.astro`).",
+            "status": "pending",
+            "testStrategy": "After deploying an initial version, make a small change to a cached file and redeploy. On the client, verify that the update prompt appears. Clicking the prompt should reload the page and activate the new service worker."
+          }
+        ]
       },
       {
         "id": 13,
@@ -904,7 +957,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-12T00:13:36.268Z"
+      "updated": "2025-11-12T09:35:31.979Z"
     }
   }
 }
