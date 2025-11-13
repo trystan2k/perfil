@@ -41,6 +41,7 @@ describe('gameSessionDB', () => {
       activePlayerId: 'player-1',
       cluesRead: 3,
       revealed: false,
+      passedPlayerIds: [],
     },
     remainingProfiles: ['profile-2', 'profile-3'],
     totalCluesPerProfile: 20,

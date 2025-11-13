@@ -24,6 +24,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const nextClue = useGameStore((state) => state.nextClue);
   const passTurn = useGameStore((state) => state.passTurn);
   const awardPoints = useGameStore((state) => state.awardPoints);
+  const skipProfile = useGameStore((state) => state.skipProfile);
   const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
 
@@ -177,6 +178,19 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     }
   };
 
+  // Handle skipping the current profile with confirmation
+  const handleSkipProfile = () => {
+    const confirmed = window.confirm(
+      `${t('gamePlay.skipProfileConfirmTitle')}
+
+${t('gamePlay.skipProfileConfirmMessage')}`
+    );
+
+    if (confirmed) {
+      skipProfile();
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-full max-w-2xl">
@@ -224,13 +238,18 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           </div>
 
           {/* MC Controls */}
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center flex-wrap">
             <Button onClick={nextClue} disabled={isMaxCluesReached}>
               {t('gamePlay.showNextClueButton')}
             </Button>
             <Button onClick={passTurn} variant="outline">
               {t('gamePlay.passButton')}
             </Button>
+            {canAwardPoints && (
+              <Button onClick={handleSkipProfile} variant="destructive">
+                {t('gamePlay.skipProfileButton')}
+              </Button>
+            )}
           </div>
 
           {/* Player Scoreboard */}

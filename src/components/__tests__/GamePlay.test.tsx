@@ -440,27 +440,30 @@ describe('GamePlay Component', () => {
       expect(uniquePlayerIds.size).toBe(totalPlayers);
     });
 
-    it('should reset to first player after cycling through all players', async () => {
+    it('should auto-skip to next profile when all players pass', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['1']);
+      store.startGame(['1', '2']); // Start with 2 profiles for auto-skip testing
 
       const { rerender } = render(<GamePlay />);
 
-      const initialPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+      const initialProfileId = useGameStore.getState().currentProfile?.id;
       const totalPlayers = useGameStore.getState().players.length;
       const button = screen.getByRole('button', { name: 'Pass' });
 
-      // Pass turn totalPlayers times to cycle back to the first player
+      // Pass turn totalPlayers times - should trigger auto-skip to next profile
       for (let i = 0; i < totalPlayers; i++) {
         await user.click(button);
         rerender(<GamePlay />);
       }
 
-      const finalPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+      const finalProfileId = useGameStore.getState().currentProfile?.id;
+      const passedPlayerIds = useGameStore.getState().currentTurn?.passedPlayerIds;
 
-      // Should be back to the initial player
-      expect(finalPlayerId).toBe(initialPlayerId);
+      // Should have auto-skipped to next profile when all players passed
+      expect(finalProfileId).not.toBe(initialProfileId);
+      // Passed players should be reset for new profile
+      expect(passedPlayerIds).toEqual([]);
     });
 
     it('should not affect cluesRead when passing turn', async () => {
@@ -486,6 +489,166 @@ describe('GamePlay Component', () => {
 
       // Clues read should remain the same
       expect(cluesReadAfter).toBe(3);
+    });
+  });
+
+  describe('Skip Profile Button', () => {
+    beforeEach(() => {
+      const store = useGameStore.getState();
+      store.createGame(['Alice', 'Bob', 'Charlie']);
+      store.loadProfiles(mockProfiles);
+    });
+
+    it('should not render Skip Profile button when no clues have been read', () => {
+      const store = useGameStore.getState();
+      store.startGame(['1', '2']);
+
+      render(<GamePlay />);
+
+      // Skip button should not be visible before first clue
+      const buttons = screen.getAllByRole('button');
+      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
+      expect(skipButton).toBeUndefined();
+    });
+
+    it('should render Skip Profile button after first clue is revealed', () => {
+      const store = useGameStore.getState();
+      store.startGame(['1', '2']);
+      store.nextClue(); // Show first clue
+
+      render(<GamePlay />);
+
+      const buttons = screen.getAllByRole('button');
+      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
+      expect(skipButton).toBeDefined();
+      expect(skipButton).toBeInTheDocument();
+    });
+
+    it('should show confirmation dialog when Skip Profile is clicked', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['1', '2']);
+      store.nextClue();
+
+      // Mock window.confirm
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+      render(<GamePlay />);
+
+      const buttons = screen.getAllByRole('button');
+      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
+      expect(skipButton).toBeDefined();
+
+      if (skipButton) {
+        await user.click(skipButton);
+      }
+
+      // Confirm dialog should be shown
+      expect(confirmSpy).toHaveBeenCalledWith(expect.stringContaining('Skip Profile?'));
+
+      confirmSpy.mockRestore();
+    });
+
+    it('should not skip profile when confirmation is cancelled', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['1', '2']);
+      store.nextClue();
+
+      const initialProfileId = useGameStore.getState().currentProfile?.id;
+
+      // Mock window.confirm to return false (cancel)
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+      render(<GamePlay />);
+
+      const buttons = screen.getAllByRole('button');
+      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
+
+      if (skipButton) {
+        await user.click(skipButton);
+      }
+
+      const finalProfileId = useGameStore.getState().currentProfile?.id;
+
+      // Profile should not change
+      expect(finalProfileId).toBe(initialProfileId);
+
+      confirmSpy.mockRestore();
+    });
+
+    it('should skip profile when confirmation is accepted', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['1', '2']);
+      store.nextClue();
+
+      const initialProfileId = useGameStore.getState().currentProfile?.id;
+
+      // Mock window.confirm to return true (accept)
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+      render(<GamePlay />);
+
+      const buttons = screen.getAllByRole('button');
+      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
+
+      if (skipButton) {
+        await user.click(skipButton);
+      }
+
+      const finalProfileId = useGameStore.getState().currentProfile?.id;
+
+      // Profile should change to next one
+      expect(finalProfileId).not.toBe(initialProfileId);
+      expect(finalProfileId).toBe('2');
+
+      confirmSpy.mockRestore();
+    });
+
+    it('should reset passedPlayerIds when profile is skipped', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['1', '2']);
+      store.nextClue();
+
+      // Have some players pass first
+      store.passTurn();
+      expect(useGameStore.getState().currentTurn?.passedPlayerIds).toHaveLength(1);
+
+      // Mock window.confirm to return true
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+      render(<GamePlay />);
+
+      const buttons = screen.getAllByRole('button');
+      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
+
+      if (skipButton) {
+        await user.click(skipButton);
+      }
+
+      // Passed players should be reset for new profile
+      expect(useGameStore.getState().currentTurn?.passedPlayerIds).toEqual([]);
+
+      confirmSpy.mockRestore();
+    });
+
+    it('should have destructive variant styling for Skip Profile button', () => {
+      const store = useGameStore.getState();
+      store.startGame(['1', '2']);
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const buttons = screen.getAllByRole('button');
+      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
+
+      expect(skipButton).toBeDefined();
+      // Check for destructive variant class
+      if (skipButton) {
+        expect(skipButton).toHaveClass('bg-destructive');
+      }
     });
   });
 
@@ -604,6 +767,7 @@ describe('GamePlay Component', () => {
                     activePlayerId: '1',
                     cluesRead: 0,
                     revealed: false,
+                    passedPlayerIds: [],
                   },
                   profiles: mockProfiles,
                   selectedProfiles: ['1'],
@@ -721,6 +885,7 @@ describe('GamePlay Component', () => {
           activePlayerId: '1',
           cluesRead: 3,
           revealed: false,
+          passedPlayerIds: [],
         },
         profiles: [sportsProfile],
         selectedProfiles: ['sports-1'],
