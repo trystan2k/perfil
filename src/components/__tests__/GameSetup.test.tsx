@@ -389,9 +389,6 @@ describe('GameSetup', () => {
       await vi.waitFor(() => {
         expect(mockLocation.href).toContain('/game-setup/game-');
       });
-
-      // Should navigate to category selection page with game ID
-      expect(mockLocation.href).toContain('/game-setup/game-');
     });
   });
 

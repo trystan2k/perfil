@@ -2,8 +2,11 @@
 import { ScoreboardWithProvider } from '@/components/ScoreboardWithProvider';
 import Layout from '../../layouts/Layout.astro';
 
-// Get the sessionId from the URL params
 const { sessionId } = Astro.params;
+
+if (!sessionId) {
+  return Astro.redirect('/');
+}
 ---
 
 <Layout title="Scoreboard - Perfil Game">

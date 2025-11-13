@@ -21,7 +21,8 @@
     "playersLabel": "Jugadores ({{count}}/{{max}})",
     "startButton": "Iniciar Juego",
     "errors": {
-      "duplicateName": "El nombre del jugador ya existe"
+      "duplicateName": "El nombre del jugador ya existe",
+      "failedToCreateGame": "Error al crear el juego. Por favor, inténtalo de nuevo."
     },
     "removePlayerAriaLabel": "Eliminar {{name}}"
   },

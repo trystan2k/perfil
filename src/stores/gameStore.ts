@@ -50,7 +50,7 @@ const rehydratingSessionIds = new Set<string>();
 
 // Map of session-specific debounce timers to handle concurrent sessions safely
 const persistTimers = new Map<string, ReturnType<typeof setTimeout>>();
-export const PERSIST_DEBOUNCE_MS = 300;
+const PERSIST_DEBOUNCE_MS = 300;
 
 /**
  * Persist current state to IndexedDB with debouncing
