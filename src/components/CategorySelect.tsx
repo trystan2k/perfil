@@ -35,18 +35,18 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
       try {
         const success = await loadFromStorage(sessionId);
         if (!success) {
-          setSessionError('Session not found');
+          setSessionError(t('categorySelect.error.sessionNotFoundDescription'));
         }
       } catch (err) {
         console.error('Failed to load session:', err);
-        setSessionError('Failed to load session');
+        setSessionError(t('categorySelect.error.description'));
       } finally {
         setSessionLoading(false);
       }
     };
 
     loadSession();
-  }, [sessionId, loadFromStorage]);
+  }, [sessionId, loadFromStorage, t]);
 
   if (isLoading || sessionLoading) {
     return (
