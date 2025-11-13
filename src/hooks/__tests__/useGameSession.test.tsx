@@ -49,6 +49,7 @@ describe('useGameSession', () => {
     profiles: mockProfiles,
     selectedProfiles: ['1', '2'],
     currentProfile: null,
+    totalProfilesCount: 0,
   };
 
   it('should return loading state initially', () => {

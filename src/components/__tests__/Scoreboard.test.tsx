@@ -56,6 +56,7 @@ describe('Scoreboard', () => {
     profiles: mockProfiles,
     selectedProfiles: ['1', '2', '3'],
     currentProfile: null,
+    totalProfilesCount: 0,
   };
 
   it('should render loading state initially', () => {

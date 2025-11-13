@@ -42,6 +42,7 @@ describe('gameStore', () => {
       profiles: [],
       selectedProfiles: [],
       currentProfile: null,
+      totalProfilesCount: 0,
     });
   });
 
@@ -188,6 +189,7 @@ describe('gameStore', () => {
         profiles: defaultMockProfiles,
         selectedProfiles: [],
         currentProfile: null,
+        totalProfilesCount: 0,
       });
 
       expect(() => useGameStore.getState().startGame(['1'])).toThrow(
@@ -1281,6 +1283,7 @@ describe('gameStore', () => {
         profiles: defaultMockProfiles,
         selectedProfiles: ['2'],
         currentProfile: defaultMockProfiles[1],
+        totalProfilesCount: 1,
       };
 
       vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
@@ -1317,6 +1320,7 @@ describe('gameStore', () => {
         profiles: defaultMockProfiles,
         selectedProfiles: ['1'],
         currentProfile: defaultMockProfiles[0],
+        totalProfilesCount: 1,
       };
 
       vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);

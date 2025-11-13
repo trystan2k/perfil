@@ -19,7 +19,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const status = useGameStore((state) => state.status);
   const currentProfile = useGameStore((state) => state.currentProfile);
   const selectedProfiles = useGameStore((state) => state.selectedProfiles);
-  const remainingProfiles = useGameStore((state) => state.remainingProfiles);
+  const totalProfilesCount = useGameStore((state) => state.totalProfilesCount);
   const nextClue = useGameStore((state) => state.nextClue);
   const passTurn = useGameStore((state) => state.passTurn);
   const awardPoints = useGameStore((state) => state.awardPoints);
@@ -163,8 +163,8 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const canAwardPoints = currentTurn.cluesRead > 0;
 
   // Calculate profile progression
-  const currentProfileIndex = selectedProfiles.length - remainingProfiles.length;
-  const totalProfiles = selectedProfiles.length;
+  const currentProfileIndex = totalProfilesCount - selectedProfiles.length + 1;
+  const totalProfiles = totalProfilesCount;
 
   // Handle finishing the game and navigating to scoreboard
   const handleFinishGame = async () => {

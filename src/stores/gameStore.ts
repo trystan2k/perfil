@@ -10,6 +10,7 @@ interface GameState extends GameSession {
   profiles: Profile[];
   selectedProfiles: string[];
   currentProfile: Profile | null;
+  totalProfilesCount: number;
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
   startGame: (selectedProfileIds: string[]) => void;
@@ -43,6 +44,7 @@ const initialState: Omit<
   profiles: [],
   selectedProfiles: [],
   currentProfile: null,
+  totalProfilesCount: 0,
 };
 
 // Track rehydration operations with a Set of session IDs to handle concurrency
@@ -89,6 +91,7 @@ function persistState(state: GameState): Promise<void> {
         profiles: state.profiles,
         selectedProfiles: state.selectedProfiles,
         currentProfile: state.currentProfile,
+        totalProfilesCount: state.totalProfilesCount,
       };
 
       try {
@@ -203,6 +206,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       profiles: [],
       selectedProfiles: [],
       currentProfile: null,
+      totalProfilesCount: 0,
     };
 
     set(newState);
@@ -238,6 +242,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         category: firstProfile.category,
         selectedProfiles: [...selectedProfileIds],
         currentProfile: firstProfile,
+        totalProfilesCount: selectedProfileIds.length,
         currentTurn: {
           profileId: firstProfile.id,
           activePlayerId: activePlayer.id,
@@ -403,6 +408,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         profiles: loadedState.profiles,
         selectedProfiles: loadedState.selectedProfiles,
         currentProfile: loadedState.currentProfile,
+        totalProfilesCount: loadedState.totalProfilesCount || loadedState.selectedProfiles.length,
       });
 
       // Remove session ID from rehydrating set immediately after set() completes
