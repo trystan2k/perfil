@@ -8,6 +8,7 @@ import { CategorySelect } from '../CategorySelect';
 // Mock the game store
 const mockLoadProfiles = vi.fn();
 const mockStartGame = vi.fn();
+const mockLoadFromStorage = vi.fn().mockResolvedValue(true);
 const mockGetState = vi.fn();
 
 vi.mock('@/stores/gameStore', () => ({
@@ -95,17 +96,20 @@ describe('CategorySelect', () => {
         selector: (state: {
           loadProfiles: typeof mockLoadProfiles;
           startGame: typeof mockStartGame;
+          loadFromStorage: typeof mockLoadFromStorage;
         }) => unknown
       ) =>
         selector({
           loadProfiles: mockLoadProfiles,
           startGame: mockStartGame,
+          loadFromStorage: mockLoadFromStorage,
         })
     );
 
     useGameStoreMock.getState = mockGetState.mockReturnValue({
       loadProfiles: mockLoadProfiles,
       startGame: mockStartGame,
+      loadFromStorage: mockLoadFromStorage,
     });
   });
 

@@ -67,11 +67,22 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
               {isUserError ? 'Not Found' : 'Error'}
             </h1>
             <p className="text-lg text-muted-foreground mb-4">{errorMessage}</p>
-            {!isUserError && (
-              <Button onClick={() => refetch()} variant="default">
-                Retry
+            <div className="space-y-2">
+              {!isUserError && (
+                <Button onClick={() => refetch()} variant="default" className="w-full">
+                  Retry
+                </Button>
+              )}
+              <Button
+                onClick={() => {
+                  window.location.href = '/';
+                }}
+                variant="outline"
+                className="w-full"
+              >
+                {t('common.returnHome', 'Return to Home')}
               </Button>
-            )}
+            </div>
           </div>
         </Card>
       </div>

@@ -383,6 +383,9 @@ describe('GameSetup', () => {
 
       await user.click(startButton);
 
+      // Wait for the async navigation to complete (handleStartGame is now async with delay)
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
       // Should navigate to category selection page with game ID
       expect(mockLocation.href).toContain('/game-setup/game-');
     });

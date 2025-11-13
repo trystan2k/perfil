@@ -96,11 +96,21 @@ export function GamePlay({ sessionId }: GamePlayProps) {
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle as="h3" className="text-2xl">
+            <CardTitle as="h3" className="text-2xl text-destructive">
               {t('gamePlay.error.title')}
             </CardTitle>
-            <CardDescription>{loadError}</CardDescription>
+            <CardDescription className="text-destructive">{loadError}</CardDescription>
           </CardHeader>
+          <CardContent>
+            <Button
+              onClick={() => {
+                window.location.href = '/';
+              }}
+              className="w-full"
+            >
+              {t('common.returnHome', 'Return to Home')}
+            </Button>
+          </CardContent>
         </Card>
       </div>
     );

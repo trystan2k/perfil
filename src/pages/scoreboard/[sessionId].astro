@@ -1,17 +1,11 @@
 ---
-import { Scoreboard as ScoreboardComponent } from '../../components/Scoreboard';
+import { ScoreboardWithProvider } from '@/components/ScoreboardWithProvider';
 import Layout from '../../layouts/Layout.astro';
-
-// For static build, provide a sample session path
-// Client-side component handles actual session data fetching from IndexedDB
-export function getStaticPaths() {
-  return [{ params: { sessionId: 'sample-session' } }];
-}
 
 // Get the sessionId from the URL params
 const { sessionId } = Astro.params;
 ---
 
 <Layout title="Scoreboard - Perfil Game">
-	<ScoreboardComponent sessionId={sessionId} client:only="react" />
+	<ScoreboardWithProvider client:only="react" sessionId={sessionId} />
 </Layout>

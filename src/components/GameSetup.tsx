@@ -43,11 +43,15 @@ export function GameSetup() {
     setError(null);
   };
 
-  const handleStartGame = () => {
+  const handleStartGame = async () => {
     createGame(playerNames);
 
     // Access the game ID directly from the store after createGame sets it
     const newGameId = useGameStore.getState().id;
+
+    // Wait a bit to ensure the session is persisted to IndexedDB before navigating
+    // The gameStore uses a 300ms debounce for persistence
+    await new Promise((resolve) => setTimeout(resolve, 400));
 
     // Navigate to category selection screen
     window.location.href = `/game-setup/${newGameId}`;
