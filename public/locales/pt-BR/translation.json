@@ -5,7 +5,8 @@
     "notFound": "Não Encontrado",
     "retry": "Tentar Novamente",
     "category": "Categoria",
-    "pts": "pts"
+    "pts": "pts",
+    "returnHome": "Voltar ao Início"
   },
   "languageSwitcher": {
     "ariaLabel": "Seletor de idioma",
@@ -62,7 +63,9 @@
     },
     "error": {
       "title": "Erro",
-      "description": "Falha ao carregar as categorias. Por favor, tente novamente."
+      "description": "Falha ao carregar as categorias. Por favor, tente novamente.",
+      "sessionNotFoundTitle": "Sessão Não Encontrada",
+      "sessionNotFoundDescription": "A sessão de jogo não pôde ser encontrada. Por favor, inicie um novo jogo."
     },
     "orLabel": "ou",
     "shuffleAllButton": "Embaralhar Todos"

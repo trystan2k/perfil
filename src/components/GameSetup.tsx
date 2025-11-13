@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useGameStore } from '@/stores/gameStore';
+import { PERSIST_DEBOUNCE_MS, useGameStore } from '@/stores/gameStore';
 
 export function GameSetup() {
   const { t } = useTranslation();
@@ -49,9 +49,10 @@ export function GameSetup() {
     // Access the game ID directly from the store after createGame sets it
     const newGameId = useGameStore.getState().id;
 
-    // Wait a bit to ensure the session is persisted to IndexedDB before navigating
-    // The gameStore uses a 300ms debounce for persistence
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    // Wait for the session to be persisted to IndexedDB before navigating
+    // The gameStore uses PERSIST_DEBOUNCE_MS for persistence debouncing
+    // Adding 100ms buffer to ensure persistence completes
+    await new Promise((resolve) => setTimeout(resolve, PERSIST_DEBOUNCE_MS + 100));
 
     // Navigate to category selection screen
     window.location.href = `/game-setup/${newGameId}`;

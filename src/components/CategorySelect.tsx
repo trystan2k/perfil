@@ -69,10 +69,10 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl text-destructive">
-              Session Not Found
+              {t('categorySelect.error.sessionNotFoundTitle')}
             </CardTitle>
             <CardDescription className="text-destructive">
-              The game session could not be found. Please start a new game.
+              {t('categorySelect.error.sessionNotFoundDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -82,7 +82,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
               }}
               className="w-full"
             >
-              Return to Home
+              {t('common.returnHome')}
             </Button>
           </CardContent>
         </Card>

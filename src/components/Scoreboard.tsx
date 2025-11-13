@@ -80,7 +80,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
                 variant="outline"
                 className="w-full"
               >
-                {t('common.returnHome', 'Return to Home')}
+                {t('common.returnHome')}
               </Button>
             </div>
           </div>
