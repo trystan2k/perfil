@@ -49,6 +49,7 @@ describe('gameSessionDB', () => {
     profiles: mockProfiles,
     selectedProfiles: ['1', '2'],
     currentProfile: mockProfiles[0],
+    totalProfilesCount: 1,
   };
 
   beforeEach(async () => {

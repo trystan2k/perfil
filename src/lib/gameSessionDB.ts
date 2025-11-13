@@ -12,6 +12,7 @@ export interface PersistedGameState extends GameSession {
   profiles: Profile[];
   selectedProfiles: string[];
   currentProfile: Profile | null;
+  totalProfilesCount: number;
 }
 
 let dbPromise: Promise<IDBPDatabase> | null = null;

@@ -17,8 +17,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const currentTurn = useGameStore((state) => state.currentTurn);
   const players = useGameStore((state) => state.players);
   const status = useGameStore((state) => state.status);
-  const category = useGameStore((state) => state.category);
-  const totalCluesPerProfile = useGameStore((state) => state.totalCluesPerProfile);
+  const currentProfile = useGameStore((state) => state.currentProfile);
+  const selectedProfiles = useGameStore((state) => state.selectedProfiles);
+  const totalProfilesCount = useGameStore((state) => state.totalProfilesCount);
   const nextClue = useGameStore((state) => state.nextClue);
   const passTurn = useGameStore((state) => state.passTurn);
   const awardPoints = useGameStore((state) => state.awardPoints);
@@ -132,18 +133,38 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     );
   }
 
+  // Handle null currentProfile gracefully
+  if (!currentProfile) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              {t('gamePlay.noProfile.title')}
+            </CardTitle>
+            <CardDescription>{t('gamePlay.noProfile.description')}</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+
   // Find the active player
   const activePlayer = players.find((p) => p.id === currentTurn.activePlayerId);
 
-  // Mock clue data (will be replaced with actual profile data later)
-  const mockClues = Array.from({ length: totalCluesPerProfile }, (_, i) => `Clue ${i + 1} text...`);
-  const currentClueText = currentTurn.cluesRead > 0 ? mockClues[currentTurn.cluesRead - 1] : null;
+  // Get current clue from profile data
+  const currentClueText =
+    currentTurn.cluesRead > 0 ? currentProfile.clues[currentTurn.cluesRead - 1] : null;
 
   // Check if max clues reached
-  const isMaxCluesReached = currentTurn.cluesRead >= totalCluesPerProfile;
+  const isMaxCluesReached = currentTurn.cluesRead >= currentProfile.clues.length;
 
   // Check if points can be awarded (at least one clue has been read)
   const canAwardPoints = currentTurn.cluesRead > 0;
+
+  // Calculate profile progression
+  const currentProfileIndex = totalProfilesCount - selectedProfiles.length + 1;
+  const totalProfiles = totalProfilesCount;
 
   // Handle finishing the game and navigating to scoreboard
   const handleFinishGame = async () => {
@@ -162,7 +183,13 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           <CardTitle as="h3" className="text-2xl">
             {t('gamePlay.title')}
           </CardTitle>
-          <CardDescription>{t('gamePlay.category', { category })}</CardDescription>
+          <CardDescription>
+            {t('gamePlay.category', { category: currentProfile.category })} -{' '}
+            {t('gamePlay.profileProgression', {
+              current: currentProfileIndex,
+              total: totalProfiles,
+            })}
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Active Player Section */}
@@ -180,7 +207,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 <p className="text-sm text-muted-foreground mb-2">
                   {t('gamePlay.clueCount', {
                     current: currentTurn.cluesRead,
-                    total: totalCluesPerProfile,
+                    total: currentProfile.clues.length,
                   })}
                 </p>
                 <p className="text-lg font-medium">{currentClueText}</p>
