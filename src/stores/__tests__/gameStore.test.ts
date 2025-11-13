@@ -281,7 +281,7 @@ describe('gameStore', () => {
     beforeEach(() => {
       useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
       useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['2']);
+      useGameStore.getState().startGame(['2', '3']); // Start with two profiles for auto-skip testing
     });
 
     it('should move to next player in sequence', () => {
@@ -332,17 +332,21 @@ describe('gameStore', () => {
     it('should work with only two players', () => {
       useGameStore.getState().createGame(['Player1', 'Player2']);
       useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['3']);
+      useGameStore.getState().startGame(['2', '3']); // Two profiles to allow testing without auto-skip
 
       const initialPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
 
+      // First pass - should move to next player
       useGameStore.getState().passTurn();
       const afterFirstPass = useGameStore.getState().currentTurn?.activePlayerId;
       expect(afterFirstPass).not.toBe(initialPlayerId);
 
+      // Second pass - both players have passed, should auto-skip to next profile
       useGameStore.getState().passTurn();
-      const afterSecondPass = useGameStore.getState().currentTurn?.activePlayerId;
-      expect(afterSecondPass).toBe(initialPlayerId);
+      const state = useGameStore.getState();
+      // Should be on next profile (ID '3')
+      expect(state.currentProfile?.id).toBe('3');
+      expect(state.currentTurn?.passedPlayerIds).toEqual([]);
     });
 
     it('should throw error when no active turn', () => {
@@ -385,18 +389,164 @@ describe('gameStore', () => {
       expect(() => useGameStore.getState().passTurn()).toThrow('Active player not found');
     });
 
-    it('should handle multiple consecutive passes', () => {
+    it('should handle multiple consecutive passes and auto-skip when all pass', () => {
       const state = useGameStore.getState();
       const players = state.players;
-      const startingPlayerId = state.currentTurn?.activePlayerId;
+      const initialProfileId = state.currentProfile?.id;
 
-      // Pass through all players and back to start
+      // Pass through all players - should trigger auto-skip
       for (let i = 0; i < players.length; i++) {
         useGameStore.getState().passTurn();
       }
 
       const finalState = useGameStore.getState();
-      expect(finalState.currentTurn?.activePlayerId).toBe(startingPlayerId);
+      // Should have auto-skipped to next profile since all players passed
+      expect(finalState.currentProfile?.id).not.toBe(initialProfileId);
+      expect(finalState.currentTurn?.passedPlayerIds).toEqual([]);
+    });
+  });
+
+  describe('Pass Tracking and Auto-Skip', () => {
+    beforeEach(() => {
+      useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame(['1', '2']);
+    });
+
+    it('should initialize passedPlayerIds as empty array when starting game', () => {
+      const state = useGameStore.getState();
+      expect(state.currentTurn?.passedPlayerIds).toEqual([]);
+    });
+
+    it('should add current player to passedPlayerIds when passing turn', () => {
+      const initialPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+      expect(initialPlayerId).toBeDefined();
+
+      useGameStore.getState().passTurn();
+
+      const state = useGameStore.getState();
+      expect(state.currentTurn?.passedPlayerIds).toContain(initialPlayerId);
+    });
+
+    it('should accumulate passed players as turns are passed', () => {
+      const state = useGameStore.getState();
+      const player1Id = state.currentTurn?.activePlayerId;
+
+      // First player passes
+      useGameStore.getState().passTurn();
+      const afterFirstPass = useGameStore.getState();
+      expect(afterFirstPass.currentTurn?.passedPlayerIds).toHaveLength(1);
+      expect(afterFirstPass.currentTurn?.passedPlayerIds).toContain(player1Id);
+
+      const player2Id = afterFirstPass.currentTurn?.activePlayerId;
+
+      // Second player passes
+      useGameStore.getState().passTurn();
+      const afterSecondPass = useGameStore.getState();
+      expect(afterSecondPass.currentTurn?.passedPlayerIds).toHaveLength(2);
+      expect(afterSecondPass.currentTurn?.passedPlayerIds).toContain(player1Id);
+      expect(afterSecondPass.currentTurn?.passedPlayerIds).toContain(player2Id);
+    });
+
+    it('should not duplicate player IDs when same player passes multiple times', () => {
+      // Setup: Have 2 players so we can cycle back to first player
+      useGameStore.getState().createGame(['Player1', 'Player2']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame(['1', '2']); // Two profiles
+
+      // First player passes
+      useGameStore.getState().passTurn();
+      const afterFirstPass = useGameStore.getState();
+      expect(afterFirstPass.currentTurn?.passedPlayerIds).toHaveLength(1);
+
+      // Second player passes
+      useGameStore.getState().passTurn();
+      const afterSecondPass = useGameStore.getState();
+
+      // Both players have passed, should auto-skip to next profile
+      // So we should be on a new profile with reset passed list
+      expect(afterSecondPass.currentProfile?.id).toBe('2');
+      expect(afterSecondPass.currentTurn?.passedPlayerIds).toEqual([]);
+    });
+
+    it('should auto-skip to next profile when all players have passed', () => {
+      const state = useGameStore.getState();
+      const initialProfileId = state.currentProfile?.id;
+      expect(initialProfileId).toBe('1');
+
+      // All 3 players pass
+      useGameStore.getState().passTurn(); // Alice passes
+      useGameStore.getState().passTurn(); // Bob passes
+      useGameStore.getState().passTurn(); // Charlie passes (all passed)
+
+      const afterAllPass = useGameStore.getState();
+
+      // Should have advanced to next profile
+      expect(afterAllPass.currentProfile?.id).toBe('2');
+      expect(afterAllPass.currentProfile?.id).not.toBe(initialProfileId);
+
+      // Should have reset passed players list for new profile
+      expect(afterAllPass.currentTurn?.passedPlayerIds).toEqual([]);
+
+      // Should have moved to next player in rotation
+      expect(afterAllPass.currentTurn?.activePlayerId).toBeDefined();
+    });
+
+    it('should reset passedPlayerIds when advancing to next profile via awardPoints', () => {
+      // Read a clue and award points
+      useGameStore.getState().nextClue();
+      const playerId = useGameStore.getState().players[0].id;
+      useGameStore.getState().awardPoints(playerId);
+
+      const state = useGameStore.getState();
+      // Should be on next profile with reset passed list
+      expect(state.currentProfile?.id).toBe('2');
+      expect(state.currentTurn?.passedPlayerIds).toEqual([]);
+    });
+
+    it('should reset passedPlayerIds when manually skipping profile', () => {
+      // First player passes
+      useGameStore.getState().passTurn();
+      expect(useGameStore.getState().currentTurn?.passedPlayerIds).toHaveLength(1);
+
+      // Manually skip profile
+      useGameStore.getState().skipProfile();
+
+      const state = useGameStore.getState();
+      // Should be on next profile with reset passed list
+      expect(state.currentProfile?.id).toBe('2');
+      expect(state.currentTurn?.passedPlayerIds).toEqual([]);
+    });
+
+    it('should handle auto-skip on last profile and end game', () => {
+      // Start with only one profile
+      useGameStore.getState().createGame(['Player1', 'Player2']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame(['1']); // Only one profile
+
+      // Both players pass
+      useGameStore.getState().passTurn();
+      useGameStore.getState().passTurn();
+
+      const state = useGameStore.getState();
+      // Should have ended the game
+      expect(state.status).toBe('completed');
+      expect(state.currentTurn).toBeNull();
+    });
+
+    it('should preserve passedPlayerIds when advancing clues', () => {
+      const firstPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+
+      // First player passes
+      useGameStore.getState().passTurn();
+      expect(useGameStore.getState().currentTurn?.passedPlayerIds).toContain(firstPlayerId);
+
+      // Advance a clue
+      useGameStore.getState().nextClue();
+
+      const state = useGameStore.getState();
+      // Should still have the passed player in the list
+      expect(state.currentTurn?.passedPlayerIds).toContain(firstPlayerId);
     });
   });
 
@@ -1275,6 +1425,7 @@ describe('gameStore', () => {
           activePlayerId: '1',
           cluesRead: 5,
           revealed: false,
+          passedPlayerIds: [],
         },
         remainingProfiles: [],
         totalCluesPerProfile: 20,
@@ -1312,6 +1463,7 @@ describe('gameStore', () => {
           activePlayerId: '1',
           cluesRead: 2,
           revealed: false,
+          passedPlayerIds: [],
         },
         remainingProfiles: [],
         totalCluesPerProfile: 20,

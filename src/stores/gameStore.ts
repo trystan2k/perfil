@@ -182,6 +182,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
       activePlayerId: nextPlayer.id,
       cluesRead: 0,
       revealed: false,
+      passedPlayerIds: [], // Reset passed players for new profile
     },
   };
 }
@@ -248,6 +249,7 @@ export const useGameStore = create<GameState>((set, get) => ({
           activePlayerId: activePlayer.id,
           cluesRead: 0,
           revealed: false,
+          passedPlayerIds: [], // Initialize passed players tracking
         },
       };
 
@@ -295,6 +297,23 @@ export const useGameStore = create<GameState>((set, get) => ({
         throw new Error('Active player not found');
       }
 
+      // Add current player to passed list if not already there
+      const currentPlayerId = state.currentTurn.activePlayerId;
+      const passedPlayerIds = state.currentTurn.passedPlayerIds || [];
+      const updatedPassedPlayerIds = passedPlayerIds.includes(currentPlayerId)
+        ? passedPlayerIds
+        : [...passedPlayerIds, currentPlayerId];
+
+      // Check if all players have passed
+      const allPlayersPassed = updatedPassedPlayerIds.length === state.players.length;
+
+      // If all players passed, skip to next profile
+      if (allPlayersPassed) {
+        const profileAdvancement = advanceToNextProfile(state);
+        persistState({ ...state, ...profileAdvancement });
+        return profileAdvancement;
+      }
+
       // Get next player (wraparound)
       const nextPlayerIndex = (currentPlayerIndex + 1) % state.players.length;
       const nextPlayer = state.players[nextPlayerIndex];
@@ -303,6 +322,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         currentTurn: {
           ...state.currentTurn,
           activePlayerId: nextPlayer.id,
+          passedPlayerIds: updatedPassedPlayerIds,
         },
       };
 
