@@ -952,7 +952,7 @@
         "description": "Enhance the Zustand game store to manage the loading, selection, and turn-by-turn rotation of game profiles. This involves updating the game state interface and key actions like startGame, awardPoints, and adding a new skipProfile action.",
         "details": "1. **Update GameState Interface**: In `src/stores/gameStore.ts`, extend the `GameState` interface to include `profiles: Profile[]`, `selectedProfiles: number[]` (a queue of profile IDs), and `currentProfile: Profile | null`. 2. **Implement `loadProfiles` Action**: Add a new action `loadProfiles(profiles: Profile[])` that populates the `profiles` state array with all available profiles fetched from the data layer. 3. **Modify `startGame` Action**: Update the `startGame` action to accept a `selectedProfileIds: number[]` parameter. It should set the `selectedProfiles` state and initialize `currentProfile` with the first profile from the queue. 4. **Enhance `awardPoints` Action**: After awarding points, update the action to advance to the next profile. It should remove the completed profile's ID from `selectedProfiles`, set `currentProfile` to the next one, and reset turn-specific data (e.g., `cluesRead`). If `selectedProfiles` becomes empty, set the game `status` to 'completed'. 5. **Create `skipProfile` Action**: Implement a new `skipProfile()` action that performs the same profile advancement logic as `awardPoints` but without modifying any player's score, allowing the MC to pass on a profile.",
         "testStrategy": "1. **Unit Test `loadProfiles`**: In `gameStore.test.ts`, verify that calling `loadProfiles` correctly populates the `profiles` state with a mock array of profiles. 2. **Unit Test `startGame`**: Test the updated `startGame` action, ensuring it correctly sets `selectedProfiles` and initializes `currentProfile` based on the provided IDs. 3. **Unit Test `awardPoints` Logic**: Create tests to confirm that after `awardPoints` is called, the `currentProfile` advances to the next in the queue and the `selectedProfiles` array is shortened. Test the edge case where the last profile is completed, verifying the game status changes to 'completed'. 4. **Unit Test `skipProfile`**: Write tests for the new `skipProfile` action to ensure it advances `currentProfile` and shortens `selectedProfiles` without altering player scores. Also test the final profile skip to ensure the game status is correctly updated.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           2,
           3,
@@ -1055,7 +1055,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-12T19:19:08.100Z"
+      "updated": "2025-11-13T07:05:47.241Z"
     }
   }
 }

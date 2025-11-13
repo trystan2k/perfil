@@ -1,17 +1,22 @@
 import { create } from 'zustand';
 import { loadGameSession, type PersistedGameState, saveGameSession } from '../lib/gameSessionDB';
-import type { GameSession, Player } from '../types/models';
+import type { GameSession, Player, Profile } from '../types/models';
 
 type GameStatus = 'pending' | 'active' | 'completed';
 
 interface GameState extends GameSession {
   status: GameStatus;
   category?: string;
+  profiles: Profile[];
+  selectedProfiles: string[];
+  currentProfile: Profile | null;
   createGame: (playerNames: string[]) => void;
-  startGame: (category: string) => void;
+  loadProfiles: (profiles: Profile[]) => void;
+  startGame: (selectedProfileIds: string[]) => void;
   nextClue: () => void;
   passTurn: () => void;
   awardPoints: (playerId: string) => void;
+  skipProfile: () => void;
   endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
 }
@@ -19,10 +24,12 @@ interface GameState extends GameSession {
 const initialState: Omit<
   GameState,
   | 'createGame'
+  | 'loadProfiles'
   | 'startGame'
   | 'nextClue'
   | 'passTurn'
   | 'awardPoints'
+  | 'skipProfile'
   | 'endGame'
   | 'loadFromStorage'
 > = {
@@ -33,6 +40,9 @@ const initialState: Omit<
   totalCluesPerProfile: 20,
   status: 'pending',
   category: undefined,
+  profiles: [],
+  selectedProfiles: [],
+  currentProfile: null,
 };
 
 // Track rehydration operations with a Set of session IDs to handle concurrency
@@ -76,6 +86,9 @@ function persistState(state: GameState): Promise<void> {
         totalCluesPerProfile: state.totalCluesPerProfile,
         status: state.status,
         category: state.category,
+        profiles: state.profiles,
+        selectedProfiles: state.selectedProfiles,
+        currentProfile: state.currentProfile,
       };
 
       try {
@@ -115,6 +128,61 @@ export function cancelPendingPersistence(): void {
   persistTimers.clear();
 }
 
+/**
+ * Helper function to advance to the next profile
+ * Returns partial state update for profile advancement
+ */
+function advanceToNextProfile(state: GameState): Partial<GameState> {
+  if (!state.currentTurn) {
+    throw new Error('Cannot advance profile without an active turn');
+  }
+
+  // Remove the current profile from the queue
+  const remainingSelectedProfiles = state.selectedProfiles.slice(1);
+
+  // Check if there are more profiles to play
+  if (remainingSelectedProfiles.length === 0) {
+    // No more profiles - end the game
+    return {
+      status: 'completed',
+      selectedProfiles: [],
+      currentProfile: null,
+      currentTurn: null,
+    };
+  }
+
+  // Get the next profile
+  const nextProfileId = remainingSelectedProfiles[0];
+  const nextProfile = state.profiles.find((p) => p.id === nextProfileId);
+
+  if (!nextProfile) {
+    throw new Error('Next profile not found');
+  }
+
+  // Get next player for new turn
+  const currentPlayerIndex = state.players.findIndex(
+    (p) => p.id === state.currentTurn?.activePlayerId
+  );
+
+  if (currentPlayerIndex === -1) {
+    throw new Error('Current active player not found');
+  }
+
+  const nextPlayerIndex = (currentPlayerIndex + 1) % state.players.length;
+  const nextPlayer = state.players[nextPlayerIndex];
+
+  return {
+    selectedProfiles: remainingSelectedProfiles,
+    currentProfile: nextProfile,
+    currentTurn: {
+      profileId: nextProfile.id,
+      activePlayerId: nextPlayer.id,
+      cluesRead: 0,
+      revealed: false,
+    },
+  };
+}
+
 export const useGameStore = create<GameState>((set, get) => ({
   ...initialState,
   createGame: (playerNames: string[]) => {
@@ -132,15 +200,34 @@ export const useGameStore = create<GameState>((set, get) => ({
       totalCluesPerProfile: 20,
       status: 'pending' as GameStatus,
       category: undefined,
+      profiles: [],
+      selectedProfiles: [],
+      currentProfile: null,
     };
 
     set(newState);
     persistState({ ...get(), ...newState });
   },
-  startGame: (category: string) => {
+  loadProfiles: (profiles: Profile[]) => {
+    set({ profiles });
+    persistState(get());
+  },
+  startGame: (selectedProfileIds: string[]) => {
     set((state) => {
       if (state.players.length === 0) {
         throw new Error('Cannot start game without players');
+      }
+
+      if (selectedProfileIds.length === 0) {
+        throw new Error('Cannot start game without selected profiles');
+      }
+
+      // Find the first profile from selectedProfileIds
+      const firstProfileId = selectedProfileIds[0];
+      const firstProfile = state.profiles.find((p) => p.id === firstProfileId);
+
+      if (!firstProfile) {
+        throw new Error('Selected profile not found');
       }
 
       const randomPlayerIndex = Math.floor(Math.random() * state.players.length);
@@ -148,9 +235,11 @@ export const useGameStore = create<GameState>((set, get) => ({
 
       const newState = {
         status: 'active' as GameStatus,
-        category,
+        category: firstProfile.category,
+        selectedProfiles: [...selectedProfileIds],
+        currentProfile: firstProfile,
         currentTurn: {
-          profileId: '',
+          profileId: firstProfile.id,
           activePlayerId: activePlayer.id,
           cluesRead: 0,
           revealed: false,
@@ -243,31 +332,29 @@ export const useGameStore = create<GameState>((set, get) => ({
         score: updatedPlayers[playerIndex].score + points,
       };
 
-      // Get next player for new turn
-      const currentPlayerIndex = state.players.findIndex(
-        (p) => p.id === state.currentTurn?.activePlayerId
-      );
+      // Advance to next profile
+      const profileAdvancement = advanceToNextProfile(state);
 
-      if (currentPlayerIndex === -1) {
-        throw new Error('Current active player not found');
-      }
-
-      const nextPlayerIndex = (currentPlayerIndex + 1) % state.players.length;
-      const nextPlayer = state.players[nextPlayerIndex];
-
-      // Reset turn for next profile
       const newState = {
         players: updatedPlayers,
-        currentTurn: {
-          profileId: '',
-          activePlayerId: nextPlayer.id,
-          cluesRead: 0,
-          revealed: false,
-        },
+        ...profileAdvancement,
       };
 
       persistState({ ...state, ...newState });
       return newState;
+    });
+  },
+  skipProfile: () => {
+    set((state) => {
+      if (!state.currentTurn) {
+        throw new Error('Cannot skip profile without an active turn');
+      }
+
+      // Advance to next profile without awarding points
+      const profileAdvancement = advanceToNextProfile(state);
+
+      persistState({ ...state, ...profileAdvancement });
+      return profileAdvancement;
     });
   },
   endGame: () => {
@@ -313,6 +400,9 @@ export const useGameStore = create<GameState>((set, get) => ({
         totalCluesPerProfile: loadedState.totalCluesPerProfile,
         status: loadedState.status,
         category: loadedState.category,
+        profiles: loadedState.profiles,
+        selectedProfiles: loadedState.selectedProfiles,
+        currentProfile: loadedState.currentProfile,
       });
 
       // Remove session ID from rehydrating set immediately after set() completes

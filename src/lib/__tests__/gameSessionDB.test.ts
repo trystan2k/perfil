@@ -1,5 +1,6 @@
 import type { IDBPDatabase, OpenDBCallbacks } from 'idb';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Profile } from '@/types/models';
 
 // Mock the idb module
 vi.mock('idb', () => ({
@@ -19,6 +20,16 @@ describe('gameSessionDB', () => {
     createObjectStore: ReturnType<typeof vi.fn>;
   };
 
+  const createMockProfile = (id: string): Profile => ({
+    id,
+    name: `Profile ${id}`,
+    category: 'Movies',
+    clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+    metadata: { difficulty: 'medium' },
+  });
+
+  const mockProfiles: Profile[] = [createMockProfile('profile-1'), createMockProfile('profile-2')];
+
   const mockGameState = {
     id: 'game-123',
     players: [
@@ -35,6 +46,9 @@ describe('gameSessionDB', () => {
     totalCluesPerProfile: 20,
     status: 'active' as const,
     category: 'Movies',
+    profiles: mockProfiles,
+    selectedProfiles: ['1', '2'],
+    currentProfile: mockProfiles[0],
   };
 
   beforeEach(async () => {
