@@ -219,10 +219,8 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           </div>
 
           {/* Answer Reveal Section */}
-          <div className="flex justify-center px-4">
-            <div className="w-full max-w-2xl">
-              <RevealAnswer answer={currentProfile?.name} />
-            </div>
+          <div className="px-4">
+            <RevealAnswer answer={currentProfile.name} />
           </div>
 
           {/* MC Controls */}
