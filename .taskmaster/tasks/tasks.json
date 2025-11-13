@@ -967,10 +967,54 @@
         "description": "Add the existing RevealAnswer component to the GamePlay screen so the MC can swipe to verify answers",
         "details": "Import and render RevealAnswer in GamePlay.tsx below the clue display, passing answer={currentProfile?.name} prop. Style and position the reveal card to be prominent but not intrusive. Ensure swipe gesture works on mobile devices. Add visual feedback to indicate when answer can be revealed and show answer reveal state clearly.",
         "testStrategy": "Test with various profile names. Verify swipe gesture works on mobile. Test auto-hide timer functionality.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Import and Render RevealAnswer Component in GamePlay",
+            "description": "Import the existing RevealAnswer component into the GamePlay.tsx file and render it in the appropriate location, passing the current profile's name as the answer prop.",
+            "dependencies": [],
+            "details": "In `GamePlay.tsx`, add the import statement for the `RevealAnswer` component. Then, render `<RevealAnswer answer={currentProfile?.name} />` below the clue display section. Ensure `currentProfile` is correctly retrieved from the Zustand store.",
+            "status": "done",
+            "testStrategy": "Run the application and navigate to the GamePlay screen. Verify that the RevealAnswer component renders without any console errors. Use React DevTools to confirm the `answer` prop is being passed correctly."
+          },
+          {
+            "id": 2,
+            "title": "Style and Position the RevealAnswer Component",
+            "description": "Apply CSS styling to the RevealAnswer component to make it prominent yet unobtrusive on the GamePlay screen. Ensure its position is logical and consistent across different screen sizes.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use Tailwind CSS or another styling solution to position the component below the clue display. Apply a distinct background color, padding, and border to make it stand out as an interactive element. Ensure the component is centered and responsive.",
+            "status": "done",
+            "testStrategy": "Visually inspect the GamePlay screen on both desktop and mobile viewports to ensure the component is styled and positioned correctly. Check for any overlap or layout issues with other UI elements."
+          },
+          {
+            "id": 3,
+            "title": "Implement Swipe Gesture for Answer Reveal",
+            "description": "Add the swipe gesture functionality to the RevealAnswer component. The Master of Ceremonies (MC) should be able to swipe the component horizontally to reveal the answer.",
+            "dependencies": [
+              1
+            ],
+            "details": "Integrate a gesture library like `react-use-gesture` or use native touch events to detect a horizontal swipe on the component. The swipe action should trigger a function that will update the component's state to 'revealed'.",
+            "status": "done",
+            "testStrategy": "Test on a touch-enabled device or using the browser's mobile emulator. Verify that a horizontal swipe successfully triggers the reveal logic. Ensure that vertical scrolls or simple taps do not trigger the reveal."
+          },
+          {
+            "id": 4,
+            "title": "Add Visual Feedback and Manage Reveal State",
+            "description": "Implement state management for the reveal status and add clear visual feedback to the user. The component should indicate that it can be swiped and then clearly display the answer once revealed.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Use a `useState` hook within the RevealAnswer component to manage its revealed state (e.g., `isRevealed`). Initially, display text or an icon indicating 'Swipe to Reveal'. When the swipe gesture sets `isRevealed` to true, conditionally render the answer text and apply a distinct style to show it has been revealed.",
+            "status": "done",
+            "testStrategy": "Confirm the initial state shows the 'Swipe to Reveal' prompt. After swiping, verify the prompt is replaced by the correct answer text. Check that the visual transition between states is clear and intuitive for the user."
+          }
+        ]
       },
       {
         "id": 18,
@@ -1110,7 +1154,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-13T19:57:54.898Z"
+      "updated": "2025-11-13T22:12:11.599Z"
     }
   }
 }

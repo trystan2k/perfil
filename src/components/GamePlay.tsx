@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { RevealAnswer } from '@/components/RevealAnswer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGameStore } from '@/stores/gameStore';
@@ -215,6 +216,13 @@ export function GamePlay({ sessionId }: GamePlayProps) {
             ) : (
               <p className="text-center text-muted-foreground">{t('gamePlay.pressShowNextClue')}</p>
             )}
+          </div>
+
+          {/* Answer Reveal Section */}
+          <div className="flex justify-center px-4">
+            <div className="w-full max-w-2xl">
+              <RevealAnswer answer={currentProfile?.name} />
+            </div>
           </div>
 
           {/* MC Controls */}
