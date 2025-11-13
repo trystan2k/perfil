@@ -1,5 +1,5 @@
 import { type IDBPDatabase, openDB } from 'idb';
-import type { GameSession } from '../types/models';
+import type { GameSession, Profile } from '../types/models';
 
 const DB_NAME = 'perfil-game-db';
 const DB_VERSION = 1;
@@ -9,6 +9,9 @@ const STORE_NAME = 'game-sessions';
 export interface PersistedGameState extends GameSession {
   status: 'pending' | 'active' | 'completed';
   category?: string;
+  profiles: Profile[];
+  selectedProfiles: number[];
+  currentProfile: Profile | null;
 }
 
 let dbPromise: Promise<IDBPDatabase> | null = null;

@@ -1,5 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Profile } from '../../types/models';
 import { useGameStore } from '../gameStore';
 
 // Mock the gameSessionDB module to avoid IndexedDB issues in Node test environment
@@ -10,6 +11,22 @@ vi.mock('../../lib/gameSessionDB', () => ({
   getAllGameSessions: vi.fn().mockResolvedValue([]),
   clearAllGameSessions: vi.fn().mockResolvedValue(undefined),
 }));
+
+// Helper to create mock profiles for testing
+const createMockProfile = (id: string, category: string, name: string): Profile => ({
+  id,
+  category,
+  name,
+  clues: Array.from({ length: 20 }, (_, i) => `${name} clue ${i + 1}`),
+  metadata: { difficulty: 'medium' },
+});
+
+// Default mock profiles to use in tests
+const defaultMockProfiles: Profile[] = [
+  createMockProfile('1', 'Movies', 'The Godfather'),
+  createMockProfile('2', 'Sports', 'Michael Jordan'),
+  createMockProfile('3', 'Music', 'The Beatles'),
+];
 
 describe('gameStore', () => {
   beforeEach(() => {
@@ -22,6 +39,9 @@ describe('gameStore', () => {
       totalCluesPerProfile: 20,
       status: 'pending',
       category: undefined,
+      profiles: [],
+      selectedProfiles: [],
+      currentProfile: null,
     });
   });
 
@@ -36,16 +56,21 @@ describe('gameStore', () => {
       expect(state.totalCluesPerProfile).toBe(20);
       expect(state.status).toBe('pending');
       expect(state.category).toBeUndefined();
+      expect(state.profiles).toEqual([]);
+      expect(state.selectedProfiles).toEqual([]);
+      expect(state.currentProfile).toBeNull();
     });
 
     it('should have all required action methods', () => {
       const state = useGameStore.getState();
 
       expect(typeof state.createGame).toBe('function');
+      expect(typeof state.loadProfiles).toBe('function');
       expect(typeof state.startGame).toBe('function');
       expect(typeof state.nextClue).toBe('function');
       expect(typeof state.passTurn).toBe('function');
       expect(typeof state.awardPoints).toBe('function');
+      expect(typeof state.skipProfile).toBe('function');
       expect(typeof state.endGame).toBe('function');
     });
   });
@@ -89,7 +114,8 @@ describe('gameStore', () => {
     it('should reset game state when creating a new game', () => {
       // Create first game
       useGameStore.getState().createGame(['Alice', 'Bob']);
-      useGameStore.getState().startGame('Movies');
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1]);
 
       // Create second game
       useGameStore.getState().createGame(['Charlie', 'Diana']);
@@ -115,12 +141,13 @@ describe('gameStore', () => {
 
   describe('startGame', () => {
     beforeEach(() => {
-      // Create a game with players before each test
+      // Create a game with players and load profiles before each test
       useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
     });
 
     it('should start the game with a category', () => {
-      useGameStore.getState().startGame('Movies');
+      useGameStore.getState().startGame([1]);
 
       const state = useGameStore.getState();
 
@@ -129,7 +156,7 @@ describe('gameStore', () => {
     });
 
     it('should initialize current turn with random active player', () => {
-      useGameStore.getState().startGame('Sports');
+      useGameStore.getState().startGame([2]);
 
       const state = useGameStore.getState();
 
@@ -140,7 +167,7 @@ describe('gameStore', () => {
     });
 
     it('should select an active player from existing players', () => {
-      useGameStore.getState().startGame('History');
+      useGameStore.getState().startGame([3]);
 
       const state = useGameStore.getState();
       const playerIds = state.players.map((p) => p.id);
@@ -158,28 +185,33 @@ describe('gameStore', () => {
         totalCluesPerProfile: 20,
         status: 'pending',
         category: undefined,
+        profiles: defaultMockProfiles,
+        selectedProfiles: [],
+        currentProfile: null,
       });
 
-      expect(() => useGameStore.getState().startGame('Movies')).toThrow(
+      expect(() => useGameStore.getState().startGame([1])).toThrow(
         'Cannot start game without players'
       );
     });
 
     it('should allow starting game with different categories', () => {
-      useGameStore.getState().startGame('Geography');
-      expect(useGameStore.getState().category).toBe('Geography');
+      useGameStore.getState().startGame([2]);
+      expect(useGameStore.getState().category).toBe('Sports');
 
       // Start again with different category
       useGameStore.getState().createGame(['Player1']);
-      useGameStore.getState().startGame('Science');
-      expect(useGameStore.getState().category).toBe('Science');
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([3]);
+      expect(useGameStore.getState().category).toBe('Music');
     });
   });
 
   describe('nextClue', () => {
     beforeEach(() => {
       useGameStore.getState().createGame(['Alice', 'Bob']);
-      useGameStore.getState().startGame('Movies');
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1]);
     });
 
     it('should increment cluesRead counter', () => {
@@ -246,7 +278,8 @@ describe('gameStore', () => {
   describe('passTurn', () => {
     beforeEach(() => {
       useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
-      useGameStore.getState().startGame('Sports');
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([2]);
     });
 
     it('should move to next player in sequence', () => {
@@ -296,7 +329,8 @@ describe('gameStore', () => {
 
     it('should work with only two players', () => {
       useGameStore.getState().createGame(['Player1', 'Player2']);
-      useGameStore.getState().startGame('History');
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([3]);
 
       const initialPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
 
@@ -367,7 +401,8 @@ describe('gameStore', () => {
   describe('awardPoints', () => {
     beforeEach(() => {
       useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
-      useGameStore.getState().startGame('Movies');
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1]);
     });
 
     it('should award correct points based on clues read (formula: 20 - (cluesRead - 1))', () => {
@@ -424,6 +459,11 @@ describe('gameStore', () => {
     });
 
     it('should add points to existing player score', () => {
+      // Set up multi-profile game for cumulative scoring
+      useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1, 2]);
+
       // First round
       useGameStore.getState().nextClue();
       const activePlayerId1 = useGameStore.getState().currentTurn?.activePlayerId;
@@ -448,6 +488,11 @@ describe('gameStore', () => {
     });
 
     it('should reset turn state after awarding points', () => {
+      // Use multi-profile game to avoid game completion
+      useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1, 2]);
+
       useGameStore.getState().nextClue();
       useGameStore.getState().nextClue();
       const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
@@ -458,11 +503,16 @@ describe('gameStore', () => {
       const state = useGameStore.getState();
 
       expect(state.currentTurn?.cluesRead).toBe(0);
-      expect(state.currentTurn?.profileId).toBe('');
+      expect(state.currentTurn?.profileId).toBe('2');
       expect(state.currentTurn?.revealed).toBe(false);
     });
 
     it('should advance to next player after awarding points', () => {
+      // Use multi-profile game to test player advancement
+      useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1, 2]);
+
       const initialActivePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
       expect(initialActivePlayerId).toBeDefined();
 
@@ -480,6 +530,11 @@ describe('gameStore', () => {
     });
 
     it('should award points to any player, not just active player', () => {
+      // Use multi-profile game
+      useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1, 2]);
+
       useGameStore.getState().nextClue();
 
       const players = useGameStore.getState().players;
@@ -523,6 +578,11 @@ describe('gameStore', () => {
     });
 
     it('should handle multiple players receiving points in different rounds', () => {
+      // Use multi-profile game
+      useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1, 2, 3]);
+
       const players = useGameStore.getState().players;
 
       // Player 1 gets points
@@ -548,6 +608,11 @@ describe('gameStore', () => {
     });
 
     it('should throw error when current active player is not found in players array', () => {
+      // Use multi-profile game
+      useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1, 2]);
+
       useGameStore.getState().nextClue();
 
       // Manually corrupt the state to simulate active player not in players array
@@ -577,7 +642,8 @@ describe('gameStore', () => {
   describe('endGame', () => {
     beforeEach(() => {
       useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
-      useGameStore.getState().startGame('Movies');
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1]);
     });
 
     it('should set game status to completed', () => {
@@ -597,6 +663,11 @@ describe('gameStore', () => {
     });
 
     it('should preserve player scores when ending game', () => {
+      // Use multi-profile game to avoid auto-completion
+      useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1, 2]);
+
       // Play a round and award points
       useGameStore.getState().nextClue();
       const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
@@ -649,6 +720,7 @@ describe('gameStore', () => {
 
     it('should throw error when ending a game that has not started', () => {
       useGameStore.getState().createGame(['Player1', 'Player2']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
       // Don't start the game
 
       expect(() => useGameStore.getState().endGame()).toThrow(
@@ -698,6 +770,407 @@ describe('gameStore', () => {
     });
   });
 
+  describe('Profile Management (Task #16)', () => {
+    const mockProfiles: Profile[] = [
+      {
+        id: '1',
+        category: 'Movies',
+        name: 'The Godfather',
+        clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1}`),
+        metadata: { difficulty: 'medium' },
+      },
+      {
+        id: '2',
+        category: 'Movies',
+        name: 'Star Wars',
+        clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1}`),
+        metadata: { difficulty: 'easy' },
+      },
+      {
+        id: '3',
+        category: 'Sports',
+        name: 'Michael Jordan',
+        clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1}`),
+        metadata: { difficulty: 'hard' },
+      },
+    ];
+
+    describe('loadProfiles', () => {
+      it('should load profiles into the store', () => {
+        useGameStore.getState().loadProfiles(mockProfiles);
+
+        const state = useGameStore.getState();
+
+        expect(state.profiles).toEqual(mockProfiles);
+        expect(state.profiles).toHaveLength(3);
+      });
+
+      it('should replace existing profiles when called again', () => {
+        useGameStore.getState().loadProfiles(mockProfiles);
+        const newProfiles = [mockProfiles[0]];
+
+        useGameStore.getState().loadProfiles(newProfiles);
+
+        const state = useGameStore.getState();
+
+        expect(state.profiles).toEqual(newProfiles);
+        expect(state.profiles).toHaveLength(1);
+      });
+
+      it('should allow loading empty profiles array', () => {
+        useGameStore.getState().loadProfiles(mockProfiles);
+        useGameStore.getState().loadProfiles([]);
+
+        const state = useGameStore.getState();
+
+        expect(state.profiles).toEqual([]);
+        expect(state.profiles).toHaveLength(0);
+      });
+    });
+
+    describe('startGame with selectedProfileIds', () => {
+      beforeEach(() => {
+        useGameStore.getState().createGame(['Alice', 'Bob', 'Charlie']);
+        useGameStore.getState().loadProfiles(mockProfiles);
+      });
+
+      it('should start game with selected profile IDs', () => {
+        useGameStore.getState().startGame([1, 2]);
+
+        const state = useGameStore.getState();
+
+        expect(state.status).toBe('active');
+        expect(state.selectedProfiles).toEqual([1, 2]);
+        expect(state.currentProfile).toEqual(mockProfiles[0]);
+        expect(state.category).toBe('Movies');
+      });
+
+      it('should set current profile to first selected profile', () => {
+        useGameStore.getState().startGame([2, 3]);
+
+        const state = useGameStore.getState();
+
+        expect(state.currentProfile?.id).toBe('2');
+        expect(state.currentProfile?.name).toBe('Star Wars');
+      });
+
+      it('should initialize current turn with first profile', () => {
+        useGameStore.getState().startGame([1]);
+
+        const state = useGameStore.getState();
+
+        expect(state.currentTurn).not.toBeNull();
+        expect(state.currentTurn?.profileId).toBe('1');
+        expect(state.currentTurn?.cluesRead).toBe(0);
+        expect(state.currentTurn?.revealed).toBe(false);
+      });
+
+      it('should throw error when starting with empty profile IDs', () => {
+        expect(() => useGameStore.getState().startGame([])).toThrow(
+          'Cannot start game without selected profiles'
+        );
+      });
+
+      it('should throw error when starting with invalid profile ID', () => {
+        expect(() => useGameStore.getState().startGame([999])).toThrow(
+          'Selected profile not found'
+        );
+      });
+
+      it('should handle single profile selection', () => {
+        useGameStore.getState().startGame([3]);
+
+        const state = useGameStore.getState();
+
+        expect(state.selectedProfiles).toEqual([3]);
+        expect(state.currentProfile?.id).toBe('3');
+        expect(state.category).toBe('Sports');
+      });
+
+      it('should handle multiple profile selection', () => {
+        useGameStore.getState().startGame([1, 2, 3]);
+
+        const state = useGameStore.getState();
+
+        expect(state.selectedProfiles).toEqual([1, 2, 3]);
+        expect(state.currentProfile?.id).toBe('1');
+      });
+    });
+
+    describe('awardPoints with profile advancement', () => {
+      beforeEach(() => {
+        useGameStore.getState().createGame(['Alice', 'Bob']);
+        useGameStore.getState().loadProfiles(mockProfiles);
+        useGameStore.getState().startGame([1, 2]);
+      });
+
+      it('should advance to next profile after awarding points', () => {
+        useGameStore.getState().nextClue();
+        const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+
+        useGameStore.getState().awardPoints(activePlayerId as string);
+
+        const state = useGameStore.getState();
+
+        expect(state.currentProfile?.id).toBe('2');
+        expect(state.currentProfile?.name).toBe('Star Wars');
+        expect(state.selectedProfiles).toEqual([2]);
+      });
+
+      it('should advance to next player when advancing to next profile', () => {
+        const initialActivePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+        const players = useGameStore.getState().players;
+        const initialPlayerIndex = players.findIndex((p) => p.id === initialActivePlayerId);
+
+        useGameStore.getState().nextClue();
+        useGameStore.getState().awardPoints(initialActivePlayerId as string);
+
+        const state = useGameStore.getState();
+        const expectedNextIndex = (initialPlayerIndex + 1) % players.length;
+
+        expect(state.currentTurn?.activePlayerId).toBe(players[expectedNextIndex].id);
+      });
+
+      it('should reset clues read when advancing to next profile', () => {
+        for (let i = 0; i < 5; i++) {
+          useGameStore.getState().nextClue();
+        }
+
+        const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+        useGameStore.getState().awardPoints(activePlayerId as string);
+
+        const state = useGameStore.getState();
+
+        expect(state.currentTurn?.cluesRead).toBe(0);
+      });
+
+      it('should end game when awarding points on last profile', () => {
+        useGameStore.getState().nextClue();
+        const activePlayerId1 = useGameStore.getState().currentTurn?.activePlayerId;
+        useGameStore.getState().awardPoints(activePlayerId1 as string);
+
+        useGameStore.getState().nextClue();
+        const activePlayerId2 = useGameStore.getState().currentTurn?.activePlayerId;
+        useGameStore.getState().awardPoints(activePlayerId2 as string);
+
+        const state = useGameStore.getState();
+
+        expect(state.status).toBe('completed');
+        expect(state.currentTurn).toBeNull();
+        expect(state.selectedProfiles).toEqual([]);
+        expect(state.currentProfile).toBeNull();
+      });
+
+      it('should award correct points before advancing profile', () => {
+        for (let i = 0; i < 3; i++) {
+          useGameStore.getState().nextClue();
+        }
+
+        const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+        const playerBefore = useGameStore.getState().players.find((p) => p.id === activePlayerId);
+
+        useGameStore.getState().awardPoints(activePlayerId as string);
+
+        const playerAfter = useGameStore.getState().players.find((p) => p.id === activePlayerId);
+
+        // Points should be 20 - (3 - 1) = 18
+        expect(playerAfter?.score).toBe(18);
+        expect(playerAfter?.score).toBe((playerBefore?.score ?? 0) + 18);
+      });
+    });
+
+    describe('skipProfile', () => {
+      beforeEach(() => {
+        useGameStore.getState().createGame(['Alice', 'Bob']);
+        useGameStore.getState().loadProfiles(mockProfiles);
+        useGameStore.getState().startGame([1, 2, 3]);
+      });
+
+      it('should advance to next profile without awarding points', () => {
+        useGameStore.getState().nextClue();
+
+        const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+        const playerBefore = useGameStore.getState().players.find((p) => p.id === activePlayerId);
+
+        useGameStore.getState().skipProfile();
+
+        const state = useGameStore.getState();
+        const playerAfter = state.players.find((p) => p.id === activePlayerId);
+
+        expect(state.currentProfile?.id).toBe('2');
+        expect(playerAfter?.score).toBe(playerBefore?.score);
+      });
+
+      it('should advance to next player when skipping profile', () => {
+        const initialActivePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+        const players = useGameStore.getState().players;
+        const initialPlayerIndex = players.findIndex((p) => p.id === initialActivePlayerId);
+
+        useGameStore.getState().skipProfile();
+
+        const state = useGameStore.getState();
+        const expectedNextIndex = (initialPlayerIndex + 1) % players.length;
+
+        expect(state.currentTurn?.activePlayerId).toBe(players[expectedNextIndex].id);
+      });
+
+      it('should reset clues read when skipping profile', () => {
+        for (let i = 0; i < 10; i++) {
+          useGameStore.getState().nextClue();
+        }
+
+        useGameStore.getState().skipProfile();
+
+        const state = useGameStore.getState();
+
+        expect(state.currentTurn?.cluesRead).toBe(0);
+      });
+
+      it('should end game when skipping last profile', () => {
+        useGameStore.getState().skipProfile(); // Skip profile 1
+        useGameStore.getState().skipProfile(); // Skip profile 2
+        useGameStore.getState().skipProfile(); // Skip profile 3 (last)
+
+        const state = useGameStore.getState();
+
+        expect(state.status).toBe('completed');
+        expect(state.currentTurn).toBeNull();
+        expect(state.selectedProfiles).toEqual([]);
+        expect(state.currentProfile).toBeNull();
+      });
+
+      it('should throw error when skipping without active turn', () => {
+        useGameStore.setState({
+          ...useGameStore.getState(),
+          currentTurn: null,
+        });
+
+        expect(() => useGameStore.getState().skipProfile()).toThrow(
+          'Cannot skip profile without an active turn'
+        );
+      });
+
+      it('should work even when no clues have been read', () => {
+        expect(useGameStore.getState().currentTurn?.cluesRead).toBe(0);
+
+        expect(() => useGameStore.getState().skipProfile()).not.toThrow();
+
+        const state = useGameStore.getState();
+        expect(state.currentProfile?.id).toBe('2');
+      });
+    });
+
+    describe('Game completion', () => {
+      beforeEach(() => {
+        useGameStore.getState().createGame(['Alice', 'Bob']);
+        useGameStore.getState().loadProfiles(mockProfiles);
+      });
+
+      it('should complete game when all profiles are played', () => {
+        useGameStore.getState().startGame([1, 2]);
+
+        // Play through all profiles
+        useGameStore.getState().nextClue();
+        const activePlayerId1 = useGameStore.getState().currentTurn?.activePlayerId;
+        useGameStore.getState().awardPoints(activePlayerId1 as string);
+
+        useGameStore.getState().nextClue();
+        const activePlayerId2 = useGameStore.getState().currentTurn?.activePlayerId;
+        useGameStore.getState().awardPoints(activePlayerId2 as string);
+
+        const state = useGameStore.getState();
+
+        expect(state.status).toBe('completed');
+        expect(state.currentTurn).toBeNull();
+        expect(state.selectedProfiles).toEqual([]);
+        expect(state.currentProfile).toBeNull();
+      });
+
+      it('should preserve final scores when game completes', () => {
+        useGameStore.getState().startGame([1]);
+
+        useGameStore.getState().nextClue();
+        useGameStore.getState().nextClue();
+        const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+        useGameStore.getState().awardPoints(activePlayerId as string);
+
+        const state = useGameStore.getState();
+        const player = state.players.find((p) => p.id === activePlayerId);
+
+        expect(state.status).toBe('completed');
+        expect(player?.score).toBe(19); // 20 - (2 - 1) = 19
+      });
+
+      it('should complete game with single profile', () => {
+        useGameStore.getState().startGame([3]);
+
+        useGameStore.getState().nextClue();
+        const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+        useGameStore.getState().awardPoints(activePlayerId as string);
+
+        const state = useGameStore.getState();
+
+        expect(state.status).toBe('completed');
+      });
+    });
+
+    describe('Edge cases', () => {
+      beforeEach(() => {
+        useGameStore.getState().createGame(['Alice', 'Bob']);
+      });
+
+      it('should handle starting game without loading profiles first', () => {
+        expect(() => useGameStore.getState().startGame([1])).toThrow('Selected profile not found');
+      });
+
+      it('should handle profile IDs that do not exist', () => {
+        useGameStore.getState().loadProfiles(mockProfiles);
+
+        expect(() => useGameStore.getState().startGame([999, 1000])).toThrow(
+          'Selected profile not found'
+        );
+      });
+
+      it('should handle mixed valid and invalid profile IDs', () => {
+        useGameStore.getState().loadProfiles(mockProfiles);
+
+        expect(() => useGameStore.getState().startGame([1, 999])).not.toThrow();
+
+        const state = useGameStore.getState();
+        expect(state.currentProfile?.id).toBe('1');
+      });
+
+      it('should maintain profile order in selectedProfiles', () => {
+        useGameStore.getState().loadProfiles(mockProfiles);
+        useGameStore.getState().startGame([3, 1, 2]);
+
+        const state = useGameStore.getState();
+
+        expect(state.selectedProfiles).toEqual([3, 1, 2]);
+        expect(state.currentProfile?.id).toBe('3');
+      });
+
+      it('should throw error when advancing profile with corrupted state', () => {
+        useGameStore.getState().loadProfiles(mockProfiles);
+        useGameStore.getState().startGame([1, 2]);
+
+        // Corrupt selectedProfiles to have only a non-existent profile
+        // This ensures we're not at the last profile (which would complete the game)
+        useGameStore.setState({
+          ...useGameStore.getState(),
+          selectedProfiles: [2, 999], // Keep profile 2 as current, 999 as next
+        });
+
+        useGameStore.getState().nextClue();
+        const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+
+        expect(() => useGameStore.getState().awardPoints(activePlayerId as string)).toThrow(
+          'Next profile not found'
+        );
+      });
+    });
+  });
+
   describe('Persistence Error Handling', () => {
     it('should handle errors when persisting state without throwing', async () => {
       const { saveGameSession } = await import('../../lib/gameSessionDB');
@@ -708,7 +1181,8 @@ describe('gameStore', () => {
 
       // Create and start game (which should trigger persistence)
       useGameStore.getState().createGame(['Player1', 'Player2']);
-      useGameStore.getState().startGame('Movies');
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame([1]);
 
       // Wait for persistence attempt to complete
       await waitFor(
@@ -802,6 +1276,9 @@ describe('gameStore', () => {
         totalCluesPerProfile: 20,
         status: 'active' as const,
         category: 'Sports',
+        profiles: defaultMockProfiles,
+        selectedProfiles: [2],
+        currentProfile: defaultMockProfiles[1],
       };
 
       vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
@@ -835,6 +1312,9 @@ describe('gameStore', () => {
         totalCluesPerProfile: 20,
         status: 'active' as const,
         category: 'Movies',
+        profiles: defaultMockProfiles,
+        selectedProfiles: [1],
+        currentProfile: defaultMockProfiles[0],
       };
 
       vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);

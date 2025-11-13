@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import type { PersistedGameState } from '@/lib/gameSessionDB';
 import * as gameSessionDB from '@/lib/gameSessionDB';
+import type { Profile } from '@/types/models';
 import { Scoreboard } from '../Scoreboard';
 
 // Mock the gameSessionDB module
@@ -25,6 +26,20 @@ describe('Scoreboard', () => {
     );
   };
 
+  const createMockProfile = (id: string): Profile => ({
+    id,
+    name: `Profile ${id}`,
+    category: 'Historical Figures',
+    clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+    metadata: { difficulty: 'medium' },
+  });
+
+  const mockProfiles: Profile[] = [
+    createMockProfile('1'),
+    createMockProfile('2'),
+    createMockProfile('3'),
+  ];
+
   const mockGameSession: PersistedGameState = {
     id: 'test-session-123',
     status: 'completed',
@@ -38,6 +53,9 @@ describe('Scoreboard', () => {
     currentTurn: null,
     remainingProfiles: [],
     totalCluesPerProfile: 10,
+    profiles: mockProfiles,
+    selectedProfiles: [1, 2, 3],
+    currentProfile: null,
   };
 
   it('should render loading state initially', () => {
