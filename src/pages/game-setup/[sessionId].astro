@@ -1,12 +1,6 @@
 ---
-import { CategorySelect } from '@/components/CategorySelect';
+import { CategorySelectWithProvider } from '@/components/CategorySelectWithProvider';
 import Layout from '@/layouts/Layout.astro';
-
-// For static build, provide a sample session path
-// In production, this would be dynamically generated or use SSR
-export function getStaticPaths() {
-  return [{ params: { sessionId: 'sample-session' } }];
-}
 
 const { sessionId } = Astro.params;
 
@@ -16,5 +10,5 @@ if (!sessionId) {
 ---
 
 <Layout title="Category Selection">
-	<CategorySelect client:only="react" sessionId={sessionId} />
+	<CategorySelectWithProvider client:only="react" sessionId={sessionId} />
 </Layout>

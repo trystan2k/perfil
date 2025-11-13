@@ -2,14 +2,11 @@
 import { GamePlay } from '../../components/GamePlay';
 import Layout from '../../layouts/Layout.astro';
 
-// For static build, provide a sample session path
-// In production, this would be dynamically generated or use SSR
-export function getStaticPaths() {
-  return [{ params: { sessionId: 'sample-session' } }];
-}
-
-// Get the sessionId from the URL params
 const { sessionId } = Astro.params;
+
+if (!sessionId) {
+  return Astro.redirect('/');
+}
 ---
 
 <Layout title="Perfil - Game Session">

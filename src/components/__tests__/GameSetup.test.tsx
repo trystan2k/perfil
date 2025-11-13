@@ -20,11 +20,12 @@ Object.defineProperty(window, 'location', {
 });
 
 describe('GameSetup', () => {
-  const mockCreateGame = vi.fn();
+  const mockCreateGame = vi.fn().mockResolvedValue(undefined);
   let mockGameId = '';
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockCreateGame.mockResolvedValue(undefined);
     mockLocation.href = '';
     mockGameId = `game-${Date.now()}`;
 
@@ -383,8 +384,11 @@ describe('GameSetup', () => {
 
       await user.click(startButton);
 
-      // Should navigate to category selection page with game ID
-      expect(mockLocation.href).toContain('/game-setup/game-');
+      // Wait for the async navigation to complete
+      // createGame now returns a Promise that handleStartGame awaits
+      await vi.waitFor(() => {
+        expect(mockLocation.href).toContain('/game-setup/game-');
+      });
     });
   });
 

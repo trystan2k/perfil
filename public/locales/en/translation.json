@@ -5,7 +5,8 @@
     "notFound": "Not Found",
     "retry": "Retry",
     "category": "Category",
-    "pts": "pts"
+    "pts": "pts",
+    "returnHome": "Return to Home"
   },
   "languageSwitcher": {
     "ariaLabel": "Language selector",
@@ -20,7 +21,8 @@
     "playersLabel": "Players ({{count}}/{{max}})",
     "startButton": "Start Game",
     "errors": {
-      "duplicateName": "Player name already exists"
+      "duplicateName": "Player name already exists",
+      "failedToCreateGame": "Failed to create game. Please try again."
     },
     "removePlayerAriaLabel": "Remove {{name}}"
   },
@@ -62,7 +64,9 @@
     },
     "error": {
       "title": "Error",
-      "description": "Failed to load categories. Please try again."
+      "description": "Failed to load categories. Please try again.",
+      "sessionNotFoundTitle": "Session Not Found",
+      "sessionNotFoundDescription": "The game session could not be found. Please start a new game."
     },
     "orLabel": "or",
     "shuffleAllButton": "Shuffle All"

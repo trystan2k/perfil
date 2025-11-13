@@ -978,10 +978,65 @@
         "description": "Ensure proper navigation with session IDs throughout the entire game flow",
         "details": "Fix GameSetup to navigate to /game-setup/${sessionId} after createGame. Fix CategorySelect to load session from URL param and navigate to /game/${sessionId} after startGame. Update Astro getStaticPaths to remove hardcoded sample-session and use proper dynamic routing or SSR mode. Add loading states to handle session not found errors and show loading while hydrating from IndexedDB.",
         "testStrategy": "E2E test complete flow from setup to gameplay. Test deep linking to game with session ID. Test page refresh during game.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update GameSetup to Navigate to Dynamic Session URL",
+            "description": "Modify the GameSetup component's `createGame` function to programmatically navigate to a dynamic URL (`/game-setup/${sessionId}`) immediately after a new game session is created.",
+            "dependencies": [],
+            "details": "In the `createGame` async function, after successfully creating the session and receiving the `sessionId`, use the Astro `navigate` utility to redirect the user. This replaces the current navigation logic and ensures the URL reflects the active game session.\n<info added on 2025-11-13T12:47:09.272Z>\nThe navigation logic has been implemented in GameSetup.tsx, lines 46-54. The component correctly calls createGame, retrieves the new game ID from the store, and navigates to `/game-setup/${newGameId}` using `window.location.href`. This implementation is complete but is currently blocked pending the enablement of SSR (subtask 18.2), as the current static build only generates predefined paths.\n</info added on 2025-11-13T12:47:09.272Z>",
+            "status": "done",
+            "testStrategy": "Unit test the `createGame` handler to verify it calls the navigation function with the correct dynamic URL. Perform a manual E2E test to create a game and confirm the browser URL updates correctly."
+          },
+          {
+            "id": 2,
+            "title": "Convert Astro Game Pages to SSR for Dynamic Routing",
+            "description": "Update the Astro configuration and relevant pages to use Server-Side Rendering (SSR) to properly handle dynamic session IDs, removing the need for `getStaticPaths` and hardcoded paths.",
+            "dependencies": [
+              1
+            ],
+            "details": "In `astro.config.mjs`, set `output: 'server'`. Rename `src/pages/game-setup/sample-session.astro` to `src/pages/game-setup/[sessionId].astro`. Ensure `src/pages/game/[sessionId].astro` is also correctly configured for dynamic server-side rendering. This will allow Astro to handle any session ID passed in the URL.",
+            "status": "done",
+            "testStrategy": "After deploying the change, manually navigate to a URL with a random session ID, like `/game-setup/abc-123`. The page should render without a 404 error, confirming SSR is handling the dynamic route."
+          },
+          {
+            "id": 3,
+            "title": "Load Session from URL in CategorySelect Component",
+            "description": "Enhance the CategorySelect page (`/game-setup/[sessionId].astro`) to read the `sessionId` from the URL and use it to hydrate the game state from IndexedDB.",
+            "dependencies": [
+              2
+            ],
+            "details": "On the `[sessionId].astro` page for game setup, retrieve the session ID using `Astro.params.sessionId`. Pass this ID as a prop to the client-side React component. The component will then use this ID to query IndexedDB and load the corresponding session data into the Zustand store.",
+            "status": "done",
+            "testStrategy": "Create a game session to ensure it's in IndexedDB. Then, directly navigate to the `/game-setup/[sessionId]` URL for that session. Verify that the component correctly loads and displays the session's data (e.g., player names)."
+          },
+          {
+            "id": 4,
+            "title": "Implement Navigation from CategorySelect to Game Screen",
+            "description": "Update the `startGame` function within the CategorySelect component to navigate the user to the main game screen (`/game/${sessionId}`) using the currently loaded session ID.",
+            "dependencies": [
+              3
+            ],
+            "details": "In the `startGame` event handler, after all pre-game logic is complete, trigger a client-side navigation to the main game page. The URL must be constructed dynamically using the `sessionId` that was loaded from the URL parameter in the previous step.\n<info added on 2025-11-13T12:54:23.383Z>\nNavigation from CategorySelect to game screen was already implemented. The component uses window.location.href to navigate to /game/${sessionId} after calling startGame() in both handleCategorySelect (line 107) and handleShuffleAll (line 126) functions. No additional changes needed.\n</info added on 2025-11-13T12:54:23.383Z>",
+            "status": "done",
+            "testStrategy": "On the game setup page for a valid session, select categories and click the 'Start Game' button. Verify the application correctly navigates to the `/game/[sessionId]` URL."
+          },
+          {
+            "id": 5,
+            "title": "Add Loading and Error States for Session Hydration",
+            "description": "Implement UI feedback for loading states while hydrating from IndexedDB and handle cases where a session ID from the URL is not found.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "On both the `/game-setup/[sessionId]` and `/game/[sessionId]` pages, display a loading indicator while the app attempts to load the session from IndexedDB. If the lookup fails (i.e., the session ID is invalid or not found), display a clear 'Session Not Found' error message instead of a broken page, with a link to return to the homepage.",
+            "status": "done",
+            "testStrategy": "Test the loading state by adding a small artificial delay to the IndexedDB fetch. Test the error state by navigating directly to a URL with a fake session ID (e.g., `/game/invalid-session-id`) and confirming the error message appears."
+          }
+        ]
       },
       {
         "id": 19,
@@ -1055,7 +1110,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-13T09:00:27.469Z"
+      "updated": "2025-11-13T12:55:59.979Z"
     }
   }
 }

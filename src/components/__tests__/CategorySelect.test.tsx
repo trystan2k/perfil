@@ -8,6 +8,7 @@ import { CategorySelect } from '../CategorySelect';
 // Mock the game store
 const mockLoadProfiles = vi.fn();
 const mockStartGame = vi.fn();
+const mockLoadFromStorage = vi.fn().mockResolvedValue(true);
 const mockGetState = vi.fn();
 
 vi.mock('@/stores/gameStore', () => ({
@@ -95,25 +96,33 @@ describe('CategorySelect', () => {
         selector: (state: {
           loadProfiles: typeof mockLoadProfiles;
           startGame: typeof mockStartGame;
+          loadFromStorage: typeof mockLoadFromStorage;
         }) => unknown
       ) =>
         selector({
           loadProfiles: mockLoadProfiles,
           startGame: mockStartGame,
+          loadFromStorage: mockLoadFromStorage,
         })
     );
 
     useGameStoreMock.getState = mockGetState.mockReturnValue({
       loadProfiles: mockLoadProfiles,
       startGame: mockStartGame,
+      loadFromStorage: mockLoadFromStorage,
     });
   });
 
   describe('Initial Render', () => {
-    it('should show loading state initially', () => {
+    it('should show loading state initially', async () => {
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       expect(screen.getByText(/loading categories/i)).toBeInTheDocument();
+
+      // Wait for async effects to settle
+      await waitFor(() => {
+        expect(mockLoadFromStorage).toHaveBeenCalledWith('test-session');
+      });
     });
 
     it('should render category buttons after loading', async () => {

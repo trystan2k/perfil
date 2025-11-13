@@ -10,7 +10,7 @@ interface GameState extends GameSession {
   profiles: Profile[];
   selectedProfiles: string[];
   currentProfile: Profile | null;
-  createGame: (playerNames: string[]) => void;
+  createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
   startGame: (selectedProfileIds: string[]) => void;
   nextClue: () => void;
@@ -185,7 +185,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
 
 export const useGameStore = create<GameState>((set, get) => ({
   ...initialState,
-  createGame: (playerNames: string[]) => {
+  createGame: async (playerNames: string[]) => {
     const players: Player[] = playerNames.map((name, index) => ({
       id: `player-${Date.now()}-${index}`,
       name,
@@ -206,7 +206,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     };
 
     set(newState);
-    persistState({ ...get(), ...newState });
+    await persistState({ ...get(), ...newState });
   },
   loadProfiles: (profiles: Profile[]) => {
     set({ profiles });

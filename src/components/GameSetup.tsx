@@ -43,14 +43,21 @@ export function GameSetup() {
     setError(null);
   };
 
-  const handleStartGame = () => {
-    createGame(playerNames);
+  const handleStartGame = async () => {
+    try {
+      // Wait for game creation and persistence to complete
+      await createGame(playerNames);
 
-    // Access the game ID directly from the store after createGame sets it
-    const newGameId = useGameStore.getState().id;
+      // Access the game ID directly from the store after createGame completes
+      const newGameId = useGameStore.getState().id;
 
-    // Navigate to category selection screen
-    window.location.href = `/game-setup/${newGameId}`;
+      // Navigate to category selection screen
+      // Persistence is guaranteed to be complete since createGame awaits it
+      window.location.href = `/game-setup/${newGameId}`;
+    } catch (err) {
+      console.error('Failed to create game:', err);
+      setError(t('gameSetup.errors.failedToCreateGame'));
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

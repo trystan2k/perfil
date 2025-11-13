@@ -5,7 +5,8 @@
     "notFound": "No Encontrado",
     "retry": "Reintentar",
     "category": "Categoría",
-    "pts": "pts"
+    "pts": "pts",
+    "returnHome": "Volver al Inicio"
   },
   "languageSwitcher": {
     "ariaLabel": "Selector de idioma",
@@ -20,7 +21,8 @@
     "playersLabel": "Jugadores ({{count}}/{{max}})",
     "startButton": "Iniciar Juego",
     "errors": {
-      "duplicateName": "El nombre del jugador ya existe"
+      "duplicateName": "El nombre del jugador ya existe",
+      "failedToCreateGame": "Error al crear el juego. Por favor, inténtalo de nuevo."
     },
     "removePlayerAriaLabel": "Eliminar {{name}}"
   },
@@ -62,7 +64,9 @@
     },
     "error": {
       "title": "Error",
-      "description": "Error al cargar las categorías. Por favor, inténtalo de nuevo."
+      "description": "Error al cargar las categorías. Por favor, inténtalo de nuevo.",
+      "sessionNotFoundTitle": "Sesión No Encontrada",
+      "sessionNotFoundDescription": "No se pudo encontrar la sesión de juego. Por favor, inicia un nuevo juego."
     },
     "orLabel": "o",
     "shuffleAllButton": "Mezclar Todos"
