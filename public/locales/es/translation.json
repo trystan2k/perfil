@@ -43,6 +43,10 @@
       "title": "Sin Juego Activo",
       "description": "Por favor, inicia un juego primero."
     },
+    "noProfile": {
+      "title": "Sin Perfil Cargado",
+      "description": "No hay un perfil cargado actualmente. Por favor, inicia un nuevo juego."
+    },
     "currentPlayer": "Jugador Actual",
     "clueCount": "Pista {{current}} de {{total}}",
     "pressShowNextClue": "Presiona \"Mostrar Siguiente Pista\" para revelar la primera pista",
@@ -53,7 +57,8 @@
     "showClueToAwardPoints": "Muestra al menos una pista para asignar puntos",
     "finishGameButton": "Finalizar Juego",
     "unknownPlayer": "Jugador Desconocido",
-    "category": "Categoría: {{category}}"
+    "category": "Categoría: {{category}}",
+    "profileProgression": "Perfil {{current}} de {{total}}"
   },
   "categorySelect": {
     "title": "Seleccionar Categoría",

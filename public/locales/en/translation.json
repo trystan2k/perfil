@@ -43,6 +43,10 @@
       "title": "No Active Game",
       "description": "Please start a game first."
     },
+    "noProfile": {
+      "title": "No Profile Loaded",
+      "description": "No profile is currently loaded. Please start a new game."
+    },
     "currentPlayer": "Current Player",
     "clueCount": "Clue {{current}} of {{total}}",
     "pressShowNextClue": "Press \"Show Next Clue\" to reveal the first clue",
@@ -53,7 +57,8 @@
     "showClueToAwardPoints": "Show at least one clue to award points",
     "finishGameButton": "Finish Game",
     "unknownPlayer": "Unknown Player",
-    "category": "Category: {{category}}"
+    "category": "Category: {{category}}",
+    "profileProgression": "Profile {{current}} of {{total}}"
   },
   "categorySelect": {
     "title": "Select Category",

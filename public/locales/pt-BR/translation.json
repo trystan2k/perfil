@@ -43,6 +43,10 @@
       "title": "Nenhum Jogo Ativo",
       "description": "Por favor, inicie um jogo primeiro."
     },
+    "noProfile": {
+      "title": "Nenhum Perfil Carregado",
+      "description": "Nenhum perfil está carregado no momento. Por favor, inicie um novo jogo."
+    },
     "currentPlayer": "Jogador Atual",
     "clueCount": "Dica {{current}} de {{total}}",
     "pressShowNextClue": "Pressione \"Mostrar Próxima Dica\" para revelar a primeira dica",
@@ -53,7 +57,8 @@
     "showClueToAwardPoints": "Mostre pelo menos uma dica para atribuir pontos",
     "finishGameButton": "Finalizar Jogo",
     "unknownPlayer": "Jogador Desconhecido",
-    "category": "Categoria: {{category}}"
+    "category": "Categoria: {{category}}",
+    "profileProgression": "Perfil {{current}} de {{total}}"
   },
   "categorySelect": {
     "title": "Selecionar Categoria",

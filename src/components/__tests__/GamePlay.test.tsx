@@ -83,7 +83,7 @@ describe('GamePlay Component', () => {
       render(<GamePlay />);
 
       expect(screen.getByText('Game Play')).toBeInTheDocument();
-      expect(screen.getByText('Category: Movies')).toBeInTheDocument();
+      expect(screen.getByText(/Category: Movies/)).toBeInTheDocument();
       expect(screen.getByText('Current Player')).toBeInTheDocument();
     });
 
@@ -706,6 +706,9 @@ describe('GamePlay Component', () => {
     });
 
     it('should load game state successfully when valid sessionId provided', async () => {
+      const sportsProfile = createMockProfile('sports-1', 'Sports Profile 1');
+      sportsProfile.category = 'Sports';
+
       const mockSession = {
         id: 'loaded-session-123',
         players: [
@@ -713,14 +716,14 @@ describe('GamePlay Component', () => {
           { id: '2', name: 'Loaded Player 2', score: 20 },
         ],
         currentTurn: {
-          profileId: '1',
+          profileId: 'sports-1',
           activePlayerId: '1',
           cluesRead: 3,
           revealed: false,
         },
-        profiles: mockProfiles,
-        selectedProfiles: ['1'],
-        currentProfile: mockProfiles[0],
+        profiles: [sportsProfile],
+        selectedProfiles: ['sports-1'],
+        currentProfile: sportsProfile,
         remainingProfiles: [],
         totalCluesPerProfile: 20,
         status: 'active' as const,
@@ -735,7 +738,7 @@ describe('GamePlay Component', () => {
       await screen.findByText('Game Play');
 
       // Verify loaded state
-      expect(screen.getByText('Category: Sports')).toBeInTheDocument();
+      expect(screen.getByText(/Category: Sports/)).toBeInTheDocument();
 
       // Use getAllByText since player names appear twice (active player + scoreboard)
       const player1Elements = screen.getAllByText('Loaded Player 1');

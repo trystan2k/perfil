@@ -1091,7 +1091,7 @@
         "description": "Replace mock clues in GamePlay with real profile data from the Zustand store",
         "details": "Update GamePlay.tsx to remove the mock clues array. Get currentProfile from Zustand store state. Display actual clues from currentProfile.clues[currentTurn.cluesRead - 1]. Show profile category in the UI. Update clue count display to show correct current/total values. Disable Next Clue button when cluesRead >= currentProfile.clues.length. Add profile progression indicator showing Profile X of Y where Y is selectedProfiles.length. Handle edge case when currentProfile is null gracefully with a message. Update all tests to use real profile data structure instead of mocks.",
         "testStrategy": "Unit tests with mocked Zustand store providing real profile structure. Test edge cases: no profile loaded, last clue reached, profile completed. Verify clue text displays correctly and button states are accurate.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           16,
           17
@@ -1110,7 +1110,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-13T12:55:59.979Z"
+      "updated": "2025-11-13T19:57:54.898Z"
     }
   }
 }
