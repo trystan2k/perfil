@@ -1022,7 +1022,7 @@
         "description": "Create category selection screen that allows MC to select a category or shuffle all profiles before starting the game",
         "details": "Create CategorySelect.tsx component with buttons for each available category (extracted from profiles data using useProfiles hook) and a Shuffle All button. Create /game-setup/[sessionId].astro page to host the CategorySelect component. When category selected: filter profiles by category and shuffle within category, store selectedProfileIds in game state. When Shuffle All selected: shuffle all profiles across all categories. After selection, call loadProfiles and startGame actions, then navigate to /game/[sessionId]. Add i18n support for all UI text.",
         "testStrategy": "Unit tests for category filtering and shuffling logic. Test that useProfiles hook correctly fetches and provides categories. Integration test for navigation flow from GameSetup → CategorySelect → GamePlay.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           4,
           16
@@ -1055,7 +1055,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-13T07:05:47.241Z"
+      "updated": "2025-11-13T09:00:27.469Z"
     }
   }
 }
