@@ -45,8 +45,12 @@ export function GameSetup() {
 
   const handleStartGame = () => {
     createGame(playerNames);
-    // Navigate to game screen - will be handled by parent component/router
-    window.location.href = '/game';
+
+    // Access the game ID directly from the store after createGame sets it
+    const newGameId = useGameStore.getState().id;
+
+    // Navigate to category selection screen
+    window.location.href = `/game-setup/${newGameId}`;
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

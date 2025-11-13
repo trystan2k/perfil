@@ -48,6 +48,14 @@ const translations: Record<string, string> = {
   'scoreboard.errors.noSessionId': 'No session ID provided',
   'scoreboard.errors.sessionNotFound': 'Game session not found',
   'scoreboard.errors.unknown': 'An unknown error occurred',
+  'categorySelect.title': 'Select Category',
+  'categorySelect.description': 'Choose a category to start the game, or shuffle all profiles for a mixed experience.',
+  'categorySelect.loading.title': 'Loading Categories',
+  'categorySelect.loading.description': 'Loading available categories...',
+  'categorySelect.error.title': 'Error',
+  'categorySelect.error.description': 'Failed to load categories. Please try again.',
+  'categorySelect.orLabel': 'or',
+  'categorySelect.shuffleAllButton': 'Shuffle All',
 };
 
 // Mock react-i18next
