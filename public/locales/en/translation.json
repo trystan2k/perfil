@@ -53,6 +53,20 @@
     "unknownPlayer": "Unknown Player",
     "category": "Category: {{category}}"
   },
+  "categorySelect": {
+    "title": "Select Category",
+    "description": "Choose a category to start the game, or shuffle all profiles for a mixed experience.",
+    "loading": {
+      "title": "Loading Categories",
+      "description": "Loading available categories..."
+    },
+    "error": {
+      "title": "Error",
+      "description": "Failed to load categories. Please try again."
+    },
+    "orLabel": "or",
+    "shuffleAllButton": "Shuffle All"
+  },
   "scoreboard": {
     "title": "Scoreboard",
     "loading": "Loading scoreboard...",

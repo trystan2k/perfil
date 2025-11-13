@@ -53,6 +53,20 @@
     "unknownPlayer": "Jogador Desconhecido",
     "category": "Categoria: {{category}}"
   },
+  "categorySelect": {
+    "title": "Selecionar Categoria",
+    "description": "Escolha uma categoria para iniciar o jogo, ou embaralhe todos os perfis para uma experiência mista.",
+    "loading": {
+      "title": "Carregando Categorias",
+      "description": "Carregando categorias disponíveis..."
+    },
+    "error": {
+      "title": "Erro",
+      "description": "Falha ao carregar as categorias. Por favor, tente novamente."
+    },
+    "orLabel": "ou",
+    "shuffleAllButton": "Embaralhar Todos"
+  },
   "scoreboard": {
     "title": "Placar",
     "loading": "Carregando placar...",

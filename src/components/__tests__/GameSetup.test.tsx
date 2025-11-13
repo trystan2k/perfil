@@ -5,6 +5,7 @@ import { useGameStore } from '@/stores/gameStore';
 import { GameSetup } from '../GameSetup';
 
 // Mock the game store
+const mockGetState = vi.fn();
 vi.mock('@/stores/gameStore', () => ({
   useGameStore: vi.fn(),
 }));
@@ -20,15 +21,27 @@ Object.defineProperty(window, 'location', {
 
 describe('GameSetup', () => {
   const mockCreateGame = vi.fn();
+  let mockGameId = '';
 
   beforeEach(() => {
     vi.clearAllMocks();
     mockLocation.href = '';
-    // Mock zustand store - return the value directly since useGameStore uses a selector
-    (useGameStore as unknown as ReturnType<typeof vi.fn>).mockImplementation(
-      (selector: (state: { createGame: typeof mockCreateGame }) => unknown) =>
-        selector({ createGame: mockCreateGame })
+    mockGameId = `game-${Date.now()}`;
+
+    // Mock zustand store with getState support
+    const useGameStoreMock = useGameStore as unknown as ReturnType<typeof vi.fn> & {
+      getState: typeof mockGetState;
+    };
+
+    useGameStoreMock.mockImplementation(
+      (selector: (state: { createGame: typeof mockCreateGame; id: string }) => unknown) =>
+        selector({ createGame: mockCreateGame, id: mockGameId })
     );
+
+    useGameStoreMock.getState = mockGetState.mockReturnValue({
+      id: mockGameId,
+      createGame: mockCreateGame,
+    });
   });
 
   describe('Initial Render', () => {
@@ -354,7 +367,7 @@ describe('GameSetup', () => {
       expect(mockCreateGame).toHaveBeenCalledWith(['Alice', 'Bob', 'Charlie']);
     });
 
-    it('should navigate to game page after starting game', async () => {
+    it('should navigate to category selection page after starting game', async () => {
       const user = userEvent.setup();
       render(<GameSetup />);
 
@@ -370,7 +383,8 @@ describe('GameSetup', () => {
 
       await user.click(startButton);
 
-      expect(mockLocation.href).toBe('/game');
+      // Should navigate to category selection page with game ID
+      expect(mockLocation.href).toContain('/game-setup/game-');
     });
   });
 
