@@ -114,10 +114,15 @@ describe('CategorySelect', () => {
   });
 
   describe('Initial Render', () => {
-    it('should show loading state initially', () => {
+    it('should show loading state initially', async () => {
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       expect(screen.getByText(/loading categories/i)).toBeInTheDocument();
+
+      // Wait for async effects to settle
+      await waitFor(() => {
+        expect(mockLoadFromStorage).toHaveBeenCalledWith('test-session');
+      });
     });
 
     it('should render category buttons after loading', async () => {

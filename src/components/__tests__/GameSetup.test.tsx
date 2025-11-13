@@ -1,14 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { PERSIST_DEBOUNCE_MS, useGameStore } from '@/stores/gameStore';
+import { useGameStore } from '@/stores/gameStore';
 import { GameSetup } from '../GameSetup';
 
 // Mock the game store
 const mockGetState = vi.fn();
 vi.mock('@/stores/gameStore', () => ({
   useGameStore: vi.fn(),
-  PERSIST_DEBOUNCE_MS: 300,
 }));
 
 // Mock window.location
@@ -21,11 +20,12 @@ Object.defineProperty(window, 'location', {
 });
 
 describe('GameSetup', () => {
-  const mockCreateGame = vi.fn();
+  const mockCreateGame = vi.fn().mockResolvedValue(undefined);
   let mockGameId = '';
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockCreateGame.mockResolvedValue(undefined);
     mockLocation.href = '';
     mockGameId = `game-${Date.now()}`;
 
@@ -384,8 +384,11 @@ describe('GameSetup', () => {
 
       await user.click(startButton);
 
-      // Wait for the async navigation to complete (handleStartGame waits for PERSIST_DEBOUNCE_MS + 100ms)
-      await new Promise((resolve) => setTimeout(resolve, PERSIST_DEBOUNCE_MS + 150));
+      // Wait for the async navigation to complete
+      // createGame now returns a Promise that handleStartGame awaits
+      await vi.waitFor(() => {
+        expect(mockLocation.href).toContain('/game-setup/game-');
+      });
 
       // Should navigate to category selection page with game ID
       expect(mockLocation.href).toContain('/game-setup/game-');
