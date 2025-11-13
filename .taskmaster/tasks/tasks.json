@@ -1088,7 +1088,7 @@
         "description": "Handle the case when all players pass on a profile or MC wants to skip to the next profile",
         "details": "Add Skip Profile button to GamePlay that only shows after at least one clue revealed, calling new skipProfile action. Implement all-pass detection by tracking passes in current turn and auto-skip after all players have passed on same profile. Add confirmation dialog before skipping to prevent accidental skips.",
         "testStrategy": "Test skip button functionality. Test all-players-pass scenario. Verify profile progression after skip.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": []
@@ -1154,7 +1154,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-13T22:12:11.599Z"
+      "updated": "2025-11-13T23:49:52.322Z"
     }
   }
 }

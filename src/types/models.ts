@@ -34,6 +34,7 @@ export const turnStateSchema = z.object({
   activePlayerId: z.string(),
   cluesRead: z.number(),
   revealed: z.boolean(),
+  passedPlayerIds: z.array(z.string()).default([]),
 });
 
 export const gameSessionSchema = z.object({
