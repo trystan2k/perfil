@@ -10,7 +10,7 @@ export interface PersistedGameState extends GameSession {
   status: 'pending' | 'active' | 'completed';
   category?: string;
   profiles: Profile[];
-  selectedProfiles: number[];
+  selectedProfiles: string[];
   currentProfile: Profile | null;
 }
 

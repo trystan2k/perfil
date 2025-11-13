@@ -54,7 +54,7 @@ describe('Scoreboard', () => {
     remainingProfiles: [],
     totalCluesPerProfile: 10,
     profiles: mockProfiles,
-    selectedProfiles: [1, 2, 3],
+    selectedProfiles: ['1', '2', '3'],
     currentProfile: null,
   };
 

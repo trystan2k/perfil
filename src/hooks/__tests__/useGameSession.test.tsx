@@ -47,7 +47,7 @@ describe('useGameSession', () => {
     remainingProfiles: [],
     totalCluesPerProfile: 10,
     profiles: mockProfiles,
-    selectedProfiles: [1, 2],
+    selectedProfiles: ['1', '2'],
     currentProfile: null,
   };
 

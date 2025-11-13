@@ -47,7 +47,7 @@ describe('gameSessionDB', () => {
     status: 'active' as const,
     category: 'Movies',
     profiles: mockProfiles,
-    selectedProfiles: [1, 2],
+    selectedProfiles: ['1', '2'],
     currentProfile: mockProfiles[0],
   };
 

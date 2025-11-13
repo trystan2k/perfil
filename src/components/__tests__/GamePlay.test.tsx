@@ -54,7 +54,7 @@ describe('GamePlay Component', () => {
     it('should show "No Active Game" message when status is completed', () => {
       // Start and end the game
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.endGame();
 
       render(<GamePlay />);
@@ -78,7 +78,7 @@ describe('GamePlay Component', () => {
     it('should render game play UI when game is active', () => {
       // Start the game
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -90,7 +90,7 @@ describe('GamePlay Component', () => {
     it('should subscribe to store state correctly', () => {
       // Start the game
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -106,7 +106,7 @@ describe('GamePlay Component', () => {
     it('should display the active player name', () => {
       // Start the game
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -127,7 +127,7 @@ describe('GamePlay Component', () => {
     it('should display "Unknown Player" when active player is not found', () => {
       // Start the game and manually set an invalid player ID
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       const currentTurn = useGameStore.getState().currentTurn;
       if (currentTurn) {
@@ -147,7 +147,7 @@ describe('GamePlay Component', () => {
     it('should update displayed player when turn is passed', () => {
       // Start the game
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       const { rerender } = render(<GamePlay />);
 
@@ -187,7 +187,7 @@ describe('GamePlay Component', () => {
     it('should show "Press Show Next Clue" message when no clues have been read', () => {
       // Start the game (cluesRead starts at 0)
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -200,7 +200,7 @@ describe('GamePlay Component', () => {
     it('should display clue number and text after reading first clue', () => {
       // Start the game and show first clue
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue();
 
       render(<GamePlay />);
@@ -212,7 +212,7 @@ describe('GamePlay Component', () => {
     it('should update clue number and text when advancing to next clue', () => {
       // Start the game and show first clue
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue();
 
       const { rerender } = render(<GamePlay />);
@@ -234,7 +234,7 @@ describe('GamePlay Component', () => {
     it('should display correct clue progress (e.g., 5 of 20)', () => {
       // Start the game and advance to clue 5
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       // Show 5 clues
       for (let i = 0; i < 5; i++) {
@@ -251,7 +251,7 @@ describe('GamePlay Component', () => {
   describe('Show Next Clue Button', () => {
     it('should render "Show Next Clue" button', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -261,7 +261,7 @@ describe('GamePlay Component', () => {
     it('should call nextClue action when button is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -280,7 +280,7 @@ describe('GamePlay Component', () => {
     it('should advance through multiple clues when button clicked multiple times', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       const { rerender } = render(<GamePlay />);
 
@@ -303,7 +303,7 @@ describe('GamePlay Component', () => {
 
     it('should disable button when max clues reached', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       // Advance to max clues (20)
       for (let i = 0; i < 20; i++) {
@@ -319,7 +319,7 @@ describe('GamePlay Component', () => {
     it('should not advance clues when button is disabled', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       // Advance to max clues (20)
       for (let i = 0; i < 20; i++) {
@@ -341,7 +341,7 @@ describe('GamePlay Component', () => {
   describe('Pass Button', () => {
     it('should render "Pass" button', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -351,7 +351,7 @@ describe('GamePlay Component', () => {
     it('should call passTurn action when button is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -373,7 +373,7 @@ describe('GamePlay Component', () => {
     it('should update displayed player after passing turn', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       const { rerender } = render(<GamePlay />);
 
@@ -410,7 +410,7 @@ describe('GamePlay Component', () => {
     it('should cycle through all players when passing turn multiple times', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       const { rerender } = render(<GamePlay />);
 
@@ -443,7 +443,7 @@ describe('GamePlay Component', () => {
     it('should reset to first player after cycling through all players', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       const { rerender } = render(<GamePlay />);
 
@@ -466,7 +466,7 @@ describe('GamePlay Component', () => {
     it('should not affect cluesRead when passing turn', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       // Advance to clue 3
       store.nextClue();
@@ -556,7 +556,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.createGame(['Alice', 'Bob', 'Charlie']);
       store.loadProfiles(mockProfiles);
-      store.startGame([1]);
+      store.startGame(['1']);
 
       // Even with sessionId, should not load from storage because game already exists
       render(<GamePlay sessionId="some-session" />);
@@ -606,7 +606,7 @@ describe('GamePlay Component', () => {
                     revealed: false,
                   },
                   profiles: mockProfiles,
-                  selectedProfiles: [1],
+                  selectedProfiles: ['1'],
                   currentProfile: mockProfiles[0],
                   remainingProfiles: [],
                   totalCluesPerProfile: 20,
@@ -692,7 +692,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.createGame(['Alice', 'Bob', 'Charlie']);
       store.loadProfiles(mockProfiles);
-      store.startGame([1]);
+      store.startGame(['1']);
 
       const { unmount } = render(<GamePlay sessionId="some-session" />);
 
@@ -719,7 +719,7 @@ describe('GamePlay Component', () => {
           revealed: false,
         },
         profiles: mockProfiles,
-        selectedProfiles: [1],
+        selectedProfiles: ['1'],
         currentProfile: mockProfiles[0],
         remainingProfiles: [],
         totalCluesPerProfile: 20,
@@ -753,7 +753,7 @@ describe('GamePlay Component', () => {
   describe('Player Scoreboard and Scoring Interaction', () => {
     it('should render player scoreboard with header', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -762,7 +762,7 @@ describe('GamePlay Component', () => {
 
     it('should display all players with their names and scores', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -781,7 +781,7 @@ describe('GamePlay Component', () => {
 
     it('should disable all player buttons when no clues have been read', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -795,7 +795,7 @@ describe('GamePlay Component', () => {
 
     it('should show helper text when points cannot be awarded', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -804,7 +804,7 @@ describe('GamePlay Component', () => {
 
     it('should enable player buttons after showing first clue', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue();
 
       render(<GamePlay />);
@@ -819,7 +819,7 @@ describe('GamePlay Component', () => {
 
     it('should hide helper text when points can be awarded', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue();
 
       render(<GamePlay />);
@@ -830,7 +830,7 @@ describe('GamePlay Component', () => {
     it('should call awardPoints with correct player ID when player button is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue();
 
       render(<GamePlay />);
@@ -852,7 +852,7 @@ describe('GamePlay Component', () => {
     it('should update displayed score after awarding points', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1, 2]); // Use multiple profiles to avoid auto-completion
+      store.startGame(['1', '2']); // Use multiple profiles to avoid auto-completion
       store.nextClue();
 
       const { rerender } = render(<GamePlay />);
@@ -879,7 +879,7 @@ describe('GamePlay Component', () => {
     it('should award correct points based on cluesRead (first clue = 20 pts)', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue(); // cluesRead = 1
 
       render(<GamePlay />);
@@ -900,7 +900,7 @@ describe('GamePlay Component', () => {
     it('should award correct points based on cluesRead (fifth clue = 16 pts)', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       // Show 5 clues
       for (let i = 0; i < 5; i++) {
@@ -925,7 +925,7 @@ describe('GamePlay Component', () => {
     it('should accumulate points for multiple correct answers by same player', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1, 2, 3]); // Use multiple profiles
+      store.startGame(['1', '2', '3']); // Use multiple profiles
       store.nextClue(); // First round
 
       const { rerender } = render(<GamePlay />);
@@ -966,7 +966,7 @@ describe('GamePlay Component', () => {
 
     it('should highlight active player button with default variant', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue();
 
       render(<GamePlay />);
@@ -984,7 +984,7 @@ describe('GamePlay Component', () => {
 
     it('should display non-active players with outline variant', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue();
 
       render(<GamePlay />);
@@ -1004,7 +1004,7 @@ describe('GamePlay Component', () => {
     it('should allow awarding points to any player, not just active player', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
       store.nextClue();
 
       render(<GamePlay />);
@@ -1031,7 +1031,7 @@ describe('GamePlay Component', () => {
     it('should start new turn after awarding points', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1, 2]); // Use multiple profiles
+      store.startGame(['1', '2']); // Use multiple profiles
       store.nextClue();
 
       render(<GamePlay />);
@@ -1055,7 +1055,7 @@ describe('GamePlay Component', () => {
   describe('Finish Game Button', () => {
     it('should display "Finish Game" button when game is active', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -1065,7 +1065,7 @@ describe('GamePlay Component', () => {
     it('should call endGame when Finish Game button is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -1082,7 +1082,7 @@ describe('GamePlay Component', () => {
     it('should update game status to completed after clicking Finish Game', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -1096,7 +1096,7 @@ describe('GamePlay Component', () => {
 
     it('should have destructive variant styling for Finish Game button', () => {
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       render(<GamePlay />);
 
@@ -1109,7 +1109,7 @@ describe('GamePlay Component', () => {
     it('should navigate to scoreboard page when Finish Game is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame([1]);
+      store.startGame(['1']);
 
       // Store original location and mock it
       const originalLocation = window.location;

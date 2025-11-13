@@ -8,11 +8,11 @@ interface GameState extends GameSession {
   status: GameStatus;
   category?: string;
   profiles: Profile[];
-  selectedProfiles: number[];
+  selectedProfiles: string[];
   currentProfile: Profile | null;
   createGame: (playerNames: string[]) => void;
   loadProfiles: (profiles: Profile[]) => void;
-  startGame: (selectedProfileIds: number[]) => void;
+  startGame: (selectedProfileIds: string[]) => void;
   nextClue: () => void;
   passTurn: () => void;
   awardPoints: (playerId: string) => void;
@@ -153,7 +153,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
 
   // Get the next profile
   const nextProfileId = remainingSelectedProfiles[0];
-  const nextProfile = state.profiles.find((p) => Number.parseInt(p.id, 10) === nextProfileId);
+  const nextProfile = state.profiles.find((p) => p.id === nextProfileId);
 
   if (!nextProfile) {
     throw new Error('Next profile not found');
@@ -212,7 +212,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({ profiles });
     persistState(get());
   },
-  startGame: (selectedProfileIds: number[]) => {
+  startGame: (selectedProfileIds: string[]) => {
     set((state) => {
       if (state.players.length === 0) {
         throw new Error('Cannot start game without players');
@@ -224,7 +224,7 @@ export const useGameStore = create<GameState>((set, get) => ({
 
       // Find the first profile from selectedProfileIds
       const firstProfileId = selectedProfileIds[0];
-      const firstProfile = state.profiles.find((p) => Number.parseInt(p.id, 10) === firstProfileId);
+      const firstProfile = state.profiles.find((p) => p.id === firstProfileId);
 
       if (!firstProfile) {
         throw new Error('Selected profile not found');
