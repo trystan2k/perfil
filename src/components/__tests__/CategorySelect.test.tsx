@@ -175,6 +175,7 @@ describe('CategorySelect', () => {
     });
 
     it('should navigate to game page after category selection', async () => {
+      const { forcePersist } = await import('@/stores/gameStore');
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
@@ -185,6 +186,7 @@ describe('CategorySelect', () => {
       const categoryButton = screen.getByText('Countries');
       await user.click(categoryButton);
 
+      expect(forcePersist).toHaveBeenCalledTimes(1);
       expect(mockLocation.href).toBe('/game/test-session');
     });
 
@@ -228,6 +230,7 @@ describe('CategorySelect', () => {
     });
 
     it('should navigate to game page after Shuffle All', async () => {
+      const { forcePersist } = await import('@/stores/gameStore');
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
@@ -238,6 +241,7 @@ describe('CategorySelect', () => {
       const shuffleButton = screen.getByText('Shuffle All');
       await user.click(shuffleButton);
 
+      expect(forcePersist).toHaveBeenCalledTimes(1);
       expect(mockLocation.href).toBe('/game/test-session');
     });
   });

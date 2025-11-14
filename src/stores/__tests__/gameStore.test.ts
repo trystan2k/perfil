@@ -1605,5 +1605,27 @@ describe('gameStore', () => {
       // All should execute (no debouncing)
       expect(saveGameSession).toHaveBeenCalledTimes(3);
     });
+
+    it('should cancel pending debounced persistence when force persisting', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+      const { forcePersist } = await import('../gameStore');
+
+      // Create a game and trigger startGame which calls debounced persistState
+      await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+      // Load profiles and start game (triggers debounced persistence)
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame(['1']);
+
+      vi.mocked(saveGameSession).mockClear();
+
+      // Immediately call forcePersist (before debounce timer fires)
+      await forcePersist();
+
+      // Wait for debounce timeout to pass
+      await new Promise((resolve) => setTimeout(resolve, 400));
+
+      // Only forcePersist should have saved (debounced save should be cancelled)
+      expect(saveGameSession).toHaveBeenCalledTimes(1);
+    });
   });
 });

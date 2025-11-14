@@ -1323,6 +1323,23 @@
             "testStrategy": "Follow the manual end-to-end test plan outlined in the task's original test strategy. This includes checking for the absence of console errors and successful state rehydration on page refresh."
           }
         ]
+      },
+      {
+        "id": 25,
+        "title": "Implement Global Loading and Error States for Game Flow",
+        "description": "Introduce global loading and error states into the Zustand store to gracefully handle asynchronous operations, invalid session data, and other potential failures throughout the application lifecycle, providing clear user feedback and recovery paths.",
+        "details": "1. **Update Zustand Store:** Modify `gameStore.ts` to include new state properties: `isLoading: boolean` and `error: { message: string; recoveryPath?: string } | null`. Create corresponding actions: `setLoading(status)`, `setError(errorMessage, recoveryPath)`, and `clearError()`. 2. **Enhance Persistence Logic:** Wrap the IndexedDB session loading/rehydration logic in a try/catch block. When a page with a `sessionId` loads, set `isLoading` to true. If the session is not found in IndexedDB or data is corrupt, call `setError` with a message like 'Game session not found.' and a recovery path to '/'. Set `isLoading` to false on success or failure. 3. **Create Global State UI Handler:** Develop a wrapper component (e.g., `GameStateProvider.tsx`) that subscribes to the store. This component will conditionally render a full-page loading spinner if `isLoading` is true, or an error overlay with the message and a 'Go Home' link if `error` is not null. Otherwise, it will render its children. This wrapper should be used in the main layout file. 4. **Integrate into Components:** Update `GameSetup.tsx`, `CategorySelect.tsx`, and `GamePlay.tsx` to utilize the new state actions. For instance, on game creation or category selection, call `setLoading(true)` before the operation and `setLoading(false)` after.",
+        "testStrategy": "1. **Unit Tests (Zustand):** Test the new `setLoading`, `setError`, and `clearError` actions to ensure they correctly mutate the store. Mock the IndexedDB utility to simulate a failed session load and verify the `error` state is set appropriately. 2. **Component Tests (React Testing Library):** Test the global state handler component by providing a mocked store in `isLoading` and `error` states, then assert that the correct UI (spinner or error message) is rendered. 3. **End-to-End Manual Tests:** Navigate directly to a game URL with a non-existent session ID (e.g., `/game/invalid-session`) and verify the 'Game session not found' error UI is displayed with a working recovery link. Manually clear IndexedDB while on a game page and refresh to confirm the error state is triggered.",
+        "status": "pending",
+        "dependencies": [
+          3,
+          6,
+          9,
+          22,
+          24
+        ],
+        "priority": "high",
+        "subtasks": []
       }
     ],
     "metadata": {
@@ -1335,7 +1352,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-14T14:50:05.505Z"
+      "updated": "2025-11-14T15:00:47.375Z"
     }
   }
 }
