@@ -1099,10 +1099,66 @@
         "description": "Improve user experience with better progress feedback throughout the game",
         "details": "Add profile progress indicator showing Profile X of Y display and progress bar for profiles. Add clue progress indicator with visual representation of clues revealed and estimated points remaining display. Add round summary between profiles showing brief summary of who scored and how many points they earned.",
         "testStrategy": "Visual testing across breakpoints. Verify calculations are accurate.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design UI for Progress Indicators and Round Summary",
+            "description": "Create the visual design and layout for the new UX components: the profile progress bar, the clue progress indicator, and the round summary screen.",
+            "dependencies": [],
+            "details": "Define the look and feel, including colors, typography, and spacing for the new components. Create mockups or wireframes to guide implementation. Ensure the design is responsive across mobile and desktop breakpoints.",
+            "status": "done",
+            "testStrategy": "Review designs with the team to ensure they meet UX goals and are technically feasible."
+          },
+          {
+            "id": 2,
+            "title": "Implement Profile Progress Indicator Component",
+            "description": "Develop the UI component that displays the current profile number out of the total (e.g., 'Profile 3 of 10') and a corresponding visual progress bar.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a React component that takes `currentProfileIndex` and `totalProfiles` as props from the game state. Use these to calculate the progress percentage and render the text and a styled `div` or SVG for the progress bar.",
+            "status": "done",
+            "testStrategy": "Unit test the component with various props (e.g., first profile, last profile, mid-game) to verify correct text and progress bar width calculation. Visually inspect in Storybook or a similar tool."
+          },
+          {
+            "id": 3,
+            "title": "Implement Clue Progress and Points Indicator",
+            "description": "Develop the UI component to visually represent the number of clues revealed and display the estimated points remaining for the current clue.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a React component that tracks `cluesRevealed` and `totalClues`. Render a series of icons (e.g., dots) that change state (e.g., color) as clues are revealed. Calculate and display points remaining based on the game's scoring logic.",
+            "status": "done",
+            "testStrategy": "Unit test the component to ensure the correct number of icons are highlighted and the points calculation is accurate for different numbers of revealed clues."
+          },
+          {
+            "id": 4,
+            "title": "Implement Round Summary Screen",
+            "description": "Create a modal or interstitial screen that appears after a profile is completed, showing a summary of who scored points and how many.",
+            "dependencies": [
+              1
+            ],
+            "details": "Develop a component that is conditionally rendered between profiles. It should display the name of the player who scored and the points they earned. If no one scored, it should indicate that. The screen should have a 'Next Profile' button to continue the game.",
+            "status": "done",
+            "testStrategy": "Test the component's logic for different scenarios: a player scores, and no player scores. Use component tests to verify the correct information is displayed. Test the 'Next Profile' button's event handler."
+          },
+          {
+            "id": 5,
+            "title": "Integrate and Test All UX Improvement Components",
+            "description": "Integrate the newly created progress indicators and the round summary screen into the main game flow and perform end-to-end testing.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Place the Profile and Clue progress indicators into the main game view layout. Modify the game state logic to trigger the display of the Round Summary screen at the end of each round. Ensure all components receive the correct data from the central state.",
+            "status": "done",
+            "testStrategy": "Perform manual end-to-end testing by playing through several rounds of the game. Verify that all indicators update correctly, calculations are accurate, and the round summary appears at the appropriate time. Check for visual consistency and responsiveness."
+          }
+        ]
       },
       {
         "id": 21,
@@ -1154,7 +1210,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-13T23:49:52.322Z"
+      "updated": "2025-11-14T08:53:28.936Z"
     }
   }
 }

@@ -61,7 +61,24 @@
     "finishGameButton": "Finalizar Jogo",
     "unknownPlayer": "Jogador Desconhecido",
     "category": "Categoria: {{category}}",
-    "profileProgression": "Perfil {{current}} de {{total}}"
+    "profileProgression": "Perfil {{current}} de {{total}}",
+    "profileProgress": {
+      "label": "Perfil {{current}} de {{total}}",
+      "ariaLabel": "Progresso do perfil: {{current}} de {{total}}"
+    },
+    "clueProgress": {
+      "pointsRemaining_one": "{{count}} ponto restante",
+      "pointsRemaining_other": "{{count}} pontos restantes",
+      "ariaLabel": "Progresso de dicas: {{revealed}} de {{total}} dicas reveladas"
+    },
+    "roundSummary": {
+      "title": "Rodada Completa!",
+      "playerScored_one": "{{playerName}} marcou {{count}} ponto!",
+      "playerScored_other": "{{playerName}} marcou {{count}} pontos!",
+      "noOneScored": "Ninguém pontuou nesta rodada",
+      "profileName": "Perfil: {{name}}",
+      "nextProfileButton": "Próximo Perfil"
+    }
   },
   "categorySelect": {
     "title": "Selecionar Categoria",

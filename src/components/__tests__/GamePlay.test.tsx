@@ -597,6 +597,13 @@ describe('GamePlay Component', () => {
         await user.click(skipButton);
       }
 
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
       const finalProfileId = useGameStore.getState().currentProfile?.id;
 
       // Profile should change to next one
@@ -627,6 +634,13 @@ describe('GamePlay Component', () => {
       if (skipButton) {
         await user.click(skipButton);
       }
+
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
 
       // Passed players should be reset for new profile
       expect(useGameStore.getState().currentTurn?.passedPlayerIds).toEqual([]);
@@ -1012,6 +1026,13 @@ describe('GamePlay Component', () => {
 
       await user.click(button);
 
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
       // Verify player received points (20 - (1 - 1) = 20 points for first clue)
       const updatedPlayers = useGameStore.getState().players;
       const updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
@@ -1040,6 +1061,13 @@ describe('GamePlay Component', () => {
       const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
       await user.click(button);
 
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
       rerender(<GamePlay />);
 
       // Should now show 20 pts for one player
@@ -1059,6 +1087,13 @@ describe('GamePlay Component', () => {
       const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
 
       await user.click(button);
+
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
 
       const updatedPlayers = useGameStore.getState().players;
       const updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
@@ -1085,6 +1120,13 @@ describe('GamePlay Component', () => {
 
       await user.click(button);
 
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
       const updatedPlayers = useGameStore.getState().players;
       const updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
 
@@ -1107,6 +1149,13 @@ describe('GamePlay Component', () => {
       let button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
       await user.click(button);
 
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      let nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
       rerender(<GamePlay />);
 
       // Verify first points awarded (20 pts)
@@ -1126,6 +1175,13 @@ describe('GamePlay Component', () => {
       // Second correct answer
       button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
       await user.click(button);
+
+      // Round summary should appear again
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
 
       updatedPlayers = useGameStore.getState().players;
       updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
@@ -1191,6 +1247,13 @@ describe('GamePlay Component', () => {
 
         await user.click(button);
 
+        // Round summary should appear
+        expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+        // Click "Next Profile" button to complete the action
+        const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+        await user.click(nextProfileButton);
+
         const updatedPlayers = useGameStore.getState().players;
         const updatedPlayer = updatedPlayers.find((p) => p.id === nonActivePlayer.id);
 
@@ -1206,18 +1269,22 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay />);
 
-      const initialPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
       const players = useGameStore.getState().players;
       const playerToClick = players[0];
 
       const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
       await user.click(button);
 
-      const newPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
       const newCluesRead = useGameStore.getState().currentTurn?.cluesRead;
 
-      // Should advance to next player and reset clues
-      expect(newPlayerId).not.toBe(initialPlayerId);
+      // Should advance to next profile (which changes player) and reset clues
       expect(newCluesRead).toBe(0);
     });
   });

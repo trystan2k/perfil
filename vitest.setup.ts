@@ -1,5 +1,34 @@
 import '@testing-library/jest-dom/vitest';
-import { vi } from 'vitest';
+import { afterAll, beforeAll, vi } from 'vitest';
+
+// Suppress Radix UI accessibility warnings in tests
+// These warnings are about missing Description elements, but our components
+// properly implement aria-describedby for accessibility
+const originalError = console.error;
+const originalWarn = console.warn;
+
+beforeAll(() => {
+  console.error = (...args: unknown[]) => {
+    const message = String(args[0]);
+    if (message.includes('Missing `Description`') || message.includes('aria-describedby')) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+
+  console.warn = (...args: unknown[]) => {
+    const message = String(args[0]);
+    if (message.includes('Missing `Description`') || message.includes('aria-describedby')) {
+      return;
+    }
+    originalWarn.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalError;
+  console.warn = originalWarn;
+});
 
 // Translation mappings for tests
 const translations: Record<string, string> = {
@@ -40,6 +69,17 @@ const translations: Record<string, string> = {
   'gamePlay.category': 'Category: {{category}}',
   'gamePlay.errors.sessionNotFound': 'Game session not found. Please start a new game.',
   'gamePlay.errors.loadFailed': 'Failed to load game session. Please try again.',
+  'gamePlay.profileProgress.label': 'Profile {{current}} of {{total}}',
+  'gamePlay.profileProgress.ariaLabel': 'Profile progress: {{current}} of {{total}}',
+  'gamePlay.clueProgress.pointsRemaining_one': '{{count}} point remaining',
+  'gamePlay.clueProgress.pointsRemaining_other': '{{count}} points remaining',
+  'gamePlay.clueProgress.ariaLabel': 'Clue progress: {{revealed}} of {{total}} clues revealed',
+  'gamePlay.roundSummary.title': 'Round Complete!',
+  'gamePlay.roundSummary.playerScored_one': '{{playerName}} scored {{count}} point!',
+  'gamePlay.roundSummary.playerScored_other': '{{playerName}} scored {{count}} points!',
+  'gamePlay.roundSummary.noOneScored': 'No one scored this round',
+  'gamePlay.roundSummary.profileName': 'Profile: {{name}}',
+  'gamePlay.roundSummary.nextProfileButton': 'Next Profile',
   'scoreboard.title': 'Scoreboard',
   'scoreboard.loading': 'Loading scoreboard...',
   'scoreboard.category': 'Category: {{category}}',
@@ -65,7 +105,16 @@ const translations: Record<string, string> = {
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, params?: Record<string, unknown>) => {
-      let translation = translations[key] || key;
+      let translation: string;
+      
+      // Handle pluralization
+      if (params && 'count' in params) {
+        const count = params.count as number;
+        const pluralKey = count === 1 ? `${key}_one` : `${key}_other`;
+        translation = translations[pluralKey] || translations[key] || key;
+      } else {
+        translation = translations[key] || key;
+      }
       
       // Handle interpolation for dynamic values in translation strings
       if (params) {

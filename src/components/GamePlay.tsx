@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ClueProgress } from '@/components/ClueProgress';
+import { ProfileProgress } from '@/components/ProfileProgress';
 import { RevealAnswer } from '@/components/RevealAnswer';
+import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGameStore } from '@/stores/gameStore';
@@ -13,6 +16,12 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(!!sessionId);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [showRoundSummary, setShowRoundSummary] = useState(false);
+  const [roundSummaryData, setRoundSummaryData] = useState<{
+    winnerId: string | null;
+    pointsAwarded: number;
+    profileName: string;
+  } | null>(null);
 
   const id = useGameStore((state) => state.id);
   const currentTurn = useGameStore((state) => state.currentTurn);
@@ -168,6 +177,13 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const currentProfileIndex = totalProfilesCount - selectedProfiles.length + 1;
   const totalProfiles = totalProfilesCount;
 
+  // Calculate points remaining based on clues read
+  const totalCluesPerProfile = currentProfile.clues.length;
+  const pointsRemaining =
+    currentTurn.cluesRead > 0
+      ? totalCluesPerProfile - (currentTurn.cluesRead - 1)
+      : totalCluesPerProfile;
+
   // Handle finishing the game and navigating to scoreboard
   const handleFinishGame = async () => {
     // Await endGame to ensure state is persisted before navigation
@@ -187,107 +203,184 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
     );
 
     if (confirmed) {
-      skipProfile();
+      // Show round summary with no winner
+      setRoundSummaryData({
+        winnerId: null,
+        pointsAwarded: 0,
+        profileName: currentProfile.name,
+      });
+      setShowRoundSummary(true);
     }
   };
 
+  // Handle awarding points with round summary
+  const handleAwardPoints = (playerId: string) => {
+    // Find the player to verify they exist
+    const winner = players.find((p) => p.id === playerId);
+
+    if (winner && currentTurn.cluesRead > 0) {
+      const points = totalCluesPerProfile - (currentTurn.cluesRead - 1);
+
+      // Show round summary with winner
+      setRoundSummaryData({
+        winnerId: playerId,
+        pointsAwarded: points,
+        profileName: currentProfile.name,
+      });
+      setShowRoundSummary(true);
+    }
+  };
+
+  // Handle continuing to next profile after round summary
+  const handleContinueToNextProfile = () => {
+    setShowRoundSummary(false);
+
+    // Actually award the points or skip the profile
+    if (roundSummaryData) {
+      if (roundSummaryData.winnerId) {
+        // Award points using the stored winner ID
+        awardPoints(roundSummaryData.winnerId);
+      } else {
+        // Skip the profile
+        skipProfile();
+      }
+    }
+
+    // Clear summary data
+    setRoundSummaryData(null);
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Card className="w-full max-w-2xl">
-        <CardHeader>
-          <CardTitle as="h3" className="text-2xl">
-            {t('gamePlay.title')}
-          </CardTitle>
-          <CardDescription>
-            {t('gamePlay.category', { category: currentProfile.category })} -{' '}
-            {t('gamePlay.profileProgression', {
-              current: currentProfileIndex,
-              total: totalProfiles,
-            })}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Active Player Section */}
-          <div className="space-y-2">
-            <div className="text-3xl font-bold text-center">
-              {activePlayer ? activePlayer.name : t('gamePlay.unknownPlayer')}
-            </div>
-            <p className="text-center text-muted-foreground">{t('gamePlay.currentPlayer')}</p>
-          </div>
+    <>
+      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Card className="w-full max-w-2xl">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              {t('gamePlay.title')}
+            </CardTitle>
+            <CardDescription>
+              {t('gamePlay.category', { category: currentProfile.category })} -{' '}
+              {t('gamePlay.profileProgression', {
+                current: currentProfileIndex,
+                total: totalProfiles,
+              })}
+            </CardDescription>
 
-          {/* Clue Section */}
-          <div className="space-y-4 p-6 bg-secondary rounded-lg">
-            {currentTurn.cluesRead > 0 ? (
-              <div className="text-center">
-                <p className="text-sm text-muted-foreground mb-2">
-                  {t('gamePlay.clueCount', {
-                    current: currentTurn.cluesRead,
-                    total: currentProfile.clues.length,
-                  })}
-                </p>
-                <p className="text-lg font-medium">{currentClueText}</p>
+            {/* Profile Progress Indicator */}
+            <div className="pt-4">
+              <ProfileProgress
+                currentProfileIndex={currentProfileIndex}
+                totalProfiles={totalProfiles}
+              />
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Active Player Section */}
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-center">
+                {activePlayer ? activePlayer.name : t('gamePlay.unknownPlayer')}
               </div>
-            ) : (
-              <p className="text-center text-muted-foreground">{t('gamePlay.pressShowNextClue')}</p>
-            )}
-          </div>
-
-          {/* Answer Reveal Section */}
-          <div className="px-4">
-            <RevealAnswer answer={currentProfile.name} />
-          </div>
-
-          {/* MC Controls */}
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Button onClick={nextClue} disabled={isMaxCluesReached}>
-              {t('gamePlay.showNextClueButton')}
-            </Button>
-            <Button onClick={passTurn} variant="outline">
-              {t('gamePlay.passButton')}
-            </Button>
-            {canAwardPoints && (
-              <Button onClick={handleSkipProfile} variant="destructive">
-                {t('gamePlay.skipProfileButton')}
-              </Button>
-            )}
-          </div>
-
-          {/* Player Scoreboard */}
-          <div className="space-y-3">
-            <h4 className="text-lg font-semibold text-center">
-              {t('gamePlay.playersAwardPoints')}
-            </h4>
-            <div className="grid gap-2">
-              {players.map((player) => (
-                <Button
-                  key={player.id}
-                  onClick={() => awardPoints(player.id)}
-                  disabled={!canAwardPoints}
-                  variant={player.id === currentTurn.activePlayerId ? 'default' : 'outline'}
-                  className="w-full h-auto py-3 flex justify-between items-center"
-                >
-                  <span className="font-medium">{player.name}</span>
-                  <span className="text-lg font-bold">
-                    {t('gamePlay.points', { points: player.score })}
-                  </span>
-                </Button>
-              ))}
+              <p className="text-center text-muted-foreground">{t('gamePlay.currentPlayer')}</p>
             </div>
-            {!canAwardPoints && (
-              <p className="text-sm text-center text-muted-foreground">
-                {t('gamePlay.showClueToAwardPoints')}
-              </p>
-            )}
-          </div>
 
-          {/* Finish Game Button */}
-          <div className="flex justify-center pt-4 border-t">
-            <Button onClick={handleFinishGame} variant="destructive">
-              {t('gamePlay.finishGameButton')}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+            {/* Clue Progress Indicator */}
+            <ClueProgress
+              cluesRevealed={currentTurn.cluesRead}
+              totalClues={totalCluesPerProfile}
+              pointsRemaining={pointsRemaining}
+            />
+
+            {/* Clue Section */}
+            <div className="space-y-4 p-6 bg-secondary rounded-lg">
+              {currentTurn.cluesRead > 0 ? (
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground mb-2">
+                    {t('gamePlay.clueCount', {
+                      current: currentTurn.cluesRead,
+                      total: currentProfile.clues.length,
+                    })}
+                  </p>
+                  <p className="text-lg font-medium">{currentClueText}</p>
+                </div>
+              ) : (
+                <p className="text-center text-muted-foreground">
+                  {t('gamePlay.pressShowNextClue')}
+                </p>
+              )}
+            </div>
+
+            {/* Answer Reveal Section */}
+            <div className="px-4">
+              <RevealAnswer answer={currentProfile.name} />
+            </div>
+
+            {/* MC Controls */}
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button onClick={nextClue} disabled={isMaxCluesReached}>
+                {t('gamePlay.showNextClueButton')}
+              </Button>
+              <Button onClick={passTurn} variant="outline">
+                {t('gamePlay.passButton')}
+              </Button>
+              {canAwardPoints && (
+                <Button onClick={handleSkipProfile} variant="destructive">
+                  {t('gamePlay.skipProfileButton')}
+                </Button>
+              )}
+            </div>
+
+            {/* Player Scoreboard */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-semibold text-center">
+                {t('gamePlay.playersAwardPoints')}
+              </h4>
+              <div className="grid gap-2">
+                {players.map((player) => (
+                  <Button
+                    key={player.id}
+                    onClick={() => handleAwardPoints(player.id)}
+                    disabled={!canAwardPoints}
+                    variant={player.id === currentTurn.activePlayerId ? 'default' : 'outline'}
+                    className="w-full h-auto py-3 flex justify-between items-center"
+                  >
+                    <span className="font-medium">{player.name}</span>
+                    <span className="text-lg font-bold">
+                      {t('gamePlay.points', { points: player.score })}
+                    </span>
+                  </Button>
+                ))}
+              </div>
+              {!canAwardPoints && (
+                <p className="text-sm text-center text-muted-foreground">
+                  {t('gamePlay.showClueToAwardPoints')}
+                </p>
+              )}
+            </div>
+
+            {/* Finish Game Button */}
+            <div className="flex justify-center pt-4 border-t">
+              <Button onClick={handleFinishGame} variant="destructive">
+                {t('gamePlay.finishGameButton')}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Round Summary Modal */}
+      {roundSummaryData && (
+        <RoundSummary
+          open={showRoundSummary}
+          winnerName={
+            roundSummaryData.winnerId
+              ? players.find((p) => p.id === roundSummaryData.winnerId)?.name || null
+              : null
+          }
+          pointsAwarded={roundSummaryData.pointsAwarded}
+          profileName={roundSummaryData.profileName}
+          onContinue={handleContinueToNextProfile}
+        />
+      )}
+    </>
   );
 }
