@@ -109,5 +109,10 @@
       "title": "No Players",
       "description": "No players found in this game session."
     }
+  },
+  "noGamePage": {
+    "title": "No Game in Progress",
+    "description": "Please start a new game to begin playing.",
+    "createButton": "Create New Game"
   }
 }

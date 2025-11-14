@@ -109,5 +109,10 @@
       "title": "Sin Jugadores",
       "description": "No se encontraron jugadores en esta sesión de juego."
     }
+  },
+  "noGamePage": {
+    "title": "No Hay Juego en Curso",
+    "description": "Por favor, inicia un nuevo juego para comenzar a jugar.",
+    "createButton": "Crear Nuevo Juego"
   }
 }
