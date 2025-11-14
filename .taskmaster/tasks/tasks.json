@@ -1253,6 +1253,22 @@
         ],
         "priority": "high",
         "subtasks": []
+      },
+      {
+        "id": 24,
+        "title": "Fix Race Condition Between State Persistence and Navigation on Category Selection",
+        "description": "Resolve a critical bug where navigating from the category selection screen occurs before the game state is saved to IndexedDB, leading to a 'No Active Game' error. This task will ensure the persistence operation is completed before the application navigates to the gameplay page.",
+        "details": "The current implementation in `CategorySelect.tsx` calls `startGame()` and then immediately navigates. However, the `persistState` function in `gameStore.ts` has a 300ms debounce, causing a race condition. To fix this, we will implement a mechanism for synchronous persistence. \n1. In `src/stores/gameStore.ts`, expose a manual, awaitable persistence function. This could be achieved by calling the `flush()` method if using Zustand's built-in persistence middleware, or by creating a new exported function that directly invokes the save-to-IndexedDB logic without the debounce. \n2. In `src/components/CategorySelect.tsx`, modify the category selection handler. Before calling `window.location.href`, call and `await` the new synchronous persistence function. This will guarantee that the game state is successfully written to IndexedDB before the GamePlay component attempts to load it.",
+        "testStrategy": "1. **Manual End-to-End Test:** Create a new game, proceed to the category selection screen, and select a category. Verify that the game loads correctly without any 'No Active Game' errors. Refresh the gameplay page to confirm that the state is successfully rehydrated from IndexedDB. \n2. **Integration Test:** If a browser-based testing framework is available, create a test that automates the user flow from setup to gameplay, asserting that the game board is rendered correctly after category selection. \n3. **Unit Test:** Add a unit test for the new synchronous save function in the game store. Mock the IndexedDB dependency to verify that the save operation is invoked immediately and correctly when the function is called.",
+        "status": "pending",
+        "dependencies": [
+          3,
+          9,
+          18,
+          22
+        ],
+        "priority": "high",
+        "subtasks": []
       }
     ],
     "metadata": {
@@ -1265,7 +1281,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-14T12:22:02.811Z"
+      "updated": "2025-11-14T13:21:35.790Z"
     }
   }
 }
