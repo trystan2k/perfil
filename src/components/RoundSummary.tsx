@@ -27,8 +27,11 @@ export function RoundSummary({
   const { t } = useTranslation();
 
   return (
-    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onContinue()}>
-      <DialogContent aria-describedby="round-summary-description">
+    <Dialog open={open} modal>
+      <DialogContent
+        aria-describedby="round-summary-description"
+        onInteractOutside={(e: Event) => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle>{t('gamePlay.roundSummary.title')}</DialogTitle>
           <DialogDescription id="round-summary-description">
@@ -41,7 +44,7 @@ export function RoundSummary({
             <p className="text-xl font-semibold">
               {t('gamePlay.roundSummary.playerScored', {
                 playerName: winnerName,
-                points: pointsAwarded,
+                count: pointsAwarded,
               })}
             </p>
           ) : (

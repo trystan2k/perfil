@@ -7,7 +7,9 @@ vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, params?: Record<string, unknown>) => {
       if (key === 'gamePlay.clueProgress.pointsRemaining') {
-        return `${params?.points} points remaining`;
+        const count = params?.count as number;
+        const suffix = count === 1 ? 'point' : 'points';
+        return `${count} ${suffix} remaining`;
       }
       if (key === 'gamePlay.clueProgress.ariaLabel') {
         return `Clue progress: ${params?.revealed} of ${params?.total} clues revealed`;
@@ -85,7 +87,7 @@ describe('ClueProgress', () => {
       <ClueProgress cluesRevealed={20} totalClues={20} pointsRemaining={1} />
     );
 
-    expect(screen.getByText('1 points remaining')).toBeInTheDocument();
+    expect(screen.getByText('1 point remaining')).toBeInTheDocument();
 
     const dots = container.querySelectorAll('[aria-hidden="true"]');
 

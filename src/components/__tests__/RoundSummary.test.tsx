@@ -14,7 +14,9 @@ vi.mock('react-i18next', () => ({
         return `Profile: ${params?.name}`;
       }
       if (key === 'gamePlay.roundSummary.playerScored') {
-        return `${params?.playerName} scored ${params?.points} points!`;
+        const count = params?.count as number;
+        const suffix = count === 1 ? 'point' : 'points';
+        return `${params?.playerName} scored ${count} ${suffix}!`;
       }
       if (key === 'gamePlay.roundSummary.noOneScored') {
         return 'No one scored this round';

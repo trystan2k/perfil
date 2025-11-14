@@ -67,16 +67,17 @@
       "ariaLabel": "Progreso del perfil: {{current}} de {{total}}"
     },
     "clueProgress": {
-      "pointsRemaining": "{{points}} puntos restantes",
+      "pointsRemaining_one": "{{count}} punto restante",
+      "pointsRemaining_other": "{{count}} puntos restantes",
       "ariaLabel": "Progreso de pistas: {{revealed}} de {{total}} pistas reveladas"
     },
     "roundSummary": {
       "title": "¡Ronda Completada!",
-      "playerScored": "¡{{playerName}} anotó {{points}} puntos!",
+      "playerScored_one": "¡{{playerName}} anotó {{count}} punto!",
+      "playerScored_other": "¡{{playerName}} anotó {{count}} puntos!",
       "noOneScored": "Nadie anotó en esta ronda",
       "profileName": "Perfil: {{name}}",
-      "nextProfileButton": "Siguiente Perfil",
-      "closeAriaLabel": "Cerrar resumen de ronda"
+      "nextProfileButton": "Siguiente Perfil"
     }
   },
   "categorySelect": {

@@ -20,7 +20,7 @@ export function ClueProgress({ cluesRevealed, totalClues, pointsRemaining }: Clu
       {/* Points Remaining Display */}
       <div className="text-center">
         <p className="text-2xl font-bold text-primary">
-          {t('gamePlay.clueProgress.pointsRemaining', { points: pointsRemaining })}
+          {t('gamePlay.clueProgress.pointsRemaining', { count: pointsRemaining })}
         </p>
       </div>
 

@@ -18,7 +18,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [showRoundSummary, setShowRoundSummary] = useState(false);
   const [roundSummaryData, setRoundSummaryData] = useState<{
-    winnerName: string | null;
+    winnerId: string | null;
     pointsAwarded: number;
     profileName: string;
   } | null>(null);
@@ -205,7 +205,7 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
     if (confirmed) {
       // Show round summary with no winner
       setRoundSummaryData({
-        winnerName: null,
+        winnerId: null,
         pointsAwarded: 0,
         profileName: currentProfile.name,
       });
@@ -215,7 +215,7 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
 
   // Handle awarding points with round summary
   const handleAwardPoints = (playerId: string) => {
-    // Find the player to get their name
+    // Find the player to verify they exist
     const winner = players.find((p) => p.id === playerId);
 
     if (winner && currentTurn.cluesRead > 0) {
@@ -223,7 +223,7 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
 
       // Show round summary with winner
       setRoundSummaryData({
-        winnerName: winner.name,
+        winnerId: playerId,
         pointsAwarded: points,
         profileName: currentProfile.name,
       });
@@ -237,12 +237,9 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
 
     // Actually award the points or skip the profile
     if (roundSummaryData) {
-      if (roundSummaryData.winnerName) {
-        // Find the winner and award points
-        const winner = players.find((p) => p.name === roundSummaryData.winnerName);
-        if (winner) {
-          awardPoints(winner.id);
-        }
+      if (roundSummaryData.winnerId) {
+        // Award points using the stored winner ID
+        awardPoints(roundSummaryData.winnerId);
       } else {
         // Skip the profile
         skipProfile();
@@ -374,7 +371,11 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
       {roundSummaryData && (
         <RoundSummary
           open={showRoundSummary}
-          winnerName={roundSummaryData.winnerName}
+          winnerName={
+            roundSummaryData.winnerId
+              ? players.find((p) => p.id === roundSummaryData.winnerId)?.name || null
+              : null
+          }
           pointsAwarded={roundSummaryData.pointsAwarded}
           profileName={roundSummaryData.profileName}
           onContinue={handleContinueToNextProfile}
