@@ -1166,10 +1166,65 @@
         "description": "Update src/pages/game.astro to redirect or show proper content instead of placeholder",
         "details": "Update src/pages/game.astro to either redirect to home page or setup, or show a proper Create a game first message with a link to the setup page. Currently it shows Coming soon placeholder which is confusing since there is a working game at /game/[sessionId].",
         "testStrategy": "Manual verification of redirect or message display.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "low",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Analyze Current Implementation of /game Route",
+            "description": "Review the existing code in `src/pages/game.astro` to understand its current structure, layout, and how the placeholder content is being rendered.",
+            "dependencies": [],
+            "details": "Inspect the file `src/pages/game.astro`. Identify the main layout component, any client-side scripts, and the specific markup that generates the 'Coming soon' message. This analysis will determine the best way to replace the placeholder.",
+            "status": "done",
+            "testStrategy": "Code review of the `src/pages/game.astro` file to confirm understanding of its current state. No functional testing is required for this step."
+          },
+          {
+            "id": 2,
+            "title": "Design the 'Create a Game' Prompt UI",
+            "description": "Define the user interface for the message that will guide users to the game setup page. This includes the text, a call-to-action button, and overall layout.",
+            "dependencies": [
+              1
+            ],
+            "details": "The UI should consist of a clear heading (e.g., 'No Game in Progress'), a short explanatory text, and a prominent button or link with the text 'Create a New Game'. The design should be consistent with the existing `shadcn/ui` theme.",
+            "status": "done",
+            "testStrategy": "Create a simple wireframe or mockup of the UI to be reviewed for clarity and consistency with the application's design language."
+          },
+          {
+            "id": 3,
+            "title": "Create a Reusable 'NoGamePrompt' Astro Component",
+            "description": "Implement the designed UI as a new, reusable Astro component located at `src/components/NoGamePrompt.astro`.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create the file `src/components/NoGamePrompt.astro`. Use appropriate HTML semantics and Tailwind CSS classes to build the component. The component will contain the message and a link (`<a>` tag) pointing to the game setup page (e.g., '/').",
+            "status": "done",
+            "testStrategy": "Render the component on a temporary test page to visually inspect its appearance and ensure the link destination is correct."
+          },
+          {
+            "id": 4,
+            "title": "Integrate 'NoGamePrompt' into the /game Page",
+            "description": "Modify the `src/pages/game.astro` file to remove the old placeholder content and render the new `NoGamePrompt` component instead.",
+            "dependencies": [
+              1,
+              3
+            ],
+            "details": "Edit `src/pages/game.astro`. Remove the existing 'Coming soon' markup. Add an import statement for the `NoGamePrompt` component. Place the `<NoGamePrompt />` component within the main content area of the page layout.",
+            "status": "done",
+            "testStrategy": "Run the local development server and navigate to the `/game` route. Verify that the new prompt component is rendered correctly and the placeholder is gone."
+          },
+          {
+            "id": 5,
+            "title": "Verify Link Functionality and Final Polish",
+            "description": "Perform a final end-to-end test to ensure the 'Create a New Game' link on the `/game` page correctly navigates the user to the setup page.",
+            "dependencies": [
+              4
+            ],
+            "details": "With the development server running, navigate to `/game`. Click the 'Create a New Game' button/link. Confirm that the browser successfully navigates to the game setup page. Check the browser's developer console for any errors.",
+            "status": "done",
+            "testStrategy": "Manual end-to-end testing of the user flow from the `/game` page to the setup page. This confirms the primary goal of the task is met."
+          }
+        ]
       },
       {
         "id": 22,
@@ -1210,7 +1265,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-14T08:53:28.936Z"
+      "updated": "2025-11-14T12:22:02.811Z"
     }
   }
 }
