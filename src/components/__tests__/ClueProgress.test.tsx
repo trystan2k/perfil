@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { ClueProgress } from '../ClueProgress';
 
 describe('ClueProgress', () => {
@@ -96,6 +96,7 @@ describe('ClueProgress', () => {
     // Remaining dots should be muted
     for (let i = 1; i < 20; i++) {
       expect(dots[i]).toHaveClass('bg-muted');
+      expect(dots[i]).not.toHaveClass('bg-primary');
     }
   });
 
