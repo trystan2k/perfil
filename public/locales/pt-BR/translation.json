@@ -109,5 +109,10 @@
       "title": "Sem Jogadores",
       "description": "Nenhum jogador encontrado nesta sessão de jogo."
     }
+  },
+  "noGamePage": {
+    "title": "Nenhum Jogo em Andamento",
+    "description": "Por favor, inicie um novo jogo para começar a jogar.",
+    "createButton": "Criar Novo Jogo"
   }
 }
