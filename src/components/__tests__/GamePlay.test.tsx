@@ -84,7 +84,6 @@ describe('GamePlay Component', () => {
 
       expect(screen.getByText('Game Play')).toBeInTheDocument();
       expect(screen.getByText(/Category: Movies/)).toBeInTheDocument();
-      expect(screen.getByText('Current Player')).toBeInTheDocument();
     });
 
     it('should subscribe to store state correctly', () => {
@@ -99,87 +98,6 @@ describe('GamePlay Component', () => {
       expect(state.currentTurn).not.toBeNull();
       expect(state.players).toHaveLength(3);
       expect(state.category).toBe('Movies');
-    });
-  });
-
-  describe('Active Player Display', () => {
-    it('should display the active player name', () => {
-      // Start the game
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-
-      render(<GamePlay />);
-
-      const state = useGameStore.getState();
-      const activePlayer = state.players.find((p) => p.id === state.currentTurn?.activePlayerId);
-
-      expect(activePlayer).toBeDefined();
-      if (activePlayer) {
-        // Check for active player name in the active player section (has text-3xl class)
-        const activePlayerElement = screen.getByText(activePlayer.name, {
-          selector: '.text-3xl',
-        });
-        expect(activePlayerElement).toBeInTheDocument();
-      }
-      expect(screen.getByText('Current Player')).toBeInTheDocument();
-    });
-
-    it('should display "Unknown Player" when active player is not found', () => {
-      // Start the game and manually set an invalid player ID
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-
-      const currentTurn = useGameStore.getState().currentTurn;
-      if (currentTurn) {
-        useGameStore.setState({
-          currentTurn: {
-            ...currentTurn,
-            activePlayerId: 'invalid-player-id',
-          },
-        });
-      }
-
-      render(<GamePlay />);
-
-      expect(screen.getByText('Unknown Player')).toBeInTheDocument();
-    });
-
-    it('should update displayed player when turn is passed', () => {
-      // Start the game
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-
-      const { rerender } = render(<GamePlay />);
-
-      const initialState = useGameStore.getState();
-      const initialPlayer = initialState.players.find(
-        (p) => p.id === initialState.currentTurn?.activePlayerId
-      );
-
-      expect(initialPlayer).toBeDefined();
-      if (initialPlayer) {
-        const initialPlayerElement = screen.getByText(initialPlayer.name, {
-          selector: '.text-3xl',
-        });
-        expect(initialPlayerElement).toBeInTheDocument();
-      }
-
-      // Pass turn
-      act(() => {
-        store.passTurn();
-      });
-
-      rerender(<GamePlay />);
-
-      const newState = useGameStore.getState();
-      const newPlayer = newState.players.find((p) => p.id === newState.currentTurn?.activePlayerId);
-
-      expect(newPlayer).toBeDefined();
-      if (newPlayer && initialPlayer) {
-        expect(newPlayer.id).not.toBe(initialPlayer.id);
-        const newPlayerElement = screen.getByText(newPlayer.name, { selector: '.text-3xl' });
-        expect(newPlayerElement).toBeInTheDocument();
-      }
     });
   });
 
@@ -338,160 +256,6 @@ describe('GamePlay Component', () => {
     });
   });
 
-  describe('Pass Button', () => {
-    it('should render "Pass" button', () => {
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-
-      render(<GamePlay />);
-
-      expect(screen.getByRole('button', { name: 'Pass' })).toBeInTheDocument();
-    });
-
-    it('should call passTurn action when button is clicked', async () => {
-      const user = userEvent.setup();
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-
-      render(<GamePlay />);
-
-      const initialState = useGameStore.getState();
-      const initialPlayerId = initialState.currentTurn?.activePlayerId;
-
-      const button = screen.getByRole('button', { name: 'Pass' });
-
-      // Click the Pass button
-      await user.click(button);
-
-      const newState = useGameStore.getState();
-      const newPlayerId = newState.currentTurn?.activePlayerId;
-
-      // Verify the active player changed
-      expect(newPlayerId).not.toBe(initialPlayerId);
-    });
-
-    it('should update displayed player after passing turn', async () => {
-      const user = userEvent.setup();
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-
-      const { rerender } = render(<GamePlay />);
-
-      const initialState = useGameStore.getState();
-      const initialPlayer = initialState.players.find(
-        (p) => p.id === initialState.currentTurn?.activePlayerId
-      );
-
-      expect(initialPlayer).toBeDefined();
-      if (initialPlayer) {
-        const initialPlayerElement = screen.getByText(initialPlayer.name, {
-          selector: '.text-3xl',
-        });
-        expect(initialPlayerElement).toBeInTheDocument();
-      }
-
-      // Click Pass button
-      const button = screen.getByRole('button', { name: 'Pass' });
-      await user.click(button);
-
-      rerender(<GamePlay />);
-
-      const newState = useGameStore.getState();
-      const newPlayer = newState.players.find((p) => p.id === newState.currentTurn?.activePlayerId);
-
-      expect(newPlayer).toBeDefined();
-      if (newPlayer && initialPlayer) {
-        expect(newPlayer.id).not.toBe(initialPlayer.id);
-        const newPlayerElement = screen.getByText(newPlayer.name, { selector: '.text-3xl' });
-        expect(newPlayerElement).toBeInTheDocument();
-      }
-    });
-
-    it('should cycle through all players when passing turn multiple times', async () => {
-      const user = userEvent.setup();
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-
-      const { rerender } = render(<GamePlay />);
-
-      const totalPlayers = useGameStore.getState().players.length;
-      const button = screen.getByRole('button', { name: 'Pass' });
-
-      const seenPlayerIds: string[] = [];
-      const initialPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
-
-      if (initialPlayerId) {
-        seenPlayerIds.push(initialPlayerId);
-      }
-
-      // Pass turn (totalPlayers - 1) times to cycle through all players
-      for (let i = 0; i < totalPlayers - 1; i++) {
-        await user.click(button);
-        rerender(<GamePlay />);
-
-        const currentPlayerId = useGameStore.getState().currentTurn?.activePlayerId;
-        if (currentPlayerId) {
-          seenPlayerIds.push(currentPlayerId);
-        }
-      }
-
-      // Verify we've seen all unique players
-      const uniquePlayerIds = new Set(seenPlayerIds);
-      expect(uniquePlayerIds.size).toBe(totalPlayers);
-    });
-
-    it('should auto-skip to next profile when all players pass', async () => {
-      const user = userEvent.setup();
-      const store = useGameStore.getState();
-      store.startGame(['1', '2']); // Start with 2 profiles for auto-skip testing
-
-      const { rerender } = render(<GamePlay />);
-
-      const initialProfileId = useGameStore.getState().currentProfile?.id;
-      const totalPlayers = useGameStore.getState().players.length;
-      const button = screen.getByRole('button', { name: 'Pass' });
-
-      // Pass turn totalPlayers times - should trigger auto-skip to next profile
-      for (let i = 0; i < totalPlayers; i++) {
-        await user.click(button);
-        rerender(<GamePlay />);
-      }
-
-      const finalProfileId = useGameStore.getState().currentProfile?.id;
-      const passedPlayerIds = useGameStore.getState().currentTurn?.passedPlayerIds;
-
-      // Should have auto-skipped to next profile when all players passed
-      expect(finalProfileId).not.toBe(initialProfileId);
-      // Passed players should be reset for new profile
-      expect(passedPlayerIds).toEqual([]);
-    });
-
-    it('should not affect cluesRead when passing turn', async () => {
-      const user = userEvent.setup();
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-
-      // Advance to clue 3
-      store.nextClue();
-      store.nextClue();
-      store.nextClue();
-
-      render(<GamePlay />);
-
-      const cluesReadBefore = useGameStore.getState().currentTurn?.cluesRead;
-      expect(cluesReadBefore).toBe(3);
-
-      // Pass turn
-      const button = screen.getByRole('button', { name: 'Pass' });
-      await user.click(button);
-
-      const cluesReadAfter = useGameStore.getState().currentTurn?.cluesRead;
-
-      // Clues read should remain the same
-      expect(cluesReadAfter).toBe(3);
-    });
-  });
-
   describe('Skip Profile Button', () => {
     beforeEach(() => {
       const store = useGameStore.getState();
@@ -609,41 +373,6 @@ describe('GamePlay Component', () => {
       // Profile should change to next one
       expect(finalProfileId).not.toBe(initialProfileId);
       expect(finalProfileId).toBe('2');
-
-      confirmSpy.mockRestore();
-    });
-
-    it('should reset passedPlayerIds when profile is skipped', async () => {
-      const user = userEvent.setup();
-      const store = useGameStore.getState();
-      store.startGame(['1', '2']);
-      store.nextClue();
-
-      // Have some players pass first
-      store.passTurn();
-      expect(useGameStore.getState().currentTurn?.passedPlayerIds).toHaveLength(1);
-
-      // Mock window.confirm to return true
-      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
-
-      render(<GamePlay />);
-
-      const buttons = screen.getAllByRole('button');
-      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
-
-      if (skipButton) {
-        await user.click(skipButton);
-      }
-
-      // Round summary should appear
-      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
-
-      // Click "Next Profile" button to complete the action
-      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
-      await user.click(nextProfileButton);
-
-      // Passed players should be reset for new profile
-      expect(useGameStore.getState().currentTurn?.passedPlayerIds).toEqual([]);
 
       confirmSpy.mockRestore();
     });
@@ -778,10 +507,8 @@ describe('GamePlay Component', () => {
                   players: [{ id: '1', name: 'Player 1', score: 0 }],
                   currentTurn: {
                     profileId: '1',
-                    activePlayerId: '1',
                     cluesRead: 0,
                     revealed: false,
-                    passedPlayerIds: [],
                   },
                   profiles: mockProfiles,
                   selectedProfiles: ['1'],
@@ -1190,7 +917,7 @@ describe('GamePlay Component', () => {
       expect(updatedPlayer?.score).toBe(38);
     });
 
-    it('should highlight active player button with default variant', () => {
+    it('should display all players with outline variant (no turn highlighting)', () => {
       const store = useGameStore.getState();
       store.startGame(['1']);
       store.nextClue();
@@ -1198,36 +925,16 @@ describe('GamePlay Component', () => {
       render(<GamePlay />);
 
       const state = useGameStore.getState();
-      const activePlayer = state.players.find((p) => p.id === state.currentTurn?.activePlayerId);
 
-      expect(activePlayer).toBeDefined();
-      if (activePlayer) {
-        const activeButton = screen.getByRole('button', { name: new RegExp(activePlayer.name) });
-        // Default variant buttons don't have the 'outline' class
-        expect(activeButton).not.toHaveClass('outline');
-      }
-    });
-
-    it('should display non-active players with outline variant', () => {
-      const store = useGameStore.getState();
-      store.startGame(['1']);
-      store.nextClue();
-
-      render(<GamePlay />);
-
-      const state = useGameStore.getState();
-      const nonActivePlayers = state.players.filter(
-        (p) => p.id !== state.currentTurn?.activePlayerId
-      );
-
-      for (const player of nonActivePlayers) {
+      // All players should have outline variant now (no active player highlighting)
+      state.players.forEach((player) => {
         const button = screen.getByRole('button', { name: new RegExp(player.name) });
-        // Outline variant buttons have the class
-        expect(button).toHaveClass('border-input');
-      }
+        // Outline variant is present in the class
+        expect(button.className).toContain('border-input');
+      });
     });
 
-    it('should allow awarding points to any player, not just active player', async () => {
+    it('should allow awarding points to any player', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['1']);
@@ -1236,29 +943,73 @@ describe('GamePlay Component', () => {
       render(<GamePlay />);
 
       const players = useGameStore.getState().players;
-      const activePlayerId = useGameStore.getState().currentTurn?.activePlayerId;
+      // Pick the second player to award points to
+      const playerToAward = players[1];
 
-      // Find a non-active player
-      const nonActivePlayer = players.find((p) => p.id !== activePlayerId);
+      expect(playerToAward).toBeDefined();
+      const button = screen.getByRole('button', { name: new RegExp(playerToAward.name) });
 
-      expect(nonActivePlayer).toBeDefined();
-      if (nonActivePlayer) {
-        const button = screen.getByRole('button', { name: new RegExp(nonActivePlayer.name) });
+      await user.click(button);
 
-        await user.click(button);
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
 
-        // Round summary should appear
-        expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
 
-        // Click "Next Profile" button to complete the action
-        const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
-        await user.click(nextProfileButton);
+      const updatedPlayers = useGameStore.getState().players;
+      const updatedPlayer = updatedPlayers.find((p) => p.id === playerToAward.id);
 
-        const updatedPlayers = useGameStore.getState().players;
-        const updatedPlayer = updatedPlayers.find((p) => p.id === nonActivePlayer.id);
+      expect(updatedPlayer?.score).toBe(20);
+    });
 
-        expect(updatedPlayer?.score).toBe(20);
-      }
+    it('should allow MC to tap different players across multiple profiles', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['1', '2', '3']); // Start with 3 profiles
+
+      const { rerender } = render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+
+      // Profile 1: Award to Player 0
+      act(() => {
+        store.nextClue();
+      });
+      rerender(<GamePlay />);
+      let button = screen.getByRole('button', { name: new RegExp(players[0].name) });
+      await user.click(button);
+      let nextProfileButton = await screen.findByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Profile 2: Award to Player 1 (different player)
+      rerender(<GamePlay />);
+      act(() => {
+        store.nextClue();
+      });
+      rerender(<GamePlay />);
+      button = screen.getByRole('button', { name: new RegExp(players[1].name) });
+      await user.click(button);
+      nextProfileButton = await screen.findByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Profile 3: Award to Player 2 (another different player)
+      rerender(<GamePlay />);
+      act(() => {
+        store.nextClue();
+      });
+      rerender(<GamePlay />);
+      button = screen.getByRole('button', { name: new RegExp(players[2].name) });
+      await user.click(button);
+      nextProfileButton = await screen.findByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Verify all three players received points
+      const finalPlayers = useGameStore.getState().players;
+      expect(finalPlayers[0].score).toBe(20); // Player 0 got 20 points
+      expect(finalPlayers[1].score).toBe(20); // Player 1 got 20 points
+      expect(finalPlayers[2].score).toBe(20); // Player 2 got 20 points
     });
 
     it('should start new turn after awarding points', async () => {
@@ -1375,6 +1126,183 @@ describe('GamePlay Component', () => {
         // @ts-expect-error - Restoring original window.location
         window.location = originalLocation;
       }
+    });
+  });
+
+  describe('End-to-End: Free-for-All Scoring Flow', () => {
+    it('should complete a full game with free-for-all scoring', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+
+      // 1. Start game with 3 profiles
+      store.startGame(['1', '2', '3']);
+
+      const { rerender } = render(<GamePlay />);
+
+      // 2. Verify no turn UI elements exist
+      expect(screen.queryByText(/current player/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/pass turn/i)).not.toBeInTheDocument();
+
+      const players = store.players;
+
+      // Profile 1: MC reads clues and awards to Player A
+      // 3. MC reads first clue
+      act(() => {
+        store.nextClue();
+      });
+      rerender(<GamePlay />);
+
+      // Verify clue is shown
+      expect(screen.getByText('Clue 1 of 20')).toBeInTheDocument();
+
+      // 4. MC taps Player A, verify score update
+      let playerButton = screen.getByRole('button', { name: new RegExp(players[0].name) });
+      await user.click(playerButton);
+
+      // Verify round summary appears
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+      expect(screen.getByText(players[0].name)).toBeInTheDocument();
+
+      // Continue to next profile
+      let nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Verify Player A's score updated
+      let updatedPlayers = useGameStore.getState().players;
+      expect(updatedPlayers[0].score).toBe(20); // 20 - (1-1) = 20
+
+      // Profile 2: MC reads clues and awards to Player B (different player)
+      rerender(<GamePlay />);
+
+      // 6. Advance to next clue (for profile 2)
+      act(() => {
+        store.nextClue();
+        store.nextClue(); // Read 2 clues
+      });
+      rerender(<GamePlay />);
+
+      // 5. MC taps Player B, verify score update
+      playerButton = screen.getByRole('button', { name: new RegExp(players[1].name) });
+      await user.click(playerButton);
+
+      // Verify round summary
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Verify Player B's score updated
+      updatedPlayers = useGameStore.getState().players;
+      expect(updatedPlayers[1].score).toBe(19); // 20 - (2-1) = 19
+
+      // Profile 3: MC reads clues and awards to Player C (another different player)
+      rerender(<GamePlay />);
+
+      // 7. Repeat scoring for profile 3
+      act(() => {
+        store.nextClue();
+        store.nextClue();
+        store.nextClue(); // Read 3 clues
+      });
+      rerender(<GamePlay />);
+
+      playerButton = screen.getByRole('button', { name: new RegExp(players[2].name) });
+      await user.click(playerButton);
+
+      // Verify round summary
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Verify Player C's score updated
+      updatedPlayers = useGameStore.getState().players;
+      expect(updatedPlayers[2].score).toBe(18); // 20 - (3-1) = 18
+
+      // 8. Verify game completed successfully
+      const finalState = useGameStore.getState();
+      expect(finalState.status).toBe('completed');
+      expect(finalState.currentTurn).toBeNull();
+
+      // Verify all players have correct scores
+      expect(finalState.players[0].score).toBe(20);
+      expect(finalState.players[1].score).toBe(19);
+      expect(finalState.players[2].score).toBe(18);
+    });
+
+    it('should allow MC to award points to same player multiple times', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+
+      store.startGame(['1', '2']);
+
+      const { rerender } = render(<GamePlay />);
+
+      const players = store.players;
+      const favoritePlayer = players[1]; // Pick player 1 to win both rounds
+
+      // Profile 1: Award to Player 1
+      act(() => {
+        store.nextClue();
+      });
+      rerender(<GamePlay />);
+
+      let playerButton = screen.getByRole('button', { name: new RegExp(favoritePlayer.name) });
+      await user.click(playerButton);
+
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+      let nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Profile 2: Award to same Player 1 again
+      rerender(<GamePlay />);
+      act(() => {
+        store.nextClue();
+      });
+      rerender(<GamePlay />);
+
+      playerButton = screen.getByRole('button', { name: new RegExp(favoritePlayer.name) });
+      await user.click(playerButton);
+
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+      nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Verify player 1 got points from both rounds
+      const finalPlayers = useGameStore.getState().players;
+      const finalPlayer = finalPlayers.find((p) => p.id === favoritePlayer.id);
+      expect(finalPlayer?.score).toBe(40); // 20 + 20 = 40
+    });
+
+    it('should update UI scores in real-time after awarding points', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+
+      store.startGame(['1', '2']); // Use 2 profiles to keep game active
+
+      const { rerender } = render(<GamePlay />);
+
+      // Initially all players should have 0 pts
+      expect(screen.getAllByText('0 pts')).toHaveLength(3);
+
+      act(() => {
+        store.nextClue();
+      });
+      rerender(<GamePlay />);
+
+      const players = store.players;
+      const playerButton = screen.getByRole('button', { name: new RegExp(players[0].name) });
+      await user.click(playerButton);
+
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      rerender(<GamePlay />);
+
+      // After awarding, one player should have 20 pts
+      expect(screen.getByText('20 pts')).toBeInTheDocument();
+      expect(screen.getAllByText('0 pts')).toHaveLength(2); // Other 2 players still at 0
     });
   });
 });
