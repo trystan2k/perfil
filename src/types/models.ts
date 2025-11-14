@@ -31,10 +31,8 @@ export const profilesDataSchema = z.object({
 
 export const turnStateSchema = z.object({
   profileId: z.string(),
-  activePlayerId: z.string(),
   cluesRead: z.number(),
   revealed: z.boolean(),
-  passedPlayerIds: z.array(z.string()).default([]),
 });
 
 export const gameSessionSchema = z.object({

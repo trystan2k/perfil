@@ -1374,14 +1374,69 @@
         "description": "Remove the active-turn UI so any participant can guess; MC awards points by tapping a player's name in the participant list when a guess is correct.",
         "details": "Acceptance criteria:\\n- GamePlay no longer shows/enforce a current player turn UI.\\n- Pass/turn controls are removed; MC can still award points by tapping a player's name.\\n- AwardPoints flow remains intact and updates scores; multiplayer behavior preserved.\\nTags: gameplay, UX",
         "testStrategy": "- Component tests ensure no active-turn UI and that tapping a player calls awardPoints.\\n- Store tests ensure awardPoints and progression work without a turn constraint.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           6,
           8,
           3
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Remove Turn-Based UI Elements from GamePlay Component",
+            "description": "Modify the `GamePlay.tsx` component to remove all visual elements related to the active player's turn, including any current player highlight/indicator and the 'Pass' or 'Next Turn' buttons.",
+            "dependencies": [],
+            "details": "Locate the JSX in the main gameplay component responsible for rendering turn-based UI. Delete the code for the 'Pass' button and any visual indicator showing whose turn it is. Ensure the player list remains visible and interactive for the MC.",
+            "status": "done",
+            "testStrategy": "Component-level tests using React Testing Library to verify that the turn indicator and pass/next buttons are no longer rendered in the DOM."
+          },
+          {
+            "id": 2,
+            "title": "Eliminate Turn-Tracking State and Actions from Zustand Store",
+            "description": "Refactor the Zustand store to remove state variables and actions related to managing player turns, such as `currentPlayerId`, `turnOrder`, `nextTurn()`, and `passTurn()`.",
+            "dependencies": [
+              1
+            ],
+            "details": "Edit the game state slice in the Zustand store. Remove properties like `activePlayerIndex` or `currentPlayerId`. Delete the associated actions (`nextTurn`, `passTurn`, etc.). Update any other parts of the store that might reference this now-removed state.",
+            "status": "done",
+            "testStrategy": "Unit tests for the Zustand store using Vitest to confirm that turn-related state properties are gone and that actions like `nextTurn` have been removed."
+          },
+          {
+            "id": 3,
+            "title": "Verify MC Player-Tapping Interaction is Always Active",
+            "description": "Ensure the player list UI remains interactive for the Master of Ceremonies (MC), allowing them to tap on any player's name at any time to trigger the point-awarding mechanism, as per the functionality from Task 8.",
+            "dependencies": [
+              1
+            ],
+            "details": "Review the `PlayerList` component within `GamePlay.tsx`. Confirm that each player item has an `onClick` or `onPress` handler that is always enabled for the MC view. This handler should call the `awardPoints` action with the correct `playerId`.",
+            "status": "done",
+            "testStrategy": "In the `GamePlay` component test, simulate the MC clicking on multiple different player names in the list and verify that the `awardPoints` store action is called with the corresponding `playerId` for each click."
+          },
+          {
+            "id": 4,
+            "title": "Decouple `awardPoints` Action from Turn Logic",
+            "description": "Modify the `awardPoints` action in the Zustand store to ensure it no longer has any dependencies on or side effects related to the player turn system. Its sole responsibility should be updating a player's score.",
+            "dependencies": [
+              2
+            ],
+            "details": "Examine the implementation of the `awardPoints(playerId)` action. Remove any code that attempts to advance the turn, check for the current player, or modify turn-related state after awarding points. The function should only calculate points and update the target player's score.",
+            "status": "done",
+            "testStrategy": "Update store unit tests for `awardPoints`. The tests will call the action for a specific player and assert that only that player's score is updated, and no other game state related to turns is affected."
+          },
+          {
+            "id": 5,
+            "title": "End-to-End Test of the New Free-for-All Scoring Flow",
+            "description": "Perform a full test of the gameplay loop to validate the new scoring mechanism. Verify that the game progresses correctly without a turn system and that scores are updated accurately when the MC taps any player.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Start a new game session as the MC. Proceed through several clues. For each clue, tap different player names to award points. Confirm that the UI updates the scores correctly for each player tapped and that the game can be completed without errors.",
+            "status": "done",
+            "testStrategy": "Manual testing checklist: 1. Start game. 2. Verify no turn UI. 3. MC reads clue. 4. MC taps Player A, verify score update. 5. MC taps Player B, verify score update. 6. Advance to next clue. 7. Repeat scoring. 8. Finish game."
+          }
+        ]
       },
       {
         "id": 29,
@@ -1422,7 +1477,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-14T16:42:40.775Z"
+      "updated": "2025-11-14T17:52:32.356Z"
     }
   }
 }

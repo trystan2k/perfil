@@ -31,7 +31,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const selectedProfiles = useGameStore((state) => state.selectedProfiles);
   const totalProfilesCount = useGameStore((state) => state.totalProfilesCount);
   const nextClue = useGameStore((state) => state.nextClue);
-  const passTurn = useGameStore((state) => state.passTurn);
   const awardPoints = useGameStore((state) => state.awardPoints);
   const skipProfile = useGameStore((state) => state.skipProfile);
   const endGame = useGameStore((state) => state.endGame);
@@ -160,9 +159,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     );
   }
 
-  // Find the active player
-  const activePlayer = players.find((p) => p.id === currentTurn.activePlayerId);
-
   // Get current clue from profile data
   const currentClueText =
     currentTurn.cluesRead > 0 ? currentProfile.clues[currentTurn.cluesRead - 1] : null;
@@ -275,14 +271,6 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Active Player Section */}
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-center">
-                {activePlayer ? activePlayer.name : t('gamePlay.unknownPlayer')}
-              </div>
-              <p className="text-center text-muted-foreground">{t('gamePlay.currentPlayer')}</p>
-            </div>
-
             {/* Clue Progress Indicator */}
             <ClueProgress
               cluesRevealed={currentTurn.cluesRead}
@@ -319,9 +307,6 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
               <Button onClick={nextClue} disabled={isMaxCluesReached}>
                 {t('gamePlay.showNextClueButton')}
               </Button>
-              <Button onClick={passTurn} variant="outline">
-                {t('gamePlay.passButton')}
-              </Button>
               {canAwardPoints && (
                 <Button onClick={handleSkipProfile} variant="destructive">
                   {t('gamePlay.skipProfileButton')}
@@ -340,7 +325,7 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
                     key={player.id}
                     onClick={() => handleAwardPoints(player.id)}
                     disabled={!canAwardPoints}
-                    variant={player.id === currentTurn.activePlayerId ? 'default' : 'outline'}
+                    variant="outline"
                     className="w-full h-auto py-3 flex justify-between items-center"
                   >
                     <span className="font-medium">{player.name}</span>
