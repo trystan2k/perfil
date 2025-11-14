@@ -62,6 +62,26 @@ const PERSIST_DEBOUNCE_MS = 300;
  * to avoid blocking state updates. For critical operations (like endGame),
  * await the returned Promise to ensure persistence completes.
  */
+/**
+ * Build persisted state object from current game state
+ * Helper function to ensure consistency between different persistence methods
+ */
+function buildPersistedState(state: GameState): PersistedGameState {
+  return {
+    id: state.id,
+    players: state.players,
+    currentTurn: state.currentTurn,
+    remainingProfiles: state.remainingProfiles,
+    totalCluesPerProfile: state.totalCluesPerProfile,
+    status: state.status,
+    category: state.category,
+    profiles: state.profiles,
+    selectedProfiles: state.selectedProfiles,
+    currentProfile: state.currentProfile,
+    totalProfilesCount: state.totalProfilesCount,
+  };
+}
+
 function persistState(state: GameState): Promise<void> {
   // Skip persistence during rehydration or if there's no active game session
   if (!state.id || rehydratingSessionIds.has(state.id)) {
@@ -80,19 +100,7 @@ function persistState(state: GameState): Promise<void> {
   return new Promise<void>((resolve) => {
     // Schedule persistence after debounce delay
     const timer = setTimeout(async () => {
-      const persistedState: PersistedGameState = {
-        id: state.id,
-        players: state.players,
-        currentTurn: state.currentTurn,
-        remainingProfiles: state.remainingProfiles,
-        totalCluesPerProfile: state.totalCluesPerProfile,
-        status: state.status,
-        category: state.category,
-        profiles: state.profiles,
-        selectedProfiles: state.selectedProfiles,
-        currentProfile: state.currentProfile,
-        totalProfilesCount: state.totalProfilesCount,
-      };
+      const persistedState = buildPersistedState(state);
 
       try {
         await saveGameSession(persistedState);
@@ -129,6 +137,52 @@ export function cancelPendingPersistence(): void {
     clearTimeout(timer);
   }
   persistTimers.clear();
+}
+
+/**
+ * Force immediate persistence of current game state to IndexedDB
+ *
+ * Unlike `persistState`, this function bypasses the debounce mechanism and
+ * immediately saves the state. Use this before critical operations like navigation
+ * to ensure state is persisted before the page unloads.
+ *
+ * @returns Promise that resolves when persistence is complete
+ *
+ * @example
+ * ```typescript
+ * // Before navigating away
+ * try {
+ *   await forcePersist();
+ *   window.location.href = '/game/123';
+ * } catch (error) {
+ *   console.error('Failed to persist state:', error);
+ *   // Handle the error appropriately
+ * }
+ * ```
+ */
+export async function forcePersist(): Promise<void> {
+  const state = useGameStore.getState();
+
+  // Skip persistence if no active session or if rehydration is in progress
+  if (!state.id || rehydratingSessionIds.has(state.id)) {
+    return;
+  }
+
+  // Cancel any pending debounced persistence for this session
+  const timer = persistTimers.get(state.id);
+  if (timer) {
+    clearTimeout(timer);
+    persistTimers.delete(state.id);
+  }
+
+  const persistedState = buildPersistedState(state);
+
+  try {
+    await saveGameSession(persistedState);
+  } catch (error) {
+    console.error('Failed to force persist game state:', error);
+    throw error; // Re-throw to allow caller to handle
+  }
 }
 
 /**

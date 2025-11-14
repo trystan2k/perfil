@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useProfiles } from '@/hooks/useProfiles';
-import { useGameStore } from '@/stores/gameStore';
+import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface CategorySelectProps {
   sessionId: string;
@@ -112,45 +112,63 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   // Extract unique categories from profiles
   const categories = Array.from(new Set(profiles.map((profile) => profile.category))).sort();
 
-  const handleCategorySelect = (category: string) => {
+  const handleCategorySelect = async (category: string) => {
     if (isStarting) return;
 
     setIsStarting(true);
 
-    // Filter profiles by selected category
-    const categoryProfiles = profiles.filter((p) => p.category === category);
+    try {
+      // Filter profiles by selected category
+      const categoryProfiles = profiles.filter((p) => p.category === category);
 
-    // Shuffle profiles within the category
-    const shuffledProfiles = shuffleArray(categoryProfiles);
+      // Shuffle profiles within the category
+      const shuffledProfiles = shuffleArray(categoryProfiles);
 
-    // Load all profiles into the store
-    loadProfiles(profiles);
+      // Load all profiles into the store
+      loadProfiles(profiles);
 
-    // Start game with selected profile IDs
-    const selectedProfileIds = shuffledProfiles.map((p) => p.id);
-    startGame(selectedProfileIds);
+      // Start game with selected profile IDs
+      const selectedProfileIds = shuffledProfiles.map((p) => p.id);
+      startGame(selectedProfileIds);
 
-    // Navigate to game page
-    window.location.href = `/game/${sessionId}`;
+      // Wait for state to be persisted before navigating
+      await forcePersist();
+
+      // Navigate to game page
+      window.location.href = `/game/${sessionId}`;
+    } catch (error) {
+      console.error('Failed to persist game state:', error);
+      setIsStarting(false);
+      // Error is logged, user can retry by clicking again
+    }
   };
 
-  const handleShuffleAll = () => {
+  const handleShuffleAll = async () => {
     if (isStarting) return;
 
     setIsStarting(true);
 
-    // Shuffle all profiles across all categories
-    const shuffledProfiles = shuffleArray(profiles);
+    try {
+      // Shuffle all profiles across all categories
+      const shuffledProfiles = shuffleArray(profiles);
 
-    // Load all profiles into the store
-    loadProfiles(profiles);
+      // Load all profiles into the store
+      loadProfiles(profiles);
 
-    // Start game with all profile IDs
-    const selectedProfileIds = shuffledProfiles.map((p) => p.id);
-    startGame(selectedProfileIds);
+      // Start game with all profile IDs
+      const selectedProfileIds = shuffledProfiles.map((p) => p.id);
+      startGame(selectedProfileIds);
 
-    // Navigate to game page
-    window.location.href = `/game/${sessionId}`;
+      // Wait for state to be persisted before navigating
+      await forcePersist();
+
+      // Navigate to game page
+      window.location.href = `/game/${sessionId}`;
+    } catch (error) {
+      console.error('Failed to persist game state:', error);
+      setIsStarting(false);
+      // Error is logged, user can retry by clicking again
+    }
   };
 
   return (
