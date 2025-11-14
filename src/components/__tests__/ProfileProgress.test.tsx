@@ -2,21 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { ProfileProgress } from '../ProfileProgress';
 
-// Mock react-i18next
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string, params?: Record<string, unknown>) => {
-      if (key === 'gamePlay.profileProgress.label') {
-        return `Profile ${params?.current} of ${params?.total}`;
-      }
-      if (key === 'gamePlay.profileProgress.ariaLabel') {
-        return `Profile progress: ${params?.current} of ${params?.total}`;
-      }
-      return key;
-    },
-  }),
-}));
-
 describe('ProfileProgress', () => {
   it('should render profile progress label correctly', () => {
     render(<ProfileProgress currentProfileIndex={3} totalProfiles={10} />);

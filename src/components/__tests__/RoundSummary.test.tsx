@@ -3,32 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { RoundSummary } from '../RoundSummary';
 
-// Mock react-i18next
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string, params?: Record<string, unknown>) => {
-      if (key === 'gamePlay.roundSummary.title') {
-        return 'Round Complete!';
-      }
-      if (key === 'gamePlay.roundSummary.profileName') {
-        return `Profile: ${params?.name}`;
-      }
-      if (key === 'gamePlay.roundSummary.playerScored') {
-        const count = params?.count as number;
-        const suffix = count === 1 ? 'point' : 'points';
-        return `${params?.playerName} scored ${count} ${suffix}!`;
-      }
-      if (key === 'gamePlay.roundSummary.noOneScored') {
-        return 'No one scored this round';
-      }
-      if (key === 'gamePlay.roundSummary.nextProfileButton') {
-        return 'Next Profile';
-      }
-      return key;
-    },
-  }),
-}));
-
 describe('RoundSummary', () => {
   it('should render with winner information', () => {
     const onContinue = vi.fn();

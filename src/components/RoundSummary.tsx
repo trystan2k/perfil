@@ -30,7 +30,7 @@ export function RoundSummary({
     <Dialog open={open} modal>
       <DialogContent
         aria-describedby="round-summary-description"
-        onInteractOutside={(e: Event) => e.preventDefault()}
+        onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader>
           <DialogTitle>{t('gamePlay.roundSummary.title')}</DialogTitle>

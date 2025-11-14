@@ -2,23 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { ClueProgress } from '../ClueProgress';
 
-// Mock react-i18next
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string, params?: Record<string, unknown>) => {
-      if (key === 'gamePlay.clueProgress.pointsRemaining') {
-        const count = params?.count as number;
-        const suffix = count === 1 ? 'point' : 'points';
-        return `${count} ${suffix} remaining`;
-      }
-      if (key === 'gamePlay.clueProgress.ariaLabel') {
-        return `Clue progress: ${params?.revealed} of ${params?.total} clues revealed`;
-      }
-      return key;
-    },
-  }),
-}));
-
 describe('ClueProgress', () => {
   it('should render points remaining correctly', () => {
     render(<ClueProgress cluesRevealed={3} totalClues={20} pointsRemaining={18} />);
