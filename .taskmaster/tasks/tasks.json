@@ -1340,6 +1340,76 @@
         ],
         "priority": "high",
         "subtasks": []
+      },
+      {
+        "id": 26,
+        "title": "Add four scoreboard action buttons with behavior",
+        "description": "Scoreboard should include four buttons: a) Start new fresh game (to initial screen), b) Start game with same participants (skip participant entry and proceed to category selection), c) Restart with same participants, categories, and rounds (reset state and restart), d) Close (close browser tab with graceful fallback).",
+        "details": "Acceptance criteria:\\n- UI on scoreboard shows four buttons with proper actions.\\n- Button (a) clears session and navigates to home/setup.\\n- Button (b) reuses participants and navigates to category selection.\\n- Button (c) restarts with same config and navigates to gameplay.\\n- Button (d) calls window.close(), with fallback messaging if blocked.",
+        "testStrategy": "- Unit tests verify button handlers call correct navigation/persistence actions.\\n- Integration tests verify navigation flows for (a)-(c).",
+        "status": "pending",
+        "dependencies": [
+          10,
+          9
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 27,
+        "title": "Persist language across the game and keep language selector visible on all screens",
+        "description": "Current language selection from the initial screen is not persisted when navigating to the game. The language switcher should be visible on all screens and persist across page navigation and refresh, so the app uses chosen language consistently in all islands (UI and data loading).",
+        "details": "Acceptance criteria:\\n- LanguageSwitcher renders in the global Layout across all pages.\\n- Selected locale is stored in a central place (i18n provider or app store) and rehydrated on load.\\n- React islands load translations and localized data using the persisted locale (e.g., /data/{locale}/profiles.json).\\n- Changing language updates UI immediately and persists across navigation/refresh.\\n- Tests (unit/integration) cover persistence and visibility.\\nTags: i18n, UX",
+        "testStrategy": "- Unit tests for language state persistence (mock storage) and LanguageSwitcher visibility.\\n- Integration test that switches language on a page, navigates to a game island, and verifies translations/data reflect the locale.",
+        "status": "pending",
+        "dependencies": [
+          11
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 28,
+        "title": "Remove 'player turn' UI — allow anyone to guess; MC awards points by tapping player's name",
+        "description": "Remove the active-turn UI so any participant can guess; MC awards points by tapping a player's name in the participant list when a guess is correct.",
+        "details": "Acceptance criteria:\\n- GamePlay no longer shows/enforce a current player turn UI.\\n- Pass/turn controls are removed; MC can still award points by tapping a player's name.\\n- AwardPoints flow remains intact and updates scores; multiplayer behavior preserved.\\nTags: gameplay, UX",
+        "testStrategy": "- Component tests ensure no active-turn UI and that tapping a player calls awardPoints.\\n- Store tests ensure awardPoints and progression work without a turn constraint.",
+        "status": "pending",
+        "dependencies": [
+          6,
+          8,
+          3
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 29,
+        "title": "Add rounds selection after category selection and implement round-category distribution",
+        "description": "After category selection (and Shuffle All), MC should specify number of rounds. The game runs exactly that many rounds. If a single category is selected, use it exclusively; if multiple categories, distribute per round with minimal repeats (prefer not more than ~2 repeats per category when rounds >> categories).",
+        "details": "Acceptance criteria:\\n- CategorySelect prompts for rounds count; rounds stored in game state.\\n- Game plays exactly N rounds; distribution respects single/multiple categories and shuffle rules.\\n- Includes unit tests for distribution algorithm and an integration test for flow from CategorySelect to GamePlay.",
+        "testStrategy": "- Unit tests for distribution function under various round/category scenarios.\\n- End-to-end test validating round count and category distribution flow.",
+        "status": "pending",
+        "dependencies": [
+          22,
+          16
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 30,
+        "title": "Fix game end navigation to always show scoreboard",
+        "description": "Ensure both end flows—finishing via Finish Game and running out of profiles—navigate to the scoreboard instead of a transient No Game page.",
+        "details": "Acceptance criteria:\\n- Finish Game navigates directly to scoreboard; no No Game screen.\\n- When all profiles completed, automatically show scoreboard.\\n- Navigation is deterministic and uses persisted state as needed.",
+        "testStrategy": "- Unit tests for endGame/navigation flow.\\n- E2E tests to verify scoreboard shows after finishing and after running out of profiles.",
+        "status": "pending",
+        "dependencies": [
+          10,
+          24
+        ],
+        "priority": "high",
+        "subtasks": []
       }
     ],
     "metadata": {
@@ -1352,7 +1422,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-14T15:00:47.375Z"
+      "updated": "2025-11-14T16:42:40.775Z"
     }
   }
 }
