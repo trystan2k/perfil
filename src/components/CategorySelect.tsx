@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useProfiles } from '@/hooks/useProfiles';
-import { useGameStore } from '@/stores/gameStore';
+import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface CategorySelectProps {
   sessionId: string;
@@ -112,7 +112,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   // Extract unique categories from profiles
   const categories = Array.from(new Set(profiles.map((profile) => profile.category))).sort();
 
-  const handleCategorySelect = (category: string) => {
+  const handleCategorySelect = async (category: string) => {
     if (isStarting) return;
 
     setIsStarting(true);
@@ -130,11 +130,14 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     const selectedProfileIds = shuffledProfiles.map((p) => p.id);
     startGame(selectedProfileIds);
 
+    // Wait for state to be persisted before navigating
+    await forcePersist();
+
     // Navigate to game page
     window.location.href = `/game/${sessionId}`;
   };
 
-  const handleShuffleAll = () => {
+  const handleShuffleAll = async () => {
     if (isStarting) return;
 
     setIsStarting(true);
@@ -148,6 +151,9 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     // Start game with all profile IDs
     const selectedProfileIds = shuffledProfiles.map((p) => p.id);
     startGame(selectedProfileIds);
+
+    // Wait for state to be persisted before navigating
+    await forcePersist();
 
     // Navigate to game page
     window.location.href = `/game/${sessionId}`;

@@ -132,6 +132,52 @@ export function cancelPendingPersistence(): void {
 }
 
 /**
+ * Force immediate persistence of current game state to IndexedDB
+ *
+ * Unlike `persistState`, this function bypasses the debounce mechanism and
+ * immediately saves the state. Use this before critical operations like navigation
+ * to ensure state is persisted before the page unloads.
+ *
+ * @returns Promise that resolves when persistence is complete
+ *
+ * @example
+ * ```typescript
+ * // Before navigating away
+ * await forcePersist();
+ * window.location.href = '/game/123';
+ * ```
+ */
+export async function forcePersist(): Promise<void> {
+  const state = useGameStore.getState();
+
+  // Skip persistence if no active session or if rehydration is in progress
+  if (!state.id || rehydratingSessionIds.has(state.id)) {
+    return;
+  }
+
+  const persistedState: PersistedGameState = {
+    id: state.id,
+    players: state.players,
+    currentTurn: state.currentTurn,
+    remainingProfiles: state.remainingProfiles,
+    totalCluesPerProfile: state.totalCluesPerProfile,
+    status: state.status,
+    category: state.category,
+    profiles: state.profiles,
+    selectedProfiles: state.selectedProfiles,
+    currentProfile: state.currentProfile,
+    totalProfilesCount: state.totalProfilesCount,
+  };
+
+  try {
+    await saveGameSession(persistedState);
+  } catch (error) {
+    console.error('Failed to force persist game state:', error);
+    throw error; // Re-throw to allow caller to handle
+  }
+}
+
+/**
  * Helper function to advance to the next profile
  * Returns partial state update for profile advancement
  */

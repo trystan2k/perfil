@@ -1491,4 +1491,119 @@ describe('gameStore', () => {
       );
     });
   });
+
+  describe('forcePersist', () => {
+    it('should immediately persist state without debounce', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+      const { forcePersist } = await import('../gameStore');
+
+      // Create a game first
+      await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+
+      // Clear previous calls
+      vi.mocked(saveGameSession).mockClear();
+
+      // Call forcePersist
+      await forcePersist();
+
+      // Should be called immediately (not debounced)
+      expect(saveGameSession).toHaveBeenCalledTimes(1);
+
+      const state = useGameStore.getState();
+      expect(saveGameSession).toHaveBeenCalledWith({
+        id: state.id,
+        players: state.players,
+        currentTurn: state.currentTurn,
+        remainingProfiles: state.remainingProfiles,
+        totalCluesPerProfile: state.totalCluesPerProfile,
+        status: state.status,
+        category: state.category,
+        profiles: state.profiles,
+        selectedProfiles: state.selectedProfiles,
+        currentProfile: state.currentProfile,
+        totalProfilesCount: state.totalProfilesCount,
+      });
+    });
+
+    it('should skip persistence if no session ID', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+      const { forcePersist } = await import('../gameStore');
+
+      // Clear previous calls
+      vi.mocked(saveGameSession).mockClear();
+
+      // Call forcePersist without creating a game
+      await forcePersist();
+
+      // Should not persist
+      expect(saveGameSession).not.toHaveBeenCalled();
+    });
+
+    it('should skip persistence during rehydration', async () => {
+      const { loadGameSession, saveGameSession } = await import('../../lib/gameSessionDB');
+      const { forcePersist } = await import('../gameStore');
+
+      const mockSession = {
+        id: 'rehydrating-session',
+        players: [{ id: '1', name: 'Test', score: 0 }],
+        currentTurn: null,
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'pending' as const,
+        category: undefined,
+        profiles: [],
+        selectedProfiles: [],
+        currentProfile: null,
+        totalProfilesCount: 0,
+      };
+
+      vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
+      vi.mocked(saveGameSession).mockClear();
+
+      // Start rehydration (loadFromStorage is async, don't await)
+      const loadPromise = useGameStore.getState().loadFromStorage('rehydrating-session');
+
+      // Try to forcePersist during rehydration
+      await forcePersist();
+
+      // Complete rehydration
+      await loadPromise;
+
+      // forcePersist should have been skipped during rehydration
+      expect(saveGameSession).not.toHaveBeenCalled();
+    });
+
+    it('should throw error if persistence fails', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+      const { forcePersist } = await import('../gameStore');
+
+      // Create a game first
+      await useGameStore.getState().createGame(['Player 1']);
+
+      // Mock failure
+      const error = new Error('IndexedDB error');
+      vi.mocked(saveGameSession).mockRejectedValueOnce(error);
+
+      // Should throw the error
+      await expect(forcePersist()).rejects.toThrow('IndexedDB error');
+    });
+
+    it('should persist multiple times when called consecutively', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+      const { forcePersist } = await import('../gameStore');
+
+      // Create a game
+      await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+
+      vi.mocked(saveGameSession).mockClear();
+
+      // Call forcePersist multiple times
+      await forcePersist();
+      await forcePersist();
+      await forcePersist();
+
+      // All should execute (no debouncing)
+      expect(saveGameSession).toHaveBeenCalledTimes(3);
+    });
+  });
 });

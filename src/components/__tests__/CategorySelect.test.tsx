@@ -13,6 +13,7 @@ const mockGetState = vi.fn();
 
 vi.mock('@/stores/gameStore', () => ({
   useGameStore: vi.fn(),
+  forcePersist: vi.fn().mockResolvedValue(undefined),
 }));
 
 // Mock window.location
