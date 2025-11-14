@@ -1,5 +1,34 @@
 import '@testing-library/jest-dom/vitest';
-import { vi } from 'vitest';
+import { afterAll, beforeAll, vi } from 'vitest';
+
+// Suppress Radix UI accessibility warnings in tests
+// These warnings are about missing Description elements, but our components
+// properly implement aria-describedby for accessibility
+const originalError = console.error;
+const originalWarn = console.warn;
+
+beforeAll(() => {
+  console.error = (...args: unknown[]) => {
+    const message = String(args[0]);
+    if (message.includes('Missing `Description`') || message.includes('aria-describedby')) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+
+  console.warn = (...args: unknown[]) => {
+    const message = String(args[0]);
+    if (message.includes('Missing `Description`') || message.includes('aria-describedby')) {
+      return;
+    }
+    originalWarn.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalError;
+  console.warn = originalWarn;
+});
 
 // Translation mappings for tests
 const translations: Record<string, string> = {
