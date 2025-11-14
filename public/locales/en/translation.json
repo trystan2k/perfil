@@ -61,7 +61,23 @@
     "finishGameButton": "Finish Game",
     "unknownPlayer": "Unknown Player",
     "category": "Category: {{category}}",
-    "profileProgression": "Profile {{current}} of {{total}}"
+    "profileProgression": "Profile {{current}} of {{total}}",
+    "profileProgress": {
+      "label": "Profile {{current}} of {{total}}",
+      "ariaLabel": "Profile progress: {{current}} of {{total}}"
+    },
+    "clueProgress": {
+      "pointsRemaining": "{{points}} points remaining",
+      "ariaLabel": "Clue progress: {{revealed}} of {{total}} clues revealed"
+    },
+    "roundSummary": {
+      "title": "Round Complete!",
+      "playerScored": "{{playerName}} scored {{points}} points!",
+      "noOneScored": "No one scored this round",
+      "profileName": "Profile: {{name}}",
+      "nextProfileButton": "Next Profile",
+      "closeAriaLabel": "Close round summary"
+    }
   },
   "categorySelect": {
     "title": "Select Category",

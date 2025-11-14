@@ -61,7 +61,23 @@
     "finishGameButton": "Finalizar Juego",
     "unknownPlayer": "Jugador Desconocido",
     "category": "Categoría: {{category}}",
-    "profileProgression": "Perfil {{current}} de {{total}}"
+    "profileProgression": "Perfil {{current}} de {{total}}",
+    "profileProgress": {
+      "label": "Perfil {{current}} de {{total}}",
+      "ariaLabel": "Progreso del perfil: {{current}} de {{total}}"
+    },
+    "clueProgress": {
+      "pointsRemaining": "{{points}} puntos restantes",
+      "ariaLabel": "Progreso de pistas: {{revealed}} de {{total}} pistas reveladas"
+    },
+    "roundSummary": {
+      "title": "¡Ronda Completada!",
+      "playerScored": "¡{{playerName}} anotó {{points}} puntos!",
+      "noOneScored": "Nadie anotó en esta ronda",
+      "profileName": "Perfil: {{name}}",
+      "nextProfileButton": "Siguiente Perfil",
+      "closeAriaLabel": "Cerrar resumen de ronda"
+    }
   },
   "categorySelect": {
     "title": "Seleccionar Categoría",
