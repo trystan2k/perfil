@@ -5,15 +5,19 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
 import { CategorySelect } from '../CategorySelect';
 
-// Mock the game store
-const mockLoadProfiles = vi.fn();
-const mockStartGame = vi.fn();
-const mockLoadFromStorage = vi.fn().mockResolvedValue(true);
-const mockGetState = vi.fn();
+// Mock the game store - use vi.hoisted to ensure mocks are available before vi.mock
+const { mockLoadProfiles, mockStartGame, mockLoadFromStorage, mockGetState, mockForcePersist } =
+  vi.hoisted(() => ({
+    mockLoadProfiles: vi.fn(),
+    mockStartGame: vi.fn(),
+    mockLoadFromStorage: vi.fn().mockResolvedValue(true),
+    mockGetState: vi.fn(),
+    mockForcePersist: vi.fn().mockResolvedValue(undefined),
+  }));
 
 vi.mock('@/stores/gameStore', () => ({
   useGameStore: vi.fn(),
-  forcePersist: vi.fn().mockResolvedValue(undefined),
+  forcePersist: mockForcePersist,
 }));
 
 // Mock window.location
@@ -175,7 +179,6 @@ describe('CategorySelect', () => {
     });
 
     it('should navigate to game page after category selection', async () => {
-      const { forcePersist } = await import('@/stores/gameStore');
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
@@ -186,7 +189,7 @@ describe('CategorySelect', () => {
       const categoryButton = screen.getByText('Countries');
       await user.click(categoryButton);
 
-      expect(forcePersist).toHaveBeenCalledTimes(1);
+      expect(mockForcePersist).toHaveBeenCalledTimes(1);
       expect(mockLocation.href).toBe('/game/test-session');
     });
 
@@ -230,7 +233,6 @@ describe('CategorySelect', () => {
     });
 
     it('should navigate to game page after Shuffle All', async () => {
-      const { forcePersist } = await import('@/stores/gameStore');
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
@@ -241,7 +243,7 @@ describe('CategorySelect', () => {
       const shuffleButton = screen.getByText('Shuffle All');
       await user.click(shuffleButton);
 
-      expect(forcePersist).toHaveBeenCalledTimes(1);
+      expect(mockForcePersist).toHaveBeenCalledTimes(1);
       expect(mockLocation.href).toBe('/game/test-session');
     });
   });
