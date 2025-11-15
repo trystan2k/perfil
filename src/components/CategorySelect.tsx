@@ -18,6 +18,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const [sessionError, setSessionError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [numberOfRounds, setNumberOfRounds] = useState<number>(5);
+  const [roundsInputError, setRoundsInputError] = useState<string | null>(null);
   const loadProfiles = useGameStore((state) => state.loadProfiles);
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
@@ -142,8 +143,20 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   const handleRoundsChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number.parseInt(e.target.value, 10);
-    if (!Number.isNaN(value) && value >= 1 && value <= 50) {
+
+    // Always update the value to make input responsive
+    if (!Number.isNaN(value)) {
       setNumberOfRounds(value);
+
+      // Validate and set error state
+      if (value < 1 || value > 50) {
+        setRoundsInputError('Invalid');
+      } else {
+        setRoundsInputError(null);
+      }
+    } else {
+      // Handle empty or invalid input
+      setRoundsInputError('Invalid');
     }
   };
 
@@ -182,7 +195,13 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
                 onChange={handleRoundsChange}
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
-              <p className="text-sm text-muted-foreground">{t('categorySelect.rounds.hint')}</p>
+              {roundsInputError ? (
+                <p className="text-sm text-destructive">
+                  {t('categorySelect.rounds.hint')} (Invalid value)
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground">{t('categorySelect.rounds.hint')}</p>
+              )}
             </div>
 
             <div className="flex gap-2">
@@ -197,7 +216,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
               </Button>
               <Button
                 onClick={handleStartGame}
-                disabled={isStarting || numberOfRounds < 1}
+                disabled={isStarting || roundsInputError !== null}
                 className="flex-1"
                 size="lg"
               >

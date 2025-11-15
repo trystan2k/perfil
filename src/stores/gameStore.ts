@@ -204,23 +204,9 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
   // Remove the current profile from the queue
   const remainingSelectedProfiles = state.selectedProfiles.slice(1);
 
-  // Increment the current round
-  const nextRound = state.currentRound + 1;
-
-  // Check if we've completed all rounds (after incrementing)
-  if (nextRound > state.numberOfRounds) {
-    // All rounds completed - end the game
-    return {
-      status: 'completed',
-      selectedProfiles: [],
-      currentProfile: null,
-      currentTurn: null,
-    };
-  }
-
   // Check if there are more profiles to play
   if (remainingSelectedProfiles.length === 0) {
-    // No more profiles - end the game
+    // No more profiles - all rounds completed, end the game
     return {
       status: 'completed',
       selectedProfiles: [],
@@ -236,6 +222,9 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
   if (!nextProfile) {
     throw new Error('Next profile not found');
   }
+
+  // Increment the current round counter
+  const nextRound = state.currentRound + 1;
 
   return {
     selectedProfiles: remainingSelectedProfiles,
@@ -386,6 +375,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         totalProfilesCount: profilesToPlay.length,
         numberOfRounds,
         currentRound: 1,
+        // Store the round plan for potential future features (e.g., round-specific UI, analytics)
         roundCategoryMap: roundPlan,
         currentTurn: {
           profileId: firstProfile.id,
@@ -518,9 +508,9 @@ export const useGameStore = create<GameState>((set, get) => ({
         selectedProfiles: loadedState.selectedProfiles,
         currentProfile: loadedState.currentProfile,
         totalProfilesCount: loadedState.totalProfilesCount || loadedState.selectedProfiles.length,
-        numberOfRounds: loadedState.numberOfRounds,
-        currentRound: loadedState.currentRound,
-        roundCategoryMap: loadedState.roundCategoryMap,
+        numberOfRounds: loadedState.numberOfRounds ?? 0,
+        currentRound: loadedState.currentRound ?? 0,
+        roundCategoryMap: loadedState.roundCategoryMap ?? [],
       });
 
       // Remove session ID from rehydrating set immediately after set() completes
