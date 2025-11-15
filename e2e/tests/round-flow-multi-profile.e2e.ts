@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Round flow with multiple profiles', () => {
+test.describe('Profile flow with multiple profiles', () => {
   test.beforeEach(async ({ page }) => {
     // Start from home for each test
     await page.goto('/');
@@ -40,7 +40,7 @@ test.describe('Round flow with multiple profiles', () => {
 
     // We should be on Game Play with Round 1
     await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
-    await expect(page.getByText('Round 1 of 3')).toBeVisible();
+    await expect(page.getByText('Profile 1 of 3', { exact: true })).toBeVisible();
 
     // Round 1: Show clue and award to Alice
     await page.getByRole('button', { name: 'Show Next Clue' }).click();
@@ -49,7 +49,7 @@ test.describe('Round flow with multiple profiles', () => {
     await page.getByRole('button', { name: 'Next Profile' }).click();
 
     // Round 2: Check Round header
-    await expect(page.getByText('Round 2 of 3')).toBeVisible();
+    await expect(page.getByText('Profile 2 of 3', { exact: true })).toBeVisible();
 
     // Round 2: Show clue, award to Bob
     await page.getByRole('button', { name: 'Show Next Clue' }).click();
@@ -58,7 +58,7 @@ test.describe('Round flow with multiple profiles', () => {
     await page.getByRole('button', { name: 'Next Profile' }).click();
 
     // Round 3: Check Round header
-    await expect(page.getByText('Round 3 of 3')).toBeVisible();
+    await expect(page.getByText('Profile 3 of 3', { exact: true })).toBeVisible();
 
     // Round 3: Show clue, award to Charlie
     await page.getByRole('button', { name: 'Show Next Clue' }).click();
@@ -103,7 +103,7 @@ test.describe('Round flow with multiple profiles', () => {
 
     // We should be on Game Play with Round 1
     await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
-    await expect(page.getByText('Round 1 of 2')).toBeVisible();
+    await expect(page.getByText('Profile 1 of 2', { exact: true })).toBeVisible();
 
     // Round 1: Show clue and award to Alex
     await page.getByRole('button', { name: 'Show Next Clue' }).click();
@@ -112,7 +112,7 @@ test.describe('Round flow with multiple profiles', () => {
     await page.getByRole('button', { name: 'Next Profile' }).click();
 
     // Round 2: Check Round header
-    await expect(page.getByText('Round 2 of 2')).toBeVisible();
+    await expect(page.getByText('Profile 2 of 2', { exact: true })).toBeVisible();
 
     // Round 2: Show clue, award to Jordan
     await page.getByRole('button', { name: 'Show Next Clue' }).click();

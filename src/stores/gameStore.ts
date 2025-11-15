@@ -251,16 +251,11 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
 
 /**
  * Generate a round plan that distributes categories across rounds
- * @param profiles - All available profiles
  * @param selectedCategories - Categories selected by user (single category or 'shuffle-all')
  * @param numberOfRounds - Number of rounds to play
  * @returns Array of category names, one per round
  */
-function generateRoundPlan(
-  _profiles: Profile[],
-  selectedCategories: string[],
-  numberOfRounds: number
-): string[] {
+function generateRoundPlan(selectedCategories: string[], numberOfRounds: number): string[] {
   const roundPlan: string[] = [];
 
   if (selectedCategories.length === 1) {
@@ -334,7 +329,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       }
 
       // Generate round plan
-      const roundPlan = generateRoundPlan(state.profiles, selectedCategories, numberOfRounds);
+      const roundPlan = generateRoundPlan(selectedCategories, numberOfRounds);
 
       // Select exactly numberOfRounds profiles based on the round plan
       const profilesToPlay: string[] = [];
