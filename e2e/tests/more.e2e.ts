@@ -19,6 +19,12 @@ test.describe('Additional game flows', () => {
     // Click Shuffle All
     await page.getByRole('button', { name: 'Shuffle All' }).click();
 
+    // Should show rounds selection
+    await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
+
+    // Start game with default rounds
+    await page.getByRole('button', { name: 'Start Game' }).click();
+
     // Game should load
     await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
   });
@@ -34,6 +40,17 @@ test.describe('Additional game flows', () => {
     // Select any category
     const firstCategory = page.locator('button').filter({ hasText: 'Famous People' }).first();
     await firstCategory.click();
+
+    // Should show rounds selection
+    await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
+
+    // Set 2 rounds for this test
+    const roundsInput = page.getByLabel('Number of rounds');
+    await roundsInput.clear();
+    await roundsInput.fill('2');
+
+    // Start game
+    await page.getByRole('button', { name: 'Start Game' }).click();
 
     // Reveal a clue and skip profile
     await page.getByRole('button', { name: 'Show Next Clue' }).click();
@@ -99,6 +116,12 @@ test.describe('Additional game flows', () => {
     // Ensure profiles are in Spanish by selecting a category and checking clue content language
     const firstCategory = page.locator('button').filter({ hasText: 'Personas Famosas' }).first();
     await firstCategory.click();
+
+    // Should show rounds selection
+    await expect(page.getByRole('heading', { name: 'Número de Rondas' })).toBeVisible();
+
+    // Start game with default rounds
+    await page.getByRole('button', { name: 'Iniciar Juego' }).click();
 
     // Reveal a clue and verify Spanish text present
     await page.getByRole('button', { name: 'Mostrar Siguiente Pista' }).click();

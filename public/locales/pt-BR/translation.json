@@ -6,7 +6,8 @@
     "retry": "Tentar Novamente",
     "category": "Categoria",
     "pts": "pts",
-    "returnHome": "Voltar ao Início"
+    "returnHome": "Voltar ao Início",
+    "back": "Voltar"
   },
   "languageSwitcher": {
     "ariaLabel": "Seletor de idioma",
@@ -47,6 +48,7 @@
       "title": "Nenhum Perfil Carregado",
       "description": "Nenhum perfil está carregado no momento. Por favor, inicie um novo jogo."
     },
+    "roundInfo": "Rodada {{current}} de {{total}}",
     "currentPlayer": "Jogador Atual",
     "clueCount": "Dica {{current}} de {{total}}",
     "pressShowNextClue": "Pressione \"Mostrar Próxima Dica\" para revelar a primeira dica",
@@ -94,7 +96,15 @@
       "sessionNotFoundDescription": "A sessão de jogo não pôde ser encontrada. Por favor, inicie um novo jogo."
     },
     "orLabel": "ou",
-    "shuffleAllButton": "Embaralhar Todos"
+    "shuffleAllButton": "Embaralhar Todos",
+    "rounds": {
+      "title": "Número de Rodadas",
+      "descriptionShuffleAll": "Quantas rodadas você gostaria de jogar com todos os perfis embaralhados?",
+      "descriptionCategory": "Quantas rodadas você gostaria de jogar com perfis de {{category}}?",
+      "label": "Número de rodadas",
+      "hint": "Escolha entre 1 e 50 rodadas",
+      "startButton": "Iniciar Jogo"
+    }
   },
   "scoreboard": {
     "title": "Placar",

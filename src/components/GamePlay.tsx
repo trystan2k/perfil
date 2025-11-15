@@ -30,6 +30,8 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const currentProfile = useGameStore((state) => state.currentProfile);
   const selectedProfiles = useGameStore((state) => state.selectedProfiles);
   const totalProfilesCount = useGameStore((state) => state.totalProfilesCount);
+  const numberOfRounds = useGameStore((state) => state.numberOfRounds);
+  const currentRound = useGameStore((state) => state.currentRound);
   const nextClue = useGameStore((state) => state.nextClue);
   const awardPoints = useGameStore((state) => state.awardPoints);
   const skipProfile = useGameStore((state) => state.skipProfile);
@@ -84,6 +86,13 @@ export function GamePlay({ sessionId }: GamePlayProps) {
       isMounted = false;
     };
   }, [sessionId, id, loadFromStorage, t]);
+
+  // Automatically navigate to scoreboard when game completes
+  useEffect(() => {
+    if (status === 'completed' && id) {
+      window.location.href = `/scoreboard/${id}`;
+    }
+  }, [status, id]);
 
   // Show loading state
   if (isLoading) {
@@ -255,6 +264,9 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
               {t('gamePlay.title')}
             </CardTitle>
             <CardDescription>
+              {numberOfRounds > 1 && (
+                <>{t('gamePlay.roundInfo', { current: currentRound, total: numberOfRounds })} - </>
+              )}
               {t('gamePlay.category', { category: currentProfile.category })} -{' '}
               {t('gamePlay.profileProgression', {
                 current: currentProfileIndex,

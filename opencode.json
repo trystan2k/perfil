@@ -22,7 +22,7 @@
     "task-master-ai": {
       "type": "local",
       "command": ["npx", "-y", "--package=task-master-ai", "task-master-ai"],
-      "enabled": true
+      "enabled": false
     },
     "context7": {
       "type": "remote",
@@ -36,7 +36,7 @@
     "github": {
       "type": "remote",
       "url": "https://api.githubcopilot.com/mcp/",
-      "enabled": true,
+      "enabled": false,
       "headers": {
         "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
       }

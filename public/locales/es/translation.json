@@ -6,7 +6,8 @@
     "retry": "Reintentar",
     "category": "Categoría",
     "pts": "pts",
-    "returnHome": "Volver al Inicio"
+    "returnHome": "Volver al Inicio",
+    "back": "Volver"
   },
   "languageSwitcher": {
     "ariaLabel": "Selector de idioma",
@@ -47,6 +48,7 @@
       "title": "Sin Perfil Cargado",
       "description": "No hay un perfil cargado actualmente. Por favor, inicia un nuevo juego."
     },
+    "roundInfo": "Ronda {{current}} de {{total}}",
     "currentPlayer": "Jugador Actual",
     "clueCount": "Pista {{current}} de {{total}}",
     "pressShowNextClue": "Presiona \"Mostrar Siguiente Pista\" para revelar la primera pista",
@@ -94,7 +96,15 @@
       "sessionNotFoundDescription": "No se pudo encontrar la sesión de juego. Por favor, inicia un nuevo juego."
     },
     "orLabel": "o",
-    "shuffleAllButton": "Mezclar Todos"
+    "shuffleAllButton": "Mezclar Todos",
+    "rounds": {
+      "title": "Número de Rondas",
+      "descriptionShuffleAll": "¿Cuántas rondas te gustaría jugar con todos los perfiles mezclados?",
+      "descriptionCategory": "¿Cuántas rondas te gustaría jugar con perfiles de {{category}}?",
+      "label": "Número de rondas",
+      "hint": "Elige entre 1 y 50 rondas",
+      "startButton": "Iniciar Juego"
+    }
   },
   "scoreboard": {
     "title": "Tabla de Posiciones",
