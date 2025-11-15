@@ -1444,13 +1444,94 @@
         "description": "After category selection (and Shuffle All), MC should specify number of rounds. The game runs exactly that many rounds. If a single category is selected, use it exclusively; if multiple categories, distribute per round with minimal repeats (prefer not more than ~2 repeats per category when rounds >> categories).",
         "details": "Acceptance criteria:\\n- CategorySelect prompts for rounds count; rounds stored in game state.\\n- Game plays exactly N rounds; distribution respects single/multiple categories and shuffle rules.\\n- Includes unit tests for distribution algorithm and an integration test for flow from CategorySelect to GamePlay.",
         "testStrategy": "- Unit tests for distribution function under various round/category scenarios.\\n- End-to-end test validating round count and category distribution flow.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           22,
           16
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create UI Component for Round Selection",
+            "description": "Develop a new React component, `RoundsSelector.tsx`, to allow the Master of Ceremonies (MC) to input the number of rounds after selecting a game category. This component will be integrated into the game setup flow.",
+            "dependencies": [],
+            "details": "The component should feature a numeric input for the round count and a 'Start Game' button. It will be conditionally rendered on the category selection page after a category choice is made. Ensure styling is consistent with the existing application theme.",
+            "status": "done",
+            "testStrategy": "Use Vitest with React Testing Library to create component tests. Verify that the component renders correctly, handles user input for the round count, and correctly triggers an action when the 'Start Game' button is clicked."
+          },
+          {
+            "id": 2,
+            "title": "Update Game State with Round Logic and Distribution Algorithm",
+            "description": "Enhance the Zustand store to manage the total number of rounds and a mapping of which category to use for each round. Implement the core distribution algorithm that assigns categories to rounds.",
+            "dependencies": [],
+            "details": "Add `numberOfRounds: number` and `roundCategoryMap: string[]` to the game state schema. Create a new store action, `generateRoundPlan(selectedCategories, rounds)`, which will populate these new state properties. The algorithm must handle single-category selections (repeating the category) and multi-category selections (distributing them as evenly as possible).",
+            "status": "done",
+            "testStrategy": "The core distribution logic will be tested via dedicated unit tests in a subsequent subtask. State changes can be verified by checking the store's state after the action is dispatched in tests."
+          },
+          {
+            "id": 3,
+            "title": "Write Unit Tests for the Category Distribution Algorithm",
+            "description": "Create a comprehensive suite of unit tests for the round-category distribution algorithm to ensure its correctness and robustness under various scenarios.",
+            "dependencies": [
+              2
+            ],
+            "details": "Using Vitest, test the `generateRoundPlan` logic. Test cases must include: a single category with N rounds; multiple categories where rounds < categories; rounds = categories; and rounds > categories. Assert that the resulting `roundCategoryMap` array has the correct length and that categories are distributed evenly to minimize repetition.",
+            "status": "done",
+            "testStrategy": "This task is focused on creating unit tests. The strategy is to write isolated tests that call the distribution function with predefined inputs and assert that the output matches the expected distribution pattern."
+          },
+          {
+            "id": 4,
+            "title": "Integrate Round Logic into the Main Game Flow",
+            "description": "Modify the primary `GamePlay` component to enforce the selected number of rounds and to use the generated round-category map to select profiles for each round.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Connect the `RoundsSelector` UI to the game state by calling the `generateRoundPlan` action on 'Start Game' click. Update the `GamePlay` component to track the `currentRound`. The game must end only when `currentRound` equals `numberOfRounds`. For each new round, use the `roundCategoryMap` to determine which category of profiles to use.",
+            "status": "done",
+            "testStrategy": "Component-level tests for `GamePlay` should be updated to mock the new round-related state properties and verify the component behaves correctly (e.g., displays the correct round number, ends at the right time)."
+          },
+          {
+            "id": 5,
+            "title": "Implement End-to-End Test for the Complete Rounds Flow",
+            "description": "Create a new integration test that covers the entire user journey from category selection, through round selection, to the completion of the specified number of game rounds.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Using an E2E testing framework like Playwright or Cypress, write a test that simulates an MC's actions: navigating to the setup page, selecting one or more categories, inputting a number of rounds, and starting the game. The test must assert that the game plays for the exact number of rounds entered and then correctly transitions to a game-over state.",
+            "status": "done",
+            "testStrategy": "This task is the implementation of an integration test. The test will serve as the final validation that the UI, state management, and game logic for the rounds feature are all working together as expected."
+          },
+          {
+            "id": 6,
+            "title": "Fix profile selection to match numberOfRounds",
+            "description": "Update startGame logic to select exactly numberOfRounds profiles instead of using all profiles. For single category, select N random profiles from that category. For multiple categories, distribute N profiles across categories using round-robin.",
+            "details": "Changes needed:\n1. Update startGame() in gameStore to select only numberOfRounds profiles\n2. For single category: shuffle and take first N profiles\n3. For multiple categories: use roundCategoryMap to pick one profile per category in round-robin order\n4. Remove roundCategoryMap generation (not needed anymore)\n5. Update tests to verify correct number of profiles selected",
+            "status": "in-progress",
+            "dependencies": [],
+            "parentTaskId": 29
+          },
+          {
+            "id": 7,
+            "title": "Update CategorySelect to pass selected categories to startGame",
+            "description": "Modify CategorySelect to track which categories were selected and pass them to startGame along with numberOfRounds. For single category selection, pass array with one category. For Shuffle All, pass all available categories.",
+            "details": "Changes needed:\n1. Track selectedCategories array in CategorySelect state\n2. For single category: selectedCategories = [categoryName]\n3. For Shuffle All: selectedCategories = all unique categories\n4. Pass selectedCategories to startGame()\n5. Update startGame signature to accept categories parameter",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 29
+          },
+          {
+            "id": 8,
+            "title": "Update tests to validate correct profile selection behavior",
+            "description": "Update all existing tests to verify that exactly numberOfRounds profiles are selected, and that they come from the correct categories based on the selection (single category vs multiple categories).",
+            "details": "Test scenarios to add/update:\n1. Single category, 5 rounds → exactly 5 profiles from that category\n2. Multiple categories, 10 rounds → exactly 10 profiles distributed across categories\n3. Shuffle all, 15 rounds → exactly 15 profiles from all categories\n4. Edge case: requesting more rounds than available profiles in category\n5. Verify selectedProfiles.length === numberOfRounds",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 29
+          }
+        ]
       },
       {
         "id": 30,
@@ -1477,7 +1558,7 @@
       ],
       "created": "2025-11-11T13:49:48.585Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-14T17:52:32.356Z"
+      "updated": "2025-11-14T19:16:13.103Z"
     }
   }
 }

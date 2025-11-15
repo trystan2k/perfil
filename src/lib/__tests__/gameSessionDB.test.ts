@@ -51,6 +51,9 @@ describe('gameSessionDB', () => {
     selectedProfiles: ['1', '2'],
     currentProfile: mockProfiles[0],
     totalProfilesCount: 1,
+    numberOfRounds: 5,
+    currentRound: 1,
+    roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
   };
 
   beforeEach(async () => {

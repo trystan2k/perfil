@@ -6,7 +6,8 @@
     "retry": "Retry",
     "category": "Category",
     "pts": "pts",
-    "returnHome": "Return to Home"
+    "returnHome": "Return to Home",
+    "back": "Back"
   },
   "languageSwitcher": {
     "ariaLabel": "Language selector",
@@ -47,6 +48,7 @@
       "title": "No Profile Loaded",
       "description": "No profile is currently loaded. Please start a new game."
     },
+    "roundInfo": "Round {{current}} of {{total}}",
     "currentPlayer": "Current Player",
     "clueCount": "Clue {{current}} of {{total}}",
     "pressShowNextClue": "Press \"Show Next Clue\" to reveal the first clue",
@@ -94,7 +96,15 @@
       "sessionNotFoundDescription": "The game session could not be found. Please start a new game."
     },
     "orLabel": "or",
-    "shuffleAllButton": "Shuffle All"
+    "shuffleAllButton": "Shuffle All",
+    "rounds": {
+      "title": "Number of Rounds",
+      "descriptionShuffleAll": "How many rounds would you like to play with all profiles shuffled?",
+      "descriptionCategory": "How many rounds would you like to play with {{category}} profiles?",
+      "label": "Number of rounds",
+      "hint": "Choose between 1 and 50 rounds",
+      "startButton": "Start Game"
+    }
   },
   "scoreboard": {
     "title": "Scoreboard",

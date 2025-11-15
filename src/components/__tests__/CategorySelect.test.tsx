@@ -170,12 +170,22 @@ describe('CategorySelect', () => {
       const categoryButton = screen.getByText('Famous People');
       await user.click(categoryButton);
 
-      expect(mockLoadProfiles).toHaveBeenCalledWith(mockProfilesData.profiles);
-      expect(mockStartGame).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
 
-      // Check that only Famous People profiles are included
-      const startGameCall = mockStartGame.mock.calls[0][0];
-      expect(startGameCall).toHaveLength(2); // 2 Famous People profiles
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      await user.click(startButton);
+
+      await waitFor(() => {
+        expect(mockLoadProfiles).toHaveBeenCalledWith(mockProfilesData.profiles);
+        expect(mockStartGame).toHaveBeenCalled();
+      });
+
+      // Should pass array of selected category (not profile IDs)
+      const [categoriesArg, roundsArg] = mockStartGame.mock.calls[0];
+      expect(categoriesArg).toEqual(['Famous People']);
+      expect(roundsArg).toBe(5); // default numberOfRounds
     });
 
     it('should navigate to game page after category selection', async () => {
@@ -189,8 +199,17 @@ describe('CategorySelect', () => {
       const categoryButton = screen.getByText('Countries');
       await user.click(categoryButton);
 
-      expect(mockForcePersist).toHaveBeenCalledTimes(1);
-      expect(mockLocation.href).toBe('/game/test-session');
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      await user.click(startButton);
+
+      await waitFor(() => {
+        expect(mockForcePersist).toHaveBeenCalledTimes(1);
+        expect(mockLocation.href).toBe('/game/test-session');
+      });
     });
 
     it('should disable buttons after selection', async () => {
@@ -204,11 +223,16 @@ describe('CategorySelect', () => {
       const categoryButton = screen.getByText('Movies');
       await user.click(categoryButton);
 
-      // All buttons should be disabled
-      expect(screen.getByText('Famous People')).toBeDisabled();
-      expect(screen.getByText('Countries')).toBeDisabled();
-      expect(screen.getByText('Movies')).toBeDisabled();
-      expect(screen.getByText('Shuffle All')).toBeDisabled();
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      await user.click(startButton);
+
+      await waitFor(() => {
+        expect(startButton).toBeDisabled();
+      });
     });
   });
 
@@ -224,12 +248,24 @@ describe('CategorySelect', () => {
       const shuffleButton = screen.getByText('Shuffle All');
       await user.click(shuffleButton);
 
-      expect(mockLoadProfiles).toHaveBeenCalledWith(mockProfilesData.profiles);
-      expect(mockStartGame).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
 
-      // Check that all profiles are included
-      const startGameCall = mockStartGame.mock.calls[0][0];
-      expect(startGameCall).toHaveLength(4); // All 4 profiles
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      await user.click(startButton);
+
+      await waitFor(() => {
+        expect(mockLoadProfiles).toHaveBeenCalledWith(mockProfilesData.profiles);
+        expect(mockStartGame).toHaveBeenCalled();
+      });
+
+      // Should pass all unique categories (not all profile IDs)
+      const [categoriesArg, roundsArg] = mockStartGame.mock.calls[0];
+      const expectedCategories = ['Famous People', 'Countries', 'Movies'];
+      expect(categoriesArg).toEqual(expect.arrayContaining(expectedCategories));
+      expect(categoriesArg).toHaveLength(3); // 3 unique categories
+      expect(roundsArg).toBe(5); // default numberOfRounds
     });
 
     it('should navigate to game page after Shuffle All', async () => {
@@ -243,8 +279,123 @@ describe('CategorySelect', () => {
       const shuffleButton = screen.getByText('Shuffle All');
       await user.click(shuffleButton);
 
-      expect(mockForcePersist).toHaveBeenCalledTimes(1);
-      expect(mockLocation.href).toBe('/game/test-session');
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      await user.click(startButton);
+
+      await waitFor(() => {
+        expect(mockForcePersist).toHaveBeenCalledTimes(1);
+        expect(mockLocation.href).toBe('/game/test-session');
+      });
+    });
+  });
+
+  describe('Rounds Selection', () => {
+    it('should show rounds input after selecting a category', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const categoryButton = screen.getByText('Famous People');
+      await user.click(categoryButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
+      });
+    });
+
+    it('should accept valid rounds input values', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Countries')).toBeInTheDocument();
+      });
+
+      const categoryButton = screen.getByText('Countries');
+      await user.click(categoryButton);
+
+      await waitFor(() => {
+        expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+      expect(roundsInput.value).toBe('5');
+      expect(roundsInput.type).toBe('number');
+    });
+
+    it('should allow going back to category selection', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Movies')).toBeInTheDocument();
+      });
+
+      const categoryButton = screen.getByText('Movies');
+      await user.click(categoryButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const backButton = screen.getByText('common.back');
+      await user.click(backButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('Select Category')).toBeInTheDocument();
+        expect(screen.getByText('Movies')).toBeInTheDocument();
+      });
+    });
+
+    it('should have default value of 5 rounds', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const categoryButton = screen.getByText('Famous People');
+      await user.click(categoryButton);
+
+      await waitFor(() => {
+        expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+
+      expect(roundsInput.value).toBe('5');
+      expect(roundsInput.min).toBe('1');
+      expect(roundsInput.max).toBe('50');
+    });
+
+    it('should have min and max constraints on rounds input', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Countries')).toBeInTheDocument();
+      });
+
+      const categoryButton = screen.getByText('Countries');
+      await user.click(categoryButton);
+
+      await waitFor(() => {
+        expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+
+      expect(roundsInput.min).toBe('1');
+      expect(roundsInput.max).toBe('50');
     });
   });
 

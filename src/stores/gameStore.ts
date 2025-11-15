@@ -11,9 +11,12 @@ interface GameState extends GameSession {
   selectedProfiles: string[];
   currentProfile: Profile | null;
   totalProfilesCount: number;
+  numberOfRounds: number;
+  currentRound: number;
+  roundCategoryMap: string[];
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
-  startGame: (selectedProfileIds: string[]) => void;
+  startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
   nextClue: () => void;
   awardPoints: (playerId: string) => void;
   skipProfile: () => void;
@@ -43,6 +46,9 @@ const initialState: Omit<
   selectedProfiles: [],
   currentProfile: null,
   totalProfilesCount: 0,
+  numberOfRounds: 0,
+  currentRound: 0,
+  roundCategoryMap: [],
 };
 
 // Track rehydration operations with a Set of session IDs to handle concurrency
@@ -77,6 +83,9 @@ function buildPersistedState(state: GameState): PersistedGameState {
     selectedProfiles: state.selectedProfiles,
     currentProfile: state.currentProfile,
     totalProfilesCount: state.totalProfilesCount,
+    numberOfRounds: state.numberOfRounds,
+    currentRound: state.currentRound,
+    roundCategoryMap: state.roundCategoryMap,
   };
 }
 
@@ -197,7 +206,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
 
   // Check if there are more profiles to play
   if (remainingSelectedProfiles.length === 0) {
-    // No more profiles - end the game
+    // No more profiles - all rounds completed, end the game
     return {
       status: 'completed',
       selectedProfiles: [],
@@ -214,15 +223,46 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
     throw new Error('Next profile not found');
   }
 
+  // Increment the current round counter
+  const nextRound = state.currentRound + 1;
+
   return {
     selectedProfiles: remainingSelectedProfiles,
     currentProfile: nextProfile,
+    currentRound: nextRound,
     currentTurn: {
       profileId: nextProfile.id,
       cluesRead: 0,
       revealed: false,
     },
   };
+}
+
+/**
+ * Generate a round plan that distributes categories across rounds
+ * @param selectedCategories - Categories selected by user (single category or 'shuffle-all')
+ * @param numberOfRounds - Number of rounds to play
+ * @returns Array of category names, one per round
+ */
+function generateRoundPlan(selectedCategories: string[], numberOfRounds: number): string[] {
+  const roundPlan: string[] = [];
+
+  if (selectedCategories.length === 1) {
+    // Single category: repeat it for all rounds
+    const category = selectedCategories[0];
+    for (let i = 0; i < numberOfRounds; i++) {
+      roundPlan.push(category);
+    }
+  } else {
+    // Multiple categories: distribute evenly with minimal repeats
+    // Use round-robin distribution
+    for (let i = 0; i < numberOfRounds; i++) {
+      const categoryIndex = i % selectedCategories.length;
+      roundPlan.push(selectedCategories[categoryIndex]);
+    }
+  }
+
+  return roundPlan;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -246,6 +286,9 @@ export const useGameStore = create<GameState>((set, get) => ({
       selectedProfiles: [],
       currentProfile: null,
       totalProfilesCount: 0,
+      numberOfRounds: 0,
+      currentRound: 0,
+      roundCategoryMap: [],
     };
 
     set(newState);
@@ -255,18 +298,69 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({ profiles });
     persistState(get());
   },
-  startGame: (selectedProfileIds: string[]) => {
+  startGame: (selectedCategories: string[], numberOfRounds = 1) => {
     set((state) => {
       if (state.players.length === 0) {
         throw new Error('Cannot start game without players');
       }
 
-      if (selectedProfileIds.length === 0) {
-        throw new Error('Cannot start game without selected profiles');
+      if (selectedCategories.length === 0) {
+        throw new Error('Cannot start game without selected categories');
       }
 
-      // Find the first profile from selectedProfileIds
-      const firstProfileId = selectedProfileIds[0];
+      // Filter profiles by selected categories
+      const selectedProfiles = state.profiles.filter((p) =>
+        selectedCategories.includes(p.category)
+      );
+
+      if (selectedProfiles.length === 0) {
+        throw new Error('No profiles found for selected categories');
+      }
+
+      // Generate round plan
+      const roundPlan = generateRoundPlan(selectedCategories, numberOfRounds);
+
+      // Select exactly numberOfRounds profiles based on the round plan
+      const profilesToPlay: string[] = [];
+      const availableProfilesByCategory = new Map<string, string[]>();
+
+      // Group available profiles by category
+      for (const profile of selectedProfiles) {
+        if (!availableProfilesByCategory.has(profile.category)) {
+          availableProfilesByCategory.set(profile.category, []);
+        }
+        availableProfilesByCategory.get(profile.category)?.push(profile.id);
+      }
+
+      // Shuffle profiles within each category for randomness
+      for (const [category, profileIds] of availableProfilesByCategory.entries()) {
+        const shuffled = [...profileIds];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        availableProfilesByCategory.set(category, shuffled);
+      }
+
+      // Pick one profile from each category in the round plan
+      const usedIndices = new Map<string, number>();
+      for (const category of roundPlan) {
+        const categoryProfiles = availableProfilesByCategory.get(category) || [];
+        const currentIndex = usedIndices.get(category) || 0;
+
+        if (currentIndex < categoryProfiles.length) {
+          profilesToPlay.push(categoryProfiles[currentIndex]);
+          usedIndices.set(category, currentIndex + 1);
+        } else {
+          // Fallback: reuse profiles if we run out (wrap around)
+          const wrappedIndex = currentIndex % categoryProfiles.length;
+          profilesToPlay.push(categoryProfiles[wrappedIndex]);
+          usedIndices.set(category, currentIndex + 1);
+        }
+      }
+
+      // Find the first profile
+      const firstProfileId = profilesToPlay[0];
       const firstProfile = state.profiles.find((p) => p.id === firstProfileId);
 
       if (!firstProfile) {
@@ -276,9 +370,13 @@ export const useGameStore = create<GameState>((set, get) => ({
       const newState = {
         status: 'active' as GameStatus,
         category: firstProfile.category,
-        selectedProfiles: [...selectedProfileIds],
+        selectedProfiles: profilesToPlay,
         currentProfile: firstProfile,
-        totalProfilesCount: selectedProfileIds.length,
+        totalProfilesCount: profilesToPlay.length,
+        numberOfRounds,
+        currentRound: 1,
+        // Store the round plan for potential future features (e.g., round-specific UI, analytics)
+        roundCategoryMap: roundPlan,
         currentTurn: {
           profileId: firstProfile.id,
           cluesRead: 0,
@@ -410,6 +508,9 @@ export const useGameStore = create<GameState>((set, get) => ({
         selectedProfiles: loadedState.selectedProfiles,
         currentProfile: loadedState.currentProfile,
         totalProfilesCount: loadedState.totalProfilesCount || loadedState.selectedProfiles.length,
+        numberOfRounds: loadedState.numberOfRounds ?? 0,
+        currentRound: loadedState.currentRound ?? 0,
+        roundCategoryMap: loadedState.roundCategoryMap ?? [],
       });
 
       // Remove session ID from rehydrating set immediately after set() completes

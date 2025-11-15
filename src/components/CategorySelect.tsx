@@ -1,5 +1,5 @@
 import { Shuffle } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { type ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,26 +10,19 @@ interface CategorySelectProps {
   sessionId: string;
 }
 
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
 export function CategorySelect({ sessionId }: CategorySelectProps) {
   const { t } = useTranslation();
   const { data: profilesData, isLoading, error } = useProfiles();
   const [isStarting, setIsStarting] = useState(false);
   const [sessionLoading, setSessionLoading] = useState(true);
   const [sessionError, setSessionError] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [numberOfRounds, setNumberOfRounds] = useState<number>(5);
+  const [roundsInputError, setRoundsInputError] = useState<string | null>(null);
   const loadProfiles = useGameStore((state) => state.loadProfiles);
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
 
-  // Load session from IndexedDB on mount
   useEffect(() => {
     const loadSession = async () => {
       try {
@@ -109,67 +102,132 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   const profiles = profilesData.profiles;
 
-  // Extract unique categories from profiles
   const categories = Array.from(new Set(profiles.map((profile) => profile.category))).sort();
 
-  const handleCategorySelect = async (category: string) => {
-    if (isStarting) return;
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+  };
+
+  const handleShuffleAll = () => {
+    setSelectedCategory('shuffle-all');
+  };
+
+  const handleStartGame = async () => {
+    if (isStarting || !selectedCategory) return;
 
     setIsStarting(true);
 
     try {
-      // Filter profiles by selected category
-      const categoryProfiles = profiles.filter((p) => p.category === category);
+      let selectedCategories: string[];
 
-      // Shuffle profiles within the category
-      const shuffledProfiles = shuffleArray(categoryProfiles);
+      if (selectedCategory === 'shuffle-all') {
+        // Pass all unique categories
+        selectedCategories = Array.from(new Set(profiles.map((p) => p.category)));
+      } else {
+        // Pass single selected category
+        selectedCategories = [selectedCategory];
+      }
 
-      // Load all profiles into the store
       loadProfiles(profiles);
 
-      // Start game with selected profile IDs
-      const selectedProfileIds = shuffledProfiles.map((p) => p.id);
-      startGame(selectedProfileIds);
+      startGame(selectedCategories, numberOfRounds);
 
-      // Wait for state to be persisted before navigating
       await forcePersist();
 
-      // Navigate to game page
       window.location.href = `/game/${sessionId}`;
     } catch (error) {
       console.error('Failed to persist game state:', error);
       setIsStarting(false);
-      // Error is logged, user can retry by clicking again
     }
   };
 
-  const handleShuffleAll = async () => {
-    if (isStarting) return;
+  const handleRoundsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = Number.parseInt(e.target.value, 10);
 
-    setIsStarting(true);
+    // Always update the value to make input responsive
+    if (!Number.isNaN(value)) {
+      setNumberOfRounds(value);
 
-    try {
-      // Shuffle all profiles across all categories
-      const shuffledProfiles = shuffleArray(profiles);
-
-      // Load all profiles into the store
-      loadProfiles(profiles);
-
-      // Start game with all profile IDs
-      const selectedProfileIds = shuffledProfiles.map((p) => p.id);
-      startGame(selectedProfileIds);
-
-      // Wait for state to be persisted before navigating
-      await forcePersist();
-
-      // Navigate to game page
-      window.location.href = `/game/${sessionId}`;
-    } catch (error) {
-      console.error('Failed to persist game state:', error);
-      setIsStarting(false);
-      // Error is logged, user can retry by clicking again
+      // Validate and set error state
+      if (value < 1 || value > 50) {
+        setRoundsInputError('Invalid');
+      } else {
+        setRoundsInputError(null);
+      }
+    } else {
+      // Handle empty or invalid input
+      setRoundsInputError('Invalid');
     }
   };
+
+  const handleBackToCategories = () => {
+    setSelectedCategory(null);
+  };
+
+  if (selectedCategory) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              {t('categorySelect.rounds.title')}
+            </CardTitle>
+            <CardDescription>
+              {selectedCategory === 'shuffle-all'
+                ? t('categorySelect.rounds.descriptionShuffleAll')
+                : t('categorySelect.rounds.descriptionCategory', { category: selectedCategory })}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <label
+                htmlFor="rounds-input"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {t('categorySelect.rounds.label')}
+              </label>
+              <input
+                id="rounds-input"
+                type="number"
+                min="1"
+                max="50"
+                value={numberOfRounds}
+                onChange={handleRoundsChange}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+              {roundsInputError ? (
+                <p className="text-sm text-destructive">
+                  {t('categorySelect.rounds.hint')} (Invalid value)
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground">{t('categorySelect.rounds.hint')}</p>
+              )}
+            </div>
+
+            <div className="flex gap-2">
+              <Button
+                onClick={handleBackToCategories}
+                disabled={isStarting}
+                className="flex-1"
+                variant="outline"
+                size="lg"
+              >
+                {t('common.back')}
+              </Button>
+              <Button
+                onClick={handleStartGame}
+                disabled={isStarting || roundsInputError !== null}
+                className="flex-1"
+                size="lg"
+              >
+                {t('categorySelect.rounds.startButton')}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -181,7 +239,6 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
           <CardDescription>{t('categorySelect.description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {/* Category Buttons */}
           <div className="space-y-2">
             {categories.map((category) => (
               <Button
@@ -197,7 +254,6 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
             ))}
           </div>
 
-          {/* Divider */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t" />
@@ -209,7 +265,6 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
             </div>
           </div>
 
-          {/* Shuffle All Button */}
           <Button onClick={handleShuffleAll} disabled={isStarting} className="w-full" size="lg">
             <Shuffle className="mr-2 h-5 w-5" />
             {t('categorySelect.shuffleAllButton')}

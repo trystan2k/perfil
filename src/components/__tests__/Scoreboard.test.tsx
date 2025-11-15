@@ -57,6 +57,9 @@ describe('Scoreboard', () => {
     selectedProfiles: ['1', '2', '3'],
     currentProfile: null,
     totalProfilesCount: 0,
+    numberOfRounds: 5,
+    currentRound: 1,
+    roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
   };
 
   it('should render loading state initially', () => {
