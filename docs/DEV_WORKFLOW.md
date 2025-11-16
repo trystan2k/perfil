@@ -145,6 +145,7 @@ For tasks with subtasks, follow this cycle for each subtask:
 ### 9. 📝 DEVELOPMENT LOGGING
 
 - **Action**: Use **Basic Memory MCP** to log development details of the task.
+- **Action**: Once it is inserted in basic memory DB, export the memory for the task to a physical file to `docs/memories/development-logs`
 
 ### 10. 📝 COMMIT CYCLE
 
