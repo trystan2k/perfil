@@ -1,5 +1,11 @@
 # Development Workflow Guide
 
+## ‼️ IMPORTANT: ubagents delegation
+
+1. **GIT**: When any git operation needs to be done, delegate it to the @git-specialist subagent with all needed information
+2. **TASK-MASTER**: When any operation needs to be done in task-master, delegate it to the @task-master-specialist subagent with all needed information
+3. **BASIC-MEMORY**: When any operation needs to be done in basic memory, delegate it to the @basic-memory-specialist subagent with all needed information
+
 ## 🚨 CRITICAL: MANDATORY READING AFTER CONVERSATION COMPACTION
 
 **AFTER ANY CONVERSATION COMPACTION (summary/compact action), you MUST:**
@@ -35,6 +41,7 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 
 ### 1. 📋 TASK RECEPTION
 
+- **Attention**: Delegate the any action to the respective subagents, don't do it in the main agent.
 - **Action**: Await clear instructions on which task to implement
 - Receive the task or subtask to be developed
 - Identify the task ID in the Task Master system
@@ -42,15 +49,14 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 - Ensure that your are at `main` branch, otherwise, checkout it.
 - **Action**: Run `git pull` to ensure that your branch is up-to-date with remote.
 - **Attention**:If there are changes that are not committed, stash them checkout and pull `main` and then unstash the changes.
-- **Action**: Create a feature branch based on `main` and do your work on this feature branch
-- Create one feature branch per task ID and commit all subtasks in this same branch (do not create branch for subtasks)
-- Feature branch should follow the pattern `feature/PER-[ID]-[title]`
-- **Action**: Check if task is already expanded, otherwise expand it using task-master
+- **Action**: Ask git subagent to create a feature branch based on `main` and do your work on this feature branch with this details:
+  - Create one feature branch per task ID and commit all subtasks in this same branch (do not create branch for subtasks)
+  - Feature branch should follow the pattern `feature/PER-[ID]-[title]`
+- **Attention**: If the task is not expanded, ask the @task-master-specialist subagent to expand it first.
 
 ### 2. 🔍 OBTAINING DETAILS
 
-- **Action**: Use **Task Master CLI** to get full details
-- Task master CLI commands can be found at `docs/TASK_MASTER.md`
+- **Action**: Ask the @task-master-specialist subagent to get full details of the task
 - Extract essential information:
   - Title and description
   - Dependencies
@@ -92,7 +98,7 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 
 ### 4. 📊 STATUS UPDATE - START
 
-- **Action**: Mark the task/subtask as `in-progress` in Task Master
+- **Action**: Mark the task/subtask as `in-progress` in Task Master (delegate to the @task-master-specialist subagent)
 - Confirm that the status has been successfully updated
 
 ### 5. ⚙️ IMPLEMENTATION
@@ -137,6 +143,7 @@ For tasks with subtasks, follow this cycle for each subtask:
 
 ### 8. ✅ TASK STATUS UPDATE - COMPLETION
 
+- **Attention**: Remember to delegate these actions to the @task-master-specialist subagent
 - **Action**: Update the task with complete implementation details covering all subtasks
 - **Action**: Mark the task as `done` in Task Master
 - Confirm that the status has been updated correctly
@@ -144,11 +151,12 @@ For tasks with subtasks, follow this cycle for each subtask:
 
 ### 9. 📝 DEVELOPMENT LOGGING
 
-- **Action**: Use **Basic Memory MCP** to log development details of the task.
-- **Action**: Once it is inserted in basic memory DB, export the memory for the task to a physical file to `docs/memories/development-logs`
+- **Action**: Ask the @basic-memory-specialist subagent to log development details of the task.
+- **Action**: Once it is inserted in basic memory DB, export the memory for the task to a physical file to `docs/memories/development-logs` (delegate to the @basic-memory-specialist subagent)
 
 ### 10. 📝 COMMIT CYCLE
 
+- **Attention**: Remember to delegate this action to the @git-specialist subagent
 - **Action**: Before commit, ask me to review the changes and only continue after my ok
 - **Action**: Ask me if I did any code change during review. If so, review the changes and use this info for the commit
 - **Action**: Run `pnpm run complete-check` one final time before commit
@@ -169,15 +177,17 @@ type(scope): brief description of actual work done
 
 ### 12. 💾 FINAL PUSH
 
+- **Attention**: Remember to delegate this action to the @git-specialist subagent
 - **🚨 CRITICAL**: ALWAYS ask for explicit permission before pushing - NEVER push without user confirmation
 - **Action**: Ask permission for final push of all task commits to feature branch (only after receiving permission)
 - Only push when all subtasks and task are complete and documented
 
 ### 13. ⛄ OPENING THE PULL REQUEST
 
+- **Attention**: Remember to delegate this action to the @git-specialist subagent
 - **Action**: Before create the PR, ask for my approval.
-Use the Github MCP (or if not available Github CLI) to open a PR with a comprehensive and accurate description of the implementation.
-- **Action**: Use Github MCP to request review from Copilot
+- **Action**: Ask @git-specialist subagent to create a Pull Request Use with a comprehensive and accurate description of the implementation.
+- **Action**: Ask @git-specialist subagent to request review from Copilot
 **NEVER** Add any comment releated to the Agent doing the Pull request (for example, avoid any reference to opencode, claude code, gemini, etc) and to the task or subtasks IDs.
 
 ### 14. 📢 COMPLETION NOTIFICATION
@@ -215,7 +225,7 @@ pnpm run build
 - [ ] Task clearly understood
 - [ ] Load the appropriate CONTEXT.md file, for the project that the task is related to (frontend or api) from docs folder
 - [ ] Details obtained via Task Master
-- [ ] **Serena MCP activated** - Use `serena_activate_project` if needed
+- [ ] **Serena MCP activated** - Try to use `serena_activate_project` whenever possible
 - [ ] **Project context reviewed** - Use `serena_read_memory` to review relevant project knowledge
 - [ ] Deepthink plan created and validated
 - [ ] Status updated to `in-progress`
@@ -245,10 +255,10 @@ pnpm run build
 
 ### ✅ After Completion
 
-- [ ] Task status updated to `done`
-- [ ] Log recorded in Basic Memory MCP
-- [ ] Final push completed with all commits
-- [ ] PR created and Copilot review requested
+- [ ] Task status updated to `done` via @task-master-specialist subagent
+- [ ] Log recorded in basic-memory via @basic-memory-specialist subagent
+- [ ] Final push completed with all commits via @git-specialist subagent
+- [ ] PR created and Copilot review requested via @git-specialist subagent
 - [ ] Completion notification sent
 
 ---
