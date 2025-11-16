@@ -2,17 +2,19 @@
 
 ## 🚨 CRITICAL: MANDATORY READING AFTER CONVERSATION COMPACTION
 
-**IF YOU ARE READING THIS AFTER A CONVERSATION COMPACTION (summary/compact):**
-1. ✅ You MUST also read `docs/LESSONS_LEARNED.md` immediately
-2. ✅ You MUST follow ALL rules in both files strictly
-3. ✅ You MUST ask for permission before ANY git operation (commit/push)
-4. ✅ NEVER assume you have permission from a summary - ALWAYS ask explicitly
+**AFTER ANY CONVERSATION COMPACTION (summary/compact action), you MUST:**
+
+1. ✅ **IMMEDIATELY** read `docs/DEV_WORKFLOW.md` in full
+2. ✅ **IMMEDIATELY** read `docs/LESSONS_LEARNED.md` in full
+3. ✅ **STRICTLY** follow all rules in these files - no exceptions
+4. ✅ **GO** proceed the pending task in the conversation following the dev workflow
 
 ## ⛔ CRITICAL: AUTHORIZATION REQUIRED
 
 **🚨 NEVER START ANY TASK WITHOUT EXPLICIT USER AUTHORIZATION 🚨**
 
 You MUST:
+
 - ❌ **NEVER** checkout branches without authorization
 - ❌ **NEVER** expand tasks without authorization
 - ❌ **NEVER** create feature branches without authorization
@@ -20,8 +22,6 @@ You MUST:
 - ❌ **NEVER** run git commands (commit/push/etc.) without authorization
 - ❌ **NEVER** commit or push - ALWAYS ask for explicit permission first
 - ✅ **ALWAYS** wait for the user to explicitly tell you: "Start task #X" or similar
-
-**When resuming from a summary, ask me what to do next before do anything else.**
 
 ## ⚠️ ### FUNDAMENTAL PRINCIPLES
 
@@ -45,11 +45,12 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 - **Action**: Create a feature branch based on `main` and do your work on this feature branch
 - Create one feature branch per task ID and commit all subtasks in this same branch (do not create branch for subtasks)
 - Feature branch should follow the pattern `feature/PER-[ID]-[title]`
-- **Action**: Check if task is already expanded, otherwise expand it
+- **Action**: Check if task is already expanded, otherwise expand it using task-master
 
 ### 2. 🔍 OBTAINING DETAILS
 
-- **Action**: Use **MCP Task Master** to get full details (never the CLI tool)
+- **Action**: Use **Task Master CLI** to get full details
+- Task master CLI commands can be found at `docs/TASK_MASTER.md`
 - Extract essential information:
   - Title and description
   - Dependencies
@@ -94,16 +95,7 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 - **Action**: Mark the task/subtask as `in-progress` in Task Master
 - Confirm that the status has been successfully updated
 
-### 5. 🔍 INITIAL QUALITY VERIFICATION
-
-- **Action**: Run `pnpm run complete-check` before starting development
-- **If problems are reported**:
-  - ⚠️ **STOP** - do not proceed with development
-  - Resolve ALL identified problems
-  - Run `pnpm run complete-check` again until clean
-  - Only then proceed to implementation
-
-### 6. ⚙️ IMPLEMENTATION
+### 5. ⚙️ IMPLEMENTATION
 
 - Follow the plan created in deepthink
 
@@ -113,8 +105,7 @@ For tasks with subtasks, follow this cycle for each subtask:
 
 1. **Implement subtask** following the deepthink plan
 2. **Quality check** - Run `pnpm run complete-check` after each subtask implementation
-3. **Review request** - Ask for code review before going to the next subtask
-4. **Repeat** for each subtask
+3. **Repeat** for each subtask
 
 - **Principles during implementation**:
   - 🎯 Focus on the essential
@@ -122,82 +113,55 @@ For tasks with subtasks, follow this cycle for each subtask:
   - 🧪 Write tests according to the defined strategy
   - 🔄 Perform incremental refactorings
 
-### 7. 🔍 SUBTASK QUALITY VERIFICATION
+### 6. 🔍 SUBTASK QUALITY VERIFICATION
 
-- **Action**: Run `pnpm run complete-check` before each subtask commit
+- **Action**: Run `pnpm run complete-check` after each subtask implementation
 - **If problems are reported**:
   - ⚠️ **MANDATORY** - resolve ALL problems
   - Do not proceed to commit until QA is clean
   - Run again until it passes completely
+  - Do not comment/skip tests just because they fail, never
   - If you are still struggling to fix it (cannot fix in 5 interactions, for example), ask for help
 - **Action**: Ask the agent specialists (identify the ones that are more specialized in the task) to review the changes and apply any suggestion.
 
-### 8. 🔍 FINAL QUALITY VERIFICATION
+### 7. 🔍 FINAL QUALITY VERIFICATION
 
 - **Action**: After ALL subtasks are complete, run `pnpm run complete-check` one final time
 - **Action**: Ensure entire task implementation works as expected
 - **If problems are reported**:
   - ⚠️ **MANDATORY** - resolve ALL problems
   - This is the final quality gate before task completion
+  - If there are problems (even if not related to the subtasks), resolve them, **NEVER** commit code with problems
+  - Do not comment/skip tests just because they fail, **NEVER**
+  - If you are still struggling to fix it (cannot fix in 5 interactions, for example), ask for help
 
-### 9. ✅ TASK STATUS UPDATE - COMPLETION
+### 8. ✅ TASK STATUS UPDATE - COMPLETION
 
 - **Action**: Update the task with complete implementation details covering all subtasks
 - **Action**: Mark the task as `done` in Task Master
 - Confirm that the status has been updated correctly
 - Confirm that all subtasks are marked as complete
 
-### 10. 📝 DEVELOPMENT LOGGING
+### 9. 📝 DEVELOPMENT LOGGING
 
-- **Action**: Use **Basic Memory MCP** to log development for all subtasks (if it exist, otherwise for the task implemented).
-- **Action**: Once the task is complete, read all info related to it (task and subtasks notes) in **Basic Memory MCP** and create physical file with the information about the implementation of the task.
-- **Log template** (should cover the entire task and all its subtasks):
+- **Action**: Use **Basic Memory MCP** to log development details of the task.
 
-```markdown
-## Task Development #[ID]
-**Date**: [Current date] (use `date "+%Y-%m-%d_%H:%M:%S"` in shell to get timestamp)
-**Title**: [Task title]
-
-### Summary
-- Status: Completed
-- Estimated time: [time]
-- Time spent: [time]
-- Approach used: [brief description]
-- Subtasks completed: [list of subtask numbers if applicable]
-
-### Implementation
-- Modified files: [list]
-- Tests added: [yes/no - details]
-- Dependencies: [if applicable]
-- Commits made: [brief description of each commit]
-
-### Observations
-- [Important points for future reference]
-- [Technical decisions made]
-- [Possible future improvements]
-```
-
-**MANDATORY**: Complete BOTH steps:
-
-1. Store in Basic Memory MCP using `write_note` with folder "development-logs"
-2. **ALSO** create the physical file using the `write` tool at `docs/memories/development-logs/task-[ID]-[title].md`
-3. Use `read_note` from Basic Memory to get the content and copy it to the physical file
-
-### 11. 📝 COMMIT CYCLE
+### 10. 📝 COMMIT CYCLE
 
 - **Action**: Before commit, ask me to review the changes and only continue after my ok
 - **Action**: Ask me if I did any code change during review. If so, review the changes and use this info for the commit
 - **Action**: Run `pnpm run complete-check` one final time before commit
+- **Action**: Include all files modified during the task implementation to the commit, even the task master file, development logs, etc.
 - **🚨 CRITICAL**: ALWAYS ask for explicit permission before committing - NEVER commit without user confirmation
 - **Action**: Commit with descriptive message following the pattern below (only after receiving permission)
-- **Action**: Ask permission to push the subtask commit
+- **NEVER**: Never include in the commit message or description any reference to the task or subtask ID or any LLM model used. It should only be about the actual work done.
 
-**Subtask commit message pattern**:
+**Task commit message pattern**:
 
 ```bash
 type(scope): brief description of actual work done
 
-- Specific changes made in this subtask
+- Specific changes made in this task
 - Files modified/created
 - Tests added (if any)
 ```
@@ -205,16 +169,15 @@ type(scope): brief description of actual work done
 ### 12. 💾 FINAL PUSH
 
 - **🚨 CRITICAL**: ALWAYS ask for explicit permission before pushing - NEVER push without user confirmation
-- **Action**: Ask permission for final push of all subtask commits to feature branch (only after receiving permission)
-- Only push when all subtasks are complete and documented
-- This push should include all subtask commits made during the task
+- **Action**: Ask permission for final push of all task commits to feature branch (only after receiving permission)
+- Only push when all subtasks and task are complete and documented
 
 ### 13. ⛄ OPENING THE PULL REQUEST
 
 - **Action**: Before create the PR, ask for my approval.
 Use the Github MCP (or if not available Github CLI) to open a PR with a comprehensive and accurate description of the implementation.
 - **Action**: Use Github MCP to request review from Copilot
-**NEVER** Add any comment releated to the Agent doing the Pull request (for example, avoid any reference to opencode, claude code, gemini, etc)
+**NEVER** Add any comment releated to the Agent doing the Pull request (for example, avoid any reference to opencode, claude code, gemini, etc) and to the task or subtasks IDs.
 
 ### 14. 📢 COMPLETION NOTIFICATION
 
@@ -225,51 +188,11 @@ Use the Github MCP (or if not available Github CLI) to open a PR with a comprehe
 ✅ Task #[ID] completed successfully
 
 📋 [Task title]
-🔧 Implementation: [brief summary]
 ✔️ QA: Passed all checks
-💾 Commit: [commit hash]
-📝 Log: Recorded in Basic Memory MCP
+💾 PR: [PR link]
 ```
 
 ---
-
-## 🛠️ COMMANDS AND TOOLS
-
-### MCP Task Master
-
-```bash
-# Get task details
-get-task --id [TASK_ID]
-
-# Update status
-update-task-status --id [TASK_ID] --status [in-progress|done]
-```
-
-### Serena MCP
-
-Use Serena MCP for code analysis, search files, search symbols, file operations, and project understanding:
-
-```bash
-# File operations
-serena_read_file --relative-path [PATH]
-serena_create_text_file --relative-path [PATH] --content [CONTENT]
-
-# Code analysis
-serena_find_symbol --name-path [SYMBOL_PATH]
-serena_get_symbols_overview --relative-path [PATH]
-serena_search_for_pattern --substring-pattern [PATTERN]
-
-# Code modifications
-serena_replace_symbol_body --name-path [SYMBOL] --relative-path [PATH] --body [NEW_BODY]
-serena_insert_after_symbol --name-path [SYMBOL] --relative-path [PATH] --body [CONTENT]
-
-# Memory management
-serena_write_memory --memory-name [NAME] --content [CONTENT]
-serena_read_memory --memory-file-name [NAME]
-
-# Shell commands
-serena_execute_shell_command --command [COMMAND]
-```
 
 ### QA Scripts
 
@@ -284,37 +207,23 @@ pnpm run test
 pnpm run build
 ```
 
-### Basic Memory MCP
-
-```bash
-# Log development
-log-development --task-id [TASK_ID] --details "[details]"
-```
-
----
-
 ## ⚡ MANDATORY CHECKS
 
 ### ✅ Before Starting Development
 
 - [ ] Task clearly understood
 - [ ] Load the appropriate CONTEXT.md file, for the project that the task is related to (frontend or api) from docs folder
-- [ ] Details obtained via MCP Task Master
+- [ ] Details obtained via Task Master
 - [ ] **Serena MCP activated** - Use `serena_activate_project` if needed
 - [ ] **Project context reviewed** - Use `serena_read_memory` to review relevant project knowledge
 - [ ] Deepthink plan created and validated
 - [ ] Status updated to `in-progress`
-- [ ] Initial QA executed and clean
 
 ### ✅ During Development
 
 - [ ] Following established plan
-- [ ] **Using Serena MCP appropriately**:
-  - [ ] `serena_get_symbols_overview` before modifying files
-  - [ ] `serena_find_symbol` to understand existing code patterns
-  - [ ] Symbol-based modifications when possible
-- [ ] Each subtask gets individual commit after review
-- [ ] Quality check before each subtask commit
+- [ ] **ALWAYS try to use Serena MCP**:
+  - [ ] read `docs/SERENA.md` to understand available commands
 - [ ] Tests being written as needed
 - [ ] Clean and well-structured code
 
@@ -337,8 +246,8 @@ log-development --task-id [TASK_ID] --details "[details]"
 
 - [ ] Task status updated to `done`
 - [ ] Log recorded in Basic Memory MCP
-- [ ] Physical development log file created in docs/memories/development-logs/
-- [ ] Final push completed with all subtask commits
+- [ ] Final push completed with all commits
+- [ ] PR created and Copilot review requested
 - [ ] Completion notification sent
 
 ---
@@ -352,16 +261,15 @@ Based on your development guidelines, here are the **NO NO actions**:
 ## 🔴 Development Workflow Violations
 
 - **NEVER** skip steps in the mandatory development workflow  
-- **NEVER** commit when QA fails (`pnpm typecheck`, `pnpm lint`, `pnpm test` and `pnpm build` must all pass)  
+- **NEVER** commit when QA fails (`pnpm complete-check` must pass)  
 - **NEVER** continue if QA check fails because 'errors were already there'. In cases like this, ask me if you can skip or fix them.
+- **NEVER** comment or skip tests because they are failing
 - **NEVER** work without marking task in-progress first  
 - **NEVER** complete task without documentation (development memory logging)  
-- **NEVER** commit failing QA – Quality gates are mandatory  
 - **NEVER** Assume unspecified requirements
 - **NEVER** Overengineer solutions
 - **NEVER** Include any agent information in the commit message (like Co-Authored-By:)
 - **NEVER** reference task or subtask IDs in commit messages - focus purely on the work done
-- **NEVER** create physical development logs for subtasks - only for complete tasks
 - **NEVER** bypass git hooks with `--no-verify` or similar flags - git hooks are mandatory quality gates
 - **🚨 NEVER EVER commit or push without explicit user confirmation** - ALWAYS ask first, no exceptions
 - Under **NO** circumstance commit code when there are issues from QA scripts (even warnings)  
@@ -380,6 +288,7 @@ Based on your development guidelines, here are the **NO NO actions**:
 
 - **NEVER** use `.spec.ts` extensions – Use `.test.ts` only  
 - **NEVER** use `specs` directories – Use `tests` only  
+- **ALWAYS** write tests in separated folder from src (but next to it), following the same structure as src
 - **NEVER** use `fireEvent` – **ALWAYS** use [`@testing-library/user-event`](https://testing-library.com/docs/user-event/intro)  
 - **NEVER** wrap `userEvent` calls in manual `act()` blocks  
 - **NEVER** commit tests with warnings  
@@ -411,13 +320,6 @@ Based on your development guidelines, here are the **NO NO actions**:
 - **NEVER** use `style={{}}` inline objects – Use CSS Modules instead
 - **NEVER** reference CSS Module classes by string names in tests – Import and use the styles object
 - **NEVER** skip CSS Modules for new components – It's the mandatory styling approach
-
----
-
-## 📋 TaskMaster Violations
-
-- **NEVER** use `force` when creating new tasks (keep historical reasons)  
-- **NEVER** work on tasks without proper status tracking  
 
 ---
 
@@ -462,19 +364,6 @@ These are the absolute prohibitions that will break your development workflow, c
 - **Code Search**: Use `serena_find_symbol` and `serena_search_for_pattern` to understand existing implementations
 - **Safe Modifications**: Use symbol-based tools (`serena_replace_symbol_body`, `serena_insert_after_symbol`) instead of regex replacements when possible
 - **Project Memory**: Use `serena_read_memory` to access project knowledge and `serena_write_memory` to document findings
-
----
-
-## 📊 QUALITY METRICS
-
-The workflow is considered successful when:
-
-- ✅ 100% of QA checks pass
-- ✅ Task implemented as per specification
-- ✅ Status correctly updated in Task Master
-- ✅ Complete log recorded in Basic Memory MCP
-- ✅ Clean and well-documented commit
-- ✅ Zero rework needed
 
 ---
 

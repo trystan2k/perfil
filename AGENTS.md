@@ -1,36 +1,11 @@
 # AGENTS.md – Coding Agent Guide for perfil
 
-## 🚨 CRITICAL: MANDATORY READING AFTER CONVERSATION COMPACTION
-
-**AFTER ANY CONVERSATION COMPACTION (summary/compact action), you MUST:**
-1. ✅ **IMMEDIATELY** read `docs/DEV_WORKFLOW.md` in full
-2. ✅ **IMMEDIATELY** read `docs/LESSONS_LEARNED.md` in full
-3. ✅ **NEVER** proceed with ANY action until you've read both files
-4. ✅ **STRICTLY** follow all rules in these files - no exceptions
-
-**These files contain critical lessons about authorization violations you have made before.**
-
-## ⛔ CRITICAL: AUTHORIZATION REQUIRED
-
-**🚨 NEVER START ANY TASK WITHOUT EXPLICIT USER AUTHORIZATION 🚨**
-
-You MUST:
-- ❌ **NEVER** checkout branches without authorization
-- ❌ **NEVER** expand tasks without authorization
-- ❌ **NEVER** create feature branches without authorization
-- ❌ **NEVER** begin implementation without authorization
-- ❌ **NEVER** run git commands (including commit/push) without authorization
-- ❌ **NEVER** commit or push without explicit user permission - ALWAYS ask first
-- ✅ **ALWAYS** wait for the user to explicitly tell you which task to start
-
-**When resuming from a summary, ask me what to do next before do anything else.**
-
 ## 📚 Onboarding
 
 At the start of each session, read:
 
-1. Any `**/README.md` docs across the project
-2. Any `**/DEV_WORKFLOW.md` docs across the project
+1. Any `**/DEV_WORKFLOW.md` docs across the project
+2. Any `**/LESSONS_LEARNED.md` docs across the project
 
 ## Project context
 
@@ -62,12 +37,6 @@ For context about the project, see document [CONTEXT.md](docs/CONTEXT.md) if it 
 - **Error Handling**: Prefer explicit error types, use TypeScript safety
 - **File structure**: Organize by feature/module, keep related files together
 - **No Cursor/Copilot rules present**
-
-## Taskmaster
-
-If you need to use Taskmaster, refer to the [TASK_MASTER.md](docs/TASK_MASTER.md) guide.
-
-_Refer to this guide for agentic coding in this repository. Update if new tools or rules are added._
 
 ## Lessons learned logging rule
 

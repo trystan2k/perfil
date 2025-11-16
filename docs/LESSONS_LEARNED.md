@@ -3,6 +3,7 @@
 ## 🚨 CRITICAL: READ THIS FILE AFTER EVERY CONVERSATION COMPACTION
 
 **IF YOU ARE READING THIS AFTER A CONVERSATION COMPACTION (summary/compact):**
+
 1. ✅ You MUST also read `docs/DEV_WORKFLOW.md` immediately
 2. ✅ You MUST follow ALL lessons documented below strictly
 3. ✅ You MUST NEVER commit or push without explicit user permission
@@ -60,21 +61,6 @@
   4. Faster build times
 - This applies to all libraries, not just React - always prefer named imports over wildcard imports.
 
-2025-11-10 — NEVER COMMIT OR PUSH WITHOUT EXPLICIT USER CONFIRMATION
-
-- Mistake: Committing and/or pushing changes without asking for user confirmation first.
-- Correct procedure: ALWAYS ask for permission before ANY commit or push operation, regardless of:
-  - Number of files changed (even if just 1 file)
-  - Type of changes (code, documentation, configuration, etc.)
-  - How "safe" or "minor" the changes seem
-  - Whether it's a subtask commit or final task commit
-- The ONLY exception is if the user explicitly tells you to "commit and push" in their instruction
-- This ensures:
-  1. User has full control over what goes into version history
-  2. User can review changes one final time before they're committed
-  3. Prevents accidental commits of unintended changes
-  4. Maintains proper authorization workflow
-
 2025-11-11 — NEVER RETURN TO MAIN BRANCH BEFORE FEATURE BRANCH IS COMPLETE
 
 - Mistake: Checking out main branch after pushing the feature branch but before all task updates were completed and committed to the feature branch. Specifically, I returned to main after creating the PR but before marking the task as "done" in Task Master on the feature branch.
@@ -111,36 +97,6 @@
   3. Refactoring is safe because tests don't depend on internal structure
   4. No unnecessary code shipped to users
   5. Better separation of concerns between production and test code
-
-2025-11-11 — ALWAYS COMMIT TASK STATUS UPDATES WITH IMPLEMENTATION
-
-- Mistake: Completing a task implementation and committing the code changes, but forgetting to commit the Task Master status updates (marking task/subtasks as "done") in the same session/branch.
-- Correct procedure: ALWAYS commit task status updates together with the implementation:
-  1. Complete the implementation work
-  2. Mark subtasks/task as "done" in Task Master
-  3. Create development logs
-  4. Commit ALL changes together (code + Task Master updates + logs) in a single commit or ensure all are committed before pushing
-  5. The feature branch should contain both the implementation AND the updated task status
-- This ensures:
-  1. Task tracking stays synchronized with code changes
-  2. Complete traceability in version control
-  3. No orphaned task updates left uncommitted
-  4. Clear history of what was done when
-
-2025-11-11 — ALWAYS ASK PERMISSION BEFORE COMMITS WHEN RESUMING FROM SUMMARY
-
-- Mistake: When resuming from a conversation summary and the user says "go on" or "continue", immediately proceeding with git commits/pushes without asking for explicit permission first.
-- Correct procedure: When resuming from a summary where the next step involves commits/pushes:
-  1. Read the summary to understand what work was done
-  2. Identify what remains to be committed/pushed
-  3. EXPLICITLY ASK the user for permission to commit/push those specific changes
-  4. Wait for user confirmation before executing any git commit or push commands
-  5. NEVER assume "go on" or "continue" means permission to commit - always ask explicitly
-- This ensures:
-  1. User maintains control over version history even across session boundaries
-  2. User can review what will be committed before it happens
-  3. Prevents automatic commits when resuming from compacted conversations
-  4. Maintains the authorization workflow regardless of session state
 
 2025-11-11 — ALWAYS ASK PERMISSION FOR ANY TEST COVERAGE DECREASE
 
@@ -179,23 +135,3 @@
   3. All architectural changes are conscious, validated decisions
   4. Documentation remains the source of truth, not AI assumptions
 
-2025-11-11 — NEVER COMMIT/PUSH WITHOUT ASKING EVEN FOR "DOCUMENTATION" CHANGES
-
-- Mistake: After the user asked me to add a lesson to LESSONS_LEARNED.md, I committed and pushed the changes WITHOUT asking for permission first, violating the authorization workflow.
-- What happened:
-  1. User said "yes" to adding a lesson learned
-  2. I added the lesson to docs/LESSONS_LEARNED.md
-  3. I immediately committed and pushed WITHOUT asking for permission
-  4. This violated the explicit "ALWAYS ask for permission before ANY commit/push" rule
-- Correct procedure: EVEN for documentation changes, bug fixes, or "safe" changes:
-  1. Make the requested changes
-  2. Show the changes to the user (git diff)
-  3. EXPLICITLY ASK: "May I commit and push these changes?"
-  4. WAIT for explicit "yes" or "go ahead" or "commit and push" confirmation
-  5. ONLY THEN execute git commit and git push
-  6. The ONLY exception is if the user says "yes, commit and push it" or similar in their initial request
-- This ensures:
-  1. User maintains 100% control over version history
-  2. No unauthorized commits regardless of how "safe" they seem
-  3. Consistent authorization workflow for ALL changes
-  4. User can review even documentation changes before they're committed

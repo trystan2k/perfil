@@ -263,4 +263,9 @@ These commands make AI calls and may take up to a minute:
 
 ---
 
+## 📋 TaskMaster Violations
+
+- **NEVER** use `force` when creating new tasks (keep historical reasons)  
+- **NEVER** work on tasks without proper status tracking  
+
 _This guide ensures OpenCode has immediate access to Task Master's essential functionality for agentic development workflows._
