@@ -23,7 +23,7 @@ export const useI18nStore = create<I18nState>()(
     {
       name: 'perfil-i18n',
       partialize: (state) => ({ locale: state.locale }),
-      onRehydrateStorage: () => (state) => {
+      onRehydrateStorage: () => (state, error) => {
         // Validate locale during rehydration from localStorage
         if (state && !SUPPORTED_LOCALES.includes(state.locale)) {
           console.warn(

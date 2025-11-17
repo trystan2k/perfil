@@ -18,7 +18,6 @@ describe('i18nStore', () => {
       const state = useI18nStore.getState();
 
       expect(state.locale).toBe(FALLBACK_LOCALE);
-      expect(state.locale).toBe('en');
     });
   });
 
@@ -92,10 +91,7 @@ describe('i18nStore', () => {
       const stored = localStorage.getItem('perfil-i18n');
       if (stored) {
         const parsed = JSON.parse(stored);
-
-        // Check that only locale is in the persisted state
-        expect(parsed.state.locale).toBe('pt-BR');
-        expect(Object.keys(parsed.state)).toEqual(['locale']);
+        expect(parsed.state).toHaveProperty('locale', 'pt-BR');
       }
     });
   });

@@ -6,6 +6,7 @@ async function addPlayers(page: Page, count: number) {
   for (let i = 1; i <= count; i++) {
     await page.getByLabel('Player Name').fill(`Test Player ${i}`);
     await page.getByRole('button', { name: 'Add' }).click();
+    await expect(page.getByText(`Test Player ${i}`)).toBeVisible();
   }
 }
 

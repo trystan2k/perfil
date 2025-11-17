@@ -3,10 +3,10 @@ import type { SupportedLocale } from '../i18n/locales';
 import { useI18nStore } from '../stores/i18nStore';
 
 const locales = [
-  { code: 'en' as SupportedLocale, name: 'English', flag: '🇺🇸' },
-  { code: 'es' as SupportedLocale, name: 'Español', flag: '🇪🇸' },
-  { code: 'pt-BR' as SupportedLocale, name: 'Português', flag: '🇧🇷' },
-];
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'pt-BR', name: 'Português', flag: '🇧🇷' },
+] as const;
 
 export function LanguageSwitcher() {
   const { t } = useTranslation();

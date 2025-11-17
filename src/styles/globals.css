@@ -70,14 +70,14 @@
 
 /* Skip Link for Accessibility */
 .skip-link {
-  @apply absolute;
-  left: -9999px;
-  @apply bg-primary text-primary-foreground px-4 py-2 rounded-md;
-  @apply focus:static focus:left-0 focus:z-50;
+  @apply absolute left-[-999px] top-0 z-[100];
+  @apply bg-background text-foreground px-5 py-3 rounded-b-lg;
+  @apply shadow-[0_2px_8px_rgba(0,0,0,0.08)] font-semibold no-underline;
 }
 
-.skip-link:focus {
-  @apply outline-none ring-2 ring-ring ring-offset-2;
+.skip-link:focus,
+.skip-link:active {
+  @apply left-0 outline outline-2 outline-primary;
 }
 
 /* Language Switcher Styles */
