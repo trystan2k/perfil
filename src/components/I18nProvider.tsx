@@ -20,6 +20,7 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
   const hasInitialized = useRef(false);
   const lastSyncedLocale = useRef<SupportedLocale | null>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only run once on mount, hasInitialized guard prevents re-runs
   useEffect(() => {
     // Only initialize once to avoid re-running on store locale changes
     if (hasInitialized.current) return;
@@ -44,7 +45,7 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
         console.error('Failed to initialize i18n:', err);
         setError(err instanceof Error ? err : new Error(String(err)));
       });
-  }, [locale, storeLocale, setLocale]);
+  }, [locale]);
 
   // Set up bidirectional sync between i18next and store
   useEffect(() => {

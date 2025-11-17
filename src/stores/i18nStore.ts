@@ -29,7 +29,8 @@ export const useI18nStore = create<I18nState>()(
           console.warn(
             `Invalid locale '${state.locale}' in localStorage, resetting to ${FALLBACK_LOCALE}`
           );
-          state.locale = FALLBACK_LOCALE;
+          // Use setLocale action to properly update state through Zustand
+          useI18nStore.getState().setLocale(FALLBACK_LOCALE);
         }
       },
     }
