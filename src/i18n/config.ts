@@ -42,10 +42,9 @@ export const initI18n = async (locale?: string) => {
         loadPath: '/locales/{{lng}}/translation.json',
       },
       detection: {
-        // Detection order: localStorage > navigator (no URL detection for SSG)
-        order: ['localStorage', 'navigator'],
-        lookupLocalStorage: 'i18nextLng',
-        caches: ['localStorage'],
+        // Detection order: navigator only (store handles localStorage persistence)
+        order: ['navigator'],
+        caches: [], // Disable i18next caching - store is single source of truth
       },
     })
     .then(() => {

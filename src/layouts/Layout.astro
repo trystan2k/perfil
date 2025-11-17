@@ -27,10 +27,12 @@ const currentLocale = FALLBACK_LOCALE;
   </head>
   <body>
     <I18nProvider client:only="react" locale={currentLocale}>
-      <header>
+      <header aria-label="Site header">
         <LanguageSwitcher client:only="react" />
       </header>
-      <slot />
+      <main id="main-content">
+        <slot />
+      </main>
     </I18nProvider>
     <PwaUpdater client:load />
   </body>

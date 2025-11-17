@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import i18next, { initI18n } from '../i18n/config';
-import type { SupportedLocale } from '../i18n/locales';
+import { SUPPORTED_LOCALES, type SupportedLocale } from '../i18n/locales';
 import { useI18nStore } from '../stores/i18nStore';
 import { queryClient } from './QueryProvider';
 
@@ -52,7 +52,11 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
     // Listen to i18next language changes and sync to store
     const handleLanguageChanged = (lng: string) => {
       if (!isChangingRef.current && lng !== storeLocale) {
-        setLocale(lng as SupportedLocale);
+        if (SUPPORTED_LOCALES.includes(lng as SupportedLocale)) {
+          setLocale(lng as SupportedLocale);
+        } else {
+          console.warn(`i18next emitted unsupported locale '${lng}', ignoring`);
+        }
       }
     };
 

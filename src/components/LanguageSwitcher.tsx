@@ -9,9 +9,9 @@ const locales = [
 ];
 
 export function LanguageSwitcher() {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const { locale: storeLocale, setLocale } = useI18nStore();
-  const currentLocale = storeLocale || i18n.language;
+  const currentLocale = storeLocale;
 
   const handleLanguageChange = (locale: SupportedLocale) => {
     // Only update the store; I18nProvider will sync to i18next
