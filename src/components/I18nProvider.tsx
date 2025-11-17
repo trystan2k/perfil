@@ -84,6 +84,7 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
         })
         .catch((err) => {
           isChangingRef.current = false;
+          lastSyncedLocale.current = null; // Reset to allow retry
           console.error('Failed to change language:', err);
         });
     }
