@@ -28,7 +28,7 @@ const currentLocale = FALLBACK_LOCALE;
   <body>
     <I18nProvider client:only="react" locale={currentLocale}>
       <header>
-        <LanguageSwitcher client:load />
+        <LanguageSwitcher client:only="react" />
       </header>
       <slot />
     </I18nProvider>

@@ -1,6 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import i18next, { initI18n } from '../i18n/config';
 import type { SupportedLocale } from '../i18n/locales';
@@ -16,8 +16,13 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const { locale: storeLocale, setLocale } = useI18nStore();
+  const isChangingRef = useRef(false);
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
+    // Only initialize once to avoid re-running on store locale changes
+    if (hasInitialized.current) return;
+
     setIsReady(false);
     setError(null);
 
@@ -32,12 +37,13 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
           setLocale(i18next.language as SupportedLocale);
         }
         setIsReady(true);
+        hasInitialized.current = true;
       })
       .catch((err) => {
         console.error('Failed to initialize i18n:', err);
         setError(err instanceof Error ? err : new Error(String(err)));
       });
-  }, [locale, storeLocale, setLocale]);
+  }, [locale, storeLocale, setLocale]); // Dependencies required by linter
 
   // Set up bidirectional sync between i18next and store
   useEffect(() => {
@@ -45,7 +51,7 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
 
     // Listen to i18next language changes and sync to store
     const handleLanguageChanged = (lng: string) => {
-      if (lng !== storeLocale) {
+      if (!isChangingRef.current && lng !== storeLocale) {
         setLocale(lng as SupportedLocale);
       }
     };
@@ -62,9 +68,16 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
     if (!isReady) return;
 
     if (storeLocale && i18next.language !== storeLocale) {
-      i18next.changeLanguage(storeLocale).catch((err) => {
-        console.error('Failed to change language:', err);
-      });
+      isChangingRef.current = true;
+      i18next
+        .changeLanguage(storeLocale)
+        .then(() => {
+          isChangingRef.current = false;
+        })
+        .catch((err) => {
+          isChangingRef.current = false;
+          console.error('Failed to change language:', err);
+        });
     }
   }, [isReady, storeLocale]);
 

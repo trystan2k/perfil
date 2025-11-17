@@ -14,9 +14,8 @@ export function LanguageSwitcher() {
   const currentLocale = storeLocale || i18n.language;
 
   const handleLanguageChange = (locale: SupportedLocale) => {
-    // Update both the store and i18next
+    // Only update the store; I18nProvider will sync to i18next
     setLocale(locale);
-    i18n.changeLanguage(locale).catch(console.error);
   };
 
   return (

@@ -40,8 +40,11 @@ test.describe('Language Persistence', () => {
     const spanishButton = page.getByRole('button', { name: /español/i });
     await spanishButton.click();
 
-    // Wait a bit for language change to take effect
-    await page.waitForTimeout(500);
+    // Wait for localStorage to be updated with Spanish locale
+    await page.waitForFunction(() => {
+      const stored = localStorage.getItem('perfil-i18n');
+      return stored && JSON.parse(stored).state.locale === 'es';
+    });
 
     // Verify localStorage has Spanish locale
     const storedLocale = await page.evaluate(() => {
@@ -63,8 +66,11 @@ test.describe('Language Persistence', () => {
     const portugueseButton = page.getByRole('button', { name: /português/i });
     await portugueseButton.click();
 
-    // Wait for language change
-    await page.waitForTimeout(500);
+    // Wait for localStorage to be updated with Portuguese locale
+    await page.waitForFunction(() => {
+      const stored = localStorage.getItem('perfil-i18n');
+      return stored && JSON.parse(stored).state.locale === 'pt-BR';
+    });
 
     // Fill in player names to navigate to game setup
     await page.getByLabel('Player Name').fill('Test Player 1');
@@ -99,8 +105,11 @@ test.describe('Language Persistence', () => {
     const spanishButton = page.getByRole('button', { name: /español/i });
     await spanishButton.click();
 
-    // Wait for language change
-    await page.waitForTimeout(500);
+    // Wait for localStorage to be updated with Spanish locale
+    await page.waitForFunction(() => {
+      const stored = localStorage.getItem('perfil-i18n');
+      return stored && JSON.parse(stored).state.locale === 'es';
+    });
 
     // Verify Spanish is set
     let storedLocale = await page.evaluate(() => {
@@ -144,8 +153,11 @@ test.describe('Language Persistence', () => {
     const portugueseButton = page.getByRole('button', { name: /português/i });
     await portugueseButton.click();
 
-    // Wait for language change
-    await page.waitForTimeout(500);
+    // Wait for localStorage to be updated with Portuguese locale
+    await page.waitForFunction(() => {
+      const stored = localStorage.getItem('perfil-i18n');
+      return stored && JSON.parse(stored).state.locale === 'pt-BR';
+    });
 
     // Fill in players and start game to trigger profile data fetch
     await page.getByLabel('Player Name').fill('Player 1');
@@ -159,8 +171,12 @@ test.describe('Language Persistence', () => {
     // Wait for category select to load (this triggers profile fetch)
     await page.waitForLoadState('networkidle');
 
-    // Wait a bit for all requests to complete
-    await page.waitForTimeout(1000);
+    // Wait for the pt-BR profile request to be made
+    await page.waitForFunction(
+      (urls) => urls.some((url) => url.includes('/data/pt-BR/profiles.json')),
+      requests,
+      { timeout: 5000 }
+    );
 
     // Verify that at least one request was made to pt-BR profiles
     const ptBRRequests = requests.filter((url) => url.includes('/data/pt-BR/profiles.json'));
@@ -187,7 +203,10 @@ test.describe('Language Persistence', () => {
     // Test English
     const englishButton = page.getByRole('button', { name: /english/i });
     await englishButton.click();
-    await page.waitForTimeout(500);
+    await page.waitForFunction(() => {
+      const stored = localStorage.getItem('perfil-i18n');
+      return stored && JSON.parse(stored).state.locale === 'en';
+    });
 
     let storedLocale = await page.evaluate(() => {
       const stored = localStorage.getItem('perfil-i18n');
@@ -198,7 +217,10 @@ test.describe('Language Persistence', () => {
     // Test Spanish
     const spanishButton = page.getByRole('button', { name: /español/i });
     await spanishButton.click();
-    await page.waitForTimeout(500);
+    await page.waitForFunction(() => {
+      const stored = localStorage.getItem('perfil-i18n');
+      return stored && JSON.parse(stored).state.locale === 'es';
+    });
 
     storedLocale = await page.evaluate(() => {
       const stored = localStorage.getItem('perfil-i18n');
@@ -209,7 +231,10 @@ test.describe('Language Persistence', () => {
     // Test Portuguese
     const portugueseButton = page.getByRole('button', { name: /português/i });
     await portugueseButton.click();
-    await page.waitForTimeout(500);
+    await page.waitForFunction(() => {
+      const stored = localStorage.getItem('perfil-i18n');
+      return stored && JSON.parse(stored).state.locale === 'pt-BR';
+    });
 
     storedLocale = await page.evaluate(() => {
       const stored = localStorage.getItem('perfil-i18n');
