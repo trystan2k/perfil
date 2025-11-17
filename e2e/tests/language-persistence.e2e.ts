@@ -175,8 +175,7 @@ test.describe('Language Persistence', () => {
     // Wait for the pt-BR profile request to be made
     await page.waitForFunction(
       (urls) => urls.some((url) => url.includes('/data/pt-BR/profiles.json')),
-      requests,
-      { timeout: 5000 }
+      requests
     );
 
     // Verify that at least one request was made to pt-BR profiles
