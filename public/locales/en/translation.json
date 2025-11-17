@@ -118,6 +118,11 @@
     "noPlayers": {
       "title": "No Players",
       "description": "No players found in this game session."
+    },
+    "actions": {
+      "newGame": "New Game",
+      "samePlayers": "Same Players",
+      "restartGame": "Restart Game"
     }
   },
   "noGamePage": {

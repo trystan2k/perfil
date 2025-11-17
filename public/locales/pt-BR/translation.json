@@ -118,6 +118,11 @@
     "noPlayers": {
       "title": "Sem Jogadores",
       "description": "Nenhum jogador encontrado nesta sessão de jogo."
+    },
+    "actions": {
+      "newGame": "Novo Jogo",
+      "samePlayers": "Mesmos Jogadores",
+      "restartGame": "Reiniciar Jogo"
     }
   },
   "noGamePage": {
