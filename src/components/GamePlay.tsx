@@ -137,7 +137,40 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   }
 
   // Early return if no active game
-  if (status !== 'active' || !currentTurn) {
+  // Don't show "No Active Game" if status is completed - navigation will happen via useEffect
+  if (status === 'pending' || (status === 'completed' && !id)) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              {t('gamePlay.noActiveGame.title')}
+            </CardTitle>
+            <CardDescription>{t('gamePlay.noActiveGame.description')}</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+
+  // If status is 'completed' and id exists, show loading while navigating to scoreboard
+  if (status === 'completed' && id) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              {t('gamePlay.redirecting.title')}
+            </CardTitle>
+            <CardDescription>{t('gamePlay.redirecting.description')}</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+
+  // If no currentTurn but status is active, something is wrong
+  if (!currentTurn) {
     return (
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
         <Card className="w-full max-w-md">
