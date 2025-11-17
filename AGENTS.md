@@ -2,7 +2,7 @@
 
 ## ‼️ IMPORTANT: ubagents delegation
 
-1. **GIT**: When any git operation needs to be done, delegate it to the @git-specialist subagent with all needed information
+1. **GIT**: When any git command/operation needs to be done, delegate it to the @git-specialist subagent with all needed information
 2. **TASK-MASTER**: When any operation needs to be done in task-master, delegate it to the @task-master-specialist subagent with all needed information
 3. **BASIC-MEMORY**: When any operation needs to be done in basic memory, delegate it to the @basic-memory-specialist subagent with all needed information
 
