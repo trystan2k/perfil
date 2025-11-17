@@ -1740,7 +1740,7 @@
         "description": "Ensure both end flows—finishing via Finish Game and running out of profiles—navigate to the scoreboard instead of a transient No Game page.",
         "details": "Acceptance criteria:\\n- Finish Game navigates directly to scoreboard; no No Game screen.\\n- When all profiles completed, automatically show scoreboard.\\n- Navigation is deterministic and uses persisted state as needed.",
         "testStrategy": "- Unit tests for endGame/navigation flow.\\n- E2E tests to verify scoreboard shows after finishing and after running out of profiles.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           "10",
           "24"
@@ -1809,14 +1809,14 @@
             "parentId": "undefined"
           }
         ],
-        "updatedAt": "2025-11-17T18:40:35.527Z"
+        "updatedAt": "2025-11-17T19:10:25.769Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-17T18:40:35.528Z",
+      "lastModified": "2025-11-17T19:10:25.770Z",
       "taskCount": 30,
-      "completedCount": 28,
+      "completedCount": 29,
       "tags": [
         "master"
       ]
