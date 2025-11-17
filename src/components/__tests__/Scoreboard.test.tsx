@@ -290,7 +290,7 @@ describe('Scoreboard', () => {
   });
 
   describe('Action Buttons', () => {
-    it('should render all four action buttons', async () => {
+    it('should render all three action buttons', async () => {
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
       render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
