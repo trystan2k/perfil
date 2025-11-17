@@ -18,6 +18,7 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
   const { locale: storeLocale, setLocale } = useI18nStore();
   const isChangingRef = useRef(false);
   const hasInitialized = useRef(false);
+  const lastSyncedLocale = useRef<SupportedLocale | null>(null);
 
   useEffect(() => {
     // Only initialize once to avoid re-running on store locale changes
@@ -71,8 +72,11 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
   useEffect(() => {
     if (!isReady) return;
 
-    if (i18next.language !== storeLocale) {
+    // Only sync if locale actually changed and isn't already being synced
+    if (i18next.language !== storeLocale && lastSyncedLocale.current !== storeLocale) {
       isChangingRef.current = true;
+      lastSyncedLocale.current = storeLocale;
+
       i18next
         .changeLanguage(storeLocale)
         .then(() => {

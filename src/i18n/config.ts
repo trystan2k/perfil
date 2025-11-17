@@ -42,9 +42,12 @@ export const initI18n = async (locale?: string) => {
         loadPath: '/locales/{{lng}}/translation.json',
       },
       detection: {
-        // Detection order: navigator only (store handles localStorage persistence)
+        // Detection order: navigator only.
+        // IMPORTANT: The caller (e.g., I18nProvider) MUST pass the store's locale as the `locale` argument to initI18n.
+        // Otherwise, i18next will use the browser's language preference and ignore any persisted value.
+        // i18next caching is disabled; the store is the single source of truth for locale persistence.
         order: ['navigator'],
-        caches: [], // Disable i18next caching - store is single source of truth
+        caches: [],
       },
     })
     .then(() => {
