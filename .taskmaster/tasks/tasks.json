@@ -1384,17 +1384,94 @@
       },
       {
         "id": "26",
-        "title": "Add four scoreboard action buttons with behavior",
-        "description": "Scoreboard should include four buttons: a) Start new fresh game (to initial screen), b) Start game with same participants (skip participant entry and proceed to category selection), c) Restart with same participants, categories, and rounds (reset state and restart), d) Close (close browser tab with graceful fallback).",
-        "details": "Acceptance criteria:\\n- UI on scoreboard shows four buttons with proper actions.\\n- Button (a) clears session and navigates to home/setup.\\n- Button (b) reuses participants and navigates to category selection.\\n- Button (c) restarts with same config and navigates to gameplay.\\n- Button (d) calls window.close(), with fallback messaging if blocked.",
-        "testStrategy": "- Unit tests verify button handlers call correct navigation/persistence actions.\\n- Integration tests verify navigation flows for (a)-(c).",
-        "status": "pending",
+        "title": "Add three scoreboard action buttons with behavior",
+        "description": "Implemented three action buttons on the scoreboard: 'New Game', 'Same Players, New Game', and 'Restart Game'. 'New Game' clears the session and navigates home. 'Same Players' reuses participants for a new game, navigating to category selection. 'Restart Game' restarts the current game configuration. The 'Close' button was removed at user request as it did not work as intended.",
+        "status": "done",
         "dependencies": [
           "10",
           "9"
         ],
         "priority": "high",
-        "subtasks": []
+        "details": "Implementation details:\n- UI: Three action buttons were added to `src/components/Scoreboard.tsx`, each with a unique `data-testid` for testing and localized labels using i18n keys.\n- New Game: The handler calls `deleteGameSession(sessionId)` to clear persisted state and navigates to the home page (`/`).\n- Same Players: The handler navigates to `/game-setup/<sessionId>` to reuse the existing participants for a new game setup.\n- Restart Game: The handler navigates to `/game/<sessionId>` to restart the game with the same configuration.\n- State & Navigation: The implementation uses the `useGameSession` hook for session data and `window.location.href` for navigation to ensure SSR-safe behavior.\nNote: Close button removed because it did not work as intended.",
+        "testStrategy": "Extensive tests were added in `src/components/__tests__/Scoreboard.test.tsx`. These tests cover component rendering states (loading, error, not found), player ranking logic, the presence and labels of the three action buttons, and the specific behaviors of each button click. This includes verifying calls to `deleteGameSession`, correct navigation to routes ('/', '/game-setup/<sessionId>', '/game/<sessionId>'). Tests for the removed 'Close' button have been deleted. Error handling for asynchronous actions is also covered.",
+        "subtasks": [
+          {
+            "id": 6,
+            "title": "Revert and Remove 'Close' Button Functionality",
+            "description": "The 'Close' button functionality, implemented in subtask 5, has been removed from the scoreboard at user request because its behavior was inconsistent and often blocked by modern browsers.",
+            "dependencies": [
+              5
+            ],
+            "details": "Revert the changes related to the 'Close' button. This involves removing the button from the `src/components/Scoreboard.tsx` component, deleting its associated `onClick` handler, and updating any related i18n keys and tests. The feature was removed because `window.close()` did not work as intended.",
+            "status": "done",
+            "testStrategy": "Verify in `src/components/__tests__/Scoreboard.test.tsx` that the test case for the 'Close' button has been removed and that tests now only assert the presence and behavior of the three remaining buttons. Manually inspect the scoreboard UI to ensure only three action buttons are present.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 1,
+            "title": "Add Four Action Buttons to the Scoreboard UI",
+            "description": "Implement the visual layout for the four action buttons ('New Game', 'Same Players, New Game', 'Restart Game', 'Close') on the final scoreboard component.",
+            "dependencies": [],
+            "details": "Modify the scoreboard component, likely a React component hydrated within `src/pages/scoreboard.astro`, to include a container for the four buttons. Use `shadcn/ui` `Button` components for styling consistency. The buttons should be clearly labeled and initially can have empty `onClick` handlers.",
+            "status": "done",
+            "testStrategy": "Use Storybook or visual inspection on the dev server to verify the layout and styling of the four buttons. A basic React Testing Library test can assert that the four buttons are rendered with the correct text labels.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-16T18:34:41.463Z"
+          },
+          {
+            "id": 2,
+            "title": "Implement 'New Game' Button Logic",
+            "description": "Create the functionality for the 'New Game' button, which should completely reset the game state and navigate the user back to the initial player setup screen.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add a `resetGame` action to the Zustand store in `src/stores/gameStore.ts`. This action must clear all session data (players, scores, categories, etc.) to its initial state. Wire this action to the 'New Game' button's `onClick` handler and use Astro's navigation to redirect the user to the home page (`/`).",
+            "status": "done",
+            "testStrategy": "Write a unit test for the `resetGame` action in the Zustand store to ensure all relevant state properties are cleared. Use React Testing Library to test the button click, mocking the store to verify the action is called and asserting that a navigation event is triggered.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-16T18:39:13.244Z"
+          },
+          {
+            "id": 3,
+            "title": "Implement 'Same Players, New Game' Button Logic",
+            "description": "Implement the functionality for the button that starts a new game with the same set of participants, navigating directly to the category selection screen.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a new action in the Zustand store, e.g., `restartWithSamePlayers`. This action should reset scores and game progress but preserve the `players` array. Connect this action to the 'Same Players, New Game' button. After the state is reset, navigate the user to the category selection page.",
+            "status": "done",
+            "testStrategy": "Unit test the `restartWithSamePlayers` store action to verify it correctly resets game state while preserving the player list. Write an integration test for the button click to ensure the action is dispatched and navigation to the category selection page occurs.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-16T18:41:03.367Z"
+          },
+          {
+            "id": 4,
+            "title": "Implement 'Restart Game' Button Logic",
+            "description": "Implement the functionality for the 'Restart Game' button, which resets the current game's progress but keeps the same participants and categories, then navigates back to the gameplay screen.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add a `fullRestart` action to the Zustand store. This action will reset player scores to zero and reset the turn counter/current player index. It must not clear the players or selected categories. Wire this action to the 'Restart Game' button and navigate the user back to the main game screen.",
+            "status": "done",
+            "testStrategy": "Unit test the `fullRestart` store action to confirm scores and turn state are reset while players and categories are preserved. Create an integration test for the button click to verify the action is called and the user is navigated back to the game view.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-16T18:41:06.023Z"
+          },
+          {
+            "id": 5,
+            "title": "Implement 'Close' Button with Graceful Fallback",
+            "description": "Implement the functionality for the 'Close' button, which attempts to close the browser tab. If the action is blocked by the browser, it should display a message to the user.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create an `onClick` handler for the 'Close' button that calls `window.close()`. Since browsers may block this, the handler should include a fallback mechanism. For example, use a `setTimeout` to check if the window is still open after a short delay. If it is, display a message like 'Please close the tab manually.' using a toast or alert component.",
+            "status": "cancelled",
+            "testStrategy": "Manual testing is required to verify the `window.close()` behavior. A unit test can use a spy (e.g., `vi.spyOn(window, 'close')`) to verify that the function is called on button click. The fallback mechanism should be tested manually by ensuring the code runs in a context where closing is not permitted.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-17T09:48:31.590Z"
+          }
+        ],
+        "updatedAt": "2025-11-17T09:48:32.925Z"
       },
       {
         "id": "27",
@@ -1607,9 +1684,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-15T18:40:56.163Z",
+      "lastModified": "2025-11-17T09:48:32.926Z",
       "taskCount": 30,
-      "completedCount": 26,
+      "completedCount": 27,
       "tags": [
         "master"
       ]

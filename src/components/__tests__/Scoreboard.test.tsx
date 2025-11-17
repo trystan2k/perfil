@@ -4,12 +4,14 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import type { PersistedGameState } from '@/lib/gameSessionDB';
 import * as gameSessionDB from '@/lib/gameSessionDB';
-import type { Profile } from '@/types/models';
+import type { Player, Profile } from '@/types/models';
 import { Scoreboard } from '../Scoreboard';
 
 // Mock the gameSessionDB module
 vi.mock('@/lib/gameSessionDB', () => ({
   loadGameSession: vi.fn(),
+  deleteGameSession: vi.fn(),
+  saveGameSession: vi.fn(),
 }));
 
 describe('Scoreboard', () => {
@@ -59,7 +61,13 @@ describe('Scoreboard', () => {
     totalProfilesCount: 0,
     numberOfRounds: 5,
     currentRound: 1,
-    roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
+    roundCategoryMap: [
+      'Historical Figures',
+      'Historical Figures',
+      'Historical Figures',
+      'Historical Figures',
+      'Historical Figures',
+    ],
   };
 
   it('should render loading state initially', () => {
@@ -278,6 +286,294 @@ describe('Scoreboard', () => {
     await waitFor(() => {
       expect(screen.getByText('No Players')).toBeInTheDocument();
       expect(screen.getByText('No players found in this game session.')).toBeInTheDocument();
+    });
+  });
+
+  describe('Action Buttons', () => {
+    it('should render all four action buttons', async () => {
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+
+      render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+      await waitFor(() => {
+        expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+      });
+
+      expect(screen.getByTestId('scoreboard-new-game-button')).toBeInTheDocument();
+      expect(screen.getByTestId('scoreboard-same-players-button')).toBeInTheDocument();
+      expect(screen.getByTestId('scoreboard-restart-game-button')).toBeInTheDocument();
+    });
+
+    it('should render action buttons with correct labels', async () => {
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+
+      render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+      await waitFor(() => {
+        expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+      });
+
+      expect(screen.getByRole('button', { name: 'New Game' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Same Players' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Restart Game' })).toBeInTheDocument();
+    });
+
+    describe('New Game Button', () => {
+      it('should call deleteGameSession and navigate to home when clicked', async () => {
+        const user = userEvent.setup();
+        const locationSetter = vi.fn();
+
+        Object.defineProperty(window, 'location', {
+          value: { href: '' },
+          writable: true,
+          configurable: true,
+        });
+
+        Object.defineProperty(window.location, 'href', {
+          set: locationSetter,
+          configurable: true,
+        });
+
+        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+        vi.mocked(gameSessionDB.deleteGameSession).mockResolvedValue();
+
+        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+        await waitFor(() => {
+          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+        });
+
+        const newGameButton = screen.getByTestId('scoreboard-new-game-button');
+        await user.click(newGameButton);
+
+        await waitFor(() => {
+          expect(gameSessionDB.deleteGameSession).toHaveBeenCalledWith('test-session-123');
+          expect(locationSetter).toHaveBeenCalledWith('/');
+        });
+      });
+
+      it('should handle errors when deleteGameSession fails', async () => {
+        const user = userEvent.setup();
+        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+        vi.mocked(gameSessionDB.deleteGameSession).mockRejectedValue(new Error('Delete failed'));
+
+        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+        await waitFor(() => {
+          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+        });
+
+        const newGameButton = screen.getByTestId('scoreboard-new-game-button');
+        await user.click(newGameButton);
+
+        await waitFor(() => {
+          expect(consoleErrorSpy).toHaveBeenCalledWith(
+            'Failed to clear game session:',
+            expect.any(Error)
+          );
+        });
+
+        consoleErrorSpy.mockRestore();
+      });
+    });
+
+    describe('Same Players Button', () => {
+      it('should reset player scores and navigate to game-setup when clicked', async () => {
+        const user = userEvent.setup();
+        const locationSetter = vi.fn();
+
+        Object.defineProperty(window, 'location', {
+          value: { href: '' },
+          writable: true,
+          configurable: true,
+        });
+
+        Object.defineProperty(window.location, 'href', {
+          set: locationSetter,
+          configurable: true,
+        });
+
+        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+        vi.mocked(gameSessionDB.saveGameSession).mockResolvedValue();
+
+        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+        await waitFor(() => {
+          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+        });
+
+        const samePlayersButton = screen.getByTestId('scoreboard-same-players-button');
+        await user.click(samePlayersButton);
+
+        await waitFor(() => {
+          expect(gameSessionDB.saveGameSession).toHaveBeenCalledWith(
+            expect.objectContaining({
+              id: 'test-session-123',
+              status: 'pending',
+              players: expect.arrayContaining([
+                expect.objectContaining({ id: '1', name: 'Alice', score: 0 }),
+                expect.objectContaining({ id: '2', name: 'Bob', score: 0 }),
+                expect.objectContaining({ id: '3', name: 'Charlie', score: 0 }),
+                expect.objectContaining({ id: '4', name: 'Diana', score: 0 }),
+              ]),
+              currentTurn: null,
+              currentProfile: null,
+              selectedProfiles: [],
+              category: undefined,
+            })
+          );
+          expect(locationSetter).toHaveBeenCalledWith('/game-setup/test-session-123');
+        });
+      });
+
+      it('should handle errors when saveGameSession fails', async () => {
+        const user = userEvent.setup();
+        const locationSetter = vi.fn();
+        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        Object.defineProperty(window, 'location', {
+          value: { href: '' },
+          writable: true,
+          configurable: true,
+        });
+
+        Object.defineProperty(window.location, 'href', {
+          set: locationSetter,
+          configurable: true,
+        });
+
+        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+        vi.mocked(gameSessionDB.saveGameSession).mockRejectedValue(new Error('Save failed'));
+
+        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+        await waitFor(() => {
+          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+        });
+
+        const samePlayersButton = screen.getByTestId('scoreboard-same-players-button');
+        await user.click(samePlayersButton);
+
+        await waitFor(() => {
+          expect(consoleErrorSpy).toHaveBeenCalledWith(
+            'Failed to reset game for same players:',
+            expect.any(Error)
+          );
+          expect(locationSetter).toHaveBeenCalledWith('/game-setup/test-session-123');
+        });
+
+        consoleErrorSpy.mockRestore();
+      });
+    });
+
+    describe('Restart Game Button', () => {
+      it('should reset scores and restart game with fresh profile selection when clicked', async () => {
+        const user = userEvent.setup();
+        const locationSetter = vi.fn();
+
+        Object.defineProperty(window, 'location', {
+          value: { href: '' },
+          writable: true,
+          configurable: true,
+        });
+
+        Object.defineProperty(window.location, 'href', {
+          set: locationSetter,
+          configurable: true,
+        });
+
+        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+        vi.mocked(gameSessionDB.saveGameSession).mockResolvedValue();
+
+        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+        await waitFor(() => {
+          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+        });
+
+        const restartButton = screen.getByTestId('scoreboard-restart-game-button');
+        await user.click(restartButton);
+
+        await waitFor(() => {
+          // Get the last call to saveGameSession (restart game handler)
+          const calls = vi.mocked(gameSessionDB.saveGameSession).mock.calls;
+          const saveCall = calls[calls.length - 1][0];
+
+          // Verify basic reset
+          expect(saveCall).toMatchObject({
+            id: 'test-session-123',
+            status: 'active',
+            currentRound: 1,
+            numberOfRounds: 5,
+          });
+
+          // Verify all player scores are reset to 0
+          expect(saveCall.players).toHaveLength(4);
+          saveCall.players.forEach((player: Player) => {
+            expect(player.score).toBe(0);
+          });
+
+          // Verify selectedProfiles is regenerated (should have 5 profiles for 5 rounds)
+          expect(saveCall.selectedProfiles).toHaveLength(5);
+
+          // Verify currentProfile and currentTurn are set to the first profile
+          expect(saveCall.currentProfile).toBeDefined();
+          expect(saveCall.currentProfile).not.toBeNull();
+          expect(saveCall.currentTurn).toMatchObject({
+            profileId: saveCall.selectedProfiles[0],
+            cluesRead: 0,
+            revealed: false,
+          });
+
+          // Verify category matches the first profile's category
+          if (saveCall.currentProfile) {
+            expect(saveCall.category).toBe(saveCall.currentProfile.category);
+          }
+
+          expect(locationSetter).toHaveBeenCalledWith('/game/test-session-123');
+        });
+      });
+
+      it('should handle errors when saveGameSession fails', async () => {
+        const user = userEvent.setup();
+        const locationSetter = vi.fn();
+        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        Object.defineProperty(window, 'location', {
+          value: { href: '' },
+          writable: true,
+          configurable: true,
+        });
+
+        Object.defineProperty(window.location, 'href', {
+          set: locationSetter,
+          configurable: true,
+        });
+
+        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+        vi.mocked(gameSessionDB.saveGameSession).mockRejectedValue(new Error('Save failed'));
+
+        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+
+        await waitFor(() => {
+          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+        });
+
+        const restartButton = screen.getByTestId('scoreboard-restart-game-button');
+        await user.click(restartButton);
+
+        await waitFor(() => {
+          expect(consoleErrorSpy).toHaveBeenCalledWith(
+            'Failed to restart game:',
+            expect.any(Error)
+          );
+          expect(locationSetter).toHaveBeenCalledWith('/game/test-session-123');
+        });
+
+        consoleErrorSpy.mockRestore();
+      });
     });
   });
 });

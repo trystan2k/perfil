@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGameSession } from '@/hooks/useGameSession';
+import { deleteGameSession, saveGameSession } from '@/lib/gameSessionDB';
 import type { Player } from '@/types/models';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
@@ -17,6 +18,145 @@ interface RankedPlayer extends Player {
 export function Scoreboard({ sessionId }: ScoreboardProps) {
   const { t } = useTranslation();
   const { data: gameSession, isLoading, error, refetch } = useGameSession(sessionId);
+
+  // Handler: Start new fresh game - clears session and navigates to home
+  const handleNewGame = async () => {
+    if (sessionId) {
+      try {
+        await deleteGameSession(sessionId);
+        window.location.href = '/';
+      } catch (error) {
+        console.error('Failed to clear game session:', error);
+      }
+    } else {
+      window.location.href = '/';
+    }
+  };
+
+  // Handler: Start game with same players - reset scores and navigate to category selection
+  const handleSamePlayers = async () => {
+    if (!sessionId || !gameSession) {
+      window.location.href = '/';
+      return;
+    }
+
+    try {
+      // Reset player scores while keeping player names
+      const resetPlayers: Player[] = gameSession.players.map((player) => ({
+        ...player,
+        score: 0,
+      }));
+
+      // Reset game state to pending with preserved players
+      const resetGameState = {
+        ...gameSession,
+        players: resetPlayers,
+        status: 'pending' as const,
+        currentTurn: null,
+        remainingProfiles: [],
+        selectedProfiles: [],
+        currentProfile: null,
+        category: undefined,
+        totalProfilesCount: 0,
+        currentRound: 0,
+      };
+
+      await saveGameSession(resetGameState);
+      window.location.href = `/game-setup/${sessionId}`;
+    } catch (error) {
+      console.error('Failed to reset game for same players:', error);
+      window.location.href = `/game-setup/${sessionId}`;
+    }
+  };
+
+  // Handler: Restart game - reset state with same participants, categories, and rounds
+  const handleRestartGame = async () => {
+    if (!sessionId || !gameSession) {
+      window.location.href = '/';
+      return;
+    }
+
+    try {
+      // Reset player scores
+      const resetPlayers: Player[] = gameSession.players.map((player) => ({
+        ...player,
+        score: 0,
+      }));
+
+      // Regenerate selectedProfiles based on the original roundCategoryMap
+      // This ensures we start from the beginning with fresh profile selection
+      const roundPlan = gameSession.roundCategoryMap;
+      const profilesToPlay: string[] = [];
+      const availableProfilesByCategory = new Map<string, string[]>();
+
+      // Group available profiles by category
+      for (const profile of gameSession.profiles) {
+        if (!availableProfilesByCategory.has(profile.category)) {
+          availableProfilesByCategory.set(profile.category, []);
+        }
+        availableProfilesByCategory.get(profile.category)?.push(profile.id);
+      }
+
+      // Shuffle profiles within each category for randomness (new shuffle for restart)
+      for (const [category, profileIds] of availableProfilesByCategory.entries()) {
+        const shuffled = [...profileIds];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        availableProfilesByCategory.set(category, shuffled);
+      }
+
+      // Pick one profile from each category in the round plan
+      const usedIndices = new Map<string, number>();
+      for (const category of roundPlan) {
+        const categoryProfiles = availableProfilesByCategory.get(category) || [];
+        const currentIndex = usedIndices.get(category) || 0;
+
+        if (currentIndex < categoryProfiles.length) {
+          profilesToPlay.push(categoryProfiles[currentIndex]);
+          usedIndices.set(category, currentIndex + 1);
+        } else {
+          // Fallback: reuse profiles if we run out (wrap around)
+          const wrappedIndex = currentIndex % categoryProfiles.length;
+          profilesToPlay.push(categoryProfiles[wrappedIndex]);
+          usedIndices.set(category, currentIndex + 1);
+        }
+      }
+
+      // Find the first profile
+      const firstProfileId = profilesToPlay[0];
+      const firstProfile = gameSession.profiles.find((p) => p.id === firstProfileId);
+
+      if (!firstProfile) {
+        console.error('Failed to find first profile for restart');
+        window.location.href = '/';
+        return;
+      }
+
+      // Reset game state to active with same configuration but fresh profile selection
+      const resetGameState = {
+        ...gameSession,
+        players: resetPlayers,
+        status: 'active' as const,
+        currentRound: 1,
+        selectedProfiles: profilesToPlay,
+        category: firstProfile.category,
+        currentProfile: firstProfile,
+        currentTurn: {
+          profileId: firstProfile.id,
+          cluesRead: 0,
+          revealed: false,
+        },
+      };
+
+      await saveGameSession(resetGameState);
+      window.location.href = `/game/${sessionId}`;
+    } catch (error) {
+      console.error('Failed to restart game:', error);
+      window.location.href = `/game/${sessionId}`;
+    }
+  };
 
   // Compute ranked players from game session data
   const rankedPlayers = useMemo<RankedPlayer[]>(() => {
@@ -138,6 +278,36 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
             </TableBody>
           </Table>
         </Card>
+
+        <div className="mt-6 space-y-3">
+          <Button
+            onClick={handleNewGame}
+            variant="default"
+            className="w-full"
+            data-testid="scoreboard-new-game-button"
+            aria-label={t('scoreboard.actions.newGame')}
+          >
+            {t('scoreboard.actions.newGame')}
+          </Button>
+          <Button
+            onClick={handleSamePlayers}
+            variant="default"
+            className="w-full"
+            data-testid="scoreboard-same-players-button"
+            aria-label={t('scoreboard.actions.samePlayers')}
+          >
+            {t('scoreboard.actions.samePlayers')}
+          </Button>
+          <Button
+            onClick={handleRestartGame}
+            variant="default"
+            className="w-full"
+            data-testid="scoreboard-restart-game-button"
+            aria-label={t('scoreboard.actions.restartGame')}
+          >
+            {t('scoreboard.actions.restartGame')}
+          </Button>
+        </div>
       </div>
     </div>
   );
