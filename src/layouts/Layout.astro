@@ -1,5 +1,6 @@
 ---
 import { I18nProvider } from '../components/I18nProvider';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
 import { FALLBACK_LOCALE } from '../i18n/locales';
 import '../styles/globals.css';
@@ -26,6 +27,9 @@ const currentLocale = FALLBACK_LOCALE;
   </head>
   <body>
     <I18nProvider client:only="react" locale={currentLocale}>
+      <header>
+        <LanguageSwitcher client:load />
+      </header>
       <slot />
     </I18nProvider>
     <PwaUpdater client:load />
@@ -38,5 +42,16 @@ const currentLocale = FALLBACK_LOCALE;
 		margin: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background-color: hsl(var(--background));
+		border-bottom: 1px solid hsl(var(--border));
+		padding: 0.5rem 1rem;
+		display: flex;
+		justify-content: flex-end;
 	}
 </style>

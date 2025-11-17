@@ -1,16 +1,21 @@
 import { useTranslation } from 'react-i18next';
+import type { SupportedLocale } from '../i18n/locales';
+import { useI18nStore } from '../stores/i18nStore';
 
 const locales = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'pt-BR', name: 'Português', flag: '🇧🇷' },
+  { code: 'en' as SupportedLocale, name: 'English', flag: '🇺🇸' },
+  { code: 'es' as SupportedLocale, name: 'Español', flag: '🇪🇸' },
+  { code: 'pt-BR' as SupportedLocale, name: 'Português', flag: '🇧🇷' },
 ];
 
 export function LanguageSwitcher() {
   const { i18n, t } = useTranslation();
-  const currentLocale = i18n.language;
+  const { locale: storeLocale, setLocale } = useI18nStore();
+  const currentLocale = storeLocale || i18n.language;
 
-  const handleLanguageChange = (locale: string) => {
+  const handleLanguageChange = (locale: SupportedLocale) => {
+    // Update both the store and i18next
+    setLocale(locale);
     i18n.changeLanguage(locale).catch(console.error);
   };
 
