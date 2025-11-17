@@ -1,12 +1,10 @@
 ---
 import { GameSetup } from '../components/GameSetup';
-import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import Layout from '../layouts/Layout.astro';
 
 export const prerender = true;
 ---
 
 <Layout title="Perfil - Game Setup">
-	<LanguageSwitcher client:only="react" />
 	<GameSetup client:only="react" />
 </Layout>

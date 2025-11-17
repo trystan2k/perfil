@@ -68,6 +68,18 @@
   }
 }
 
+/* Skip Link for Accessibility */
+.skip-link {
+  @apply absolute left-[-999px] top-0 z-[100];
+  @apply bg-background text-foreground px-5 py-3 rounded-b-lg;
+  @apply shadow-[0_2px_8px_rgba(0,0,0,0.08)] font-semibold no-underline;
+}
+
+.skip-link:focus,
+.skip-link:active {
+  @apply left-0 outline outline-2 outline-primary;
+}
+
 /* Language Switcher Styles */
 .language-switcher {
   @apply flex justify-center p-4;
