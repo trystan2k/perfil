@@ -130,12 +130,12 @@ describe('i18nStore', () => {
     });
 
     it('should handle rehydration with extra properties in localStorage', async () => {
-      // Note: Zustand's partialize controls what gets saved, not what gets loaded
-      // Extra properties in localStorage will be loaded into the store
+      // Extra properties in localStorage will be ignored during rehydration and not loaded into the store
+      // Zustand's partialize controls what gets saved on subsequent updates
       const storedData = {
         state: {
           locale: 'es',
-          extraProp: 'will-be-loaded',
+          extraProp: 'will-be-ignored',
         },
         version: 0,
       };

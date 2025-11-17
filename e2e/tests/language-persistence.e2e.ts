@@ -1,4 +1,13 @@
+import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
+
+// Helper function to add players
+async function addPlayers(page: Page, count: number) {
+  for (let i = 1; i <= count; i++) {
+    await page.getByLabel('Player Name').fill(`Test Player ${i}`);
+    await page.getByRole('button', { name: 'Add' }).click();
+  }
+}
 
 test.describe('Language Persistence', () => {
   test.beforeEach(async ({ page, context }) => {
@@ -73,11 +82,7 @@ test.describe('Language Persistence', () => {
     });
 
     // Fill in player names to navigate to game setup
-    await page.getByLabel('Player Name').fill('Test Player 1');
-    await page.getByRole('button', { name: 'Add' }).click();
-
-    await page.getByLabel('Player Name').fill('Test Player 2');
-    await page.getByRole('button', { name: 'Add' }).click();
+    await addPlayers(page, 2);
 
     // Start game
     await page.getByRole('button', { name: /começar|start/i }).click();
@@ -160,11 +165,7 @@ test.describe('Language Persistence', () => {
     });
 
     // Fill in players and start game to trigger profile data fetch
-    await page.getByLabel('Player Name').fill('Player 1');
-    await page.getByRole('button', { name: 'Add' }).click();
-
-    await page.getByLabel('Player Name').fill('Player 2');
-    await page.getByRole('button', { name: 'Add' }).click();
+    await addPlayers(page, 2);
 
     await page.getByRole('button', { name: /começar|start/i }).click();
 

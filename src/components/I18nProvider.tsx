@@ -43,7 +43,7 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
         console.error('Failed to initialize i18n:', err);
         setError(err instanceof Error ? err : new Error(String(err)));
       });
-  }, [locale, storeLocale, setLocale]); // Dependencies required by linter
+  }, [locale, storeLocale, setLocale]);
 
   // Set up bidirectional sync between i18next and store
   useEffect(() => {
@@ -67,7 +67,7 @@ export function I18nProvider({ children, locale }: I18nProviderProps) {
   useEffect(() => {
     if (!isReady) return;
 
-    if (storeLocale && i18next.language !== storeLocale) {
+    if (i18next.language !== storeLocale) {
       isChangingRef.current = true;
       i18next
         .changeLanguage(storeLocale)
