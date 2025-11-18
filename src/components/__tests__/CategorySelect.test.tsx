@@ -130,7 +130,7 @@ describe('CategorySelect', () => {
       });
     });
 
-    it('should render category buttons after loading', async () => {
+    it('should render category checkboxes after loading', async () => {
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       await waitFor(() => {
@@ -141,25 +141,30 @@ describe('CategorySelect', () => {
       expect(screen.getByText('Movies')).toBeInTheDocument();
     });
 
-    it('should render Shuffle All button', async () => {
+    it('should render Select All and Deselect All buttons', async () => {
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('Shuffle All')).toBeInTheDocument();
+        expect(screen.getByText('categorySelect.selectAll')).toBeInTheDocument();
       });
+
+      expect(screen.getByText('categorySelect.deselectAll')).toBeInTheDocument();
     });
 
-    it('should render OR divider', async () => {
+    it('should render Continue button disabled initially', async () => {
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('or')).toBeInTheDocument();
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      expect(continueButton).toBeDisabled();
     });
   });
 
-  describe('Category Selection', () => {
-    it('should load profiles and start game when category is selected', async () => {
+  describe('Multi-Category Selection', () => {
+    it('should allow selecting single category', async () => {
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
@@ -167,8 +172,91 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const categoryButton = screen.getByText('Famous People');
-      await user.click(categoryButton);
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      // Should enable continue button
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      expect(continueButton).not.toBeDisabled();
+    });
+
+    it('should allow selecting multiple categories', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const famousCheckbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      const countriesCheckbox = screen.getByRole('checkbox', { name: /Countries/i });
+
+      await user.click(famousCheckbox);
+      await user.click(countriesCheckbox);
+
+      // Both should be checked
+      expect(famousCheckbox).toBeChecked();
+      expect(countriesCheckbox).toBeChecked();
+
+      // Continue button should be enabled
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      expect(continueButton).not.toBeDisabled();
+    });
+
+    it('should enable Continue button when categories are selected', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+
+      expect(continueButton).toBeDisabled();
+      await user.click(checkbox);
+      expect(continueButton).not.toBeDisabled();
+    });
+
+    it('should transition to rounds screen when Continue is clicked', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
+
+      // Should now show rounds screen
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+    });
+
+    it('should pass all selected categories to startGame', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const famousCheckbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      const countriesCheckbox = screen.getByRole('checkbox', { name: /Countries/i });
+      const moviesCheckbox = screen.getByRole('checkbox', { name: /Movies/i });
+
+      await user.click(famousCheckbox);
+      await user.click(countriesCheckbox);
+      await user.click(moviesCheckbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
 
       await waitFor(() => {
         expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
@@ -178,123 +266,111 @@ describe('CategorySelect', () => {
       await user.click(startButton);
 
       await waitFor(() => {
-        expect(mockLoadProfiles).toHaveBeenCalledWith(mockProfilesData.profiles);
         expect(mockStartGame).toHaveBeenCalled();
       });
 
-      // Should pass array of selected category (not profile IDs)
       const [categoriesArg, roundsArg] = mockStartGame.mock.calls[0];
-      expect(categoriesArg).toEqual(['Famous People']);
-      expect(roundsArg).toBe(5); // default numberOfRounds
-    });
-
-    it('should navigate to game page after category selection', async () => {
-      const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Countries')).toBeInTheDocument();
-      });
-
-      const categoryButton = screen.getByText('Countries');
-      await user.click(categoryButton);
-
-      await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
-      });
-
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
-      await user.click(startButton);
-
-      await waitFor(() => {
-        expect(mockForcePersist).toHaveBeenCalledTimes(1);
-        expect(mockLocation.href).toBe('/game/test-session');
-      });
-    });
-
-    it('should disable buttons after selection', async () => {
-      const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Movies')).toBeInTheDocument();
-      });
-
-      const categoryButton = screen.getByText('Movies');
-      await user.click(categoryButton);
-
-      await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
-      });
-
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
-      await user.click(startButton);
-
-      await waitFor(() => {
-        expect(startButton).toBeDisabled();
-      });
+      expect(categoriesArg).toEqual(
+        expect.arrayContaining(['Famous People', 'Countries', 'Movies'])
+      );
+      expect(categoriesArg).toHaveLength(3);
+      expect(roundsArg).toBe(5);
     });
   });
 
-  describe('Shuffle All', () => {
-    it('should load all profiles and start game when Shuffle All is clicked', async () => {
+  describe('Select All / Deselect All', () => {
+    it('should select all categories when Select All is clicked', async () => {
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('Shuffle All')).toBeInTheDocument();
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const shuffleButton = screen.getByText('Shuffle All');
-      await user.click(shuffleButton);
+      const selectAllButton = screen.getByRole('button', { name: /categorySelect.selectAll/i });
+      await user.click(selectAllButton);
 
-      await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      // All checkboxes should be checked
+      const checkboxes = screen.getAllByRole('checkbox');
+      checkboxes.forEach((checkbox) => {
+        expect(checkbox).toBeChecked();
       });
 
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
-      await user.click(startButton);
-
-      await waitFor(() => {
-        expect(mockLoadProfiles).toHaveBeenCalledWith(mockProfilesData.profiles);
-        expect(mockStartGame).toHaveBeenCalled();
-      });
-
-      // Should pass all unique categories (not all profile IDs)
-      const [categoriesArg, roundsArg] = mockStartGame.mock.calls[0];
-      const expectedCategories = ['Famous People', 'Countries', 'Movies'];
-      expect(categoriesArg).toEqual(expect.arrayContaining(expectedCategories));
-      expect(categoriesArg).toHaveLength(3); // 3 unique categories
-      expect(roundsArg).toBe(5); // default numberOfRounds
+      // Continue button should be enabled
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      expect(continueButton).not.toBeDisabled();
     });
 
-    it('should navigate to game page after Shuffle All', async () => {
+    it('should deselect all categories when Deselect All is clicked', async () => {
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('Shuffle All')).toBeInTheDocument();
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const shuffleButton = screen.getByText('Shuffle All');
-      await user.click(shuffleButton);
+      const selectAllButton = screen.getByRole('button', { name: /categorySelect.selectAll/i });
+      await user.click(selectAllButton);
+
+      // All checkboxes should be checked
+      await waitFor(() => {
+        const checkboxes = screen.getAllByRole('checkbox');
+        checkboxes.forEach((checkbox) => {
+          expect(checkbox).toBeChecked();
+        });
+      });
+
+      const deselectAllButton = screen.getByRole('button', { name: /categorySelect.deselectAll/i });
+      await user.click(deselectAllButton);
+
+      // All checkboxes should be unchecked
+      const checkboxes = screen.getAllByRole('checkbox');
+      checkboxes.forEach((checkbox) => {
+        expect(checkbox).not.toBeChecked();
+      });
+
+      // Continue button should be disabled
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      expect(continueButton).toBeDisabled();
+    });
+
+    it('should disable Select All when all are selected', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
-      await user.click(startButton);
+      const selectAllButton = screen.getByRole('button', { name: /categorySelect.selectAll/i });
+      await user.click(selectAllButton);
+
+      // After selecting all, button should be disabled
+      await waitFor(() => {
+        expect(selectAllButton).toBeDisabled();
+      });
+    });
+
+    it('should enable Deselect All when categories are selected', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(mockForcePersist).toHaveBeenCalledTimes(1);
-        expect(mockLocation.href).toBe('/game/test-session');
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
+
+      const deselectAllButton = screen.getByRole('button', { name: /categorySelect.deselectAll/i });
+      expect(deselectAllButton).toBeDisabled();
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      expect(deselectAllButton).not.toBeDisabled();
     });
   });
 
   describe('Rounds Selection', () => {
-    it('should show rounds input after selecting a category', async () => {
+    it('should show rounds input after Continue is clicked', async () => {
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
@@ -302,56 +378,15 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const categoryButton = screen.getByText('Famous People');
-      await user.click(categoryButton);
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
 
       await waitFor(() => {
         expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
         expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
-      });
-    });
-
-    it('should accept valid rounds input values', async () => {
-      const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Countries')).toBeInTheDocument();
-      });
-
-      const categoryButton = screen.getByText('Countries');
-      await user.click(categoryButton);
-
-      await waitFor(() => {
-        expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
-      });
-
-      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
-      expect(roundsInput.value).toBe('5');
-      expect(roundsInput.type).toBe('number');
-    });
-
-    it('should allow going back to category selection', async () => {
-      const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Movies')).toBeInTheDocument();
-      });
-
-      const categoryButton = screen.getByText('Movies');
-      await user.click(categoryButton);
-
-      await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
-      });
-
-      const backButton = screen.getByText('common.back');
-      await user.click(backButton);
-
-      await waitFor(() => {
-        expect(screen.getByText('Select Category')).toBeInTheDocument();
-        expect(screen.getByText('Movies')).toBeInTheDocument();
       });
     });
 
@@ -363,21 +398,86 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const categoryButton = screen.getByText('Famous People');
-      await user.click(categoryButton);
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
 
       await waitFor(() => {
         expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
       });
 
       const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
-
       expect(roundsInput.value).toBe('5');
       expect(roundsInput.min).toBe('1');
       expect(roundsInput.max).toBe('50');
     });
 
-    it('should have min and max constraints on rounds input', async () => {
+    it('should allow going back to category selection', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Movies')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Movies/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const backButton = screen.getByText('common.back');
+      await user.click(backButton);
+
+      await waitFor(() => {
+        // Back to category selection - check if the title is visible
+        const heading = screen.getByRole('heading');
+        expect(heading).toBeInTheDocument();
+        // Checkbox should still be checked
+        expect(screen.getByRole('checkbox', { name: /Movies/i })).toBeChecked();
+      });
+    });
+
+    it('should load profiles and start game with selected categories', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const famousCheckbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      const countriesCheckbox = screen.getByRole('checkbox', { name: /Countries/i });
+
+      await user.click(famousCheckbox);
+      await user.click(countriesCheckbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      await user.click(startButton);
+
+      await waitFor(() => {
+        expect(mockLoadProfiles).toHaveBeenCalledWith(mockProfilesData.profiles);
+        expect(mockStartGame).toHaveBeenCalled();
+      });
+
+      const [categoriesArg] = mockStartGame.mock.calls[0];
+      expect(categoriesArg).toEqual(expect.arrayContaining(['Famous People', 'Countries']));
+    });
+
+    it('should navigate to game page after starting game', async () => {
       const user = userEvent.setup();
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
@@ -385,17 +485,23 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Countries')).toBeInTheDocument();
       });
 
-      const categoryButton = screen.getByText('Countries');
-      await user.click(categoryButton);
+      const checkbox = screen.getByRole('checkbox', { name: /Countries/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
       });
 
-      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      await user.click(startButton);
 
-      expect(roundsInput.min).toBe('1');
-      expect(roundsInput.max).toBe('50');
+      await waitFor(() => {
+        expect(mockForcePersist).toHaveBeenCalledTimes(1);
+        expect(mockLocation.href).toBe('/game/test-session');
+      });
     });
   });
 

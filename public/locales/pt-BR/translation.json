@@ -7,7 +7,8 @@
     "category": "Categoria",
     "pts": "pts",
     "returnHome": "Voltar ao Início",
-    "back": "Voltar"
+    "back": "Voltar",
+    "continue": "Continuar"
   },
   "languageSwitcher": {
     "ariaLabel": "Seletor de idioma",
@@ -87,8 +88,8 @@
     }
   },
   "categorySelect": {
-    "title": "Selecionar Categoria",
-    "description": "Escolha uma categoria para iniciar o jogo, ou embaralhe todos os perfis para uma experiência mista.",
+    "title": "Selecionar Categorias",
+    "description": "Escolha uma ou mais categorias para iniciar o jogo. Os perfis de todas as categorias selecionadas serão embaralhados juntos.",
     "loading": {
       "title": "Carregando Categorias",
       "description": "Carregando categorias disponíveis..."
@@ -108,7 +109,9 @@
       "label": "Número de rodadas",
       "hint": "Escolha entre 1 e 50 rodadas",
       "startButton": "Iniciar Jogo"
-    }
+    },
+    "selectAll": "Selecionar Tudo",
+    "deselectAll": "Desselecionar Tudo"
   },
   "scoreboard": {
     "title": "Placar",

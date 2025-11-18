@@ -1,4 +1,3 @@
-import { Shuffle } from 'lucide-react';
 import { type ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -16,9 +15,10 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const [isStarting, setIsStarting] = useState(false);
   const [sessionLoading, setSessionLoading] = useState(true);
   const [sessionError, setSessionError] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [numberOfRounds, setNumberOfRounds] = useState<number>(5);
   const [roundsInputError, setRoundsInputError] = useState<string | null>(null);
+  const [showRoundsScreen, setShowRoundsScreen] = useState(false);
   const loadProfiles = useGameStore((state) => state.loadProfiles);
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
@@ -101,39 +101,46 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   }
 
   const profiles = profilesData.profiles;
-
   const categories = Array.from(new Set(profiles.map((profile) => profile.category))).sort();
 
-  const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
+  const handleCategoryToggle = (category: string) => {
+    setSelectedCategories((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(category)) {
+        newSet.delete(category);
+      } else {
+        newSet.add(category);
+      }
+      return newSet;
+    });
   };
 
-  const handleShuffleAll = () => {
-    setSelectedCategory('shuffle-all');
+  const handleSelectAll = () => {
+    setSelectedCategories(new Set(categories));
+  };
+
+  const handleDeselectAll = () => {
+    setSelectedCategories(new Set());
+  };
+
+  const handleContinueToRounds = () => {
+    if (selectedCategories.size === 0) return;
+    setShowRoundsScreen(true);
+  };
+
+  const handleBackToCategories = () => {
+    setShowRoundsScreen(false);
   };
 
   const handleStartGame = async () => {
-    if (isStarting || !selectedCategory) return;
+    if (isStarting || selectedCategories.size === 0) return;
 
     setIsStarting(true);
 
     try {
-      let selectedCategories: string[];
-
-      if (selectedCategory === 'shuffle-all') {
-        // Pass all unique categories
-        selectedCategories = Array.from(new Set(profiles.map((p) => p.category)));
-      } else {
-        // Pass single selected category
-        selectedCategories = [selectedCategory];
-      }
-
       loadProfiles(profiles);
-
-      startGame(selectedCategories, numberOfRounds);
-
+      startGame(Array.from(selectedCategories), numberOfRounds);
       await forcePersist();
-
       window.location.href = `/game/${sessionId}`;
     } catch (error) {
       console.error('Failed to persist game state:', error);
@@ -144,27 +151,20 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const handleRoundsChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number.parseInt(e.target.value, 10);
 
-    // Always update the value to make input responsive
     if (!Number.isNaN(value)) {
       setNumberOfRounds(value);
-
-      // Validate and set error state
       if (value < 1 || value > 50) {
         setRoundsInputError('Invalid');
       } else {
         setRoundsInputError(null);
       }
     } else {
-      // Handle empty or invalid input
       setRoundsInputError('Invalid');
     }
   };
 
-  const handleBackToCategories = () => {
-    setSelectedCategory(null);
-  };
-
-  if (selectedCategory) {
+  // Show rounds configuration screen if categories are selected and Continue was clicked
+  if (showRoundsScreen) {
     return (
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
         <Card className="w-full max-w-md">
@@ -173,9 +173,9 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
               {t('categorySelect.rounds.title')}
             </CardTitle>
             <CardDescription>
-              {selectedCategory === 'shuffle-all'
-                ? t('categorySelect.rounds.descriptionShuffleAll')
-                : t('categorySelect.rounds.descriptionCategory', { category: selectedCategory })}
+              {t('categorySelect.rounds.descriptionCategory', {
+                category: Array.from(selectedCategories).join(', '),
+              })}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -229,6 +229,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     );
   }
 
+  // Show category selection screen
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-full max-w-md">
@@ -239,35 +240,58 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
           <CardDescription>{t('categorySelect.description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
+          {/* Select All / Deselect All Controls */}
+          <div className="flex gap-2">
+            <Button
+              onClick={handleSelectAll}
+              disabled={isStarting || selectedCategories.size === categories.length}
+              variant="outline"
+              size="sm"
+              className="flex-1"
+            >
+              {t('categorySelect.selectAll')}
+            </Button>
+            <Button
+              onClick={handleDeselectAll}
+              disabled={isStarting || selectedCategories.size === 0}
+              variant="outline"
+              size="sm"
+              className="flex-1"
+            >
+              {t('categorySelect.deselectAll')}
+            </Button>
+          </div>
+
+          {/* Category Checkboxes */}
+          <div className="space-y-3">
             {categories.map((category) => (
-              <Button
-                key={category}
-                onClick={() => handleCategorySelect(category)}
-                disabled={isStarting}
-                className="w-full"
-                size="lg"
-                variant="outline"
-              >
-                {category}
-              </Button>
+              <div key={category}>
+                <label
+                  htmlFor={`category-${category}`}
+                  className="flex items-center gap-3 cursor-pointer hover:bg-accent p-2 rounded-md transition-colors"
+                >
+                  <input
+                    id={`category-${category}`}
+                    type="checkbox"
+                    checked={selectedCategories.has(category)}
+                    onChange={() => handleCategoryToggle(category)}
+                    disabled={isStarting}
+                    className="w-5 h-5 rounded border-2 border-input cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                  <span className="text-sm font-medium">{category}</span>
+                </label>
+              </div>
             ))}
           </div>
 
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                {t('categorySelect.orLabel')}
-              </span>
-            </div>
-          </div>
-
-          <Button onClick={handleShuffleAll} disabled={isStarting} className="w-full" size="lg">
-            <Shuffle className="mr-2 h-5 w-5" />
-            {t('categorySelect.shuffleAllButton')}
+          {/* Continue Button */}
+          <Button
+            onClick={handleContinueToRounds}
+            disabled={isStarting || selectedCategories.size === 0}
+            className="w-full"
+            size="lg"
+          >
+            {t('common.continue')}
           </Button>
         </CardContent>
       </Card>
