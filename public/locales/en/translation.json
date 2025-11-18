@@ -7,7 +7,8 @@
     "category": "Category",
     "pts": "pts",
     "returnHome": "Return to Home",
-    "back": "Back"
+    "back": "Back",
+    "continue": "Continue"
   },
   "languageSwitcher": {
     "ariaLabel": "Language selector",
@@ -87,8 +88,8 @@
     }
   },
   "categorySelect": {
-    "title": "Select Category",
-    "description": "Choose a category to start the game, or shuffle all profiles for a mixed experience.",
+    "title": "Select Categories",
+    "description": "Choose one or more categories to start the game. The profiles from all selected categories will be shuffled together.",
     "loading": {
       "title": "Loading Categories",
       "description": "Loading available categories..."
@@ -108,7 +109,9 @@
       "label": "Number of rounds",
       "hint": "Choose between 1 and 50 rounds",
       "startButton": "Start Game"
-    }
+    },
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All"
   },
   "scoreboard": {
     "title": "Scoreboard",

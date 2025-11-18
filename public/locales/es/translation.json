@@ -7,7 +7,8 @@
     "category": "Categoría",
     "pts": "pts",
     "returnHome": "Volver al Inicio",
-    "back": "Volver"
+    "back": "Volver",
+    "continue": "Continuar"
   },
   "languageSwitcher": {
     "ariaLabel": "Selector de idioma",
@@ -87,8 +88,8 @@
     }
   },
   "categorySelect": {
-    "title": "Seleccionar Categoría",
-    "description": "Elige una categoría para comenzar el juego, o mezcla todos los perfiles para una experiencia mixta.",
+    "title": "Seleccionar Categorías",
+    "description": "Elige una o más categorías para empezar el juego. Los perfiles de todas las categorías seleccionadas se barajarán juntos.",
     "loading": {
       "title": "Cargando Categorías",
       "description": "Cargando categorías disponibles..."
@@ -108,7 +109,9 @@
       "label": "Número de rondas",
       "hint": "Elige entre 1 y 50 rondas",
       "startButton": "Iniciar Juego"
-    }
+    },
+    "selectAll": "Seleccionar Todo",
+    "deselectAll": "Deseleccionar Todo"
   },
   "scoreboard": {
     "title": "Tabla de Posiciones",
