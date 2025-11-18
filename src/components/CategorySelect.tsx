@@ -265,19 +265,22 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
           {/* Category Checkboxes */}
           <div className="space-y-3">
             {categories.map((category) => (
-              <label
-                key={category}
-                className="flex items-center gap-3 cursor-pointer hover:bg-accent p-2 rounded-md transition-colors"
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedCategories.has(category)}
-                  onChange={() => handleCategoryToggle(category)}
-                  disabled={isStarting}
-                  className="w-5 h-5 rounded border-2 border-input cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
-                />
-                <span className="text-sm font-medium">{category}</span>
-              </label>
+              <div key={category}>
+                <label
+                  htmlFor={`category-${category}`}
+                  className="flex items-center gap-3 cursor-pointer hover:bg-accent p-2 rounded-md transition-colors"
+                >
+                  <input
+                    id={`category-${category}`}
+                    type="checkbox"
+                    checked={selectedCategories.has(category)}
+                    onChange={() => handleCategoryToggle(category)}
+                    disabled={isStarting}
+                    className="w-5 h-5 rounded border-2 border-input cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                  <span className="text-sm font-medium">{category}</span>
+                </label>
+              </div>
             ))}
           </div>
 
