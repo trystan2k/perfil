@@ -136,9 +136,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     );
   }
 
-  // Early return if no active game
-  // Don't show "No Active Game" if status is completed - navigation will happen via useEffect
-  if (status === 'pending' || (status === 'completed' && !id)) {
+  if (status === 'pending') {
     return (
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
         <Card className="w-full max-w-md">
