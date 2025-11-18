@@ -37,6 +37,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const nextClue = useGameStore((state) => state.nextClue);
   const awardPoints = useGameStore((state) => state.awardPoints);
   const skipProfile = useGameStore((state) => state.skipProfile);
+  const skipProfileWithoutPoints = useGameStore((state) => state.skipProfileWithoutPoints);
   const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
 
@@ -222,6 +223,10 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   // Check if max clues reached
   const isMaxCluesReached = currentTurn.cluesRead >= currentProfile.clues.length;
 
+  // Check if we're on the final clue (last clue has been revealed)
+  const isOnFinalClue =
+    currentTurn.cluesRead === currentProfile.clues.length && currentTurn.cluesRead > 0;
+
   // Check if points can be awarded (at least one clue has been read)
   const canAwardPoints = currentTurn.cluesRead > 0;
 
@@ -284,6 +289,13 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     setRoundSummaryData(null);
   };
 
+  // Handle "No Winner" button click when final clue is revealed
+  const handleNoWinner = async () => {
+    // Call skipProfileWithoutPoints action
+    // This advances to next profile or completes game without awarding points
+    await skipProfileWithoutPoints();
+  };
+
   return (
     <>
       <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -312,11 +324,17 @@ export function GamePlay({ sessionId }: GamePlayProps) {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Show Next Clue Button - moved to top for easy access */}
+            {/* Show Next Clue or No Winner Button - based on final clue state */}
             <div className="flex justify-center">
-              <Button onClick={nextClue} disabled={isMaxCluesReached} size="lg">
-                {t('gamePlay.showNextClueButton')}
-              </Button>
+              {isOnFinalClue ? (
+                <Button onClick={handleNoWinner} size="lg" variant="secondary">
+                  {t('gamePlay.noWinnerButton')}
+                </Button>
+              ) : (
+                <Button onClick={nextClue} disabled={isMaxCluesReached} size="lg">
+                  {t('gamePlay.showNextClueButton')}
+                </Button>
+              )}
             </div>
 
             {/* Clue Progress Indicator */}
@@ -350,7 +368,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               )}
             </div>
 
-            {/* Player Scoreboard - moved before answer reveal */}
+            {/* Player Scoreboard - always visible for scoring */}
             <div className="space-y-3">
               <h4 className="text-lg font-semibold text-center">
                 {t('gamePlay.playersAwardPoints')}

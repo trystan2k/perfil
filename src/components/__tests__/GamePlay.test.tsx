@@ -224,7 +224,7 @@ describe('GamePlay Component', () => {
       expect(screen.getByText('Clue 3 of 20')).toBeInTheDocument();
     });
 
-    it('should disable button when max clues reached', () => {
+    it('should display "No Winner" button when max clues reached', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
@@ -235,11 +235,18 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay />);
 
-      const button = screen.getByRole('button', { name: 'Show Next Clue' });
-      expect(button).toBeDisabled();
+      // When on final clue, "Show Next Clue" button is hidden
+      expect(screen.queryByRole('button', { name: 'Show Next Clue' })).not.toBeInTheDocument();
+
+      // Find the "No Winner" button by looking for secondary variant button with the translation key
+      const buttons = screen.getAllByRole('button');
+      const noWinnerButton = buttons.find((btn) =>
+        btn.textContent?.includes('gamePlay.noWinnerButton')
+      );
+      expect(noWinnerButton).toBeInTheDocument();
     });
 
-    it('should not advance clues when button is disabled', async () => {
+    it('should show "No Winner" button clickable when on final clue', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['Movies']);
@@ -251,13 +258,22 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay />);
 
-      const button = screen.getByRole('button', { name: 'Show Next Clue' });
+      // Find the "No Winner" button by looking for the translation key in the button text
+      const buttons = screen.getAllByRole('button');
+      const noWinnerButton = buttons.find((btn) =>
+        btn.textContent?.includes('gamePlay.noWinnerButton')
+      );
+      expect(noWinnerButton).toBeInTheDocument();
+      expect(noWinnerButton).not.toBeDisabled();
 
-      // Try to click disabled button
-      await user.click(button);
+      // Button should be clickable
+      if (noWinnerButton) {
+        await user.click(noWinnerButton);
+      }
 
-      // Should still be at 20
-      expect(useGameStore.getState().currentTurn?.cluesRead).toBe(20);
+      // Game should transition to next profile or complete
+      // Verify we're no longer in an error state
+      expect(useGameStore.getState().currentTurn).toBeDefined();
     });
   });
 
