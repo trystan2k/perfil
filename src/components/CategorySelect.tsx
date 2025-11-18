@@ -16,7 +16,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const [sessionLoading, setSessionLoading] = useState(true);
   const [sessionError, setSessionError] = useState<string | null>(null);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
-  const [numberOfRounds, setNumberOfRounds] = useState<number>(5);
+  const [numberOfRounds, setNumberOfRounds] = useState<string>('5');
   const [roundsInputError, setRoundsInputError] = useState<string | null>(null);
   const [showRoundsScreen, setShowRoundsScreen] = useState(false);
   const loadProfiles = useGameStore((state) => state.loadProfiles);
@@ -139,7 +139,8 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
     try {
       loadProfiles(profiles);
-      startGame(Array.from(selectedCategories), numberOfRounds);
+      const numRounds = Number.parseInt(numberOfRounds, 10);
+      startGame(Array.from(selectedCategories), numRounds);
       await forcePersist();
       window.location.href = `/game/${sessionId}`;
     } catch (error) {
@@ -149,17 +150,19 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   };
 
   const handleRoundsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = Number.parseInt(e.target.value, 10);
+    const value = e.target.value;
+    setNumberOfRounds(value);
 
-    if (!Number.isNaN(value)) {
-      setNumberOfRounds(value);
-      if (value < 1 || value > 50) {
+    // Only validate if value is not empty
+    if (value === '') {
+      setRoundsInputError(null);
+    } else {
+      const numValue = Number.parseInt(value, 10);
+      if (Number.isNaN(numValue) || numValue < 1 || numValue > 50) {
         setRoundsInputError('Invalid');
       } else {
         setRoundsInputError(null);
       }
-    } else {
-      setRoundsInputError('Invalid');
     }
   };
 
