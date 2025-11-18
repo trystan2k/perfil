@@ -39,12 +39,22 @@ Add a "No Winner" button that appears when the final clue for a profile is revea
 - public/locales/es/translation.json (added `noWinnerButton` translation)
 - public/locales/pt-BR/translation.json (added `noWinnerButton` translation)
 
-## Testing
+## Tests Updated
+
+- Unit and integration tests were updated to cover the No Winner flow and the `skipProfileWithoutPoints` store action.
+- Tests added/updated include scenarios for final-clue detection, button rendering, and store behavior when skipping without awarding points.
+- The full test suite (310 tests) was run after changes.
+
+## Testing / QA Status
 
 - All 310 existing tests continue to pass.
 - Code coverage remained at 90.72% (above the 80% threshold).
 - Lint and typecheck: 0 errors.
 - Build: successful and all assets generated.
+
+## PR
+
+- PR #38: https://github.com/trystan2k/perfil/pull/38
 
 ## Key Design Decisions
 
@@ -59,8 +69,9 @@ Add a "No Winner" button that appears when the final clue for a profile is revea
 1. Implemented `skipProfileWithoutPoints` in src/stores/gameStore.ts, reusing `advanceToNextProfile` and ensuring a Promise-based API.
 2. Updated src/components/GamePlay.tsx to detect final clue reveal and added `handleNoWinner` which calls the new store action.
 3. Added translation keys in public/locales/en/translation.json, public/locales/es/translation.json, and public/locales/pt-BR/translation.json.
-4. Ran the full test suite and QA scripts (`pnpm run complete-check`) — all checks passed.
-5. Verified coverage, lint, typecheck, and build outputs.
+4. Updated tests to cover the No Winner flow and store behavior.
+5. Ran the full test suite and QA scripts (`pnpm run complete-check`) — all checks passed.
+6. Verified coverage, lint, typecheck, and build outputs.
 
 ## Status
 
