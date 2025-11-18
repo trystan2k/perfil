@@ -53,6 +53,8 @@ const translations: Record<string, string> = {
   'gamePlay.error.title': 'Error',
   'gamePlay.noActiveGame.title': 'No Active Game',
   'gamePlay.noActiveGame.description': 'Please start a game first.',
+  'gamePlay.redirecting.title': 'Game Complete!',
+  'gamePlay.redirecting.description': 'Redirecting to scoreboard...',
   'gamePlay.currentPlayer': 'Current Player',
   'gamePlay.unknownPlayer': 'Unknown Player',
   'gamePlay.clueCount': 'Clue {{current}} of {{total}}',

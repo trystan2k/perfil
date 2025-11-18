@@ -48,6 +48,10 @@
       "title": "Nenhum Perfil Carregado",
       "description": "Nenhum perfil está carregado no momento. Por favor, inicie um novo jogo."
     },
+    "redirecting": {
+      "title": "Jogo Completo!",
+      "description": "Redirecionando para o placar..."
+    },
     "roundInfo": "Rodada {{current}} de {{total}}",
     "currentPlayer": "Jogador Atual",
     "clueCount": "Dica {{current}} de {{total}}",

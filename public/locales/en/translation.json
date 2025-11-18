@@ -48,6 +48,10 @@
       "title": "No Profile Loaded",
       "description": "No profile is currently loaded. Please start a new game."
     },
+    "redirecting": {
+      "title": "Game Complete!",
+      "description": "Redirecting to scoreboard..."
+    },
     "roundInfo": "Round {{current}} of {{total}}",
     "currentPlayer": "Current Player",
     "clueCount": "Clue {{current}} of {{total}}",

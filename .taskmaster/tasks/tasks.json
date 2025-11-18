@@ -2,7 +2,7 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "Project Setup and Tooling Configuration",
         "description": "Initialize the Astro project with the React integration. Configure all required development tools including Tailwind CSS, Biome for linting/formatting, and Vitest for testing.",
         "details": "Use `pnpm create astro@latest` with the React template. Install dependencies: `pnpm add react react-dom zustand @tanstack/react-query idb shadcn-ui tailwindcss-animate lucide-react`. Initialize Tailwind CSS with `npx astro add tailwind`. Configure `biome.json` to handle `.astro`, `.ts`, and `.tsx` files. Set up `vitest.config.ts` to work with Astro and React components, including `@astrojs/testing` and `@testing-library/react`.",
@@ -72,7 +72,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Static Data Layer and Profile Loading",
         "description": "Created the `profiles.json` data structure and implemented a service to load and parse this data for the game. TanStack Query is used to manage data fetching, even for local static assets, establishing a consistent pattern for future remote data.",
         "status": "done",
@@ -146,7 +146,7 @@
         "updatedAt": "2025-11-09T18:52:16.737Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Game Session State Management with Zustand",
         "description": "A global state management store has been set up using Zustand to handle the entire game session, including players, scores, turn state, and remaining profiles. This store serves as the single source of truth for all interactive React components.",
         "status": "done",
@@ -218,7 +218,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Implement Player Setup and Game Creation UI",
         "description": "Develop the initial screen where the Master of Ceremonies (MC) can create a new game by entering player names. This will be an interactive React island component.",
         "details": "Create a React component, `GameSetup.tsx`, that will be hydrated as an Astro island. Use `shadcn/ui` components like `Input` for player names, `Button` for 'Add Player' and 'Start Game', and `Card` for layout. On 'Start Game', call the `createGame` action from the Zustand store with the list of player names and navigate to the main game screen.",
@@ -233,7 +233,7 @@
         "updatedAt": "2025-11-10T19:07:01.114Z"
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Develop Core Game Screen Layout (Mobile-First)",
         "description": "Built the main game screen layout using Astro and Tailwind CSS, focusing on a mobile-first responsive design. This screen now hosts the interactive game components and is ready for future React island integration.",
         "status": "done",
@@ -305,7 +305,7 @@
         ]
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "Implement Turn Management and Clue Display",
         "description": "Create the interactive React component for the main game loop, which displays the active player, shows clues progressively, and handles turn advancement.",
         "details": "Develop a `GamePlay.tsx` React island. This component will subscribe to the Zustand store to get the `currentTurn` state. It will display the active player's name, the current clue number, and the clue text. Implement a 'Show Next Clue' button for the MC, which triggers the `nextClue` action in the store. Also, implement a 'Pass' button that triggers the `passTurn` action.",
@@ -382,7 +382,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Implement Swipe-to-Reveal Answer Component",
         "description": "Build the swipeable card component that hides the answer. The MC can swipe right to reveal the answer for a 3-second timeout before it automatically hides again.",
         "details": "Create a `RevealAnswer.tsx` React component. Use a gesture library like `framer-motion` or a lightweight custom hook to detect a right swipe. The component's state will manage the revealed status. On reveal, display the answer and use a `setTimeout` to hide it after 3000ms. The answer text will be fetched from the game state.",
@@ -459,7 +459,7 @@
         "updatedAt": "2025-11-11T12:54:05.573Z"
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Implement MC Scoring Interaction",
         "description": "Enable the MC to award points to the player who guesses correctly. The player list should be interactive, allowing the MC to tap a player's name to trigger the scoring logic.",
         "details": "Enhance the player list UI within the `GamePlay.tsx` island. Make each player's name a clickable element (e.g., a `Button`). When the MC clicks a player's name, call the `awardPoints(playerId)` action from the Zustand store. The store action will calculate points based on `TOTAL_CLUES - (cluesRead - 1)` and update the player's score.",
@@ -472,7 +472,7 @@
         "subtasks": []
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "Integrate Game Session Persistence with IndexedDB",
         "description": "Persist the game session state to IndexedDB to allow players to resume a game after a page refresh. Use the 'idb' library for a clean, promise-based API.",
         "details": "Create a utility module for IndexedDB interactions using the `idb` library. Subscribe to the Zustand store. Whenever the state changes, serialize it and save it to an IndexedDB object store. When the application loads, attempt to read from IndexedDB to rehydrate the store's initial state. This ensures the game state (players, scores, current turn) persists.",
@@ -485,7 +485,7 @@
         "subtasks": []
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "Implement Final Scoreboard and Game End Flow",
         "description": "Create the final scoreboard view that is displayed when the MC ends the game. The scoreboard should list all players ranked by their final scores.",
         "details": "Create a new Astro page `src/pages/scoreboard.astro` or a conditional view within the main game island. This component will read the final player list from the Zustand store, sort it by score in descending order, and display the results using a `Table` from `shadcn/ui`. Add a 'Finish Game' button to the main game UI that triggers the `endGame` action and navigates to this view.",
@@ -557,7 +557,7 @@
         ]
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "Implement Internationalization (i18n) Support",
         "description": "Successfully integrated complete internationalization (i18n) support for the application, providing translations for English (en), Spanish (es), and Portuguese (pt-BR). The implementation leverages Astro's i18n routing and react-i18next for React island components, covering both UI text and dynamic profile data.",
         "status": "done",
@@ -660,7 +660,7 @@
         ]
       },
       {
-        "id": 12,
+        "id": "12",
         "title": "Implement Progressive Web App (PWA) Support",
         "description": "Integrate PWA features to make the application installable, work offline, and feel like a native app. This involves generating a service worker for caching assets and a web manifest for installation metadata using the vite-plugin-pwa library.",
         "details": "1. **Installation**: Add `vite-plugin-pwa` as a development dependency: `npm install vite-plugin-pwa -D`.\n2. **Configuration**: Update `astro.config.mjs` to include the PWA plugin in the Vite configuration. Configure the manifest with properties like `name`, `short_name`, `description`, `theme_color`, `background_color`, and specify paths to various icon sizes (e.g., 192x192, 512x512) in the `public/icons/` directory.\n3. **Service Worker Strategy**: Use the `generateSW` strategy within the plugin options. Configure `workbox` runtime caching rules. Create a rule for the app's static assets (JS, CSS, fonts) using a `StaleWhileRevalidate` strategy. Create a separate rule for the profiles JSON data endpoint using a `NetworkFirst` strategy to ensure users get the latest profiles when online but have a fallback for offline play.\n4. **Client-side Registration**: Create a small React component or client-side script (`<script is:inline>`) in the main layout (`src/layouts/Layout.astro`) to register the service worker. Consider using a library like `virtual:pwa-register/react` to provide users with a UI prompt to reload the page when a new version of the app is available.\n5. **Manifest Linking**: Ensure the web manifest is automatically linked in the `<head>` of the document by the plugin.",
@@ -732,7 +732,7 @@
         ]
       },
       {
-        "id": 13,
+        "id": "13",
         "title": "Configure Vitest Test Coverage",
         "description": "Add test coverage collection and enforcement to the Vitest configuration and project scripts. Define coverage thresholds and a CI-friendly coverage report format.",
         "details": "1. Update `vitest.config.ts` to enable coverage provider (e.g., 'c8' or 'istanbul') and configure coverage reporters (text, lcov).\n2. Add an npm script `test:coverage` that runs `vitest --coverage` and outputs an `lcov` report.\n3. Set minimum coverage thresholds (e.g., 80% statements, branches, functions, and lines) in the Vitest config so the test run fails when thresholds are not met.\n4. Add documentation in `docs/` (or PRD) describing how to run coverage locally and interpret the reports.",
@@ -792,7 +792,7 @@
         ]
       },
       {
-        "id": 14,
+        "id": "14",
         "title": "Configure Git Hooks (Husky + lint-staged)",
         "description": "Configured Husky and lint-staged to run formatting, linting, and tests automatically on pre-commit and pre-push hooks. This ensures code quality and consistency before code is committed or pushed to the repository.",
         "status": "done",
@@ -877,7 +877,7 @@
         ]
       },
       {
-        "id": 15,
+        "id": "15",
         "title": "Configure GitHub Actions CI (lint, typecheck, test, build, deploy)",
         "description": "Create a GitHub Actions workflow that runs linting, type checking, tests, coverage, and build on PRs and pushes to `main`. Add a deploy step to Cloudflare Pages using wrangler-action.",
         "details": "1. Add `.github/workflows/ci.yml` with jobs for: install (pnpm install), lint (pnpm lint), typecheck (pnpm typecheck), test (pnpm test), coverage (pnpm test:coverage), and build (pnpm build).\n2. Configure matrix runs if necessary (node versions).\n3. Add artifacts upload for coverage reports and build artifacts.\n4. Add a separate `deploy` job that runs on `workflow_run` or push to `main` and uses `cloudflare/wrangler-action` with secrets configured in repository settings (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID).",
@@ -964,7 +964,7 @@
         ]
       },
       {
-        "id": 16,
+        "id": "16",
         "title": "Extend Zustand Store with Profile Management Logic",
         "description": "Enhance the Zustand game store to manage the loading, selection, and turn-by-turn rotation of game profiles. This involves updating the game state interface and key actions like startGame, awardPoints, and adding a new skipProfile action.",
         "details": "1. **Update GameState Interface**: In `src/stores/gameStore.ts`, extend the `GameState` interface to include `profiles: Profile[]`, `selectedProfiles: number[]` (a queue of profile IDs), and `currentProfile: Profile | null`. 2. **Implement `loadProfiles` Action**: Add a new action `loadProfiles(profiles: Profile[])` that populates the `profiles` state array with all available profiles fetched from the data layer. 3. **Modify `startGame` Action**: Update the `startGame` action to accept a `selectedProfileIds: number[]` parameter. It should set the `selectedProfiles` state and initialize `currentProfile` with the first profile from the queue. 4. **Enhance `awardPoints` Action**: After awarding points, update the action to advance to the next profile. It should remove the completed profile's ID from `selectedProfiles`, set `currentProfile` to the next one, and reset turn-specific data (e.g., `cluesRead`). If `selectedProfiles` becomes empty, set the game `status` to 'completed'. 5. **Create `skipProfile` Action**: Implement a new `skipProfile()` action that performs the same profile advancement logic as `awardPoints` but without modifying any player's score, allowing the MC to pass on a profile.",
@@ -979,7 +979,7 @@
         "subtasks": []
       },
       {
-        "id": 17,
+        "id": "17",
         "title": "Integrate Answer Reveal Component into GamePlay",
         "description": "Add the existing RevealAnswer component to the GamePlay screen so the MC can swipe to verify answers",
         "details": "Import and render RevealAnswer in GamePlay.tsx below the clue display, passing answer={currentProfile?.name} prop. Style and position the reveal card to be prominent but not intrusive. Ensure swipe gesture works on mobile devices. Add visual feedback to indicate when answer can be revealed and show answer reveal state clearly.",
@@ -1038,7 +1038,7 @@
         ]
       },
       {
-        "id": 18,
+        "id": "18",
         "title": "Fix Navigation Flow Between Game Screens",
         "description": "Ensure proper navigation with session IDs throughout the entire game flow",
         "details": "Fix GameSetup to navigate to /game-setup/${sessionId} after createGame. Fix CategorySelect to load session from URL param and navigate to /game/${sessionId} after startGame. Update Astro getStaticPaths to remove hardcoded sample-session and use proper dynamic routing or SSR mode. Add loading states to handle session not found errors and show loading while hydrating from IndexedDB.",
@@ -1109,7 +1109,7 @@
         ]
       },
       {
-        "id": 19,
+        "id": "19",
         "title": "Implement Skip Profile and All Pass Scenario Handling",
         "description": "Handle the case when all players pass on a profile or MC wants to skip to the next profile",
         "details": "Add Skip Profile button to GamePlay that only shows after at least one clue revealed, calling new skipProfile action. Implement all-pass detection by tracking passes in current turn and auto-skip after all players have passed on same profile. Add confirmation dialog before skipping to prevent accidental skips.",
@@ -1120,7 +1120,7 @@
         "subtasks": []
       },
       {
-        "id": 20,
+        "id": "20",
         "title": "Add Game Progress Indicators and UX Improvements",
         "description": "Improve user experience with better progress feedback throughout the game",
         "details": "Add profile progress indicator showing Profile X of Y display and progress bar for profiles. Add clue progress indicator with visual representation of clues revealed and estimated points remaining display. Add round summary between profiles showing brief summary of who scored and how many points they earned.",
@@ -1192,7 +1192,7 @@
         ]
       },
       {
-        "id": 21,
+        "id": "21",
         "title": "Fix Placeholder Game Page at /game Route",
         "description": "Update src/pages/game.astro to redirect or show proper content instead of placeholder",
         "details": "Update src/pages/game.astro to either redirect to home page or setup, or show a proper Create a game first message with a link to the setup page. Currently it shows Coming soon placeholder which is confusing since there is a working game at /game/[sessionId].",
@@ -1263,7 +1263,7 @@
         ]
       },
       {
-        "id": 22,
+        "id": "22",
         "title": "Implement Category Selection Screen",
         "description": "Create category selection screen that allows MC to select a category or shuffle all profiles before starting the game",
         "details": "Create CategorySelect.tsx component with buttons for each available category (extracted from profiles data using useProfiles hook) and a Shuffle All button. Create /game-setup/[sessionId].astro page to host the CategorySelect component. When category selected: filter profiles by category and shuffle within category, store selectedProfileIds in game state. When Shuffle All selected: shuffle all profiles across all categories. After selection, call loadProfiles and startGame actions, then navigate to /game/[sessionId]. Add i18n support for all UI text.",
@@ -1277,7 +1277,7 @@
         "subtasks": []
       },
       {
-        "id": 23,
+        "id": "23",
         "title": "Integrate Real Profile Data into GamePlay Component",
         "description": "Replace mock clues in GamePlay with real profile data from the Zustand store",
         "details": "Update GamePlay.tsx to remove the mock clues array. Get currentProfile from Zustand store state. Display actual clues from currentProfile.clues[currentTurn.cluesRead - 1]. Show profile category in the UI. Update clue count display to show correct current/total values. Disable Next Clue button when cluesRead >= currentProfile.clues.length. Add profile progression indicator showing Profile X of Y where Y is selectedProfiles.length. Handle edge case when currentProfile is null gracefully with a message. Update all tests to use real profile data structure instead of mocks.",
@@ -1291,7 +1291,7 @@
         "subtasks": []
       },
       {
-        "id": 24,
+        "id": "24",
         "title": "Fix Race Condition Between State Persistence and Navigation on Category Selection",
         "description": "Resolve a critical bug where navigating from the category selection screen occurs before the game state is saved to IndexedDB, leading to a 'No Active Game' error. This task will ensure the persistence operation is completed before the application navigates to the gameplay page.",
         "details": "The current implementation in `CategorySelect.tsx` calls `startGame()` and then immediately navigates. However, the `persistState` function in `gameStore.ts` has a 300ms debounce, causing a race condition. To fix this, we will implement a mechanism for synchronous persistence. \n1. In `src/stores/gameStore.ts`, expose a manual, awaitable persistence function. This could be achieved by calling the `flush()` method if using Zustand's built-in persistence middleware, or by creating a new exported function that directly invokes the save-to-IndexedDB logic without the debounce. \n2. In `src/components/CategorySelect.tsx`, modify the category selection handler. Before calling `window.location.href`, call and `await` the new synchronous persistence function. This will guarantee that the game state is successfully written to IndexedDB before the GamePlay component attempts to load it.",
@@ -1366,7 +1366,7 @@
         ]
       },
       {
-        "id": 25,
+        "id": "25",
         "title": "Implement Global Loading and Error States for Game Flow",
         "description": "Introduce global loading and error states into the Zustand store to gracefully handle asynchronous operations, invalid session data, and other potential failures throughout the application lifecycle, providing clear user feedback and recovery paths.",
         "details": "1. **Update Zustand Store:** Modify `gameStore.ts` to include new state properties: `isLoading: boolean` and `error: { message: string; recoveryPath?: string } | null`. Create corresponding actions: `setLoading(status)`, `setError(errorMessage, recoveryPath)`, and `clearError()`. 2. **Enhance Persistence Logic:** Wrap the IndexedDB session loading/rehydration logic in a try/catch block. When a page with a `sessionId` loads, set `isLoading` to true. If the session is not found in IndexedDB or data is corrupt, call `setError` with a message like 'Game session not found.' and a recovery path to '/'. Set `isLoading` to false on success or failure. 3. **Create Global State UI Handler:** Develop a wrapper component (e.g., `GameStateProvider.tsx`) that subscribes to the store. This component will conditionally render a full-page loading spinner if `isLoading` is true, or an error overlay with the message and a 'Go Home' link if `error` is not null. Otherwise, it will render its children. This wrapper should be used in the main layout file. 4. **Integrate into Components:** Update `GameSetup.tsx`, `CategorySelect.tsx`, and `GamePlay.tsx` to utilize the new state actions. For instance, on game creation or category selection, call `setLoading(true)` before the operation and `setLoading(false)` after.",
@@ -1474,7 +1474,7 @@
         "updatedAt": "2025-11-17T09:48:32.925Z"
       },
       {
-        "id": 27,
+        "id": "27",
         "title": "Persist language across the game and keep language selector visible on all screens",
         "description": "Current language selection from the initial screen is not persisted when navigating to the game. The language switcher should be visible on all screens and persist across page navigation and refresh, so the app uses chosen language consistently in all islands (UI and data loading).",
         "details": "Acceptance criteria:\\n- LanguageSwitcher renders in the global Layout across all pages.\\n- Selected locale is stored in a central place (i18n provider or app store) and rehydrated on load.\\n- React islands load translations and localized data using the persisted locale (e.g., /data/{locale}/profiles.json).\\n- Changing language updates UI immediately and persists across navigation/refresh.\\n- Tests (unit/integration) cover persistence and visibility.\\nTags: i18n, UX",
@@ -1554,7 +1554,7 @@
         "updatedAt": "2025-11-17T10:59:37.101Z"
       },
       {
-        "id": 28,
+        "id": "28",
         "title": "Remove 'player turn' UI — allow anyone to guess; MC awards points by tapping player's name",
         "description": "Remove the active-turn UI so any participant can guess; MC awards points by tapping a player's name in the participant list when a guess is correct.",
         "details": "Acceptance criteria:\\n- GamePlay no longer shows/enforce a current player turn UI.\\n- Pass/turn controls are removed; MC can still award points by tapping a player's name.\\n- AwardPoints flow remains intact and updates scores; multiplayer behavior preserved.\\nTags: gameplay, UX",
@@ -1629,7 +1629,7 @@
         ]
       },
       {
-        "id": 29,
+        "id": "29",
         "title": "Add rounds selection after category selection and implement round-category distribution",
         "description": "After category selection (and Shuffle All), MC should specify number of rounds. The game runs exactly that many rounds. If a single category is selected, use it exclusively; if multiple categories, distribute per round with minimal repeats (prefer not more than ~2 repeats per category when rounds >> categories).",
         "details": "Acceptance criteria:\\n- CategorySelect prompts for rounds count; rounds stored in game state.\\n- Game plays exactly N rounds; distribution respects single/multiple categories and shuffle rules.\\n- Includes unit tests for distribution algorithm and an integration test for flow from CategorySelect to GamePlay.",
@@ -1735,30 +1735,91 @@
         "updatedAt": "2025-11-15T18:40:56.162Z"
       },
       {
-        "id": 30,
+        "id": "30",
         "title": "Fix game end navigation to always show scoreboard",
         "description": "Ensure both end flows—finishing via Finish Game and running out of profiles—navigate to the scoreboard instead of a transient No Game page.",
         "details": "Acceptance criteria:\\n- Finish Game navigates directly to scoreboard; no No Game screen.\\n- When all profiles completed, automatically show scoreboard.\\n- Navigation is deterministic and uses persisted state as needed.",
         "testStrategy": "- Unit tests for endGame/navigation flow.\\n- E2E tests to verify scoreboard shows after finishing and after running out of profiles.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "10",
           "24"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Refactor 'Finish Game' Button for Direct Scoreboard Navigation",
+            "description": "Modify the 'Finish Game' button's event handler to ensure it directly navigates to the scoreboard page, completely bypassing the transient 'No Game' page.",
+            "dependencies": [],
+            "details": "Locate the `endGame` action, likely within the Zustand store. Update this action to set a definitive game-over state (e.g., `status: 'finished'`). Modify the UI component containing the button to trigger this action and then programmatically navigate to the scoreboard route, for example `/scoreboard/[sessionId]`.",
+            "status": "pending",
+            "testStrategy": "Write a unit test for the `endGame` action to confirm it updates the game state correctly. Use an E2E test to simulate a user clicking the 'Finish Game' button and assert that the application navigates to the scoreboard URL and the scoreboard component is rendered.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement Automatic Navigation to Scoreboard on Profile Depletion",
+            "description": "Create logic that automatically detects when the last profile in a game has been completed. When this condition is met, the game should end and navigate the user to the scoreboard.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the game logic that advances to the next profile (e.g., after a correct guess or a skip), add a check to determine if the profile queue is now empty. If it is, dispatch the refactored `endGame` action to update the game state and trigger the navigation to the scoreboard.",
+            "status": "pending",
+            "testStrategy": "Unit test the state transition logic that checks for an empty profile list. Create an E2E test with a minimal number of profiles, play through them all, and verify that the application automatically redirects to the scoreboard upon completion of the final profile.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Create a Game State Router Guard for Deterministic Navigation",
+            "description": "Implement a centralized routing guard or a high-level component effect that reads the game's status from persisted state on load and redirects the user to the correct page, ensuring navigation is deterministic.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create a React hook or a component that wraps the main game layouts. This logic will check the game's status from the Zustand store. If a game's status is 'finished', any attempt to access a gameplay URL (e.g., `/game/[sessionId]`) should result in an automatic redirect to the corresponding scoreboard URL.",
+            "status": "pending",
+            "testStrategy": "Test the redirection logic. E2E Test 1: Finish a game, then manually try to navigate back to the game URL and assert a redirect to the scoreboard occurs. E2E Test 2: For an in-progress game, manually navigate to the scoreboard URL and assert you are redirected back to the game play screen.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Audit and Remove 'No Game' Page from Game End Flows",
+            "description": "Thoroughly search the codebase to identify and remove any logic that navigates to the 'No Game' page as part of a game's conclusion. This page should no longer be part of the user flow for ending a game.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Perform a project-wide search for all navigation calls leading to the 'No Game' page. Remove any instances found within the game completion logic. If the page becomes entirely unused after this refactoring, delete the page component file itself to prevent future use.",
+            "status": "pending",
+            "testStrategy": "After implementation, perform a code review to confirm all relevant navigation paths to the 'No Game' page have been removed. Manually test both game-end scenarios (button click and profile depletion) to confirm the 'No Game' page never appears.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Write Comprehensive E2E Tests for Both Game End Scenarios",
+            "description": "Develop and execute a full suite of end-to-end tests to validate that both the manual 'Finish Game' flow and the automatic profile depletion flow correctly and reliably navigate to the scoreboard.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Using the project's E2E testing framework, create two primary test cases. Case 1: Start a game, play at least one round, click the 'Finish Game' button, and assert the scoreboard is displayed. Case 2: Start a game with a limited number of profiles, play until all are exhausted, and assert the scoreboard is automatically displayed. Both tests should verify the final URL and page content.",
+            "status": "pending",
+            "testStrategy": "The execution of these E2E tests serves as the final acceptance testing for the parent task. The tests should be added to the CI/CD pipeline to prevent future regressions in the game-end navigation flow.",
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-11-17T19:10:25.769Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-17T09:48:32.926Z",
+      "lastModified": "2025-11-17T19:10:25.770Z",
       "taskCount": 30,
-      "completedCount": 27,
+      "completedCount": 29,
       "tags": [
         "master"
-      ],
-      "created": "2025-11-17T10:59:46.166Z",
-      "description": "Tasks for master context"
+      ]
     }
   }
 }

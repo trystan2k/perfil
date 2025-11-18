@@ -51,7 +51,7 @@ describe('GamePlay Component', () => {
       expect(screen.getByText('Please start a game first.')).toBeInTheDocument();
     });
 
-    it('should show "No Active Game" message when status is completed', () => {
+    it('should show redirecting message when status is completed', () => {
       // Start and end the game
       const store = useGameStore.getState();
       store.startGame(['Movies']);
@@ -59,8 +59,8 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay />);
 
-      expect(screen.getByText('No Active Game')).toBeInTheDocument();
-      expect(screen.getByText('Please start a game first.')).toBeInTheDocument();
+      expect(screen.getByText('Game Complete!')).toBeInTheDocument();
+      expect(screen.getByText('Redirecting to scoreboard...')).toBeInTheDocument();
     });
 
     it('should show "No Active Game" message when currentTurn is null', () => {
