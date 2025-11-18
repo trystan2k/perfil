@@ -419,9 +419,6 @@ export const useGameStore = create<GameState>((set, get) => ({
         throw new Error('Maximum clues reached');
       }
 
-      // Get the currently visible clue (before incrementing) to add it to history.
-      // If cluesRead > 0, the currently visible clue is at cluesRead - 1.
-      // If cluesRead === 0, there is no visible clue yet, so we don't add anything.
       const currentlyVisibleClueIndex =
         state.currentTurn.cluesRead > 0 ? state.currentTurn.cluesRead - 1 : -1;
       const currentClueText =
