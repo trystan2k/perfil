@@ -4,6 +4,20 @@ import type { GameSession, Player, Profile } from '../types/models';
 
 type GameStatus = 'pending' | 'active' | 'completed';
 
+/**
+ * Add a clue to the history, keeping only the most recent entries.
+ * @param clue - The clue to add (null or empty is ignored)
+ * @param history - The current clue history
+ * @param maxLength - Maximum number of clues to keep (default: 2)
+ * @returns Updated history with clue prepended and truncated
+ */
+function addToHistory(clue: string | null, history: string[], maxLength = 2): string[] {
+  if (!clue) {
+    return history;
+  }
+  return [clue, ...history].slice(0, maxLength);
+}
+
 interface GameState extends GameSession {
   status: GameStatus;
   category?: string;
@@ -421,10 +435,8 @@ export const useGameStore = create<GameState>((set, get) => ({
           ...state.currentTurn,
           cluesRead: state.currentTurn.cluesRead + 1,
         },
-        // Add the current clue to history
-        revealedClueHistory: currentClueText
-          ? [currentClueText, ...(state.revealedClueHistory || [])].filter(Boolean).slice(0, 2)
-          : state.revealedClueHistory,
+        // Add the current clue to history using the helper function
+        revealedClueHistory: addToHistory(currentClueText, state.revealedClueHistory),
       };
 
       persistState({ ...state, ...newState });
@@ -438,10 +450,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         return state;
       }
 
-      // Prepend the clue to history and truncate to max length of 2
-      const history = [clue, ...(state.revealedClueHistory || [])].filter(Boolean).slice(0, 2);
-
-      const newState = { revealedClueHistory: history };
+      const newState = { revealedClueHistory: addToHistory(clue, state.revealedClueHistory) };
       persistState({ ...state, ...newState });
       return newState;
     });

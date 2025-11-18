@@ -6,22 +6,25 @@ interface PreviousCluesDisplayProps {
 }
 
 export function PreviousCluesDisplay({ clues, maxVisible = 2 }: PreviousCluesDisplayProps) {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(() => {
+    // Default to open on desktop, closed on mobile
+    // This initializer is safe and will work on both server and client
+    if (typeof window !== 'undefined') {
+      return window.innerWidth >= 640;
+    }
+    return true; // Default to open for SSR
+  });
   const detailsRef = useRef<HTMLDetailsElement>(null);
 
-  // Initialize isMobile on client side after mount and set up resize listener
+  // Set up resize listener on client mount
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
+    // Listen for resize events (we don't change isOpen on resize - let user's toggle persist)
+    const resizeHandler = () => {
+      // Could update mobile state here if needed for other purposes
     };
 
-    // Check on mount
-    checkMobile();
-
-    // Listen for resize events
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener('resize', resizeHandler);
+    return () => window.removeEventListener('resize', resizeHandler);
   }, []);
 
   const visibleClues = clues.slice(0, maxVisible);
@@ -31,9 +34,6 @@ export function PreviousCluesDisplay({ clues, maxVisible = 2 }: PreviousCluesDis
     return null;
   }
 
-  // On mobile, default to collapsed; on desktop, default to open
-  const shouldStartCollapsed = isMobile;
-
   const handleToggle = (e: React.SyntheticEvent<HTMLDetailsElement>) => {
     setIsOpen(e.currentTarget.open);
   };
@@ -42,7 +42,7 @@ export function PreviousCluesDisplay({ clues, maxVisible = 2 }: PreviousCluesDis
     <div className="mb-4">
       <details
         ref={detailsRef}
-        open={!shouldStartCollapsed && isOpen}
+        open={isOpen}
         onToggle={handleToggle}
         className="group cursor-pointer"
       >
@@ -52,17 +52,21 @@ export function PreviousCluesDisplay({ clues, maxVisible = 2 }: PreviousCluesDis
         </summary>
 
         <div className="mt-3 ml-4 space-y-2">
-          {visibleClues.map((clue, index) => (
+          {visibleClues.map((clue) => (
             <div
-              key={`${index}-${clue}`}
+              key={clue}
               className={`p-3 rounded-md border ${
-                index === 0
+                clue === visibleClues[0]
                   ? 'border-primary bg-primary/5 font-medium text-foreground'
                   : 'border-muted-foreground/20 bg-muted/30 text-muted-foreground'
               }`}
             >
-              {index === 0 ? <div className="text-sm font-semibold mb-1">Most Recent</div> : null}
-              <div className={index === 0 ? 'text-base' : 'text-sm opacity-70'}>{clue}</div>
+              {clue === visibleClues[0] && (
+                <div className="text-sm font-semibold mb-1">Most Recent</div>
+              )}
+              <div className={clue === visibleClues[0] ? 'text-base' : 'text-sm opacity-70'}>
+                {clue}
+              </div>
             </div>
           ))}
         </div>
