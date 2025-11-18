@@ -429,9 +429,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
             aria-describedby="answer-dialog-description"
           >
             <DialogHeader>
-              <DialogTitle>{t('gamePlay.answer') || 'Answer'}</DialogTitle>
+              <DialogTitle>{t('gamePlay.answer')}</DialogTitle>
               <DialogDescription id="answer-dialog-description">
-                {t('gamePlay.correctAnswer') || 'The correct answer is:'}
+                {t('gamePlay.correctAnswer')}
               </DialogDescription>
             </DialogHeader>
             <div className="py-6">
