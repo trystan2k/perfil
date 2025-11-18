@@ -232,25 +232,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     }
   };
 
-  // Handle skipping the current profile with confirmation
-  const handleSkipProfile = () => {
-    const confirmed = window.confirm(
-      `${t('gamePlay.skipProfileConfirmTitle')}
-
-${t('gamePlay.skipProfileConfirmMessage')}`
-    );
-
-    if (confirmed) {
-      // Show round summary with no winner
-      setRoundSummaryData({
-        winnerId: null,
-        pointsAwarded: 0,
-        profileName: currentProfile.name,
-      });
-      setShowRoundSummary(true);
-    }
-  };
-
   // Handle awarding points with round summary
   const handleAwardPoints = (playerId: string) => {
     // Find the player to verify they exist

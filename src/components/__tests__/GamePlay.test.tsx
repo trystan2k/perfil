@@ -294,8 +294,7 @@ describe('GamePlay Component', () => {
       expect(skipButton).toBeUndefined();
     });
 
-    it('should not skip profile when confirmation is cancelled', async () => {
-      const user = userEvent.setup();
+    it('should not skip profile when confirmation is cancelled', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 2);
       store.nextClue();
