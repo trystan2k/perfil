@@ -503,6 +503,171 @@ describe('CategorySelect', () => {
         expect(mockLocation.href).toBe('/game/test-session');
       });
     });
+
+    it('should allow deleting the last digit in rounds input (empty string)', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+
+      // Clear the input by selecting all and deleting (simulates backspace behavior)
+      await user.clear(roundsInput);
+
+      // Input should be empty
+      expect(roundsInput.value).toBe('');
+
+      // Error should not be shown for empty input
+      const errorText = screen.queryByText(/Invalid value/i);
+      expect(errorText).not.toBeInTheDocument();
+    });
+
+    it('should allow typing a new number after deleting all digits', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+
+      // Clear the input
+      await user.clear(roundsInput);
+      expect(roundsInput.value).toBe('');
+
+      // Type a new value
+      await user.type(roundsInput, '10');
+
+      // New value should be displayed
+      expect(roundsInput.value).toBe('10');
+
+      // Start button should be enabled
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      expect(startButton).not.toBeDisabled();
+    });
+
+    it('should show error when rounds input has invalid value', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+
+      // Clear and type invalid value
+      await user.clear(roundsInput);
+      await user.type(roundsInput, '100');
+
+      // Error should be shown
+      await waitFor(() => {
+        expect(screen.getByText(/Invalid value/i)).toBeInTheDocument();
+      });
+
+      // Start button should be disabled
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      expect(startButton).toBeDisabled();
+    });
+
+    it('should disable Start button with invalid rounds value', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+
+      // Start button should be enabled initially
+      expect(startButton).not.toBeDisabled();
+
+      // Type invalid value
+      await user.clear(roundsInput);
+      await user.type(roundsInput, '-5');
+
+      // Start button should be disabled
+      await waitFor(() => {
+        expect(startButton).toBeDisabled();
+      });
+    });
+
+    it('should enable Start button with valid rounds value', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      await user.click(checkbox);
+
+      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+      const startButton = screen.getByText('categorySelect.rounds.startButton');
+
+      // Clear and type valid value
+      await user.clear(roundsInput);
+      await user.type(roundsInput, '20');
+
+      // Start button should be enabled
+      await waitFor(() => {
+        expect(startButton).not.toBeDisabled();
+      });
+    });
   });
 
   describe('Error Handling', () => {
