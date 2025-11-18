@@ -65,6 +65,7 @@
     "playersAwardPoints": "Award Points",
     "points": "{{points}} pts",
     "showClueToAwardPoints": "Show at least one clue to award points",
+    "noWinnerButton": "No Winner",
     "finishGameButton": "Finish Game",
     "unknownPlayer": "Unknown Player",
     "category": "Category: {{category}}",

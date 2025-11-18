@@ -65,6 +65,7 @@
     "playersAwardPoints": "Asignar Puntos",
     "points": "{{points}} pts",
     "showClueToAwardPoints": "Muestra al menos una pista para asignar puntos",
+    "noWinnerButton": "Sin Ganador",
     "finishGameButton": "Finalizar Juego",
     "unknownPlayer": "Jugador Desconocido",
     "category": "Categoría: {{category}}",
