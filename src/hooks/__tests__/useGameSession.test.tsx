@@ -53,6 +53,7 @@ describe('useGameSession', () => {
     numberOfRounds: 5,
     currentRound: 1,
     roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
+    revealedClueHistory: [],
   };
 
   it('should return loading state initially', () => {

@@ -124,7 +124,8 @@ describe('GamePlay Component', () => {
       render(<GamePlay />);
 
       expect(screen.getByText('Clue 1 of 20')).toBeInTheDocument();
-      expect(screen.getByText('Clue 1 text...')).toBeInTheDocument();
+      // Check that the clue text exists (may appear in multiple places now)
+      expect(screen.queryByText('Clue 1 text...')).toBeInTheDocument();
     });
 
     it('should update clue number and text when advancing to next clue', () => {
@@ -136,7 +137,8 @@ describe('GamePlay Component', () => {
       const { rerender } = render(<GamePlay />);
 
       expect(screen.getByText('Clue 1 of 20')).toBeInTheDocument();
-      expect(screen.getByText('Clue 1 text...')).toBeInTheDocument();
+      // Check that the clue text exists (may appear in multiple places now)
+      expect(screen.queryByText('Clue 1 text...')).toBeInTheDocument();
 
       // Advance to second clue
       act(() => {
@@ -146,7 +148,8 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       expect(screen.getByText('Clue 2 of 20')).toBeInTheDocument();
-      expect(screen.getByText('Clue 2 text...')).toBeInTheDocument();
+      // Check that the clue text exists (may appear in multiple places now)
+      expect(screen.queryByText('Clue 2 text...')).toBeInTheDocument();
     });
 
     it('should display correct clue progress (e.g., 5 of 20)', () => {
@@ -162,7 +165,9 @@ describe('GamePlay Component', () => {
       render(<GamePlay />);
 
       expect(screen.getByText('Clue 5 of 20')).toBeInTheDocument();
-      expect(screen.getByText('Clue 5 text...')).toBeInTheDocument();
+      // Use getAllByText and check the first one in the main clue display area
+      const clueElements = screen.getAllByText('Clue 5 text...');
+      expect(clueElements.length).toBeGreaterThanOrEqual(1);
     });
   });
 
@@ -528,6 +533,7 @@ describe('GamePlay Component', () => {
                   totalCluesPerProfile: 20,
                   status: 'active' as const,
                   category: 'Movies',
+                  revealedClueHistory: [],
                 }),
               50
             );
@@ -649,6 +655,7 @@ describe('GamePlay Component', () => {
         totalCluesPerProfile: 20,
         status: 'active' as const,
         category: 'Sports',
+        revealedClueHistory: [],
       };
 
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValueOnce(mockSession);

@@ -54,6 +54,7 @@ describe('gameSessionDB', () => {
     numberOfRounds: 5,
     currentRound: 1,
     roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
+    revealedClueHistory: [],
   };
 
   beforeEach(async () => {

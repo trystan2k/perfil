@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClueProgress } from '@/components/ClueProgress';
+import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
 import { ProfileProgress } from '@/components/ProfileProgress';
 import { RevealAnswer } from '@/components/RevealAnswer';
 import { RoundSummary } from '@/components/RoundSummary';
@@ -32,6 +33,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const totalProfilesCount = useGameStore((state) => state.totalProfilesCount);
   const numberOfRounds = useGameStore((state) => state.numberOfRounds);
   const currentRound = useGameStore((state) => state.currentRound);
+  const revealedClueHistory = useGameStore((state) => state.revealedClueHistory);
   const nextClue = useGameStore((state) => state.nextClue);
   const awardPoints = useGameStore((state) => state.awardPoints);
   const skipProfile = useGameStore((state) => state.skipProfile);
@@ -320,6 +322,11 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
               totalClues={totalCluesPerProfile}
               pointsRemaining={pointsRemaining}
             />
+
+            {/* Previous Clues Section */}
+            <div className="px-4">
+              <PreviousCluesDisplay clues={revealedClueHistory} />
+            </div>
 
             {/* Clue Section */}
             <div className="space-y-4 p-6 bg-secondary rounded-lg">

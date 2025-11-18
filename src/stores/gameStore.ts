@@ -14,10 +14,12 @@ interface GameState extends GameSession {
   numberOfRounds: number;
   currentRound: number;
   roundCategoryMap: string[];
+  revealedClueHistory: string[];
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
   startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
   nextClue: () => void;
+  addClueToHistory: (clue: string) => void;
   awardPoints: (playerId: string) => void;
   skipProfile: () => void;
   endGame: () => Promise<void>;
@@ -30,6 +32,7 @@ const initialState: Omit<
   | 'loadProfiles'
   | 'startGame'
   | 'nextClue'
+  | 'addClueToHistory'
   | 'awardPoints'
   | 'skipProfile'
   | 'endGame'
@@ -49,6 +52,7 @@ const initialState: Omit<
   numberOfRounds: 0,
   currentRound: 0,
   roundCategoryMap: [],
+  revealedClueHistory: [],
 };
 
 // Track rehydration operations with a Set of session IDs to handle concurrency
@@ -86,6 +90,7 @@ function buildPersistedState(state: GameState): PersistedGameState {
     numberOfRounds: state.numberOfRounds,
     currentRound: state.currentRound,
     roundCategoryMap: state.roundCategoryMap,
+    revealedClueHistory: state.revealedClueHistory,
   };
 }
 
@@ -212,6 +217,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
       selectedProfiles: [],
       currentProfile: null,
       currentTurn: null,
+      revealedClueHistory: [],
     };
   }
 
@@ -235,6 +241,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
       cluesRead: 0,
       revealed: false,
     },
+    revealedClueHistory: [],
   };
 }
 
@@ -398,15 +405,42 @@ export const useGameStore = create<GameState>((set, get) => ({
         throw new Error('Maximum clues reached');
       }
 
+      // Get the currently visible clue (before incrementing) to add it to history
+      // If cluesRead > 0, the currently visible clue is at cluesRead - 1
+      const currentlyVisibleClueIndex =
+        state.currentTurn.cluesRead > 0 ? state.currentTurn.cluesRead - 1 : -1;
+      const currentClueText =
+        currentlyVisibleClueIndex >= 0
+          ? state.currentProfile?.clues[currentlyVisibleClueIndex] || null
+          : null;
+
+      // Update state with incremented clue counter
       const newState = {
         currentTurn: {
           ...state.currentTurn,
           cluesRead: state.currentTurn.cluesRead + 1,
         },
+        // Add the current clue to history
+        revealedClueHistory: currentClueText
+          ? [currentClueText, ...(state.revealedClueHistory || [])].filter(Boolean).slice(0, 2)
+          : state.revealedClueHistory,
       };
 
       persistState({ ...state, ...newState });
       return newState;
+    });
+  },
+
+  addClueToHistory: (clue: string) => {
+    set((state) => {
+      if (!clue) {
+        return state;
+      }
+
+      // Prepend the clue to history and truncate to max length of 2
+      const history = [clue, ...(state.revealedClueHistory || [])].filter(Boolean).slice(0, 2);
+
+      return { revealedClueHistory: history };
     });
   },
   awardPoints: (playerId: string) => {
@@ -511,6 +545,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         numberOfRounds: loadedState.numberOfRounds ?? 0,
         currentRound: loadedState.currentRound ?? 0,
         roundCategoryMap: loadedState.roundCategoryMap ?? [],
+        revealedClueHistory: loadedState.revealedClueHistory ?? [],
       });
 
       // Remove session ID from rehydrating set immediately after set() completes

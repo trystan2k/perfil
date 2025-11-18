@@ -68,6 +68,7 @@ describe('Scoreboard', () => {
       'Historical Figures',
       'Historical Figures',
     ],
+    revealedClueHistory: [],
   };
 
   it('should render loading state initially', () => {

@@ -746,6 +746,7 @@ describe('gameStore', () => {
         numberOfRounds: 1,
         currentRound: 1,
         roundCategoryMap: ['Movies'],
+        revealedClueHistory: [],
       };
 
       vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
@@ -785,6 +786,7 @@ describe('gameStore', () => {
         numberOfRounds: 1,
         currentRound: 1,
         roundCategoryMap: ['Movies'],
+        revealedClueHistory: [],
       };
 
       vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
@@ -837,6 +839,7 @@ describe('gameStore', () => {
         numberOfRounds: state.numberOfRounds,
         currentRound: state.currentRound,
         roundCategoryMap: state.roundCategoryMap,
+        revealedClueHistory: state.revealedClueHistory,
       });
     });
 
@@ -873,6 +876,7 @@ describe('gameStore', () => {
         numberOfRounds: 1,
         currentRound: 1,
         roundCategoryMap: ['Movies'],
+        revealedClueHistory: [],
       };
 
       vi.mocked(loadGameSession).mockResolvedValueOnce(mockSession);
