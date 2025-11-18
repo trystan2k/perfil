@@ -7,7 +7,7 @@ import { RevealAnswer } from '@/components/RevealAnswer';
 import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useGameStore } from '@/stores/gameStore';
+import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface GamePlayProps {
   sessionId?: string;
@@ -92,7 +92,21 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   // Automatically navigate to scoreboard when game completes
   useEffect(() => {
     if (status === 'completed' && id) {
-      window.location.href = `/scoreboard/${id}`;
+      // Force persist immediately to ensure final state (with last round points) is saved
+      // before navigation navigates to scoreboard
+      const handleNavigation = async () => {
+        try {
+          await forcePersist();
+          // After persistence is confirmed, navigate
+          window.location.href = `/scoreboard/${id}`;
+        } catch (error) {
+          console.error('Failed to persist before navigation:', error);
+          // Still navigate even if persistence fails to avoid getting stuck
+          window.location.href = `/scoreboard/${id}`;
+        }
+      };
+
+      handleNavigation();
     }
   }, [status, id]);
 
@@ -251,14 +265,15 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   };
 
   // Handle continuing to next profile after round summary
-  const handleContinueToNextProfile = () => {
+  const handleContinueToNextProfile = async () => {
     setShowRoundSummary(false);
 
     // Actually award the points or skip the profile
     if (roundSummaryData) {
       if (roundSummaryData.winnerId) {
         // Award points using the stored winner ID
-        awardPoints(roundSummaryData.winnerId);
+        // Await to ensure persistence completes before any auto-navigation occurs
+        await awardPoints(roundSummaryData.winnerId);
       } else {
         // Skip the profile
         skipProfile();

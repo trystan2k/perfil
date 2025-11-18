@@ -34,7 +34,7 @@ interface GameState extends GameSession {
   startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
   nextClue: () => void;
   addClueToHistory: (clue: string) => void;
-  awardPoints: (playerId: string) => void;
+  awardPoints: (playerId: string) => Promise<void>;
   skipProfile: () => void;
   endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
@@ -453,6 +453,8 @@ export const useGameStore = create<GameState>((set, get) => ({
     });
   },
   awardPoints: (playerId: string) => {
+    let persistPromise: Promise<void> | undefined;
+
     set((state) => {
       if (!state.currentTurn) {
         throw new Error('Cannot award points without an active turn');
@@ -487,9 +489,11 @@ export const useGameStore = create<GameState>((set, get) => ({
         ...profileAdvancement,
       };
 
-      persistState({ ...state, ...newState });
+      persistPromise = persistState({ ...state, ...newState });
       return newState;
     });
+
+    return persistPromise || Promise.resolve();
   },
   skipProfile: () => {
     set((state) => {

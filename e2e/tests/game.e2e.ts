@@ -194,4 +194,76 @@ test.describe('Full game flow', () => {
     // Game should complete and show scoreboard
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
   });
+
+  test('should persist final round points to scoreboard when awarded on last round', async ({ page }) => {
+    // This test reproduces the race condition bug where points awarded on the final round
+    // don't appear on the scoreboard due to navigation happening before persistence completes.
+
+    // Add two players
+    await page.getByLabel('Player Name').fill('Alice');
+    await page.getByRole('button', { name: 'Add' }).click();
+
+    await page.getByLabel('Player Name').fill('Bob');
+    await page.getByRole('button', { name: 'Add' }).click();
+
+    // Start game
+    await page.getByRole('button', { name: 'Start Game' }).click();
+
+    // Category select should load
+    await expect(page.getByRole('heading', { name: 'Select Category' })).toBeVisible();
+
+    // Choose a category
+    const categoryButton = page.locator('button', { hasText: 'Famous People' }).first();
+    await categoryButton.click();
+
+    // Should show rounds selection screen
+    await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
+
+    // Set to 1 round (so the next award points action will end the game)
+    const roundsInput = page.getByLabel('Number of rounds');
+    await roundsInput.clear();
+    await roundsInput.fill('1');
+
+    // Start the game
+    await page.getByRole('button', { name: 'Start Game' }).click();
+
+    // Expect to be on the game page
+    await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
+
+    // Verify round 1 is displayed
+    await expect(page.getByText('Round 1 of 1')).toBeVisible();
+
+    // Reveal first clue
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await expect(page.getByText(/Clue \d+ of \d+/)).toBeVisible();
+
+    // Award points to Alice on the final round - this action will:
+    // 1. Update player score
+    // 2. Change status to 'completed'
+    // 3. Trigger persistence (debounced)
+    // 4. The UI effect will auto-navigate to scoreboard
+    // The bug manifests if navigation happens before persistence completes
+    await page.getByRole('button', { name: 'Alice' }).click();
+
+    // Continue to next profile (which will end the game since it's the last round)
+    await page.getByRole('button', { name: 'Next Profile' }).click();
+
+    // Navigate to scoreboard and verify final score includes points from the final round
+    // Alice should have non-zero points from the last profile
+    await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
+
+    // This assertion verifies that the points awarded on the final round are persisted
+    // If the bug exists, Alice would show 0 points on the scoreboard
+    const aliceScoreButton = page.getByRole('button', { name: /Alice.*\d+ points/ });
+    await expect(aliceScoreButton).toBeVisible();
+
+    // Extract and verify the score is greater than 0
+    const scoreText = await aliceScoreButton.innerText();
+    expect(scoreText).toMatch(/Alice.*\d+ points/);
+    // Ensure it's not showing 0 points by checking the button contains a number > 0
+    const pointsMatch = scoreText.match(/(\d+)\s*points/i);
+    expect(pointsMatch).toBeTruthy();
+    const points = parseInt(pointsMatch?.[1] || '0', 10);
+    expect(points).toBeGreaterThan(0);
+  });
 });

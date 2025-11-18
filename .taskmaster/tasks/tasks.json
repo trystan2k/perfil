@@ -2035,7 +2035,7 @@
         "description": "Investigate and resolve a bug where points awarded in the final round are not reflected on the final scoreboard. This is likely a race condition between the final state update/persistence and the navigation to the scoreboard view.",
         "details": "The root cause is suspected to be a race condition where the navigation to the scoreboard, triggered by the `endGame` action, occurs before the final `awardPoints` state update has been fully persisted to IndexedDB. The fix will involve ensuring the state persistence operation completes before the application navigates. The implementation should focus on the interaction between the Zustand store's persistence middleware and the game-ending logic. A potential solution is to make the `endGame` action or the component logic that calls it asynchronous, awaiting a confirmation promise from the persistence layer before redirecting the user to the scoreboard.",
         "testStrategy": "1. **E2E Test for Bug Reproduction:** Create a new end-to-end test using Playwright/Cypress that automates a short game (e.g., 1 round). In the test, award points on the very last possible action and immediately end the game. Assert that the scoreboard initially shows the incorrect score. This test will fail before the fix and pass after. 2. **Unit Test for State Logic:** In the Zustand store tests (`gameStore.test.ts`), add a test case that mocks the persistence layer with a slight delay. Simulate a rapid sequence of `awardPoints()` followed by `endGame()` and verify that the state is correctly resolved before any dependent actions proceed. 3. **Manual Regression Testing:** Manually verify that scoring in non-final rounds remains unaffected and that the game end flow works correctly for both manual completion ('Finish Game' button) and automatic completion (running out of profiles).",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "3",
           "9",
@@ -2043,7 +2043,73 @@
           "30"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create E2E Test to Reproduce Scoring Bug",
+            "description": "Develop an end-to-end test using Playwright or Cypress that consistently reproduces the final round scoring bug. The test should simulate a short game, award points on the last action, and then navigate to the scoreboard to assert the incorrect score is displayed.",
+            "dependencies": [],
+            "details": "The test should be configured to run a minimal game (e.g., one round, two players). It needs to programmatically click to award points and then immediately click the 'End Game' button. The assertion should check the player's score on the scoreboard page against the expected score, which should be higher than what is displayed due to the bug.",
+            "status": "done",
+            "testStrategy": "This task involves creating a test. The strategy is to run the test and confirm it fails in the expected way, reliably demonstrating the bug's presence on the main branch before any fixes are applied.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-18T13:21:53.932Z"
+          },
+          {
+            "id": 2,
+            "title": "Investigate Zustand Persistence Middleware for Completion Signal",
+            "description": "Research the specific Zustand persistence middleware being used to determine if it provides a promise, callback, or another mechanism to signal when a state update has been successfully written to IndexedDB.",
+            "dependencies": [
+              1
+            ],
+            "details": "Review the documentation for `zustand/middleware/persist`. Check its source code if necessary. The goal is to find a way to `await` the persistence operation. Look for options like `onRehydrateStorage` or `onPersist` and see if they can be adapted or if the storage implementation itself can return a promise.",
+            "status": "done",
+            "testStrategy": "The outcome of this task is knowledge. Verification involves documenting the findings and proposing a clear API to use in the next subtask. No automated testing is required for this specific investigation task.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-18T13:21:55.145Z"
+          },
+          {
+            "id": 3,
+            "title": "Modify `endGame` Action to Await State Persistence",
+            "description": "Refactor the `endGame` action in the Zustand store (`gameStore.ts`) to be asynchronous. It must wait for the final state, including the last awarded points, to be fully persisted before it resolves.",
+            "dependencies": [
+              2
+            ],
+            "details": "Based on the findings from the investigation, implement the async logic. This will likely involve changing the `endGame` action signature to `async () => ...` and have it return a `Promise<void>`. This promise will resolve only after the persistence middleware confirms the write operation is complete.",
+            "status": "done",
+            "testStrategy": "Update the existing Vitest unit tests for `gameStore.ts`. Create a new test case for the `endGame` action that mocks the persistence layer and verifies that the action waits for the mock persistence to complete before resolving its promise.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-18T13:21:56.467Z"
+          },
+          {
+            "id": 4,
+            "title": "Update UI Component to Await `endGame` Before Navigation",
+            "description": "Modify the UI component that calls the `endGame` action. The event handler for the 'End Game' button must now `await` the `endGame()` promise before programmatically navigating to the scoreboard page.",
+            "dependencies": [
+              3
+            ],
+            "details": "Locate the `onClick` handler for the button that ends the game, likely within `GamePlay.tsx`. Change the handler to be an `async` function. Call `await endGame()`. Only after this promise resolves should the navigation logic (e.g., using Astro's navigation helpers or `window.location`) be executed.",
+            "status": "done",
+            "testStrategy": "Add a unit test using React Testing Library to simulate the button click, mock the `endGame` action, and verify that the navigation function is called only after the mocked promise resolves. Manually test the UI flow to ensure there are no new issues.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-18T13:21:57.719Z"
+          },
+          {
+            "id": 5,
+            "title": "Verify Fix with E2E Test and Final Review",
+            "description": "Run the end-to-end test created in the first subtask to confirm that it now passes. The test should verify that the final score is correctly displayed on the scoreboard. Perform a final code review and manual testing.",
+            "dependencies": [
+              1,
+              4
+            ],
+            "details": "Execute the E2E test suite against the branch containing the fix. The test that previously failed should now pass, asserting the correct final score. Manually play through a full game to ensure the user experience is smooth and no new regressions were introduced. Merge the new E2E test into the main test suite.",
+            "status": "done",
+            "testStrategy": "The primary test is the E2E test from subtask 1. A successful run of this test, which previously failed, confirms the fix. Additionally, perform a quick manual regression test of the main game flow from start to finish.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-18T13:21:58.968Z"
+          }
+        ],
+        "updatedAt": "2025-11-18T13:21:58.968Z"
       },
       {
         "id": "36",
@@ -2061,9 +2127,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-18T09:45:32.895Z",
+      "lastModified": "2025-11-18T13:21:58.969Z",
       "taskCount": 36,
-      "completedCount": 31,
+      "completedCount": 33,
       "tags": [
         "master"
       ]
