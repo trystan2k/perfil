@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClueProgress } from '@/components/ClueProgress';
+import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
 import { ProfileProgress } from '@/components/ProfileProgress';
 import { RevealAnswer } from '@/components/RevealAnswer';
 import { RoundSummary } from '@/components/RoundSummary';
@@ -32,6 +33,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const totalProfilesCount = useGameStore((state) => state.totalProfilesCount);
   const numberOfRounds = useGameStore((state) => state.numberOfRounds);
   const currentRound = useGameStore((state) => state.currentRound);
+  const revealedClueHistory = useGameStore((state) => state.revealedClueHistory);
   const nextClue = useGameStore((state) => state.nextClue);
   const awardPoints = useGameStore((state) => state.awardPoints);
   const skipProfile = useGameStore((state) => state.skipProfile);
@@ -230,25 +232,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     }
   };
 
-  // Handle skipping the current profile with confirmation
-  const handleSkipProfile = () => {
-    const confirmed = window.confirm(
-      `${t('gamePlay.skipProfileConfirmTitle')}
-
-${t('gamePlay.skipProfileConfirmMessage')}`
-    );
-
-    if (confirmed) {
-      // Show round summary with no winner
-      setRoundSummaryData({
-        winnerId: null,
-        pointsAwarded: 0,
-        profileName: currentProfile.name,
-      });
-      setShowRoundSummary(true);
-    }
-  };
-
   // Handle awarding points with round summary
   const handleAwardPoints = (playerId: string) => {
     // Find the player to verify they exist
@@ -314,12 +297,24 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Show Next Clue Button - moved to top for easy access */}
+            <div className="flex justify-center">
+              <Button onClick={nextClue} disabled={isMaxCluesReached} size="lg">
+                {t('gamePlay.showNextClueButton')}
+              </Button>
+            </div>
+
             {/* Clue Progress Indicator */}
             <ClueProgress
               cluesRevealed={currentTurn.cluesRead}
               totalClues={totalCluesPerProfile}
               pointsRemaining={pointsRemaining}
             />
+
+            {/* Previous Clues Section - now shows ALL clues */}
+            <div className="px-4">
+              <PreviousCluesDisplay clues={revealedClueHistory} />
+            </div>
 
             {/* Clue Section */}
             <div className="space-y-4 p-6 bg-secondary rounded-lg">
@@ -340,24 +335,7 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
               )}
             </div>
 
-            {/* Answer Reveal Section */}
-            <div className="px-4">
-              <RevealAnswer answer={currentProfile.name} />
-            </div>
-
-            {/* MC Controls */}
-            <div className="flex gap-4 justify-center flex-wrap">
-              <Button onClick={nextClue} disabled={isMaxCluesReached}>
-                {t('gamePlay.showNextClueButton')}
-              </Button>
-              {canAwardPoints && (
-                <Button onClick={handleSkipProfile} variant="destructive">
-                  {t('gamePlay.skipProfileButton')}
-                </Button>
-              )}
-            </div>
-
-            {/* Player Scoreboard */}
+            {/* Player Scoreboard - moved before answer reveal */}
             <div className="space-y-3">
               <h4 className="text-lg font-semibold text-center">
                 {t('gamePlay.playersAwardPoints')}
@@ -385,9 +363,14 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
               )}
             </div>
 
+            {/* Answer Reveal Section */}
+            <div className="px-4">
+              <RevealAnswer answer={currentProfile.name} />
+            </div>
+
             {/* Finish Game Button */}
             <div className="flex justify-center pt-4 border-t">
-              <Button onClick={handleFinishGame} variant="destructive">
+              <Button onClick={handleFinishGame} variant="destructive" size="lg">
                 {t('gamePlay.finishGameButton')}
               </Button>
             </div>
