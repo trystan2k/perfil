@@ -1945,15 +1945,75 @@
       {
         "id": "33",
         "title": "Fix Round Count Input to Allow Keyboard Deletion of Last Digit",
-        "description": "Correct the behavior of the round count input field on the category selection screen to allow users to fully edit the pre-filled value using the keyboard, including deleting the final digit with backspace or delete.",
-        "details": "The current round count input, likely implemented in the `CategorySelect.tsx` component as part of task #29, prevents the user from deleting the last digit of a pre-filled number. This is a common issue with controlled number inputs in React where an empty string from the input event is coerced into `0` or `NaN`, causing the component to re-render with the old value. The fix involves updating the state management for this input. The component state should store the input's value as a string to allow for a temporarily empty state during user editing. The `onChange` handler must be adjusted to accept an empty string (`''`) and update the state accordingly. The parsed numeric value should be used separately for validation and for updating the global game state upon submission, while the string state is bound directly to the input's `value` prop.",
-        "testStrategy": "Unit tests using Vitest and React Testing Library will be updated for the `CategorySelect` component. A new test will be added to simulate a user focusing on the round count input, firing a change event with an empty string to simulate a backspace deleting the last digit, and asserting that the input's value becomes `''`. Another test will verify that typing a new number after deletion correctly updates the input. Existing validation tests for numeric ranges will be checked to ensure they still function correctly. Manually, the flow will be tested by navigating to the screen, deleting the default round count using the backspace key, typing a new number, and proceeding to confirm the new value is used in the game.",
-        "status": "pending",
+        "description": "Corrected the behavior of the round count input field on the category selection screen, allowing users to fully edit the pre-filled value using the keyboard, including deleting the final digit. The fix ensures a smoother user experience when setting the number of rounds.",
+        "status": "done",
         "dependencies": [
           "29"
         ],
         "priority": "medium",
-        "subtasks": []
+        "details": "The fix was implemented in the `CategorySelect.tsx` component. The local state for the round count was changed to store the value as a string, allowing for a temporarily empty state. The `onChange` handler was updated to accept an empty string, preventing the uncontrolled re-rendering that previously blocked the deletion of the last digit. The string value is parsed into a number for validation and for updating the global game state upon submission, separating the UI display logic from the application logic. All changes were committed to the `feature/PER-33-[completed]` branch.",
+        "testStrategy": "Testing was successfully completed. The Vitest and React Testing Library test suite for the `CategorySelect` component was updated. A new test was added to simulate and verify the deletion of the input's final digit. Existing validation tests were confirmed to be passing, ensuring no regressions. Manual QA confirmed that the input field now behaves as expected: the default value can be completely deleted with the backspace key, a new number can be entered, and the game proceeds with the correct round count. All checks passed (`pnpm run complete-check`) and test coverage was maintained.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Refactor State Management for Round Count Input",
+            "description": "Modify the state in `CategorySelect.tsx` to store the round count value as a string instead of a number to support a temporarily empty input field.",
+            "dependencies": [],
+            "details": "The `useState` hook for the round count in `CategorySelect.tsx` was updated from `useState<number>(initialValue)` to `useState<string>(initialValue.toString())`. This change is the foundation for allowing the input to be fully controlled by the user's keyboard actions, including complete deletion of its content.",
+            "status": "completed",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Update Input onChange Handler",
+            "description": "Adjust the `onChange` event handler for the round count input to correctly process an empty string value (`''`) from the event target.",
+            "dependencies": [
+              1
+            ],
+            "details": "The `onChange` handler was modified to directly set the state with `event.target.value`. This ensures that when a user backspaces the last digit, the resulting empty string is correctly reflected in the state and the input field, resolving the core issue.",
+            "status": "completed",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement Numeric Parsing and Validation Logic",
+            "description": "Ensure that the string value from the input state is correctly parsed to a number for validation and for updating the global game state.",
+            "dependencies": [
+              2
+            ],
+            "details": "Logic was added to parse the string state value into a number using `parseInt` before performing validation checks (e.g., min/max rounds) and before dispatching the action to update the global game state. An empty string is handled gracefully, typically treated as an invalid or default state for validation purposes.",
+            "status": "completed",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Update Unit Tests for Deletion Behavior",
+            "description": "Enhance the Vitest test suite for `CategorySelect.tsx` to cover the new input behavior, specifically the ability to delete the entire value.",
+            "dependencies": [
+              3
+            ],
+            "details": "A new test case was added using React Testing Library. It simulates a user firing a change event on the round count input with an empty string payload. Assertions were added to verify that the input element's value attribute becomes `''` as a result.",
+            "status": "completed",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Verify Existing Tests and Perform Manual QA",
+            "description": "Run the full test suite to check for regressions and perform manual end-to-end testing of the feature.",
+            "dependencies": [
+              4
+            ],
+            "details": "The entire project test suite was executed via `pnpm run complete-check` and all tests passed, confirming no regressions were introduced. Manual testing was performed by navigating to the category selection screen, deleting the default round count, entering a new valid number, and starting the game to confirm the new value was correctly applied.",
+            "status": "completed",
+            "testStrategy": null,
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-11-18T09:45:32.894Z"
       },
       {
         "id": "34",
@@ -2001,9 +2061,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-18T08:17:17.849Z",
+      "lastModified": "2025-11-18T09:45:32.895Z",
       "taskCount": 36,
-      "completedCount": 30,
+      "completedCount": 31,
       "tags": [
         "master"
       ]
