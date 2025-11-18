@@ -1,12 +1,19 @@
+import { HelpCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClueProgress } from '@/components/ClueProgress';
 import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
 import { ProfileProgress } from '@/components/ProfileProgress';
-import { RevealAnswer } from '@/components/RevealAnswer';
 import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface GamePlayProps {
@@ -18,6 +25,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const [isLoading, setIsLoading] = useState(!!sessionId);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [showRoundSummary, setShowRoundSummary] = useState(false);
+  const [showAnswerDialog, setShowAnswerDialog] = useState(false);
   const [roundSummaryData, setRoundSummaryData] = useState<{
     winnerId: string | null;
     pointsAwarded: number;
@@ -342,7 +350,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               pointsRemaining={pointsRemaining}
             />
 
-            {/* Previous Clues Section - now shows ALL clues */}
+            {/* Previous Clues Section */}
             <div className="px-4">
               <PreviousCluesDisplay clues={revealedClueHistory} />
             </div>
@@ -394,11 +402,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               )}
             </div>
 
-            {/* Answer Reveal Section */}
-            <div className="px-4">
-              <RevealAnswer answer={currentProfile.name} />
-            </div>
-
             {/* Finish Game Button */}
             <div className="flex justify-center pt-4 border-t">
               <Button onClick={handleFinishGame} variant="destructive" size="lg">
@@ -407,6 +410,34 @@ export function GamePlay({ sessionId }: GamePlayProps) {
             </div>
           </CardContent>
         </Card>
+
+        {/* Floating Action Button for Answer */}
+        <button
+          type="button"
+          onClick={() => setShowAnswerDialog(true)}
+          className="fixed bottom-6 right-6 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
+          aria-label={t('gamePlay.revealAnswer') || 'Reveal answer'}
+          data-testid="answer-fab"
+        >
+          <HelpCircle className="w-6 h-6" />
+        </button>
+
+        {/* Answer Dialog */}
+        <Dialog open={showAnswerDialog} onOpenChange={setShowAnswerDialog}>
+          <DialogContent className="max-w-sm" data-testid="answer-dialog">
+            <DialogHeader>
+              <DialogTitle>{t('gamePlay.answer') || 'Answer'}</DialogTitle>
+              <DialogDescription>
+                {t('gamePlay.correctAnswer') || 'The correct answer is:'}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="py-6">
+              <p className="text-2xl font-bold text-center text-primary" data-testid="answer-text">
+                {currentProfile.name}
+              </p>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Round Summary Modal */}

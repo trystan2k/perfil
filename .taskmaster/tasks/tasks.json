@@ -2210,19 +2210,20 @@
         "description": "Replace the large, swipe-to-reveal answer block with a compact, floating button. Clicking the button will open a small popover or modal to display the answer, improving the game board's layout and removing the swipe gesture.",
         "details": "The existing swipe-to-reveal component (Task 7) integrated in GamePlay.tsx (Task 17) will be removed. In its place, a new floating action button (FAB) will be implemented. This button will be positioned in a corner of the game screen, likely bottom-right. When clicked, it will toggle the visibility of a small, centered, or anchored popover/modal that displays the correct answer. The logic for swiping will be completely stripped out. The popover should be dismissible by clicking outside of it or via a close icon. State for the popover's visibility will be managed locally within the component.",
         "testStrategy": "Unit tests will be written using Vitest and React Testing Library. Tests will verify that the floating button renders on the game screen. A click event will be simulated on the button to assert that the popover appears and displays the correct answer prop. A subsequent test will simulate a click outside the popover to ensure it closes. A snapshot test will confirm the removal of the old swipe-based UI. Manual testing will be performed across different screen sizes to ensure responsiveness and accessibility, including keyboard navigation to operate the button.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           "6",
           "7",
           "17"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-11-18T15:26:33.589Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-18T13:54:55.014Z",
+      "lastModified": "2025-11-18T15:26:33.590Z",
       "taskCount": 38,
       "completedCount": 34,
       "tags": [
