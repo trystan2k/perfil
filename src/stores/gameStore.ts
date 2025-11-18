@@ -11,11 +11,11 @@ type GameStatus = 'pending' | 'active' | 'completed';
  * @param maxLength - Maximum number of clues to keep (default: 2)
  * @returns Updated history with clue prepended and truncated
  */
-function addToHistory(clue: string | null, history: string[], maxLength = 2): string[] {
+function addToHistory(clue: string | null, history: string[]): string[] {
   if (!clue) {
     return history;
   }
-  return [clue, ...history].slice(0, maxLength);
+  return [clue, ...history];
 }
 
 interface GameState extends GameSession {
