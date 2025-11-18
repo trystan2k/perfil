@@ -79,6 +79,9 @@
       "pointsRemaining_other": "{{count}} puntos restantes",
       "ariaLabel": "Progreso de pistas: {{revealed}} de {{total}} pistas reveladas"
     },
+    "revealAnswer": "Revelar respuesta",
+    "answer": "Respuesta",
+    "correctAnswer": "La respuesta correcta es:",
     "roundSummary": {
       "title": "¡Ronda Completada!",
       "playerScored_one": "¡{{playerName}} anotó {{count}} punto!",
@@ -86,10 +89,7 @@
       "noOneScored": "Nadie anotó en esta ronda",
       "profileName": "Perfil: {{name}}",
       "nextProfileButton": "Siguiente Perfil"
-    },
-    "revealAnswer": "Revelar respuesta",
-    "answer": "Respuesta",
-    "correctAnswer": "La respuesta correcta es:"
+    }
   },
   "categorySelect": {
     "title": "Seleccionar Categorías",

@@ -350,7 +350,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               pointsRemaining={pointsRemaining}
             />
 
-            {/* Previous Clues Section */}
+            {/* Previous Clues Section - displays all revealed clues */}
             <div className="px-4">
               <PreviousCluesDisplay clues={revealedClueHistory} />
             </div>
@@ -414,8 +414,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
         {/* Floating Action Button for Answer */}
         <Button
           onClick={() => setShowAnswerDialog(true)}
-          size="icon"
-          className="fixed bottom-6 right-6 flex items-center justify-center w-14 h-14 rounded-full shadow-lg"
+          className="fixed bottom-6 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full shadow-lg"
           aria-label={t('gamePlay.revealAnswer')}
           data-testid="answer-fab"
         >

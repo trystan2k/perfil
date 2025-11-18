@@ -79,6 +79,9 @@
       "pointsRemaining_other": "{{count}} points remaining",
       "ariaLabel": "Clue progress: {{revealed}} of {{total}} clues revealed"
     },
+    "revealAnswer": "Reveal answer",
+    "answer": "Answer",
+    "correctAnswer": "The correct answer is:",
     "roundSummary": {
       "title": "Round Complete!",
       "playerScored_one": "{{playerName}} scored {{count}} point!",
@@ -86,10 +89,7 @@
       "noOneScored": "No one scored this round",
       "profileName": "Profile: {{name}}",
       "nextProfileButton": "Next Profile"
-    },
-    "revealAnswer": "Reveal answer",
-    "answer": "Answer",
-    "correctAnswer": "The correct answer is:"
+    }
   },
   "categorySelect": {
     "title": "Select Categories",
