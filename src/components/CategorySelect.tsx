@@ -219,7 +219,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
               </Button>
               <Button
                 onClick={handleStartGame}
-                disabled={isStarting || roundsInputError !== null}
+                disabled={isStarting || roundsInputError !== null || numberOfRounds === ''}
                 className="flex-1"
                 size="lg"
               >
