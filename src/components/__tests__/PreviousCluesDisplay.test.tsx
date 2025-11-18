@@ -27,7 +27,7 @@ describe('PreviousCluesDisplay', () => {
   it('should render a single clue', () => {
     render(<PreviousCluesDisplay clues={['First clue']} />);
 
-    expect(screen.getByText('Previous Clues')).toBeInTheDocument();
+    expect(screen.getByText(/Previous Clues \(1\)/)).toBeInTheDocument();
     expect(screen.getByText('First clue')).toBeInTheDocument();
     expect(screen.getByText('Most Recent')).toBeInTheDocument();
   });
@@ -35,7 +35,7 @@ describe('PreviousCluesDisplay', () => {
   it('should render two clues with different styling', () => {
     render(<PreviousCluesDisplay clues={['Most recent clue', 'Older clue']} />);
 
-    expect(screen.getByText('Previous Clues')).toBeInTheDocument();
+    expect(screen.getByText(/Previous Clues \(2\)/)).toBeInTheDocument();
     expect(screen.getByText('Most recent clue')).toBeInTheDocument();
     expect(screen.getByText('Older clue')).toBeInTheDocument();
     expect(screen.getByText('Most Recent')).toBeInTheDocument();
@@ -45,19 +45,13 @@ describe('PreviousCluesDisplay', () => {
     expect(clueElements.length).toBeGreaterThanOrEqual(2);
   });
 
-  it('should truncate to max 2 clues when more are provided', () => {
-    render(<PreviousCluesDisplay clues={['Clue 1', 'Clue 2', 'Clue 3']} maxVisible={2} />);
+  it('should display all clues when more than 2 are provided', () => {
+    render(<PreviousCluesDisplay clues={['Clue 1', 'Clue 2', 'Clue 3']} />);
 
+    expect(screen.getByText(/Previous Clues \(3\)/)).toBeInTheDocument();
     expect(screen.getByText('Clue 1')).toBeInTheDocument();
     expect(screen.getByText('Clue 2')).toBeInTheDocument();
-    expect(screen.queryByText('Clue 3')).not.toBeInTheDocument();
-  });
-
-  it('should respect custom maxVisible prop', () => {
-    render(<PreviousCluesDisplay clues={['Clue 1', 'Clue 2', 'Clue 3']} maxVisible={1} />);
-
-    expect(screen.getByText('Clue 1')).toBeInTheDocument();
-    expect(screen.queryByText('Clue 2')).not.toBeInTheDocument();
+    expect(screen.getByText('Clue 3')).toBeInTheDocument();
   });
 
   it('should render with details element open on desktop', () => {

@@ -316,6 +316,13 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Show Next Clue Button - moved to top for easy access */}
+            <div className="flex justify-center">
+              <Button onClick={nextClue} disabled={isMaxCluesReached} size="lg">
+                {t('gamePlay.showNextClueButton')}
+              </Button>
+            </div>
+
             {/* Clue Progress Indicator */}
             <ClueProgress
               cluesRevealed={currentTurn.cluesRead}
@@ -323,7 +330,7 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
               pointsRemaining={pointsRemaining}
             />
 
-            {/* Previous Clues Section */}
+            {/* Previous Clues Section - now shows ALL clues */}
             <div className="px-4">
               <PreviousCluesDisplay clues={revealedClueHistory} />
             </div>
@@ -347,24 +354,7 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
               )}
             </div>
 
-            {/* Answer Reveal Section */}
-            <div className="px-4">
-              <RevealAnswer answer={currentProfile.name} />
-            </div>
-
-            {/* MC Controls */}
-            <div className="flex gap-4 justify-center flex-wrap">
-              <Button onClick={nextClue} disabled={isMaxCluesReached}>
-                {t('gamePlay.showNextClueButton')}
-              </Button>
-              {canAwardPoints && (
-                <Button onClick={handleSkipProfile} variant="destructive">
-                  {t('gamePlay.skipProfileButton')}
-                </Button>
-              )}
-            </div>
-
-            {/* Player Scoreboard */}
+            {/* Player Scoreboard - moved before answer reveal */}
             <div className="space-y-3">
               <h4 className="text-lg font-semibold text-center">
                 {t('gamePlay.playersAwardPoints')}
@@ -392,9 +382,14 @@ ${t('gamePlay.skipProfileConfirmMessage')}`
               )}
             </div>
 
+            {/* Answer Reveal Section */}
+            <div className="px-4">
+              <RevealAnswer answer={currentProfile.name} />
+            </div>
+
             {/* Finish Game Button */}
             <div className="flex justify-center pt-4 border-t">
-              <Button onClick={handleFinishGame} variant="destructive">
+              <Button onClick={handleFinishGame} variant="destructive" size="lg">
                 {t('gamePlay.finishGameButton')}
               </Button>
             </div>
