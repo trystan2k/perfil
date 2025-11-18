@@ -423,10 +423,14 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
         {/* Answer Dialog */}
         <Dialog open={showAnswerDialog} onOpenChange={setShowAnswerDialog}>
-          <DialogContent className="max-w-sm" data-testid="answer-dialog">
+          <DialogContent
+            className="max-w-sm"
+            data-testid="answer-dialog"
+            aria-describedby="answer-dialog-description"
+          >
             <DialogHeader>
               <DialogTitle>{t('gamePlay.answer') || 'Answer'}</DialogTitle>
-              <DialogDescription>
+              <DialogDescription id="answer-dialog-description">
                 {t('gamePlay.correctAnswer') || 'The correct answer is:'}
               </DialogDescription>
             </DialogHeader>
