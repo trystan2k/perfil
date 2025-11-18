@@ -35,8 +35,7 @@ interface GameState extends GameSession {
   nextClue: () => void;
   addClueToHistory: (clue: string) => void;
   awardPoints: (playerId: string) => Promise<void>;
-  skipProfile: () => void;
-  skipProfileWithoutPoints: () => Promise<void>;
+  skipProfile: () => Promise<void>;
   endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
 }
@@ -50,7 +49,6 @@ const initialState: Omit<
   | 'addClueToHistory'
   | 'awardPoints'
   | 'skipProfile'
-  | 'skipProfileWithoutPoints'
   | 'endGame'
   | 'loadFromStorage'
 > = {
@@ -498,19 +496,6 @@ export const useGameStore = create<GameState>((set, get) => ({
     return persistPromise || Promise.resolve();
   },
   skipProfile: () => {
-    set((state) => {
-      if (!state.currentTurn) {
-        throw new Error('Cannot skip profile without an active turn');
-      }
-
-      // Advance to next profile without awarding points
-      const profileAdvancement = advanceToNextProfile(state);
-
-      persistState({ ...state, ...profileAdvancement });
-      return profileAdvancement;
-    });
-  },
-  skipProfileWithoutPoints: () => {
     let persistPromise: Promise<void> | undefined;
 
     set((state) => {

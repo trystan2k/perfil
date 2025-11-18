@@ -37,7 +37,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const nextClue = useGameStore((state) => state.nextClue);
   const awardPoints = useGameStore((state) => state.awardPoints);
   const skipProfile = useGameStore((state) => state.skipProfile);
-  const skipProfileWithoutPoints = useGameStore((state) => state.skipProfileWithoutPoints);
   const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
 
@@ -291,9 +290,8 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
   // Handle "No Winner" button click when final clue is revealed
   const handleNoWinner = async () => {
-    // Call skipProfileWithoutPoints action
-    // This advances to next profile or completes game without awarding points
-    await skipProfileWithoutPoints();
+    // Skip profile without awarding points
+    await skipProfile();
   };
 
   return (
