@@ -412,15 +412,15 @@ export function GamePlay({ sessionId }: GamePlayProps) {
         </Card>
 
         {/* Floating Action Button for Answer */}
-        <button
-          type="button"
+        <Button
           onClick={() => setShowAnswerDialog(true)}
-          className="fixed bottom-6 right-6 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors"
-          aria-label={t('gamePlay.revealAnswer') || 'Reveal answer'}
+          size="icon"
+          className="fixed bottom-6 right-6 flex items-center justify-center w-14 h-14 rounded-full shadow-lg"
+          aria-label={t('gamePlay.revealAnswer')}
           data-testid="answer-fab"
         >
           <HelpCircle className="w-6 h-6" />
-        </button>
+        </Button>
 
         {/* Answer Dialog */}
         <Dialog open={showAnswerDialog} onOpenChange={setShowAnswerDialog}>

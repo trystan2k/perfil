@@ -86,7 +86,10 @@
       "noOneScored": "No one scored this round",
       "profileName": "Profile: {{name}}",
       "nextProfileButton": "Next Profile"
-    }
+    },
+    "revealAnswer": "Reveal answer",
+    "answer": "Answer",
+    "correctAnswer": "The correct answer is:"
   },
   "categorySelect": {
     "title": "Select Categories",

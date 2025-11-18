@@ -86,7 +86,10 @@
       "noOneScored": "Ninguém pontuou nesta rodada",
       "profileName": "Perfil: {{name}}",
       "nextProfileButton": "Próximo Perfil"
-    }
+    },
+    "revealAnswer": "Revelar resposta",
+    "answer": "Resposta",
+    "correctAnswer": "A resposta correta é:"
   },
   "categorySelect": {
     "title": "Selecionar Categorias",

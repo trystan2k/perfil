@@ -86,7 +86,10 @@
       "noOneScored": "Nadie anotó en esta ronda",
       "profileName": "Perfil: {{name}}",
       "nextProfileButton": "Siguiente Perfil"
-    }
+    },
+    "revealAnswer": "Revelar respuesta",
+    "answer": "Respuesta",
+    "correctAnswer": "La respuesta correcta es:"
   },
   "categorySelect": {
     "title": "Seleccionar Categorías",
