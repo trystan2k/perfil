@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { type SyntheticEvent, useEffect, useRef, useState } from 'react';
 
 interface PreviousCluesDisplayProps {
   clues: string[];
@@ -31,7 +31,7 @@ export function PreviousCluesDisplay({ clues }: PreviousCluesDisplayProps) {
     return null;
   }
 
-  const handleToggle = (e: React.SyntheticEvent<HTMLDetailsElement>) => {
+  const handleToggle = (e: SyntheticEvent<HTMLDetailsElement>) => {
     setIsOpen(e.currentTarget.open);
   };
 
