@@ -45,6 +45,15 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const setGlobalError = useGameStore((state) => state.setError);
   const clearGlobalError = useGameStore((state) => state.clearError);
 
+  // Ensure global loading is cleared immediately if a game is already loaded
+  useEffect(() => {
+    if (id) {
+      setIsLoading(false);
+      setGlobalLoading(false);
+    }
+    // id is intentionally included to run effect as soon as id becomes available
+  }, [id, setGlobalLoading]);
+
   // Attempt to load game from storage on mount
   useEffect(() => {
     let isMounted = true;
@@ -54,6 +63,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
       if (id) {
         if (isMounted) {
           setIsLoading(false);
+          setGlobalLoading(false);
         }
         return;
       }
