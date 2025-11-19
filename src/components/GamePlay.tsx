@@ -1,12 +1,13 @@
+import { HelpCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClueProgress } from '@/components/ClueProgress';
 import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
 import { ProfileProgress } from '@/components/ProfileProgress';
-import { RevealAnswer } from '@/components/RevealAnswer';
 import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface GamePlayProps {
@@ -18,6 +19,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const [isLoading, setIsLoading] = useState(!!sessionId);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [showRoundSummary, setShowRoundSummary] = useState(false);
+  const [showAnswerDialog, setShowAnswerDialog] = useState(false);
   const [roundSummaryData, setRoundSummaryData] = useState<{
     winnerId: string | null;
     pointsAwarded: number;
@@ -342,7 +344,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               pointsRemaining={pointsRemaining}
             />
 
-            {/* Previous Clues Section - now shows ALL clues */}
+            {/* Previous Clues Section - displays all revealed clues */}
             <div className="px-4">
               <PreviousCluesDisplay clues={revealedClueHistory} />
             </div>
@@ -394,11 +396,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               )}
             </div>
 
-            {/* Answer Reveal Section */}
-            <div className="px-4">
-              <RevealAnswer answer={currentProfile.name} />
-            </div>
-
             {/* Finish Game Button */}
             <div className="flex justify-center pt-4 border-t">
               <Button onClick={handleFinishGame} variant="destructive" size="lg">
@@ -407,6 +404,28 @@ export function GamePlay({ sessionId }: GamePlayProps) {
             </div>
           </CardContent>
         </Card>
+
+        {/* Answer Popover */}
+        <Popover open={showAnswerDialog} onOpenChange={setShowAnswerDialog}>
+          <PopoverTrigger asChild>
+            <Button
+              className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full shadow-lg"
+              aria-label={t('gamePlay.revealAnswer')}
+              data-testid="answer-fab"
+            >
+              <HelpCircle className="w-6 h-6" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent data-testid="answer-dialog" align="end" side="top">
+            <div className="space-y-2">
+              <h3 className="font-semibold text-sm">{t('gamePlay.answer')}</h3>
+              <p className="text-xs text-muted-foreground">{t('gamePlay.correctAnswer')}</p>
+              <p className="text-xl font-bold text-primary" data-testid="answer-text">
+                {currentProfile.name}
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
 
       {/* Round Summary Modal */}

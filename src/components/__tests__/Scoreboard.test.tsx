@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import type { ReactNode } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import type { PersistedGameState } from '@/lib/gameSessionDB';
 import * as gameSessionDB from '@/lib/gameSessionDB';
@@ -23,7 +24,7 @@ describe('Scoreboard', () => {
         },
       },
     });
-    return ({ children }: { children: React.ReactNode }) => (
+    return ({ children }: { children: ReactNode }) => (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
   };

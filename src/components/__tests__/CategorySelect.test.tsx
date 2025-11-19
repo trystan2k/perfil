@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import type { ReactElement } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
 import { CategorySelect } from '../CategorySelect';
@@ -73,7 +74,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const renderWithProviders = (component: React.ReactElement) => {
+const renderWithProviders = (component: ReactElement) => {
   return render(<QueryClientProvider client={queryClient}>{component}</QueryClientProvider>);
 };
 

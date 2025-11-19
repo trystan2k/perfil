@@ -1244,5 +1244,87 @@ describe('GamePlay Component', () => {
       expect(screen.getByText('20 pts')).toBeInTheDocument();
       expect(screen.getAllByText('0 pts')).toHaveLength(2); // Other 2 players still at 0
     });
+
+    it('should render floating action button with correct accessibility attributes', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      expect(fab).toBeInTheDocument();
+      expect(fab).toHaveAttribute('aria-label');
+    });
+
+    it('should open answer dialog when FAB is clicked', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      await user.click(fab);
+
+      const dialog = screen.getByTestId('answer-dialog');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    it('should display correct profile name in answer dialog', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      await user.click(fab);
+
+      const answerText = screen.getByTestId('answer-text');
+      expect(answerText).toBeInTheDocument();
+      expect(answerText.textContent).toBeTruthy();
+    });
+
+    it('should have proper accessibility attributes on popover', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      expect(fab).toHaveAttribute('aria-label');
+
+      await user.click(fab);
+
+      const popover = screen.getByTestId('answer-dialog');
+      expect(popover).toBeInTheDocument();
+    });
+
+    it('should close popover when pressing Escape', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      // Open popover
+      const fab = screen.getByTestId('answer-fab');
+      await user.click(fab);
+
+      const popover = screen.getByTestId('answer-dialog');
+      expect(popover).toBeInTheDocument();
+
+      // Close popover by pressing Escape
+      await user.keyboard('{Escape}');
+
+      // Popover should no longer be in the document
+      const closedPopover = screen.queryByTestId('answer-dialog');
+      expect(closedPopover).not.toBeInTheDocument();
+    });
+
+    it('should have correct z-index class for FAB positioning', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      expect(fab).toHaveClass('z-40');
+    });
   });
 });

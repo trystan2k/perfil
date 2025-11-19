@@ -79,6 +79,9 @@
       "pointsRemaining_other": "{{count}} pontos restantes",
       "ariaLabel": "Progresso de dicas: {{revealed}} de {{total}} dicas reveladas"
     },
+    "revealAnswer": "Revelar resposta",
+    "answer": "Resposta",
+    "correctAnswer": "A resposta correta é:",
     "roundSummary": {
       "title": "Rodada Completa!",
       "playerScored_one": "{{playerName}} marcou {{count}} ponto!",

@@ -79,6 +79,9 @@
       "pointsRemaining_other": "{{count}} puntos restantes",
       "ariaLabel": "Progreso de pistas: {{revealed}} de {{total}} pistas reveladas"
     },
+    "revealAnswer": "Revelar respuesta",
+    "answer": "Respuesta",
+    "correctAnswer": "La respuesta correcta es:",
     "roundSummary": {
       "title": "¡Ronda Completada!",
       "playerScored_one": "¡{{playerName}} anotó {{count}} punto!",

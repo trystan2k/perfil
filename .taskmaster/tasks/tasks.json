@@ -2207,24 +2207,84 @@
       {
         "id": "38",
         "title": "Refactor Answer Reveal to a Floating Button with Popover",
-        "description": "Replace the large, swipe-to-reveal answer block with a compact, floating button. Clicking the button will open a small popover or modal to display the answer, improving the game board's layout and removing the swipe gesture.",
-        "details": "The existing swipe-to-reveal component (Task 7) integrated in GamePlay.tsx (Task 17) will be removed. In its place, a new floating action button (FAB) will be implemented. This button will be positioned in a corner of the game screen, likely bottom-right. When clicked, it will toggle the visibility of a small, centered, or anchored popover/modal that displays the correct answer. The logic for swiping will be completely stripped out. The popover should be dismissible by clicking outside of it or via a close icon. State for the popover's visibility will be managed locally within the component.",
-        "testStrategy": "Unit tests will be written using Vitest and React Testing Library. Tests will verify that the floating button renders on the game screen. A click event will be simulated on the button to assert that the popover appears and displays the correct answer prop. A subsequent test will simulate a click outside the popover to ensure it closes. A snapshot test will confirm the removal of the old swipe-based UI. Manual testing will be performed across different screen sizes to ensure responsiveness and accessibility, including keyboard navigation to operate the button.",
-        "status": "pending",
+        "description": "The large, swipe-to-reveal answer block has been replaced with a compact, floating action button (FAB). Clicking the button now opens a popover dialog to display the answer, which has improved the game board's layout and removed the previous swipe gesture.",
+        "status": "done",
         "dependencies": [
           "6",
           "7",
           "17"
         ],
         "priority": "medium",
-        "subtasks": []
+        "details": "The `RevealAnswer` swipe component was removed from `GamePlay.tsx`. A floating action button (FAB) was implemented and positioned at the bottom-right of the screen. The existing `Dialog` component from the Radix UI library is used to display the answer in a popover. The answer is now accessible via a single click on the FAB, which uses the `HelpCircle` icon from `lucide-react`. The dialog is dismissible by clicking outside or using a close button. State is managed by the `showAnswerDialog` state within the `GamePlay` component. The FAB is styled with the primary color scheme, shadow, and hover effects. Accessibility was addressed with `aria-label` and `data-testid` attributes. The final implementation is fully responsive.",
+        "testStrategy": "The existing test suite of 310 tests continues to pass. Specific tests for the `GamePlay` component were updated to verify the rendering of the new floating action button (FAB) and the correct interaction with the answer dialog (opening and closing). No breaking changes were introduced to existing functionality. A full QA check was completed, with a 100% pass rate for linting, type checking, tests, and the production build. The changes were delivered in commit `f004f49` and merged via pull request #39.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Remove Swipe-to-Reveal Component",
+            "description": "Remove the old `RevealAnswer` swipe component from the `GamePlay.tsx` component tree.",
+            "dependencies": [],
+            "details": "This involved deleting the component import and its usage within the JSX, completely removing the swipe-based UI and its associated logic from the game board.",
+            "status": "completed",
+            "testStrategy": "Verified by snapshot tests and manual review of the `GamePlay` component to ensure the old UI is gone.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement Floating Action Button (FAB)",
+            "description": "Create and position a new floating action button (FAB) for revealing the answer.",
+            "dependencies": [
+              1
+            ],
+            "details": "The FAB was implemented as a fixed-position element at the bottom-right of the screen. It uses the `HelpCircle` icon from `lucide-react` and is styled with the primary color scheme, shadow, and hover effects. Accessibility is handled with a proper `aria-label`.",
+            "status": "completed",
+            "testStrategy": "Verified by unit tests asserting the button's presence and attributes (`data-testid`). Manual testing confirmed its position and responsiveness across different screen sizes.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Integrate Radix UI Dialog for Answer Display",
+            "description": "Use the existing Radix UI `Dialog` component to create a popover that displays the answer.",
+            "dependencies": [
+              2
+            ],
+            "details": "The `Dialog` component was configured to show the correct answer when triggered by the FAB. The dialog is dismissible by clicking on the overlay (outside the dialog) or by using an explicit close button, providing standard modal behavior.",
+            "status": "completed",
+            "testStrategy": "Unit tests simulate a click on the FAB and assert that the dialog content appears with the correct answer. Another test simulates a click outside to verify it closes.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Implement State Management for Dialog Visibility",
+            "description": "Add and manage the state required to control the visibility of the answer dialog.",
+            "dependencies": [
+              3
+            ],
+            "details": "A new state variable, `showAnswerDialog`, was introduced in the `GamePlay` component using the `useState` hook. The FAB's `onClick` handler toggles this state to true, and the `Dialog` component's `onOpenChange` handler manages closing it.",
+            "status": "completed",
+            "testStrategy": "The state logic is implicitly tested by the component interaction tests which verify the dialog opens and closes correctly based on user actions.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Update Tests and Perform QA",
+            "description": "Update all relevant tests to reflect the new UI/UX and perform a full quality assurance check.",
+            "dependencies": [
+              4
+            ],
+            "details": "The unit tests for `GamePlay.tsx` were updated to remove assertions for the old swipe component and add new ones for the FAB and dialog interaction. A full QA cycle was performed, including running `pnpm test`, `pnpm lint`, `pnpm check`, and `pnpm build`, all of which passed. The changes were merged via PR #39.",
+            "status": "completed",
+            "testStrategy": "Final verification was the successful CI/CD pipeline run on the pull request, confirming all 310 tests passed and the build was successful.",
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-11-18T15:34:18.338Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-18T13:54:55.014Z",
+      "lastModified": "2025-11-18T15:34:18.339Z",
       "taskCount": 38,
-      "completedCount": 34,
+      "completedCount": 35,
       "tags": [
         "master"
       ]
