@@ -1817,7 +1817,7 @@
         "description": "Integrate a full dark mode theme across the application, controlled by a toggle in the header. The theme will default to the user's system preference and persist their selection in local storage.",
         "details": "Implement a theme provider using a library like `next-themes` to manage light, dark, and system themes. This provider will be configured in the main Astro layout to wrap the entire application and apply the appropriate class (e.g., 'dark') to the root HTML element. Create a new React island component, `ThemeSwitcher.tsx`, which will use the `useTheme` hook from the library to toggle and display the current theme state. This component will feature accessible icons (e.g., sun/moon/monitor) and be placed in the application header next to the existing i18n language switcher. All major UI components, especially those from `shadcn/ui` and custom components like the game screen, scoreboard, and dialogs, must be reviewed to ensure they correctly adapt to the theme by using CSS variables for colors, as defined in the global stylesheet.",
         "testStrategy": "Unit test the `ThemeSwitcher` component using Vitest and React Testing Library to verify that clicking the toggle correctly calls the `setTheme` function with 'light', 'dark', or 'system' and that the component's visual state updates. For integration testing, use a framework like Playwright to simulate user interaction: 1) Verify that the theme persists in local storage after a page reload. 2) Mock the `prefers-color-scheme` media query to confirm the application correctly defaults to the system theme on first load. 3) Perform visual snapshot tests on key pages (GamePlay, Scoreboard, Category Selection) in both light and dark modes to ensure proper rendering and catch any styling regressions.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "6",
           "10",
@@ -1825,7 +1825,73 @@
           "22"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install and Configure Theme Provider",
+            "description": "Install the `next-themes` library and wrap the root layout of the Astro application with its `ThemeProvider`. This will establish the context for theme management across all pages and components.",
+            "dependencies": [],
+            "details": "Add `next-themes` as a project dependency using your package manager. In the main layout file (e.g., `src/layouts/Layout.astro`), import the `ThemeProvider` and configure it to wrap the `<slot />`. Set attributes `attribute=\"class\"`, `defaultTheme=\"system\"`, and `enableSystem` to true to support system preference by default.",
+            "status": "done",
+            "testStrategy": "Manually verify by inspecting the `<html>` element in the browser's developer tools. Confirm that the `class` attribute is added and that it changes when the system theme is toggled at the OS level.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T09:53:52.883Z"
+          },
+          {
+            "id": 2,
+            "title": "Create ThemeSwitcher React Island Component",
+            "description": "Develop a new React island component, `ThemeSwitcher.tsx`, that provides a user interface for cycling through light, dark, and system themes.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create the file `src/components/ThemeSwitcher.tsx`. Utilize the `useTheme` hook from `next-themes` to access the current theme and the `setTheme` function. Implement a dropdown menu or button group with accessible icons (e.g., sun, moon, monitor) to trigger `setTheme('light')`, `setTheme('dark')`, and `setTheme('system')`.",
+            "status": "done",
+            "testStrategy": "Unit test the component using Vitest and React Testing Library. Mock the `useTheme` hook to verify that clicking the buttons calls `setTheme` with the correct arguments and that the component's visual state updates to reflect the current theme.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T09:53:56.014Z"
+          },
+          {
+            "id": 3,
+            "title": "Integrate Theme Switcher into Application Header",
+            "description": "Add the newly created `ThemeSwitcher` component to the application's main header, placing it alongside the existing i18n language switcher for consistent UI.",
+            "dependencies": [
+              2
+            ],
+            "details": "Modify the main header component file (e.g., `src/components/Header.astro`). Import and render the `ThemeSwitcher.tsx` component, ensuring it is configured as a client-side island (e.g., `client:load`). Apply necessary styling to ensure it aligns correctly with other header elements.",
+            "status": "done",
+            "testStrategy": "Manually inspect the application header across various pages to ensure the theme switcher is visible, correctly positioned, and functional. Verify the layout remains responsive on different screen sizes.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T09:53:59.171Z"
+          },
+          {
+            "id": 4,
+            "title": "Define Dark Theme CSS Variables and Update Components",
+            "description": "Update the global stylesheet to define CSS variables for the dark theme and refactor all major UI components to use these variables, ensuring they adapt correctly.",
+            "dependencies": [
+              1
+            ],
+            "details": "In the global CSS file (e.g., `src/styles/globals.css`), define color variables within a `:root` selector for the light theme. Override these variables within a `.dark` selector for the dark theme. Systematically review and refactor components (`shadcn/ui`, game screen, scoreboard, dialogs) to use these CSS variables for colors, backgrounds, and borders instead of hardcoded values.",
+            "status": "done",
+            "testStrategy": "Conduct a thorough visual regression review. Manually toggle between light and dark modes on all key application pages and components to identify and fix any styling issues, such as incorrect colors, low contrast text, or unstyled elements.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T09:54:01.808Z"
+          },
+          {
+            "id": 5,
+            "title": "Implement Integration Tests for Theme Switching",
+            "description": "Create end-to-end tests using Playwright to simulate user interaction with the theme switcher and verify that the application's theme updates correctly across the UI.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Write a new test suite for theme functionality. The test script should navigate to a key page, click the theme switcher to select 'dark' mode, and then assert that the `<html>` element has the 'dark' class. The test should also take a screenshot to visually confirm the theme has been applied to critical components. Repeat this process for 'light' and 'system' modes.",
+            "status": "done",
+            "testStrategy": "The successful execution of these Playwright tests in the CI/CD pipeline will serve as the validation for this task, preventing future regressions in theme functionality.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T09:54:04.442Z"
+          }
+        ],
+        "updatedAt": "2025-11-19T09:54:04.442Z"
       },
       {
         "id": "32",
@@ -2282,9 +2348,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-18T15:34:18.339Z",
+      "lastModified": "2025-11-19T09:54:04.443Z",
       "taskCount": 38,
-      "completedCount": 35,
+      "completedCount": 36,
       "tags": [
         "master"
       ]
