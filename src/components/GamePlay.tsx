@@ -8,7 +8,6 @@ import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface GamePlayProps {
@@ -417,7 +416,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               <HelpCircle className="w-6 h-6" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto" data-testid="answer-dialog" align="end" side="top">
+          <PopoverContent data-testid="answer-dialog" align="end" side="top">
             <div className="space-y-2">
               <h3 className="font-semibold text-sm">{t('gamePlay.answer')}</h3>
               <p className="text-xs text-muted-foreground">{t('gamePlay.correctAnswer')}</p>
