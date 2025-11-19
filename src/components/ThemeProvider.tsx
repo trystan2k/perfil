@@ -14,7 +14,7 @@ export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProvid
     const currentTheme = theme || defaultTheme;
 
     // Determine the actual theme to apply
-    let actualTheme: 'light' | 'dark' = 'light';
+    let actualTheme: 'light' | 'dark';
 
     if (currentTheme === 'system') {
       // Check system preference
@@ -44,11 +44,14 @@ export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProvid
       }
     };
 
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     if (currentTheme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       mediaQuery.addEventListener('change', handleSystemThemeChange);
-      return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
     }
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleSystemThemeChange);
+    };
   }, [theme, defaultTheme]);
 
   return <>{children}</>;
