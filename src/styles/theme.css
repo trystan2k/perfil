@@ -1,0 +1,40 @@
+/* Theme Switcher Styles */
+.theme-switcher {
+  @apply flex justify-center p-4;
+}
+
+.theme-list {
+  @apply flex gap-2 list-none m-0 p-0;
+}
+
+.theme-button {
+  @apply flex items-center justify-center p-2 rounded-md no-underline;
+  @apply text-foreground bg-background border border-border;
+  @apply transition-all duration-200;
+  @apply cursor-pointer;
+  @apply hover:bg-accent hover:border-accent;
+}
+
+.theme-button.active {
+  @apply bg-primary text-primary-foreground border-primary;
+}
+
+.theme-button:focus {
+  @apply outline-2 outline-offset-2 outline-primary;
+}
+
+/* Screen reader only text */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden;
+  @apply border-0 whitespace-nowrap;
+  clip-path: polygon(0, 0);
+}
+
+/* Data theme attribute styling */
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+}
