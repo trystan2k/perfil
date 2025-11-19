@@ -82,7 +82,8 @@ describe('GameStateProvider', () => {
 
       expect(screen.getByRole('status')).toBeInTheDocument();
       expect(screen.getByText('Loading game...')).toBeInTheDocument();
-      expect(screen.queryByText('Test Content')).not.toBeInTheDocument();
+      // Children should still be in the document (underneath the spinner)
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
     });
 
     it('should display loading text', () => {
@@ -111,7 +112,8 @@ describe('GameStateProvider', () => {
       );
 
       expect(screen.getByText('Game session not found')).toBeInTheDocument();
-      expect(screen.queryByText('Test Content')).not.toBeInTheDocument();
+      // Children should still be in the document (underneath the error overlay)
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
     });
 
     it('should display error message correctly', () => {
@@ -292,8 +294,8 @@ describe('GameStateProvider', () => {
         </GameStateProvider>
       );
 
-      // Error overlay should still render
-      expect(screen.queryByText('Test Content')).not.toBeInTheDocument();
+      // Error overlay should still render, and children should also be present
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
     });
 
     it('should handle children prop being a single element', () => {

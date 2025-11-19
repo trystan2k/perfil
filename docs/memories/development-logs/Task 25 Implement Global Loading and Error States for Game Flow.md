@@ -23,8 +23,9 @@ Implemented a centralized loading and error handling system to improve user expe
 ### 3. State Providers
 - **GameStateProvider** (`src/components/GameStateProvider.tsx`):
   - Subscribes to the store's `isLoading` and `error` states.
-  - Conditionally renders the `LoadingSpinner` (highest priority) or `ErrorOverlay`.
-  - Renders children when no blocking state is active.
+  - **Architecture Change**: Conditionally renders the `LoadingSpinner` or `ErrorOverlay` as **siblings** (overlays) to `children`.
+  - **Why**: This prevents unmounting `children` when a transient global loading state is triggered (e.g., by a `useEffect` inside the child), avoiding infinite unmount/mount loops.
+  - Priority (Visual): Loading Spinner > Error Overlay > Children.
 - **GameStateProviderWrapper** (`src/components/GameStateProviderWrapper.tsx`):
   - Orchestrates provider nesting: `ThemeProvider` -> `I18nProvider` -> `GameStateProvider`.
   - Integrated into `src/layouts/Layout.astro` to wrap the entire application.
@@ -41,7 +42,7 @@ Implemented a centralized loading and error handling system to improve user expe
   - `gameStore`: Verified new state and actions (83 tests passing).
   - `LoadingSpinner`: Verified rendering variants (23 tests passing).
   - `ErrorOverlay`: Verified message display, actions, and accessibility (34 tests passing).
-  - `GameStateProvider`: Verified rendering priority and integration (18 tests passing).
+  - `GameStateProvider`: Verified rendering priority and integration (18 tests passing). Updated to assert children presence during loading/error.
 - **Integration Tests**:
   - `GameSetup`, `CategorySelect`, and `GamePlay` tests updated to mock global state actions.
   - All component tests passing with high coverage.
@@ -53,6 +54,7 @@ Implemented a centralized loading and error handling system to improve user expe
 
 ## Lessons Learned
 - **Mocking Zustand**: When testing components that use Zustand stores, it's crucial to mock all used actions (`setLoading`, `setError`, etc.) in the test setup. Using `vi.hoisted` helps ensures mocks are initialized before imports.
+- **Component Unmounting & Global State**: If a child component triggers a global state update (like `isLoading=true`) on mount (e.g., in `useEffect`), the parent provider must NOT conditionaly unmount that child based on that state. Doing so causes an infinite loop (Mount -> Set Loading -> Unmount Child -> Set Loading False -> Mount -> ...). Instead, render the loading state as an overlay.
 - **Provider Nesting**: Centralizing providers in a wrapper component simplifies `Layout.astro` and ensures consistent context availability across the app.
 - **Test Stability**: Using `waitFor` is essential when asserting state changes that happen asynchronously (e.g., after `useEffect`).
 

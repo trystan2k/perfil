@@ -14,35 +14,28 @@ export interface GameStateProviderProps {
  * GameStateProvider
  *
  * A wrapper component that subscribes to the game store's loading and error states.
- * It conditionally renders:
- * 1. A full-page loading spinner when isLoading is true
- * 2. An error overlay when error is not null
- * 3. The children component otherwise
+ * It renders the loading spinner and error overlay ON TOP of the children,
+ * ensuring that the children components remain mounted (preserving their state).
  *
- * Priority: loading spinner > error overlay > children
+ * Priority (Visual): Loading Spinner > Error Overlay > Children
  */
 export function GameStateProvider({ children }: GameStateProviderProps) {
   const isLoading = useGameStore((state) => state.isLoading);
   const error = useGameStore((state) => state.error);
   const clearError = useGameStore((state) => state.clearError);
 
-  // Show loading spinner with highest priority
-  if (isLoading) {
-    return <LoadingSpinner fullPage text="Loading game..." />;
-  }
-
-  // Show error overlay if there's an error
-  if (error) {
-    return (
-      <ErrorOverlay
-        message={error.message}
-        recoveryPath={error.recoveryPath}
-        recoveryButtonText={error.recoveryPath ? 'Go Home' : undefined}
-        onClose={clearError}
-      />
-    );
-  }
-
-  // Otherwise render children
-  return children;
+  return (
+    <>
+      {children}
+      {isLoading && <LoadingSpinner fullPage text="Loading game..." />}
+      {!isLoading && error && (
+        <ErrorOverlay
+          message={error.message}
+          recoveryPath={error.recoveryPath}
+          recoveryButtonText={error.recoveryPath ? 'Go Home' : undefined}
+          onClose={clearError}
+        />
+      )}
+    </>
+  );
 }
