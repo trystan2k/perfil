@@ -3,7 +3,7 @@ import { I18nProvider } from '../components/I18nProvider';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
 import { ThemeProvider } from '../components/ThemeProvider';
-import { ThemeSwitcherWithProvider } from '../components/ThemeSwitcherWithProvider';
+import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import { FALLBACK_LOCALE } from '../i18n/locales';
 import '../styles/globals.css';
 import '../styles/theme.css';
@@ -34,7 +34,7 @@ const currentLocale = FALLBACK_LOCALE;
         <a href="#main-content" class="skip-link">Skip to main content</a>
         <header aria-label="Site header">
           <div class="header-controls">
-            <ThemeSwitcherWithProvider client:only="react" />
+            <ThemeSwitcher client:only="react" />
             <LanguageSwitcher client:only="react" />
           </div>
         </header>
