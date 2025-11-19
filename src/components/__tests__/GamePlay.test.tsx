@@ -1282,44 +1282,40 @@ describe('GamePlay Component', () => {
       expect(answerText.textContent).toBeTruthy();
     });
 
-    it('should have proper accessibility attributes on dialog', async () => {
+    it('should have proper accessibility attributes on popover', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
       render(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
+      expect(fab).toHaveAttribute('aria-label');
+
       await user.click(fab);
 
-      const dialog = screen.getByTestId('answer-dialog');
-      expect(dialog).toHaveAttribute('aria-describedby', 'answer-dialog-description');
-
-      const description = document.getElementById('answer-dialog-description');
-      expect(description).toBeInTheDocument();
+      const popover = screen.getByTestId('answer-dialog');
+      expect(popover).toBeInTheDocument();
     });
 
-    it('should close dialog when closing the dialog', async () => {
+    it('should close popover when pressing Escape', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      const { rerender } = render(<GamePlay />);
+      render(<GamePlay />);
 
-      // Open dialog
+      // Open popover
       const fab = screen.getByTestId('answer-fab');
       await user.click(fab);
 
-      const dialog = screen.getByTestId('answer-dialog');
-      expect(dialog).toBeInTheDocument();
+      const popover = screen.getByTestId('answer-dialog');
+      expect(popover).toBeInTheDocument();
 
-      // Close dialog by clicking the close button (Radix UI Dialog close icon)
-      const closeButton = screen.getByRole('button', { name: /close/i });
-      await user.click(closeButton);
+      // Close popover by pressing Escape
+      await user.keyboard('{Escape}');
 
-      rerender(<GamePlay />);
-
-      // Dialog should no longer be in the document
-      const closedDialog = screen.queryByTestId('answer-dialog');
-      expect(closedDialog).not.toBeInTheDocument();
+      // Popover should no longer be in the document
+      const closedPopover = screen.queryByTestId('answer-dialog');
+      expect(closedPopover).not.toBeInTheDocument();
     });
 
     it('should have correct z-index class for FAB positioning', () => {

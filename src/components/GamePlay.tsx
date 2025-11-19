@@ -7,13 +7,8 @@ import { ProfileProgress } from '@/components/ProfileProgress';
 import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface GamePlayProps {
@@ -411,36 +406,27 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           </CardContent>
         </Card>
 
-        {/* Floating Action Button for Answer */}
-        <Button
-          onClick={() => setShowAnswerDialog(true)}
-          className="fixed bottom-6 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full shadow-lg"
-          aria-label={t('gamePlay.revealAnswer')}
-          data-testid="answer-fab"
-        >
-          <HelpCircle className="w-6 h-6" />
-        </Button>
-
-        {/* Answer Dialog */}
-        <Dialog open={showAnswerDialog} onOpenChange={setShowAnswerDialog}>
-          <DialogContent
-            className="max-w-sm"
-            data-testid="answer-dialog"
-            aria-describedby="answer-dialog-description"
-          >
-            <DialogHeader>
-              <DialogTitle>{t('gamePlay.answer')}</DialogTitle>
-              <DialogDescription id="answer-dialog-description">
-                {t('gamePlay.correctAnswer')}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="py-6">
-              <p className="text-2xl font-bold text-center text-primary" data-testid="answer-text">
+        {/* Answer Popover */}
+        <Popover open={showAnswerDialog} onOpenChange={setShowAnswerDialog}>
+          <PopoverTrigger asChild>
+            <Button
+              className="fixed bottom-6 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full shadow-lg"
+              aria-label={t('gamePlay.revealAnswer')}
+              data-testid="answer-fab"
+            >
+              <HelpCircle className="w-6 h-6" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto" data-testid="answer-dialog" align="end" side="top">
+            <div className="space-y-2">
+              <h3 className="font-semibold text-sm">{t('gamePlay.answer')}</h3>
+              <p className="text-xs text-muted-foreground">{t('gamePlay.correctAnswer')}</p>
+              <p className="text-xl font-bold text-primary" data-testid="answer-text">
                 {currentProfile.name}
               </p>
             </div>
-          </DialogContent>
-        </Dialog>
+          </PopoverContent>
+        </Popover>
       </div>
 
       {/* Round Summary Modal */}
