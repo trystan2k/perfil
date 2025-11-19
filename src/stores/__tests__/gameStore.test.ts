@@ -1149,4 +1149,269 @@ describe('gameStore', () => {
       expect(aCount + bCount + cCount).toBe(100);
     });
   });
+
+  describe('Loading and Error State Management', () => {
+    beforeEach(() => {
+      // Reset loading and error state before each test
+      useGameStore.setState({
+        isLoading: false,
+        error: null,
+      });
+    });
+
+    describe('setLoading', () => {
+      it('should set isLoading to true', () => {
+        useGameStore.getState().setLoading(true);
+
+        const state = useGameStore.getState();
+        expect(state.isLoading).toBe(true);
+      });
+
+      it('should set isLoading to false', () => {
+        // First set to true
+        useGameStore.getState().setLoading(true);
+        expect(useGameStore.getState().isLoading).toBe(true);
+
+        // Then set to false
+        useGameStore.getState().setLoading(false);
+
+        const state = useGameStore.getState();
+        expect(state.isLoading).toBe(false);
+      });
+
+      it('should toggle isLoading state', () => {
+        expect(useGameStore.getState().isLoading).toBe(false);
+
+        useGameStore.getState().setLoading(true);
+        expect(useGameStore.getState().isLoading).toBe(true);
+
+        useGameStore.getState().setLoading(false);
+        expect(useGameStore.getState().isLoading).toBe(false);
+
+        useGameStore.getState().setLoading(true);
+        expect(useGameStore.getState().isLoading).toBe(true);
+      });
+
+      it('should not affect other state properties when setting loading', () => {
+        useGameStore.setState({
+          id: 'test-game-id',
+          players: [{ id: 'player-1', name: 'Test Player', score: 5 }],
+        });
+
+        useGameStore.getState().setLoading(true);
+
+        const state = useGameStore.getState();
+        expect(state.id).toBe('test-game-id');
+        expect(state.players).toHaveLength(1);
+        expect(state.players[0].score).toBe(5);
+        expect(state.isLoading).toBe(true);
+      });
+    });
+
+    describe('setError', () => {
+      it('should set error with message only', () => {
+        const errorMessage = 'Game session not found';
+        useGameStore.getState().setError(errorMessage);
+
+        const state = useGameStore.getState();
+        expect(state.error).not.toBeNull();
+        expect(state.error?.message).toBe(errorMessage);
+        expect(state.error?.recoveryPath).toBeUndefined();
+      });
+
+      it('should set error with message and recovery path', () => {
+        const errorMessage = 'Game session not found';
+        const recoveryPath = '/';
+
+        useGameStore.getState().setError(errorMessage, recoveryPath);
+
+        const state = useGameStore.getState();
+        expect(state.error).not.toBeNull();
+        expect(state.error?.message).toBe(errorMessage);
+        expect(state.error?.recoveryPath).toBe(recoveryPath);
+      });
+
+      it('should overwrite previous error', () => {
+        useGameStore.getState().setError('First error', '/first');
+        expect(useGameStore.getState().error?.message).toBe('First error');
+
+        useGameStore.getState().setError('Second error', '/second');
+
+        const state = useGameStore.getState();
+        expect(state.error?.message).toBe('Second error');
+        expect(state.error?.recoveryPath).toBe('/second');
+      });
+
+      it('should handle error with special characters in message', () => {
+        const complexMessage = 'Database error: Connection timeout (ERR_DB_TIMEOUT)';
+        useGameStore.getState().setError(complexMessage);
+
+        const state = useGameStore.getState();
+        expect(state.error?.message).toBe(complexMessage);
+      });
+
+      it('should handle error with custom recovery path', () => {
+        useGameStore.getState().setError('Player not found', '/game-setup');
+
+        const state = useGameStore.getState();
+        expect(state.error?.recoveryPath).toBe('/game-setup');
+      });
+
+      it('should not affect other state properties when setting error', () => {
+        useGameStore.setState({
+          id: 'test-game-id',
+          players: [{ id: 'player-1', name: 'Test Player', score: 10 }],
+          isLoading: true,
+        });
+
+        useGameStore.getState().setError('Test error', '/home');
+
+        const state = useGameStore.getState();
+        expect(state.id).toBe('test-game-id');
+        expect(state.players).toHaveLength(1);
+        expect(state.players[0].score).toBe(10);
+        expect(state.isLoading).toBe(true);
+        expect(state.error?.message).toBe('Test error');
+      });
+
+      it('should allow empty string as recovery path', () => {
+        useGameStore.getState().setError('Error message', '');
+
+        const state = useGameStore.getState();
+        expect(state.error?.recoveryPath).toBe('');
+      });
+    });
+
+    describe('clearError', () => {
+      it('should clear error when one is set', () => {
+        useGameStore.getState().setError('Some error', '/path');
+        expect(useGameStore.getState().error).not.toBeNull();
+
+        useGameStore.getState().clearError();
+
+        const state = useGameStore.getState();
+        expect(state.error).toBeNull();
+      });
+
+      it('should not throw when clearing error when none is set', () => {
+        expect(useGameStore.getState().error).toBeNull();
+
+        expect(() => useGameStore.getState().clearError()).not.toThrow();
+
+        const state = useGameStore.getState();
+        expect(state.error).toBeNull();
+      });
+
+      it('should clear error multiple times', () => {
+        useGameStore.getState().setError('Error 1');
+        useGameStore.getState().clearError();
+        expect(useGameStore.getState().error).toBeNull();
+
+        useGameStore.getState().setError('Error 2', '/path');
+        useGameStore.getState().clearError();
+        expect(useGameStore.getState().error).toBeNull();
+      });
+
+      it('should not affect other state properties when clearing error', () => {
+        useGameStore.setState({
+          id: 'test-game-id',
+          players: [{ id: 'player-1', name: 'Test Player', score: 15 }],
+          isLoading: true,
+        });
+
+        useGameStore.getState().setError('Test error');
+        useGameStore.getState().clearError();
+
+        const state = useGameStore.getState();
+        expect(state.id).toBe('test-game-id');
+        expect(state.players).toHaveLength(1);
+        expect(state.players[0].score).toBe(15);
+        expect(state.isLoading).toBe(true);
+        expect(state.error).toBeNull();
+      });
+    });
+
+    describe('Loading and Error State Interaction', () => {
+      it('should be able to set loading and error simultaneously', () => {
+        useGameStore.getState().setLoading(true);
+        useGameStore.getState().setError('Loading error');
+
+        const state = useGameStore.getState();
+        expect(state.isLoading).toBe(true);
+        expect(state.error?.message).toBe('Loading error');
+      });
+
+      it('should clear error without affecting loading state', () => {
+        useGameStore.getState().setLoading(true);
+        useGameStore.getState().setError('Some error');
+
+        useGameStore.getState().clearError();
+
+        const state = useGameStore.getState();
+        expect(state.isLoading).toBe(true);
+        expect(state.error).toBeNull();
+      });
+
+      it('should clear loading after error resolution', () => {
+        useGameStore.getState().setLoading(true);
+        useGameStore.getState().setError('Connection error', '/');
+
+        useGameStore.getState().setLoading(false);
+        useGameStore.getState().clearError();
+
+        const state = useGameStore.getState();
+        expect(state.isLoading).toBe(false);
+        expect(state.error).toBeNull();
+      });
+
+      it('should handle rapid state changes', () => {
+        useGameStore.getState().setLoading(true);
+        useGameStore.getState().setError('Error 1');
+        useGameStore.getState().setLoading(false);
+        useGameStore.getState().setError('Error 2', '/home');
+        useGameStore.getState().clearError();
+        useGameStore.getState().setLoading(true);
+
+        const state = useGameStore.getState();
+        expect(state.isLoading).toBe(true);
+        expect(state.error).toBeNull();
+      });
+    });
+
+    describe('Error State Edge Cases', () => {
+      it('should handle very long error messages', () => {
+        const longMessage = 'A'.repeat(1000);
+        useGameStore.getState().setError(longMessage);
+
+        const state = useGameStore.getState();
+        expect(state.error?.message).toBe(longMessage);
+      });
+
+      it('should handle error with only whitespace in message', () => {
+        useGameStore.getState().setError('   ');
+
+        const state = useGameStore.getState();
+        expect(state.error?.message).toBe('   ');
+      });
+
+      it('should handle error with multiline message', () => {
+        const multilineMessage = `Error line 1
+Error line 2
+Error line 3`;
+        useGameStore.getState().setError(multilineMessage);
+
+        const state = useGameStore.getState();
+        expect(state.error?.message).toBe(multilineMessage);
+      });
+
+      it('should preserve recovery path in various formats', () => {
+        const paths = ['/', '/home', '/game-setup', '/scoreboard/session-123', '?error=true'];
+
+        paths.forEach((path) => {
+          useGameStore.getState().setError('Error', path);
+          expect(useGameStore.getState().error?.recoveryPath).toBe(path);
+        });
+      });
+    });
+  });
 });

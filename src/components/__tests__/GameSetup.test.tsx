@@ -21,6 +21,7 @@ Object.defineProperty(window, 'location', {
 
 describe('GameSetup', () => {
   const mockCreateGame = vi.fn().mockResolvedValue(undefined);
+  const mockSetLoading = vi.fn();
   let mockGameId = '';
 
   beforeEach(() => {
@@ -35,13 +36,19 @@ describe('GameSetup', () => {
     };
 
     useGameStoreMock.mockImplementation(
-      (selector: (state: { createGame: typeof mockCreateGame; id: string }) => unknown) =>
-        selector({ createGame: mockCreateGame, id: mockGameId })
+      (
+        selector: (state: {
+          createGame: typeof mockCreateGame;
+          id: string;
+          setLoading: typeof mockSetLoading;
+        }) => unknown
+      ) => selector({ createGame: mockCreateGame, id: mockGameId, setLoading: mockSetLoading })
     );
 
     useGameStoreMock.getState = mockGetState.mockReturnValue({
       id: mockGameId,
       createGame: mockCreateGame,
+      setLoading: mockSetLoading,
     });
   });
 

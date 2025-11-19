@@ -1371,7 +1371,7 @@
         "description": "Introduce global loading and error states into the Zustand store to gracefully handle asynchronous operations, invalid session data, and other potential failures throughout the application lifecycle, providing clear user feedback and recovery paths.",
         "details": "1. **Update Zustand Store:** Modify `gameStore.ts` to include new state properties: `isLoading: boolean` and `error: { message: string; recoveryPath?: string } | null`. Create corresponding actions: `setLoading(status)`, `setError(errorMessage, recoveryPath)`, and `clearError()`. 2. **Enhance Persistence Logic:** Wrap the IndexedDB session loading/rehydration logic in a try/catch block. When a page with a `sessionId` loads, set `isLoading` to true. If the session is not found in IndexedDB or data is corrupt, call `setError` with a message like 'Game session not found.' and a recovery path to '/'. Set `isLoading` to false on success or failure. 3. **Create Global State UI Handler:** Develop a wrapper component (e.g., `GameStateProvider.tsx`) that subscribes to the store. This component will conditionally render a full-page loading spinner if `isLoading` is true, or an error overlay with the message and a 'Go Home' link if `error` is not null. Otherwise, it will render its children. This wrapper should be used in the main layout file. 4. **Integrate into Components:** Update `GameSetup.tsx`, `CategorySelect.tsx`, and `GamePlay.tsx` to utilize the new state actions. For instance, on game creation or category selection, call `setLoading(true)` before the operation and `setLoading(false)` after.",
         "testStrategy": "1. **Unit Tests (Zustand):** Test the new `setLoading`, `setError`, and `clearError` actions to ensure they correctly mutate the store. Mock the IndexedDB utility to simulate a failed session load and verify the `error` state is set appropriately. 2. **Component Tests (React Testing Library):** Test the global state handler component by providing a mocked store in `isLoading` and `error` states, then assert that the correct UI (spinner or error message) is rendered. 3. **End-to-End Manual Tests:** Navigate directly to a game URL with a non-existent session ID (e.g., `/game/invalid-session`) and verify the 'Game session not found' error UI is displayed with a working recovery link. Manually clear IndexedDB while on a game page and refresh to confirm the error state is triggered.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "3",
           "6",
@@ -1380,7 +1380,72 @@
           "24"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update Zustand Store with Loading and Error States",
+            "description": "Modify the `gameStore.ts` to include new state properties for `isLoading` and `error`, and create the corresponding actions to manage these global states.",
+            "dependencies": [],
+            "details": "In `gameStore.ts`, add `isLoading: boolean` (defaulting to false) and `error: { message: string; recoveryPath?: string } | null` (defaulting to null) to the store's state interface and initial state. Implement the actions: `setLoading(status: boolean)`, `setError(error: { message: string; recoveryPath?: string } | null)`, and `clearError()` which is a convenience action that calls `setError(null)`.",
+            "status": "done",
+            "testStrategy": "Write unit tests for the `gameStore` using Vitest. Verify that `setLoading` correctly toggles the `isLoading` state. Test that `setError` correctly sets the error object and `clearError` sets it back to null.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T14:13:51.624Z"
+          },
+          {
+            "id": 2,
+            "title": "Create Reusable Loading Spinner and Error Overlay Components",
+            "description": "Develop two distinct, reusable React components: a full-page loading spinner and an error overlay. These components will be displayed by the global state handler.",
+            "dependencies": [],
+            "details": "Create `LoadingSpinner.tsx`, a component that displays a centered, animated spinner covering the viewport. Create `ErrorOverlay.tsx`, a component that accepts `message` and `recoveryPath` as props. It should display the error message and a button/link (e.g., 'Go Home') that navigates to the `recoveryPath`.",
+            "status": "done",
+            "testStrategy": "Use React Testing Library and Vitest to render each component in isolation. For `ErrorOverlay`, verify that the message is displayed and the link/button has the correct `href` or `onClick` handler based on the `recoveryPath` prop.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T14:13:53.136Z"
+          },
+          {
+            "id": 3,
+            "title": "Build GameStateProvider to Handle Global UI States",
+            "description": "Create a wrapper component that subscribes to the Zustand game store and conditionally renders the loading spinner, error overlay, or its children based on the global state.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create `GameStateProvider.tsx`. This component will use the `useGameStore` hook to select the `isLoading` and `error` states. It will implement the following logic: if `isLoading` is true, render `<LoadingSpinner />`. If `error` is not null, render `<ErrorOverlay message={error.message} recoveryPath={error.recoveryPath} />`. Otherwise, render `{children}`.",
+            "status": "done",
+            "testStrategy": "Test `GameStateProvider` with React Testing Library. Mock the `useGameStore` hook to return different states (`isLoading: true`, `error: object`, and neither). Assert that the correct child component (`LoadingSpinner`, `ErrorOverlay`, or the children prop) is rendered for each state.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T14:13:54.510Z"
+          },
+          {
+            "id": 4,
+            "title": "Integrate GameStateProvider into the Main Application Layout",
+            "description": "Wrap the main content of the application with the newly created `GameStateProvider` to ensure global loading and error states are handled on every page.",
+            "dependencies": [
+              3
+            ],
+            "details": "Locate the main layout file of the Astro application (e.g., `src/layouts/Layout.astro`). Import the `GameStateProvider` client-side component and wrap it around the `<slot />` or the primary content area. This will make the global state handling effective across the entire site.",
+            "status": "done",
+            "testStrategy": "Perform end-to-end testing using a tool like Playwright. Create a test scenario where the store is manually put into a loading or error state, and verify that the correct full-page UI is displayed, preventing interaction with the underlying page content.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T14:13:55.933Z"
+          },
+          {
+            "id": 5,
+            "title": "Refactor Async Operations to Utilize Global State Actions",
+            "description": "Update all relevant asynchronous operations, including session loading from IndexedDB and API calls in game components, to use the new `setLoading` and `setError` actions.",
+            "dependencies": [
+              1,
+              4
+            ],
+            "details": "1. Modify the IndexedDB session rehydration logic. Wrap it in a try/catch block. Call `setLoading(true)` before starting and `setLoading(false)` in a `finally` block. On error (e.g., session not found), call `setError({ message: 'Game session not found.', recoveryPath: '/' })`. 2. In components like `GameSetup.tsx` and `CategorySelect.tsx`, wrap API calls with `setLoading(true)` and `setLoading(false)`.",
+            "status": "done",
+            "testStrategy": "For the IndexedDB logic, create unit tests mocking the DB utility to throw an error and assert that `setError` is called correctly. For component tests, use React Testing Library and mock the async functions. Verify that `setLoading(true)` is called before the async operation and `setLoading(false)` is called after it resolves or rejects.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-19T14:13:57.273Z"
+          }
+        ],
+        "updatedAt": "2025-11-19T14:13:57.273Z"
       },
       {
         "id": "26",
@@ -2348,9 +2413,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-19T09:54:04.443Z",
+      "lastModified": "2025-11-19T14:13:57.275Z",
       "taskCount": 38,
-      "completedCount": 36,
+      "completedCount": 37,
       "tags": [
         "master"
       ]

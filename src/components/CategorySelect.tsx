@@ -22,24 +22,33 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const loadProfiles = useGameStore((state) => state.loadProfiles);
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
+  const setGlobalLoading = useGameStore((state) => state.setLoading);
+  const setGlobalError = useGameStore((state) => state.setError);
+  const clearGlobalError = useGameStore((state) => state.clearError);
 
   useEffect(() => {
     const loadSession = async () => {
+      setGlobalLoading(true);
       try {
         const success = await loadFromStorage(sessionId);
         if (!success) {
+          setGlobalError('Game session not found', '/');
           setSessionError(t('categorySelect.error.sessionNotFoundDescription'));
+        } else {
+          clearGlobalError();
         }
       } catch (err) {
         console.error('Failed to load session:', err);
+        setGlobalError('Failed to load game session', '/');
         setSessionError(t('categorySelect.error.description'));
       } finally {
         setSessionLoading(false);
+        setGlobalLoading(false);
       }
     };
 
     loadSession();
-  }, [sessionId, loadFromStorage, t]);
+  }, [sessionId, loadFromStorage, t, setGlobalLoading, setGlobalError, clearGlobalError]);
 
   if (isLoading || sessionLoading) {
     return (
@@ -136,15 +145,18 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     if (isStarting || selectedCategories.size === 0) return;
 
     setIsStarting(true);
+    setGlobalLoading(true);
 
     try {
       loadProfiles(profiles);
       const numRounds = Number.parseInt(numberOfRounds, 10);
       startGame(Array.from(selectedCategories), numRounds);
       await forcePersist();
+      setGlobalLoading(false);
       window.location.href = `/game/${sessionId}`;
     } catch (error) {
       console.error('Failed to persist game state:', error);
+      setGlobalLoading(false);
       setIsStarting(false);
     }
   };

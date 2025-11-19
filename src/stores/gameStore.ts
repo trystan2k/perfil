@@ -29,6 +29,8 @@ interface GameState extends GameSession {
   currentRound: number;
   roundCategoryMap: string[];
   revealedClueHistory: string[];
+  isLoading: boolean;
+  error: { message: string; recoveryPath?: string } | null;
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
   startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
@@ -38,6 +40,9 @@ interface GameState extends GameSession {
   skipProfile: () => Promise<void>;
   endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
+  setLoading: (status: boolean) => void;
+  setError: (message: string, recoveryPath?: string) => void;
+  clearError: () => void;
 }
 
 const initialState: Omit<
@@ -51,6 +56,9 @@ const initialState: Omit<
   | 'skipProfile'
   | 'endGame'
   | 'loadFromStorage'
+  | 'setLoading'
+  | 'setError'
+  | 'clearError'
 > = {
   id: '',
   players: [],
@@ -67,6 +75,8 @@ const initialState: Omit<
   currentRound: 0,
   roundCategoryMap: [],
   revealedClueHistory: [],
+  isLoading: false,
+  error: null,
 };
 
 // Track rehydration operations with a Set of session IDs to handle concurrency
@@ -575,5 +585,14 @@ export const useGameStore = create<GameState>((set, get) => ({
       console.error('Failed to load game from storage:', error);
       throw error;
     }
+  },
+  setLoading: (status: boolean) => {
+    set({ isLoading: status });
+  },
+  clearError: () => {
+    set({ error: null });
+  },
+  setError: (message: string, recoveryPath?: string) => {
+    set({ error: { message, recoveryPath } });
   },
 }));

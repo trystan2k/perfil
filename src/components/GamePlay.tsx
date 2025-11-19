@@ -41,6 +41,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const skipProfile = useGameStore((state) => state.skipProfile);
   const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
+  const setGlobalLoading = useGameStore((state) => state.setLoading);
+  const setGlobalError = useGameStore((state) => state.setError);
+  const clearGlobalError = useGameStore((state) => state.clearError);
 
   // Attempt to load game from storage on mount
   useEffect(() => {
@@ -57,6 +60,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
       // If a sessionId is provided, try to load it
       if (sessionId) {
+        setGlobalLoading(true);
         try {
           const loaded = await loadFromStorage(sessionId);
 
@@ -66,7 +70,10 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           }
 
           if (!loaded) {
+            setGlobalError('Game session not found', '/');
             setLoadError(t('gamePlay.errors.sessionNotFound'));
+          } else {
+            clearGlobalError();
           }
         } catch (error) {
           if (!isMounted) {
@@ -74,12 +81,14 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           }
 
           console.error('Failed to load game session:', error);
+          setGlobalError('Failed to load game session', '/');
           setLoadError(t('gamePlay.errors.loadFailed'));
         }
       }
 
       if (isMounted) {
         setIsLoading(false);
+        setGlobalLoading(false);
       }
     };
 
@@ -89,7 +98,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     return () => {
       isMounted = false;
     };
-  }, [sessionId, id, loadFromStorage, t]);
+  }, [sessionId, id, loadFromStorage, t, setGlobalLoading, setGlobalError, clearGlobalError]);
 
   // Automatically navigate to scoreboard when game completes
   useEffect(() => {

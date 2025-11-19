@@ -7,14 +7,25 @@ import { useGameStore } from '@/stores/gameStore';
 import { CategorySelect } from '../CategorySelect';
 
 // Mock the game store - use vi.hoisted to ensure mocks are available before vi.mock
-const { mockLoadProfiles, mockStartGame, mockLoadFromStorage, mockGetState, mockForcePersist } =
-  vi.hoisted(() => ({
-    mockLoadProfiles: vi.fn(),
-    mockStartGame: vi.fn(),
-    mockLoadFromStorage: vi.fn().mockResolvedValue(true),
-    mockGetState: vi.fn(),
-    mockForcePersist: vi.fn().mockResolvedValue(undefined),
-  }));
+const {
+  mockLoadProfiles,
+  mockStartGame,
+  mockLoadFromStorage,
+  mockGetState,
+  mockForcePersist,
+  mockSetLoading,
+  mockSetError,
+  mockClearError,
+} = vi.hoisted(() => ({
+  mockLoadProfiles: vi.fn(),
+  mockStartGame: vi.fn(),
+  mockLoadFromStorage: vi.fn().mockResolvedValue(true),
+  mockGetState: vi.fn(),
+  mockForcePersist: vi.fn().mockResolvedValue(undefined),
+  mockSetLoading: vi.fn(),
+  mockSetError: vi.fn(),
+  mockClearError: vi.fn(),
+}));
 
 vi.mock('@/stores/gameStore', () => ({
   useGameStore: vi.fn(),
@@ -103,12 +114,18 @@ describe('CategorySelect', () => {
           loadProfiles: typeof mockLoadProfiles;
           startGame: typeof mockStartGame;
           loadFromStorage: typeof mockLoadFromStorage;
+          setLoading: typeof mockSetLoading;
+          setError: typeof mockSetError;
+          clearError: typeof mockClearError;
         }) => unknown
       ) =>
         selector({
           loadProfiles: mockLoadProfiles,
           startGame: mockStartGame,
           loadFromStorage: mockLoadFromStorage,
+          setLoading: mockSetLoading,
+          setError: mockSetError,
+          clearError: mockClearError,
         })
     );
 
@@ -116,6 +133,9 @@ describe('CategorySelect', () => {
       loadProfiles: mockLoadProfiles,
       startGame: mockStartGame,
       loadFromStorage: mockLoadFromStorage,
+      setLoading: mockSetLoading,
+      setError: mockSetError,
+      clearError: mockClearError,
     });
   });
 

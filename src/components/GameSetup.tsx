@@ -13,6 +13,7 @@ export function GameSetup() {
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const createGame = useGameStore((state) => state.createGame);
+  const setLoading = useGameStore((state) => state.setLoading);
 
   const handleAddPlayer = () => {
     const trimmedName = playerName.trim();
@@ -45,6 +46,7 @@ export function GameSetup() {
 
   const handleStartGame = async () => {
     try {
+      setLoading(true);
       // Wait for game creation and persistence to complete
       await createGame(playerNames);
 
@@ -53,9 +55,11 @@ export function GameSetup() {
 
       // Navigate to category selection screen
       // Persistence is guaranteed to be complete since createGame awaits it
+      setLoading(false);
       window.location.href = `/game-setup/${newGameId}`;
     } catch (err) {
       console.error('Failed to create game:', err);
+      setLoading(false);
       setError(t('gameSetup.errors.failedToCreateGame'));
     }
   };
