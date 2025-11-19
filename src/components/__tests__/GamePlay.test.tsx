@@ -1244,5 +1244,91 @@ describe('GamePlay Component', () => {
       expect(screen.getByText('20 pts')).toBeInTheDocument();
       expect(screen.getAllByText('0 pts')).toHaveLength(2); // Other 2 players still at 0
     });
+
+    it('should render floating action button with correct accessibility attributes', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      expect(fab).toBeInTheDocument();
+      expect(fab).toHaveAttribute('aria-label');
+    });
+
+    it('should open answer dialog when FAB is clicked', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      await user.click(fab);
+
+      const dialog = screen.getByTestId('answer-dialog');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    it('should display correct profile name in answer dialog', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      await user.click(fab);
+
+      const answerText = screen.getByTestId('answer-text');
+      expect(answerText).toBeInTheDocument();
+      expect(answerText.textContent).toBeTruthy();
+    });
+
+    it('should have proper accessibility attributes on dialog', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      await user.click(fab);
+
+      const dialog = screen.getByTestId('answer-dialog');
+      expect(dialog).toHaveAttribute('aria-describedby', 'answer-dialog-description');
+
+      const description = document.getElementById('answer-dialog-description');
+      expect(description).toBeInTheDocument();
+    });
+
+    it('should close dialog when closing the dialog', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      const { rerender } = render(<GamePlay />);
+
+      // Open dialog
+      const fab = screen.getByTestId('answer-fab');
+      await user.click(fab);
+
+      const dialog = screen.getByTestId('answer-dialog');
+      expect(dialog).toBeInTheDocument();
+
+      // Close dialog by clicking the close button (Radix UI Dialog close icon)
+      const closeButton = screen.getByRole('button', { name: /close/i });
+      await user.click(closeButton);
+
+      rerender(<GamePlay />);
+
+      // Dialog should no longer be in the document
+      const closedDialog = screen.queryByTestId('answer-dialog');
+      expect(closedDialog).not.toBeInTheDocument();
+    });
+
+    it('should have correct z-index class for FAB positioning', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+      expect(fab).toHaveClass('z-40');
+    });
   });
 });
