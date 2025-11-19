@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type ThemeMode = 'light' | 'dark' | 'system';
+const VALID_THEMES = ['light', 'dark', 'system'] as const;
+export type ThemeMode = (typeof VALID_THEMES)[number];
 
 interface ThemeState {
   theme: ThemeMode;
@@ -25,8 +26,7 @@ export const useThemeStore = create<ThemeState>()(
       name: 'perfil-theme',
       partialize: (state) => ({ theme: state.theme }),
       onRehydrateStorage: () => (state) => {
-        // Validate theme during rehydration from localStorage
-        if (state && !['light', 'dark', 'system'].includes(state.theme)) {
+        if (state && VALID_THEMES.includes(state.theme)) {
           console.warn(`Invalid theme '${state.theme}' in localStorage, resetting to 'system'`);
           useThemeStore.getState().setTheme('system');
         }

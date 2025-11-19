@@ -23,13 +23,6 @@
   @apply outline-2 outline-offset-2 outline-primary;
 }
 
-/* Screen reader only text */
-.sr-only {
-  @apply absolute w-px h-px p-0 -m-px overflow-hidden;
-  @apply border-0 whitespace-nowrap;
-  clip-path: polygon(0, 0);
-}
-
 /* Data theme attribute styling */
 html[data-theme='dark'] {
   color-scheme: dark;
