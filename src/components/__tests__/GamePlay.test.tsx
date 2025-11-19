@@ -362,29 +362,35 @@ describe('GamePlay Component', () => {
       expect(screen.getByText('Loading game session...')).toBeInTheDocument();
     });
 
-    it('should show error when session not found', async () => {
+    it('should call setError when session not found', async () => {
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValueOnce(null);
 
       render(<GamePlay sessionId="non-existent-session" />);
 
-      // Wait for loading to complete
-      await screen.findByText('Error');
-      expect(
-        screen.getByText('Game session not found. Please start a new game.')
-      ).toBeInTheDocument();
+      // Wait for store to be updated with i18n key
+      await waitFor(() => {
+        const state = useGameStore.getState();
+        expect(state.error).toEqual({
+          message: 'errorHandler.sessionNotFound',
+          informative: undefined,
+        });
+      });
     });
 
-    it('should show error when loading fails', async () => {
+    it('should call setError when loading fails', async () => {
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       vi.mocked(gameSessionDB.loadGameSession).mockRejectedValueOnce(new Error('Database error'));
 
       render(<GamePlay sessionId="failing-session" />);
 
-      // Wait for loading to complete
-      await screen.findByText('Error');
-      expect(
-        screen.getByText('Failed to load game session. Please try again.')
-      ).toBeInTheDocument();
+      // Wait for store to be updated with corrupted session error (i18n key)
+      await waitFor(() => {
+        const state = useGameStore.getState();
+        expect(state.error).toEqual({
+          message: 'errorHandler.sessionCorrupted',
+          informative: undefined,
+        });
+      });
 
       consoleErrorSpy.mockRestore();
     });

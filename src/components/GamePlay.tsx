@@ -17,7 +17,6 @@ interface GamePlayProps {
 export function GamePlay({ sessionId }: GamePlayProps) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(!!sessionId);
-  const [loadError, setLoadError] = useState<string | null>(null);
   const [showRoundSummary, setShowRoundSummary] = useState(false);
   const [showAnswerDialog, setShowAnswerDialog] = useState(false);
   const [roundSummaryData, setRoundSummaryData] = useState<{
@@ -56,26 +55,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
       }
 
       // If a sessionId is provided, try to load it
+      // loadFromStorage now handles errors via global state
       if (sessionId) {
-        try {
-          const loaded = await loadFromStorage(sessionId);
-
-          // Check if the effect was cancelled (component unmounted or sessionId changed)
-          if (!isMounted) {
-            return;
-          }
-
-          if (!loaded) {
-            setLoadError(t('gamePlay.errors.sessionNotFound'));
-          }
-        } catch (error) {
-          if (!isMounted) {
-            return;
-          }
-
-          console.error('Failed to load game session:', error);
-          setLoadError(t('gamePlay.errors.loadFailed'));
-        }
+        await loadFromStorage(sessionId);
       }
 
       if (isMounted) {
@@ -89,7 +71,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     return () => {
       isMounted = false;
     };
-  }, [sessionId, id, loadFromStorage, t]);
+  }, [sessionId, id, loadFromStorage]);
 
   // Automatically navigate to scoreboard when game completes
   useEffect(() => {
@@ -128,31 +110,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     );
   }
 
-  // Show error if loading failed
-  if (loadError) {
-    return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl text-destructive">
-              {t('gamePlay.error.title')}
-            </CardTitle>
-            <CardDescription className="text-destructive">{loadError}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button
-              onClick={() => {
-                window.location.href = '/';
-              }}
-              className="w-full"
-            >
-              {t('common.returnHome')}
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // Load errors are now handled by global ErrorStateProvider
 
   if (status === 'pending') {
     return (

@@ -1,4 +1,5 @@
 ---
+import { ErrorStateProviderWrapper } from '../components/ErrorStateProviderWrapper';
 import { I18nProvider } from '../components/I18nProvider';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
@@ -31,16 +32,18 @@ const currentLocale = FALLBACK_LOCALE;
   <body>
     <ThemeProvider client:only="react">
       <I18nProvider client:only="react" locale={currentLocale}>
-        <a href="#main-content" class="skip-link">Skip to main content</a>
-        <header aria-label="Site header">
-          <div class="header-controls">
-            <ThemeSwitcher client:only="react" />
-            <LanguageSwitcher client:only="react" />
-          </div>
-        </header>
-        <main id="main-content">
-          <slot />
-        </main>
+        <ErrorStateProviderWrapper client:only="react">
+          <a href="#main-content" class="skip-link">Skip to main content</a>
+          <header aria-label="Site header">
+            <div class="header-controls">
+              <ThemeSwitcher client:only="react" />
+              <LanguageSwitcher client:only="react" />
+            </div>
+          </header>
+          <main id="main-content">
+            <slot />
+          </main>
+        </ErrorStateProviderWrapper>
       </I18nProvider>
     </ThemeProvider>
     <PwaUpdater client:load />

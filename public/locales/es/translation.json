@@ -8,7 +8,15 @@
     "pts": "pts",
     "returnHome": "Volver al Inicio",
     "back": "Volver",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "goHome": "Ir al Inicio",
+    "goToRecoveryPage": "Ir a la Página de Recuperación"
+  },
+  "errorHandler": {
+    "title": "Error",
+    "defaultMessage": "Ocurrió un error inesperado.",
+    "sessionNotFound": "No se encontró la sesión de juego.",
+    "sessionCorrupted": "La sesión de juego está corrupta."
   },
   "languageSwitcher": {
     "ariaLabel": "Selector de idioma",
@@ -89,6 +97,10 @@
       "noOneScored": "Nadie anotó en esta ronda",
       "profileName": "Perfil: {{name}}",
       "nextProfileButton": "Siguiente Perfil"
+    },
+    "previousClues": {
+      "title": "Pistas Anteriores ({{count}})",
+      "mostRecent": "Más Reciente"
     }
   },
   "categorySelect": {

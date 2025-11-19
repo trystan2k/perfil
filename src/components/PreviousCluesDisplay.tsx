@@ -1,10 +1,12 @@
 import { type SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface PreviousCluesDisplayProps {
   clues: string[];
 }
 
 export function PreviousCluesDisplay({ clues }: PreviousCluesDisplayProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(() => {
     // Default to open on desktop, closed on mobile
     // This initializer is safe and will work on both server and client
@@ -45,7 +47,7 @@ export function PreviousCluesDisplay({ clues }: PreviousCluesDisplayProps) {
       >
         <summary className="flex items-center gap-2 font-semibold text-base select-none hover:opacity-80 transition-opacity">
           <span className="inline-block w-4 h-4 text-xs leading-none">{isOpen ? '▼' : '▶'}</span>
-          <span>Previous Clues ({clues.length})</span>
+          <span>{t('gamePlay.previousClues.title', { count: clues.length })}</span>
         </summary>
 
         <div className="mt-3 ml-4 space-y-2">
@@ -58,7 +60,11 @@ export function PreviousCluesDisplay({ clues }: PreviousCluesDisplayProps) {
                   : 'border-muted-foreground/20 bg-muted/30 text-muted-foreground'
               }`}
             >
-              {index === 0 && <div className="text-sm font-semibold mb-1">Most Recent</div>}
+              {index === 0 && (
+                <div className="text-sm font-semibold mb-1">
+                  {t('gamePlay.previousClues.mostRecent')}
+                </div>
+              )}
               <div className={index === 0 ? 'text-base' : 'text-sm opacity-70'}>{clue}</div>
             </div>
           ))}

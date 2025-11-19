@@ -1,8 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { PreviousCluesDisplay } from '../PreviousCluesDisplay';
+
+// Mock useTranslation hook
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string, options?: { count?: number }) => {
+      if (key === 'gamePlay.previousClues.title') {
+        return `Previous Clues (${options?.count || 0})`;
+      }
+      if (key === 'gamePlay.previousClues.mostRecent') {
+        return 'Most Recent';
+      }
+      return key;
+    },
+  }),
+}));
 
 // Mock window.innerWidth for mobile viewport testing
 const mockWindowSize = (width: number) => {

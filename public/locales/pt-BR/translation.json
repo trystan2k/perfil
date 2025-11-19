@@ -8,7 +8,15 @@
     "pts": "pts",
     "returnHome": "Voltar ao Início",
     "back": "Voltar",
-    "continue": "Continuar"
+    "continue": "Continuar",
+    "goHome": "Ir ao Início",
+    "goToRecoveryPage": "Ir para a Página de Recuperação"
+  },
+  "errorHandler": {
+    "title": "Erro",
+    "defaultMessage": "Ocorreu um erro inesperado.",
+    "sessionNotFound": "Sessão de jogo não encontrada.",
+    "sessionCorrupted": "A sessão de jogo está corrompida."
   },
   "languageSwitcher": {
     "ariaLabel": "Seletor de idioma",
@@ -89,6 +97,10 @@
       "noOneScored": "Ninguém pontuou nesta rodada",
       "profileName": "Perfil: {{name}}",
       "nextProfileButton": "Próximo Perfil"
+    },
+    "previousClues": {
+      "title": "Dicas Anteriores ({{count}})",
+      "mostRecent": "Mais Recente"
     }
   },
   "categorySelect": {
