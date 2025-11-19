@@ -44,9 +44,7 @@ export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProvid
     };
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    if (currentTheme === 'system') {
-      mediaQuery.addEventListener('change', handleSystemThemeChange);
-    }
+    mediaQuery.addEventListener('change', handleSystemThemeChange);
 
     return () => {
       mediaQuery.removeEventListener('change', handleSystemThemeChange);

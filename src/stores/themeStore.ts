@@ -14,7 +14,7 @@ export const useThemeStore = create<ThemeState>()(
     (set) => ({
       theme: 'system',
       setTheme: (theme: ThemeMode) => {
-        if (['light', 'dark', 'system'].includes(theme)) {
+        if (VALID_THEMES.includes(theme)) {
           set({ theme });
         } else {
           console.warn(`Invalid theme '${theme}', falling back to 'system'`);
@@ -26,8 +26,8 @@ export const useThemeStore = create<ThemeState>()(
       name: 'perfil-theme',
       partialize: (state) => ({ theme: state.theme }),
       onRehydrateStorage: () => (state) => {
-        if (state && VALID_THEMES.includes(state.theme)) {
-          console.warn(`Invalid theme '${state.theme}' in localStorage, resetting to 'system'`);
+        if (!state || !VALID_THEMES.includes(state.theme)) {
+          console.warn(`Invalid theme '${state?.theme}' in localStorage, resetting to 'system'`);
           useThemeStore.getState().setTheme('system');
         }
       },
