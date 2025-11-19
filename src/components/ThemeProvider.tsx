@@ -6,11 +6,20 @@ interface ThemeProviderProps {
   defaultTheme?: ThemeMode;
 }
 
+const applyTheme = (theme: 'light' | 'dark') => {
+  const root = document.documentElement;
+  root.setAttribute('data-theme', theme);
+  if (theme === 'dark') {
+    root.classList.add('dark');
+  } else {
+    root.classList.remove('dark');
+  }
+};
+
 export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProviderProps) {
   const { theme } = useThemeStore();
 
   useEffect(() => {
-    const root = document.documentElement;
     const currentTheme = theme || defaultTheme;
 
     // Determine the actual theme to apply
@@ -24,23 +33,13 @@ export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProvid
     }
 
     // Apply theme to document
-    root.setAttribute('data-theme', actualTheme);
-    if (actualTheme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    applyTheme(actualTheme);
 
     // Store actual theme for system preference changes
     const handleSystemThemeChange = (e: MediaQueryListEvent) => {
       if (currentTheme === 'system') {
         const newTheme = e.matches ? 'dark' : 'light';
-        root.setAttribute('data-theme', newTheme);
-        if (newTheme === 'dark') {
-          root.classList.add('dark');
-        } else {
-          root.classList.remove('dark');
-        }
+        applyTheme(newTheme);
       }
     };
 
