@@ -1,5 +1,76 @@
 # Copilot Coding Agent Instructions
 
+## Review Philosophy
+- Only comment when you have HIGH CONFIDENCE (>80%) that an issue exists
+- Be concise: one sentence per comment when possible
+- Focus on actionable feedback, not observations
+- When reviewing text, only comment on clarity issues if the text is genuinely confusing or could lead to errors.
+
+### Security & Safety
+- Unsafe code blocks without justification
+- Command injection risks (shell commands, user input)
+- Path traversal vulnerabilities
+- Credential exposure or hardcoded secrets
+- Missing input validation on external data
+- Improper error handling that could leak sensitive info
+
+### Correctness Issues
+- Logic errors that could cause panics or incorrect behavior
+- Race conditions in async code
+- Resource leaks (files, connections, memory)
+- Off-by-one errors or boundary conditions
+- Optional types that don’t need to be optional
+- Error context that doesn’t add useful information (e.g., `.context("Failed to do X")` when error already says it failed)
+- Overly defensive code that adds unnecessary checks
+- Unnecessary comments that just restate what the code already shows (remove them)
+
+### Architecture & Patterns
+- Code that violates existing patterns in the codebase
+- Missing error handling
+- Async/await misuse or blocking operations in async contexts
+- Improper trait implementations
+
+*Important**: You review PRs immediately, before CI completes. Do not flag issues that CI will catch.
+
+### What Our CI Checks (`.github/workflows/ci.yml`)
+
+**App checks:**
+- `pnpm install --frozen-lockfile` - Fresh dependency install 
+- `npm run lint` - Biome linting
+- `npm run typecheck` - TypeScript type checking
+- `npm run test:coverage` - Vitest tests 
+- `npm run build` - Astro build (production)
+
+**Key insight**: Commands like `npx` check local `node_modules` first, which CI installs via `npm ci`. 
+Don’t flag these as broken unless you can explain why CI setup wouldn't handle it.
+
+## Skip These (Low Value)
+
+Do not comment on:
+- **Style/formatting** - CI handles this
+- **Test failures** - CI handles this (full test suite)
+- **Missing dependencies** - CI handles this (pnpm install)
+- **Minor naming suggestions** - unless truly confusing
+- **Suggestions to add comments** - for self-documenting code
+- **Refactoring suggestions** - unless there’s a clear bug or maintainability issue
+- **Multiple issues in one comment** - choose the single most critical issue
+- **Logging suggestions** - unless for errors or security events (the codebase needs less logging, not more)
+- **Pedantic accuracy in text** - unless it would cause actual confusion or errors. No one likes a reply guy
+
+## Response Format
+
+When you identify an issue:
+1. **State the problem** (1 sentence)
+2. **Why it matters** (1 sentence, only if not obvious)
+3. **Suggested fix** (code snippet or specific action)
+
+Example:
+This could panic if the vector is empty. Consider using `.get(0)` or add a length check.
+
+## When to Stay Silent
+
+If you’re uncertain whether something is an issue, don’t comment. False positives create noise and reduce trust in the review process.
+
 ## Repository Overview
 
 **Perfil** is a multiplayer guessing game web application inspired by the Brazilian board game *Perfil*. Players guess mystery words/people/places based on progressive clues revealed by a game host (MC). This is a mobile-first Progressive Web App built with modern web technologies.
@@ -13,104 +84,6 @@
 - **Target Runtime**: Modern browsers (mobile-first, responsive design)
 - **Package Manager**: pnpm (v10+)
 - **Node Version**: 24.x (enforced in package.json engines)
-
-## Build & Validation Commands
-
-### Prerequisites
-Always run `pnpm install --frozen-lockfile` after cloning or when dependencies change. This ensures consistent dependency versions.
-
-### Development Workflow
-```bash
-# Start dev server (http://localhost:4321)
-pnpm dev
-
-# Format code (Biome - always run before linting)
-pnpm format
-
-# Lint code (Biome - unified formatter + linter)
-pnpm lint
-
-# Type checking (TypeScript + Astro)
-pnpm typecheck
-
-# Run tests in watch mode
-pnpm test
-
-# Run tests once (CI mode)
-pnpm test run
-
-# Run tests with coverage (enforces 80% thresholds)
-pnpm test:coverage
-
-# Build production bundle (outputs to dist/)
-pnpm build
-
-# Preview production build locally
-pnpm preview
-
-# Complete quality check (MANDATORY before commit)
-pnpm run complete-check
-```
-
-### Command Execution Order (CRITICAL)
-**ALWAYS** run commands in this exact order when validating changes:
-1. `pnpm run format` (fixes formatting automatically)
-2. `pnpm run lint` (checks code quality)
-3. `pnpm run typecheck` (validates TypeScript + Astro files)
-4. `pnpm run test:coverage` (runs tests with 80% coverage enforcement)
-5. `pnpm run build` (validates production build)
-
-**Shortcut**: Use `pnpm run complete-check` which runs all steps in correct order.
-
-### Quality Gates (MANDATORY)
-- **NEVER** commit code if `pnpm run complete-check` fails
-- **NEVER** bypass git hooks with `--no-verify`
-- **ALL** quality checks must pass with zero errors and zero warnings
-- Coverage thresholds: 80% for statements, branches, functions, and lines
-- Build must complete successfully without errors
-
-### Timing Expectations
-- `pnpm install --frozen-lockfile`: ~2-5 seconds (with cache)
-- `pnpm lint`: ~10-20ms (very fast)
-- `pnpm typecheck`: ~2-3 seconds
-- `pnpm test run`: ~1-2 seconds (56 tests)
-- `pnpm test:coverage`: ~1-2 seconds + coverage report generation
-- `pnpm build`: ~1 second (static site generation)
-- `pnpm run complete-check`: ~10-15 seconds total
-
-### Known Issues & Workarounds
-No known issues or workarounds required. All commands work reliably in sequence.
-
-## Project Architecture
-
-### Directory Structure
-```
-perfil/
-├── .github/workflows/        # CI/CD pipelines
-│   ├── ci.yml               # Quality checks on PR/push
-│   └── deploy.yml           # Cloudflare Pages deployment
-├── .husky/                  # Git hooks (pre-commit, pre-push)
-├── docs/                    # Project documentation
-│   ├── PRD/PRD.md          # Product requirements (game rules, features)
-│   ├── DEV_WORKFLOW.md     # Development workflow (mandatory reading)
-│   ├── TESTING.md          # Testing guidelines
-│   └── memories/           # Development logs
-├── public/
-│   └── data/profiles.json  # Game profiles data (8 profiles)
-├── src/
-│   ├── components/         # React components (.tsx) and Astro components (.astro)
-│   ├── hooks/              # React custom hooks (TanStack Query)
-│   ├── layouts/            # Astro layout components
-│   ├── pages/              # Astro file-based routing
-│   ├── stores/             # Zustand state stores
-│   └── types/              # TypeScript types and Zod schemas
-├── astro.config.mjs        # Astro configuration
-├── biome.json              # Biome formatter + linter config
-├── tailwind.config.mjs     # Tailwind CSS config
-├── tsconfig.json           # TypeScript config (strict mode)
-├── vitest.config.ts        # Vitest test configuration
-└── package.json            # Dependencies and scripts
-```
 
 ### Key Configuration Files
 - **astro.config.mjs**: Astro + React + Tailwind integrations
@@ -137,47 +110,6 @@ perfil/
 - **Vitest**: Testing framework with coverage
 - **@testing-library/react**: Component testing utilities
 - **Tailwind CSS**: Utility-first styling
-
-## CI/CD & Pre-commit Checks
-
-### Git Hooks (Husky + lint-staged)
-**Pre-commit** (.husky/pre-commit):
-- Runs `lint-staged` which executes:
-  - `biome format --write` on staged files
-  - `biome check --write` on staged files
-  - `vitest related --run` on changed TypeScript files
-
-**Pre-push** (.husky/pre-push):
-- Runs `pnpm run complete-check` (lint → typecheck → test:coverage → build)
-- **NEVER** bypass with `--no-verify` - this is a mandatory quality gate
-
-### GitHub Actions CI Pipeline (.github/workflows/ci.yml)
-Triggers on: push to main, pull requests to main, manual workflow_dispatch
-
-Steps executed:
-1. Checkout code
-2. Setup Node.js 24.x
-3. Setup pnpm v10
-4. Install dependencies with `--frozen-lockfile`
-5. Run linting: `pnpm lint`
-6. Run type checking: `pnpm typecheck`
-7. Run tests with coverage: `pnpm test:coverage`
-8. Build production: `pnpm build`
-9. Upload coverage report artifact (retention: 7 days)
-10. Upload build artifacts (retention: 1 day)
-
-**All steps must pass** for CI to succeed. PRs cannot be merged until CI is green.
-
-### Deployment Pipeline (.github/workflows/deploy.yml)
-Triggers after successful CI workflow on main branch, or manual workflow_dispatch.
-
-Deploys to: Cloudflare Pages
-Required secrets:
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-
-Required variables:
-- `CLOUDFLARE_PAGES_PROJECT_NAME`
 
 ## Code Style Guidelines
 
@@ -218,28 +150,6 @@ Required variables:
 - **Astro components**: PascalCase (e.g., `Layout.astro`)
 - **Astro pages**: kebab-case or camelCase (e.g., `index.astro`)
 
-## Development Workflow (MANDATORY)
-
-**CRITICAL**: Always read and follow `docs/DEV_WORKFLOW.md` for the complete workflow.
-
-### Key Workflow Rules (DO NOT SKIP)
-1. **NEVER** start implementation without explicit authorization
-2. **ALWAYS** create feature branches from up-to-date `main` branch
-3. **ALWAYS** run `pnpm run complete-check` before committing
-4. **NEVER** commit with failing quality checks (even warnings)
-5. **ALWAYS** ask for code review before moving to next subtask
-6. **NEVER** bypass git hooks with `--no-verify`
-7. **NEVER** include agent information in commit messages (e.g., "Co-Authored-By: OpenCode")
-8. **ALWAYS** mark tasks/subtasks as "done" before claiming completion
-
-### Quality Check Failures
-If `pnpm run complete-check` fails:
-1. **STOP** immediately - do not proceed
-2. Fix ALL reported errors and warnings
-3. Run `pnpm run complete-check` again
-4. Repeat until 100% clean
-5. If stuck after 5 attempts, ask for help
-
 ## Additional Resources
 
 ### Documentation Files (Read First)
@@ -248,44 +158,6 @@ If `pnpm run complete-check` fails:
 - `docs/TESTING.md`: Testing guidelines and coverage requirements
 - `docs/LESSONS_LEARNED.md`: Historical mistakes and correct procedures
 - `AGENTS.md`: Agent-specific instructions and onboarding checklist
-
-### Key Source Files
-- `src/types/models.ts`: All game data types and Zod schemas (Player, Profile, GameSession, TurnState)
-- `src/stores/gameStore.ts`: Zustand game state management (187 lines, fully tested)
-- `src/hooks/useProfiles.ts`: TanStack Query hook for loading profiles.json
-- `src/components/QueryProvider.tsx`: React Query provider wrapper for Astro islands
-- `public/data/profiles.json`: Game data (8 profiles with 20 clues each)
-
-### Example Patterns
-**Zod Schema + Type Inference** (see `src/types/models.ts`):
-```typescript
-export const playerSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  score: z.number(),
-});
-export type Player = z.infer<typeof playerSchema>;
-```
-
-**Zustand Store** (see `src/stores/gameStore.ts`):
-```typescript
-export const useGameStore = create<GameState>((set) => ({
-  // state
-  players: [],
-  // actions
-  createGame: (playerNames: string[]) => set({ ... }),
-}));
-```
-
-**TanStack Query Hook** (see `src/hooks/useProfiles.ts`):
-```typescript
-export function useProfiles() {
-  return useQuery({
-    queryKey: ['profiles'],
-    queryFn: fetchProfiles,
-  });
-}
-```
 
 ## Trust These Instructions
 

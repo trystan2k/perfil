@@ -29,6 +29,7 @@ interface GameState extends GameSession {
   currentRound: number;
   roundCategoryMap: string[];
   revealedClueHistory: string[];
+  error: { message: string; informative?: boolean } | null;
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
   startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
@@ -38,6 +39,8 @@ interface GameState extends GameSession {
   skipProfile: () => Promise<void>;
   endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
+  setError: (message: string, informative?: boolean) => void;
+  clearError: () => void;
 }
 
 const initialState: Omit<
@@ -51,6 +54,8 @@ const initialState: Omit<
   | 'skipProfile'
   | 'endGame'
   | 'loadFromStorage'
+  | 'setError'
+  | 'clearError'
 > = {
   id: '',
   players: [],
@@ -67,6 +72,7 @@ const initialState: Omit<
   currentRound: 0,
   roundCategoryMap: [],
   revealedClueHistory: [],
+  error: null,
 };
 
 // Track rehydration operations with a Set of session IDs to handle concurrency
@@ -540,6 +546,9 @@ export const useGameStore = create<GameState>((set, get) => ({
       const loadedState = await loadGameSession(sessionId);
 
       if (!loadedState) {
+        // Session not found - set error state with recovery path
+        const state = get();
+        state.setError('errorHandler.sessionNotFound');
         return false;
       }
 
@@ -563,6 +572,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         currentRound: loadedState.currentRound ?? 0,
         roundCategoryMap: loadedState.roundCategoryMap ?? [],
         revealedClueHistory: loadedState.revealedClueHistory ?? [],
+        error: null, // Clear any previous errors on successful load
       });
 
       // Remove session ID from rehydrating set immediately after set() completes
@@ -573,7 +583,16 @@ export const useGameStore = create<GameState>((set, get) => ({
     } catch (error) {
       rehydratingSessionIds.delete(sessionId);
       console.error('Failed to load game from storage:', error);
-      throw error;
+      // Set error state for corrupted/invalid sessions
+      const state = get();
+      state.setError('errorHandler.sessionCorrupted');
+      return false;
     }
+  },
+  setError: (message: string, informative?: boolean) => {
+    set({ error: { message, informative } });
+  },
+  clearError: () => {
+    set({ error: null });
   },
 }));

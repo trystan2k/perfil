@@ -694,26 +694,32 @@ describe('gameStore', () => {
       );
     });
 
-    it('should handle errors when loading from storage', async () => {
+    it('should handle errors when loading from storage and set error', async () => {
       const { loadGameSession } = await import('../../lib/gameSessionDB');
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       // Mock loadGameSession to fail
       vi.mocked(loadGameSession).mockRejectedValueOnce(new Error('Load error'));
 
-      await expect(useGameStore.getState().loadFromStorage('test-session')).rejects.toThrow(
-        'Load error'
-      );
+      const result = await useGameStore.getState().loadFromStorage('test-session');
 
+      expect(result).toBe(false);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         'Failed to load game from storage:',
         expect.any(Error)
       );
 
+      // Should set error state for corrupted session with i18n key
+      const state = useGameStore.getState();
+      expect(state.error).toEqual({
+        message: 'errorHandler.sessionCorrupted',
+        informative: undefined,
+      });
+
       consoleErrorSpy.mockRestore();
     });
 
-    it('should return false when loading non-existent session', async () => {
+    it('should return false when loading non-existent session and set error', async () => {
       const { loadGameSession } = await import('../../lib/gameSessionDB');
 
       // Mock loadGameSession to return null (session not found)
@@ -722,10 +728,22 @@ describe('gameStore', () => {
       const result = await useGameStore.getState().loadFromStorage('non-existent');
 
       expect(result).toBe(false);
+
+      // Should set error state with i18n key
+      const state = useGameStore.getState();
+      expect(state.error).toEqual({
+        message: 'errorHandler.sessionNotFound',
+        informative: undefined,
+      });
     });
 
-    it('should successfully load game from storage', async () => {
+    it('should successfully load game from storage and clear error', async () => {
       const { loadGameSession } = await import('../../lib/gameSessionDB');
+
+      // Set an error first
+      useGameStore.setState({
+        error: { message: 'Previous error', informative: false },
+      });
 
       const mockSession = {
         id: 'loaded-session',
@@ -762,6 +780,8 @@ describe('gameStore', () => {
       expect(state.players).toHaveLength(1);
       expect(state.players[0].name).toBe('Loaded Player');
       expect(state.players[0].score).toBe(15);
+      // Error should be cleared on successful load
+      expect(state.error).toBeNull();
     });
 
     it('should not trigger persistence during rehydration', async () => {
@@ -1147,6 +1167,140 @@ describe('gameStore', () => {
       expect(Math.abs(bCount - cCount)).toBeLessThanOrEqual(1);
       expect(Math.abs(aCount - cCount)).toBeLessThanOrEqual(1);
       expect(aCount + bCount + cCount).toBe(100);
+    });
+  });
+
+  describe('Error State Management', () => {
+    beforeEach(() => {
+      // Reset store to initial state before each test
+      useGameStore.setState({
+        id: '',
+        players: [],
+        currentTurn: null,
+        remainingProfiles: [],
+        totalCluesPerProfile: 20,
+        status: 'pending',
+        category: undefined,
+        profiles: [],
+        selectedProfiles: [],
+        currentProfile: null,
+        totalProfilesCount: 0,
+        numberOfRounds: 1,
+        currentRound: 1,
+        roundCategoryMap: ['Movies'],
+        revealedClueHistory: [],
+        error: null,
+      });
+    });
+
+    describe('Initial Error State', () => {
+      it('should initialize with null error', () => {
+        const state = useGameStore.getState();
+        expect(state.error).toBeNull();
+      });
+
+      it('should have setError and clearError methods', () => {
+        const state = useGameStore.getState();
+        expect(typeof state.setError).toBe('function');
+        expect(typeof state.clearError).toBe('function');
+      });
+    });
+
+    describe('setError', () => {
+      it('should set error with message only', () => {
+        useGameStore.getState().setError('Test error message');
+
+        const state = useGameStore.getState();
+        expect(state.error?.message).toBe('Test error message');
+      });
+    });
+
+    describe('clearError', () => {
+      it('should clear error state', () => {
+        useGameStore.getState().setError('Test error', false);
+        expect(useGameStore.getState().error).not.toBeNull();
+
+        useGameStore.getState().clearError();
+
+        const state = useGameStore.getState();
+        expect(state.error).toBeNull();
+      });
+
+      it('should be idempotent when error is already null', () => {
+        expect(useGameStore.getState().error).toBeNull();
+
+        useGameStore.getState().clearError();
+
+        const state = useGameStore.getState();
+        expect(state.error).toBeNull();
+      });
+
+      it('should clear error multiple times', () => {
+        useGameStore.getState().setError('Error 1', false);
+        useGameStore.getState().clearError();
+
+        useGameStore.getState().setError('Error 2', true);
+        useGameStore.getState().clearError();
+
+        const state = useGameStore.getState();
+        expect(state.error).toBeNull();
+      });
+
+      it('should not affect other state when clearing error', async () => {
+        await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+        useGameStore.getState().setError('Test error', false);
+
+        const initialId = useGameStore.getState().id;
+        const initialPlayers = useGameStore.getState().players;
+
+        useGameStore.getState().clearError();
+
+        const state = useGameStore.getState();
+        expect(state.id).toBe(initialId);
+        expect(state.players).toEqual(initialPlayers);
+        expect(state.error).toBeNull();
+      });
+    });
+
+    describe('Integration with game flow', () => {
+      it('should allow setting error during pending state', () => {
+        expect(useGameStore.getState().status).toBe('pending');
+
+        useGameStore.getState().setError('Test error', false);
+
+        const state = useGameStore.getState();
+        expect(state.error).not.toBeNull();
+        expect(state.status).toBe('pending');
+      });
+
+      it('should allow setting error during active game', async () => {
+        await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+        useGameStore.getState().loadProfiles(defaultMockProfiles);
+        useGameStore.getState().startGame(['Movies']);
+
+        expect(useGameStore.getState().status).toBe('active');
+
+        useGameStore.getState().setError('Test error', false);
+
+        const state = useGameStore.getState();
+        expect(state.error).not.toBeNull();
+        expect(state.status).toBe('active');
+      });
+
+      it('should allow clearing error and continuing game', async () => {
+        await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+        useGameStore.getState().loadProfiles(defaultMockProfiles);
+        useGameStore.getState().startGame(['Movies']);
+
+        useGameStore.getState().setError('Test error', false);
+        useGameStore.getState().clearError();
+
+        // Game should continue normally
+        useGameStore.getState().nextClue();
+        const state = useGameStore.getState();
+        expect(state.currentTurn?.cluesRead).toBe(1);
+        expect(state.error).toBeNull();
+      });
     });
   });
 });

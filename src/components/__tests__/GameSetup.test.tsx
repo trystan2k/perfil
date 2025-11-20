@@ -21,11 +21,13 @@ Object.defineProperty(window, 'location', {
 
 describe('GameSetup', () => {
   const mockCreateGame = vi.fn().mockResolvedValue(undefined);
+  const mockSetError = vi.fn();
   let mockGameId = '';
 
   beforeEach(() => {
     vi.clearAllMocks();
     mockCreateGame.mockResolvedValue(undefined);
+    mockSetError.mockClear();
     mockLocation.href = '';
     mockGameId = `game-${Date.now()}`;
 
@@ -35,13 +37,20 @@ describe('GameSetup', () => {
     };
 
     useGameStoreMock.mockImplementation(
-      (selector: (state: { createGame: typeof mockCreateGame; id: string }) => unknown) =>
-        selector({ createGame: mockCreateGame, id: mockGameId })
+      (
+        selector: (state: {
+          createGame: typeof mockCreateGame;
+          id: string;
+          setError: typeof mockSetError;
+        }) => unknown
+      ) => selector({ createGame: mockCreateGame, id: mockGameId, setError: mockSetError })
     );
 
     useGameStoreMock.getState = mockGetState.mockReturnValue({
       id: mockGameId,
       createGame: mockCreateGame,
+      setError: mockSetError,
+      error: null,
     });
   });
 
@@ -163,7 +172,7 @@ describe('GameSetup', () => {
       expect(addButton).toBeDisabled();
     });
 
-    it('should show error when adding duplicate player name', async () => {
+    it('should set global error when adding duplicate player name', async () => {
       const user = userEvent.setup();
       render(<GameSetup />);
 
@@ -176,7 +185,8 @@ describe('GameSetup', () => {
       await user.type(input, 'Alice');
       await user.click(addButton);
 
-      expect(screen.getByText('Player name already exists')).toBeInTheDocument();
+      // Check that global error was set with informative flag
+      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
     });
 
     it('should not trigger error when max players reached and button disabled', async () => {
@@ -219,7 +229,7 @@ describe('GameSetup', () => {
       expect(addButton).toBeDisabled();
     });
 
-    it('should clear error when adding valid player after duplicate error', async () => {
+    it('should not set error when adding valid player after duplicate error', async () => {
       const user = userEvent.setup();
       render(<GameSetup />);
 
@@ -233,14 +243,15 @@ describe('GameSetup', () => {
       // Try to add duplicate to create error
       await user.type(input, 'Alice');
       await user.click(addButton);
-      expect(screen.getByText('Player name already exists')).toBeInTheDocument();
+      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
 
-      // Add valid player
+      // Add valid player - should succeed
       await user.clear(input);
       await user.type(input, 'Bob');
       await user.click(addButton);
 
-      expect(screen.queryByText('Player name already exists')).not.toBeInTheDocument();
+      // Bob should be added
+      expect(screen.getByText('Bob')).toBeInTheDocument();
     });
   });
 
@@ -287,7 +298,7 @@ describe('GameSetup', () => {
       expect(screen.getByText('Players (2/8)')).toBeInTheDocument();
     });
 
-    it('should clear error when removing player', async () => {
+    it('should not clear error when removing player', async () => {
       const user = userEvent.setup();
       render(<GameSetup />);
 
@@ -300,13 +311,14 @@ describe('GameSetup', () => {
       // Create error
       await user.type(input, 'Alice');
       await user.click(addButton);
-      expect(screen.getByText('Player name already exists')).toBeInTheDocument();
+      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
 
-      // Remove player
+      // Remove player - error persists (not auto-cleared)
       const removeButton = screen.getByRole('button', { name: /remove alice/i });
       await user.click(removeButton);
 
-      expect(screen.queryByText('Player name already exists')).not.toBeInTheDocument();
+      // Alice should be removed from the list
+      expect(screen.queryByText('Alice')).not.toBeInTheDocument();
     });
   });
 
@@ -529,8 +541,8 @@ describe('GameSetup', () => {
       await user.type(input, 'alice');
       await user.click(addButton);
 
-      // Should show error
-      expect(screen.getByText('Player name already exists')).toBeInTheDocument();
+      // Should set global error
+      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
 
       // Should not add duplicate
       expect(screen.getByText('Players (1/8)')).toBeInTheDocument();
@@ -549,8 +561,8 @@ describe('GameSetup', () => {
       // Try to add "BOB" (uppercase)
       await user.type(input, 'BOB{Enter}');
 
-      // Should show error
-      expect(screen.getByText('Player name already exists')).toBeInTheDocument();
+      // Should set global error
+      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
 
       // Should not add duplicate
       expect(screen.getByText('Players (1/8)')).toBeInTheDocument();

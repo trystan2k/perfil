@@ -11,8 +11,8 @@ export function GameSetup() {
   const { t } = useTranslation();
   const [playerName, setPlayerName] = useState('');
   const [playerNames, setPlayerNames] = useState<string[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const createGame = useGameStore((state) => state.createGame);
+  const setGlobalError = useGameStore((state) => state.setError);
 
   const handleAddPlayer = () => {
     const trimmedName = playerName.trim();
@@ -29,18 +29,16 @@ export function GameSetup() {
 
     // Check for duplicate names (case-insensitive)
     if (playerNames.some((name) => name.toLowerCase() === trimmedName.toLowerCase())) {
-      setError(t('gameSetup.errors.duplicateName'));
+      setGlobalError('gameSetup.errors.duplicateName', true);
       return;
     }
 
     setPlayerNames([...playerNames, trimmedName]);
     setPlayerName('');
-    setError(null);
   };
 
   const handleRemovePlayer = (index: number) => {
     setPlayerNames(playerNames.filter((_, i) => i !== index));
-    setError(null);
   };
 
   const handleStartGame = async () => {
@@ -56,7 +54,8 @@ export function GameSetup() {
       window.location.href = `/game-setup/${newGameId}`;
     } catch (err) {
       console.error('Failed to create game:', err);
-      setError(t('gameSetup.errors.failedToCreateGame'));
+      // Use global error handler for critical failures
+      setGlobalError('gameSetup.errors.failedToCreateGame');
     }
   };
 
@@ -99,11 +98,6 @@ export function GameSetup() {
               </Button>
             </div>
           </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">{error}</div>
-          )}
 
           {/* Players List */}
           {playerNames.length > 0 && (

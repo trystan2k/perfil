@@ -14,7 +14,6 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const { data: profilesData, isLoading, error } = useProfiles();
   const [isStarting, setIsStarting] = useState(false);
   const [sessionLoading, setSessionLoading] = useState(true);
-  const [sessionError, setSessionError] = useState<string | null>(null);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [numberOfRounds, setNumberOfRounds] = useState<string>('5');
   const [roundsInputError, setRoundsInputError] = useState<string | null>(null);
@@ -22,24 +21,17 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const loadProfiles = useGameStore((state) => state.loadProfiles);
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
+  const setGlobalError = useGameStore((state) => state.setError);
 
   useEffect(() => {
     const loadSession = async () => {
-      try {
-        const success = await loadFromStorage(sessionId);
-        if (!success) {
-          setSessionError(t('categorySelect.error.sessionNotFoundDescription'));
-        }
-      } catch (err) {
-        console.error('Failed to load session:', err);
-        setSessionError(t('categorySelect.error.description'));
-      } finally {
-        setSessionLoading(false);
-      }
+      // loadFromStorage now handles errors via global state
+      await loadFromStorage(sessionId);
+      setSessionLoading(false);
     };
 
     loadSession();
-  }, [sessionId, loadFromStorage, t]);
+  }, [sessionId, loadFromStorage]);
 
   if (isLoading || sessionLoading) {
     return (
@@ -56,32 +48,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     );
   }
 
-  if (sessionError) {
-    return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl text-destructive">
-              {t('categorySelect.error.sessionNotFoundTitle')}
-            </CardTitle>
-            <CardDescription className="text-destructive">
-              {t('categorySelect.error.sessionNotFoundDescription')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button
-              onClick={() => {
-                window.location.href = '/';
-              }}
-              className="w-full"
-            >
-              {t('common.returnHome')}
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // Session errors are now handled by global ErrorStateProvider
 
   if (error || !profilesData) {
     return (
@@ -145,6 +112,8 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
       window.location.href = `/game/${sessionId}`;
     } catch (error) {
       console.error('Failed to persist game state:', error);
+      // Use global error handler for critical failures
+      setGlobalError('categorySelect.error.description');
       setIsStarting(false);
     }
   };

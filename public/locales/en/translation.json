@@ -8,7 +8,15 @@
     "pts": "pts",
     "returnHome": "Return to Home",
     "back": "Back",
-    "continue": "Continue"
+    "continue": "Continue",
+    "goHome": "Go Home",
+    "goToRecoveryPage": "Go to Recovery Page"
+  },
+  "errorHandler": {
+    "title": "Error",
+    "defaultMessage": "An unexpected error occurred.",
+    "sessionNotFound": "Game session not found.",
+    "sessionCorrupted": "Game session is corrupted."
   },
   "languageSwitcher": {
     "ariaLabel": "Language selector",
@@ -89,6 +97,10 @@
       "noOneScored": "No one scored this round",
       "profileName": "Profile: {{name}}",
       "nextProfileButton": "Next Profile"
+    },
+    "previousClues": {
+      "title": "Previous Clues ({{count}})",
+      "mostRecent": "Most Recent"
     }
   },
   "categorySelect": {
