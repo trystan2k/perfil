@@ -69,12 +69,11 @@ describe('PreviousCluesDisplay', () => {
     expect(screen.getByText('Clue 3')).toBeInTheDocument();
   });
 
-  it('should render with details element open on desktop', () => {
-    mockWindowSize(1024);
-    const { container } = render(<PreviousCluesDisplay clues={['Desktop clue']} />);
+  it('should render with details element closed by default', () => {
+    const { container } = render(<PreviousCluesDisplay clues={['Test clue']} />);
 
     const details = container.querySelector('details');
-    expect(details).toHaveAttribute('open');
+    expect(details).not.toHaveAttribute('open');
   });
 
   it('should allow toggling collapse state via details element', async () => {
@@ -84,16 +83,16 @@ describe('PreviousCluesDisplay', () => {
     const details = container.querySelector('details') as HTMLDetailsElement;
     const summary = container.querySelector('summary') as HTMLElement;
 
-    // Initially open on desktop
-    expect(details.open).toBe(true);
-
-    // Click to toggle
-    await user.click(summary);
+    // Initially closed by default
     expect(details.open).toBe(false);
 
-    // Click again to reopen
+    // Click to open
     await user.click(summary);
     expect(details.open).toBe(true);
+
+    // Click again to close
+    await user.click(summary);
+    expect(details.open).toBe(false);
   });
 
   it('should render summary with toggle arrow indicator', () => {

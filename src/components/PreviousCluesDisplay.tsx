@@ -1,4 +1,4 @@
-import { type SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { type SyntheticEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface PreviousCluesDisplayProps {
@@ -7,26 +7,8 @@ interface PreviousCluesDisplayProps {
 
 export function PreviousCluesDisplay({ clues }: PreviousCluesDisplayProps) {
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(() => {
-    // Default to open on desktop, closed on mobile
-    // This initializer is safe and will work on both server and client
-    if (typeof window !== 'undefined') {
-      return window.innerWidth >= 640;
-    }
-    return true; // Default to open for SSR
-  });
+  const [isOpen, setIsOpen] = useState(false); // Default to closed
   const detailsRef = useRef<HTMLDetailsElement>(null);
-
-  // Set up resize listener on client mount
-  useEffect(() => {
-    // Listen for resize events (we don't change isOpen on resize - let user's toggle persist)
-    const resizeHandler = () => {
-      // Could update mobile state here if needed for other purposes
-    };
-
-    window.addEventListener('resize', resizeHandler);
-    return () => window.removeEventListener('resize', resizeHandler);
-  }, []);
 
   // Don't render if there are no clues
   if (clues.length === 0) {

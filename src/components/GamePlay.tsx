@@ -97,7 +97,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   // Show loading state
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
@@ -114,7 +114,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
   if (status === 'pending') {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
@@ -130,7 +130,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   // If status is 'completed' and id exists, show loading while navigating to scoreboard
   if (status === 'completed' && id) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
@@ -146,7 +146,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   // If no currentTurn but status is active, something is wrong
   if (!currentTurn) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
@@ -162,7 +162,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   // Handle null currentProfile gracefully
   if (!currentProfile) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
@@ -256,7 +256,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-2xl">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
@@ -308,7 +308,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
             </div>
 
             {/* Clue Section */}
-            <div className="space-y-4 p-6 bg-secondary rounded-lg">
+            <div className="space-y-4 p-6 bg-secondary rounded-lg border-2 border-primary/30 shadow-md">
               {currentTurn.cluesRead > 0 ? (
                 <div className="text-center">
                   <p className="text-sm text-muted-foreground mb-2">
@@ -338,9 +338,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                     onClick={() => handleAwardPoints(player.id)}
                     disabled={!canAwardPoints}
                     variant="outline"
-                    className="w-full h-auto py-3 flex justify-between items-center"
+                    className="w-full h-auto py-4 flex justify-between items-center shadow-md hover:shadow-lg active:shadow-sm active:scale-[0.98] transition-all duration-150 border-2"
                   >
-                    <span className="font-medium">{player.name}</span>
+                    <span className="font-medium text-base">{player.name}</span>
                     <span className="text-lg font-bold">
                       {t('gamePlay.points', { points: player.score })}
                     </span>

@@ -157,9 +157,6 @@ describe('Scoreboard', () => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
-    // Check category is displayed
-    expect(screen.getByText(/Category: Historical Figures/i)).toBeInTheDocument();
-
     // Check players are displayed in correct order (by score, descending)
     const playerRows = screen.getAllByRole('row');
     // Skip header row

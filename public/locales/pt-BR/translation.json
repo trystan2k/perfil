@@ -92,6 +92,7 @@
     "correctAnswer": "A resposta correta é:",
     "roundSummary": {
       "title": "Rodada Completa!",
+      "correctAnswer": "A resposta correta é:",
       "playerScored_one": "{{playerName}} marcou {{count}} ponto!",
       "playerScored_other": "{{playerName}} marcou {{count}} pontos!",
       "noOneScored": "Ninguém pontuou nesta rodada",

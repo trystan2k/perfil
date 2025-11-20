@@ -92,6 +92,7 @@
     "correctAnswer": "La respuesta correcta es:",
     "roundSummary": {
       "title": "¡Ronda Completada!",
+      "correctAnswer": "La respuesta correcta es:",
       "playerScored_one": "¡{{playerName}} anotó {{count}} punto!",
       "playerScored_other": "¡{{playerName}} anotó {{count}} puntos!",
       "noOneScored": "Nadie anotó en esta ronda",

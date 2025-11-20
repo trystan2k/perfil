@@ -35,7 +35,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   if (isLoading || sessionLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
@@ -52,7 +52,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   if (error || !profilesData) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl text-destructive">
@@ -138,7 +138,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   // Show rounds configuration screen if categories are selected and Continue was clicked
   if (showRoundsScreen) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4 ">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
@@ -203,7 +203,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   // Show category selection screen
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="flex items-center justify-center min-h-main p-4 ">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle as="h3" className="text-2xl">

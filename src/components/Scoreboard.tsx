@@ -184,7 +184,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4">
         <div className="text-center">
           <p className="text-lg text-muted-foreground">{t('scoreboard.loading')}</p>
         </div>
@@ -198,7 +198,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
       errorMessage === 'No session ID provided' || errorMessage === 'Game session not found';
 
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4">
         <Card className="w-full max-w-md p-6">
           <div className="text-center">
             <h1
@@ -232,7 +232,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
   // Handle edge case: empty players array
   if (rankedPlayers.length === 0) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex items-center justify-center min-h-main p-4">
         <Card className="w-full max-w-md p-6">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-2">{t('scoreboard.noPlayers.title')}</h1>
@@ -244,14 +244,9 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="flex items-center justify-center min-h-main p-4">
       <div className="w-full max-w-2xl">
-        <h1 className="text-4xl font-bold text-center mb-2">{t('scoreboard.title')}</h1>
-        {gameSession?.category && (
-          <p className="text-center text-lg text-muted-foreground mb-8">
-            {t('scoreboard.category', { category: gameSession.category })}
-          </p>
-        )}
+        <h1 className="text-4xl font-bold text-center mb-10">{t('scoreboard.title')}</h1>
 
         <Card className="p-6">
           <Table>
