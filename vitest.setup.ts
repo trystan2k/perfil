@@ -1,4 +1,6 @@
 import '@testing-library/jest-dom/vitest';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { afterAll, beforeAll, vi } from 'vitest';
 
 // Suppress Radix UI accessibility warnings in tests
@@ -30,81 +32,46 @@ afterAll(() => {
   console.warn = originalWarn;
 });
 
-// Translation mappings for tests
-const translations: Record<string, string> = {
-  'common.loading': 'Loading...',
-  'common.error': 'Error',
-  'common.notFound': 'Not Found',
-  'common.retry': 'Retry',
-  'common.category': 'Category',
-  'common.pts': 'pts',
-  'gameSetup.title': 'Game Setup',
-  'gameSetup.description': 'Add players to start a new game. You need at least 2 players.',
-  'gameSetup.playerNameLabel': 'Player Name',
-  'gameSetup.playerNamePlaceholder': 'Enter player name',
-  'gameSetup.addButton': 'Add',
-  'gameSetup.playersLabel': 'Players ({{count}}/{{max}})',
-  'gameSetup.startButton': 'Start Game',
-  'gameSetup.errors.duplicateName': 'Player name already exists',
-  'gameSetup.removePlayerAriaLabel': 'Remove {{name}}',
-  'gamePlay.title': 'Game Play',
-  'gamePlay.loading.title': 'Loading Game',
-  'gamePlay.loading.description': 'Loading game session...',
-  'gamePlay.error.title': 'Error',
-  'gamePlay.noActiveGame.title': 'No Active Game',
-  'gamePlay.noActiveGame.description': 'Please start a game first.',
-  'gamePlay.redirecting.title': 'Game Complete!',
-  'gamePlay.redirecting.description': 'Redirecting to scoreboard...',
-  'gamePlay.currentPlayer': 'Current Player',
-  'gamePlay.unknownPlayer': 'Unknown Player',
-  'gamePlay.clueCount': 'Clue {{current}} of {{total}}',
-  'gamePlay.pressShowNextClue': 'Press "Show Next Clue" to reveal the first clue',
-  'gamePlay.showNextClueButton': 'Show Next Clue',
-  'gamePlay.passButton': 'Pass',
-  'gamePlay.skipProfileButton': 'Skip Profile',
-  'gamePlay.skipProfileConfirmTitle': 'Skip Profile?',
-  'gamePlay.skipProfileConfirmMessage': 'Are you sure you want to skip this profile? No points will be awarded.',
-  'gamePlay.playersAwardPoints': 'Award Points',
-  'gamePlay.points': '{{points}} pts',
-  'gamePlay.showClueToAwardPoints': 'Show at least one clue to award points',
-  'gamePlay.finishGameButton': 'Finish Game',
-  'gamePlay.category': 'Category: {{category}}',
-  'gamePlay.errors.sessionNotFound': 'Game session not found. Please start a new game.',
-  'gamePlay.errors.loadFailed': 'Failed to load game session. Please try again.',
-  'gamePlay.profileProgress.label': 'Profile {{current}} of {{total}}',
-  'gamePlay.profileProgress.ariaLabel': 'Profile progress: {{current}} of {{total}}',
-  'gamePlay.clueProgress.pointsRemaining_one': '{{count}} point remaining',
-  'gamePlay.clueProgress.pointsRemaining_other': '{{count}} points remaining',
-  'gamePlay.clueProgress.ariaLabel': 'Clue progress: {{revealed}} of {{total}} clues revealed',
-  'gamePlay.roundSummary.title': 'Round Complete!',
-  'gamePlay.roundSummary.playerScored_one': '{{playerName}} scored {{count}} point!',
-  'gamePlay.roundSummary.playerScored_other': '{{playerName}} scored {{count}} points!',
-  'gamePlay.roundSummary.noOneScored': 'No one scored this round',
-  'gamePlay.roundSummary.profileName': 'Profile: {{name}}',
-  'gamePlay.roundSummary.nextProfileButton': 'Next Profile',
-  'scoreboard.title': 'Scoreboard',
-  'scoreboard.loading': 'Loading scoreboard...',
-  'scoreboard.category': 'Category: {{category}}',
-  'scoreboard.noPlayers.title': 'No Players',
-  'scoreboard.noPlayers.description': 'No players found in this game session.',
-  'scoreboard.table.rank': 'Rank',
-  'scoreboard.table.player': 'Player',
-  'scoreboard.table.score': 'Score',
-  'scoreboard.errors.noSessionId': 'No session ID provided',
-  'scoreboard.errors.sessionNotFound': 'Game session not found',
-  'scoreboard.errors.unknown': 'An unknown error occurred',
-  'scoreboard.actions.newGame': 'New Game',
-  'scoreboard.actions.samePlayers': 'Same Players',
-  'scoreboard.actions.restartGame': 'Restart Game',
-  'categorySelect.title': 'Select Category',
-  'categorySelect.description': 'Choose a category to start the game, or shuffle all profiles for a mixed experience.',
-  'categorySelect.loading.title': 'Loading Categories',
-  'categorySelect.loading.description': 'Loading available categories...',
-  'categorySelect.error.title': 'Error',
-  'categorySelect.error.description': 'Failed to load categories. Please try again.',
-  'categorySelect.orLabel': 'or',
-  'categorySelect.shuffleAllButton': 'Shuffle All',
-};
+// Flatten nested JSON structure to dot notation
+// Example: { common: { loading: "Loading..." } } => { "common.loading": "Loading..." }
+function flattenTranslations(obj: Record<string, unknown>, prefix = ''): Record<string, string> {
+  const result: Record<string, string> = {};
+  
+  for (const [key, value] of Object.entries(obj)) {
+    const newKey = prefix ? `${prefix}.${key}` : key;
+    
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      Object.assign(result, flattenTranslations(value as Record<string, unknown>, newKey));
+    } else {
+      result[newKey] = String(value);
+    }
+  }
+  
+  return result;
+}
+
+// Load translation files dynamically from public/locales
+function loadTranslations(): Record<string, string> {
+  const localesPath = join(process.cwd(), 'public', 'locales');
+  const defaultLang = 'en';
+  
+  try {
+    // Load the default language (English) translations
+    const translationPath = join(localesPath, defaultLang, 'translation.json');
+    const translationContent = readFileSync(translationPath, 'utf-8');
+    const translationJson = JSON.parse(translationContent);
+    
+    // Flatten the nested structure to dot notation
+    return flattenTranslations(translationJson);
+  } catch (error) {
+    throw new Error(
+      `Failed to load translation files from ${localesPath}: ${error instanceof Error ? error.message : String(error)}`
+    );
+  }
+}
+
+// Load translations at test setup time
+const translations = loadTranslations();
 
 // Mock react-i18next
 vi.mock('react-i18next', () => ({

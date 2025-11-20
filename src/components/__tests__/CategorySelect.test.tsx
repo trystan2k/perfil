@@ -146,10 +146,10 @@ describe('CategorySelect', () => {
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.selectAll')).toBeInTheDocument();
+        expect(screen.getByText('Select All')).toBeInTheDocument();
       });
 
-      expect(screen.getByText('categorySelect.deselectAll')).toBeInTheDocument();
+      expect(screen.getByText('Deselect All')).toBeInTheDocument();
     });
 
     it('should render Continue button disabled initially', async () => {
@@ -159,7 +159,7 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       expect(continueButton).toBeDisabled();
     });
   });
@@ -177,7 +177,7 @@ describe('CategorySelect', () => {
       await user.click(checkbox);
 
       // Should enable continue button
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       expect(continueButton).not.toBeDisabled();
     });
 
@@ -200,7 +200,7 @@ describe('CategorySelect', () => {
       expect(countriesCheckbox).toBeChecked();
 
       // Continue button should be enabled
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       expect(continueButton).not.toBeDisabled();
     });
 
@@ -213,7 +213,7 @@ describe('CategorySelect', () => {
       });
 
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
 
       expect(continueButton).toBeDisabled();
       await user.click(checkbox);
@@ -231,12 +231,12 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       // Should now show rounds screen
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
     });
 
@@ -256,14 +256,14 @@ describe('CategorySelect', () => {
       await user.click(countriesCheckbox);
       await user.click(moviesCheckbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      const startButton = screen.getByText('Start Game');
       await user.click(startButton);
 
       await waitFor(() => {
@@ -288,7 +288,10 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const selectAllButton = screen.getByRole('button', { name: /categorySelect.selectAll/i });
+      const buttons = screen.getAllByRole('button');
+      const selectAllButton = buttons.find((btn) => btn.textContent === 'Select All');
+      if (!selectAllButton) throw new Error('Select All button not found');
+
       await user.click(selectAllButton);
 
       // All checkboxes should be checked
@@ -298,7 +301,7 @@ describe('CategorySelect', () => {
       });
 
       // Continue button should be enabled
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       expect(continueButton).not.toBeDisabled();
     });
 
@@ -310,7 +313,10 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const selectAllButton = screen.getByRole('button', { name: /categorySelect.selectAll/i });
+      const buttons = screen.getAllByRole('button');
+      const selectAllButton = buttons.find((btn) => btn.textContent === 'Select All');
+      if (!selectAllButton) throw new Error('Select All button not found');
+
       await user.click(selectAllButton);
 
       // All checkboxes should be checked
@@ -321,17 +327,19 @@ describe('CategorySelect', () => {
         });
       });
 
-      const deselectAllButton = screen.getByRole('button', { name: /categorySelect.deselectAll/i });
+      const deselectAllButton = screen.getByRole('button', { name: /Deselect All/i });
       await user.click(deselectAllButton);
 
       // All checkboxes should be unchecked
-      const checkboxes = screen.getAllByRole('checkbox');
-      checkboxes.forEach((checkbox) => {
-        expect(checkbox).not.toBeChecked();
+      await waitFor(() => {
+        const checkboxes = screen.getAllByRole('checkbox');
+        checkboxes.forEach((checkbox) => {
+          expect(checkbox).not.toBeChecked();
+        });
       });
 
-      // Continue button should be disabled
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      // Continue button should be disabled again
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       expect(continueButton).toBeDisabled();
     });
 
@@ -343,7 +351,10 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const selectAllButton = screen.getByRole('button', { name: /categorySelect.selectAll/i });
+      const buttons = screen.getAllByRole('button');
+      const selectAllButton = buttons.find((btn) => btn.textContent === 'Select All');
+      if (!selectAllButton) throw new Error('Select All button not found');
+
       await user.click(selectAllButton);
 
       // After selecting all, button should be disabled
@@ -360,7 +371,7 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const deselectAllButton = screen.getByRole('button', { name: /categorySelect.deselectAll/i });
+      const deselectAllButton = screen.getByRole('button', { name: /Deselect All/i });
       expect(deselectAllButton).toBeDisabled();
 
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
@@ -382,12 +393,12 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
-        expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
+        expect(screen.getByLabelText('Number of rounds')).toBeInTheDocument();
       });
     });
 
@@ -402,14 +413,14 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByLabelText('categorySelect.rounds.label')).toBeInTheDocument();
+        expect(screen.getByLabelText('Number of rounds')).toBeInTheDocument();
       });
 
-      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+      const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
       expect(roundsInput.value).toBe('5');
       expect(roundsInput.min).toBe('1');
       expect(roundsInput.max).toBe('50');
@@ -426,14 +437,14 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Movies/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const backButton = screen.getByText('common.back');
+      const backButton = screen.getByText('Back');
       await user.click(backButton);
 
       await waitFor(() => {
@@ -459,14 +470,14 @@ describe('CategorySelect', () => {
       await user.click(famousCheckbox);
       await user.click(countriesCheckbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      const startButton = screen.getByText('Start Game');
       await user.click(startButton);
 
       await waitFor(() => {
@@ -489,14 +500,14 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Countries/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      const startButton = screen.getByText('Start Game');
       await user.click(startButton);
 
       await waitFor(() => {
@@ -516,14 +527,14 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+      const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
 
       // Clear the input by selecting all and deleting (simulates backspace behavior)
       await user.clear(roundsInput);
@@ -547,14 +558,14 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+      const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
 
       // Clear the input
       await user.clear(roundsInput);
@@ -567,7 +578,7 @@ describe('CategorySelect', () => {
       expect(roundsInput.value).toBe('10');
 
       // Start button should be enabled
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      const startButton = screen.getByText('Start Game');
       expect(startButton).not.toBeDisabled();
     });
 
@@ -582,14 +593,14 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
+      const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
 
       // Clear and type invalid value
       await user.clear(roundsInput);
@@ -601,7 +612,7 @@ describe('CategorySelect', () => {
       });
 
       // Start button should be disabled
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      const startButton = screen.getByText('Start Game');
       expect(startButton).toBeDisabled();
     });
 
@@ -616,15 +627,15 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
+      const startButton = screen.getByText('Start Game');
 
       // Start button should be enabled initially
       expect(startButton).not.toBeDisabled();
@@ -650,15 +661,15 @@ describe('CategorySelect', () => {
       const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
       await user.click(checkbox);
 
-      const continueButton = screen.getByRole('button', { name: /common.continue/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
 
       await waitFor(() => {
-        expect(screen.getByText('categorySelect.rounds.title')).toBeInTheDocument();
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
       });
 
-      const roundsInput = screen.getByLabelText('categorySelect.rounds.label') as HTMLInputElement;
-      const startButton = screen.getByText('categorySelect.rounds.startButton');
+      const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
+      const startButton = screen.getByText('Start Game');
 
       // Clear and type valid value
       await user.clear(roundsInput);
