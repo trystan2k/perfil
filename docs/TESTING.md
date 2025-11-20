@@ -104,6 +104,87 @@ If coverage drops below these thresholds, the `test:coverage` command will fail 
 - Test files use the `.test.ts` or `.test.tsx` extension
 - Example: `src/hooks/__tests__/useProfiles.test.tsx`
 
+## Translation Files in Tests
+
+### How Translations are Loaded
+
+The test environment uses **actual translation files** from `public/locales/` instead of hardcoded translations. This ensures tests always reflect the real translation content used in the application.
+
+**Implementation Details:**
+- Translation files are dynamically loaded during test setup via `vitest.setup.ts`
+- Files are read from `public/locales/{language}/translation.json` (default: English)
+- Nested JSON structure is flattened to dot notation (e.g., `common.loading`)
+- The i18next mock uses these loaded translations for all tests
+
+**Benefits:**
+- ✅ Single source of truth for translations
+- ✅ Tests automatically use latest translation content
+- ✅ No need to maintain duplicate hardcoded translations
+- ✅ Tests catch missing or incorrect translation keys
+
+### Adding or Updating Translations for Tests
+
+When you add or modify translations:
+
+1. **Update the translation JSON file:**
+   ```bash
+   # Edit the appropriate language file
+   public/locales/en/translation.json
+   public/locales/pt-BR/translation.json
+   public/locales/es/translation.json
+   ```
+
+2. **Tests automatically pick up changes:**
+   - No need to update test setup files
+   - Translations are loaded fresh for each test run
+   - Use dot notation to access nested keys: `t('common.loading')`
+
+3. **Testing new translations:**
+   ```typescript
+   import { render, screen } from '@testing-library/react';
+   import { useTranslation } from 'react-i18next';
+   
+   function MyComponent() {
+     const { t } = useTranslation();
+     return <div>{t('common.newKey')}</div>;
+   }
+   
+   it('should display new translation', () => {
+     render(<MyComponent />);
+     // Assert against the actual translated text
+     expect(screen.getByText('Expected Translation Text')).toBeInTheDocument();
+   });
+   ```
+
+4. **Important notes:**
+   - Test assertions should use the **actual translated text**, not translation keys
+   - ✅ Correct: `expect(screen.getByText('Loading...')).toBeInTheDocument()`
+   - ❌ Wrong: `expect(screen.getByText('common.loading')).toBeInTheDocument()`
+   - For pluralization, use the `_one` and `_other` suffixes in JSON files
+
+### Translation File Structure
+
+Example of nested translation structure:
+```json
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error"
+  },
+  "gameSetup": {
+    "title": "Game Setup",
+    "errors": {
+      "duplicateName": "Player name already exists"
+    }
+  }
+}
+```
+
+Accessed in tests as:
+- `t('common.loading')` → "Loading..."
+- `t('gameSetup.title')` → "Game Setup"
+- `t('gameSetup.errors.duplicateName')` → "Player name already exists"
+
 ## Related Documentation
 
 - See [DEV_WORKFLOW.md](DEV_WORKFLOW.md) for the full development workflow

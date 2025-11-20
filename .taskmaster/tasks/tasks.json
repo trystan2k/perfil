@@ -2249,12 +2249,150 @@
         "description": "Refactor the test setup to eliminate hardcoded translation objects by dynamically loading the actual translation JSON files from the `public/locales` directory, ensuring a single source of truth for i18n strings in the Vitest environment.",
         "details": "The current `vitest.setup.ts` contains large, hardcoded JavaScript objects that duplicate the contents of our translation JSON files. This violates the DRY principle and creates a maintenance burden, requiring manual updates in two places. This task involves modifying the setup file to use Node.js's built-in `fs` and `path` modules to read the `public/locales` directory, iterate through each language subfolder (e.g., 'en'), and load the corresponding `translation.json` file. The contents will be parsed and aggregated into a single `resources` object that will be passed to the `i18next.init()` configuration. This ensures that tests always run against the most current translation strings. Finally, a brief note should be added to `docs/tests.md` explaining this new automated setup to future contributors.",
         "testStrategy": "1. Run the entire existing test suite using `pnpm test`. All tests, particularly those rendering components with translated text, must pass without modification. 2. Review any snapshot tests that fail. Update them if the failures are due to minor differences between the old hardcoded translations and the actual JSON files. 3. Add a new, specific test case to a component that uses i18next. This test should assert that a complex or recently added translation key is rendered correctly, directly verifying that the content is being loaded from the `translation.json` file. 4. Temporarily change the default language in `i18next.init()` within `vitest.setup.ts` to a secondary language (if one exists) and confirm that tests still pass, proving the loader works for all languages. 5. Manually verify that the explanatory note has been added to the testing documentation.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "13"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Inspect current vitest.setup.ts and identify all hardcoded translation objects to remove",
+            "description": "Open src/vitest.setup.ts (or vitest.setup.ts at project root) and review the file to locate any hardcoded translation objects used to initialize i18n in tests. List each object and the translation keys/strings that are duplicated from public/locales JSON files.",
+            "dependencies": [],
+            "details": "Acceptance criteria: A clear list of all hardcoded translation objects and the files/keys they duplicate is added to the subtask details.\n<info added on 2025-11-20T00:50:34.374Z>\nIdentified 73 hardcoded translation keys in vitest.setup.ts (lines 34-107) that duplicate content from the public/locales directory.\n</info added on 2025-11-20T00:50:34.374Z>",
+            "status": "done",
+            "testStrategy": "Manual code review to identify the hardcoded translation objects. No automated tests are needed for this subtask.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-20T00:50:35.630Z"
+          },
+          {
+            "id": 2,
+            "title": "Implement file-based loader in vitest.setup.ts (read public/locales, parse JSONs, build resources)",
+            "description": "Modify vitest.setup.ts to use Node's fs and path modules to read public/locales/*/translation.json for each locale, parse their JSON, and build the i18next resources object. Ensure this loader runs in the Vitest environment before tests execute.",
+            "dependencies": [
+              1
+            ],
+            "details": "Acceptance criteria: vitest.setup.ts no longer contains hardcoded translation objects; instead it dynamically loads translations from public/locales and passes the aggregated resources to i18next.init.\n<info added on 2025-11-20T00:52:48.458Z>\nImplemented a file-based loader in vitest.setup.ts that dynamically reads translation JSON files from public/locales. The loader flattens the nested structure to dot notation while maintaining the existing i18next mock behavior. This removed 73 hardcoded translation keys, replacing them with a dynamic process that now loads all 90+ keys from the actual translation files.\n</info added on 2025-11-20T00:52:48.458Z>",
+            "status": "done",
+            "testStrategy": "The success of this implementation will be verified by running the full test suite in the subsequent subtask. The loader should include error handling for missing directories or files.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-20T00:52:31.431Z"
+          },
+          {
+            "id": 3,
+            "title": "Run test suite and fix any issues (update snapshots if necessary)",
+            "description": "Execute the full test suite (pnpm test). Investigate and fix any failing tests caused by the change. Update snapshots only when changes are intentional and justified by the updated translations.",
+            "dependencies": [
+              2
+            ],
+            "details": "Acceptance criteria: All tests pass locally (or a clear justification is documented if snapshots are updated). Record any modified tests or snapshots in the subtask notes.\n<info added on 2025-11-20T00:59:07.550Z>\nFixed all 23 failing tests by updating assertions in CategorySelect.test.tsx and GamePlay.test.tsx. Tests were changed to use the actual translated text (e.g., 'Select All', 'Continue', 'No Winner') instead of the raw translation keys. All 325 tests now pass and the complete-check runs clean.\n</info added on 2025-11-20T00:59:07.550Z>",
+            "status": "done",
+            "testStrategy": "Run `pnpm test` and ensure all existing tests pass. Manually review any snapshot changes to confirm they are expected and correct based on the actual translation files.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-20T00:58:58.316Z"
+          },
+          {
+            "id": 4,
+            "title": "Add a focused test asserting translation content loaded from file",
+            "description": "Add a small, focused unit test that imports the i18n setup and asserts that a known translation key is loaded from the public/locales JSON (e.g., assert that the translation for a specific key equals expected string from file).",
+            "dependencies": [
+              3
+            ],
+            "details": "Acceptance criteria: New test added and passing; it fails if the loader isn't reading translation files.",
+            "status": "done",
+            "testStrategy": "Create a new test file that specifically checks if `i18next.t('some.known.key')` returns the exact string from `public/locales/en/translation.json`. This test validates the loader's correctness.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-20T01:00:11.018Z"
+          },
+          {
+            "id": 5,
+            "title": "Add/update docs/TESTING.md with a note describing the new behavior and how to add/update translations for tests",
+            "description": "Update docs/TESTING.md to explain that Vitest now loads translations from public/locales and include steps for adding/updating translations so tests reflect changes.",
+            "dependencies": [
+              4
+            ],
+            "details": "Acceptance criteria: Documentation updated with the new note and an example of adding a translation for tests.",
+            "status": "done",
+            "testStrategy": "Perform a peer review of the documentation changes in `docs/TESTING.md` to ensure clarity, accuracy, and completeness for future contributors.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-20T01:01:04.849Z"
+          },
+          {
+            "id": 6,
+            "title": "Final review and mark task done",
+            "description": "Perform a final pass: run pnpm run complete-check, ensure code is formatted and linted, verify tests, and then mark task 36 as done. Add notes summarizing work performed.",
+            "dependencies": [
+              5
+            ],
+            "details": "Acceptance criteria: All checks pass and task 36 status is updated to 'done' with links to modified files and tests notes.",
+            "status": "done",
+            "testStrategy": "Execute all CI checks locally, including linting, formatting, and running the full test suite one last time before creating the pull request.",
+            "parentId": "undefined",
+            "updatedAt": "2025-11-20T01:02:06.187Z"
+          },
+          {
+            "id": 7,
+            "title": "Inspect current vitest.setup.ts and identify all hardcoded translation objects to remove",
+            "description": "Open src/vitest.setup.ts (or vitest.setup.ts at project root) and review the file to locate any hardcoded translation objects used to initialize i18n in tests. List each object and the translation keys/strings that are duplicated from public/locales JSON files.\n\nAcceptance criteria: A clear list of all hardcoded translation objects and the files/keys they duplicate is added to the subtask details.\n\nPriority: medium\nStatus: pending",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 36,
+            "parentId": "undefined"
+          },
+          {
+            "id": 8,
+            "title": "Implement file-based loader in vitest.setup.ts (read public/locales, parse JSONs, build resources)",
+            "description": "Modify vitest.setup.ts to use Node's fs and path modules to read public/locales/*/translation.json for each locale, parse their JSON, and build the i18next resources object. Ensure this loader runs in the Vitest environment before tests execute.\n\nAcceptance criteria: vitest.setup.ts no longer contains hardcoded translation objects; instead it dynamically loads translations from public/locales and passes the aggregated resources to i18next.init.\n\nPriority: medium\nStatus: pending",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 36,
+            "parentId": "undefined"
+          },
+          {
+            "id": 9,
+            "title": "Run test suite and fix any issues (update snapshots if necessary)",
+            "description": "Execute the full test suite (pnpm test). Investigate and fix any failing tests caused by the change. Update snapshots only when changes are intentional and justified by the updated translations.\n\nAcceptance criteria: All tests pass locally (or a clear justification is documented if snapshots are updated). Record any modified tests or snapshots in the subtask notes.\n\nPriority: medium\nStatus: pending",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 36,
+            "parentId": "undefined"
+          },
+          {
+            "id": 10,
+            "title": "Add a focused test asserting translation content loaded from file",
+            "description": "Add a small, focused unit test that imports the i18n setup and asserts that a known translation key is loaded from the public/locales JSON (e.g., assert that the translation for a specific key equals expected string from file).\n\nAcceptance criteria: New test added and passing; it fails if the loader isn't reading translation files.\n\nPriority: medium\nStatus: pending",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 36,
+            "parentId": "undefined"
+          },
+          {
+            "id": 11,
+            "title": "Add/update docs/TESTING.md with a note describing the new behavior and how to add/update translations for tests",
+            "description": "Update docs/TESTING.md to explain that Vitest now loads translations from public/locales and include steps for adding/updating translations so tests reflect changes.\n\nAcceptance criteria: Documentation updated with the new note and an example of adding a translation for tests.\n\nPriority: medium\nStatus: pending",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 36,
+            "parentId": "undefined"
+          },
+          {
+            "id": 12,
+            "title": "Final review and mark task done",
+            "description": "Perform a final pass: run pnpm run complete-check, ensure code is formatted and linted, verify tests, and then mark task 36 as done. Add notes summarizing work performed.\n\nAcceptance criteria: All checks pass and task 36 status is updated to 'done' with links to modified files and tests notes.\n\nPriority: medium\nStatus: pending",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 36,
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-11-20T01:02:07.612Z"
       },
       {
         "id": "37",
@@ -2414,9 +2552,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-11-19T21:59:49.758Z",
+      "lastModified": "2025-11-20T01:02:07.613Z",
       "taskCount": 38,
-      "completedCount": 37,
+      "completedCount": 38,
       "tags": [
         "master"
       ]

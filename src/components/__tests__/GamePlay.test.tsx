@@ -238,11 +238,8 @@ describe('GamePlay Component', () => {
       // When on final clue, "Show Next Clue" button is hidden
       expect(screen.queryByRole('button', { name: 'Show Next Clue' })).not.toBeInTheDocument();
 
-      // Find the "No Winner" button by looking for secondary variant button with the translation key
-      const buttons = screen.getAllByRole('button');
-      const noWinnerButton = buttons.find((btn) =>
-        btn.textContent?.includes('gamePlay.noWinnerButton')
-      );
+      // Find the "No Winner" button
+      const noWinnerButton = screen.getByRole('button', { name: /No Winner/i });
       expect(noWinnerButton).toBeInTheDocument();
     });
 
@@ -258,11 +255,8 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay />);
 
-      // Find the "No Winner" button by looking for the translation key in the button text
-      const buttons = screen.getAllByRole('button');
-      const noWinnerButton = buttons.find((btn) =>
-        btn.textContent?.includes('gamePlay.noWinnerButton')
-      );
+      // Find the "No Winner" button
+      const noWinnerButton = screen.getByRole('button', { name: /No Winner/i });
       expect(noWinnerButton).toBeInTheDocument();
       expect(noWinnerButton).not.toBeDisabled();
 
