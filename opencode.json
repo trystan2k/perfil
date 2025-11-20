@@ -32,7 +32,7 @@
     "basic-memory": {
       "type": "local",
       "command": ["uvx", "basic-memory", "mcp", "--project", "perfil"],
-      "enabled": false,
+      "enabled": true,
     },
     "github": {
       "type": "remote",
