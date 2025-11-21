@@ -322,15 +322,15 @@ Based on your development guidelines, here are the **NO NO actions**:
 
 ---
 
-## 🎨 CSS Modules and Styling Violations
+## 🎨 Tailwind CSS and Styling Violations
 
-- **ALWAYS** use CSS Modules for component-specific styling – **NEVER** use inline styles or global CSS classes
-- **ALWAYS** co-locate CSS Module files with their components (`Component.tsx` + `Component.module.css`)
-- **ALWAYS** use design tokens in CSS files – **NEVER** use hardcoded values (colors, spacing, etc.)
-- **NEVER** create styles in `global.css` that should be component-specific
-- **NEVER** use `style={{}}` inline objects – Use CSS Modules instead
-- **NEVER** reference CSS Module classes by string names in tests – Import and use the styles object
-- **NEVER** skip CSS Modules for new components – It's the mandatory styling approach
+- **ALWAYS** use Tailwind CSS utility classes for styling – This is the project's styling approach
+- **ALWAYS** use design tokens from `tailwind.config.mjs` and CSS variables – **NEVER** use hardcoded values (colors, spacing, etc.)
+- **NEVER** use inline `style={{}}` objects – Use Tailwind utility classes instead
+- **NEVER** create styles in `global.css` that can be achieved with Tailwind utilities
+- **ALWAYS** use the `cn()` utility from `lib/utils.ts` to combine classes conditionally
+- **ALWAYS** leverage Tailwind's responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`) for responsive design
+- **ALWAYS** use Tailwind's dark mode classes (`dark:`) for theme support
 
 ---
 
