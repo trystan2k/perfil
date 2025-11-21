@@ -143,18 +143,18 @@ For tasks with subtasks, follow this cycle for each subtask:
 - Confirm that the status has been updated correctly
 - Confirm that all subtasks are marked as complete
 
-### 9. 📝 DEVELOPMENT LOGGING
-
-- **Action**: Ask the @basic-memory-specialist subagent to log development details of the task.
-- **Action**: Once it is inserted in basic memory DB, export the memory for the task to a physical file to `docs/memories/development-logs` (delegate to the @basic-memory-specialist subagent)
-
-### 10. 📝 CODE REVIEW
+### 9. 📝 CODE REVIEW
 
 - **Action**: Run coderabbit CLI to request a code review for this PR
 - **COMMAND**: To run coderabbit CLI, use the command `coderabbit --plain`
 - **Attention**: If the code review is not approved and/or generate any comment, review the suggestions and apply them, if they make sense to be done. If you are not sure, ask for help.
 
-### 10. 📝 COMMIT CYCLE
+### 10. 📝 DEVELOPMENT LOGGING
+
+- **Action**: Ask the @basic-memory-specialist subagent to log development details of the task.
+- **Action**: Once it is inserted in basic memory DB, export the memory for the task to a physical file to `docs/memories/development-logs` (delegate to the @basic-memory-specialist subagent)
+
+### 11. 📝 COMMIT CYCLE
 
 - **Attention**: Remember to delegate this action to the @git-specialist subagent
 - **Action**: Before commit, ask me to review the changes and only continue after my ok
