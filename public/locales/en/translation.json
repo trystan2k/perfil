@@ -10,7 +10,8 @@
     "back": "Back",
     "continue": "Continue",
     "goHome": "Go Home",
-    "goToRecoveryPage": "Go to Recovery Page"
+    "goToRecoveryPage": "Go to Recovery Page",
+    "cancel": "Cancel"
   },
   "errorHandler": {
     "title": "Error",
@@ -72,10 +73,28 @@
     "skipProfileConfirmMessage": "Are you sure you want to skip this profile? No points will be awarded.",
     "playersAwardPoints": "Award Points",
     "points": "{{points}} pts",
-    "showClueToAwardPoints": "Show at least one clue to award points",
-    "noWinnerButton": "No Winner",
-    "finishGameButton": "Finish Game",
-    "unknownPlayer": "Unknown Player",
+     "showClueToAwardPoints": "Show at least one clue to award points",
+     "noWinnerButton": "No Winner",
+     "finishGameButton": "Finish Game",
+      "removePoints": {
+        "buttonAriaLabel": "Remove points from {{playerName}}",
+        "buttonTitle": "Remove points from this player",
+        "title": "Remove Points",
+        "description": "Remove points from {{playerName}}",
+        "amountLabel": "Points to Remove",
+        "amountPlaceholder": "Enter amount (1-{{maxPoints}})",
+        "currentScore": "Current score: {{currentScore}} pts",
+        "confirmButton": "Remove Points",
+        "errors": {
+          "emptyAmount": "Please enter an amount.",
+          "invalidAmount": "Amount must be a non-negative integer.",
+          "zeroAmount": "Amount must be greater than zero.",
+          "playerNotFound": "Player not found",
+          "insufficientPoints": "{{playerName}} only has {{maxAmount}} points. Cannot remove more than their current score.",
+          "failedToRemove": "Failed to remove points. Please try again."
+        }
+      },
+     "unknownPlayer": "Unknown Player",
     "category": "Category: {{category}}",
     "profileProgression": "Profile {{current}} of {{total}}",
     "profileProgress": {
@@ -130,25 +149,25 @@
     "selectAll": "Select All",
     "deselectAll": "Deselect All"
   },
-  "scoreboard": {
-    "title": "Scoreboard",
-    "loading": "Loading scoreboard...",
-    "category": "Category: {{category}}",
-    "table": {
-      "rank": "Rank",
-      "player": "Player",
-      "score": "Score"
+   "scoreboard": {
+     "title": "Scoreboard",
+     "loading": "Loading scoreboard...",
+     "category": "Category: {{category}}",
+     "table": {
+       "rank": "Rank",
+       "player": "Player",
+       "score": "Score"
+     },
+     "noPlayers": {
+       "title": "No Players",
+       "description": "No players found in this game session."
+     },
+      "actions": {
+        "newGame": "New Game",
+        "samePlayers": "Same Players",
+        "restartGame": "Restart Game"
+      }
     },
-    "noPlayers": {
-      "title": "No Players",
-      "description": "No players found in this game session."
-    },
-    "actions": {
-      "newGame": "New Game",
-      "samePlayers": "Same Players",
-      "restartGame": "Restart Game"
-    }
-  },
   "noGamePage": {
     "title": "No Game in Progress",
     "description": "Please start a new game to begin playing.",

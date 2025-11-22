@@ -640,7 +640,7 @@ describe('GamePlay Component', () => {
       const players = useGameStore.getState().players;
 
       for (const player of players) {
-        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        const button = screen.getAllByRole('button', { name: new RegExp(player.name) })[0];
         expect(button).toBeDisabled();
       }
     });
@@ -664,7 +664,258 @@ describe('GamePlay Component', () => {
       const players = useGameStore.getState().players;
 
       for (const player of players) {
-        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        const button = screen.getAllByRole('button', { name: new RegExp(player.name) })[0];
+        expect(button).not.toBeDisabled();
+      }
+    });
+
+    it('should hide helper text when points can be awarded', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      expect(screen.queryByText('Show at least one clue to award points')).not.toBeInTheDocument();
+    });
+
+    // ... existing tests preserved ...
+
+    it('should call awardPoints with correct player ID when player button is clicked', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+      const playerToClick = players[1]; // Click second player
+
+      const button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
+
+      await user.click(button);
+
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      // Verify player received points (20 - (1 - 1) = 20 points for first clue)
+      const updatedPlayers = useGameStore.getState().players;
+      const updatedPlayer = updatedPlayers.find((p) => p.id === playerToClick.id);
+
+      expect(updatedPlayer?.score).toBe(20);
+    });
+
+    // Insert Remove Points tests
+    describe('Remove Points Button (GamePlay)', () => {
+      it('should render a remove button next to each player in the award points section', () => {
+        const store = useGameStore.getState();
+        store.startGame(['Movies']);
+
+        // Set explicit scores for determinism
+        const players = useGameStore
+          .getState()
+          .players.map((p, i) => ({ ...p, score: (i + 1) * 10 }));
+        useGameStore.setState({ players });
+
+        render(<GamePlay />);
+
+        for (const player of players) {
+          const removeButton = screen.getByRole('button', {
+            name: new RegExp(`Remove points from ${player.name}`),
+          });
+          expect(removeButton).toBeInTheDocument();
+        }
+      });
+
+      it('should disable remove button when player score is 0', () => {
+        const store = useGameStore.getState();
+        store.startGame(['Movies']);
+
+        const players = useGameStore.getState().players;
+        // Set first player to have 0 score
+        const updated = players.map((p, i) => ({ ...p, score: i === 0 ? 0 : 10 }));
+        useGameStore.setState({ players: updated });
+
+        render(<GamePlay />);
+
+        const first = updated[0];
+        const firstRemove = screen.getByRole('button', {
+          name: new RegExp(`Remove points from ${first.name}`),
+        });
+        expect(firstRemove).toBeDisabled();
+
+        const other = updated[1];
+        const otherRemove = screen.getByRole('button', {
+          name: new RegExp(`Remove points from ${other.name}`),
+        });
+        expect(otherRemove).not.toBeDisabled();
+      });
+
+      it('clicking remove opens RemovePointsDialog', async () => {
+        const user = userEvent.setup();
+        const store = useGameStore.getState();
+        store.startGame(['Movies']);
+
+        const players = useGameStore.getState().players.map((p, _i) => ({ ...p, score: 10 }));
+        useGameStore.setState({ players });
+
+        render(<GamePlay />);
+
+        const target = players[0];
+        const removeBtn = screen.getByRole('button', {
+          name: new RegExp(`Remove points from ${target.name}`),
+        });
+        await user.click(removeBtn);
+
+        expect(screen.getByRole('heading', { name: /Remove Points/i })).toBeInTheDocument();
+        expect(
+          screen.getByText(new RegExp(`Remove points from ${target.name}`))
+        ).toBeInTheDocument();
+      });
+
+      it('removing points calls store and updates game state', async () => {
+        const user = userEvent.setup();
+        const store = useGameStore.getState();
+        store.startGame(['Movies']);
+
+        // Set deterministic scores
+        const players = useGameStore.getState().players.map((p, _i) => ({ ...p, score: 30 }));
+        useGameStore.setState({ players });
+
+        // Mock removePoints to update store synchronously
+        const mockRemove = vi.fn().mockImplementation(async (playerId: string, amount: number) => {
+          const s = useGameStore.getState();
+          const idx = s.players.findIndex((p) => p.id === playerId);
+          if (idx !== -1) {
+            const updated = [...s.players];
+            updated[idx] = { ...updated[idx], score: updated[idx].score - amount };
+            useGameStore.setState({ players: updated });
+          }
+        });
+
+        useGameStore.setState({ removePoints: mockRemove });
+
+        render(<GamePlay />);
+
+        const target = useGameStore.getState().players[0];
+        const removeBtn = screen.getByRole('button', {
+          name: new RegExp(`Remove points from ${target.name}`),
+        });
+        await user.click(removeBtn);
+
+        // Dialog opens
+        const input = screen.getByLabelText('Points to Remove');
+        await user.type(input, '5');
+
+        const confirm = screen.getByRole('button', { name: /Remove Points/i });
+        await user.click(confirm);
+
+        // ensure store action called
+        expect(mockRemove).toHaveBeenCalledWith(target.id, 5);
+
+        // state updated
+        await waitFor(() => {
+          const updatedPlayer = useGameStore.getState().players.find((p) => p.id === target.id);
+          expect(updatedPlayer?.score).toBe(25);
+        });
+
+        // dialog closed
+        expect(screen.queryByRole('heading', { name: /Remove Points/i })).not.toBeInTheDocument();
+      });
+    });
+
+    it('should update displayed score after awarding points', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles to avoid auto-completion
+      store.nextClue();
+
+      const { rerender } = render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+      const playerToClick = players[0];
+
+      // Initially all players have 0 pts
+      const playerNameElements = screen.getAllByText(playerToClick.name);
+      expect(playerNameElements.length).toBeGreaterThanOrEqual(1);
+
+      const initialScoreElements = screen.getAllByText(/\d+ pts/);
+      expect(initialScoreElements).toHaveLength(3);
+
+      const button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
+      await user.click(button);
+
+      // Round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Click "Next Profile" button to complete the action
+      const nextProfileButton = screen.getByRole('button', { name: /Next Profile/i });
+      await user.click(nextProfileButton);
+
+      rerender(<GamePlay />);
+
+      // Should now show 20 pts for one player
+      expect(screen.getByText('20 pts')).toBeInTheDocument();
+    });
+
+    it('should display all players with their names and scores', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+
+      // Use getAllByText to find all instances of player names and scores
+      for (const player of players) {
+        const playerNameElements = screen.getAllByText(player.name);
+        expect(playerNameElements.length).toBeGreaterThanOrEqual(1);
+      }
+
+      // Check that there are exactly 3 instances of "0 pts" (one for each player)
+      const scoreElements = screen.getAllByText(/\d+ pts/);
+      expect(scoreElements).toHaveLength(3);
+    });
+
+    it('should disable all player buttons when no clues have been read', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+
+      for (const player of players) {
+        const button = screen.getAllByRole('button', { name: new RegExp(player.name) })[0];
+        expect(button).toBeDisabled();
+      }
+    });
+
+    it('should show helper text when points cannot be awarded', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+
+      render(<GamePlay />);
+
+      expect(screen.getByText('Show at least one clue to award points')).toBeInTheDocument();
+    });
+
+    it('should enable player buttons after showing first clue', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const players = useGameStore.getState().players;
+
+      for (const player of players) {
+        const button = screen.getAllByRole('button', { name: new RegExp(player.name) })[0];
         expect(button).not.toBeDisabled();
       }
     });
@@ -690,7 +941,7 @@ describe('GamePlay Component', () => {
       const players = useGameStore.getState().players;
       const playerToClick = players[1]; // Click second player
 
-      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      const button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
 
       await user.click(button);
 
@@ -726,7 +977,7 @@ describe('GamePlay Component', () => {
       const initialScoreElements = screen.getAllByText(/\d+ pts/);
       expect(initialScoreElements).toHaveLength(3);
 
-      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      const button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
       await user.click(button);
 
       // Round summary should appear
@@ -752,7 +1003,7 @@ describe('GamePlay Component', () => {
 
       const players = useGameStore.getState().players;
       const playerToClick = players[0];
-      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      const button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
 
       await user.click(button);
 
@@ -784,7 +1035,7 @@ describe('GamePlay Component', () => {
 
       const players = useGameStore.getState().players;
       const playerToClick = players[1];
-      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      const button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
 
       await user.click(button);
 
@@ -814,7 +1065,7 @@ describe('GamePlay Component', () => {
       const playerToClick = players[0];
 
       // First correct answer
-      let button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      let button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
       await user.click(button);
 
       // Round summary should appear
@@ -841,7 +1092,7 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       // Second correct answer
-      button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
       await user.click(button);
 
       // Round summary should appear again
@@ -869,7 +1120,7 @@ describe('GamePlay Component', () => {
 
       // All players should have outline variant now (no active player highlighting)
       state.players.forEach((player) => {
-        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        const button = screen.getAllByRole('button', { name: new RegExp(player.name) })[0];
         // Outline variant is present in the class
         expect(button.className).toContain('border-input');
       });
@@ -888,7 +1139,7 @@ describe('GamePlay Component', () => {
       const playerToAward = players[1];
 
       expect(playerToAward).toBeDefined();
-      const button = screen.getByRole('button', { name: new RegExp(playerToAward.name) });
+      const button = screen.getAllByRole('button', { name: new RegExp(playerToAward.name) })[0];
 
       await user.click(button);
 
@@ -919,7 +1170,7 @@ describe('GamePlay Component', () => {
         store.nextClue();
       });
       rerender(<GamePlay />);
-      let button = screen.getByRole('button', { name: new RegExp(players[0].name) });
+      let button = screen.getAllByRole('button', { name: new RegExp(players[0].name) })[0];
       await user.click(button);
       let nextProfileButton = await screen.findByRole('button', { name: /Next Profile/i });
       await user.click(nextProfileButton);
@@ -930,7 +1181,7 @@ describe('GamePlay Component', () => {
         store.nextClue();
       });
       rerender(<GamePlay />);
-      button = screen.getByRole('button', { name: new RegExp(players[1].name) });
+      button = screen.getAllByRole('button', { name: new RegExp(players[1].name) })[0];
       await user.click(button);
       nextProfileButton = await screen.findByRole('button', { name: /Next Profile/i });
       await user.click(nextProfileButton);
@@ -941,7 +1192,7 @@ describe('GamePlay Component', () => {
         store.nextClue();
       });
       rerender(<GamePlay />);
-      button = screen.getByRole('button', { name: new RegExp(players[2].name) });
+      button = screen.getAllByRole('button', { name: new RegExp(players[2].name) })[0];
       await user.click(button);
       nextProfileButton = await screen.findByRole('button', { name: /Next Profile/i });
       await user.click(nextProfileButton);
@@ -964,7 +1215,7 @@ describe('GamePlay Component', () => {
       const players = useGameStore.getState().players;
       const playerToClick = players[0];
 
-      const button = screen.getByRole('button', { name: new RegExp(playerToClick.name) });
+      const button = screen.getAllByRole('button', { name: new RegExp(playerToClick.name) })[0];
       await user.click(button);
 
       // Round summary should appear
@@ -1097,7 +1348,7 @@ describe('GamePlay Component', () => {
       expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
 
       // 4. MC taps Player A, verify score update
-      let playerButton = screen.getByRole('button', { name: new RegExp(players[0].name) });
+      let playerButton = screen.getAllByRole('button', { name: new RegExp(players[0].name) })[0];
       await user.click(playerButton);
 
       // Verify round summary appears
@@ -1123,7 +1374,7 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       // 5. MC taps Player B, verify score update
-      playerButton = screen.getByRole('button', { name: new RegExp(players[1].name) });
+      playerButton = screen.getAllByRole('button', { name: new RegExp(players[1].name) })[0];
       await user.click(playerButton);
 
       // Verify round summary
@@ -1147,7 +1398,7 @@ describe('GamePlay Component', () => {
       });
       rerender(<GamePlay />);
 
-      playerButton = screen.getByRole('button', { name: new RegExp(players[2].name) });
+      playerButton = screen.getAllByRole('button', { name: new RegExp(players[2].name) })[0];
       await user.click(playerButton);
 
       // Verify round summary
@@ -1188,7 +1439,9 @@ describe('GamePlay Component', () => {
       });
       rerender(<GamePlay />);
 
-      let playerButton = screen.getByRole('button', { name: new RegExp(favoritePlayer.name) });
+      let playerButton = screen.getAllByRole('button', {
+        name: new RegExp(favoritePlayer.name),
+      })[0];
       await user.click(playerButton);
 
       expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
@@ -1202,7 +1455,7 @@ describe('GamePlay Component', () => {
       });
       rerender(<GamePlay />);
 
-      playerButton = screen.getByRole('button', { name: new RegExp(favoritePlayer.name) });
+      playerButton = screen.getAllByRole('button', { name: new RegExp(favoritePlayer.name) })[0];
       await user.click(playerButton);
 
       expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
@@ -1232,7 +1485,7 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       const players = store.players;
-      const playerButton = screen.getByRole('button', { name: new RegExp(players[0].name) });
+      const playerButton = screen.getAllByRole('button', { name: new RegExp(players[0].name) })[0];
       await user.click(playerButton);
 
       expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
@@ -1350,10 +1603,10 @@ describe('GamePlay Component', () => {
 
       const players = store.players;
       players.forEach((player) => {
-        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        const button = screen.getAllByRole('button', { name: new RegExp(player.name) })[0];
 
         // Player buttons should have adequate touch target sizing
-        expect(button).toHaveClass('w-full', 'h-auto', 'py-4');
+        expect(button).toHaveClass('flex-1', 'h-auto', 'py-4');
       });
     });
 
@@ -1366,7 +1619,7 @@ describe('GamePlay Component', () => {
 
       const players = store.players;
       players.forEach((player) => {
-        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        const button = screen.getAllByRole('button', { name: new RegExp(player.name) })[0];
 
         // Proper alignment classes for touch targets
         expect(button).toHaveClass('flex', 'justify-between', 'items-center');
@@ -1382,7 +1635,7 @@ describe('GamePlay Component', () => {
 
       const players = store.players;
       players.forEach((player) => {
-        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+        const button = screen.getAllByRole('button', { name: new RegExp(player.name) })[0];
 
         // Visual feedback with shadows and border
         expect(button).toHaveClass('shadow-md', 'border-2');
@@ -1508,7 +1761,7 @@ describe('GamePlay Component', () => {
 
       // Player award buttons
       const players = store.players;
-      const playerButton = screen.getByRole('button', { name: new RegExp(players[0].name) });
+      const playerButton = screen.getAllByRole('button', { name: new RegExp(players[0].name) })[0];
       expect(playerButton).toHaveClass('h-auto', 'py-4');
 
       // Award points interaction
