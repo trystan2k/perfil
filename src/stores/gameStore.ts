@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { MAX_PLAYERS } from '../lib/constants';
+import { MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
 import { loadGameSession, type PersistedGameState, saveGameSession } from '../lib/gameSessionDB';
 import type { GameSession, Player, Profile } from '../types/models';
 
@@ -299,6 +299,9 @@ export const useGameStore = create<GameState>((set, get) => ({
     // Validate player count limits
     if (playerNames.length > MAX_PLAYERS) {
       throw new Error(`Game supports a maximum of ${MAX_PLAYERS} players`);
+    }
+    if (playerNames.length < MIN_PLAYERS) {
+      throw new Error(`Game requires at least ${MIN_PLAYERS} players`);
     }
 
     const players: Player[] = playerNames.map((name, index) => ({

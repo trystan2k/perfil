@@ -469,7 +469,7 @@ describe('GameSetup', () => {
 
       // Try to add 17th player with Enter key
       await user.clear(input);
-      await user.type(input, 'Player 9{Enter}');
+      await user.type(input, 'Player 17{Enter}');
 
       // Should still have only 16 players
       expect(screen.getByText('Players (16/16)')).toBeInTheDocument();
