@@ -3205,7 +3205,7 @@
         "description": "Extend the current game architecture to support more players, up to a maximum of 16 participants instead of the current lower limit",
         "details": "This will require reviewing the current player limit implementation, updating the scoreboard UI to accommodate more players, optimizing layout and performance for larger player counts, and testing with maximum player scenarios.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [],
         "priority": "medium",
         "subtasks": []
@@ -3221,7 +3221,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-22T08:34:38.320Z"
+      "updated": "2025-11-22T09:07:55.923Z"
     }
   }
 }

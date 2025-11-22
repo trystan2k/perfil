@@ -95,7 +95,7 @@ describe('GameSetup', () => {
       await user.click(addButton);
 
       expect(screen.getByText('Alice')).toBeInTheDocument();
-      expect(screen.getByText('Players (1/8)')).toBeInTheDocument();
+      expect(screen.getByText('Players (1/16)')).toBeInTheDocument();
     });
 
     it('should add a player when pressing Enter key', async () => {
@@ -141,7 +141,7 @@ describe('GameSetup', () => {
       expect(screen.getByText('Alice')).toBeInTheDocument();
       expect(screen.getByText('Bob')).toBeInTheDocument();
       expect(screen.getByText('Charlie')).toBeInTheDocument();
-      expect(screen.getByText('Players (3/8)')).toBeInTheDocument();
+      expect(screen.getByText('Players (3/16)')).toBeInTheDocument();
     });
 
     it('should trim whitespace from player names', async () => {
@@ -196,35 +196,35 @@ describe('GameSetup', () => {
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
 
-      // Add 8 players
-      for (let i = 1; i <= 8; i++) {
+      // Add 16 players
+      for (let i = 1; i <= 16; i++) {
         await user.type(input, `Player${i}`);
         await user.click(addButton);
       }
 
       // Add text to input - button should be disabled
-      await user.type(input, 'Player9');
+      await user.type(input, 'Player17');
 
       expect(addButton).toBeDisabled();
       // Error shouldn't show because button is disabled
-      expect(screen.queryByText('Maximum 8 players allowed')).not.toBeInTheDocument();
+      expect(screen.queryByText('Maximum 16 players allowed')).not.toBeInTheDocument();
     });
 
-    it('should disable add button when 8 players are added', async () => {
+    it('should disable add button when 16 players are added', async () => {
       const user = userEvent.setup();
       render(<GameSetup />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
 
-      // Add 8 players
-      for (let i = 1; i <= 8; i++) {
+      // Add 16 players
+      for (let i = 1; i <= 16; i++) {
         await user.type(input, `Player${i}`);
         await user.click(addButton);
       }
 
       // Add text to input
-      await user.type(input, 'Player9');
+      await user.type(input, 'Player17');
 
       expect(addButton).toBeDisabled();
     });
@@ -295,7 +295,7 @@ describe('GameSetup', () => {
       expect(screen.getByText('Alice')).toBeInTheDocument();
       expect(screen.queryByText('Bob')).not.toBeInTheDocument();
       expect(screen.getByText('Charlie')).toBeInTheDocument();
-      expect(screen.getByText('Players (2/8)')).toBeInTheDocument();
+      expect(screen.getByText('Players (2/16)')).toBeInTheDocument();
     });
 
     it('should not clear error when removing player', async () => {
@@ -453,27 +453,27 @@ describe('GameSetup', () => {
       expect(screen.queryByText(/players \(/i)).not.toBeInTheDocument();
     });
 
-    it('should not add 9th player when pressing Enter at 8-player limit', async () => {
+    it('should not add 17th player when pressing Enter at 16-player limit', async () => {
       const user = userEvent.setup();
       render(<GameSetup />);
 
       const input = screen.getByLabelText('Player Name');
 
-      // Add 8 players
-      for (let i = 1; i <= 8; i++) {
+      // Add 16 players
+      for (let i = 1; i <= 16; i++) {
         await user.clear(input);
         await user.type(input, `Player ${i}{Enter}`);
       }
 
-      expect(screen.getByText('Players (8/8)')).toBeInTheDocument();
+      expect(screen.getByText('Players (16/16)')).toBeInTheDocument();
 
-      // Try to add 9th player with Enter key
+      // Try to add 17th player with Enter key
       await user.clear(input);
       await user.type(input, 'Player 9{Enter}');
 
-      // Should still have only 8 players
-      expect(screen.getByText('Players (8/8)')).toBeInTheDocument();
-      expect(screen.queryByText('Player 9')).not.toBeInTheDocument();
+      // Should still have only 16 players
+      expect(screen.getByText('Players (16/16)')).toBeInTheDocument();
+      expect(screen.queryByText('Player 17')).not.toBeInTheDocument();
     });
 
     it('should not add player when clicking Add button with empty name', async () => {
@@ -501,27 +501,27 @@ describe('GameSetup', () => {
       expect(screen.queryByText(/players \(/i)).not.toBeInTheDocument();
     });
 
-    it('should not exceed 8 players even if handleAddPlayer is called at limit', async () => {
+    it('should not exceed 16 players even if handleAddPlayer is called at limit', async () => {
       const user = userEvent.setup();
       render(<GameSetup />);
 
       const input = screen.getByLabelText('Player Name');
 
-      // Add exactly 8 players using Enter key
-      for (let i = 1; i <= 8; i++) {
+      // Add exactly 16 players using Enter key
+      for (let i = 1; i <= 16; i++) {
         await user.clear(input);
         await user.type(input, `Player${i}{Enter}`);
       }
 
-      expect(screen.getByText('Players (8/8)')).toBeInTheDocument();
+      expect(screen.getByText('Players (16/16)')).toBeInTheDocument();
 
-      // Try to add 9th player via Enter
+      // Try to add 17th player via Enter
       await user.clear(input);
-      await user.type(input, 'Player9{Enter}');
+      await user.type(input, 'Player17{Enter}');
 
-      // Should still have only 8 players
-      expect(screen.getByText('Players (8/8)')).toBeInTheDocument();
-      expect(screen.queryByText('Player9')).not.toBeInTheDocument();
+      // Should still have only 16 players
+      expect(screen.getByText('Players (16/16)')).toBeInTheDocument();
+      expect(screen.queryByText('Player17')).not.toBeInTheDocument();
     });
 
     it('should handle case-insensitive duplicate names', async () => {
@@ -545,7 +545,7 @@ describe('GameSetup', () => {
       expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
 
       // Should not add duplicate
-      expect(screen.getByText('Players (1/8)')).toBeInTheDocument();
+      expect(screen.getByText('Players (1/16)')).toBeInTheDocument();
     });
 
     it('should handle case-insensitive duplicate names with Enter key', async () => {
@@ -565,7 +565,7 @@ describe('GameSetup', () => {
       expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
 
       // Should not add duplicate
-      expect(screen.getByText('Players (1/8)')).toBeInTheDocument();
+      expect(screen.getByText('Players (1/16)')).toBeInTheDocument();
     });
   });
 

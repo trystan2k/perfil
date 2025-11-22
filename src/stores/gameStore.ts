@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { MAX_PLAYERS } from '../lib/constants';
 import { loadGameSession, type PersistedGameState, saveGameSession } from '../lib/gameSessionDB';
 import type { GameSession, Player, Profile } from '../types/models';
 
@@ -295,6 +296,11 @@ function generateRoundPlan(selectedCategories: string[], numberOfRounds: number)
 export const useGameStore = create<GameState>((set, get) => ({
   ...initialState,
   createGame: async (playerNames: string[]) => {
+    // Validate player count limits
+    if (playerNames.length > MAX_PLAYERS) {
+      throw new Error(`Game supports a maximum of ${MAX_PLAYERS} players`);
+    }
+
     const players: Player[] = playerNames.map((name, index) => ({
       id: `player-${Date.now()}-${index}`,
       name,
