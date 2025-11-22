@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { DEFAULT_CLUES_PER_PROFILE } from '../lib/constants';
 
 // Zod Schemas
 export const playerSchema = z.object({
@@ -20,7 +21,7 @@ export const profileSchema = z.object({
   id: z.string(),
   category: z.string().min(1),
   name: z.string().min(1),
-  clues: z.array(z.string().min(1)).min(1).max(20),
+  clues: z.array(z.string().min(1)).min(1).max(DEFAULT_CLUES_PER_PROFILE),
   metadata: profileMetadataSchema,
 });
 

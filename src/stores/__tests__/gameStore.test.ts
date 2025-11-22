@@ -1,5 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import type { Profile } from '../../types/models';
 import { useGameStore } from '../gameStore';
 
@@ -17,7 +18,7 @@ const createMockProfile = (id: string, category: string, name: string): Profile 
   id,
   category,
   name,
-  clues: Array.from({ length: 20 }, (_, i) => `${name} clue ${i + 1}`),
+  clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `${name} clue ${i + 1}`),
   metadata: { difficulty: 'medium' },
 });
 
@@ -36,7 +37,7 @@ describe('gameStore', () => {
       players: [],
       currentTurn: null,
       remainingProfiles: [],
-      totalCluesPerProfile: 20,
+      totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
       status: 'pending',
       category: undefined,
       profiles: [],
@@ -57,7 +58,7 @@ describe('gameStore', () => {
       expect(state.players).toEqual([]);
       expect(state.currentTurn).toBeNull();
       expect(state.remainingProfiles).toEqual([]);
-      expect(state.totalCluesPerProfile).toBe(20);
+      expect(state.totalCluesPerProfile).toBe(DEFAULT_CLUES_PER_PROFILE);
       expect(state.status).toBe('pending');
       expect(state.category).toBeUndefined();
       expect(state.profiles).toEqual([]);
@@ -233,7 +234,7 @@ describe('gameStore', () => {
     });
 
     it('should throw error when exceeding max clues', () => {
-      // Read all 20 clues
+      // Read all {DEFAULT_CLUES_PER_PROFILE{"}"} clues
       for (let i = 0; i < 20; i++) {
         useGameStore.getState().nextClue();
       }
@@ -253,13 +254,13 @@ describe('gameStore', () => {
       );
     });
 
-    it('should allow reading exactly 20 clues', () => {
+    it('should allow reading exactly {DEFAULT_CLUES_PER_PROFILE{"}"} clues', () => {
       for (let i = 0; i < 20; i++) {
         useGameStore.getState().nextClue();
       }
 
       const state = useGameStore.getState();
-      expect(state.currentTurn?.cluesRead).toBe(20);
+      expect(state.currentTurn?.cluesRead).toBe(DEFAULT_CLUES_PER_PROFILE);
     });
   });
 
@@ -270,7 +271,7 @@ describe('gameStore', () => {
       useGameStore.getState().startGame(['Movies']);
     });
 
-    it('should award correct points based on clues read (formula: 20 - (cluesRead - 1))', () => {
+    it('should award correct points based on clues read (formula: {DEFAULT_CLUES_PER_PROFILE{"}"} - (cluesRead - 1))', () => {
       // Read 1 clue
       useGameStore.getState().nextClue();
 
@@ -303,8 +304,8 @@ describe('gameStore', () => {
       expect(player?.score).toBe(11);
     });
 
-    it('should award 1 point when all 20 clues have been read', () => {
-      // Read all 20 clues
+    it('should award 1 point when all {DEFAULT_CLUES_PER_PROFILE{"}"} clues have been read', () => {
+      // Read all {DEFAULT_CLUES_PER_PROFILE{"}"} clues
       for (let i = 0; i < 20; i++) {
         useGameStore.getState().nextClue();
       }
@@ -755,7 +756,7 @@ describe('gameStore', () => {
           revealed: false,
         },
         remainingProfiles: [],
-        totalCluesPerProfile: 20,
+        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
         status: 'active' as const,
         category: 'Sports',
         profiles: defaultMockProfiles,
@@ -797,7 +798,7 @@ describe('gameStore', () => {
           revealed: false,
         },
         remainingProfiles: [],
-        totalCluesPerProfile: 20,
+        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
         status: 'active' as const,
         category: 'Movies',
         profiles: defaultMockProfiles,
@@ -887,7 +888,7 @@ describe('gameStore', () => {
         players: [{ id: '1', name: 'Test', score: 0 }],
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: 20,
+        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
         status: 'pending' as const,
         category: undefined,
         profiles: [],
@@ -980,7 +981,7 @@ describe('gameStore', () => {
         players: [],
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: 20,
+        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
         status: 'pending',
         category: undefined,
         profiles: [],
@@ -999,8 +1000,18 @@ describe('gameStore', () => {
 
       // Create profiles with single category
       const singleCategoryProfiles = [
-        { id: '1', name: 'Profile 1', category: 'Movies', clues: Array(20).fill('clue') },
-        { id: '2', name: 'Profile 2', category: 'Movies', clues: Array(20).fill('clue') },
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'Movies',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '2',
+          name: 'Profile 2',
+          category: 'Movies',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
       ];
 
       useGameStore.getState().loadProfiles(singleCategoryProfiles);
@@ -1017,10 +1028,30 @@ describe('gameStore', () => {
 
       // Create profiles with 4 different categories
       const multiCategoryProfiles = [
-        { id: '1', name: 'Profile 1', category: 'Movies', clues: Array(20).fill('clue') },
-        { id: '2', name: 'Profile 2', category: 'Sports', clues: Array(20).fill('clue') },
-        { id: '3', name: 'Profile 3', category: 'History', clues: Array(20).fill('clue') },
-        { id: '4', name: 'Profile 4', category: 'Science', clues: Array(20).fill('clue') },
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'Movies',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '2',
+          name: 'Profile 2',
+          category: 'Sports',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '3',
+          name: 'Profile 3',
+          category: 'History',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '4',
+          name: 'Profile 4',
+          category: 'Science',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
       ];
 
       useGameStore.getState().loadProfiles(multiCategoryProfiles);
@@ -1038,9 +1069,24 @@ describe('gameStore', () => {
       const { useGameStore } = await import('../gameStore');
 
       const multiCategoryProfiles = [
-        { id: '1', name: 'Profile 1', category: 'Movies', clues: Array(20).fill('clue') },
-        { id: '2', name: 'Profile 2', category: 'Sports', clues: Array(20).fill('clue') },
-        { id: '3', name: 'Profile 3', category: 'History', clues: Array(20).fill('clue') },
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'Movies',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '2',
+          name: 'Profile 2',
+          category: 'Sports',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '3',
+          name: 'Profile 3',
+          category: 'History',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
       ];
 
       useGameStore.getState().loadProfiles(multiCategoryProfiles);
@@ -1056,9 +1102,24 @@ describe('gameStore', () => {
       const { useGameStore } = await import('../gameStore');
 
       const multiCategoryProfiles = [
-        { id: '1', name: 'Profile 1', category: 'Movies', clues: Array(20).fill('clue') },
-        { id: '2', name: 'Profile 2', category: 'Sports', clues: Array(20).fill('clue') },
-        { id: '3', name: 'Profile 3', category: 'History', clues: Array(20).fill('clue') },
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'Movies',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '2',
+          name: 'Profile 2',
+          category: 'Sports',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '3',
+          name: 'Profile 3',
+          category: 'History',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
       ];
 
       useGameStore.getState().loadProfiles(multiCategoryProfiles);
@@ -1096,7 +1157,12 @@ describe('gameStore', () => {
       const { useGameStore } = await import('../gameStore');
 
       const singleProfile = [
-        { id: '1', name: 'Profile 1', category: 'Movies', clues: Array(20).fill('clue') },
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'Movies',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
       ];
 
       useGameStore.getState().loadProfiles(singleProfile);
@@ -1112,8 +1178,18 @@ describe('gameStore', () => {
       const { useGameStore } = await import('../gameStore');
 
       const singleCategoryProfiles = [
-        { id: '1', name: 'Profile 1', category: 'Sports', clues: Array(20).fill('clue') },
-        { id: '2', name: 'Profile 2', category: 'Sports', clues: Array(20).fill('clue') },
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'Sports',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '2',
+          name: 'Profile 2',
+          category: 'Sports',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
       ];
 
       useGameStore.getState().loadProfiles(singleCategoryProfiles);
@@ -1130,7 +1206,12 @@ describe('gameStore', () => {
       const { useGameStore } = await import('../gameStore');
 
       const profiles = [
-        { id: '1', name: 'Profile 1', category: 'Movies', clues: Array(20).fill('clue') },
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'Movies',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
       ];
 
       useGameStore.getState().loadProfiles(profiles);
@@ -1146,9 +1227,24 @@ describe('gameStore', () => {
       const { useGameStore } = await import('../gameStore');
 
       const multiCategoryProfiles = [
-        { id: '1', name: 'Profile 1', category: 'A', clues: Array(20).fill('clue') },
-        { id: '2', name: 'Profile 2', category: 'B', clues: Array(20).fill('clue') },
-        { id: '3', name: 'Profile 3', category: 'C', clues: Array(20).fill('clue') },
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'A',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '2',
+          name: 'Profile 2',
+          category: 'B',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
+        {
+          id: '3',
+          name: 'Profile 3',
+          category: 'C',
+          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+        },
       ];
 
       useGameStore.getState().loadProfiles(multiCategoryProfiles);
@@ -1179,7 +1275,7 @@ describe('gameStore', () => {
         players: [],
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: 20,
+        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
         status: 'pending',
         category: undefined,
         profiles: [],
