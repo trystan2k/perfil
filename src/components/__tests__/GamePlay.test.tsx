@@ -1327,4 +1327,198 @@ describe('GamePlay Component', () => {
       expect(fab).toHaveClass('z-40');
     });
   });
+
+  describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
+    it('should maintain 56x56px size for reveal answer FAB', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+
+      // FAB should have w-14 h-14 (56x56px)
+      expect(fab).toHaveClass('w-14', 'h-14');
+    });
+
+    it('should have proper touch target sizing for player award buttons', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const players = store.players;
+      players.forEach((player) => {
+        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+
+        // Player buttons should have adequate touch target sizing
+        expect(button).toHaveClass('w-full', 'h-auto', 'py-4');
+      });
+    });
+
+    it('should maintain flexbox alignment for player award button touch targets', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const players = store.players;
+      players.forEach((player) => {
+        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+
+        // Proper alignment classes for touch targets
+        expect(button).toHaveClass('flex', 'justify-between', 'items-center');
+      });
+    });
+
+    it('should have proper spacing and shadows for player award buttons', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      const players = store.players;
+      players.forEach((player) => {
+        const button = screen.getByRole('button', { name: new RegExp(player.name) });
+
+        // Visual feedback with shadows and border
+        expect(button).toHaveClass('shadow-md', 'border-2');
+      });
+    });
+
+    it('should have Show Next Clue button with adequate touch target size', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+
+      render(<GamePlay />);
+
+      const button = screen.getByRole('button', { name: 'Show Next Clue' });
+
+      // Large button for touch accessibility (size="lg" applies h-14)
+      expect(button).toHaveClass('h-14');
+    });
+
+    it('should have Finish Game button with adequate touch target size', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+
+      render(<GamePlay />);
+
+      const button = screen.getByRole('button', { name: /finish game/i });
+
+      // Large button for touch accessibility (size="lg" applies h-14)
+      expect(button).toHaveClass('h-14');
+    });
+
+    it('should have No Winner button with adequate touch target size', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies']);
+
+      // Advance to max clues
+      for (let i = 0; i < 20; i++) {
+        store.nextClue();
+      }
+
+      render(<GamePlay />);
+
+      const button = screen.getByRole('button', { name: /no winner/i });
+
+      // Large button for touch accessibility (size="lg" applies h-14)
+      expect(button).toHaveClass('h-14');
+    });
+
+    it('should have FAB with proper accessibility attributes for touch targets', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+
+      // FAB should be a proper button element
+      expect(fab).toHaveClass('w-14', 'h-14');
+      expect(fab).toHaveAttribute('aria-label');
+      expect(fab).toHaveAttribute('type', 'button');
+    });
+
+    it('should provide adequate hover state feedback on FAB without size change', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+
+      // Original size
+      expect(fab).toHaveClass('w-14', 'h-14');
+
+      // Simulate hover
+      await user.hover(fab);
+
+      // Size should remain the same
+      expect(fab).toHaveClass('w-14', 'h-14');
+    });
+
+    it('should have rounded corners on FAB for touch accessibility', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+
+      // FAB should have rounded-full for circular shape
+      expect(fab).toHaveClass('rounded-full');
+    });
+
+    it('should maintain z-index for FAB above other elements', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+
+      // FAB should have proper z-index
+      expect(fab).toHaveClass('z-40');
+    });
+
+    it('should position FAB for easy access on bottom right', () => {
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 1);
+      render(<GamePlay />);
+
+      const fab = screen.getByTestId('answer-fab');
+
+      // FAB should be positioned fixed bottom-right
+      expect(fab).toHaveClass('fixed', 'bottom-6', 'right-6');
+    });
+
+    it('should have all interactive buttons with adequate spacing and sizing', async () => {
+      const user = userEvent.setup();
+      const store = useGameStore.getState();
+      store.startGame(['Movies', 'Sports'], 2);
+      store.nextClue();
+
+      render(<GamePlay />);
+
+      // Show Next Clue button
+      const nextClueButton = screen.getByRole('button', { name: 'Show Next Clue' });
+      expect(nextClueButton).toHaveClass('h-14');
+
+      // Player award buttons
+      const players = store.players;
+      const playerButton = screen.getByRole('button', { name: new RegExp(players[0].name) });
+      expect(playerButton).toHaveClass('h-auto', 'py-4');
+
+      // Award points interaction
+      await user.click(playerButton);
+
+      // After interaction, round summary should appear
+      expect(await screen.findByText('Round Complete!')).toBeInTheDocument();
+
+      // Continue button should be touch-friendly
+      const continueButton = screen.getByRole('button', { name: /next profile/i });
+      expect(continueButton).toBeInTheDocument();
+    });
+  });
 });

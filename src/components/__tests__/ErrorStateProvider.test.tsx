@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '../../stores/gameStore';
@@ -250,7 +250,9 @@ describe('ErrorStateProvider', () => {
       expect(screen.getByRole('dialog')).toBeInTheDocument();
 
       // Clear error
-      useGameStore.setState({ error: null });
+      act(() => {
+        useGameStore.setState({ error: null });
+      });
 
       rerender(
         <ErrorStateProvider>
@@ -275,8 +277,10 @@ describe('ErrorStateProvider', () => {
       expect(screen.getByText('First error')).toBeInTheDocument();
 
       // Update error
-      useGameStore.setState({
-        error: { message: 'Second error', informative: false },
+      act(() => {
+        useGameStore.setState({
+          error: { message: 'Second error', informative: false },
+        });
       });
 
       rerender(
@@ -319,7 +323,9 @@ describe('ErrorStateProvider', () => {
       expect(document.body.style.overflow).toBe('hidden');
 
       // Clear error
-      useGameStore.setState({ error: null });
+      act(() => {
+        useGameStore.setState({ error: null });
+      });
 
       rerender(
         <ErrorStateProvider>
@@ -361,8 +367,10 @@ describe('ErrorStateProvider', () => {
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
       // Set first error
-      useGameStore.setState({
-        error: { message: 'Error 1', informative: false },
+      act(() => {
+        useGameStore.setState({
+          error: { message: 'Error 1', informative: false },
+        });
       });
       rerender(
         <ErrorStateProvider>
@@ -372,7 +380,9 @@ describe('ErrorStateProvider', () => {
       expect(screen.getByText('Error 1')).toBeInTheDocument();
 
       // Clear error
-      useGameStore.setState({ error: null });
+      act(() => {
+        useGameStore.setState({ error: null });
+      });
       rerender(
         <ErrorStateProvider>
           <div>Content</div>
@@ -381,8 +391,10 @@ describe('ErrorStateProvider', () => {
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
       // Set second error
-      useGameStore.setState({
-        error: { message: 'Error 2', informative: true },
+      act(() => {
+        useGameStore.setState({
+          error: { message: 'Error 2', informative: true },
+        });
       });
       rerender(
         <ErrorStateProvider>

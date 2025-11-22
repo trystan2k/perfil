@@ -14,7 +14,7 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit && astro check",
-    "test": "vitest",
+    "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "complete-check": "pnpm run lint && pnpm run typecheck && pnpm run test:coverage && pnpm run build",
     "prepare": "husky"

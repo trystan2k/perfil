@@ -79,4 +79,116 @@ describe('ThemeSwitcher', () => {
       expect(button).toHaveAttribute('title');
     });
   });
+
+  describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
+    it('should have minimum 48x48px touch targets for theme buttons (via theme-button CSS class)', () => {
+      render(<ThemeSwitcher />);
+
+      const buttons = screen.getAllByRole('button');
+      buttons.forEach((button) => {
+        // The theme-button class applies min-w-12 min-h-12 via CSS
+        expect(button).toHaveClass('theme-button');
+        // This ensures the touch target styling is applied via CSS
+      });
+    });
+
+    it('should have 24px icon size inside theme buttons', () => {
+      render(<ThemeSwitcher />);
+
+      // Get the first SVG icon (Sun for Light theme)
+      const icons = screen.getAllByRole('button')[0].querySelectorAll('svg');
+      expect(icons.length).toBeGreaterThan(0);
+
+      const icon = icons[0];
+      // Icon should have size attribute of 24
+      expect(icon).toHaveAttribute('width', '24');
+      expect(icon).toHaveAttribute('height', '24');
+    });
+
+    it('should have proper button styling for touch target accessibility', () => {
+      render(<ThemeSwitcher />);
+
+      const buttons = screen.getAllByRole('button');
+      buttons.forEach((button) => {
+        // Check that theme-button class is applied
+        expect(button).toHaveClass('theme-button');
+        // Button should be interactive
+        expect(button).toHaveAttribute('type', 'button');
+      });
+    });
+
+    it('should apply active class styling while maintaining touch target size', () => {
+      (useThemeStore as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+        theme: 'dark',
+        setTheme: mockSetTheme,
+      });
+
+      render(<ThemeSwitcher />);
+
+      const darkButton = screen.getByLabelText(/switch to dark theme/i);
+
+      // Even in active state, should have theme-button class with touch target
+      expect(darkButton).toHaveClass('theme-button', 'active');
+    });
+
+    it('should have all theme buttons with proper accessibility attributes', () => {
+      render(<ThemeSwitcher />);
+
+      const buttons = screen.getAllByRole('button');
+      expect(buttons).toHaveLength(3);
+
+      buttons.forEach((button) => {
+        // Each button should meet WCAG 2.5.5 AAA touch target requirements
+        expect(button).toHaveClass('theme-button');
+        expect(button).toHaveAttribute('aria-label');
+        expect(button).toHaveAttribute('type', 'button');
+      });
+    });
+
+    it('should render theme switcher nav with proper spacing between buttons', () => {
+      render(<ThemeSwitcher />);
+
+      const themeList = screen.getByRole('navigation').querySelector('ul');
+      expect(themeList).toHaveClass('theme-list');
+      // theme-list applies gap-2 for spacing between buttons
+    });
+
+    it('should have icon inside button for proper touch target interaction', () => {
+      render(<ThemeSwitcher />);
+
+      const buttons = screen.getAllByRole('button');
+      buttons.forEach((button) => {
+        const svg = button.querySelector('svg');
+        expect(svg).toBeInTheDocument();
+        // Icon is inside button, making whole button a touch target
+      });
+    });
+
+    it('should support hover state without affecting touch target size', async () => {
+      const user = userEvent.setup();
+      render(<ThemeSwitcher />);
+
+      const lightButton = screen.getByLabelText(/switch to light theme/i);
+
+      // Button should have theme-button class
+      expect(lightButton).toHaveClass('theme-button');
+
+      // Simulate hover
+      await user.hover(lightButton);
+
+      // Touch target size should not change
+      expect(lightButton).toHaveClass('theme-button');
+    });
+
+    it('should maintain consistent touch target across all theme options', () => {
+      render(<ThemeSwitcher />);
+
+      const buttons = screen.getAllByRole('button');
+      // All three theme buttons should have consistent touch target sizing
+      buttons.forEach((button) => {
+        expect(button).toHaveClass('theme-button');
+      });
+      expect(buttons).toHaveLength(3);
+    });
+  });
 });

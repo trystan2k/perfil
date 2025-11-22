@@ -112,11 +112,11 @@ export function GameSetup() {
                     <span className="font-medium">{name}</span>
                     <Button
                       variant="ghost"
-                      size="sm"
+                      size="icon"
                       onClick={() => handleRemovePlayer(index)}
                       aria-label={t('gameSetup.removePlayerAriaLabel', { name })}
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-5 w-5" />
                     </Button>
                   </div>
                 ))}

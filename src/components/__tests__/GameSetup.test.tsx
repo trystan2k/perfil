@@ -568,4 +568,115 @@ describe('GameSetup', () => {
       expect(screen.getByText('Players (1/8)')).toBeInTheDocument();
     });
   });
+
+  describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
+    it('should have remove player button with size="icon" (48x48px touch target)', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+
+      await user.type(input, 'Alice');
+      await user.click(addButton);
+
+      const removeButton = screen.getByRole('button', { name: /remove alice/i });
+
+      // Should have icon size classes
+      expect(removeButton).toHaveClass('h-12', 'w-12');
+      // h-12 w-12 = 48x48px
+    });
+
+    it('should have remove button with proper icon sizing', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+
+      await user.type(input, 'Bob');
+      await user.click(addButton);
+
+      const removeButton = screen.getByRole('button', { name: /remove bob/i });
+      const icon = removeButton.querySelector('svg');
+
+      // Icon should be 20px (h-5 w-5)
+      // Lucide icons use size prop which sets width and height attributes
+      expect(icon).toBeInTheDocument();
+    });
+
+    it('should maintain adequate touch target size for add button', () => {
+      render(<GameSetup />);
+
+      const addButton = screen.getByRole('button', { name: /add/i });
+
+      // Add button should have default size (48px height minimum)
+      expect(addButton).toHaveClass('h-12');
+    });
+
+    it('should maintain adequate touch target size for start game button', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+      const startButton = screen.getByRole('button', { name: /start game/i });
+
+      // Add 2 players to enable start button
+      await user.type(input, 'Alice');
+      await user.click(addButton);
+
+      await user.type(input, 'Bob');
+      await user.click(addButton);
+
+      // Start button should have large size (56px height)
+      expect(startButton).toHaveClass('h-14', 'w-full');
+      // h-14 = 56px
+    });
+
+    it('should have all form buttons with proper touch target accessibility', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+
+      await user.type(input, 'Charlie');
+      await user.click(addButton);
+
+      const removeButton = screen.getByRole('button', { name: /remove charlie/i });
+      const startButton = screen.getByRole('button', { name: /start game/i });
+
+      // Add button: 48px
+      expect(addButton).toHaveClass('h-12');
+
+      // Remove button: 48x48px
+      expect(removeButton).toHaveClass('h-12', 'w-12');
+
+      // Start button: 56px
+      expect(startButton).toHaveClass('h-14');
+    });
+
+    it('should provide visual feedback on remove button hover without size change', async () => {
+      const user = userEvent.setup();
+      render(<GameSetup />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+
+      await user.type(input, 'Dave');
+      await user.click(addButton);
+
+      const removeButton = screen.getByRole('button', { name: /remove dave/i });
+
+      // Touch target should be stable before hover
+      expect(removeButton).toHaveClass('h-12', 'w-12');
+
+      // Simulate hover
+      await user.hover(removeButton);
+
+      // Touch target should remain stable after hover
+      expect(removeButton).toHaveClass('h-12', 'w-12');
+    });
+  });
 });

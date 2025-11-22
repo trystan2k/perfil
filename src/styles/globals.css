@@ -124,7 +124,7 @@
 }
 
 .locale-link {
-  @apply flex items-center gap-1.5 px-4 py-2 rounded-md no-underline;
+  @apply flex items-center gap-1.5 min-h-12 px-4 py-2 rounded-md no-underline;
   @apply text-foreground bg-background border border-border;
   @apply transition-all duration-200 text-sm font-medium;
   @apply cursor-pointer;
@@ -152,7 +152,7 @@
   }
 
   .locale-link {
-    @apply px-2;
+    @apply min-w-12 px-2;
   }
 }
 
