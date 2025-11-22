@@ -133,12 +133,13 @@ describe('gameStore', () => {
     });
 
     it('should create a game with a single player', () => {
-      useGameStore.getState().createGame(['Solo Player']);
+      useGameStore.getState().createGame(['Solo Player', 'Player 2']);
 
       const state = useGameStore.getState();
 
-      expect(state.players).toHaveLength(1);
+      expect(state.players).toHaveLength(2);
       expect(state.players[0].name).toBe('Solo Player');
+      expect(state.players[1].name).toBe('Player 2');
     });
   });
 
@@ -188,7 +189,7 @@ describe('gameStore', () => {
       expect(useGameStore.getState().category).toBe('Sports');
 
       // Start again with different category
-      useGameStore.getState().createGame(['Player1']);
+      useGameStore.getState().createGame(['Player1', 'Player2']);
       useGameStore.getState().loadProfiles(defaultMockProfiles);
       useGameStore.getState().startGame(['Music']);
       expect(useGameStore.getState().category).toBe('Music');
@@ -920,7 +921,7 @@ describe('gameStore', () => {
       const { forcePersist } = await import('../gameStore');
 
       // Create a game first
-      await useGameStore.getState().createGame(['Player 1']);
+      await useGameStore.getState().createGame(['Player 1', 'Player 2']);
 
       // Mock failure
       const error = new Error('IndexedDB error');
