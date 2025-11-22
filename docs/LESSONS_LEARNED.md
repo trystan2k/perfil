@@ -120,18 +120,49 @@
 
 - Mistake: Implementing SSR (Server-Side Rendering) for the scoreboard route based on a GitHub Copilot PR review comment, without first validating the suggestion against the project's documented architecture (which specifies Static Site Generation / SSG).
 - What happened:
-  1. Copilot suggested using `prerender: false` (SSR) for "consistency"
-  2. I added the Cloudflare adapter and enabled SSR without questioning the architectural change
-  3. This violated the project's core design: SSG with client-side data fetching from IndexedDB
+   1. Copilot suggested using `prerender: false` (SSR) for "consistency"
+   2. I added the Cloudflare adapter and enabled SSR without questioning the architectural change
+   3. This violated the project's core design: SSG with client-side data fetching from IndexedDB
 - Correct procedure: When ANY AI tool (Copilot, Claude, etc.) suggests architectural changes:
-  1. STOP and verify the suggestion against the project's documented architecture (PRD, README, etc.)
-  2. Question whether the change aligns with the project's design decisions
-  3. Consider if the AI might be making incorrect assumptions
-  4. Consult with the user BEFORE implementing architectural changes
-  5. Remember: AI-generated suggestions (including PR reviews) can be wrong
+   1. STOP and verify the suggestion against the project's documented architecture (PRD, README, etc.)
+   2. Question whether the change aligns with the project's design decisions
+   3. Consider if the AI might be making incorrect assumptions
+   4. Consult with the user BEFORE implementing architectural changes
+   5. Remember: AI-generated suggestions (including PR reviews) can be wrong
 - This ensures:
-  1. Project architecture remains consistent with design decisions
-  2. No silent architectural drift from AI suggestions
-  3. All architectural changes are conscious, validated decisions
-  4. Documentation remains the source of truth, not AI assumptions
+   1. Project architecture remains consistent with design decisions
+   2. No silent architectural drift from AI suggestions
+   3. All architectural changes are conscious, validated decisions
+   4. Documentation remains the source of truth, not AI assumptions
+
+2025-11-22 — MUST UPDATE TASK AND CREATE DEVELOPMENT LOG BEFORE COMMITTING
+
+- Mistake: I committed and pushed changes for task #85 BEFORE updating the task status to "done" and creating the development log. I followed this wrong sequence:
+   1. Commit to feature branch
+   2. Push to remote
+   3. Create PR
+   4. THEN mark task as done and create development log (and I delegated development log to WRONG specialist)
+- Additional mistake: I delegated the development log creation to @task-master-specialist instead of @basic-memory-specialist
+- Correct procedure: According to DEV_WORKFLOW.md steps 8-13, the proper sequence is:
+   1. Step 8: Update the task with implementation details and mark as "done" in Task Master (delegate to @task-master-specialist ONLY)
+   2. Step 9: Create development log in docs/memories/development-logs (delegate to @basic-memory-specialist ONLY - NOT task-master)
+   3. Step 10: (Optional) Request code review (coderabbit CLI)
+   4. Step 11: Commit with all changes (including task updates and development log)
+   5. Step 12: Push to remote
+   6. Step 13: Create PR
+- Specialist roles clarification:
+   - **@task-master-specialist**: ONLY updates task status and details in Task Master. Does NOT create development logs.
+   - **@basic-memory-specialist**: ONLY creates development logs in docs/memories/development-logs. Does NOT update Task Master.
+- Why this matters:
+   1. Development log must be committed to the feature branch for complete traceability
+   2. Task Master updates must be committed to show task completion history
+   3. The PR should contain the complete history including task status changes and documentation
+   4. Proper specialist delegation ensures each tool is used for its intended purpose
+- This ensures:
+   1. All task tracking is properly documented in git history
+   2. Development logs are part of the feature branch, not orphaned
+   3. PR contains complete implementation record
+   4. Proper traceability and audit trail for all changes
+   5. Correct specialist delegation for optimal workflow
+
 
