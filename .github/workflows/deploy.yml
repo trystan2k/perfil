@@ -24,9 +24,16 @@ jobs:
       - name: Check if relevant files changed
         id: check
         run: |
-          # Get the list of changed files
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.workflow_run.head_commit.tree_id }}^...${{ github.event.workflow_run.head_commit.tree_id }})
-
+          # Get the commit SHA and base ref from the workflow run
+          COMMIT_SHA="${{ github.event.workflow_run.head_commit.id }}"
+          BASE_REF="${{ github.event.workflow_run.head_branch }}"
+          
+          # Get the merge base (common ancestor) between the branch and main
+          MERGE_BASE=$(git merge-base origin/main "$COMMIT_SHA")
+          
+          # Get all changed files since the merge base (handles multiple commits and merges)
+          CHANGED_FILES=$(git diff --name-only "$MERGE_BASE" "$COMMIT_SHA")
+          
           # Files/dirs to ignore
           IGNORE_PATTERNS=(
             "docs/"
@@ -47,21 +54,32 @@ jobs:
             "vitest.setup.ts"
           )
 
-          # Check if any relevant file changed
-          SHOULD_DEPLOY=true
-          while IFS= read -r file; do
-            IGNORED=false
-            for pattern in "${IGNORE_PATTERNS[@]}"; do
-              if [[ "$file" == "$pattern"* ]]; then
-                IGNORED=true
+          # Check if any relevant file changed (default to true if no files listed)
+          SHOULD_DEPLOY=false
+          
+          if [ -z "$CHANGED_FILES" ]; then
+            # No files changed (shouldn't happen, but be safe)
+            SHOULD_DEPLOY=false
+          else
+            while IFS= read -r file; do
+              # Skip empty lines
+              [ -z "$file" ] && continue
+              
+              IGNORED=false
+              for pattern in "${IGNORE_PATTERNS[@]}"; do
+                if [[ "$file" == "$pattern"* ]]; then
+                  IGNORED=true
+                  break
+                fi
+              done
+              
+              # If we find any non-ignored file, we should deploy
+              if [ "$IGNORED" = false ]; then
+                SHOULD_DEPLOY=true
                 break
               fi
-            done
-            if [ "$IGNORED" = false ]; then
-              SHOULD_DEPLOY=true
-              break
-            fi
-          done <<< "$CHANGED_FILES"
+            done <<< "$CHANGED_FILES"
+          fi
 
           echo "should-deploy=$SHOULD_DEPLOY" >> $GITHUB_OUTPUT
 
