@@ -3255,17 +3255,6 @@
             "testStrategy": "New/updated tests include changes under:\n- src/stores/__tests__/gameStore.16players.test.ts (new tests for store validation)\n- src/components/__tests__/GameSetup.test.tsx (updated: 36 tests adjusted)\n- src/components/__tests__/Scoreboard.16players.test.ts (new rendering checks)"
           }
         ]
-      },
-      {
-        "id": 86,
-        "title": "Dev log: Task 85 - Extend game support to up to 16 players",
-        "description": "Dev log for Task 85 completion",
-        "details": "Development log entry for Task 85 completion. Includes summary, implementation approach, files changed, tests, and PR link.",
-        "testStrategy": "",
-        "status": "pending",
-        "dependencies": [],
-        "priority": "medium",
-        "subtasks": []
       }
     ],
     "metadata": {
