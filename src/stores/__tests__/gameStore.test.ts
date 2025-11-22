@@ -443,6 +443,112 @@ describe('gameStore', () => {
     });
   });
 
+  describe('removePoints', () => {
+    beforeEach(() => {
+      // Set up a default game with players
+      useGameStore.getState().createGame(['Alice', 'Bob']);
+      // Set explicit scores for testing
+      const players = useGameStore.getState().players.map((p, i) => ({
+        ...p,
+        score: i === 0 ? 10 : 5,
+      }));
+      useGameStore.setState({ players });
+    });
+
+    it('removePoints removes correct amount from player score and persists', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+
+      // Ensure save is a mock
+      vi.mocked(saveGameSession).mockResolvedValue(undefined);
+
+      const playerId = useGameStore.getState().players[0].id;
+
+      // Call removePoints and await persistence
+      await useGameStore.getState().removePoints(playerId, 3);
+
+      const state = useGameStore.getState();
+      const player = state.players.find((p) => p.id === playerId);
+
+      expect(player).toBeDefined();
+      expect(player?.score).toBe(7);
+
+      // Persistence should have been called with updated players
+      expect(saveGameSession).toHaveBeenCalled();
+      const calls = vi.mocked(saveGameSession).mock.calls;
+      expect(calls.length).toBeGreaterThan(0);
+      const lastCallArg = calls[calls.length - 1][0];
+      expect(lastCallArg).toBeDefined();
+      const found = lastCallArg.players.find((p) => p.id === playerId);
+      expect(found).toBeDefined();
+      expect(found?.score).toBe(7);
+    });
+
+    it('removePoints rejects non-integer amounts', () => {
+      const playerId = useGameStore.getState().players[0].id;
+      expect(() => useGameStore.getState().removePoints(playerId, 2.5)).toThrow(
+        'Amount must be a non-negative integer'
+      );
+    });
+
+    it('removePoints rejects negative amounts', () => {
+      const playerId = useGameStore.getState().players[0].id;
+      expect(() => useGameStore.getState().removePoints(playerId, -1)).toThrow(
+        'Amount must be a non-negative integer'
+      );
+    });
+
+    it('removePoints is a no-op for zero amount (does not change score nor persist)', async () => {
+      const { saveGameSession } = await import('../../lib/gameSessionDB');
+      vi.mocked(saveGameSession).mockClear();
+
+      const playerId = useGameStore.getState().players[0].id;
+      const before = useGameStore.getState().players.find((p) => p.id === playerId)?.score;
+
+      // Calling with 0 is implemented as a no-op and should not throw
+      const result = useGameStore.getState().removePoints(playerId, 0);
+      // Should return a Promise
+      expect(result).toBeInstanceOf(Promise);
+      await result;
+
+      const after = useGameStore.getState().players.find((p) => p.id === playerId)?.score;
+      expect(after).toBe(before);
+      // Should not trigger persistence for zero-amount no-op
+      expect(saveGameSession).not.toHaveBeenCalled();
+    });
+
+    it('removePoints rejects if player has insufficient points with helpful error message', () => {
+      const playerId = useGameStore.getState().players[1].id; // Bob has 5
+      expect(() => useGameStore.getState().removePoints(playerId, 10)).toThrow(
+        /Cannot remove 10 points from .*Current score: 5/ // contains player name and available points
+      );
+    });
+
+    it('removePoints rejects if player ID not found', () => {
+      expect(() => useGameStore.getState().removePoints('non-existent', 1)).toThrow(
+        'Player not found'
+      );
+    });
+
+    it('removePoints returns a Promise', () => {
+      const playerId = useGameStore.getState().players[0].id;
+      const result = useGameStore.getState().removePoints(playerId, 1);
+      expect(result).toBeInstanceOf(Promise);
+    });
+
+    it('error messages contain helpful information', () => {
+      const playerId = useGameStore.getState().players[1].id; // Bob
+      try {
+        // Trigger error
+        useGameStore.getState().removePoints(playerId, 999);
+      } catch (err) {
+        expect(err).toBeInstanceOf(Error);
+        const msg = (err as Error).message;
+        expect(msg).toContain('Cannot remove');
+        expect(msg).toContain('Current score');
+      }
+    });
+  });
+
   describe('skipProfile', () => {
     beforeEach(() => {
       useGameStore.getState().createGame(['Alice', 'Bob']);

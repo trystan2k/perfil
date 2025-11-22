@@ -10,7 +10,8 @@
     "back": "Volver",
     "continue": "Continuar",
     "goHome": "Ir al Inicio",
-    "goToRecoveryPage": "Ir a la Página de Recuperación"
+    "goToRecoveryPage": "Ir a la Página de Recuperación",
+    "cancel": "Cancelar"
   },
   "errorHandler": {
     "title": "Error",
@@ -72,10 +73,28 @@
     "skipProfileConfirmMessage": "¿Estás seguro de que quieres saltar este perfil? No se otorgarán puntos.",
     "playersAwardPoints": "Asignar Puntos",
     "points": "{{points}} pts",
-    "showClueToAwardPoints": "Muestra al menos una pista para asignar puntos",
-    "noWinnerButton": "Sin Ganador",
-    "finishGameButton": "Finalizar Juego",
-    "unknownPlayer": "Jugador Desconocido",
+     "showClueToAwardPoints": "Muestra al menos una pista para asignar puntos",
+     "noWinnerButton": "Sin Ganador",
+     "finishGameButton": "Finalizar Juego",
+      "removePoints": {
+        "buttonAriaLabel": "Eliminar puntos de {{playerName}}",
+        "buttonTitle": "Eliminar puntos de este jugador",
+        "title": "Eliminar Puntos",
+        "description": "Eliminar puntos de {{playerName}}",
+        "amountLabel": "Puntos a Eliminar",
+        "amountPlaceholder": "Ingresa cantidad (1-{{maxPoints}})",
+        "currentScore": "Puntuación actual: {{currentScore}} pts",
+        "confirmButton": "Eliminar Puntos",
+        "errors": {
+          "emptyAmount": "Por favor, ingresa una cantidad",
+          "invalidAmount": "La cantidad debe ser un entero no negativo.",
+          "zeroAmount": "La cantidad debe ser mayor que cero.",
+          "playerNotFound": "Jugador no encontrado",
+          "insufficientPoints": "{{playerName}} solo tiene {{maxAmount}} puntos. No puedes eliminar más de su puntuación actual.",
+          "failedToRemove": "Error al eliminar puntos. Por favor, inténtalo de nuevo."
+        }
+      },
+     "unknownPlayer": "Jugador Desconocido",
     "category": "Categoría: {{category}}",
     "profileProgression": "Perfil {{current}} de {{total}}",
     "profileProgress": {
@@ -130,25 +149,25 @@
     "selectAll": "Seleccionar Todo",
     "deselectAll": "Deseleccionar Todo"
   },
-  "scoreboard": {
-    "title": "Tabla de Posiciones",
-    "loading": "Cargando tabla de posiciones...",
-    "category": "Categoría: {{category}}",
-    "table": {
-      "rank": "Posición",
-      "player": "Jugador",
-      "score": "Puntuación"
+   "scoreboard": {
+     "title": "Tabla de Posiciones",
+     "loading": "Cargando tabla de posiciones...",
+     "category": "Categoría: {{category}}",
+     "table": {
+       "rank": "Posición",
+       "player": "Jugador",
+       "score": "Puntuación"
+     },
+     "noPlayers": {
+       "title": "Sin Jugadores",
+       "description": "No se encontraron jugadores en esta sesión de juego."
+     },
+      "actions": {
+        "newGame": "Nuevo Juego",
+        "samePlayers": "Mismos Jugadores",
+        "restartGame": "Reiniciar Juego"
+      }
     },
-    "noPlayers": {
-      "title": "Sin Jugadores",
-      "description": "No se encontraron jugadores en esta sesión de juego."
-    },
-    "actions": {
-      "newGame": "Nuevo Juego",
-      "samePlayers": "Mismos Jugadores",
-      "restartGame": "Reiniciar Juego"
-    }
-  },
   "noGamePage": {
     "title": "No Hay Juego en Curso",
     "description": "Por favor, inicia un nuevo juego para comenzar a jugar.",

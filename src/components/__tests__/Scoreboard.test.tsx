@@ -610,9 +610,10 @@ describe('Scoreboard', () => {
 
       await waitFor(() => expect(screen.getByText('Scoreboard')).toBeInTheDocument());
 
-      // Verify 16 players are rendered by counting data rows
-      const rows = screen.getAllByRole('row').slice(1); // remove header
-      expect(rows).toHaveLength(16);
+      // Verify 16 players are rendered by counting data rows. Note: Table uses div wrapper; select tbody rows specifically
+      const table = screen.getByRole('table');
+      const dataRows = Array.from(table.querySelectorAll('tbody > tr'));
+      expect(dataRows).toHaveLength(16);
 
       // Check a few players
       expect(screen.getByText('Player 1')).toBeInTheDocument();

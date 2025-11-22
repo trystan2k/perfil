@@ -37,6 +37,7 @@ interface GameState extends GameSession {
   nextClue: () => void;
   addClueToHistory: (clue: string) => void;
   awardPoints: (playerId: string) => Promise<void>;
+  removePoints: (playerId: string, amount: number) => Promise<void>;
   skipProfile: () => Promise<void>;
   endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
@@ -52,6 +53,7 @@ const initialState: Omit<
   | 'nextClue'
   | 'addClueToHistory'
   | 'awardPoints'
+  | 'removePoints'
   | 'skipProfile'
   | 'endGame'
   | 'loadFromStorage'
@@ -502,6 +504,57 @@ export const useGameStore = create<GameState>((set, get) => ({
       const newState = {
         players: updatedPlayers,
         ...profileAdvancement,
+      };
+
+      persistPromise = persistState({ ...state, ...newState });
+      return newState;
+    });
+
+    return persistPromise || Promise.resolve();
+  },
+  removePoints: (playerId: string, amount: number) => {
+    let persistPromise: Promise<void> | undefined;
+
+    set((state) => {
+      // Validate input
+      if (!playerId) {
+        throw new Error('Player ID is required');
+      }
+
+      if (!Number.isInteger(amount) || amount < 0) {
+        throw new Error('Amount must be a non-negative integer');
+      }
+
+      if (amount === 0) {
+        // No-op: return early without updating state
+        return state;
+      }
+
+      // Find the player to remove points from
+      const playerIndex = state.players.findIndex((p) => p.id === playerId);
+
+      if (playerIndex === -1) {
+        throw new Error('Player not found');
+      }
+
+      const player = state.players[playerIndex];
+
+      // Validate that player has enough points (floor at zero)
+      if (player.score < amount) {
+        throw new Error(
+          `Cannot remove ${amount} points from ${player.name}. ` + `Current score: ${player.score}`
+        );
+      }
+
+      // Update player score by removing points
+      const updatedPlayers = [...state.players];
+      updatedPlayers[playerIndex] = {
+        ...updatedPlayers[playerIndex],
+        score: player.score - amount,
+      };
+
+      const newState = {
+        players: updatedPlayers,
       };
 
       persistPromise = persistState({ ...state, ...newState });
