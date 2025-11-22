@@ -27,13 +27,16 @@ jobs:
           # Get the commit SHA and base ref from the workflow run
           COMMIT_SHA="${{ github.event.workflow_run.head_commit.id }}"
           BASE_REF="${{ github.event.workflow_run.head_branch }}"
-          
+
           # Get the merge base (common ancestor) between the branch and main
           MERGE_BASE=$(git merge-base origin/main "$COMMIT_SHA")
-          
+
           # Get all changed files since the merge base (handles multiple commits and merges)
           CHANGED_FILES=$(git diff --name-only "$MERGE_BASE" "$COMMIT_SHA")
-          
+
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
           # Files/dirs to ignore
           IGNORE_PATTERNS=(
             "docs/"
@@ -56,7 +59,7 @@ jobs:
 
           # Check if any relevant file changed (default to true if no files listed)
           SHOULD_DEPLOY=false
-          
+
           if [ -z "$CHANGED_FILES" ]; then
             # No files changed (shouldn't happen, but be safe)
             SHOULD_DEPLOY=false
@@ -64,7 +67,7 @@ jobs:
             while IFS= read -r file; do
               # Skip empty lines
               [ -z "$file" ] && continue
-              
+
               IGNORED=false
               for pattern in "${IGNORE_PATTERNS[@]}"; do
                 if [[ "$file" == "$pattern"* ]]; then
@@ -72,7 +75,7 @@ jobs:
                   break
                 fi
               done
-              
+
               # If we find any non-ignored file, we should deploy
               if [ "$IGNORED" = false ]; then
                 SHOULD_DEPLOY=true
