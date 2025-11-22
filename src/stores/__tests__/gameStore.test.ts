@@ -235,7 +235,7 @@ describe('gameStore', () => {
 
     it('should throw error when exceeding max clues', () => {
       // Read all {DEFAULT_CLUES_PER_PROFILE{"}"} clues
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         useGameStore.getState().nextClue();
       }
 
@@ -255,7 +255,7 @@ describe('gameStore', () => {
     });
 
     it('should allow reading exactly {DEFAULT_CLUES_PER_PROFILE{"}"} clues', () => {
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         useGameStore.getState().nextClue();
       }
 
@@ -306,7 +306,7 @@ describe('gameStore', () => {
 
     it('should award 1 point when all {DEFAULT_CLUES_PER_PROFILE{"}"} clues have been read', () => {
       // Read all {DEFAULT_CLUES_PER_PROFILE{"}"} clues
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         useGameStore.getState().nextClue();
       }
 

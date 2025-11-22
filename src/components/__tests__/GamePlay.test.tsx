@@ -1,6 +1,7 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
 import * as gameSessionDB from '../../lib/gameSessionDB';
@@ -21,7 +22,7 @@ function createMockProfile(id: string, category: string, name = `Profile ${id}`)
     id,
     name,
     category,
-    clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1} text...`),
+    clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`),
   };
 }
 
@@ -123,7 +124,7 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay />);
 
-      expect(screen.getByText('Clue 1 of 20')).toBeInTheDocument();
+      expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places now)
       expect(screen.queryByText('Clue 1 text...')).toBeInTheDocument();
     });
@@ -136,7 +137,7 @@ describe('GamePlay Component', () => {
 
       const { rerender } = render(<GamePlay />);
 
-      expect(screen.getByText('Clue 1 of 20')).toBeInTheDocument();
+      expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places now)
       expect(screen.queryByText('Clue 1 text...')).toBeInTheDocument();
 
@@ -147,7 +148,7 @@ describe('GamePlay Component', () => {
 
       rerender(<GamePlay />);
 
-      expect(screen.getByText('Clue 2 of 20')).toBeInTheDocument();
+      expect(screen.getByText(`Clue 2 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places now)
       expect(screen.queryByText('Clue 2 text...')).toBeInTheDocument();
     });
@@ -164,7 +165,7 @@ describe('GamePlay Component', () => {
 
       render(<GamePlay />);
 
-      expect(screen.getByText('Clue 5 of 20')).toBeInTheDocument();
+      expect(screen.getByText(`Clue 5 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Use getAllByText and check the first one in the main clue display area
       const clueElements = screen.getAllByText('Clue 5 text...');
       expect(clueElements.length).toBeGreaterThanOrEqual(1);
@@ -221,15 +222,15 @@ describe('GamePlay Component', () => {
 
       // Should be at clue 3
       expect(useGameStore.getState().currentTurn?.cluesRead).toBe(3);
-      expect(screen.getByText('Clue 3 of 20')).toBeInTheDocument();
+      expect(screen.getByText(`Clue 3 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
     });
 
     it('should display "No Winner" button when max clues reached', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      // Advance to max clues (20)
-      for (let i = 0; i < 20; i++) {
+      // Advance to max clues ({DEFAULT_CLUES_PER_PROFILE{"}"})
+      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         store.nextClue();
       }
 
@@ -248,8 +249,8 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      // Advance to max clues (20)
-      for (let i = 0; i < 20; i++) {
+      // Advance to max clues ({DEFAULT_CLUES_PER_PROFILE{"}"})
+      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         store.nextClue();
       }
 
@@ -329,7 +330,7 @@ describe('GamePlay Component', () => {
         players: [],
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: 20,
+        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
         status: 'pending',
         category: undefined,
       });
@@ -450,7 +451,7 @@ describe('GamePlay Component', () => {
                   currentRound: 1,
                   roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
                   remainingProfiles: [],
-                  totalCluesPerProfile: 20,
+                  totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
                   status: 'active' as const,
                   category: 'Movies',
                   revealedClueHistory: [],
@@ -572,7 +573,7 @@ describe('GamePlay Component', () => {
         currentRound: 1,
         roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
         remainingProfiles: [],
-        totalCluesPerProfile: 20,
+        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
         status: 'active' as const,
         category: 'Sports',
         revealedClueHistory: [],
@@ -1093,7 +1094,7 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       // Verify clue is shown
-      expect(screen.getByText('Clue 1 of 20')).toBeInTheDocument();
+      expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
 
       // 4. MC taps Player A, verify score update
       let playerButton = screen.getByRole('button', { name: new RegExp(players[0].name) });
@@ -1417,7 +1418,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
 
       // Advance to max clues
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         store.nextClue();
       }
 
