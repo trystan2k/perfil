@@ -8,7 +8,7 @@
 }
 
 .theme-button {
-  @apply flex items-center justify-center p-2 rounded-md no-underline;
+  @apply flex items-center justify-center min-w-12 min-h-12 p-2 rounded-md no-underline;
   @apply text-foreground bg-background border border-border;
   @apply transition-all duration-200;
   @apply cursor-pointer;

@@ -31,7 +31,7 @@ export function ThemeSwitcher() {
                 aria-label={`Switch to ${theme.name} theme`}
                 title={`${theme.name} theme`}
               >
-                <Icon size={20} aria-hidden="true" />
+                <Icon size={24} aria-hidden="true" />
                 <span className="sr-only">{theme.name}</span>
               </button>
             </li>
