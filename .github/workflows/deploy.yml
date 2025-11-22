@@ -24,16 +24,20 @@ jobs:
       - name: Check if relevant files changed
         id: check
         run: |
-          # Get the commit SHA and base ref from the workflow run
+          # Get the commit SHA from the workflow run
           COMMIT_SHA="${{ github.event.workflow_run.head_commit.id }}"
-          BASE_REF="${{ github.event.workflow_run.head_branch }}"
-
-          # Get the merge base (common ancestor) between the branch and main
-          MERGE_BASE=$(git merge-base origin/main "$COMMIT_SHA")
-
-          # Get all changed files since the merge base (handles multiple commits and merges)
-          CHANGED_FILES=$(git diff --name-only "$MERGE_BASE" "$COMMIT_SHA")
-
+          
+          # Try to get the parent commit
+          PARENT_COMMIT=$(git rev-parse "$COMMIT_SHA^" 2>/dev/null || echo "")
+          
+          # If we have a parent, use it; otherwise, get all files in the commit
+          if [ -n "$PARENT_COMMIT" ]; then
+            CHANGED_FILES=$(git diff --name-only "$PARENT_COMMIT" "$COMMIT_SHA")
+          else
+            # First commit - get all files
+            CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r "$COMMIT_SHA")
+          fi
+          
           echo "Changed files:"
           echo "$CHANGED_FILES"
 
