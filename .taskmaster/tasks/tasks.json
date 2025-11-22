@@ -3191,13 +3191,81 @@
       {
         "id": 84,
         "title": "Implement point removal functionality for MC",
-        "description": "Allow the Master of Ceremonies (MC) to remove points from a specific player if points were awarded to the wrong player by mistake. This provides a correction mechanism for accidental point awards.",
-        "details": "Add functionality to the scoreboard that allows the MC to remove any amount of points from a specific player. This should include a UI element (button/action) to trigger point removal and a confirmation mechanism to prevent accidental point deletions.",
-        "testStrategy": "",
-        "status": "pending",
+        "description": "Allow the Master of Ceremonies (MC) to remove points from a specific player if points were awarded by mistake. This provides a correction mechanism, restricted to the MC role, with safety checks to prevent errors.",
+        "status": "in-progress",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "details": "Acceptance Criteria:\n- MC UI: A \"Remove points\" action/button is available in the scoreboard UI only to the MC (or users with MC role).\n- Point selection: MC can select a target player and enter a positive integer amount to remove.\n- Confirmation: Triggering removal opens a confirmation dialog showing player name and amount; removal proceeds only after explicit confirmation.\n- State update & persistence: After confirmation, the player's score is decreased immediately in the UI and the change is persisted to the game/session store.\n- Validation & safety: The UI prevents removing more points than allowed (floor at zero).\n- Auditability: The change is recorded in the game session history/state so it can be reviewed.\n- Tests & QA: Unit tests cover score-removal logic, integration tests cover UI flow, E2E test verifies MC removes points and scoreboard persists.\n- Accessibility: Confirmation and controls are keyboard-accessible and announced to screen readers.",
+        "testStrategy": "- Unit tests: Test the removePoints(playerId, amount) logic, including validation for non-numeric input, negative numbers, and zero. Verify that the persistence layer is invoked correctly.\n- Integration tests: Test the Scoreboard component to ensure the \"Remove points\" button appears only for users with the MC role. Verify the confirmation dialog opens, displays correct information, and handles confirmation/cancellation correctly.\n- E2E tests: Simulate a full user flow. An MC user logs in or assumes the MC role, opens the scoreboard, removes a specific number of points from a player, confirms the action, and asserts that the displayed score has changed. The test should then reload the page and assert the new score has been persisted.\n- Manual QA: Manually test the cancellation path of the confirmation dialog. Test edge cases, such as removing an amount equal to the player's current score and attempting to remove an amount greater than the current score (should be prevented by UI validation).",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design: Add UI mock/details for remove-points control & confirmation modal",
+            "description": "Create visual mockups and detailed specifications for the 'Remove Points' button and the confirmation modal. This will guide the front-end implementation.",
+            "dependencies": [],
+            "details": "Design a clear and intuitive UI element (e.g., a button with a minus icon) next to each player's score, visible only to the MC. Design a confirmation modal that displays the player's name and the points to be removed, with 'Confirm' and 'Cancel' actions.",
+            "status": "pending",
+            "testStrategy": "Review designs with the team to ensure clarity and usability. Verify accessibility considerations are included in the mockups."
+          },
+          {
+            "id": 2,
+            "title": "Store: Implement removePoints API in the game/session store + persistence logic",
+            "description": "Develop the backend logic in the game state management store (e.g., Zustand) to handle point removal and ensure the change is persisted.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a `removePoints(playerId, amount)` action in the store. This action should subtract the specified amount from the player's score, ensuring the score does not go below zero. It must also trigger the persistence layer to save the updated game state and log the action for auditability.",
+            "status": "pending",
+            "testStrategy": "Unit test the `removePoints` action. Test edge cases like removing more points than a player has, removing zero points, and invalid inputs. Mock the persistence layer to verify it's called correctly."
+          },
+          {
+            "id": 3,
+            "title": "UI: Add remove-points button and confirmation modal to Scoreboard component",
+            "description": "Implement the front-end components for the point removal feature, including the button on the scoreboard and the confirmation modal, based on the approved design.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "In the Scoreboard React component, add a 'Remove Points' button for each player. Clicking this button should open a modal. The modal will contain an input for the point amount and confirmation/cancellation buttons. Wire up the 'Confirm' button to call the `removePoints` action from the store.",
+            "status": "pending",
+            "testStrategy": "Use Storybook to develop the modal component in isolation. Write integration tests with React Testing Library to verify that the modal opens and closes correctly and that the store action is called with the correct parameters upon confirmation."
+          },
+          {
+            "id": 4,
+            "title": "Validation & role gating: Ensure action visible only to MC and validate input",
+            "description": "Implement security and validation checks. The remove points functionality must only be visible and accessible to users with the MC role, and user input must be validated.",
+            "dependencies": [
+              3
+            ],
+            "details": "Use the application's role management system to conditionally render the 'Remove Points' button only if the current user has the 'MC' role. Add client-side validation to the modal's input field to ensure only positive integers can be entered and the amount does not exceed the player's current score.",
+            "status": "pending",
+            "testStrategy": "Integration tests should cover two scenarios: one where the user is an MC (button is visible) and one where they are not (button is not present). Unit test the input validation logic."
+          },
+          {
+            "id": 5,
+            "title": "Tests: Add unit, integration, and e2e tests as per test strategy",
+            "description": "Write a comprehensive suite of tests covering the new functionality, including unit tests for the store logic, integration tests for the UI components, and an end-to-end test for the complete user flow.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Write unit tests for the store's `removePoints` action. Create integration tests for the Scoreboard and confirmation modal components. Develop one end-to-end (E2E) test that simulates an MC logging in, removing points from a player, and verifying the score is updated and persisted.",
+            "status": "pending",
+            "testStrategy": "Run the full test suite in a CI/CD pipeline. Ensure all new code has sufficient test coverage, meeting the project's standards. The E2E test should run against a staging environment."
+          },
+          {
+            "id": 6,
+            "title": "Docs: Update any relevant README or in-app help about MC point corrections",
+            "description": "Update user-facing and developer documentation to reflect the new point removal feature for the Master of Ceremonies.",
+            "dependencies": [
+              5
+            ],
+            "details": "Update the project's README file if it contains feature descriptions. Update any in-app help sections, tooltips, or user guides that explain the MC's controls to include instructions on how to use the point correction feature.",
+            "status": "pending",
+            "testStrategy": "Peer review the documentation changes for clarity, accuracy, and completeness. Check for typos and grammatical errors."
+          }
+        ]
       },
       {
         "id": 85,
@@ -3267,7 +3335,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-22T09:36:43.192Z"
+      "updated": "2025-11-22T18:32:37.172Z"
     }
   }
 }
