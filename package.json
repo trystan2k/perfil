@@ -11,7 +11,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "biome check .",
+    "lint": "biome check --error-on-warnings .",
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit && astro check",
     "test": "vitest run",
@@ -22,7 +22,7 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,astro,json,css}": [
       "biome format --write",
-      "biome check --write"
+      "biome check --write --error-on-warnings"
     ],
     "src/**/*.{ts,tsx}": [
       "vitest related --run"
