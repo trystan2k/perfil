@@ -1,5 +1,6 @@
 import type { IDBPDatabase, OpenDBCallbacks } from 'idb';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import type { Profile } from '@/types/models';
 
 // Mock the idb module
@@ -44,7 +45,7 @@ describe('gameSessionDB', () => {
       passedPlayerIds: [],
     },
     remainingProfiles: ['profile-2', 'profile-3'],
-    totalCluesPerProfile: 20,
+    totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
     status: 'active' as const,
     category: 'Movies',
     profiles: mockProfiles,

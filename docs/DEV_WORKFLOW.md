@@ -137,22 +137,27 @@ For tasks with subtasks, follow this cycle for each subtask:
 
 ### 8. ✅ TASK STATUS UPDATE - COMPLETION
 
-- **Attention**: Remember to delegate these actions to the @task-master-specialist subagent
+- **Attention**: Remember to delegate these actions to the @task-master-specialist subagent ONLY
 - **Action**: Update the task with complete implementation details covering all subtasks
 - **Action**: Mark the task as `done` in Task Master
+- **Important**: Task Master specialist ONLY updates task status and details. DO NOT ask them to create development logs.
 - Confirm that the status has been updated correctly
 - Confirm that all subtasks are marked as complete
 
-### 9. 📝 CODE REVIEW
+### 9. 📝 DEVELOPMENT LOGGING
+
+- **Attention**: Remember to delegate this action to the @basic-memory-specialist subagent ONLY
+- **Action**: Ask the @basic-memory-specialist subagent to create a development log documenting the task implementation
+- **Action**: The development log should be saved in `docs/memories/development-logs` as a markdown file
+- **Content**: Include task title, implementation approach, files changed/created, tests added, and PR link
+- **Important**: Task Master specialist does NOT create development logs - only basic-memory-specialist does this
+- Confirm that the development log has been created successfully
+
+### 10. 📝 CODE REVIEW (Optional - if using coderabbit)
 
 - **Action**: Run coderabbit CLI to request a code review for this PR
 - **COMMAND**: To run coderabbit CLI, use the command `coderabbit --plain`
 - **Attention**: If the code review is not approved and/or generate any comment, review the suggestions and apply them, if they make sense to be done. If you are not sure, ask for help.
-
-### 10. 📝 DEVELOPMENT LOGGING
-
-- **Action**: Ask the @basic-memory-specialist subagent to log development details of the task.
-- **Action**: Once it is inserted in basic memory DB, export the memory for the task to a physical file to `docs/memories/development-logs` (delegate to the @basic-memory-specialist subagent)
 
 ### 11. 📝 COMMIT CYCLE
 
@@ -186,9 +191,9 @@ type(scope): brief description of actual work done
 
 - **Attention**: Remember to delegate this action to the @git-specialist subagent
 - **Action**: Before create the PR, ask for my approval.
-- **Action**: Ask @git-specialist subagent to create a Pull Request Use with a comprehensive and accurate description of the implementation.
+- **Action**: Ask @git-specialist subagent to create a Pull Request with a comprehensive and accurate description of the implementation.
 - **Action**: Ask @git-specialist subagent to request review from Copilot
-**NEVER** Add any comment releated to the Agent doing the Pull request (for example, avoid any reference to opencode, claude code, gemini, etc) and to the task or subtasks IDs.
+- **NEVER** Add any comment related to the Agent doing the Pull request (for example, avoid any reference to opencode, claude code, gemini, etc) and to the task or subtasks IDs.
 
 ### 14. 📢 COMPLETION NOTIFICATION
 

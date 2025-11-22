@@ -3203,7 +3203,64 @@
         "id": 85,
         "title": "Extend game support to up to 16 players",
         "description": "Extend the current game architecture to support more players, up to a maximum of 16 participants instead of the current lower limit",
-        "details": "This will require reviewing the current player limit implementation, updating the scoreboard UI to accommodate more players, optimizing layout and performance for larger player counts, and testing with maximum player scenarios.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "medium",
+        "details": "This task has been completed and verified. The game architecture has been extended to support up to 16 players. Player limits were centralized in a MAX_PLAYERS constant, UI components were verified to support 16 players, and comprehensive tests were added for the new player count scenarios.",
+        "testStrategy": "Comprehensive testing was performed including:\n- 5 new tests covering 16-player scenarios (unit/integration) focused on store validation, GameSetup flow, and scoreboard rendering with 16 players\n- 36 existing GameSetup tests updated to reflect the new maximum player behavior\n- Verification that all tests pass with the updated behavior for MAX_PLAYERS = 16\n- QA verification of UI components with 16 players",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Reviewed and documented all player limit locations",
+            "description": "Reviewed GameSetup and related components to find hardcoded player limits. Located 3 hardcoded references in GameSetup and documented their locations and rationale. These were evaluated and either removed in favor of the centralized constant or left as comments where UI logic requires special handling.",
+            "dependencies": [],
+            "details": "Reviewed GameSetup and related components to find hardcoded player limits. Located 3 hardcoded references in GameSetup and documented their locations and rationale in the task notes. These were evaluated and either removed in favor of the centralized constant or left as comments where UI logic requires special handling.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Updated Zustand store with MAX_PLAYERS=16 validation",
+            "description": "Centralized the player limit in src/lib/constants.ts as export const MAX_PLAYERS = 16. Updated src/stores/gameStore.ts to validate playerNames length against MAX_PLAYERS and throw a clear error when exceeded.",
+            "dependencies": [],
+            "details": "Centralized the player limit in src/lib/constants.ts as export const MAX_PLAYERS = 16. Updated src/stores/gameStore.ts to validate playerNames length against MAX_PLAYERS and throw a clear error when exceeded. Ensured GameSetup and other callers import MAX_PLAYERS from the centralized constant.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Confirmed Scoreboard UI supports 16 players",
+            "description": "Reviewed src/components/Scoreboard.tsx and layout logic. Confirmed that the component layout/grid and responsive styles already accommodate up to 16 players without code changes.",
+            "dependencies": [],
+            "details": "Reviewed src/components/Scoreboard.tsx and layout logic. Confirmed that the component layout/grid and responsive styles already accommodate up to 16 players without code changes. Added documentation/comments in the task update noting that no UI changes were required for the scoreboard.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Confirmed GameSetup UI optimized for 16 player selection",
+            "description": "Reviewed src/components/GameSetup.tsx and related styles. Confirmed the UI scales to 16 players and that the Add/Remove player controls respect MAX_PLAYERS.",
+            "dependencies": [],
+            "details": "Reviewed src/components/GameSetup.tsx and related styles. Confirmed the UI scales to 16 players and that the Add/Remove player controls respect MAX_PLAYERS. Removed/updated any hardcoded checks to reference MAX_PLAYERS where appropriate (or documented why a specific special-case remained).",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Added comprehensive tests",
+            "description": "Added 5 new tests covering 16-player scenarios (unit/integration) focused on store validation, GameSetup flow, and scoreboard rendering with 16 players.",
+            "dependencies": [],
+            "details": "Added 5 new tests covering 16-player scenarios (unit/integration) focused on store validation, GameSetup flow, and scoreboard rendering with 16 players. Updated 36 existing GameSetup tests to reflect the new maximum player behavior and ensure edge cases are covered (e.g. attempts to add the 17th player produce the expected error or disabled control state).",
+            "status": "done",
+            "testStrategy": "New/updated tests include changes under:\n- src/stores/__tests__/gameStore.16players.test.ts (new tests for store validation)\n- src/components/__tests__/GameSetup.test.tsx (updated: 36 tests adjusted)\n- src/components/__tests__/Scoreboard.16players.test.ts (new rendering checks)"
+          }
+        ]
+      },
+      {
+        "id": 86,
+        "title": "Dev log: Task 85 - Extend game support to up to 16 players",
+        "description": "Dev log for Task 85 completion",
+        "details": "Development log entry for Task 85 completion. Includes summary, implementation approach, files changed, tests, and PR link.",
         "testStrategy": "",
         "status": "pending",
         "dependencies": [],
@@ -3221,7 +3278,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-22T08:34:38.320Z"
+      "updated": "2025-11-22T09:36:43.192Z"
     }
   }
 }

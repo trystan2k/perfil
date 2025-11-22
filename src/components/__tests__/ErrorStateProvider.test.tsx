@@ -1,6 +1,7 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import { useGameStore } from '../../stores/gameStore';
 import { ErrorStateProvider } from '../ErrorStateProvider';
 
@@ -36,7 +37,7 @@ describe('ErrorStateProvider', () => {
       players: [],
       currentTurn: null,
       remainingProfiles: [],
-      totalCluesPerProfile: 20,
+      totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
       status: 'pending',
       category: undefined,
       profiles: [],

@@ -15,63 +15,71 @@ vi.mock('@/lib/gameSessionDB', () => ({
   saveGameSession: vi.fn(),
 }));
 
-describe('Scoreboard', () => {
-  const createWrapper = () => {
-    const queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: false, // Disable retries for testing
-        },
+const createWrapper = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
       },
-    });
-    return ({ children }: { children: ReactNode }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
-  };
-
-  const createMockProfile = (id: string): Profile => ({
-    id,
-    name: `Profile ${id}`,
-    category: 'Historical Figures',
-    clues: ['Clue 1', 'Clue 2', 'Clue 3'],
-    metadata: { difficulty: 'medium' },
+    },
   });
+  return ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+};
 
-  const mockProfiles: Profile[] = [
-    createMockProfile('1'),
-    createMockProfile('2'),
-    createMockProfile('3'),
-  ];
+const createMockProfile = (id: string): Profile => ({
+  id,
+  name: `Profile ${id}`,
+  category: 'Historical Figures',
+  clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+  metadata: { difficulty: 'medium' },
+});
 
-  const mockGameSession: PersistedGameState = {
-    id: 'test-session-123',
-    status: 'completed',
-    category: 'Historical Figures',
-    players: [
-      { id: '1', name: 'Alice', score: 150 },
-      { id: '2', name: 'Bob', score: 200 },
-      { id: '3', name: 'Charlie', score: 100 },
-      { id: '4', name: 'Diana', score: 200 },
-    ],
-    currentTurn: null,
-    remainingProfiles: [],
-    totalCluesPerProfile: 10,
-    profiles: mockProfiles,
-    selectedProfiles: ['1', '2', '3'],
-    currentProfile: null,
-    totalProfilesCount: 0,
-    numberOfRounds: 5,
-    currentRound: 1,
-    roundCategoryMap: [
-      'Historical Figures',
-      'Historical Figures',
-      'Historical Figures',
-      'Historical Figures',
-      'Historical Figures',
-    ],
-    revealedClueHistory: [],
-  };
+const mockProfiles: Profile[] = [
+  createMockProfile('1'),
+  createMockProfile('2'),
+  createMockProfile('3'),
+];
 
+const mockGameSession: PersistedGameState = {
+  id: 'test-session-123',
+  status: 'completed',
+  category: 'Historical Figures',
+  players: [
+    { id: '1', name: 'Alice', score: 150 },
+    { id: '2', name: 'Bob', score: 200 },
+    { id: '3', name: 'Charlie', score: 100 },
+    { id: '4', name: 'Diana', score: 200 },
+  ],
+  currentTurn: null,
+  remainingProfiles: [],
+  totalCluesPerProfile: 10,
+  profiles: mockProfiles,
+  selectedProfiles: ['1', '2', '3'],
+  currentProfile: null,
+  totalProfilesCount: 0,
+  numberOfRounds: 5,
+  currentRound: 1,
+  roundCategoryMap: [
+    'Historical Figures',
+    'Historical Figures',
+    'Historical Figures',
+    'Historical Figures',
+    'Historical Figures',
+  ],
+  revealedClueHistory: [],
+};
+
+const make16Players = () => {
+  const players = [] as Array<{ id: string; name: string; score: number }>;
+  for (let i = 1; i <= 16; i++) {
+    players.push({ id: String(i), name: `Player ${i}`, score: i * 10 });
+  }
+  return players;
+};
+
+describe('Scoreboard', () => {
   it('should render loading state initially', () => {
     vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
       () => new Promise(() => {}) // Never resolves to keep loading
@@ -573,6 +581,81 @@ describe('Scoreboard', () => {
 
         consoleErrorSpy.mockRestore();
       });
+    });
+  });
+
+  describe('Scoreboard - 16 players', () => {
+    it('renders 16 players and shows correct count', async () => {
+      const session: PersistedGameState = {
+        id: '16-session',
+        status: 'completed',
+        category: 'Mixed',
+        players: make16Players(),
+        currentTurn: null,
+        remainingProfiles: [],
+        totalCluesPerProfile: 10,
+        profiles: [],
+        selectedProfiles: [],
+        currentProfile: null,
+        totalProfilesCount: 0,
+        numberOfRounds: 5,
+        currentRound: 1,
+        roundCategoryMap: ['Mixed', 'Mixed', 'Mixed', 'Mixed', 'Mixed'],
+        revealedClueHistory: [],
+      };
+
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(session);
+
+      render(<Scoreboard sessionId="16-session" />, { wrapper: createWrapper() });
+
+      await waitFor(() => expect(screen.getByText('Scoreboard')).toBeInTheDocument());
+
+      // Verify 16 players are rendered by counting data rows
+      const rows = screen.getAllByRole('row').slice(1); // remove header
+      expect(rows).toHaveLength(16);
+
+      // Check a few players
+      expect(screen.getByText('Player 1')).toBeInTheDocument();
+      expect(screen.getByText('Player 16')).toBeInTheDocument();
+    });
+
+    it('displays ranks correctly for 16 players', async () => {
+      const players = make16Players();
+      // shuffle scores to ensure ranking sorts
+      players[0].score = 1000; // top
+      players[15].score = 5; // bottom
+
+      const session: PersistedGameState = {
+        id: '16-session-2',
+        status: 'completed',
+        category: 'Mixed',
+        players,
+        currentTurn: null,
+        remainingProfiles: [],
+        totalCluesPerProfile: 10,
+        profiles: [],
+        selectedProfiles: [],
+        currentProfile: null,
+        totalProfilesCount: 0,
+        numberOfRounds: 5,
+        currentRound: 1,
+        roundCategoryMap: ['Mixed', 'Mixed', 'Mixed', 'Mixed', 'Mixed'],
+        revealedClueHistory: [],
+      };
+
+      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(session);
+
+      render(<Scoreboard sessionId="16-session-2" />, { wrapper: createWrapper() });
+
+      await waitFor(() => expect(screen.getByText('Scoreboard')).toBeInTheDocument());
+
+      const rows = screen.getAllByRole('row').slice(1);
+      expect(rows[0]).toHaveTextContent('Player 1');
+      expect(rows[0]).toHaveTextContent('1000');
+
+      // bottom row should be Player 16 with score 5
+      expect(rows[rows.length - 1]).toHaveTextContent('Player 16');
+      expect(rows[rows.length - 1]).toHaveTextContent('5');
     });
   });
 });

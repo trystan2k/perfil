@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
 import { loadGameSession, type PersistedGameState, saveGameSession } from '../lib/gameSessionDB';
 import type { GameSession, Player, Profile } from '../types/models';
 
@@ -61,7 +62,7 @@ const initialState: Omit<
   players: [],
   currentTurn: null,
   remainingProfiles: [],
-  totalCluesPerProfile: 20,
+  totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
   status: 'pending',
   category: undefined,
   profiles: [],
@@ -295,6 +296,14 @@ function generateRoundPlan(selectedCategories: string[], numberOfRounds: number)
 export const useGameStore = create<GameState>((set, get) => ({
   ...initialState,
   createGame: async (playerNames: string[]) => {
+    // Validate player count limits
+    if (playerNames.length > MAX_PLAYERS) {
+      throw new Error(`Game supports a maximum of ${MAX_PLAYERS} players`);
+    }
+    if (playerNames.length < MIN_PLAYERS) {
+      throw new Error(`Game requires at least ${MIN_PLAYERS} players`);
+    }
+
     const players: Player[] = playerNames.map((name, index) => ({
       id: `player-${Date.now()}-${index}`,
       name,
@@ -306,7 +315,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       players,
       currentTurn: null,
       remainingProfiles: [],
-      totalCluesPerProfile: 20,
+      totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
       status: 'pending' as GameStatus,
       category: undefined,
       profiles: [],

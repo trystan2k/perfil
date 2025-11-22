@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { MAX_PLAYERS } from '@/lib/constants';
 import { useGameStore } from '@/stores/gameStore';
 
 export function GameSetup() {
@@ -23,7 +24,7 @@ export function GameSetup() {
     }
 
     // Validate player limit
-    if (playerNames.length >= 8) {
+    if (playerNames.length >= MAX_PLAYERS) {
       return;
     }
 
@@ -92,7 +93,7 @@ export function GameSetup() {
               />
               <Button
                 onClick={handleAddPlayer}
-                disabled={!playerName.trim() || playerNames.length >= 8}
+                disabled={!playerName.trim() || playerNames.length >= MAX_PLAYERS}
               >
                 {t('gameSetup.addButton')}
               </Button>
@@ -102,7 +103,9 @@ export function GameSetup() {
           {/* Players List */}
           {playerNames.length > 0 && (
             <div className="space-y-2">
-              <Label>{t('gameSetup.playersLabel', { count: playerNames.length, max: 8 })}</Label>
+              <Label>
+                {t('gameSetup.playersLabel', { count: playerNames.length, max: MAX_PLAYERS })}
+              </Label>
               <div className="space-y-2">
                 {playerNames.map((name, index) => (
                   <div
