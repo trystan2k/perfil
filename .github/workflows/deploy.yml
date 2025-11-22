@@ -10,10 +10,66 @@ on:
       - main
 
 jobs:
+  check-changes:
+    name: Check if deployment is needed
+    runs-on: ubuntu-latest
+    outputs:
+      should-deploy: ${{ steps.check.outputs.should-deploy }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if relevant files changed
+        id: check
+        run: |
+          # Get the list of changed files
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.workflow_run.head_commit.tree_id }}^...${{ github.event.workflow_run.head_commit.tree_id }})
+
+          # Files/dirs to ignore
+          IGNORE_PATTERNS=(
+            "docs/"
+            ".husky/"
+            ".taskmaster/"
+            ".vscode/"
+            ".wrangler/"
+            "e2e/"
+            "__tests__/"
+            ".editorconfig"
+            ".gitignore"
+            ".npmrc"
+            "AGENTS.md"
+            "biome.json"
+            "opencode.json"
+            "LICENSE"
+            "vitest.config.ts"
+            "vitest.setup.ts"
+          )
+
+          # Check if any relevant file changed
+          SHOULD_DEPLOY=true
+          while IFS= read -r file; do
+            IGNORED=false
+            for pattern in "${IGNORE_PATTERNS[@]}"; do
+              if [[ "$file" == "$pattern"* ]]; then
+                IGNORED=true
+                break
+              fi
+            done
+            if [ "$IGNORED" = false ]; then
+              SHOULD_DEPLOY=true
+              break
+            fi
+          done <<< "$CHANGED_FILES"
+
+          echo "should-deploy=$SHOULD_DEPLOY" >> $GITHUB_OUTPUT
+
   deploy:
     name: Deploy to Cloudflare Pages
+    needs: check-changes
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && needs.check-changes.outputs.should-deploy == 'true' }}
 
     steps:
       - name: Checkout code
