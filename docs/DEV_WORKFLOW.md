@@ -110,7 +110,7 @@ For tasks with subtasks, follow this cycle for each subtask:
 - **Principles during implementation**:
   - 🎯 Focus on the essential
   - 📝 Comment code when necessary
-  - 🧪 Write tests according to the defined strategy (delegate the tests development to the @test-automator subagent)
+  - 🧪 Write tests according to the defined strategy (delegate the tests development to the @tester-specialist subagent)
   - 🔄 Perform incremental refactorings
 
 ### 6. 🔍 SUBTASK QUALITY VERIFICATION
@@ -235,7 +235,7 @@ pnpm run build
 - [ ] Following established plan
 - [ ] **ALWAYS try to use Serena MCP**:
   - [ ] read `docs/SERENA.md` to understand available commands
-- [ ] Tests being written as needed via @test-automator subagent
+- [ ] Tests being written as needed via @tester-specialist subagent
 - [ ] Clean and well-structured code
 
 ### ✅ Before Commit
