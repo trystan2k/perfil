@@ -234,7 +234,7 @@ describe('gameStore', () => {
     });
 
     it('should throw error when exceeding max clues', () => {
-      // Read all {DEFAULT_CLUES_PER_PROFILE{"}"} clues
+      // Read all DEFAULT_CLUES_PER_PROFILE clues
       for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         useGameStore.getState().nextClue();
       }
@@ -254,7 +254,7 @@ describe('gameStore', () => {
       );
     });
 
-    it('should allow reading exactly {DEFAULT_CLUES_PER_PROFILE{"}"} clues', () => {
+    it('should allow reading exactly DEFAULT_CLUES_PER_PROFILE clues', () => {
       for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         useGameStore.getState().nextClue();
       }
@@ -271,7 +271,7 @@ describe('gameStore', () => {
       useGameStore.getState().startGame(['Movies']);
     });
 
-    it('should award correct points based on clues read (formula: {DEFAULT_CLUES_PER_PROFILE{"}"} - (cluesRead - 1))', () => {
+    it('should award correct points based on clues read (formula: DEFAULT_CLUES_PER_PROFILE - (cluesRead - 1))', () => {
       // Read 1 clue
       useGameStore.getState().nextClue();
 
@@ -304,8 +304,8 @@ describe('gameStore', () => {
       expect(player?.score).toBe(11);
     });
 
-    it('should award 1 point when all {DEFAULT_CLUES_PER_PROFILE{"}"} clues have been read', () => {
-      // Read all {DEFAULT_CLUES_PER_PROFILE{"}"} clues
+    it('should award 1 point when all DEFAULT_CLUES_PER_PROFILE clues have been read', () => {
+      // Read all DEFAULT_CLUES_PER_PROFILE clues
       for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         useGameStore.getState().nextClue();
       }

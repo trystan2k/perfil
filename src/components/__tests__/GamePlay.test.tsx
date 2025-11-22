@@ -229,7 +229,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      // Advance to max clues ({DEFAULT_CLUES_PER_PROFILE{"}"})
+      // Advance to max clues (DEFAULT_CLUES_PER_PROFILE)
       for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         store.nextClue();
       }
@@ -249,7 +249,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      // Advance to max clues ({DEFAULT_CLUES_PER_PROFILE{"}"})
+      // Advance to max clues (DEFAULT_CLUES_PER_PROFILE)
       for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
         store.nextClue();
       }
