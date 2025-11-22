@@ -22,7 +22,7 @@
     "task-master-ai": {
       "type": "local",
       "command": ["npx", "-y", "--package=task-master-ai", "task-master-ai"],
-      "enabled": false
+      "enabled": true
     },
     "context7": {
       "type": "remote",
