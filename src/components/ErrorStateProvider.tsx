@@ -51,11 +51,8 @@ export function ErrorStateProvider({ children }: ErrorStateProviderProps) {
       {error && (
         <Dialog
           open={true}
-          onOpenChange={(isOpen) => {
+          onOpenChange={() => {
             // Prevent Dialog from closing by doing nothing
-            if (!isOpen) {
-              // User tried to close, but we prevent it
-            }
           }}
         >
           <DialogContent
