@@ -1,6 +1,6 @@
 ---
 title: Task 84 Point Removal Functionality
-type: development_log
+type: note
 permalink: development-logs/task-84-point-removal-functionality
 ---
 

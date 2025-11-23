@@ -80,6 +80,10 @@ export function RemovePointsDialog({
   };
 
   const handleConfirm = async () => {
+    if (isLoading) {
+      return;
+    }
+
     setError(null);
     const validatedAmount = validateInput();
 
@@ -130,7 +134,7 @@ export function RemovePointsDialog({
               disabled={isLoading}
               autoFocus
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && !isLoading) {
                   handleConfirm();
                 }
               }}

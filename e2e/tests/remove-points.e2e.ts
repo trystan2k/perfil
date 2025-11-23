@@ -21,10 +21,13 @@ test.describe('Remove points flow', () => {
     await page.waitForTimeout(500);
 
     // Select first category
-    await page.getByRole('heading', { name: 'Select Category' }).waitFor({ timeout: 10000 });
-    const firstCategory = page.locator('button').filter({ hasText: 'Famous People' }).first();
+    await page.getByRole('heading', { name: 'Select Categories' }).waitFor({ timeout: 10000 });
+    const firstCategory = page.getByLabel('Famous People');
     await firstCategory.click();
     await page.waitForTimeout(500);
+
+    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.waitForTimeout(1000);
 
     // Start game with default rounds
     await page.getByRole('button', { name: 'Start Game' }).click();
@@ -92,14 +95,15 @@ test.describe('Remove points flow', () => {
     // Now on scoreboard, verify scores
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible({ timeout: 5000 });
 
-    // Alice should have 15 pts (20 awarded - 5 removed)
-    await expect(page.getByText(/Alice.*15.*pts/i)).toBeVisible({ timeout: 5000 });
+    const aliceRow = page.getByRole('row', { name: /Alice/i });
+    await expect(aliceRow.getByRole('cell').nth(2)).toHaveText('15', { timeout: 5000 });
 
     // Reload and verify persistence
     await page.reload();
     await page.waitForTimeout(1000);
 
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible({ timeout: 5000 });
-    await expect(page.getByText(/Alice.*15.*pts/i)).toBeVisible({ timeout: 5000 });
+    const aliceRowReloaded = page.getByRole('row', { name: /Alice/i });
+    await expect(aliceRowReloaded.getByRole('cell').nth(2)).toHaveText('15', { timeout: 5000 });
   });
 });
