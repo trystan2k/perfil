@@ -24,6 +24,10 @@
       "biome format --write",
       "biome check --write --error-on-warnings"
     ],
+    "public/**/*.json": [
+      "biome format --write",
+      "biome check --write --error-on-warnings"
+    ],
     "src/**/*.{ts,tsx}": [
       "vitest related --run"
     ]
