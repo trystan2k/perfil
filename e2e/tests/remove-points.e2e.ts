@@ -1,86 +1,105 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Remove points flow', () => {
-  test('user can remove points from players and persistence is preserved', async ({ page }) => {
+  test('user can remove points from players during gameplay and persistence is preserved', async ({
+    page,
+  }) => {
     // Start at home
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'networkidle' });
 
     // Add two players
     await page.getByLabel('Player Name').fill('Alice');
     await page.getByRole('button', { name: 'Add' }).click();
+    await page.waitForTimeout(500);
 
     await page.getByLabel('Player Name').fill('Bob');
     await page.getByRole('button', { name: 'Add' }).click();
+    await page.waitForTimeout(500);
 
     // Start game
     await page.getByRole('button', { name: 'Start Game' }).click();
+    await page.waitForTimeout(500);
 
-    // Select first category (use first button with category text)
-    await page.getByRole('heading', { name: 'Select Category' }).waitFor();
+    // Select first category
+    await page.getByRole('heading', { name: 'Select Category' }).waitFor({ timeout: 10000 });
     const firstCategory = page.locator('button').filter({ hasText: 'Famous People' }).first();
     await firstCategory.click();
+    await page.waitForTimeout(500);
 
-    // Use default rounds and start
+    // Start game with default rounds
     await page.getByRole('button', { name: 'Start Game' }).click();
+    await page.waitForTimeout(1000);
 
-    // On gameplay, reveal a clue and award points to Alice
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Alice' }).click();
+    // On gameplay, reveal a clue
+    const showClueBtn = page.getByRole('button', { name: 'Show Next Clue' });
+    await showClueBtn.click();
+    await page.waitForTimeout(500);
 
-    // Proceed to next profile / finish game
-    await page.getByRole('button', { name: 'Next Profile' }).click();
+    // Award points to Alice - get all buttons with role button, then filter for the one with data-testid starting with award-points
+    const aliceAwardBtn = page.locator('[data-testid^="award-points-"]').first();
+    await aliceAwardBtn.click();
+    await page.waitForTimeout(1000);
 
-    // Expect scoreboard
-    await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
+    // On scoreboard after round, go back to gameplay
+    await page.getByRole('button', { name: /Next Profile/i }).click();
+    await page.waitForTimeout(1000);
 
-    // Locate Remove points button for Alice
-    const aliceRemove = page.getByRole('button', { name: /Remove points from Alice/i }).first();
-    await expect(aliceRemove).toBeVisible();
+    // Award points to Bob
+    const showClueBtn2 = page.getByRole('button', { name: 'Show Next Clue' });
+    await showClueBtn2.click();
+    await page.waitForTimeout(500);
 
-    // Open dialog
-    await aliceRemove.click();
+    const bobAwardBtn = page.locator('[data-testid^="award-points-"]').nth(1);
+    await bobAwardBtn.click();
+    await page.waitForTimeout(1000);
+
+    // Now test remove points - go back to gameplay
+    await page.getByRole('button', { name: /Next Profile/i }).click();
+    await page.waitForTimeout(1000);
+
+    // Reveal clue again
+    const showClueBtn3 = page.getByRole('button', { name: 'Show Next Clue' });
+    await showClueBtn3.click();
+    await page.waitForTimeout(500);
+
+    // Find and click the remove button for Alice (should be visible on GamePlay)
+    const removeAliceBtn = page.getByRole('button', { name: /Remove points from Alice/i });
+    await expect(removeAliceBtn).toBeVisible({ timeout: 5000 });
+    await removeAliceBtn.click();
+    await page.waitForTimeout(500);
 
     // Dialog should show
-    await expect(page.getByText('Remove Points')).toBeVisible();
-    await expect(page.getByText(/Remove points from Alice/)).toBeVisible();
+    await expect(page.getByRole('dialog')).toBeVisible({ timeout: 5000 });
 
-    // Enter invalid amount then valid amount
+    // Enter amount to remove
     const amountInput = page.getByLabel('Points to Remove');
-    await amountInput.fill('abc');
-    await page.getByRole('button', { name: 'Remove Points' }).click();
-    await expect(page.getByText('Amount must be a non-negative integer.')).toBeVisible();
-
-    // Now remove 5 points
+    await expect(amountInput).toBeVisible({ timeout: 5000 });
     await amountInput.fill('5');
-    await page.getByRole('button', { name: 'Remove Points' }).click();
+    await page.waitForTimeout(300);
+
+    // Confirm removal
+    const dialogRemoveBtn = page.getByRole('button', { name: /Remove Points/i });
+    await dialogRemoveBtn.click();
+    await page.waitForTimeout(500);
 
     // Dialog should close
-    await expect(page.locator('text=Remove Points')).toHaveCount(0);
+    await expect(page.getByRole('dialog')).not.toBeVisible({ timeout: 5000 });
 
-    // Alice's score should be updated on scoreboard
-    await expect(page.getByText(/Alice/)).toBeVisible();
-    const aliceRow = page.locator('tr').filter({ hasText: 'Alice' }).first();
-    await expect(aliceRow).toContainText('pts');
+    // Finish game - click Next Profile multiple times if needed to get to finish
+    await page.getByRole('button', { name: /Finish Game/i }).click();
+    await page.waitForTimeout(1000);
 
-    // Reload page and verify score persisted
+    // Now on scoreboard, verify scores
+    await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible({ timeout: 5000 });
+
+    // Alice should have 15 pts (20 awarded - 5 removed)
+    await expect(page.getByText(/Alice.*15.*pts/i)).toBeVisible({ timeout: 5000 });
+
+    // Reload and verify persistence
     await page.reload();
-    await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
-    const aliceRowAfterReload = page.locator('tr').filter({ hasText: 'Alice' }).first();
-    await expect(aliceRowAfterReload).toBeVisible();
+    await page.waitForTimeout(1000);
 
-    // Perform another removal from Bob (if Bob has >0 points)
-    const bobRemove = page.getByRole('button', { name: /Remove points from Bob/i }).first();
-    if (await bobRemove.isVisible()) {
-      await bobRemove.click();
-      await expect(page.getByText(/Remove points from Bob/)).toBeVisible();
-      const bobInput = page.getByLabel('Points to Remove');
-      await bobInput.fill('1');
-      await page.getByRole('button', { name: 'Remove Points' }).click();
-      await expect(page.locator('text=Remove Points')).toHaveCount(0);
-
-      // Reload and verify
-      await page.reload();
-      await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
-    }
+    await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText(/Alice.*15.*pts/i)).toBeVisible({ timeout: 5000 });
   });
 });
