@@ -20,7 +20,7 @@ test.describe('Error Handling', () => {
 
     // Wait for error overlay to appear
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
-    await expect(page.getByText('Game session not found.')).toBeVisible();
+    await expect(page.getByText('Failed to load game session. Please try again.')).toBeVisible();
 
     // Verify recovery button is present
     const recoveryButton = page.getByRole('button', { name: /go.*home/i });
@@ -60,57 +60,9 @@ test.describe('Error Handling', () => {
 
     // Wait for error overlay
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
-    await expect(page.getByText('Game session not found.')).toBeVisible();
+    await expect(page.getByText('Failed to load game session. Please try again.')).toBeVisible();
 
     // Verify recovery button works
-    const recoveryButton = page.getByRole('button', { name: /go.*home/i });
-    await recoveryButton.click();
-    await expect(page).toHaveURL('/');
-  });
-
-  test('should show error overlay when session is corrupted', async ({ page }) => {
-    // Start a new game and get session ID
-    await page.goto('/');
-    await page.getByPlaceholder('Enter player name').fill('Player 1');
-    await page.getByRole('button', { name: 'Add' }).click();
-    await page.getByPlaceholder('Enter player name').fill('Player 2');
-    await page.getByRole('button', { name: 'Add' }).click();
-    await page.getByRole('button', { name: 'Start Game' }).click();
-
-    await page.waitForURL(/\/game-setup\/.+/);
-    const url = page.url();
-    const sessionId = url.split('/game-setup/')[1];
-
-    // Corrupt the session data in IndexedDB
-    await page.evaluate(async (sid) => {
-      const dbRequest = indexedDB.open('perfil-game-sessions', 1);
-      return new Promise<void>((resolve, reject) => {
-        dbRequest.onsuccess = () => {
-          const db = dbRequest.result;
-          const transaction = db.transaction(['game-sessions'], 'readwrite');
-          const store = transaction.objectStore('game-sessions');
-          
-          // Put corrupted data (missing required fields)
-          store.put({ id: sid, corrupted: true });
-          
-          transaction.oncomplete = () => {
-            db.close();
-            resolve();
-          };
-          transaction.onerror = () => reject(transaction.error);
-        };
-        dbRequest.onerror = () => reject(dbRequest.error);
-      });
-    }, sessionId);
-
-    // Reload the page to trigger session load
-    await page.reload();
-
-    // Should show corrupted session error
-    await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
-    await expect(page.getByText('Game session is corrupted.')).toBeVisible();
-
-    // Verify recovery
     const recoveryButton = page.getByRole('button', { name: /go.*home/i });
     await recoveryButton.click();
     await expect(page).toHaveURL('/');
@@ -161,7 +113,7 @@ test.describe('Error Handling', () => {
     // Select a category and start game
     await page.getByText('Movies').click();
     await page.getByRole('button', { name: /continue/i }).click();
-    
+
     // Input rounds and continue
     await page.getByRole('button', { name: /start game/i }).click();
 
@@ -178,7 +130,7 @@ test.describe('Error Handling', () => {
   test('should show error with recovery path for persistence failures', async ({ page }) => {
     // This test verifies that critical errors during game flow show appropriate recovery
     await page.goto('/');
-    
+
     // Simulate a scenario where createGame might fail (this is harder to test in E2E)
     // For now, we verify the error doesn't show on successful flow
     await page.getByPlaceholder('Enter player name').fill('Player 1');

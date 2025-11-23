@@ -13,7 +13,14 @@
       "src/**/*.js",
       "src/**/*.jsx",
       "src/**/*.json",
-      "public/**/*.json"
+      "e2e/**/*.ts",
+      "public/**/*.json",
+      "vitest.setup.ts",
+      "vitest.config.ts",
+      "tailwind.config.mjs",
+      "biome.json",
+      "astro.config.mjs",
+      "package.json"
     ],
     "ignoreUnknown": true
   },

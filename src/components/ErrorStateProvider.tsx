@@ -48,33 +48,35 @@ export function ErrorStateProvider({ children }: ErrorStateProviderProps) {
   return (
     <>
       {children}
-      <Dialog
-        open={!!error}
-        onOpenChange={() => {
-          /* Prevent Dialog from closing */
-        }}
-      >
-        <DialogContent
-          className="sm:max-w-[425px]"
-          hideClose
-          onEscapeKeyDown={(e) => e.preventDefault()}
-          onPointerDownOutside={(e) => e.preventDefault()}
+      {error && (
+        <Dialog
+          open={true}
+          onOpenChange={() => {
+            // Prevent Dialog from closing by doing nothing
+          }}
         >
-          <DialogHeader>
-            <DialogTitle>{t('errorHandler.title')}</DialogTitle>
-            <DialogDescription>
-              {error?.message
-                ? t(error.message, { defaultValue: error.message })
-                : t('errorHandler.defaultMessage')}
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button onClick={handleRecovery} className="w-full">
-              {!error?.informative ? t('common.goHome') : t('common.back')}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          <DialogContent
+            className="sm:max-w-[425px]"
+            hideClose
+            onEscapeKeyDown={(e) => e.preventDefault()}
+            onPointerDownOutside={(e) => e.preventDefault()}
+          >
+            <DialogHeader>
+              <DialogTitle>{t('errorHandler.title')}</DialogTitle>
+              <DialogDescription>
+                {error?.message
+                  ? t(error.message, { defaultValue: error.message })
+                  : t('errorHandler.defaultMessage')}
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button onClick={handleRecovery} className="w-full">
+                {!error?.informative ? t('common.goHome') : t('common.back')}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 }

@@ -1,14 +1,4 @@
-import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-
-// Helper function to add players
-async function addPlayers(page: Page, count: number) {
-  for (let i = 1; i <= count; i++) {
-    await page.getByLabel('Player Name').fill(`Test Player ${i}`);
-    await page.getByRole('button', { name: 'Add' }).click();
-    await expect(page.getByText(`Test Player ${i}`)).toBeVisible();
-  }
-}
 
 test.describe('Language Persistence', () => {
   test.beforeEach(async ({ page, context }) => {
@@ -83,13 +73,17 @@ test.describe('Language Persistence', () => {
     });
 
     // Fill in player names to navigate to game setup
-    await addPlayers(page, 2);
+    for (let i = 1; i <= 2; i++) {
+      await page.getByLabel('Nome do Jogador').fill(`Test Player ${i}`);
+      await page.getByRole('button', { name: 'Adicionar' }).click();
+      await expect(page.getByText(`Test Player ${i}`)).toBeVisible();
+    }
 
     // Start game
-    await page.getByRole('button', { name: /começar|start/i }).click();
+    await page.getByRole('button', { name: 'Iniciar Jogo' }).click();
 
     // Verify we're on category select page
-    await expect(page.getByRole('heading', { name: /categoria|category/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Selecionar Categorias' })).toBeVisible();
 
     // Verify language is still Portuguese after navigation
     const storedLocale = await page.evaluate(() => {
@@ -166,9 +160,13 @@ test.describe('Language Persistence', () => {
     });
 
     // Fill in players and start game to trigger profile data fetch
-    await addPlayers(page, 2);
+    for (let i = 1; i <= 2; i++) {
+      await page.getByLabel('Nome do Jogador').fill(`Test Player ${i}`);
+      await page.getByRole('button', { name: 'Adicionar' }).click();
+      await expect(page.getByText(`Test Player ${i}`)).toBeVisible();
+    }
 
-    await page.getByRole('button', { name: /começar|start/i }).click();
+    await page.getByRole('button', { name: 'Iniciar Jogo' }).click();
 
     // Wait for category select to load (this triggers profile fetch)
     await page.waitForLoadState('networkidle');

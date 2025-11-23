@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Remove points flow', () => {
   test('user can remove points from players during gameplay and persistence is preserved', async ({

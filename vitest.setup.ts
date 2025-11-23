@@ -36,17 +36,17 @@ afterAll(() => {
 // Example: { common: { loading: "Loading..." } } => { "common.loading": "Loading..." }
 function flattenTranslations(obj: Record<string, unknown>, prefix = ''): Record<string, string> {
   const result: Record<string, string> = {};
-  
+
   for (const [key, value] of Object.entries(obj)) {
     const newKey = prefix ? `${prefix}.${key}` : key;
-    
+
     if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       Object.assign(result, flattenTranslations(value as Record<string, unknown>, newKey));
     } else {
       result[newKey] = String(value);
     }
   }
-  
+
   return result;
 }
 
@@ -54,13 +54,13 @@ function flattenTranslations(obj: Record<string, unknown>, prefix = ''): Record<
 function loadTranslations(): Record<string, string> {
   const localesPath = join(process.cwd(), 'public', 'locales');
   const defaultLang = 'en';
-  
+
   try {
     // Load the default language (English) translations
     const translationPath = join(localesPath, defaultLang, 'translation.json');
     const translationContent = readFileSync(translationPath, 'utf-8');
     const translationJson = JSON.parse(translationContent);
-    
+
     // Flatten the nested structure to dot notation
     return flattenTranslations(translationJson);
   } catch (error) {
@@ -78,7 +78,7 @@ vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, params?: Record<string, unknown>) => {
       let translation: string;
-      
+
       // Handle pluralization
       if (params && 'count' in params) {
         const count = params.count as number;
@@ -87,14 +87,14 @@ vi.mock('react-i18next', () => ({
       } else {
         translation = translations[key] || key;
       }
-      
+
       // Handle interpolation for dynamic values in translation strings
       if (params) {
         Object.entries(params).forEach(([paramKey, paramValue]) => {
           translation = translation.replace(`{{${paramKey}}}`, String(paramValue));
         });
       }
-      
+
       return translation;
     },
     i18n: {

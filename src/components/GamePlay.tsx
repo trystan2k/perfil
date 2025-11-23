@@ -48,6 +48,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const skipProfile = useGameStore((state) => state.skipProfile);
   const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
+  const setGlobalError = useGameStore((state) => state.setError);
 
   // Attempt to load game from storage on mount
   useEffect(() => {
@@ -118,23 +119,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     );
   }
 
-  // Load errors are now handled by global ErrorStateProvider
-
-  if (status === 'pending') {
-    return (
-      <div className="flex items-center justify-center min-h-main p-4 ">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl">
-              {t('gamePlay.noActiveGame.title')}
-            </CardTitle>
-            <CardDescription>{t('gamePlay.noActiveGame.description')}</CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    );
-  }
-
   // If status is 'completed' and id exists, show loading while navigating to scoreboard
   if (status === 'completed' && id) {
     return (
@@ -151,36 +135,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     );
   }
 
-  // If no currentTurn but status is active, something is wrong
-  if (!currentTurn) {
-    return (
-      <div className="flex items-center justify-center min-h-main p-4 ">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl">
-              {t('gamePlay.noActiveGame.title')}
-            </CardTitle>
-            <CardDescription>{t('gamePlay.noActiveGame.description')}</CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    );
-  }
-
-  // Handle null currentProfile gracefully
-  if (!currentProfile) {
-    return (
-      <div className="flex items-center justify-center min-h-main p-4 ">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl">
-              {t('gamePlay.noProfile.title')}
-            </CardTitle>
-            <CardDescription>{t('gamePlay.noProfile.description')}</CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    );
+  if (!currentTurn || !currentProfile || status === 'pending') {
+    setGlobalError('gamePlay.errors.loadFailed');
+    return null;
   }
 
   // Get current clue from profile data

@@ -185,7 +185,88 @@ Accessed in tests as:
 - `t('gameSetup.title')` → "Game Setup"
 - `t('gameSetup.errors.duplicateName')` → "Player name already exists"
 
+## E2E Testing with Playwright
+
+### Running E2E Tests Locally
+
+To run end-to-end tests that test the entire application from a user's perspective:
+
+```bash
+pnpm test:e2e
+```
+
+This command will:
+- Start the development server (`pnpm run dev`)
+- Launch Chromium in headless mode
+- Run all tests in `e2e/tests/` matching `*.e2e.ts`
+- Generate an HTML report in `e2e/e2e-report/`
+- Capture traces on first failure for debugging
+
+### E2E Test Files
+
+E2E tests are located in `e2e/tests/` and use the `.e2e.ts` extension. Examples:
+- `e2e/tests/game.e2e.ts` - Full game flow tests
+- `e2e/tests/error-handling.e2e.ts` - Error overlay and error state tests
+- `e2e/tests/language-persistence.e2e.ts` - Language switching and persistence
+- `e2e/tests/theme-switching.e2e.ts` - Dark mode and theme tests
+
+### Configuration
+
+Playwright configuration is in `e2e/playwright.config.ts`:
+- **Test timeout**: 2 minutes per test
+- **Action timeout**: 10 seconds per action
+- **Trace on first retry**: Captures traces for debugging failed tests
+- **Headless mode**: Tests run headlessly (no visible browser window)
+- **baseURL**: `http://localhost:4321` (or from `BASE_URL` environment variable)
+
+### E2E Test Artifacts
+
+After running e2e tests, artifacts are generated in:
+- `e2e/e2e-report/` - HTML report with test results and screenshots
+- `test-results/` - Playwright traces for failed tests (if any)
+
+These are excluded from git via `.gitignore`.
+
+### Running E2E Tests in CI/CD
+
+E2E tests run automatically in GitHub Actions on:
+- Pull requests to `main`
+- Pushes to `main`
+- Manual workflow dispatch
+
+The CI pipeline tests against **three browsers**:
+- Chromium (primary)
+- Firefox
+- WebKit
+
+Each browser runs all e2e tests independently. Artifacts are uploaded for debugging if any tests fail.
+
+**Environment Variables in CI:**
+- `CI=true` - Signals Playwright it's running in CI
+- `BASE_URL=http://localhost:4321` - Server URL for tests
+- `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=false` - Ensures browsers are downloaded
+
+See `.github/workflows/ci.yml` for the full workflow configuration.
+
+## Complete QA Workflow
+
+The `pnpm run complete-check` script runs all quality checks in sequence:
+
+```bash
+pnpm run complete-check
+```
+
+This executes:
+1. **Linting** - `pnpm lint` (Biome)
+2. **Type checking** - `pnpm typecheck` (TypeScript & Astro)
+3. **Unit/Integration tests** - `pnpm test:coverage` (Vitest with coverage)
+4. **E2E tests** - `pnpm test:e2e` (Playwright)
+5. **Build** - `pnpm build` (Production build)
+
+All must pass for the workflow to succeed. This same workflow runs in CI before each PR is merged.
+
 ## Related Documentation
 
 - See [DEV_WORKFLOW.md](DEV_WORKFLOW.md) for the full development workflow
-- See the project root `vitest.config.ts` for test configuration details
+- See the project root `vitest.config.ts` for unit test configuration details
+- See `e2e/playwright.config.ts` for e2e test configuration details
