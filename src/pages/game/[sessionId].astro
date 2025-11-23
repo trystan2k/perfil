@@ -1,5 +1,5 @@
 ---
-import { GamePlay } from '../../components/GamePlay';
+import { GamePlayWithProvider } from '../../components/GamePlayWithProvider';
 import Layout from '../../layouts/Layout.astro';
 
 const { sessionId } = Astro.params;
@@ -10,5 +10,5 @@ if (!sessionId) {
 ---
 
 <Layout title="Perfil - Game Session">
-	<GamePlay sessionId={sessionId} client:only="react" />
+	<GamePlayWithProvider sessionId={sessionId} client:only="react" />
 </Layout>

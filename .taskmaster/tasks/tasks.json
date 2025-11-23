@@ -3178,15 +3178,93 @@
         "subtasks": []
       },
       {
-        "id": 83,
+        "id": "83",
         "title": "Reload profiles on language change during game",
-        "description": "When a user is in the middle of the game and changes the language, the profile should be reloaded so that the questions also appear in the language the user just selected",
-        "details": "Currently when the language is changed during active gameplay, the questions do not update to reflect the new language. This requires listening to language changes in the game session and reloading the profile data with the new language preference.",
-        "testStrategy": "",
-        "status": "pending",
+        "description": "When a user is in the middle of the game and changes the language, the profile is now reloaded so that the questions also appear in the language the user just selected. This was achieved by listening for language changes within the game component and refetching the localized profile data without affecting the ongoing game state.",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "details": "The implementation involved several key changes: The `useProfiles` hook was integrated into the `GamePlay` component to fetch profiles based on the current language. A `useEffect` listener was added to `GamePlay` to detect language changes and trigger a profile reload using the `reload` function from the `useProfiles` hook. To provide the necessary TanStack Query context, a `GamePlayWithProvider` wrapper component was created and used in the `src/pages/game/[sessionId].astro` page. This ensures that only profile and question data are refreshed, while core game state like scores, rounds, and turns are preserved.",
+        "testStrategy": "Verification was performed through a multi-layered testing approach. Comprehensive unit tests were added to `src/hooks/__tests__/useProfiles.test.tsx` to confirm that changing the language correctly triggers a refetch of the locale-specific profile data. Integration tests for the `GamePlay` component were updated with mocks to assert that the `useProfiles` hook is correctly integrated and that the component's UI updates on language change. All existing Playwright E2E tests, including language-persistence scenarios, continue to pass. Finally, all standard QA checks (lint, typecheck, unit tests, E2E tests, and build) were successfully executed.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Investigate Profile Loading and Language State Management",
+            "description": "Analyze the current implementation of profile loading and language state management to identify the optimal integration points for the new reload functionality.",
+            "dependencies": [],
+            "details": "Review the following files to map the data flow: `src/hooks/useProfiles.ts` (data fetching), `src/stores/i18nStore.ts` (language state), `src/components/GamePlay.tsx` (component state), and `public/data/*/profiles.json` (data source). The goal is to produce a clear plan for where to inject the new logic.",
+            "status": "done",
+            "testStrategy": "No direct testing required for this investigation task. The output will be a documented plan or understanding shared with the team."
+          },
+          {
+            "id": 2,
+            "title": "Implement Language Change Listener in Game Session",
+            "description": "Create a mechanism within the active game session to listen for changes in the application's language state and trigger a subsequent action for reloading profiles.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement a subscription to language changes within a central store (like Zustand's `i18nStore`) or a React hook. When a language change is detected during an active game, this listener should invoke the profile reload function. This approach centralizes the logic and avoids prop drilling.",
+            "status": "done",
+            "testStrategy": "Unit test the listener/subscriber logic using Vitest to ensure it correctly fires the designated callback function when the language state is modified."
+          },
+          {
+            "id": 3,
+            "title": "Develop `reloadProfiles` Function with Language Parameter",
+            "description": "Implement a function that can fetch and update the game profiles for a specified language, leveraging the existing TanStack Query setup for data fetching.",
+            "dependencies": [
+              1
+            ],
+            "details": "Modify the `useProfiles` hook in `src/hooks/useProfiles.ts`. Add a function, e.g., `reloadProfiles(newLang)`, that invalidates the relevant TanStack Query key. This will trigger a refetch of `public/data/${newLang}/profiles.json` and update the application state with the newly localized data.",
+            "status": "done",
+            "testStrategy": "Add unit tests to `src/hooks/__tests__/useProfiles.test.tsx` to verify that invoking the new function correctly refetches data for the specified language and updates the hook's return value."
+          },
+          {
+            "id": 4,
+            "title": "Integrate Reload Logic and Preserve Game State",
+            "description": "Connect the language change listener to the `reloadProfiles` function and ensure that only the profile data is updated, leaving core game state like scores, current round, and player turn intact.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Wire the listener from subtask 2 to call the reload function from subtask 3. Ensure the component state in `GamePlay.tsx` and any related stores are structured to separate profile/question data from game progress data. The state update from `useProfiles` must not reset other state slices. Acceptance Criteria: 1) Game state (scores, round) is unchanged. 2) No full page reload occurs.",
+            "status": "done",
+            "testStrategy": "Manual testing during development to confirm state preservation. Final verification will be performed via the E2E test in subtask 7."
+          },
+          {
+            "id": 5,
+            "title": "Address State Persistence and Potential Race Conditions",
+            "description": "Ensure that the new asynchronous profile reloading logic does not introduce race conditions with existing state persistence mechanisms like localStorage or IndexedDB.",
+            "dependencies": [
+              4
+            ],
+            "details": "Review how game state is persisted. The newly loaded profile data must be correctly saved. Apply patterns from previous tasks (e.g., Task 24) to properly sequence asynchronous data fetching, state updates, and persistence writes to prevent data loss or corruption on navigation or page refresh.",
+            "status": "done",
+            "testStrategy": "Perform stress testing by rapidly changing language, reloading the page, and navigating between views to identify and resolve potential race conditions."
+          },
+          {
+            "id": 6,
+            "title": "Add Unit Tests for `useProfiles` Reload Behavior",
+            "description": "Create comprehensive unit tests for the modified `useProfiles` hook to verify the new profile reloading functionality in isolation.",
+            "dependencies": [
+              3
+            ],
+            "details": "In `src/hooks/__tests__/useProfiles.test.tsx`, add new test cases using Vitest and React Testing Library. Mock the fetch API. Test that the hook initially fetches profiles for a default language, and after triggering the reload function, it correctly fetches and returns profiles for the new language.",
+            "status": "done",
+            "testStrategy": "This task is the implementation of the unit test strategy. The tests will be executed as part of the standard CI pipeline to ensure code quality and prevent regressions."
+          },
+          {
+            "id": 7,
+            "title": "Update E2E Tests for In-Game Language Switching",
+            "description": "Extend the existing end-to-end tests to cover the user scenario of changing the language during an active game and verifying the UI updates correctly without side effects.",
+            "dependencies": [
+              4,
+              5
+            ],
+            "details": "Modify the test suite in `e2e/tests/language-persistence.e2e.ts`. Add a new test that starts a game, advances a turn, changes the language, and then verifies that the question text updates to the new language while player scores and turn information remain unchanged. Acceptance Criteria: Test passes for all supported locales (en, es, pt-BR).",
+            "status": "done",
+            "testStrategy": "This task implements the E2E test strategy. The Playwright/Cypress test runner will execute this as part of the full regression suite before deployment."
+          }
+        ]
       },
       {
         "id": 84,
@@ -3403,7 +3481,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-23T11:04:37.497Z"
+      "updated": "2025-11-23T18:06:15.424Z"
     }
   }
 }

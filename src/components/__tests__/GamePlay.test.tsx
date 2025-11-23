@@ -17,6 +17,36 @@ vi.mock('../../lib/gameSessionDB', () => ({
   clearAllGameSessions: vi.fn().mockResolvedValue(undefined),
 }));
 
+// Mock the useProfiles hook to avoid fetch in tests
+vi.mock('@/hooks/useProfiles', () => ({
+  useProfiles: vi.fn(() => ({
+    data: {
+      profiles: [
+        {
+          id: '1',
+          name: 'Profile 1',
+          category: 'Movies',
+          clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1} text...`),
+        },
+        {
+          id: '2',
+          name: 'Profile 2',
+          category: 'Sports',
+          clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1} text...`),
+        },
+        {
+          id: '3',
+          name: 'Profile 3',
+          category: 'Music',
+          clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1} text...`),
+        },
+      ],
+    },
+    isLoading: false,
+    error: null,
+  })),
+}));
+
 // Helper to generate mock profiles
 function createMockProfile(id: string, category: string, name = `Profile ${id}`): Profile {
   return {

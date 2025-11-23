@@ -9,6 +9,7 @@ import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { useProfiles } from '@/hooks/useProfiles';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface GamePlayProps {
@@ -16,7 +17,7 @@ interface GamePlayProps {
 }
 
 export function GamePlay({ sessionId }: GamePlayProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(!!sessionId);
   const [showRoundSummary, setShowRoundSummary] = useState(false);
   const [showAnswerDialog, setShowAnswerDialog] = useState(false);
@@ -48,7 +49,19 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const skipProfile = useGameStore((state) => state.skipProfile);
   const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
+  const loadProfiles = useGameStore((state) => state.loadProfiles);
   const setGlobalError = useGameStore((state) => state.setError);
+
+  // Fetch profiles for current language
+  const { data: profilesData } = useProfiles(i18n.language);
+
+  // Listen to language changes and reload profiles
+  useEffect(() => {
+    // Only reload profiles if game is active and we have new profile data
+    if (status === 'active' && profilesData?.profiles) {
+      loadProfiles(profilesData.profiles);
+    }
+  }, [profilesData, status, loadProfiles]);
 
   // Attempt to load game from storage on mount
   useEffect(() => {
