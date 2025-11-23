@@ -1,9 +1,10 @@
-import { HelpCircle } from 'lucide-react';
+import { HelpCircle, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClueProgress } from '@/components/ClueProgress';
 import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
 import { ProfileProgress } from '@/components/ProfileProgress';
+import { RemovePointsDialog } from '@/components/RemovePointsDialog';
 import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,6 +20,12 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const [isLoading, setIsLoading] = useState(!!sessionId);
   const [showRoundSummary, setShowRoundSummary] = useState(false);
   const [showAnswerDialog, setShowAnswerDialog] = useState(false);
+  const [removePointsDialogOpen, setRemovePointsDialogOpen] = useState(false);
+  const [selectedPlayerForRemoval, setSelectedPlayerForRemoval] = useState<{
+    id: string;
+    name: string;
+    score: number;
+  } | null>(null);
   const [roundSummaryData, setRoundSummaryData] = useState<{
     winnerId: string | null;
     pointsAwarded: number;
@@ -37,6 +44,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const revealedClueHistory = useGameStore((state) => state.revealedClueHistory);
   const nextClue = useGameStore((state) => state.nextClue);
   const awardPoints = useGameStore((state) => state.awardPoints);
+  const removePoints = useGameStore((state) => state.removePoints);
   const skipProfile = useGameStore((state) => state.skipProfile);
   const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
@@ -254,6 +262,27 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     await skipProfile();
   };
 
+  // Handle opening the remove points dialog
+  const handleOpenRemovePoints = (player: { id: string; name: string; score: number }) => {
+    setSelectedPlayerForRemoval(player);
+    setRemovePointsDialogOpen(true);
+  };
+
+  // Handle confirming point removal
+  const handleConfirmRemovePoints = async (amount: number) => {
+    if (!selectedPlayerForRemoval) {
+      return;
+    }
+
+    try {
+      await removePoints(selectedPlayerForRemoval.id, amount);
+      // Dialog will close automatically, state will be refreshed from store
+    } catch (err) {
+      console.error('Failed to remove points:', err);
+      throw err;
+    }
+  };
+
   return (
     <>
       <div className="flex items-center justify-center min-h-main p-4 ">
@@ -333,18 +362,34 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               </h4>
               <div className="grid gap-2">
                 {players.map((player) => (
-                  <Button
-                    key={player.id}
-                    onClick={() => handleAwardPoints(player.id)}
-                    disabled={!canAwardPoints}
-                    variant="outline"
-                    className="w-full h-auto py-4 flex justify-between items-center shadow-md hover:shadow-lg active:shadow-sm active:scale-[0.98] transition-all duration-150 border-2"
-                  >
-                    <span className="font-medium text-base">{player.name}</span>
-                    <span className="text-lg font-bold">
-                      {t('gamePlay.points', { points: player.score })}
-                    </span>
-                  </Button>
+                  <div key={player.id} className="flex gap-2 items-center">
+                    <Button
+                      onClick={() => handleAwardPoints(player.id)}
+                      disabled={!canAwardPoints}
+                      variant="outline"
+                      className="flex-1 h-auto py-4 flex justify-between items-center shadow-md hover:shadow-lg active:shadow-sm active:scale-[0.98] transition-all duration-150 border-2"
+                      data-testid={`award-points-${player.id}`}
+                      aria-label={`Award points to ${player.name}`}
+                    >
+                      <span className="font-medium text-base">{player.name}</span>
+                      <span className="text-lg font-bold">
+                        {t('gamePlay.points', { points: player.score })}
+                      </span>
+                    </Button>
+                    <Button
+                      onClick={() => handleOpenRemovePoints(player)}
+                      disabled={player.score === 0}
+                      variant="ghost"
+                      size="icon"
+                      className="h-auto py-4 px-3"
+                      aria-label={t('gamePlay.removePoints.buttonAriaLabel', {
+                        playerName: player.name,
+                      })}
+                      title={t('gamePlay.removePoints.buttonTitle')}
+                    >
+                      <Trash2 className="w-5 h-5 text-red-600" />
+                    </Button>
+                  </div>
                 ))}
               </div>
               {!canAwardPoints && (
@@ -400,6 +445,14 @@ export function GamePlay({ sessionId }: GamePlayProps) {
           onContinue={handleContinueToNextProfile}
         />
       )}
+
+      {/* Remove Points Dialog */}
+      <RemovePointsDialog
+        open={removePointsDialogOpen}
+        onOpenChange={setRemovePointsDialogOpen}
+        player={selectedPlayerForRemoval}
+        onConfirm={handleConfirmRemovePoints}
+      />
     </>
   );
 }

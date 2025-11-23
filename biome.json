@@ -6,7 +6,15 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["src/**/*.astro", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+    "includes": [
+      "src/**/*.astro",
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "src/**/*.js",
+      "src/**/*.jsx",
+      "src/**/*.json",
+      "public/**/*.json"
+    ],
     "ignoreUnknown": true
   },
   "formatter": {
@@ -25,6 +33,12 @@
     "formatter": {
       "quoteStyle": "single",
       "trailingCommas": "es5"
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "trailingCommas": "none"
     }
   },
   "overrides": [

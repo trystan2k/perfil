@@ -10,7 +10,8 @@
     "back": "Voltar",
     "continue": "Continuar",
     "goHome": "Ir ao Início",
-    "goToRecoveryPage": "Ir para a Página de Recuperação"
+    "goToRecoveryPage": "Ir para a Página de Recuperação",
+    "cancel": "Cancelar"
   },
   "errorHandler": {
     "title": "Erro",
@@ -75,6 +76,24 @@
     "showClueToAwardPoints": "Mostre pelo menos uma dica para atribuir pontos",
     "noWinnerButton": "Sem Vencedor",
     "finishGameButton": "Finalizar Jogo",
+    "removePoints": {
+      "buttonAriaLabel": "Remover pontos de {{playerName}}",
+      "buttonTitle": "Remover pontos deste jogador",
+      "title": "Remover Pontos",
+      "description": "Remover pontos de {{playerName}}",
+      "amountLabel": "Pontos para Remover",
+      "amountPlaceholder": "Digite o valor (1-{{maxPoints}})",
+      "currentScore": "Pontuação atual: {{currentScore}} pts",
+      "confirmButton": "Remover Pontos",
+      "errors": {
+        "emptyAmount": "Por favor, digite um valor",
+        "invalidAmount": "O valor deve ser um inteiro não-negativo.",
+        "zeroAmount": "O valor deve ser maior que zero.",
+        "playerNotFound": "Jogador não encontrado",
+        "insufficientPoints": "{{playerName}} só tem {{maxAmount}} pontos. Não é possível remover mais do que sua pontuação atual.",
+        "failedToRemove": "Erro ao remover pontos. Por favor, tente novamente."
+      }
+    },
     "unknownPlayer": "Jogador Desconhecido",
     "category": "Categoria: {{category}}",
     "profileProgression": "Perfil {{current}} de {{total}}",
