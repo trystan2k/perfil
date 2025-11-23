@@ -169,9 +169,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build production bundle
-        run: pnpm build
-
       - name: Run E2E tests (${{ matrix.browser }})
         run: pnpm test:e2e
         env:

@@ -4,7 +4,7 @@ import { MAX_PLAYERS } from '../../src/lib/constants';
 test.describe('Full game flow', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await page.waitForLoadState('networkidle', { timeout: 10000 });
+    await expect(page.getByRole('heading', { name: 'Game Setup' })).toBeVisible();
   });
 
   test('create game, select category, play round and finish', async ({ page }) => {
