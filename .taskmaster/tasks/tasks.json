@@ -3323,6 +3323,74 @@
             "testStrategy": "New/updated tests include changes under:\n- src/stores/__tests__/gameStore.16players.test.ts (new tests for store validation)\n- src/components/__tests__/GameSetup.test.tsx (updated: 36 tests adjusted)\n- src/components/__tests__/Scoreboard.16players.test.ts (new rendering checks)"
           }
         ]
+      },
+      {
+        "id": 86,
+        "title": "Fix all E2E tests and integrate into complete-check script",
+        "description": "- Fix all existing E2E tests that are currently failing or broken\n- Integrate E2E test execution into the complete-check script to ensure they run as part of QA checks\n- Ensure all E2E tests pass consistently\n- Update any necessary configurations or dependencies for E2E testing",
+        "details": "Technical details:\n- Project uses Playwright for E2E testing (see e2e/ directory)\n- E2E tests are located in e2e/tests/\n- Update complete-check script to include E2E execution (e.g. pnpm run e2e or pnpm test:e2e)\n- Ensure Playwright config, browsers and any test fixtures/data are configured for reliable runs\n- Investigate and fix flaky tests, update selectors, mocks, or test timing where needed\n- Update CI scripts if necessary to run E2E in pipeline\n\nAcceptance Criteria:\n- All E2E tests pass consistently\n- E2E tests integrated into complete-check script\n- No test failures or flakiness\n- Proper error handling and reporting in E2E runs\n\nPriority: High",
+        "testStrategy": "1) Reproduce failures locally by running Playwright tests (pnpm e2e or pnpm test:e2e). 2) Triage failures into config/dependency issues vs test code issues. 3) Fix tests or update fixtures/config as needed. 4) Add retries/timeouts or better selectors for flaky tests. 5) Update package.json complete-check script to invoke E2E. 6) Run pnpm run complete-check until green. 7) Update docs/CI if required.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Identify and document all failing E2E tests",
+            "description": "Run all E2E tests locally to identify which ones are failing and document the specific failures",
+            "dependencies": [],
+            "details": "Execute 'pnpm test:e2e' command to run all tests. Create a report listing each failing test with error messages and screenshots/videos if available. Categorize failures by type (e.g., selector issues, timing problems, configuration errors).",
+            "status": "done",
+            "testStrategy": "Verify the test report contains all failing tests with clear error descriptions and categorization"
+          },
+          {
+            "id": 2,
+            "title": "Fix Playwright configuration and dependencies",
+            "description": "Update Playwright configuration and ensure all necessary browsers and dependencies are properly installed",
+            "dependencies": [
+              1
+            ],
+            "details": "Review and update playwright.config.ts to ensure proper browser settings, timeouts, and test options. Run 'npx playwright install' to ensure all required browsers are installed. Update package.json to include correct Playwright version and related dependencies. Verify the configuration supports reliable test execution.",
+            "status": "done",
+            "testStrategy": "Confirm tests can launch browsers successfully and basic test setup works without configuration errors"
+          },
+          {
+            "id": 3,
+            "title": "Fix individual failing E2E tests",
+            "description": "Address specific issues in each failing test by updating selectors, timing, or test logic",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "For each failing test identified in subtask 1, update the test code to fix issues. This may include updating selectors to match current UI, adding proper waits instead of fixed timeouts, fixing mock data, or adjusting test steps. Focus on eliminating flakiness by using Playwright's auto-waiting features and proper assertions.",
+            "status": "done",
+            "testStrategy": "Run each fixed test multiple times to verify consistent passing results and no flakiness"
+          },
+          {
+            "id": 4,
+            "title": "Integrate E2E tests into complete-check script",
+            "description": "Modify the complete-check script to include E2E test execution as part of the QA process",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Update the complete-check script (likely in package.json scripts section) to include the E2E test command (e.g., 'pnpm test:e2e'). Ensure proper exit codes are handled so that the script fails if E2E tests fail. Add appropriate logging to show E2E test execution status in the complete-check output.",
+            "status": "done",
+            "testStrategy": "Run complete-check script and verify it executes E2E tests and correctly reports failures"
+          },
+          {
+            "id": 5,
+            "title": "Update CI pipeline for E2E test execution",
+            "description": "Modify CI configuration to run E2E tests as part of the pipeline",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Update CI configuration files (e.g., .github/workflows/main.yml) to include E2E test execution step. Ensure necessary Playwright dependencies are installed in the CI environment. Configure appropriate caching for browsers to speed up test execution. Verify E2E tests run successfully in the CI environment and failures block the pipeline appropriately.",
+            "status": "done",
+            "testStrategy": "Push changes to a feature branch and verify E2E tests run correctly in CI pipeline"
+          }
+        ]
       }
     ],
     "metadata": {
@@ -3335,7 +3403,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-22T21:14:54.428Z"
+      "updated": "2025-11-23T11:04:37.497Z"
     }
   }
 }

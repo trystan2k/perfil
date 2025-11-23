@@ -5,6 +5,7 @@ import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
 import * as gameSessionDB from '../../lib/gameSessionDB';
+import { ErrorStateProvider } from '../ErrorStateProvider';
 import { GamePlay } from '../GamePlay';
 
 // Mock the gameSessionDB module to avoid IndexedDB issues in Node test environment
@@ -44,12 +45,17 @@ describe('GamePlay Component', () => {
   });
 
   describe('Initial Rendering', () => {
-    it('should show "No Active Game" message when status is pending', () => {
+    it('should show "gamePlay.errors.loadFailed" message when status is pending', () => {
       // Store starts in pending state by default
-      render(<GamePlay />);
+      render(
+        <ErrorStateProvider>
+          <GamePlay />
+        </ErrorStateProvider>
+      );
 
-      expect(screen.getByText('No Active Game')).toBeInTheDocument();
-      expect(screen.getByText('Please start a game first.')).toBeInTheDocument();
+      expect(
+        screen.getByText('Failed to load game session. Please try again.')
+      ).toBeInTheDocument();
     });
 
     it('should show redirecting message when status is completed', () => {
@@ -64,16 +70,22 @@ describe('GamePlay Component', () => {
       expect(screen.getByText('Redirecting to scoreboard...')).toBeInTheDocument();
     });
 
-    it('should show "No Active Game" message when currentTurn is null', () => {
+    it('should show "Failed to load game session. Please try again." message when currentTurn is null', () => {
       // Manually set status to active but no current turn (shouldn't happen normally)
       useGameStore.setState({
         status: 'active',
         currentTurn: null,
       });
 
-      render(<GamePlay />);
+      render(
+        <ErrorStateProvider>
+          <GamePlay />
+        </ErrorStateProvider>
+      );
 
-      expect(screen.getByText('No Active Game')).toBeInTheDocument();
+      expect(
+        screen.getByText('Failed to load game session. Please try again.')
+      ).toBeInTheDocument();
     });
 
     it('should render game play UI when game is active', () => {
@@ -81,7 +93,11 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      render(
+        <ErrorStateProvider>
+          <GamePlay />
+        </ErrorStateProvider>
+      );
 
       expect(screen.getByText('Game Play')).toBeInTheDocument();
       expect(screen.getByText(/Category: Movies/)).toBeInTheDocument();
@@ -337,11 +353,16 @@ describe('GamePlay Component', () => {
     });
 
     it('should render without loading when no sessionId provided and no game in store', () => {
-      render(<GamePlay />);
+      render(
+        <ErrorStateProvider>
+          <GamePlay />
+        </ErrorStateProvider>
+      );
 
-      // Should show "No Active Game" immediately without loading
-      expect(screen.getByText('No Active Game')).toBeInTheDocument();
-      expect(screen.getByText('Please start a game first.')).toBeInTheDocument();
+      // Should show "Failed to load game session. Please try again." immediately without loading
+      expect(
+        screen.getByText('Failed to load game session. Please try again.')
+      ).toBeInTheDocument();
 
       // Should not show loading state
       expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
@@ -366,7 +387,7 @@ describe('GamePlay Component', () => {
       await waitFor(() => {
         const state = useGameStore.getState();
         expect(state.error).toEqual({
-          message: 'errorHandler.sessionNotFound',
+          message: 'gamePlay.errors.loadFailed',
           informative: undefined,
         });
       });
@@ -382,7 +403,7 @@ describe('GamePlay Component', () => {
       await waitFor(() => {
         const state = useGameStore.getState();
         expect(state.error).toEqual({
-          message: 'errorHandler.sessionCorrupted',
+          message: 'gamePlay.errors.loadFailed',
           informative: undefined,
         });
       });

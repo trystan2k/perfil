@@ -16,11 +16,36 @@
     "typecheck": "tsc --noEmit && astro check",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "complete-check": "pnpm run lint && pnpm run typecheck && pnpm run test:coverage && pnpm run build",
+    "test:e2e": "playwright test --config=e2e/playwright.config.ts",
+    "complete-check": "pnpm run lint && pnpm run typecheck && pnpm run test:coverage && pnpm run test:e2e && pnpm run build",
     "prepare": "husky"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,astro,json,css}": [
+      "biome format --write",
+      "biome check --write --error-on-warnings"
+    ],
+    "e2e/**/*.{ts}": [
+      "biome format --write",
+      "biome check --write --error-on-warnings"
+    ],
+    "astro.config.mjs": [
+      "biome format --write",
+      "biome check --write --error-on-warnings"
+    ],
+    "tailwind.config.mjs": [
+      "biome format --write",
+      "biome check --write --error-on-warnings"
+    ],
+    "biome.json": [
+      "biome format --write",
+      "biome check --write --error-on-warnings"
+    ],
+    "vitest.config.*": [
+      "biome format --write",
+      "biome check --write --error-on-warnings"
+    ],
+    "package.json": [
       "biome format --write",
       "biome check --write --error-on-warnings"
     ],

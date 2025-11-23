@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Theme switching', () => {
   test.beforeEach(async ({ page }) => {
@@ -148,7 +148,7 @@ test.describe('Theme switching', () => {
     await expect(themeSwitcher).toBeVisible();
 
     // Verify language switcher is also present
-    const languageSwitcher = header.getByRole('navigation', { name: /language switcher/i });
+    const languageSwitcher = header.getByRole('navigation', { name: /Language selector/i });
     await expect(languageSwitcher).toBeVisible();
 
     // Both should be in the same header
