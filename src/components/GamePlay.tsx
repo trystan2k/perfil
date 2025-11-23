@@ -1,5 +1,5 @@
 import { HelpCircle, Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClueProgress } from '@/components/ClueProgress';
 import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
@@ -55,13 +55,32 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   // Fetch profiles for current language
   const { data: profilesData } = useProfiles(i18n.language);
 
+  // Track previous language to detect changes
+  const prevLanguageRef = useRef(i18n.language);
+
   // Listen to language changes and reload profiles
   useEffect(() => {
-    // Only reload profiles if game is active and we have new profile data
-    if (status === 'active' && profilesData?.profiles) {
+    // Only reload if language actually changed and game is active
+    const languageChanged = prevLanguageRef.current !== i18n.language;
+
+    if (languageChanged && status === 'active' && profilesData?.profiles) {
       loadProfiles(profilesData.profiles);
+
+      // Get the current profile ID from the store (read directly to avoid dependency)
+      const currentProfileId = useGameStore.getState().currentProfile?.id;
+
+      // If there's a current profile, update it with the new localized version
+      if (currentProfileId) {
+        const updatedCurrentProfile = profilesData.profiles.find((p) => p.id === currentProfileId);
+        if (updatedCurrentProfile) {
+          useGameStore.setState({ currentProfile: updatedCurrentProfile });
+        }
+      }
+
+      // Update the ref for next comparison
+      prevLanguageRef.current = i18n.language;
     }
-  }, [profilesData, status, loadProfiles]);
+  }, [i18n.language, profilesData, status, loadProfiles]);
 
   // Attempt to load game from storage on mount
   useEffect(() => {
