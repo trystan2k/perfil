@@ -97,6 +97,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     if (languageChanged && status !== 'active') {
       // Update ref even if game not active to track the change
       prevLanguageRef.current = i18n.language;
+      hasSyncedRef.current = null;
       return;
     }
 
