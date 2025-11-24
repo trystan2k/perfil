@@ -69,6 +69,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
         console.error('Failed to load profiles for language:', i18n.language, error);
         // Revert language change to prevent inconsistent state
         i18n.changeLanguage(prevLang);
+        prevLanguageRef.current = prevLang;
         // Optionally: show error to user via toast/notification system
         // toast.error(t('errors.profileLoadFailed'));
       }
