@@ -168,4 +168,207 @@ describe('useProfiles', () => {
     expect(result.current.data).toEqual(mockProfilesData);
     expect(fetch).toHaveBeenCalledWith('/data/pt-BR/profiles.json');
   });
+
+  describe('language change behavior', () => {
+    it('should refetch profiles when locale parameter changes', async () => {
+      // Create a fresh queryClient for this test
+      const queryClient = new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      });
+      const wrapper = ({ children }: { children: ReactNode }) => (
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      );
+
+      const enProfilesData: ProfilesData = {
+        version: '1',
+        profiles: [
+          {
+            id: 'en-001',
+            category: 'Movies',
+            name: 'English Profile',
+            clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+            metadata: { language: 'en' },
+          },
+        ],
+      };
+
+      const esProfilesData: ProfilesData = {
+        version: '1',
+        profiles: [
+          {
+            id: 'es-001',
+            category: 'Películas',
+            name: 'Spanish Profile',
+            clues: ['Pista 1', 'Pista 2', 'Pista 3'],
+            metadata: { language: 'es' },
+          },
+        ],
+      };
+
+      vi.mocked(fetch)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => enProfilesData,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => esProfilesData,
+        } as Response);
+
+      const { result, rerender } = renderHook(({ locale }) => useProfiles(locale), {
+        wrapper,
+        initialProps: { locale: 'en' },
+      });
+
+      // Wait for initial English profiles to load
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+      expect(result.current.data).toEqual(enProfilesData);
+      expect(fetch).toHaveBeenCalledWith('/data/en/profiles.json');
+
+      // Change locale to Spanish
+      rerender({ locale: 'es' });
+
+      // Wait for Spanish profiles to load
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+      await waitFor(() => {
+        return result.current.data?.profiles[0]?.id === 'es-001';
+      });
+
+      expect(result.current.data).toEqual(esProfilesData);
+      expect(fetch).toHaveBeenCalledWith('/data/es/profiles.json');
+    });
+
+    it('should use cached profiles when switching back to previously loaded locale', async () => {
+      // Create a fresh queryClient for this test
+      const queryClient = new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      });
+      const wrapper = ({ children }: { children: ReactNode }) => (
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      );
+
+      const enProfilesData: ProfilesData = {
+        version: '1',
+        profiles: [
+          {
+            id: 'en-001',
+            category: 'Movies',
+            name: 'English Profile',
+            clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+          },
+        ],
+      };
+
+      const esProfilesData: ProfilesData = {
+        version: '1',
+        profiles: [
+          {
+            id: 'es-001',
+            category: 'Películas',
+            name: 'Spanish Profile',
+            clues: ['Pista 1', 'Pista 2', 'Pista 3'],
+          },
+        ],
+      };
+
+      vi.mocked(fetch)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => enProfilesData,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => esProfilesData,
+        } as Response);
+
+      const { result, rerender } = renderHook(({ locale }) => useProfiles(locale), {
+        wrapper,
+        initialProps: { locale: 'en' },
+      });
+
+      // Load English profiles
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+      expect(result.current.data).toEqual(enProfilesData);
+
+      // Switch to Spanish
+      rerender({ locale: 'es' });
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+      await waitFor(() => {
+        return result.current.data?.profiles[0]?.id === 'es-001';
+      });
+      expect(result.current.data).toEqual(esProfilesData);
+
+      // Switch back to English - should use cache
+      rerender({ locale: 'en' });
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+      await waitFor(() => {
+        return result.current.data?.profiles[0]?.id === 'en-001';
+      });
+      expect(result.current.data).toEqual(enProfilesData);
+    });
+
+    it('should handle errors when reloading profiles for new locale', async () => {
+      // Create a fresh queryClient for this test
+      const queryClient = new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      });
+      const wrapper = ({ children }: { children: ReactNode }) => (
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      );
+
+      const enProfilesData: ProfilesData = {
+        version: '1',
+        profiles: [
+          {
+            id: 'en-001',
+            category: 'Movies',
+            name: 'English Profile',
+            clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+          },
+        ],
+      };
+
+      vi.mocked(fetch)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => enProfilesData,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: false,
+          statusText: 'Not Found',
+        } as Response);
+
+      const { result, rerender } = renderHook(({ locale }) => useProfiles(locale), {
+        wrapper,
+        initialProps: { locale: 'en' },
+      });
+
+      // Load English profiles successfully
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+      expect(result.current.data).toEqual(enProfilesData);
+
+      // Try to switch to Spanish but get error
+      rerender({ locale: 'es' });
+
+      await waitFor(() => expect(result.current.isError).toBe(true));
+
+      expect(result.current.error).toBeDefined();
+      expect(result.current.error?.message).toContain('Failed to fetch profiles');
+      // Note: TanStack Query clears data on new query, so data will be undefined on error
+      // This is expected behavior - previous data is only kept when using keepPreviousData option
+      expect(result.current.data).toBeUndefined();
+    });
+  });
 });

@@ -1,5 +1,5 @@
 import { HelpCircle, Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClueProgress } from '@/components/ClueProgress';
 import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
@@ -9,6 +9,7 @@ import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { useProfiles } from '@/hooks/useProfiles';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface GamePlayProps {
@@ -16,7 +17,7 @@ interface GamePlayProps {
 }
 
 export function GamePlay({ sessionId }: GamePlayProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(!!sessionId);
   const [showRoundSummary, setShowRoundSummary] = useState(false);
   const [showAnswerDialog, setShowAnswerDialog] = useState(false);
@@ -48,7 +49,73 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const skipProfile = useGameStore((state) => state.skipProfile);
   const endGame = useGameStore((state) => state.endGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
+  const loadProfiles = useGameStore((state) => state.loadProfiles);
   const setGlobalError = useGameStore((state) => state.setError);
+
+  // Fetch profiles for current language with error handling
+  const { data: profilesData, isError, error } = useProfiles(i18n.language);
+
+  // Track previous language to detect changes and handle errors
+  const prevLanguageRef = useRef(i18n.language);
+  // Track if we've synced profiles for the current session to avoid infinite loops
+  const hasSyncedRef = useRef<string | null>(null);
+
+  // Handle profile fetch errors by reverting language
+  useEffect(() => {
+    if (isError && error) {
+      // If profiles failed to load for new language, revert to previous language
+      const prevLang = prevLanguageRef.current;
+      if (prevLang !== i18n.language) {
+        console.error('Failed to load profiles for language:', i18n.language, error);
+        // Revert language change to prevent inconsistent state
+        i18n.changeLanguage(prevLang);
+        prevLanguageRef.current = prevLang;
+        // Optionally: show error to user via toast/notification system
+        // toast.error(t('errors.profileLoadFailed'));
+      }
+    }
+  }, [isError, error, i18n]);
+
+  // Consolidated effect: Handle both language changes and initial load sync
+  useEffect(() => {
+    // Skip if no profiles data available
+    if (!profilesData?.profiles) {
+      return;
+    }
+
+    // Determine if this is a language change or initial load
+    const languageChanged = prevLanguageRef.current !== i18n.language;
+    const syncKey = `${id}-${i18n.language}`;
+    const needsInitialSync = id && status === 'active' && hasSyncedRef.current !== syncKey;
+
+    // Only proceed if either language changed or initial sync is needed
+    if (!languageChanged && !needsInitialSync) {
+      return;
+    }
+
+    // For language changes, only proceed if game is active
+    if (languageChanged && status !== 'active') {
+      // Update ref even if game not active to track the change
+      prevLanguageRef.current = i18n.language;
+      hasSyncedRef.current = null;
+      return;
+    }
+
+    // Load profiles - this now also updates currentProfile and rebuilds history
+    loadProfiles(profilesData.profiles);
+
+    // Update tracking refs
+    if (languageChanged) {
+      prevLanguageRef.current = i18n.language;
+      // Reset sync tracking when language changes to allow re-sync
+      hasSyncedRef.current = null;
+    }
+
+    if (needsInitialSync) {
+      // Mark as synced for this session + language combination
+      hasSyncedRef.current = syncKey;
+    }
+  }, [id, i18n.language, profilesData, status, loadProfiles]);
 
   // Attempt to load game from storage on mount
   useEffect(() => {

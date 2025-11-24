@@ -30,6 +30,7 @@ interface GameState extends GameSession {
   currentRound: number;
   roundCategoryMap: string[];
   revealedClueHistory: string[];
+  revealedClueIndices: number[];
   error: { message: string; informative?: boolean } | null;
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
@@ -75,6 +76,7 @@ const initialState: Omit<
   currentRound: 0,
   roundCategoryMap: [],
   revealedClueHistory: [],
+  revealedClueIndices: [],
   error: null,
 };
 
@@ -114,6 +116,7 @@ function buildPersistedState(state: GameState): PersistedGameState {
     currentRound: state.currentRound,
     roundCategoryMap: state.roundCategoryMap,
     revealedClueHistory: state.revealedClueHistory,
+    revealedClueIndices: state.revealedClueIndices,
   };
 }
 
@@ -241,6 +244,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
       currentProfile: null,
       currentTurn: null,
       revealedClueHistory: [],
+      revealedClueIndices: [],
     };
   }
 
@@ -265,6 +269,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
       revealed: false,
     },
     revealedClueHistory: [],
+    revealedClueIndices: [],
   };
 }
 
@@ -333,7 +338,26 @@ export const useGameStore = create<GameState>((set, get) => ({
     await persistState({ ...get(), ...newState });
   },
   loadProfiles: (profiles: Profile[]) => {
-    set({ profiles });
+    set((state) => {
+      const updates: Partial<GameState> = { profiles };
+
+      // If there's a current profile, update it with the new localized version
+      if (state.currentProfile) {
+        const updatedCurrentProfile = profiles.find((p) => p.id === state.currentProfile?.id);
+        if (updatedCurrentProfile) {
+          updates.currentProfile = updatedCurrentProfile;
+
+          // Rebuild revealed clue history from indices
+          const revealedClueIndices = state.revealedClueIndices || [];
+          const rebuiltHistory = revealedClueIndices
+            .map((index) => updatedCurrentProfile.clues[index])
+            .filter((clue): clue is string => clue !== undefined);
+          updates.revealedClueHistory = rebuiltHistory;
+        }
+      }
+
+      return updates;
+    });
     persistState(get());
   },
   startGame: (selectedCategories: string[], numberOfRounds = 1) => {
@@ -451,6 +475,11 @@ export const useGameStore = create<GameState>((set, get) => ({
         },
         // Add the current clue to history using the helper function
         revealedClueHistory: addToHistory(currentClueText, state.revealedClueHistory),
+        // Track the clue index for language switching
+        revealedClueIndices:
+          currentlyVisibleClueIndex >= 0
+            ? [currentlyVisibleClueIndex, ...state.revealedClueIndices]
+            : state.revealedClueIndices,
       };
 
       persistState({ ...state, ...newState });
@@ -634,6 +663,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         currentRound: loadedState.currentRound ?? 0,
         roundCategoryMap: loadedState.roundCategoryMap ?? [],
         revealedClueHistory: loadedState.revealedClueHistory ?? [],
+        revealedClueIndices: loadedState.revealedClueIndices ?? [],
         error: null, // Clear any previous errors on successful load
       });
 

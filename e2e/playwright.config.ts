@@ -6,7 +6,9 @@ export default defineConfig({
   timeout: 120_000,
   expect: { timeout: 10000 },
   fullyParallel: false,
-  reporter: [['list'], ['html', { outputFolder: 'e2e-report' }]],
+  reporter: process.env.PW_HTML
+    ? [['list'], ['html', { outputFolder: 'e2e-report', open: 'never' }]]
+    : [['list']],
   use: {
     actionTimeout: 10000,
     baseURL: process.env.BASE_URL || 'http://localhost:4321',
