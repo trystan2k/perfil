@@ -338,7 +338,26 @@ export const useGameStore = create<GameState>((set, get) => ({
     await persistState({ ...get(), ...newState });
   },
   loadProfiles: (profiles: Profile[]) => {
-    set({ profiles });
+    set((state) => {
+      const updates: Partial<GameState> = { profiles };
+
+      // If there's a current profile, update it with the new localized version
+      if (state.currentProfile) {
+        const updatedCurrentProfile = profiles.find((p) => p.id === state.currentProfile?.id);
+        if (updatedCurrentProfile) {
+          updates.currentProfile = updatedCurrentProfile;
+
+          // Rebuild revealed clue history from indices
+          const revealedClueIndices = state.revealedClueIndices || [];
+          const rebuiltHistory = revealedClueIndices.map(
+            (index) => updatedCurrentProfile.clues[index]
+          );
+          updates.revealedClueHistory = rebuiltHistory;
+        }
+      }
+
+      return updates;
+    });
     persistState(get());
   },
   startGame: (selectedCategories: string[], numberOfRounds = 1) => {

@@ -52,86 +52,68 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const loadProfiles = useGameStore((state) => state.loadProfiles);
   const setGlobalError = useGameStore((state) => state.setError);
 
-  // Fetch profiles for current language
-  const { data: profilesData } = useProfiles(i18n.language);
+  // Fetch profiles for current language with error handling
+  const { data: profilesData, isError, error } = useProfiles(i18n.language);
 
-  // Track previous language to detect changes
+  // Track previous language to detect changes and handle errors
   const prevLanguageRef = useRef(i18n.language);
   // Track if we've synced profiles for the current session to avoid infinite loops
   const hasSyncedRef = useRef<string | null>(null);
 
-  // Listen to language changes and reload profiles
+  // Handle profile fetch errors by reverting language
   useEffect(() => {
-    // Only reload if language actually changed and game is active
-    const languageChanged = prevLanguageRef.current !== i18n.language;
-
-    if (languageChanged && status === 'active' && profilesData?.profiles) {
-      loadProfiles(profilesData.profiles);
-
-      // Get the current profile ID from the store (read directly to avoid dependency)
-      const state = useGameStore.getState();
-      const currentProfileId = state.currentProfile?.id;
-
-      // If there's a current profile, update it with the new localized version
-      if (currentProfileId) {
-        const updatedCurrentProfile = profilesData.profiles.find((p) => p.id === currentProfileId);
-        if (updatedCurrentProfile) {
-          // Rebuild revealed clue history from indices
-          const revealedClueIndices = state.revealedClueIndices || [];
-          const rebuiltHistory = revealedClueIndices.map(
-            (index) => updatedCurrentProfile.clues[index]
-          );
-
-          useGameStore.setState({
-            currentProfile: updatedCurrentProfile,
-            revealedClueHistory: rebuiltHistory,
-          });
-        }
+    if (isError && error) {
+      // If profiles failed to load for new language, revert to previous language
+      const prevLang = prevLanguageRef.current;
+      if (prevLang !== i18n.language) {
+        console.error('Failed to load profiles for language:', i18n.language, error);
+        // Revert language change to prevent inconsistent state
+        i18n.changeLanguage(prevLang);
+        // Optionally: show error to user via toast/notification system
+        // toast.error(t('errors.profileLoadFailed'));
       }
+    }
+  }, [isError, error, i18n]);
 
-      // Update the ref for next comparison
+  // Consolidated effect: Handle both language changes and initial load sync
+  useEffect(() => {
+    // Skip if no profiles data available
+    if (!profilesData?.profiles) {
+      return;
+    }
+
+    // Determine if this is a language change or initial load
+    const languageChanged = prevLanguageRef.current !== i18n.language;
+    const syncKey = `${id}-${i18n.language}`;
+    const needsInitialSync = id && status === 'active' && hasSyncedRef.current !== syncKey;
+
+    // Only proceed if either language changed or initial sync is needed
+    if (!languageChanged && !needsInitialSync) {
+      return;
+    }
+
+    // For language changes, only proceed if game is active
+    if (languageChanged && status !== 'active') {
+      // Update ref even if game not active to track the change
       prevLanguageRef.current = i18n.language;
-      // Reset sync tracking when language changes
+      return;
+    }
+
+    // Load profiles - this now also updates currentProfile and rebuilds history
+    loadProfiles(profilesData.profiles);
+
+    // Update tracking refs
+    if (languageChanged) {
+      prevLanguageRef.current = i18n.language;
+      // Reset sync tracking when language changes to allow re-sync
       hasSyncedRef.current = null;
     }
-  }, [i18n.language, profilesData, status, loadProfiles]);
 
-  // Sync profiles after loading from storage to ensure language matches
-  useEffect(() => {
-    // Only sync once per session ID + language combination
-    const syncKey = `${id}-${i18n.language}`;
-    if (!id || !profilesData?.profiles || hasSyncedRef.current === syncKey) {
-      return;
+    if (needsInitialSync) {
+      // Mark as synced for this session + language combination
+      hasSyncedRef.current = syncKey;
     }
-
-    const state = useGameStore.getState();
-
-    // Only proceed if game is active and has a current profile
-    if (state.status !== 'active' || !state.currentProfile) {
-      return;
-    }
-
-    const currentProfileId = state.currentProfile.id;
-    const localizedProfile = profilesData.profiles.find((p) => p.id === currentProfileId);
-
-    if (localizedProfile) {
-      // Only update if the profile reference is different (different language)
-      if (localizedProfile !== state.currentProfile) {
-        // Rebuild revealed clue history from indices
-        const revealedClueIndices = state.revealedClueIndices || [];
-        const rebuiltHistory = revealedClueIndices.map((index) => localizedProfile.clues[index]);
-
-        useGameStore.setState({
-          currentProfile: localizedProfile,
-          profiles: profilesData.profiles,
-          revealedClueHistory: rebuiltHistory,
-        });
-      }
-    }
-
-    // Mark as synced for this session + language
-    hasSyncedRef.current = syncKey;
-  }, [id, profilesData, i18n.language]);
+  }, [id, i18n.language, profilesData, status, loadProfiles]);
 
   // Attempt to load game from storage on mount
   useEffect(() => {
