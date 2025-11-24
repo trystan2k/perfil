@@ -349,9 +349,9 @@ export const useGameStore = create<GameState>((set, get) => ({
 
           // Rebuild revealed clue history from indices
           const revealedClueIndices = state.revealedClueIndices || [];
-          const rebuiltHistory = revealedClueIndices.map(
-            (index) => updatedCurrentProfile.clues[index]
-          );
+          const rebuiltHistory = revealedClueIndices
+            .map((index) => updatedCurrentProfile.clues[index])
+            .filter((clue): clue is string => clue !== undefined);
           updates.revealedClueHistory = rebuiltHistory;
         }
       }
