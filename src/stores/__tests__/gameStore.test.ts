@@ -968,6 +968,7 @@ describe('gameStore', () => {
         currentRound: state.currentRound,
         roundCategoryMap: state.roundCategoryMap,
         revealedClueHistory: state.revealedClueHistory,
+        revealedClueIndices: state.revealedClueIndices,
       });
     });
 

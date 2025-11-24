@@ -57,6 +57,8 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
   // Track previous language to detect changes
   const prevLanguageRef = useRef(i18n.language);
+  // Track if we've synced profiles for the current session to avoid infinite loops
+  const hasSyncedRef = useRef<string | null>(null);
 
   // Listen to language changes and reload profiles
   useEffect(() => {
@@ -67,20 +69,69 @@ export function GamePlay({ sessionId }: GamePlayProps) {
       loadProfiles(profilesData.profiles);
 
       // Get the current profile ID from the store (read directly to avoid dependency)
-      const currentProfileId = useGameStore.getState().currentProfile?.id;
+      const state = useGameStore.getState();
+      const currentProfileId = state.currentProfile?.id;
 
       // If there's a current profile, update it with the new localized version
       if (currentProfileId) {
         const updatedCurrentProfile = profilesData.profiles.find((p) => p.id === currentProfileId);
         if (updatedCurrentProfile) {
-          useGameStore.setState({ currentProfile: updatedCurrentProfile });
+          // Rebuild revealed clue history from indices
+          const revealedClueIndices = state.revealedClueIndices || [];
+          const rebuiltHistory = revealedClueIndices.map(
+            (index) => updatedCurrentProfile.clues[index]
+          );
+
+          useGameStore.setState({
+            currentProfile: updatedCurrentProfile,
+            revealedClueHistory: rebuiltHistory,
+          });
         }
       }
 
       // Update the ref for next comparison
       prevLanguageRef.current = i18n.language;
+      // Reset sync tracking when language changes
+      hasSyncedRef.current = null;
     }
   }, [i18n.language, profilesData, status, loadProfiles]);
+
+  // Sync profiles after loading from storage to ensure language matches
+  useEffect(() => {
+    // Only sync once per session ID + language combination
+    const syncKey = `${id}-${i18n.language}`;
+    if (!id || !profilesData?.profiles || hasSyncedRef.current === syncKey) {
+      return;
+    }
+
+    const state = useGameStore.getState();
+
+    // Only proceed if game is active and has a current profile
+    if (state.status !== 'active' || !state.currentProfile) {
+      return;
+    }
+
+    const currentProfileId = state.currentProfile.id;
+    const localizedProfile = profilesData.profiles.find((p) => p.id === currentProfileId);
+
+    if (localizedProfile) {
+      // Only update if the profile reference is different (different language)
+      if (localizedProfile !== state.currentProfile) {
+        // Rebuild revealed clue history from indices
+        const revealedClueIndices = state.revealedClueIndices || [];
+        const rebuiltHistory = revealedClueIndices.map((index) => localizedProfile.clues[index]);
+
+        useGameStore.setState({
+          currentProfile: localizedProfile,
+          profiles: profilesData.profiles,
+          revealedClueHistory: rebuiltHistory,
+        });
+      }
+    }
+
+    // Mark as synced for this session + language
+    hasSyncedRef.current = syncKey;
+  }, [id, profilesData, i18n.language]);
 
   // Attempt to load game from storage on mount
   useEffect(() => {

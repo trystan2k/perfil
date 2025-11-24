@@ -17,6 +17,7 @@ export interface PersistedGameState extends GameSession {
   currentRound: number;
   roundCategoryMap: string[];
   revealedClueHistory: string[];
+  revealedClueIndices?: number[];
 }
 
 let dbPromise: Promise<IDBPDatabase> | null = null;

@@ -3178,7 +3178,7 @@
         "subtasks": []
       },
       {
-        "id": "83",
+        "id": 83,
         "title": "Reload profiles on language change during game",
         "description": "When a user is in the middle of the game and changes the language, the profile is now reloaded so that the questions also appear in the language the user just selected. This was achieved by listening for language changes within the game component and refetching the localized profile data without affecting the ongoing game state.",
         "status": "done",
@@ -3481,7 +3481,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-23T18:06:15.424Z"
+      "updated": "2025-11-24T13:41:13.740Z"
     }
   }
 }
