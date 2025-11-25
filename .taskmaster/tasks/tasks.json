@@ -3469,6 +3469,61 @@
             "testStrategy": "Push changes to a feature branch and verify E2E tests run correctly in CI pipeline"
           }
         ]
+      },
+      {
+        "id": 87,
+        "title": "Epic: Persistence & Domain Refactor - Phase Planning & Coordination",
+        "description": "Coordination task for a cohesive architectural refactor spanning persistence layer, domain-driven design, and store optimization.\n\nRelated Tasks: #46, #45, #48, #49, #47, #74, #76, #67, #51\n\nPhase Breakdown:\n- Phase 1: Persistence service & repository (#46) + integration tests foundation (#49)\n- Phase 2: Fix memory leaks and rehydration race (#45, #48) using persistence API\n- Phase 3: Domain extraction & state machine (#47, #74) integrating persistence service\n- Phase 4: Selector optimization & optimistic updates (#51, #67)\n- Phase 5: Add architectural fitness checks (#76) to enforce boundaries post-refactor\n\nBenefits: Single cohesive architectural improvement vs. fragmented PRs. Avoids duplicated effort and coordinates dependent work.",
+        "details": "",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 88,
+        "title": "Epic: Client Hydration & Runtime Performance - Phase Planning & Coordination",
+        "description": "Coordination task for client-side performance optimization through hydration strategy, lazy-loading, progressive data loading, and memoization.\n\nRelated Tasks: #42, #54, #53, #56, #57, #58, #55, #68, #66\n\nPhase Breakdown:\n- Phase 1: Audit client:only footprint and split data by category (#42, #53)\n- Phase 2: Introduce lazy-loading and Suspense for heavy components (#54)\n- Phase 3: Apply memoization and React.memo (#56, #57)\n- Phase 4: Introduce cancellation patterns and modern React hooks (#58, #55, #68)\n- Phase 5: Tune bundle splitting and CI budgets (#66)\n\nBenefits: Coherent performance strategy. Hydration changes affect lazy-loading which affects bundle splitting - coordinating prevents conflicts.",
+        "details": "",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 89,
+        "title": "Epic: UX & Visual Polish / PWA - Phase Planning & Coordination",
+        "description": "Coordination task for user-facing design and UX improvements including responsive layouts, animations, mobile optimizations, and PWA enhancements.\n\nRelated Tasks: #40, #61, #60, #62, #63, #64, #65, #59, #80, #81\n\nPhase Breakdown:\n- Phase 1: Design/ADR finalization and responsive breakpoints (#40, #64)\n- Phase 2: Implement skeletons & loading states (#60) alongside lazy-loading\n- Phase 3: Add animations & micro-interactions (#61) with reduced-motion support\n- Phase 4: Mobile tweaks and PWA theme/contrast fixes (#62, #63, #59)\n- Phase 5: Icon optimization and validation UX improvements (#65, #80, #81)\n\nBenefits: Cohesive user-facing release. Single design review cycle and visual regression testing.",
+        "details": "",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 90,
+        "title": "Epic: Error Handling & Observability - Phase Planning & Coordination",
+        "description": "Coordination task for implementing a complete error propagation and observability system including typed errors, centralized error handling, boundaries, and telemetry.\n\nRelated Tasks: #71, #72, #50, #73\n\nPhase Breakdown:\n- Phase 1: Define typed error classes and guards (#71)\n- Phase 2: Implement ErrorService and ErrorBoundary usage (#72, #50)\n- Phase 3: Hook telemetry and web-vitals (#73)\n\nBenefits: Complete system with pieces that depend on each other. Single coherent error/observability layer vs. piecemeal implementation.",
+        "details": "",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 91,
+        "title": "Epic: Code Hygiene & Build Config - Phase Planning & Coordination",
+        "description": "Coordination task for maintenance and standardization work including code hygiene, type improvements, build config tuning, and documentation.\n\nRelated Tasks: #41, #70, #77, #78, #79, #82\n\nPhase Breakdown:\n- Phase 1: Fix wildcard imports and ESM/tsconfig tuning (#41, #79)\n- Phase 2: Strengthen Zod schemas & error typing (#70)\n- Phase 3: Standardize null/undefined and move constants (#77, #78)\n- Phase 4: Create component documentation (#82)\n\nBenefits: Single maintenance pass. Low-risk changes grouped together for efficient review.",
+        "details": "",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "low",
+        "subtasks": []
       }
     ],
     "metadata": {
@@ -3481,7 +3536,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-24T13:41:13.740Z"
+      "updated": "2025-11-24T18:22:48.286Z"
     }
   }
 }
