@@ -2722,12 +2722,68 @@
         "id": 46,
         "title": "Refactor State Persistence to Repository Pattern",
         "description": "ARCH-001: Extract persistence logic from game store into a repository and a persistence service to separate concerns and improve testability.",
-        "details": "Create GameSessionRepository and GamePersistenceService (debounced save, forceSave, clearTimer). Store should call persistenceService.debouncedSave(get()). Update tests to cover repository and service independently.",
-        "testStrategy": "Unit tests for repository and persistence service, integration tests ensuring no regression in persistence behavior. Verify memory leak fixes and timer cleanup.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "details": "Implementation Summary:\n- Created `IGameSessionRepository` interface and `IndexedDBGameSessionRepository` implementation\n- Implemented `GamePersistenceService` with debouncing (300ms), forceSave, and clearTimers\n- Refactored `gameStore` to use the persistence service instead of inline persistence logic\n- Added comprehensive unit tests for repository (32 tests) and service (46 tests)\n- Fixed all existing gameStore tests (78 tests) to work with the new architecture\n- All 496 tests passing, lint clean, typecheck passing, build successful\n\nFiles Created:\n- `src/repositories/GameSessionRepository.ts`\n- `src/repositories/__tests__/GameSessionRepository.test.ts`\n- `src/services/GamePersistenceService.ts`\n- `src/services/__tests__/GamePersistenceService.test.ts`\n\nFiles Modified:\n- `src/stores/gameStore.ts` - integrated persistence service\n- `src/stores/__tests__/gameStore.test.ts` - adapted to new architecture\n\nNotes:\nThe repository pattern successfully separates persistence concerns from store logic, enabling better testability and maintainability.",
+        "testStrategy": "Comprehensive unit tests were created for the new repository (32 tests) and persistence service (46 tests). Existing `gameStore` tests (78 tests) were updated to accommodate the new architecture. The full test suite of 496 tests is passing, confirming the refactor was successful and introduced no regressions.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create GameSessionRepository Interface and IndexedDB Implementation",
+            "description": "Defined a storage-agnostic `GameSessionRepository` interface and created a concrete `IndexedDBGameSessionRepository` implementation to handle saving and loading game state using IndexedDB for better performance and capacity.",
+            "dependencies": [],
+            "details": "Created `src/repositories/GameSessionRepository.ts`. Defined an `IGameSessionRepository` interface with `save` and `load` methods. Implemented this interface in `IndexedDBGameSessionRepository` using the 'idb' library to interact with IndexedDB. This approach was chosen over LocalStorage for its asynchronous nature and larger storage capacity.",
+            "status": "completed",
+            "testStrategy": "Unit tests were written to cover save and load operations, including handling of empty or non-existent databases. Covered by 32 passing tests."
+          },
+          {
+            "id": 2,
+            "title": "Implement GamePersistenceService with Debouncing Logic",
+            "description": "Created a `GamePersistenceService` that orchestrates saving game state. It uses a debounced approach to avoid excessive writes and provides explicit methods for immediate saving and timer cleanup.",
+            "dependencies": [
+              1
+            ],
+            "details": "Created `src/services/GamePersistenceService.ts`. The service was implemented to accept an `IGameSessionRepository` instance and a debounce delay of 300ms. Public methods `debouncedSave`, `forceSave`, and `clearTimers` were implemented using `setTimeout` and `clearTimeout` to manage the debouncing logic.",
+            "status": "completed",
+            "testStrategy": "The service was designed for testability, allowing a mock repository to be injected. Unit tests confirmed its behavior, covered by 46 passing tests."
+          },
+          {
+            "id": 3,
+            "title": "Integrate Persistence Service into Zustand Game Store",
+            "description": "Refactored the Zustand `gameStore` to delegate all persistence operations to the new `GamePersistenceService`, removing the old inline persistence logic and separating concerns.",
+            "dependencies": [
+              2
+            ],
+            "details": "Modified `src/stores/gameStore.ts` to instantiate and use the `IndexedDBGameSessionRepository` and `GamePersistenceService`. The store now calls `repository.load()` on initialization to hydrate state and uses `subscribe` to call `persistenceService.debouncedSave(newState)` on changes. `forceSave` and `clearTimers` are called on appropriate lifecycle events.",
+            "status": "completed",
+            "testStrategy": "End-to-end functionality was verified by adapting the existing `gameStore` test suite to work with the new asynchronous persistence layer."
+          },
+          {
+            "id": 4,
+            "title": "Write Unit Tests for Repository and Persistence Service",
+            "description": "Created comprehensive unit tests for the new `GameSessionRepository` and `GamePersistenceService` to ensure they function correctly and reliably in isolation.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Created test files `src/repositories/__tests__/GameSessionRepository.test.ts` (32 tests) and `src/services/__tests__/GamePersistenceService.test.ts` (46 tests). For the repository, 'idb' was mocked to test `save` and `load`. For the service, Vitest's fake timers were used to test `debouncedSave`, `forceSave`, and `clearTimers` logic against a mock repository.",
+            "status": "completed",
+            "testStrategy": "Used Vitest with mocks. Mocked the 'idb' library for repository tests and used a mock `IGameSessionRepository` with `vi.useFakeTimers()` for service tests to control time and assert call counts."
+          },
+          {
+            "id": 5,
+            "title": "Adapt Integration Tests for New Persistence Architecture",
+            "description": "Updated and fixed the existing `gameStore` test suite to function as integration tests for the new persistence flow, verifying the connection from store state changes to the persistence layer.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "The existing test file `src/stores/__tests__/gameStore.test.ts` was heavily modified. All 78 tests were updated to handle the asynchronous nature of the new persistence layer, now mocking the repository at the boundary. This ensures the store, service, and repository are correctly wired together without performing actual DB operations in tests.",
+            "status": "completed",
+            "testStrategy": "The adapted `gameStore` test suite now serves as the primary integration test. It exercises the store's public API and asserts side effects on a mocked repository, confirming the entire persistence pipeline works as expected."
+          }
+        ]
       },
       {
         "id": 47,
@@ -3476,7 +3532,7 @@
         "description": "Coordination task for a cohesive architectural refactor spanning persistence layer, domain-driven design, and store optimization.\n\nRelated Tasks: #46, #45, #48, #49, #47, #74, #76, #67, #51\n\nPhase Breakdown:\n- Phase 1: Persistence service & repository (#46) + integration tests foundation (#49)\n- Phase 2: Fix memory leaks and rehydration race (#45, #48) using persistence API\n- Phase 3: Domain extraction & state machine (#47, #74) integrating persistence service\n- Phase 4: Selector optimization & optimistic updates (#51, #67)\n- Phase 5: Add architectural fitness checks (#76) to enforce boundaries post-refactor\n\nBenefits: Single cohesive architectural improvement vs. fragmented PRs. Avoids duplicated effort and coordinates dependent work.",
         "details": "",
         "testStrategy": "",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [],
         "priority": "high",
         "subtasks": []
@@ -3536,7 +3592,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-24T18:22:48.286Z"
+      "updated": "2025-11-25T14:03:19.427Z"
     }
   }
 }

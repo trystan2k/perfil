@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
-import { loadGameSession, type PersistedGameState, saveGameSession } from '../lib/gameSessionDB';
+import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB';
+import { IndexedDBGameSessionRepository } from '../repositories/GameSessionRepository';
+import { GamePersistenceService } from '../services/GamePersistenceService';
 import type { GameSession, Player, Profile } from '../types/models';
 
 type GameStatus = 'pending' | 'active' | 'completed';
@@ -83,9 +85,11 @@ const initialState: Omit<
 // Track rehydration operations with a Set of session IDs to handle concurrency
 const rehydratingSessionIds = new Set<string>();
 
-// Map of session-specific debounce timers to handle concurrent sessions safely
-const persistTimers = new Map<string, ReturnType<typeof setTimeout>>();
-const PERSIST_DEBOUNCE_MS = 300;
+// Initialize persistence service with IndexedDB repository
+const persistenceService = new GamePersistenceService(
+  new IndexedDBGameSessionRepository(),
+  300 // 300ms debounce delay
+);
 
 /**
  * Persist current state to IndexedDB with debouncing
@@ -120,39 +124,14 @@ function buildPersistedState(state: GameState): PersistedGameState {
   };
 }
 
-function persistState(state: GameState): Promise<void> {
+function persistState(state: GameState): void {
   // Skip persistence during rehydration or if there's no active game session
   if (!state.id || rehydratingSessionIds.has(state.id)) {
-    return Promise.resolve();
+    return;
   }
 
-  const sessionId = state.id;
-
-  // Clear existing timer for this session to debounce rapid state changes
-  const existingTimer = persistTimers.get(sessionId);
-  if (existingTimer) {
-    clearTimeout(existingTimer);
-  }
-
-  // Return a Promise that resolves when persistence completes
-  return new Promise<void>((resolve) => {
-    // Schedule persistence after debounce delay
-    const timer = setTimeout(async () => {
-      const persistedState = buildPersistedState(state);
-
-      try {
-        await saveGameSession(persistedState);
-      } catch (error) {
-        console.error('Failed to persist game state:', error);
-      } finally {
-        // Clean up timer reference after persistence completes
-        persistTimers.delete(sessionId);
-        resolve();
-      }
-    }, PERSIST_DEBOUNCE_MS);
-
-    persistTimers.set(sessionId, timer);
-  });
+  const persistedState = buildPersistedState(state);
+  persistenceService.debouncedSave(state.id, persistedState);
 }
 
 /**
@@ -171,10 +150,7 @@ function persistState(state: GameState): Promise<void> {
  * ```
  */
 export function cancelPendingPersistence(): void {
-  for (const timer of persistTimers.values()) {
-    clearTimeout(timer);
-  }
-  persistTimers.clear();
+  persistenceService.clearTimers();
 }
 
 /**
@@ -206,17 +182,10 @@ export async function forcePersist(): Promise<void> {
     return;
   }
 
-  // Cancel any pending debounced persistence for this session
-  const timer = persistTimers.get(state.id);
-  if (timer) {
-    clearTimeout(timer);
-    persistTimers.delete(state.id);
-  }
-
   const persistedState = buildPersistedState(state);
 
   try {
-    await saveGameSession(persistedState);
+    await persistenceService.forceSave(state.id, persistedState);
   } catch (error) {
     console.error('Failed to force persist game state:', error);
     throw error; // Re-throw to allow caller to handle
@@ -335,7 +304,10 @@ export const useGameStore = create<GameState>((set, get) => ({
     };
 
     set(newState);
-    await persistState({ ...get(), ...newState });
+
+    // Force immediate persistence before returning to ensure state is saved before navigation
+    const state = get();
+    await persistenceService.forceSave(state.id, buildPersistedState(state));
   },
   loadProfiles: (profiles: Profile[]) => {
     set((state) => {
@@ -498,9 +470,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       return newState;
     });
   },
-  awardPoints: (playerId: string) => {
-    let persistPromise: Promise<void> | undefined;
-
+  awardPoints: async (playerId: string) => {
     set((state) => {
       if (!state.currentTurn) {
         throw new Error('Cannot award points without an active turn');
@@ -535,15 +505,11 @@ export const useGameStore = create<GameState>((set, get) => ({
         ...profileAdvancement,
       };
 
-      persistPromise = persistState({ ...state, ...newState });
+      persistState({ ...state, ...newState });
       return newState;
     });
-
-    return persistPromise || Promise.resolve();
   },
-  removePoints: (playerId: string, amount: number) => {
-    let persistPromise: Promise<void> | undefined;
-
+  removePoints: async (playerId: string, amount: number) => {
     set((state) => {
       // Validate input
       if (!playerId) {
@@ -586,15 +552,11 @@ export const useGameStore = create<GameState>((set, get) => ({
         players: updatedPlayers,
       };
 
-      persistPromise = persistState({ ...state, ...newState });
+      persistState({ ...state, ...newState });
       return newState;
     });
-
-    return persistPromise || Promise.resolve();
   },
-  skipProfile: () => {
-    let persistPromise: Promise<void> | undefined;
-
+  skipProfile: async () => {
     set((state) => {
       if (!state.currentTurn) {
         throw new Error('Cannot skip profile without an active turn');
@@ -603,15 +565,11 @@ export const useGameStore = create<GameState>((set, get) => ({
       // Advance to next profile without awarding points
       const profileAdvancement = advanceToNextProfile(state);
 
-      persistPromise = persistState({ ...state, ...profileAdvancement });
+      persistState({ ...state, ...profileAdvancement });
       return profileAdvancement;
     });
-
-    return persistPromise || Promise.resolve();
   },
-  endGame: () => {
-    let persistPromise: Promise<void> | undefined;
-
+  endGame: async () => {
     set((state) => {
       if (state.status === 'completed') {
         throw new Error('Game has already ended');
@@ -626,11 +584,9 @@ export const useGameStore = create<GameState>((set, get) => ({
         currentTurn: null,
       };
 
-      persistPromise = persistState({ ...state, ...newState });
+      persistState({ ...state, ...newState });
       return newState;
     });
-
-    return persistPromise || Promise.resolve();
   },
   loadFromStorage: async (sessionId: string): Promise<boolean> => {
     try {
