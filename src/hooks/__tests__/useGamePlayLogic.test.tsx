@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { renderHook, waitFor } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { act } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
@@ -204,12 +203,17 @@ describe('useGamePlayLogic', () => {
   });
 
   describe('Loading States', () => {
-    it('should start with loading true when sessionId provided and game not in store', () => {
+    it('should start with loading true when sessionId provided and game not in store', async () => {
       const { result } = renderHook(() => useGamePlayLogic('session-123'), {
         wrapper: createWrapper(),
       });
 
       expect(result.current.isLoading).toBe(true);
+
+      // Wait for async load to complete
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
     });
 
     it('should start with loading false when no sessionId provided', () => {
