@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { useGameSession } from '@/hooks/useGameSession';
 import { deleteGameSession, saveGameSession } from '@/lib/gameSessionDB';
 import type { Player } from '@/types/models';
@@ -244,66 +245,78 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-main p-4">
-      <div className="w-full max-w-2xl">
+    <div className="min-h-main py-6">
+      <AdaptiveContainer maxWidth="4xl">
         <h1 className="text-4xl font-bold text-center mb-10">{t('scoreboard.title')}</h1>
 
-        <Card className="p-6">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-20 text-center">{t('scoreboard.table.rank')}</TableHead>
-                <TableHead>{t('scoreboard.table.player')}</TableHead>
-                <TableHead className="w-24 text-right">{t('scoreboard.table.score')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {rankedPlayers.map((player) => (
-                <TableRow key={player.id}>
-                  <TableCell className="text-center font-bold text-lg">
-                    {player.rank === 1 && '🥇'}
-                    {player.rank === 2 && '🥈'}
-                    {player.rank === 3 && '🥉'}
-                    {player.rank > 3 && player.rank}
-                  </TableCell>
-                  <TableCell className="font-medium">{player.name}</TableCell>
-                  <TableCell className="text-right font-semibold">{player.score}</TableCell>
+        {/* Responsive Grid: Single column on mobile, two columns on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Scoreboard Table - Takes 2/3 on desktop */}
+          <Card className="p-6 lg:col-span-2">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-20 text-center">{t('scoreboard.table.rank')}</TableHead>
+                  <TableHead>{t('scoreboard.table.player')}</TableHead>
+                  <TableHead className="w-24 text-right">{t('scoreboard.table.score')}</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Card>
+              </TableHeader>
+              <TableBody>
+                {rankedPlayers.map((player) => (
+                  <TableRow key={player.id}>
+                    <TableCell className="text-center font-bold text-lg">
+                      {player.rank === 1 && '🥇'}
+                      {player.rank === 2 && '🥈'}
+                      {player.rank === 3 && '🥉'}
+                      {player.rank > 3 && player.rank}
+                    </TableCell>
+                    <TableCell className="font-medium">{player.name}</TableCell>
+                    <TableCell className="text-right font-semibold">{player.score}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Card>
 
-        <div className="mt-6 space-y-3">
-          <Button
-            onClick={handleNewGame}
-            variant="default"
-            className="w-full"
-            data-testid="scoreboard-new-game-button"
-            aria-label={t('scoreboard.actions.newGame')}
-          >
-            {t('scoreboard.actions.newGame')}
-          </Button>
-          <Button
-            onClick={handleSamePlayers}
-            variant="default"
-            className="w-full"
-            data-testid="scoreboard-same-players-button"
-            aria-label={t('scoreboard.actions.samePlayers')}
-          >
-            {t('scoreboard.actions.samePlayers')}
-          </Button>
-          <Button
-            onClick={handleRestartGame}
-            variant="default"
-            className="w-full"
-            data-testid="scoreboard-restart-game-button"
-            aria-label={t('scoreboard.actions.restartGame')}
-          >
-            {t('scoreboard.actions.restartGame')}
-          </Button>
+          {/* Actions - Takes 1/3 on desktop */}
+          <div className="space-y-3 lg:self-start">
+            <Card className="p-6">
+              <h2 className="text-lg font-semibold mb-4 text-center lg:text-left">
+                {t('scoreboard.actions.title')}
+              </h2>
+              <div className="space-y-3">
+                <Button
+                  onClick={handleNewGame}
+                  variant="default"
+                  className="w-full"
+                  data-testid="scoreboard-new-game-button"
+                  aria-label={t('scoreboard.actions.newGame')}
+                >
+                  {t('scoreboard.actions.newGame')}
+                </Button>
+                <Button
+                  onClick={handleSamePlayers}
+                  variant="default"
+                  className="w-full"
+                  data-testid="scoreboard-same-players-button"
+                  aria-label={t('scoreboard.actions.samePlayers')}
+                >
+                  {t('scoreboard.actions.samePlayers')}
+                </Button>
+                <Button
+                  onClick={handleRestartGame}
+                  variant="default"
+                  className="w-full"
+                  data-testid="scoreboard-restart-game-button"
+                  aria-label={t('scoreboard.actions.restartGame')}
+                >
+                  {t('scoreboard.actions.restartGame')}
+                </Button>
+              </div>
+            </Card>
+          </div>
         </div>
-      </div>
+      </AdaptiveContainer>
     </div>
   );
 }

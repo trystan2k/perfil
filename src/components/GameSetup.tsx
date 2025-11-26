@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
 import { type KeyboardEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -68,76 +69,78 @@ export function GameSetup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-main p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle as="h3" className="text-2xl">
-            {t('gameSetup.title')}
-          </CardTitle>
-          <CardDescription>{t('gameSetup.description')}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Add Player Input */}
-          <div className="space-y-2">
-            <Label htmlFor="playerName">{t('gameSetup.playerNameLabel')}</Label>
-            <div className="flex gap-2">
-              <Input
-                id="playerName"
-                type="text"
-                placeholder={t('gameSetup.playerNamePlaceholder')}
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                onKeyDown={handleKeyDown}
-                maxLength={30}
-                className="flex-1"
-              />
-              <Button
-                onClick={handleAddPlayer}
-                disabled={!playerName.trim() || playerNames.length >= MAX_PLAYERS}
-              >
-                {t('gameSetup.addButton')}
-              </Button>
-            </div>
-          </div>
-
-          {/* Players List */}
-          {playerNames.length > 0 && (
+    <div className="min-h-main py-6">
+      <AdaptiveContainer maxWidth="2xl" className="flex items-center justify-center min-h-[50vh]">
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              {t('gameSetup.title')}
+            </CardTitle>
+            <CardDescription>{t('gameSetup.description')}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Add Player Input */}
             <div className="space-y-2">
-              <Label>
-                {t('gameSetup.playersLabel', { count: playerNames.length, max: MAX_PLAYERS })}
-              </Label>
-              <div className="space-y-2">
-                {playerNames.map((name, index) => (
-                  <div
-                    key={name}
-                    className="flex items-center justify-between p-3 bg-secondary rounded-md"
-                  >
-                    <span className="font-medium">{name}</span>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleRemovePlayer(index)}
-                      aria-label={t('gameSetup.removePlayerAriaLabel', { name })}
-                    >
-                      <X className="h-5 w-5" />
-                    </Button>
-                  </div>
-                ))}
+              <Label htmlFor="playerName">{t('gameSetup.playerNameLabel')}</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="playerName"
+                  type="text"
+                  placeholder={t('gameSetup.playerNamePlaceholder')}
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  maxLength={30}
+                  className="flex-1"
+                />
+                <Button
+                  onClick={handleAddPlayer}
+                  disabled={!playerName.trim() || playerNames.length >= MAX_PLAYERS}
+                >
+                  {t('gameSetup.addButton')}
+                </Button>
               </div>
             </div>
-          )}
 
-          {/* Start Game Button */}
-          <Button
-            onClick={handleStartGame}
-            disabled={playerNames.length < 2}
-            className="w-full"
-            size="lg"
-          >
-            {t('gameSetup.startButton')}
-          </Button>
-        </CardContent>
-      </Card>
+            {/* Players List */}
+            {playerNames.length > 0 && (
+              <div className="space-y-2">
+                <Label>
+                  {t('gameSetup.playersLabel', { count: playerNames.length, max: MAX_PLAYERS })}
+                </Label>
+                <div className="space-y-2">
+                  {playerNames.map((name, index) => (
+                    <div
+                      key={name}
+                      className="flex items-center justify-between p-3 bg-secondary rounded-md"
+                    >
+                      <span className="font-medium">{name}</span>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleRemovePlayer(index)}
+                        aria-label={t('gameSetup.removePlayerAriaLabel', { name })}
+                      >
+                        <X className="h-5 w-5" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Start Game Button */}
+            <Button
+              onClick={handleStartGame}
+              disabled={playerNames.length < 2}
+              className="w-full"
+              size="lg"
+            >
+              {t('gameSetup.startButton')}
+            </Button>
+          </CardContent>
+        </Card>
+      </AdaptiveContainer>
     </div>
   );
 }
