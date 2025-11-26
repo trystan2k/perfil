@@ -1,12 +1,7 @@
 import { Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-
-interface Player {
-  id: string;
-  name: string;
-  score: number;
-}
+import type { Player } from '@/types/models';
 
 interface GamePlayPlayerScoreboardProps {
   players: Player[];
@@ -14,6 +9,7 @@ interface GamePlayPlayerScoreboardProps {
   playersAwardPointsTitle: string;
   getPointsText: (score: number) => string;
   showClueToAwardPointsText: string;
+  awardPointsButtonAriaLabel: (playerName: string) => string;
   removePointsButtonAriaLabel: (playerName: string) => string;
   removePointsButtonTitle: string;
   onAwardPoints: (playerId: string) => void;
@@ -26,6 +22,7 @@ export function GamePlayPlayerScoreboard({
   playersAwardPointsTitle,
   getPointsText,
   showClueToAwardPointsText,
+  awardPointsButtonAriaLabel,
   removePointsButtonAriaLabel,
   removePointsButtonTitle,
   onAwardPoints,
@@ -44,7 +41,7 @@ export function GamePlayPlayerScoreboard({
                 variant="outline"
                 className="flex-1 h-auto py-4 flex justify-between items-center shadow-md hover:shadow-lg active:shadow-sm active:scale-[0.98] transition-all duration-150 border-2"
                 data-testid={`award-points-${player.id}`}
-                aria-label={`Award points to ${player.name}`}
+                aria-label={awardPointsButtonAriaLabel(player.name)}
               >
                 <span className="font-medium text-base">{player.name}</span>
                 <span className="text-lg font-bold">{getPointsText(player.score)}</span>

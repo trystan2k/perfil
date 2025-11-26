@@ -76,6 +76,9 @@
     "showClueToAwardPoints": "Muestra al menos una pista para asignar puntos",
     "noWinnerButton": "Sin Ganador",
     "finishGameButton": "Finalizar Juego",
+    "awardPoints": {
+      "buttonAriaLabel": "Asignar puntos a {{playerName}}"
+    },
     "removePoints": {
       "buttonAriaLabel": "Eliminar puntos de {{playerName}}",
       "buttonTitle": "Eliminar puntos de este jugador",
@@ -144,6 +147,7 @@
       "descriptionCategory": "¿Cuántas rondas te gustaría jugar con perfiles de {{category}}?",
       "label": "Número de rondas",
       "hint": "Elige entre 1 y 50 rondas",
+      "invalidInput": "Valor no válido",
       "startButton": "Iniciar Juego"
     },
     "selectAll": "Seleccionar Todo",

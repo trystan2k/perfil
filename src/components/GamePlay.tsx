@@ -49,10 +49,19 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     );
   }
 
-  if (!logic.currentTurn || !logic.currentProfile || logic.status === 'pending') {
-    logic.setGlobalError('gamePlay.errors.loadFailed');
+  // Handle load errors - error is set in useGamePlayLogic hook
+  if (logic.hasLoadError) {
     return null;
   }
+
+  // Type guard: if we reach here, currentProfile and currentTurn must be non-null
+  // This is guaranteed by the hasLoadError check in useGamePlayLogic hook
+  if (!logic.currentProfile || !logic.currentTurn) {
+    return null;
+  }
+
+  const currentProfile = logic.currentProfile;
+  const currentTurn = logic.currentTurn;
 
   return (
     <>
@@ -68,7 +77,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 total: logic.numberOfRounds,
               })}
               categoryText={logic.t('gamePlay.category', {
-                category: logic.currentProfile.category,
+                category: currentProfile.category,
               })}
               currentProfileIndex={logic.currentProfileIndex}
               totalProfiles={logic.totalProfiles}
@@ -87,15 +96,15 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 isOnFinalClue={logic.isOnFinalClue}
                 isMaxCluesReached={logic.isMaxCluesReached}
                 currentClueText={logic.currentClueText}
-                cluesRead={logic.currentTurn.cluesRead}
+                cluesRead={currentTurn.cluesRead}
                 totalClues={logic.totalCluesPerProfile}
                 pointsRemaining={logic.pointsRemaining}
                 revealedClueHistory={logic.revealedClueHistory}
                 noWinnerButtonText={logic.t('gamePlay.noWinnerButton')}
                 showNextClueButtonText={logic.t('gamePlay.showNextClueButton')}
                 clueCountText={logic.t('gamePlay.clueCount', {
-                  current: logic.currentTurn.cluesRead,
-                  total: logic.currentProfile.clues.length,
+                  current: currentTurn.cluesRead,
+                  total: currentProfile.clues.length,
                 })}
                 pressShowNextClueText={logic.t('gamePlay.pressShowNextClue')}
                 finishGameButtonText={logic.t('gamePlay.finishGameButton')}
@@ -113,6 +122,9 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 playersAwardPointsTitle={logic.t('gamePlay.playersAwardPoints')}
                 getPointsText={(score) => logic.t('gamePlay.points', { points: score })}
                 showClueToAwardPointsText={logic.t('gamePlay.showClueToAwardPoints')}
+                awardPointsButtonAriaLabel={(playerName) =>
+                  logic.t('gamePlay.awardPoints.buttonAriaLabel', { playerName })
+                }
                 removePointsButtonAriaLabel={(playerName) =>
                   logic.t('gamePlay.removePoints.buttonAriaLabel', { playerName })
                 }
@@ -140,7 +152,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
               <h3 className="font-semibold text-sm">{logic.t('gamePlay.answer')}</h3>
               <p className="text-xs text-muted-foreground">{logic.t('gamePlay.correctAnswer')}</p>
               <p className="text-xl font-bold text-primary" data-testid="answer-text">
-                {logic.currentProfile.name}
+                {currentProfile.name}
               </p>
             </div>
           </PopoverContent>

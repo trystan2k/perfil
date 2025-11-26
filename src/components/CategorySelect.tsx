@@ -133,7 +133,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     } else {
       const numValue = Number.parseInt(value, 10);
       if (Number.isNaN(numValue) || numValue < 1 || numValue > 50) {
-        setRoundsInputError('Invalid');
+        setRoundsInputError(t('categorySelect.rounds.invalidInput'));
       } else {
         setRoundsInputError(null);
       }
@@ -171,15 +171,17 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
                   max="50"
                   value={numberOfRounds}
                   onChange={handleRoundsChange}
+                  aria-invalid={roundsInputError !== null}
+                  aria-describedby="rounds-hint"
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 />
-                {roundsInputError ? (
-                  <p className="text-sm text-destructive">
-                    {t('categorySelect.rounds.hint')} (Invalid value)
-                  </p>
-                ) : (
-                  <p className="text-sm text-muted-foreground">{t('categorySelect.rounds.hint')}</p>
-                )}
+                <p
+                  id="rounds-hint"
+                  className={`text-sm ${roundsInputError ? 'text-destructive' : 'text-muted-foreground'}`}
+                >
+                  {t('categorySelect.rounds.hint')}
+                  {roundsInputError && ` (${roundsInputError})`}
+                </p>
               </div>
 
               <div className="flex gap-2">

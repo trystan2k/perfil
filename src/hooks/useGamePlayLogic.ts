@@ -1,9 +1,61 @@
+import type { TFunction } from 'i18next';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useProfiles } from '@/hooks/useProfiles';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
+import type { Player, Profile, TurnState } from '@/types/models';
 
-export function useGamePlayLogic(sessionId?: string) {
+export interface UseGamePlayLogicReturn {
+  // State
+  isLoading: boolean;
+  hasLoadError: boolean;
+  showRoundSummary: boolean;
+  showAnswerDialog: boolean;
+  setShowAnswerDialog: (show: boolean) => void;
+  removePointsDialogOpen: boolean;
+  setRemovePointsDialogOpen: (open: boolean) => void;
+  selectedPlayerForRemoval: { id: string; name: string; score: number } | null;
+  roundSummaryData: { winnerId: string | null; pointsAwarded: number; profileName: string } | null;
+
+  // Game state
+  id: string | null;
+  currentTurn: TurnState | null;
+  players: Player[];
+  status: 'pending' | 'active' | 'completed';
+  currentProfile: Profile | null;
+  selectedProfiles: string[];
+  totalProfilesCount: number;
+  numberOfRounds: number;
+  currentRound: number;
+  revealedClueHistory: string[];
+
+  // Game actions
+  nextClue: () => void;
+  setGlobalError: (error: string) => void;
+
+  // Computed values
+  currentClueText: string | null;
+  isMaxCluesReached: boolean;
+  isOnFinalClue: boolean;
+  canAwardPoints: boolean;
+  currentProfileIndex: number;
+  totalProfiles: number;
+  totalCluesPerProfile: number;
+  pointsRemaining: number;
+
+  // Handlers
+  handleFinishGame: () => void;
+  handleAwardPoints: (playerId: string) => void;
+  handleContinueToNextProfile: () => void;
+  handleNoWinner: () => Promise<void>;
+  handleOpenRemovePoints: (player: { id: string; name: string; score: number }) => void;
+  handleConfirmRemovePoints: (amount: number) => Promise<void>;
+
+  // Translation
+  t: TFunction;
+}
+
+export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
   const { t, i18n } = useTranslation();
 
   // Game store state - get id and status first for loading state computation
@@ -13,6 +65,7 @@ export function useGamePlayLogic(sessionId?: string) {
   // Determine if loading is needed: only if sessionId provided AND no game already in store
   const gameAlreadyExists = !!id && status === 'active';
   const [isLoading, setIsLoading] = useState(!!sessionId && !gameAlreadyExists);
+  const [hasLoadError, setHasLoadError] = useState(false);
   const [showRoundSummary, setShowRoundSummary] = useState(false);
   const [showAnswerDialog, setShowAnswerDialog] = useState(false);
   const [removePointsDialogOpen, setRemovePointsDialogOpen] = useState(false);
@@ -107,8 +160,10 @@ export function useGamePlayLogic(sessionId?: string) {
       const loadSession = async () => {
         try {
           await loadFromStorage(sessionId);
+          setHasLoadError(false);
         } catch (err) {
           console.error('Failed to load session:', err);
+          setHasLoadError(true);
           setGlobalError('gamePlay.errors.loadFailed');
         } finally {
           setIsLoading(false);
@@ -118,6 +173,17 @@ export function useGamePlayLogic(sessionId?: string) {
       loadSession();
     }
   }, [sessionId, gameAlreadyExists, loadFromStorage, setGlobalError]);
+
+  // Detect invalid game state and set error flag
+  useEffect(() => {
+    // Only check after loading is complete and if we haven't already detected an error
+    if (!isLoading && !hasLoadError && status !== 'completed') {
+      if (!currentTurn || !currentProfile || status === 'pending') {
+        setHasLoadError(true);
+        setGlobalError('gamePlay.errors.loadFailed');
+      }
+    }
+  }, [isLoading, hasLoadError, currentTurn, currentProfile, status, setGlobalError]);
 
   // Automatically navigate to scoreboard when game completes
   useEffect(() => {
@@ -227,6 +293,7 @@ export function useGamePlayLogic(sessionId?: string) {
   return {
     // State
     isLoading,
+    hasLoadError,
     showRoundSummary,
     showAnswerDialog,
     setShowAnswerDialog,

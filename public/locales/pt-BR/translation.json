@@ -76,6 +76,9 @@
     "showClueToAwardPoints": "Mostre pelo menos uma dica para atribuir pontos",
     "noWinnerButton": "Sem Vencedor",
     "finishGameButton": "Finalizar Jogo",
+    "awardPoints": {
+      "buttonAriaLabel": "Atribuir pontos a {{playerName}}"
+    },
     "removePoints": {
       "buttonAriaLabel": "Remover pontos de {{playerName}}",
       "buttonTitle": "Remover pontos deste jogador",
@@ -144,6 +147,7 @@
       "descriptionCategory": "Quantas rodadas você gostaria de jogar com perfis de {{category}}?",
       "label": "Número de rodadas",
       "hint": "Escolha entre 1 e 50 rodadas",
+      "invalidInput": "Valor inválido",
       "startButton": "Iniciar Jogo"
     },
     "selectAll": "Selecionar Tudo",
