@@ -163,6 +163,7 @@
       "description": "No players found in this game session."
     },
     "actions": {
+      "title": "What next ?",
       "newGame": "New Game",
       "samePlayers": "Same Players",
       "restartGame": "Restart Game"
