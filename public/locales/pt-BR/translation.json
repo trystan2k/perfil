@@ -163,7 +163,7 @@
       "description": "Nenhum jogador encontrado nesta sessão de jogo."
     },
     "actions": {
-      "title": "O quer fazer?",
+      "title": "O que quer fazer?",
       "newGame": "Novo Jogo",
       "samePlayers": "Mesmos Jogadores",
       "restartGame": "Reiniciar Jogo"

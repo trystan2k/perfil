@@ -248,10 +248,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     <div className="min-h-main py-6">
       <AdaptiveContainer maxWidth="4xl">
         <h1 className="text-4xl font-bold text-center mb-10">{t('scoreboard.title')}</h1>
-
-        {/* Responsive Grid: Single column on mobile, two columns on desktop */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Scoreboard Table - Takes 2/3 on desktop */}
           <Card className="p-6 lg:col-span-2">
             <Table>
               <TableHeader>
@@ -277,8 +274,6 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
               </TableBody>
             </Table>
           </Card>
-
-          {/* Actions - Takes 1/3 on desktop */}
           <div className="space-y-3 lg:self-start">
             <Card className="p-6">
               <h2 className="text-lg font-semibold mb-4 text-center lg:text-left">
