@@ -54,6 +54,12 @@ interface GameState extends GameSession {
   skipProfile: () => Promise<void>;
   endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
+  /**
+   * Sets an error in the store and logs it to ErrorService.
+   * @param error - Error message string or AppError instance
+   * @param informative - Only used when error is a string; ignored for AppError instances
+   *                      When an AppError is provided, its own `informative` property takes precedence
+   */
   setError: (error: AppError | string, informative?: boolean) => void;
   clearError: () => void;
 }

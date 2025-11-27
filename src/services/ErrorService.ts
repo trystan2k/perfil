@@ -3,14 +3,16 @@
  * Provides singleton pattern for consistent error handling, logging, and telemetry
  */
 
-// biome-ignore lint/style/useImportType: NetworkError and ValidationError are used as constructors
+// biome-ignore lint/style/useImportType: These error classes are used as constructors
 import {
   AppError,
   ErrorSeverity,
+  GameError,
   getErrorMessage,
   isAppError,
   NetworkError,
   normalizeError,
+  PersistenceError,
   ValidationError,
 } from '../lib/errors';
 
@@ -191,8 +193,15 @@ export class ErrorService {
           statusCode: normalizedError.statusCode,
           endpoint: normalizedError.endpoint,
         });
+      } else if (normalizedError instanceof GameError) {
+        // GameError: no additional properties beyond base
+        normalizedError = new GameError(normalizedError.message, baseOptions);
+      } else if (normalizedError instanceof PersistenceError) {
+        // PersistenceError: no additional properties beyond base
+        normalizedError = new PersistenceError(normalizedError.message, baseOptions);
       } else {
-        // For AppError, GameError, PersistenceError (no additional properties)
+        // For AppError and any other future subclasses, use constructor safely
+        // This preserves the type for known subclasses while gracefully handling unknown ones
         const ErrorClass = normalizedError.constructor as typeof AppError;
         normalizedError = new ErrorClass(normalizedError.message, baseOptions) as AppError;
       }
