@@ -671,14 +671,23 @@ export const useGameStore = create<GameState>((set, get) => ({
       return false;
     }
   },
-  setError: (error: AppError | string, informative = false) => {
+  /**
+   * Sets an error state for the game
+   * @param error - AppError instance or string message
+   * @param informative - Only applies when a string is passed. When an AppError is provided,
+   *                      its own informative property is used instead. Defaults to false.
+   */
+  setError: (error: AppError | string, informative?: boolean) => {
     const errorService = getErrorService();
     let appError: AppError;
 
     if (typeof error === 'string') {
       // Create GameError from string message
-      appError = new GameError(error, { informative });
+      // Only the informative parameter applies when creating from string
+      appError = new GameError(error, { informative: informative ?? false });
     } else {
+      // When AppError is provided, use it as-is
+      // The informative parameter is ignored (caller should set it when creating the error)
       appError = error;
     }
 

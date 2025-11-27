@@ -156,6 +156,66 @@ export class ErrorService {
   }
 
   /**
+   * Creates a new error instance with additional context merged in
+   * Preserves the error type and type-specific properties
+   * @param error - The error to augment with context
+   * @param additionalContext - Context to merge
+   * @returns A new error instance with merged context
+   */
+  private createErrorWithContext(
+    error: AppError,
+    additionalContext: Record<string, unknown>
+  ): AppError {
+    const mergedContext = {
+      ...error.context,
+      ...additionalContext,
+    };
+
+    const baseOptions = {
+      severity: error.severity,
+      code: error.code,
+      context: mergedContext,
+      informative: error.informative,
+      cause: error.cause instanceof Error ? error.cause : undefined,
+    };
+
+    // Preserve the error type by creating a new instance of the same class
+    if (error instanceof ValidationError) {
+      return new ValidationError(error.message, {
+        ...baseOptions,
+        field: error.field,
+      });
+    }
+
+    if (error instanceof NetworkError) {
+      return new NetworkError(error.message, {
+        ...baseOptions,
+        statusCode: error.statusCode,
+        endpoint: error.endpoint,
+      });
+    }
+
+    if (error instanceof GameError) {
+      return new GameError(error.message, baseOptions);
+    }
+
+    if (error instanceof PersistenceError) {
+      return new PersistenceError(error.message, baseOptions);
+    }
+
+    // For AppError and unknown subclasses, try to preserve the type
+    // This ensures we don't silently lose custom error types
+    const ErrorConstructor = error.constructor as typeof AppError;
+    try {
+      return new ErrorConstructor(error.message, baseOptions) as AppError;
+    } catch {
+      // If reconstruction fails, fall back to base AppError
+      // This is a safe fallback for incompatible constructor signatures
+      return new AppError(error.message, baseOptions);
+    }
+  }
+
+  /**
    * Logs an error to telemetry and calls registered error handlers
    * @param error - Error to log (can be Error, AppError, or unknown)
    * @param additionalContext - Optional additional context for this specific error
@@ -165,51 +225,7 @@ export class ErrorService {
 
     // Add additional context if provided
     if (additionalContext) {
-      // Create a new error with merged context since context is readonly
-      const mergedContext = {
-        ...normalizedError.context,
-        ...additionalContext,
-      };
-
-      const baseOptions = {
-        severity: normalizedError.severity,
-        code: normalizedError.code,
-        context: mergedContext,
-        informative: normalizedError.informative,
-        cause: normalizedError.cause instanceof Error ? normalizedError.cause : undefined,
-      };
-
-      // Preserve the error type by creating a new instance of the same class
-      // and preserve type-specific properties
-      if (normalizedError instanceof ValidationError) {
-        normalizedError = new ValidationError(normalizedError.message, {
-          ...baseOptions,
-          field: normalizedError.field,
-        });
-      } else if (normalizedError instanceof NetworkError) {
-        normalizedError = new NetworkError(normalizedError.message, {
-          ...baseOptions,
-          statusCode: normalizedError.statusCode,
-          endpoint: normalizedError.endpoint,
-        });
-      } else if (normalizedError instanceof GameError) {
-        // GameError: no additional properties beyond base
-        normalizedError = new GameError(normalizedError.message, baseOptions);
-      } else if (normalizedError instanceof PersistenceError) {
-        // PersistenceError: no additional properties beyond base
-        normalizedError = new PersistenceError(normalizedError.message, baseOptions);
-      } else {
-        // For AppError and any other future subclasses, use constructor safely
-        // This preserves the type for known subclasses while gracefully handling unknown ones
-        try {
-          const ErrorClass = normalizedError.constructor as typeof AppError;
-          normalizedError = new ErrorClass(normalizedError.message, baseOptions) as AppError;
-        } catch {
-          // If the constructor fails to accept our options, fall back to base AppError
-          // This handles cases where the error class has incompatible constructor signature
-          normalizedError = new AppError(normalizedError.message, baseOptions);
-        }
-      }
+      normalizedError = this.createErrorWithContext(normalizedError, additionalContext);
     }
 
     // Log to telemetry
