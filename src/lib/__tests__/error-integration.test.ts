@@ -31,10 +31,6 @@ vi.mock('../../lib/gameSessionDB', () => ({
 }));
 
 /**
- * Helper to create mock profiles
- */
-
-/**
  * Helper to reset store state
  */
 const resetGameStore = () => {
@@ -195,11 +191,11 @@ describe('Error Integration Tests', () => {
         expect(state.error).toBeNull();
       });
 
-      it('should preserve non-error state when clearing errors', () => {
+      it('should preserve non-error state when clearing errors', async () => {
         const playerNames = ['Alice', 'Bob'];
         const store = useGameStore.getState();
 
-        store.createGame(playerNames);
+        await store.createGame(playerNames);
         store.setError('Some error');
 
         let state = useGameStore.getState();
@@ -715,7 +711,7 @@ describe('Error Integration Tests', () => {
         expect(calls[1][0].informative).toBe(false);
       });
 
-      it('should handle error recovery sequence with context', () => {
+      it('should handle error recovery sequence with context', async () => {
         const service = getErrorService();
         const store = useGameStore.getState();
 
@@ -724,7 +720,7 @@ describe('Error Integration Tests', () => {
 
         // Simulate game setup
         const playerNames = ['Alice', 'Bob'];
-        store.createGame(playerNames);
+        await store.createGame(playerNames);
 
         // Simulate error scenario
         const persistenceError = new PersistenceError('Failed to load session', {
