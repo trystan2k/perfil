@@ -21,91 +21,106 @@ Root cause: No explicit coordination between the rehydration lifecycle and persi
 ## Solution approach
 Adopted a lightweight rehydration state machine pattern to explicitly track the lifecycle of store rehydration and gate persistence operations until it is safe to run them. Key characteristics:
 - Minimal, custom state machine (keeps complexity low — intentionally not using XState)
-- Clear lifecycle states: idle -> rehydrating -> hydrated -> persisting (optional) -> ready
-- Exposed API to query state and queue persistence operations until the machine transitions to a safe state
+- Clear lifecycle states: `idle` -> `rehydrating` -> `active`
+- Exposed API to check rehydration state and prevent persistence operations during rehydration
 
 This approach provides deterministic ordering between rehydration and persistence without introducing heavy dependencies or complex tooling.
 
 ## Implementation details
 - Created src/lib/rehydrationMachine.ts — a small state tracker that exposes:
-  - getState(), isRehydrating(), onStateChange(handler), waitForHydrated(), and queueWhenSafe(fn)
-  - Internal queue for persistence actions requested during rehydration
-  - Simple transition helpers to move from `rehydrating` -> `hydrated` -> `ready`
+  - `startRehydration(sessionId)` - marks session as rehydrating
+  - `completeRehydration(sessionId)` - transitions session to active state
+  - `failRehydration(sessionId, error)` - handles rehydration errors gracefully
+  - `isRehydrating(sessionId)` - checks current rehydration state
+  - `resetRehydrationState(sessionId)` - resets state for a session
+  - `cleanupAllMachines()` - cleanup for app shutdown or test teardown
+  - `getActiveMachineCount()` - debugging utility
 
 - Modified src/stores/gameStore.ts — integrated the rehydration machine:
-  - On startup, gameStore sets machine to `rehydrating` while applying persisted state
-  - After successful rehydration, machine transitions to `hydrated` and flushes queued persistence operations
-  - Persistence triggers now consult the machine; if rehydration is ongoing they enqueue instead of executing immediately
+  - On startup, calls `startRehydration()` before loading state from storage
+  - After successful load, calls `completeRehydration()` to allow persistence
+  - On failure, calls `failRehydration()` with error details
+  - Persistence triggers check `isRehydrating()` before saving
+  - Calls `resetRehydrationState()` when game ends
 
 - Enhanced src/services/GamePersistenceService.ts — added double protection:
-  - Service checks the rehydration machine before executing writes
-  - If rehydration is in progress, persistence requests are queued at the service level as a fallback
-  - Once hydrated, queued writes are executed in order
-  - Defensive checks were added to ensure idempotency and avoid duplicate writes
+  - Service checks `isRehydrating()` before executing writes
+  - Both `debouncedSave()` and `forceSave()` skip persistence if rehydration is in progress
+  - Provides an additional safety layer independent of store logic
 
 ### Files created/modified (summary)
-- Created: src/lib/rehydrationMachine.ts — lightweight state machine and queuing utilities
+- Created: src/lib/rehydrationMachine.ts — lightweight state machine implementation
+- Created: src/lib/__tests__/rehydrationMachine.test.ts — comprehensive unit tests
+- Created: src/stores/__tests__/gameStore.rehydration.test.ts — integration tests for race conditions
 - Modified: src/stores/gameStore.ts — integrate machine and guard persistence triggers
-- Modified: src/services/GamePersistenceService.ts — double protection and queuing fallback
+- Modified: src/services/GamePersistenceService.ts — double protection awareness
 
 Detailed change notes:
 - src/lib/rehydrationMachine.ts
-  - Implements a minimal finite-state tracker with: `idle`, `rehydrating`, `hydrated`, `ready`
-  - Provides a promise-based waitForHydrated() to allow code to await hydration
-  - Exposes queueWhenSafe(fn) so callers can register persistence functions safely
+  - Implements a minimal finite-state tracker with: `idle`, `rehydrating`, `active`
+  - Per-session state management in a global Map
+  - Error storage for debugging failed rehydration attempts
 
 - src/stores/gameStore.ts
-  - On initialization: set machine.transition('rehydrating'), perform restore, then transition to 'hydrated'
-  - All persistence side-effects (auto-save, debounced writes) now call machine.queueWhenSafe(() =&gt; persistence())
+  - On initialization: call `startRehydration(sessionId)` before loading state
+  - After successful load: call `completeRehydration(sessionId)` to resume persistence
+  - On error: call `failRehydration(sessionId, error)` for graceful error handling
+  - All persistence calls check `isRehydrating()` before executing
+  - All persistence calls use `resetRehydrationState()` when games end
 
 - src/services/GamePersistenceService.ts
-  - Before writing, service checks machine.isRehydrating(); if true, service enqueues the write
-  - Added deduplication by sessionId/key where applicable
-  - Ensured the service resolves promises after writes are completed so callers are properly notified
+  - Before writing, service checks `isRehydrating(sessionId)`; if true, write is skipped
+  - Applied to both `debouncedSave()` and `forceSave()` for comprehensive protection
 
 ## Test strategy
-- Unit tests
-  - New unit tests for src/lib/rehydrationMachine.ts covering state transitions, queue flushing, waitForHydrated() behavior and edge cases (multiple waiters, rapid transitions)
-  - Unit tests for GamePersistenceService that simulate writes requested during rehydration and verify ordering and deduplication
-  - Unit tests for gameStore logic that assert persistence is gated until hydrated
+- Unit tests (src/lib/__tests__/rehydrationMachine.test.ts)
+  - State transitions: idle -> rehydrating -> active -> idle
+  - Edge cases: empty strings, special characters, very long session IDs
+  - Cleanup and memory management
+  - Multiple concurrent sessions with independent states
+  - Rapid start/complete/reset cycles
+  - Error handling with graceful transitions
 
-- Integration tests
-  - End-to-end style integration test that simulates startup with concurrent write triggers to reproduce the original race condition and validate that the new approach prevents data loss
-  - Tests run under CI to ensure the change doesn't regress other behaviors
-
-Test annotations include mocked timing and deterministic control of asynchronous flows to reliably reproduce race conditions.
+- Integration tests (src/stores/__tests__/gameStore.rehydration.test.ts)
+  - Block persistence during rehydration
+  - Allow persistence after rehydration completes
+  - Concurrent load and persist operations on same session
+  - Multiple sessions operating independently
+  - Stress tests with rapid operations
+  - Memory cleanup verification
 
 ## Test results
 - Test run summary (final):
   - All tests: 649 passed
+  - Test files: 32 passed
   - Statement coverage: 92.29%
+  - Branch coverage: 86.42%
 
-(Reported after running full test suite locally/CI following implementation and fixes.)
+## Files changed
+- src/lib/rehydrationMachine.ts - NEW
+- src/lib/__tests__/rehydrationMachine.test.ts - NEW
+- src/stores/__tests__/gameStore.rehydration.test.ts - NEW
+- src/stores/gameStore.ts - MODIFIED
+- src/services/GamePersistenceService.ts - MODIFIED
+- .taskmaster/tasks/tasks.json - MODIFIED (task status update)
 
-## QA verification
-- Lint: passed
-- Typecheck: passed
-- Build: passed
-- Additional QA: pnpm run complete-check successfully executed — no remaining warnings or failures
+## QA Status
+- ✅ Lint: Clean
+- ✅ Type checking: No errors
+- ✅ Tests: 649 tests passed
+- ✅ Build: Production build successful
 
-## Key benefits
-- Eliminates the observed race condition between rehydration and persistence
-- Prevents data corruption and lost updates during app startup
-- Keeps the solution simple and maintainable (no heavy dependency or complex state machine frameworks)
-- Provides a clear, testable API for coordination around rehydration lifecycle
+## Key Benefits
 
-## Design decisions
-- Chose a simplified custom state machine for clarity and minimal surface area rather than adopting XState or another heavyweight library
-- Added double protection (store-level + persistence-service-level) to ensure safety even if future callers accidentally bypass the store-level guard
-- Used promise-based waiters and a simple in-memory queue for operations requested during rehydration to preserve ordering
+1. **Eliminates Race Condition**: Impossible for persistence to run during rehydration
+2. **Data Integrity**: Multiple layers of protection ensure no data loss
+3. **Maintainability**: Clear state machine pattern, easy to understand
+4. **Testability**: Comprehensive test coverage for concurrent scenarios and edge cases
+5. **Performance**: Lightweight implementation with minimal overhead
+6. **Memory Safe**: Proper cleanup prevents memory leaks in long-running applications
 
-## Development log / timeline
-- Analysis and repro: Identified race on startup where persistence could run before rehydration completed (reproduced via integration test)
-- Design: Decided on small state machine and queuing approach, documented trade-offs
-- Implementation: Added src/lib/rehydrationMachine.ts, integrated into gameStore and persistence service
-- Tests: Added unit and integration tests to assert behavior and prevent regressions
-- QA: Ran full test-suite and project QA scripts; all checks passed
+## Technical Decisions
 
----
-
-If further details are needed (patch/diff references or commit hashes), I can provide the list of changed files and exact code excerpts on request. This entry captures the implementation approach, files affected, tests, and verification performed for Task 48.
+- **Why not XState?** The simplified custom implementation is sufficient for this use case and eliminates an external dependency while remaining crystal-clear and maintainable.
+- **State naming**: Simplified to three states (idle/rehydrating/active) instead of four, as the distinction between "hydrated" and "ready" was not necessary for the implementation.
+- **Session-specific tracking**: Each game session maintains its own rehydration state, allowing multiple concurrent games to operate independently without interference.

@@ -118,7 +118,7 @@ describe('GameStore Rehydration Race Condition Tests', () => {
 
       // With proper rehydration protection, save should not be called
       // because debouncedSave checks isRehydrating
-      // The mockRepository was set up to not be called during rehydration
+      expect(mockRepository.save).not.toHaveBeenCalled();
     });
 
     it('should allow persistence after rehydration completes', async () => {
