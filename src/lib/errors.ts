@@ -72,43 +72,48 @@ export class AppError extends Error {
 }
 
 /**
- * Game logic errors (e.g., invalid game state, rule violations)
+ * Game logic errors (e.g., invalid moves, invalid game state)
+ * Default severity is WARNING, but can be overridden for critical game errors
  */
 export class GameError extends AppError {
   constructor(
     message: string,
     options: {
+      severity?: ErrorSeverity;
       code?: string;
       context?: Record<string, unknown>;
       informative?: boolean;
       cause?: Error;
     } = {}
   ) {
-    super(message, { ...options, severity: ErrorSeverity.WARNING });
+    super(message, { ...options, severity: options.severity ?? ErrorSeverity.WARNING });
     this.name = 'GameError';
   }
 }
 
 /**
  * Persistence/storage errors (e.g., IndexedDB failures, serialization errors)
+ * Default severity is ERROR, but can be overridden if needed
  */
 export class PersistenceError extends AppError {
   constructor(
     message: string,
     options: {
+      severity?: ErrorSeverity;
       code?: string;
       context?: Record<string, unknown>;
       informative?: boolean;
       cause?: Error;
     } = {}
   ) {
-    super(message, { ...options, severity: ErrorSeverity.ERROR });
+    super(message, { ...options, severity: options.severity ?? ErrorSeverity.ERROR });
     this.name = 'PersistenceError';
   }
 }
 
 /**
  * Validation errors (e.g., invalid input, constraint violations)
+ * Default severity is WARNING, but can be overridden for critical validation failures
  */
 export class ValidationError extends AppError {
   public readonly field?: string;
@@ -116,6 +121,7 @@ export class ValidationError extends AppError {
   constructor(
     message: string,
     options: {
+      severity?: ErrorSeverity;
       field?: string;
       code?: string;
       context?: Record<string, unknown>;
@@ -123,7 +129,7 @@ export class ValidationError extends AppError {
       cause?: Error;
     } = {}
   ) {
-    super(message, { ...options, severity: ErrorSeverity.WARNING });
+    super(message, { ...options, severity: options.severity ?? ErrorSeverity.WARNING });
     this.name = 'ValidationError';
     this.field = options.field;
   }
@@ -138,6 +144,7 @@ export class ValidationError extends AppError {
 
 /**
  * Network/API errors (e.g., failed requests, timeouts)
+ * Default severity is ERROR, but can be overridden for non-critical network issues
  */
 export class NetworkError extends AppError {
   public readonly statusCode?: number;
@@ -146,6 +153,7 @@ export class NetworkError extends AppError {
   constructor(
     message: string,
     options: {
+      severity?: ErrorSeverity;
       statusCode?: number;
       endpoint?: string;
       code?: string;
@@ -154,7 +162,7 @@ export class NetworkError extends AppError {
       cause?: Error;
     } = {}
   ) {
-    super(message, { ...options, severity: ErrorSeverity.ERROR });
+    super(message, { ...options, severity: options.severity ?? ErrorSeverity.ERROR });
     this.name = 'NetworkError';
     this.statusCode = options.statusCode;
     this.endpoint = options.endpoint;
