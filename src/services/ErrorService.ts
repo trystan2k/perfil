@@ -3,12 +3,15 @@
  * Provides singleton pattern for consistent error handling, logging, and telemetry
  */
 
+// biome-ignore lint/style/useImportType: NetworkError and ValidationError are used as constructors
 import {
   AppError,
   ErrorSeverity,
   getErrorMessage,
   isAppError,
+  NetworkError,
   normalizeError,
+  ValidationError,
 } from '../lib/errors';
 
 /**
@@ -166,13 +169,33 @@ export class ErrorService {
         ...normalizedError.context,
         ...additionalContext,
       };
-      normalizedError = new AppError(normalizedError.message, {
+
+      const baseOptions = {
         severity: normalizedError.severity,
         code: normalizedError.code,
         context: mergedContext,
         informative: normalizedError.informative,
         cause: normalizedError.cause instanceof Error ? normalizedError.cause : undefined,
-      });
+      };
+
+      // Preserve the error type by creating a new instance of the same class
+      // and preserve type-specific properties
+      if (normalizedError instanceof ValidationError) {
+        normalizedError = new ValidationError(normalizedError.message, {
+          ...baseOptions,
+          field: normalizedError.field,
+        });
+      } else if (normalizedError instanceof NetworkError) {
+        normalizedError = new NetworkError(normalizedError.message, {
+          ...baseOptions,
+          statusCode: normalizedError.statusCode,
+          endpoint: normalizedError.endpoint,
+        });
+      } else {
+        // For AppError, GameError, PersistenceError (no additional properties)
+        const ErrorClass = normalizedError.constructor as typeof AppError;
+        normalizedError = new ErrorClass(normalizedError.message, baseOptions) as AppError;
+      }
     }
 
     // Log to telemetry

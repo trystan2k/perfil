@@ -751,6 +751,81 @@ describe('ErrorService', () => {
         })
       );
     });
+
+    it('should preserve error type and properties when adding additional context', () => {
+      const service = ErrorService.getInstance();
+      const handler = vi.fn();
+      service.addErrorHandler(handler);
+
+      // Test ValidationError with field property
+      const validationError = new ValidationError('Invalid email', {
+        field: 'email',
+        code: 'INVALID_FORMAT',
+      });
+      service.logError(validationError, { userId: '123' });
+
+      expect(handler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: 'ValidationError',
+          message: 'Invalid email',
+          field: 'email',
+          code: 'INVALID_FORMAT',
+          context: expect.objectContaining({ userId: '123' }),
+        })
+      );
+      expect(handler.mock.calls[0][0]).toBeInstanceOf(ValidationError);
+
+      // Test NetworkError with statusCode and endpoint properties
+      handler.mockClear();
+      const networkError = new NetworkError('Request failed', {
+        statusCode: 404,
+        endpoint: '/api/users',
+        code: 'NOT_FOUND',
+      });
+      service.logError(networkError, { requestId: 'req-456' });
+
+      expect(handler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: 'NetworkError',
+          message: 'Request failed',
+          statusCode: 404,
+          endpoint: '/api/users',
+          code: 'NOT_FOUND',
+          context: expect.objectContaining({ requestId: 'req-456' }),
+        })
+      );
+      expect(handler.mock.calls[0][0]).toBeInstanceOf(NetworkError);
+
+      // Test GameError (no additional properties beyond base)
+      handler.mockClear();
+      const gameError = new GameError('Invalid move', { code: 'INVALID_MOVE' });
+      service.logError(gameError, { turnNumber: 5 });
+
+      expect(handler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: 'GameError',
+          message: 'Invalid move',
+          code: 'INVALID_MOVE',
+          context: expect.objectContaining({ turnNumber: 5 }),
+        })
+      );
+      expect(handler.mock.calls[0][0]).toBeInstanceOf(GameError);
+
+      // Test PersistenceError (no additional properties beyond base)
+      handler.mockClear();
+      const persistenceError = new PersistenceError('Save failed', { code: 'SAVE_ERROR' });
+      service.logError(persistenceError, { sessionId: 'sess-789' });
+
+      expect(handler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: 'PersistenceError',
+          message: 'Save failed',
+          code: 'SAVE_ERROR',
+          context: expect.objectContaining({ sessionId: 'sess-789' }),
+        })
+      );
+      expect(handler.mock.calls[0][0]).toBeInstanceOf(PersistenceError);
+    });
   });
 });
 
