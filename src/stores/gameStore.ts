@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
 import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB';
+import {
+  cleanupAllMachines,
+  completeRehydration,
+  failRehydration,
+  isRehydrating,
+  resetRehydrationState,
+  startRehydration,
+} from '../lib/rehydrationMachine';
 import { IndexedDBGameSessionRepository } from '../repositories/GameSessionRepository';
 import { GamePersistenceService } from '../services/GamePersistenceService';
 import type { GameSession, Player, Profile } from '../types/models';
@@ -82,9 +90,6 @@ const initialState: Omit<
   error: null,
 };
 
-// Track rehydration operations with a Set of session IDs to handle concurrency
-const rehydratingSessionIds = new Set<string>();
-
 // Initialize persistence service with IndexedDB repository
 const persistenceService = new GamePersistenceService(
   new IndexedDBGameSessionRepository(),
@@ -126,7 +131,7 @@ function buildPersistedState(state: GameState): PersistedGameState {
 
 function persistState(state: GameState): void {
   // Skip persistence during rehydration or if there's no active game session
-  if (!state.id || rehydratingSessionIds.has(state.id)) {
+  if (!state.id || isRehydrating(state.id)) {
     return;
   }
 
@@ -178,7 +183,7 @@ export async function forcePersist(): Promise<void> {
   const state = useGameStore.getState();
 
   // Skip persistence if no active session or if rehydration is in progress
-  if (!state.id || rehydratingSessionIds.has(state.id)) {
+  if (!state.id || isRehydrating(state.id)) {
     return;
   }
 
@@ -302,6 +307,9 @@ export const useGameStore = create<GameState>((set, get) => ({
       currentRound: 0,
       roundCategoryMap: [],
     };
+
+    // Reset rehydration state for any session that might have had the same ID from a previous test/run
+    resetRehydrationState(newState.id);
 
     set(newState);
 
@@ -585,22 +593,29 @@ export const useGameStore = create<GameState>((set, get) => ({
       };
 
       persistState({ ...state, ...newState });
+
+      // Reset rehydration state for the session
+      if (state.id) {
+        resetRehydrationState(state.id);
+      }
+
       return newState;
     });
   },
   loadFromStorage: async (sessionId: string): Promise<boolean> => {
     try {
+      // Start rehydration to block any persistence operations
+      startRehydration(sessionId);
+
       const loadedState = await loadGameSession(sessionId);
 
       if (!loadedState) {
-        // Session not found - set error state with recovery path
+        // Session not found - transition state machine to active and set error
+        completeRehydration(sessionId);
         const state = get();
         state.setError('errorHandler.sessionNotFound');
         return false;
       }
-
-      // Add session ID to rehydrating set to prevent persistence during rehydration
-      rehydratingSessionIds.add(sessionId);
 
       // Rehydrate the store with loaded state
       set({
@@ -623,13 +638,13 @@ export const useGameStore = create<GameState>((set, get) => ({
         error: null, // Clear any previous errors on successful load
       });
 
-      // Remove session ID from rehydrating set immediately after set() completes
-      // This must be synchronous to prevent race conditions with persistState
-      rehydratingSessionIds.delete(sessionId);
+      // Complete rehydration after state has been applied
+      completeRehydration(sessionId);
 
       return true;
     } catch (error) {
-      rehydratingSessionIds.delete(sessionId);
+      // Mark rehydration as failed but transition to active state
+      failRehydration(sessionId, error instanceof Error ? error : new Error(String(error)));
       console.error('Failed to load game from storage:', error);
       // Set error state for corrupted/invalid sessions
       const state = get();
@@ -644,3 +659,15 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({ error: null });
   },
 }));
+
+/**
+ * Export cleanup function for use in app lifecycle and test teardown
+ * Cleans up all rehydration state machines to prevent memory leaks
+ */
+export { cleanupAllMachines as cleanupRehydrationMachines };
+
+/**
+ * Export isRehydrating for external use if needed
+ * Allows components to check if a session is currently rehydrating
+ */
+export { isRehydrating as isSessionRehydrating };
