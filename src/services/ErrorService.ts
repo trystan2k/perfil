@@ -3,7 +3,6 @@
  * Provides singleton pattern for consistent error handling, logging, and telemetry
  */
 
-// biome-ignore lint/style/useImportType: These error classes are used as constructors
 import {
   AppError,
   ErrorSeverity,
@@ -78,7 +77,7 @@ class ConsoleTelemetryProvider implements TelemetryProvider {
  * Manages error logging, telemetry, and error handling across the application
  */
 export class ErrorService {
-  private static instance: ErrorService;
+  private static instance: ErrorService | undefined;
   private telemetryProvider: TelemetryProvider;
   private errorHandlers: Set<ErrorHandler>;
   private context: Map<string, unknown>;
@@ -202,8 +201,14 @@ export class ErrorService {
       } else {
         // For AppError and any other future subclasses, use constructor safely
         // This preserves the type for known subclasses while gracefully handling unknown ones
-        const ErrorClass = normalizedError.constructor as typeof AppError;
-        normalizedError = new ErrorClass(normalizedError.message, baseOptions) as AppError;
+        try {
+          const ErrorClass = normalizedError.constructor as typeof AppError;
+          normalizedError = new ErrorClass(normalizedError.message, baseOptions) as AppError;
+        } catch {
+          // If the constructor fails to accept our options, fall back to base AppError
+          // This handles cases where the error class has incompatible constructor signature
+          normalizedError = new AppError(normalizedError.message, baseOptions);
+        }
       }
     }
 
@@ -257,7 +262,7 @@ export class ErrorService {
       ErrorService.instance.context.clear();
       ErrorService.instance.telemetryProvider = new ConsoleTelemetryProvider();
     }
-    ErrorService.instance = null as unknown as ErrorService;
+    ErrorService.instance = undefined;
   }
 }
 
