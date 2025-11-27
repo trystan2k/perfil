@@ -5,8 +5,8 @@
 @layer base {
   :root {
     /* Layout */
-    --header-height: 87px;
-    
+    --header-height: 97px;
+
     /* Light Mode */
     --background: 0 0% 96%;           /* Very light grey background */
     --foreground: 222 20% 10%;

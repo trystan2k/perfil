@@ -76,6 +76,9 @@
     "showClueToAwardPoints": "Show at least one clue to award points",
     "noWinnerButton": "No Winner",
     "finishGameButton": "Finish Game",
+    "awardPoints": {
+      "buttonAriaLabel": "Award points to {{playerName}}"
+    },
     "removePoints": {
       "buttonAriaLabel": "Remove points from {{playerName}}",
       "buttonTitle": "Remove points from this player",
@@ -144,6 +147,7 @@
       "descriptionCategory": "How many rounds would you like to play with {{category}} profiles?",
       "label": "Number of rounds",
       "hint": "Choose between 1 and 50 rounds",
+      "invalidInput": "Invalid value",
       "startButton": "Start Game"
     },
     "selectAll": "Select All",
@@ -163,6 +167,7 @@
       "description": "No players found in this game session."
     },
     "actions": {
+      "title": "What next?",
       "newGame": "New Game",
       "samePlayers": "Same Players",
       "restartGame": "Restart Game"

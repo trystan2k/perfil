@@ -1,5 +1,6 @@
 import { type ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useProfiles } from '@/hooks/useProfiles';
@@ -35,15 +36,17 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   if (isLoading || sessionLoading) {
     return (
-      <div className="flex items-center justify-center min-h-main p-4 ">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl">
-              {t('categorySelect.loading.title')}
-            </CardTitle>
-            <CardDescription>{t('categorySelect.loading.description')}</CardDescription>
-          </CardHeader>
-        </Card>
+      <div className="min-h-main py-6">
+        <AdaptiveContainer maxWidth="2xl" className="flex items-center justify-center min-h-[50vh]">
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle as="h3" className="text-2xl">
+                {t('categorySelect.loading.title')}
+              </CardTitle>
+              <CardDescription>{t('categorySelect.loading.description')}</CardDescription>
+            </CardHeader>
+          </Card>
+        </AdaptiveContainer>
       </div>
     );
   }
@@ -52,17 +55,19 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   if (error || !profilesData) {
     return (
-      <div className="flex items-center justify-center min-h-main p-4 ">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl text-destructive">
-              {t('categorySelect.error.title')}
-            </CardTitle>
-            <CardDescription className="text-destructive">
-              {t('categorySelect.error.description')}
-            </CardDescription>
-          </CardHeader>
-        </Card>
+      <div className="min-h-main py-6">
+        <AdaptiveContainer maxWidth="2xl" className="flex items-center justify-center min-h-[50vh]">
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle as="h3" className="text-2xl text-destructive">
+                {t('categorySelect.error.title')}
+              </CardTitle>
+              <CardDescription className="text-destructive">
+                {t('categorySelect.error.description')}
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </AdaptiveContainer>
       </div>
     );
   }
@@ -128,7 +133,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     } else {
       const numValue = Number.parseInt(value, 10);
       if (Number.isNaN(numValue) || numValue < 1 || numValue > 50) {
-        setRoundsInputError('Invalid');
+        setRoundsInputError(t('categorySelect.rounds.invalidInput'));
       } else {
         setRoundsInputError(null);
       }
@@ -138,135 +143,141 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   // Show rounds configuration screen if categories are selected and Continue was clicked
   if (showRoundsScreen) {
     return (
-      <div className="flex items-center justify-center min-h-main p-4 ">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl">
-              {t('categorySelect.rounds.title')}
-            </CardTitle>
-            <CardDescription>
-              {t('categorySelect.rounds.descriptionCategory', {
-                category: Array.from(selectedCategories).join(', '),
-              })}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <label
-                htmlFor="rounds-input"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {t('categorySelect.rounds.label')}
-              </label>
-              <input
-                id="rounds-input"
-                type="number"
-                min="1"
-                max="50"
-                value={numberOfRounds}
-                onChange={handleRoundsChange}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              />
-              {roundsInputError ? (
-                <p className="text-sm text-destructive">
-                  {t('categorySelect.rounds.hint')} (Invalid value)
+      <div className="min-h-main py-6">
+        <AdaptiveContainer maxWidth="2xl" className="flex items-center justify-center min-h-[50vh]">
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle as="h3" className="text-2xl">
+                {t('categorySelect.rounds.title')}
+              </CardTitle>
+              <CardDescription>
+                {t('categorySelect.rounds.descriptionCategory', {
+                  category: Array.from(selectedCategories).join(', '),
+                })}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <label
+                  htmlFor="rounds-input"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  {t('categorySelect.rounds.label')}
+                </label>
+                <input
+                  id="rounds-input"
+                  type="number"
+                  min="1"
+                  max="50"
+                  value={numberOfRounds}
+                  onChange={handleRoundsChange}
+                  aria-invalid={roundsInputError !== null}
+                  aria-describedby="rounds-hint"
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                />
+                <p
+                  id="rounds-hint"
+                  className={`text-sm ${roundsInputError ? 'text-destructive' : 'text-muted-foreground'}`}
+                >
+                  {t('categorySelect.rounds.hint')}
+                  {roundsInputError && ` (${roundsInputError})`}
                 </p>
-              ) : (
-                <p className="text-sm text-muted-foreground">{t('categorySelect.rounds.hint')}</p>
-              )}
-            </div>
+              </div>
 
-            <div className="flex gap-2">
-              <Button
-                onClick={handleBackToCategories}
-                disabled={isStarting}
-                className="flex-1"
-                variant="outline"
-                size="lg"
-              >
-                {t('common.back')}
-              </Button>
-              <Button
-                onClick={handleStartGame}
-                disabled={isStarting || roundsInputError !== null || numberOfRounds === ''}
-                className="flex-1"
-                size="lg"
-              >
-                {t('categorySelect.rounds.startButton')}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleBackToCategories}
+                  disabled={isStarting}
+                  className="flex-1"
+                  variant="outline"
+                  size="lg"
+                >
+                  {t('common.back')}
+                </Button>
+                <Button
+                  onClick={handleStartGame}
+                  disabled={isStarting || roundsInputError !== null || numberOfRounds === ''}
+                  className="flex-1"
+                  size="lg"
+                >
+                  {t('categorySelect.rounds.startButton')}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </AdaptiveContainer>
       </div>
     );
   }
 
   // Show category selection screen
   return (
-    <div className="flex items-center justify-center min-h-main p-4 ">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle as="h3" className="text-2xl">
-            {t('categorySelect.title')}
-          </CardTitle>
-          <CardDescription>{t('categorySelect.description')}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {/* Select All / Deselect All Controls */}
-          <div className="flex gap-2">
+    <div className="min-h-main py-6">
+      <AdaptiveContainer maxWidth="2xl" className="flex items-center justify-center min-h-[50vh]">
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle as="h3" className="text-2xl">
+              {t('categorySelect.title')}
+            </CardTitle>
+            <CardDescription>{t('categorySelect.description')}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Select All / Deselect All Controls */}
+            <div className="flex gap-2">
+              <Button
+                onClick={handleSelectAll}
+                disabled={isStarting || selectedCategories.size === categories.length}
+                variant="outline"
+                size="sm"
+                className="flex-1"
+              >
+                {t('categorySelect.selectAll')}
+              </Button>
+              <Button
+                onClick={handleDeselectAll}
+                disabled={isStarting || selectedCategories.size === 0}
+                variant="outline"
+                size="sm"
+                className="flex-1"
+              >
+                {t('categorySelect.deselectAll')}
+              </Button>
+            </div>
+
+            {/* Category Checkboxes - Responsive Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {categories.map((category) => (
+                <div key={category}>
+                  <label
+                    htmlFor={`category-${category}`}
+                    className="flex items-center gap-3 cursor-pointer hover:bg-accent p-2 rounded-md transition-colors"
+                  >
+                    <input
+                      id={`category-${category}`}
+                      type="checkbox"
+                      checked={selectedCategories.has(category)}
+                      onChange={() => handleCategoryToggle(category)}
+                      disabled={isStarting}
+                      className="w-5 h-5 rounded border-2 border-input cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                    />
+                    <span className="text-sm font-medium">{category}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
+
+            {/* Continue Button */}
             <Button
-              onClick={handleSelectAll}
-              disabled={isStarting || selectedCategories.size === categories.length}
-              variant="outline"
-              size="sm"
-              className="flex-1"
-            >
-              {t('categorySelect.selectAll')}
-            </Button>
-            <Button
-              onClick={handleDeselectAll}
+              onClick={handleContinueToRounds}
               disabled={isStarting || selectedCategories.size === 0}
-              variant="outline"
-              size="sm"
-              className="flex-1"
+              className="w-full"
+              size="lg"
             >
-              {t('categorySelect.deselectAll')}
+              {t('common.continue')}
             </Button>
-          </div>
-
-          {/* Category Checkboxes */}
-          <div className="space-y-3">
-            {categories.map((category) => (
-              <div key={category}>
-                <label
-                  htmlFor={`category-${category}`}
-                  className="flex items-center gap-3 cursor-pointer hover:bg-accent p-2 rounded-md transition-colors"
-                >
-                  <input
-                    id={`category-${category}`}
-                    type="checkbox"
-                    checked={selectedCategories.has(category)}
-                    onChange={() => handleCategoryToggle(category)}
-                    disabled={isStarting}
-                    className="w-5 h-5 rounded border-2 border-input cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
-                  />
-                  <span className="text-sm font-medium">{category}</span>
-                </label>
-              </div>
-            ))}
-          </div>
-
-          {/* Continue Button */}
-          <Button
-            onClick={handleContinueToRounds}
-            disabled={isStarting || selectedCategories.size === 0}
-            className="w-full"
-            size="lg"
-          >
-            {t('common.continue')}
-          </Button>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </AdaptiveContainer>
     </div>
   );
 }
