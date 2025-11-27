@@ -2879,7 +2879,7 @@
         "subtasks": []
       },
       {
-        "id": "48",
+        "id": 48,
         "title": "Fix Race Condition in State Rehydration",
         "description": "ARCH-003: Eliminate race between rehydration and persistence by adding rehydration flags or adopting a lifecycle state machine (XState).",
         "status": "done",
