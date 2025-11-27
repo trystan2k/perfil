@@ -63,7 +63,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
   const status = useGameStore((state) => state.status);
 
   // Determine if loading is needed: only if sessionId provided AND no game already in store
-  const gameAlreadyExists = !!id && status === 'active';
+  const gameAlreadyExists = !!id && (status === 'active' || status === 'completed');
   const [isLoading, setIsLoading] = useState(!!sessionId && !gameAlreadyExists);
   const [hasLoadError, setHasLoadError] = useState(false);
   const [showRoundSummary, setShowRoundSummary] = useState(false);

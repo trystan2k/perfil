@@ -308,6 +308,9 @@ export const useGameStore = create<GameState>((set, get) => ({
       roundCategoryMap: [],
     };
 
+    // Reset rehydration state for any session that might have had the same ID from a previous test/run
+    resetRehydrationState(newState.id);
+
     set(newState);
 
     // Force immediate persistence before returning to ensure state is saved before navigation
