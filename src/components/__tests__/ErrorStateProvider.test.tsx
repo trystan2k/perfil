@@ -2,6 +2,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import { GameError } from '../../lib/errors';
 import { useGameStore } from '../../stores/gameStore';
 import { ErrorStateProvider } from '../ErrorStateProvider';
 
@@ -69,7 +70,7 @@ describe('ErrorStateProvider', () => {
 
     it('should render children and error dialog when error is set', () => {
       useGameStore.setState({
-        error: { message: 'Test error message', informative: false },
+        error: new GameError('Test error message', { informative: false }),
       });
 
       render(
@@ -84,7 +85,7 @@ describe('ErrorStateProvider', () => {
 
     it('should display error message in dialog', () => {
       useGameStore.setState({
-        error: { message: 'Game session not found', informative: false },
+        error: new GameError('Game session not found', { informative: false }),
       });
 
       render(
@@ -98,7 +99,7 @@ describe('ErrorStateProvider', () => {
 
     it('should show translated default error message when message is empty', () => {
       useGameStore.setState({
-        error: { message: '', informative: false },
+        error: new GameError('', { informative: false }),
       });
 
       render(
@@ -113,7 +114,7 @@ describe('ErrorStateProvider', () => {
 
     it('should display translated Error as dialog title', () => {
       useGameStore.setState({
-        error: { message: 'Test error', informative: false },
+        error: new GameError('Test error', { informative: false }),
       });
 
       render(
@@ -130,7 +131,7 @@ describe('ErrorStateProvider', () => {
   describe('Recovery button', () => {
     it('should show translated "Go Home" button for critical errors', () => {
       useGameStore.setState({
-        error: { message: 'Error without recovery path' },
+        error: new GameError('Error without recovery path'),
       });
 
       render(
@@ -145,7 +146,7 @@ describe('ErrorStateProvider', () => {
 
     it('should show translated "Back" button for informative errors', () => {
       useGameStore.setState({
-        error: { message: 'Informative error', informative: true },
+        error: new GameError('Informative error', { informative: true }),
       });
 
       render(
@@ -161,7 +162,7 @@ describe('ErrorStateProvider', () => {
     it('should clear error and not navigate for informative errors', async () => {
       const user = userEvent.setup();
       useGameStore.setState({
-        error: { message: 'Informative error', informative: true },
+        error: new GameError('Informative error', { informative: true }),
       });
 
       render(
@@ -183,7 +184,7 @@ describe('ErrorStateProvider', () => {
     it('should navigate to home for critical errors', async () => {
       const user = userEvent.setup();
       useGameStore.setState({
-        error: { message: 'Critical error', informative: false },
+        error: new GameError('Critical error', { informative: false }),
       });
 
       render(
@@ -203,7 +204,7 @@ describe('ErrorStateProvider', () => {
     it('should clear error before navigation', async () => {
       const user = userEvent.setup();
       useGameStore.setState({
-        error: { message: 'Test error', informative: false },
+        error: new GameError('Test error', { informative: false }),
       });
 
       render(
@@ -224,7 +225,7 @@ describe('ErrorStateProvider', () => {
   describe('Dialog behavior', () => {
     it('should not show close button in error dialog', () => {
       useGameStore.setState({
-        error: { message: 'Test error', informative: false },
+        error: new GameError('Test error', { informative: false }),
       });
 
       render(
@@ -239,7 +240,7 @@ describe('ErrorStateProvider', () => {
 
     it('should hide dialog when error is cleared', () => {
       useGameStore.setState({
-        error: { message: 'Test error', informative: false },
+        error: new GameError('Test error', { informative: false }),
       });
 
       const { rerender } = render(
@@ -266,7 +267,7 @@ describe('ErrorStateProvider', () => {
 
     it('should update error message when error changes', () => {
       useGameStore.setState({
-        error: { message: 'First error', informative: false },
+        error: new GameError('First error', { informative: false }),
       });
 
       const { rerender } = render(
@@ -280,7 +281,7 @@ describe('ErrorStateProvider', () => {
       // Update error
       act(() => {
         useGameStore.setState({
-          error: { message: 'Second error', informative: false },
+          error: new GameError('Second error', { informative: false }),
         });
       });
 
@@ -298,7 +299,7 @@ describe('ErrorStateProvider', () => {
   describe('Body scroll prevention', () => {
     it('should prevent body scroll when error is shown', () => {
       useGameStore.setState({
-        error: { message: 'Test error', informative: false },
+        error: new GameError('Test error', { informative: false }),
       });
 
       render(
@@ -312,7 +313,7 @@ describe('ErrorStateProvider', () => {
 
     it('should restore body scroll when error is cleared', () => {
       useGameStore.setState({
-        error: { message: 'Test error', informative: false },
+        error: new GameError('Test error', { informative: false }),
       });
 
       const { rerender } = render(
@@ -339,7 +340,7 @@ describe('ErrorStateProvider', () => {
 
     it('should restore body scroll on unmount', () => {
       useGameStore.setState({
-        error: { message: 'Test error', informative: false },
+        error: new GameError('Test error', { informative: false }),
       });
 
       const { unmount } = render(
@@ -370,7 +371,7 @@ describe('ErrorStateProvider', () => {
       // Set first error
       act(() => {
         useGameStore.setState({
-          error: { message: 'Error 1', informative: false },
+          error: new GameError('Error 1', { informative: false }),
         });
       });
       rerender(
@@ -394,7 +395,7 @@ describe('ErrorStateProvider', () => {
       // Set second error
       act(() => {
         useGameStore.setState({
-          error: { message: 'Error 2', informative: true },
+          error: new GameError('Error 2', { informative: true }),
         });
       });
       rerender(
@@ -408,7 +409,7 @@ describe('ErrorStateProvider', () => {
     it('should handle long error messages', () => {
       const longMessage = 'A'.repeat(500);
       useGameStore.setState({
-        error: { message: longMessage, informative: false },
+        error: new GameError(longMessage, { informative: false }),
       });
 
       render(

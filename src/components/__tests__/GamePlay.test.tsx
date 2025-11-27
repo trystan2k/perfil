@@ -416,10 +416,8 @@ describe('GamePlay Component', () => {
       // Wait for store to be updated with i18n key
       await waitFor(() => {
         const state = useGameStore.getState();
-        expect(state.error).toEqual({
-          message: 'gamePlay.errors.loadFailed',
-          informative: undefined,
-        });
+        expect(state.error).toBeTruthy();
+        expect(state.error?.message).toBe('gamePlay.errors.loadFailed');
       });
     });
 
@@ -432,10 +430,8 @@ describe('GamePlay Component', () => {
       // Wait for store to be updated with corrupted session error (i18n key)
       await waitFor(() => {
         const state = useGameStore.getState();
-        expect(state.error).toEqual({
-          message: 'gamePlay.errors.loadFailed',
-          informative: undefined,
-        });
+        expect(state.error).toBeTruthy();
+        expect(state.error?.message).toBe('gamePlay.errors.loadFailed');
       });
 
       consoleErrorSpy.mockRestore();
