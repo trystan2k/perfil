@@ -1,9 +1,13 @@
 import type { PersistedGameState } from '../lib/gameSessionDB';
+import { isRehydrating } from '../lib/rehydrationMachine';
 import type { IGameSessionRepository } from '../repositories/GameSessionRepository';
 
 /**
  * Service that orchestrates game state persistence with debouncing.
  * Provides debounced saves, force saves, and timer cleanup for proper lifecycle management.
+ *
+ * Integrates with the rehydration state machine to prevent persistence operations
+ * during state rehydration, eliminating race conditions.
  */
 export class GamePersistenceService {
   private readonly repository: IGameSessionRepository;
@@ -25,10 +29,18 @@ export class GamePersistenceService {
    * Schedule a debounced save for the given session.
    * Multiple rapid calls with the same sessionId will collapse into a single save.
    *
+   * Automatically skips persistence if the session is currently rehydrating,
+   * preventing race conditions between load and save operations.
+   *
    * @param sessionId - Unique identifier for the game session
    * @param state - Game state to persist
    */
   debouncedSave(sessionId: string, state: PersistedGameState): void {
+    // Skip if session is rehydrating - prevents race conditions
+    if (isRehydrating(sessionId)) {
+      return;
+    }
+
     // Clear existing timer for this session to debounce rapid state changes
     const existingTimer = this.timers.get(sessionId);
     if (existingTimer) {
@@ -54,11 +66,19 @@ export class GamePersistenceService {
    * Force an immediate save, bypassing debouncing.
    * Cancels any pending debounced save for this session.
    *
+   * Also skips persistence if the session is currently rehydrating,
+   * ensuring data consistency during load operations.
+   *
    * @param sessionId - Unique identifier for the game session
    * @param state - Game state to persist
    * @returns Promise that resolves when save is complete
    */
   async forceSave(sessionId: string, state: PersistedGameState): Promise<void> {
+    // Skip if session is rehydrating - prevents race conditions
+    if (isRehydrating(sessionId)) {
+      return;
+    }
+
     // Cancel any pending debounced save for this session
     const timer = this.timers.get(sessionId);
     if (timer) {
