@@ -32,10 +32,19 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     const { loggingContext } = this.props;
     const errorService = getErrorService();
 
-    errorService.logError(error, {
-      componentStack: errorInfo.componentStack,
-      loggingContext: loggingContext || 'Unknown',
-    });
+    try {
+      errorService.logError(error, {
+        componentStack: errorInfo.componentStack,
+        loggingContext: loggingContext || 'Unknown',
+      });
+    } catch (loggingError) {
+      // Prevent logging failures from breaking the error boundary
+      // Fall back to console.error in development
+      if (process.env.NODE_ENV === 'development') {
+        console.error('ErrorBoundary: Failed to log error to ErrorService', loggingError);
+        console.error('Original error:', error);
+      }
+    }
   }
 
   handleRetry = (): void => {
