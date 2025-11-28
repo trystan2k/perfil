@@ -1,3 +1,4 @@
+import { ErrorBoundary } from './ErrorBoundary';
 import { QueryProvider } from './QueryProvider';
 import { Scoreboard } from './Scoreboard';
 
@@ -8,7 +9,9 @@ interface ScoreboardWithProviderProps {
 export function ScoreboardWithProvider({ sessionId }: ScoreboardWithProviderProps) {
   return (
     <QueryProvider>
-      <Scoreboard sessionId={sessionId} />
+      <ErrorBoundary loggingContext="Scoreboard">
+        <Scoreboard sessionId={sessionId} />
+      </ErrorBoundary>
     </QueryProvider>
   );
 }

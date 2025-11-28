@@ -16,6 +16,7 @@
   "errorHandler": {
     "title": "Error",
     "defaultMessage": "Ocurrió un error inesperado.",
+    "contextMessage": "Error en {{context}}",
     "sessionNotFound": "No se encontró la sesión de juego.",
     "sessionCorrupted": "La sesión de juego está corrupta."
   },

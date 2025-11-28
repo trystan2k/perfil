@@ -16,6 +16,7 @@
   "errorHandler": {
     "title": "Error",
     "defaultMessage": "An unexpected error occurred.",
+    "contextMessage": "Error in {{context}}",
     "sessionNotFound": "Game session not found.",
     "sessionCorrupted": "Game session is corrupted."
   },
