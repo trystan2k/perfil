@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
+import { type AppError, GameError, PersistenceError } from '../lib/errors';
 import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB';
 import {
   cleanupAllMachines,
@@ -10,6 +11,7 @@ import {
   startRehydration,
 } from '../lib/rehydrationMachine';
 import { IndexedDBGameSessionRepository } from '../repositories/GameSessionRepository';
+import { getErrorService } from '../services/ErrorService';
 import { GamePersistenceService } from '../services/GamePersistenceService';
 import type { GameSession, Player, Profile } from '../types/models';
 
@@ -41,7 +43,7 @@ interface GameState extends GameSession {
   roundCategoryMap: string[];
   revealedClueHistory: string[];
   revealedClueIndices: number[];
-  error: { message: string; informative?: boolean } | null;
+  error: AppError | null;
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
   startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
@@ -52,7 +54,13 @@ interface GameState extends GameSession {
   skipProfile: () => Promise<void>;
   endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
-  setError: (message: string, informative?: boolean) => void;
+  /**
+   * Sets an error in the store and logs it to ErrorService.
+   * @param error - Error message string or AppError instance
+   * @param informative - Only used when error is a string; ignored for AppError instances
+   *                      When an AppError is provided, its own `informative` property takes precedence
+   */
+  setError: (error: AppError | string, informative?: boolean) => void;
   clearError: () => void;
 }
 
@@ -613,7 +621,12 @@ export const useGameStore = create<GameState>((set, get) => ({
         // Session not found - transition state machine to active and set error
         completeRehydration(sessionId);
         const state = get();
-        state.setError('errorHandler.sessionNotFound');
+        state.setError(
+          new PersistenceError('errorHandler.sessionNotFound', {
+            code: 'SESSION_NOT_FOUND',
+            context: { sessionId },
+          })
+        );
         return false;
       }
 
@@ -648,12 +661,40 @@ export const useGameStore = create<GameState>((set, get) => ({
       console.error('Failed to load game from storage:', error);
       // Set error state for corrupted/invalid sessions
       const state = get();
-      state.setError('errorHandler.sessionCorrupted');
+      state.setError(
+        new PersistenceError('errorHandler.sessionCorrupted', {
+          code: 'SESSION_CORRUPTED',
+          context: { sessionId },
+          cause: error instanceof Error ? error : undefined,
+        })
+      );
       return false;
     }
   },
-  setError: (message: string, informative?: boolean) => {
-    set({ error: { message, informative } });
+  /**
+   * Sets an error state for the game
+   * @param error - AppError instance or string message
+   * @param informative - Only applies when a string is passed. When an AppError is provided,
+   *                      its own informative property is used instead. Defaults to false.
+   */
+  setError: (error: AppError | string, informative?: boolean) => {
+    const errorService = getErrorService();
+    let appError: AppError;
+
+    if (typeof error === 'string') {
+      // Create GameError from string message
+      // Only the informative parameter applies when creating from string
+      appError = new GameError(error, { informative: informative ?? false });
+    } else {
+      // When AppError is provided, use it as-is
+      // The informative parameter is ignored (caller should set it when creating the error)
+      appError = error;
+    }
+
+    // Log error to ErrorService
+    errorService.logError(appError);
+
+    set({ error: appError });
   },
   clearError: () => {
     set({ error: null });

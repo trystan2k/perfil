@@ -3170,9 +3170,9 @@
         "id": 71,
         "title": "Eliminate any/unknown in Error Handling (Typed Error Classes)",
         "description": "TS-005: Replace generic error handling with typed domain error classes and type guards for better diagnostics.",
-        "details": "Create GameError and domain-specific error classes, implement isGameError type guard, update catch blocks to preserve context and improve logging.",
+        "details": "Create GameError and domain-specific error classes, implement isGameError type guard, update catch blocks to preserve context and improve logging.\n<info added on 2025-11-27T13:02:11.585Z>\nImplementation is complete. A comprehensive typed error class hierarchy has been created in `src/lib/errors.ts`. This includes an `AppError` base class with properties for severity, code, context, an informative flag, and a timestamp. Domain-specific errors like `GameError`, `PersistenceError`, `ValidationError`, and `NetworkError` extend this base class. The implementation also provides type guards for all error types (e.g., `isAppError`, `isGameError`), utility functions (`getErrorMessage`, `normalizeError`), and an error serialization `toJSON()` method. The feature is covered by 80 unit tests, and all QA checks (lint, typecheck, tests, e2e, build) are passing.\n</info added on 2025-11-27T13:02:11.585Z>",
         "testStrategy": "Unit tests for error classes and guards, integration tests ensuring error handling paths trigger appropriate UI flows and logging.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": []
@@ -3181,14 +3181,146 @@
         "id": 72,
         "title": "Implement Centralized Error Architecture (ErrorService & Hierarchical Boundaries)",
         "description": "ARCH-012: Create a central ErrorService, typed domain errors, and hierarchical error boundaries to standardize error handling across the app.",
-        "details": "Implement ErrorService singleton, typed errors (GameError, PersistenceError), integrate with ErrorBoundary components and telemetry. Document error handling in ERROR_HANDLING.md.",
+        "details": "Implement ErrorService singleton, typed errors (GameError, PersistenceError), integrate with ErrorBoundary components and telemetry. Document error handling in ERROR_HANDLING.md.\n<info added on 2025-11-27T13:02:36.161Z>\nThe centralized error handling system has been implemented. This includes the ErrorService singleton in src/services/ErrorService.ts, a telemetry provider interface with a console implementation, an error handler registration system, and context management for error tracking. The system is integrated with the Zustand gameStore, and the ErrorStateProvider has been updated to handle typed errors. The implementation is covered by comprehensive testing (54 unit tests + 44 integration tests) and documented in docs/ERROR_HANDLING.md. All QA checks (lint, typecheck, tests, e2e, build) have passed.\n</info added on 2025-11-27T13:02:36.161Z>",
         "testStrategy": "Integration tests for error flows, verify telemetry sending, manual QA for fallback pages and toast behavior.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "71"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create typed error classes in src/lib/errors.ts",
+            "description": "Implement base AppError and specific error types with typed fields for standardized error handling",
+            "dependencies": [],
+            "details": "Create src/lib/errors.ts with AppError base class and subclasses (ValidationError, NotFoundError, ServiceError, UnexpectedError). Include code, status, details, originalError properties. Add JSDoc comments and TypeScript interfaces. Follow Task #71 scope for error typing conventions.",
+            "status": "done",
+            "testStrategy": "Unit tests in src/lib/__tests__/errors.test.ts verifying error construction, properties, and inheritance"
+          },
+          {
+            "id": 2,
+            "title": "Implement ErrorService singleton in src/services/ErrorService.ts",
+            "description": "Create central error handling service with logging integration and error mapping capabilities",
+            "dependencies": [
+              1
+            ],
+            "details": "Create src/services/ErrorService.ts implementing singleton pattern. Implement methods: registerLogger, capture, wrap, getLastError. Map network errors to typed errors. Use console for logging per project conventions. Ensure proper TypeScript typing for all methods and error mappings.",
+            "status": "done",
+            "testStrategy": "Unit tests in src/services/__tests__/ErrorService.test.ts covering wrapping behavior, logger invocation, and error mapping"
+          },
+          {
+            "id": 3,
+            "title": "Update gameStore to use typed errors",
+            "description": "Modify game store to utilize new error classes and ErrorService for error state management",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Update src/stores/gameStore.ts to replace string errors with typed errors. Use ErrorService for error creation/wrapping. Update store types to reflect typed error structure. Modify error handling logic to leverage error.code and details properties. Update existing tests to accommodate typed errors.",
+            "status": "done",
+            "testStrategy": "Unit tests verifying store correctly sets typed errors and handles error states appropriately"
+          },
+          {
+            "id": 4,
+            "title": "Update ErrorStateProvider to handle typed errors",
+            "description": "Modify error boundary component to display typed error information and support error-specific actions",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Update src/components/ErrorStateProvider.tsx to render error messages based on error.code. Display error.details when available. Implement retry/callback functionality that respects error types. Ensure fallback UI adapts to different error severity levels. Maintain compatibility with existing error boundary patterns.",
+            "status": "done",
+            "testStrategy": "Component tests verifying correct rendering for different error types and proper handling of retry actions"
+          },
+          {
+            "id": 5,
+            "title": "Create ERROR_HANDLING.md documentation",
+            "description": "Document error handling architecture, usage patterns, and testing guidance",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "details": "Create docs/ERROR_HANDLING.md explaining error class hierarchy, ErrorService usage patterns, how to create new error types, component/store error handling practices, and testing strategies. Include code examples for common scenarios. Document error code conventions and telemetry integration points.",
+            "status": "done",
+            "testStrategy": "Documentation review to ensure completeness and accuracy of examples and usage guidance"
+          },
+          {
+            "id": 6,
+            "title": "Create typed error classes in src/lib/errors.ts",
+            "description": "Implement base AppError and specific typed error classes (ValidationError, NotFoundError, ServiceError, UnexpectedError).",
+            "details": "Files to create/modify:\n- src/lib/errors.ts\n\nAcceptance criteria:\n- AppError base class implemented with fields: code (string), status (number), message (string), details (unknown), originalError (unknown)\n- Subclasses: ValidationError, NotFoundError, ServiceError, UnexpectedError with sensible defaults\n- JSDoc and TypeScript types/interfaces provided\n- Export types and classes for consumers\n- Tests (unit) will be added in separate subtask\n\nDependencies: Task #71 (reference)",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 72
+          },
+          {
+            "id": 7,
+            "title": "Implement ErrorService singleton in src/services/ErrorService.ts",
+            "description": "Create a singleton ErrorService to centralize error creation, wrapping, logging, and retrieval.",
+            "details": "Files to create/modify:\n- src/services/ErrorService.ts\n\nResponsibilities:\n- Methods: registerLogger(logger: (err: Error) => void), capture(err: unknown): void, wrap(err: unknown): AppError, getLastError(): AppError | null\n- Map common network/Fetch errors to typed ServiceError or UnexpectedError\n- Use console logging by default; allow replacing with registerLogger\n- Singleton pattern enforced and exported as default\n\nAcceptance criteria:\n- ErrorService exists with methods and types\n- Wrapping maps an arbitrary error to an AppError subclass\n- Logger can be registered and is called on capture\n\nDependencies: Create typed errors subtask",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 72
+          },
+          {
+            "id": 8,
+            "title": "Update gameStore to use typed errors",
+            "description": "Refactor src/stores/gameStore.ts to use the new typed errors and ErrorService when setting error state.",
+            "details": "Files to modify:\n- src/stores/gameStore.ts\n\nAcceptance criteria:\n- Store state type updated to accept AppError instead of string or generic Error\n- All places that set error state use ErrorService.wrap or create specific error instances\n- Existing behavior preserved (UI still receives error info) but now with typed properties like code and details\n- Unit tests updated accordingly (if failing)\n\nDependencies: Create typed errors, Implement ErrorService",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 72
+          },
+          {
+            "id": 9,
+            "title": "Update ErrorStateProvider to handle typed errors",
+            "description": "Modify ErrorStateProvider component to render based on typed error fields and support retry callbacks.",
+            "details": "Files to modify:\n- src/components/ErrorStateProvider.tsx or src/components/ErrorStateProvider/index.tsx (search for provider component path)\n\nAcceptance criteria:\n- Provider accepts AppError instances and uses error.code/status/details to render messages\n- Displays fallback UI with message and optional details\n- Provides retry or action callback when available\n- Component tests added/updated to validate rendering for different error types\n\nDependencies: Create typed errors, Implement ErrorService, Update gameStore",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 72
+          },
+          {
+            "id": 10,
+            "title": "Write unit tests for error classes",
+            "description": "Add unit tests for the typed error classes implemented in src/lib/errors.ts.",
+            "details": "Files to create:\n- src/lib/__tests__/errors.test.ts\n\nAcceptance criteria:\n- Tests cover construction and properties of AppError and subclasses\n- instanceof checks pass (e.g., new ValidationError() instanceof AppError)\n- Serialization behavior tested (JSON.stringify) if implemented\n- Edge cases like missing details or originalError preserved\n\nComplexity: 2\nTest strategy: Unit tests using Vitest",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 72
+          },
+          {
+            "id": 11,
+            "title": "Write unit tests for ErrorService",
+            "description": "Add unit tests for ErrorService singleton behavior and error mapping.",
+            "details": "Files to create:\n- src/services/__tests__/ErrorService.test.ts\n\nAcceptance criteria:\n- Tests verify registerLogger is called when capture is invoked\n- wrap maps known error shapes (e.g., fetch/network error) to ServiceError or UnexpectedError\n- getLastError returns the last captured AppError\n- Singleton identity preserved across calls\n\nComplexity: 3\nTest strategy: Unit tests using Vitest with mocks/stubs",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 72
+          },
+          {
+            "id": 12,
+            "title": "Write integration tests for error flows",
+            "description": "Create integration/e2e tests to validate the full error flow from service failure to UI rendering.",
+            "details": "Files to create:\n- e2e/tests/error-flow.e2e.ts (follow existing e2e conventions)\n\nAcceptance criteria:\n- Simulate a service failure (mock GamePersistenceService or network) and ensure ErrorService wraps the error\n- Verify gameStore state updates with an AppError and ErrorStateProvider displays correct UI\n- Verify retry action triggers expected behavior\n\nComplexity: 4\nTest strategy: Playwright or existing e2e runner; align with project's e2e tests in e2e/tests\n\nDependencies: ErrorService, gameStore, ErrorStateProvider implemented",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 72
+          },
+          {
+            "id": 13,
+            "title": "Create ERROR_HANDLING.md documentation",
+            "description": "Document the error handling strategy, class hierarchy, ErrorService usage, and testing guidance.",
+            "details": "Files to create:\n- docs/ERROR_HANDLING.md\n\nAcceptance criteria:\n- Explains AppError hierarchy and when to use each subclass\n- Shows example usage of ErrorService.wrap/capture and how to register a logger\n- Explains how stores and components should handle AppError objects\n- Includes testing guidelines for unit and integration tests\n\nComplexity: 2\nTest strategy: Documentation review",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 72
+          }
+        ]
       },
       {
         "id": 73,
@@ -3672,7 +3804,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-27T07:03:20.309Z"
+      "updated": "2025-11-27T13:02:38.994Z"
     }
   }
 }

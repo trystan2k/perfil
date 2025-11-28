@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import { GameError } from '../../lib/errors';
 import type { Profile } from '../../types/models';
 import { useGameStore } from '../gameStore';
 
@@ -845,10 +846,9 @@ describe('gameStore', () => {
 
       // Should set error state for corrupted session with i18n key
       const state = useGameStore.getState();
-      expect(state.error).toEqual({
-        message: 'errorHandler.sessionCorrupted',
-        informative: undefined,
-      });
+      expect(state.error).toBeTruthy();
+      expect(state.error?.message).toBe('errorHandler.sessionCorrupted');
+      expect(state.error?.name).toBe('PersistenceError');
 
       consoleErrorSpy.mockRestore();
     });
@@ -865,10 +865,9 @@ describe('gameStore', () => {
 
       // Should set error state with i18n key
       const state = useGameStore.getState();
-      expect(state.error).toEqual({
-        message: 'errorHandler.sessionNotFound',
-        informative: undefined,
-      });
+      expect(state.error).toBeTruthy();
+      expect(state.error?.message).toBe('errorHandler.sessionNotFound');
+      expect(state.error?.name).toBe('PersistenceError');
     });
 
     it('should successfully load game from storage and clear error', async () => {
@@ -876,7 +875,7 @@ describe('gameStore', () => {
 
       // Set an error first
       useGameStore.setState({
-        error: { message: 'Previous error', informative: false },
+        error: new GameError('Previous error', { informative: false }),
       });
 
       const mockSession = {
