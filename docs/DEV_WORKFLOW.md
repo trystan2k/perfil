@@ -223,6 +223,14 @@ pnpm run test
 pnpm run build
 ```
 
+**⚠️ CRITICAL: NEVER RUN MULTIPLE NPM SCRIPTS CONCURRENTLY**
+
+- **ALWAYS** wait for `pnpm run complete-check` to finish completely before running any other command
+- **NEVER** run tests while another test process is still running
+- **NEVER** run git operations (commit/push) while QA scripts are executing
+- Running multiple scripts simultaneously can cause system crashes and resource conflicts
+- Be patient and let each script finish before starting the next one
+
 ## ⚡ MANDATORY CHECKS
 
 ### ✅ Before Starting Development
@@ -288,6 +296,7 @@ Based on your development guidelines, here are the **NO NO actions**:
 - **NEVER** reference task or subtask IDs in commit messages - focus purely on the work done
 - **NEVER** bypass git hooks with `--no-verify` or similar flags - git hooks are mandatory quality gates
 - **🚨 NEVER EVER commit or push without explicit user confirmation** - ALWAYS ask first, no exceptions
+- **🚨 NEVER run multiple npm/pnpm scripts concurrently** - ALWAYS wait for scripts to finish before running other commands
 - Under **NO** circumstance commit code when there are issues from QA scripts (even warnings)  
 
 ---

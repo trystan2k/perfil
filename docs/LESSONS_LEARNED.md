@@ -165,4 +165,24 @@
    4. Proper traceability and audit trail for all changes
    5. Correct specialist delegation for optimal workflow
 
+2025-11-28 — NEVER RUN MULTIPLE NPM SCRIPTS CONCURRENTLY
+
+- Mistake: Running multiple npm/pnpm scripts simultaneously (e.g., running tests while another test process is still running, or pushing while complete-check is executing) can cause system crashes.
+- What can happen:
+   1. Running `pnpm run complete-check` (which includes tests)
+   2. While it's still running, executing another command that also runs tests
+   3. Or running git operations (push, commit) while QA scripts are executing
+   4. This causes resource conflicts and can crash the computer
+- Correct procedure: ALWAYS wait for npm/pnpm scripts to complete before running other commands:
+   1. Run `pnpm run complete-check` and WAIT for it to finish completely
+   2. Only after the script completes (success or failure), proceed with other operations
+   3. Never run multiple test suites simultaneously
+   4. Never run git operations while QA scripts are executing
+   5. Be patient - let each script finish before starting the next one
+- This ensures:
+   1. System stability and prevents crashes
+   2. Accurate test results without resource conflicts
+   3. Clean process execution without interference
+   4. Reliable CI/CD pipeline behavior
+
 
