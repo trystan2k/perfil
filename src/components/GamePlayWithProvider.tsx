@@ -1,3 +1,4 @@
+import { ErrorBoundary } from './ErrorBoundary';
 import { GamePlay } from './GamePlay';
 import { QueryProvider } from './QueryProvider';
 
@@ -8,7 +9,9 @@ interface GamePlayWithProviderProps {
 export function GamePlayWithProvider({ sessionId }: GamePlayWithProviderProps) {
   return (
     <QueryProvider>
-      <GamePlay sessionId={sessionId} />
+      <ErrorBoundary loggingContext="GamePlay">
+        <GamePlay sessionId={sessionId} />
+      </ErrorBoundary>
     </QueryProvider>
   );
 }

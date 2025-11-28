@@ -2912,12 +2912,71 @@
         "description": "REACT-007: Add granular component ErrorBoundaries to catch and gracefully render UI for component failures and integrate with error reporting.",
         "details": "Create ErrorBoundary component with fallback UI and logging (Sentry or telemetry). Wrap major sections (GamePlay, Scoreboard, Route-level). Ensure error boundaries report to centralized ErrorService.",
         "testStrategy": "Unit tests for ErrorBoundary behavior, simulate thrown errors in components, ensure fallback UI shown and errors logged to ErrorService in test environment.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "72"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Core ErrorBoundary React Component",
+            "description": "Develop the basic structure of the ErrorBoundary component in `src/components/ErrorBoundary/ErrorBoundary.tsx`. This includes implementing `getDerivedStateFromError` and `componentDidCatch` to manage the error state and trigger side effects.",
+            "dependencies": [],
+            "details": "Create a new class-based React component at `src/components/ErrorBoundary/ErrorBoundary.tsx`. Implement `getDerivedStateFromError` to update state and trigger a fallback UI render. Implement `componentDidCatch` to handle the error, which will initially just console.log the error and info. The component should accept `children`, an optional `fallback` prop, and a `loggingContext` prop.",
+            "status": "done",
+            "testStrategy": "Create a basic Vitest test file. Use React Testing Library to render the component with a child that throws an error. Assert that a placeholder fallback UI is rendered instead of the crashing child. A test for the non-error case should also be included."
+          },
+          {
+            "id": 2,
+            "title": "Develop Accessible Fallback UI for ErrorBoundary",
+            "description": "Build a reusable and accessible fallback UI component to be displayed by the ErrorBoundary when an error is caught. This UI must provide clear information and a recovery action (retry button).",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a `FallbackUI.tsx` component in `src/components/ErrorBoundary/`. It should use UI primitives from `src/components/ui/*` and tailwind tokens via the `cn()` utility. The UI must have `role='alert'`, a clear error message, and a 'Retry' button. The retry button's `onClick` handler will be passed in as a prop. Ensure the retry button is focusable upon render.",
+            "status": "done",
+            "testStrategy": "Unit test the `FallbackUI` component in isolation to verify it renders correctly and that the `onClick` prop is called when the retry button is clicked using `@testing-library/user-event`. Use an accessibility checker like `axe-core` in the test environment to validate ARIA attributes and focus management."
+          },
+          {
+            "id": 3,
+            "title": "Integrate ErrorBoundary with Centralized ErrorService",
+            "description": "Connect the `componentDidCatch` lifecycle method in the ErrorBoundary to the centralized `ErrorService.ts` to log caught errors with relevant context.",
+            "dependencies": [
+              1
+            ],
+            "details": "In `ErrorBoundary.tsx`'s `componentDidCatch` method, import and call a method from `src/services/ErrorService.ts` (e.g., `reportError`). Pass the `error`, `errorInfo` (component stack), and the `loggingContext` prop. If needed, enhance `ErrorService.ts` to accept this payload. The payload should also include user session and locale information where available.",
+            "status": "done",
+            "testStrategy": "In the `ErrorBoundary` test suite, mock `src/services/ErrorService.ts`. When an error is thrown by a child component, assert that the `reportError` mock function is called exactly once with the expected payload (error object, component stack, and context)."
+          },
+          {
+            "id": 4,
+            "title": "Implement Error Boundaries Across Key Application Areas",
+            "description": "Strategically wrap major feature components and route-level layouts with the new ErrorBoundary component to provide granular error protection throughout the application.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Wrap the following components with `<ErrorBoundary>`: 1. The main content of `GamePlay` (e.g., inside `GamePlayWithProvider`). 2. The `Scoreboard` component (e.g., `ScoreboardWithProvider`). 3. The main application layout in `pages/_app` or a similar top-level file to act as a catch-all for route-level errors. Ensure boundaries are placed correctly within provider trees.",
+            "status": "done",
+            "testStrategy": "Manual QA: Intentionally introduce an error (e.g., `throw new Error('Test Error')`) inside `GamePlay` and `Scoreboard` separately. Verify that only the affected component shows the fallback UI and the rest of the application remains functional. Verify the route-level boundary works as well."
+          },
+          {
+            "id": 5,
+            "title": "Write Comprehensive Tests and Documentation for ErrorBoundary",
+            "description": "Create a full test suite for the ErrorBoundary component, including error states, retry logic, and accessibility. Also, add documentation for its usage.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "details": "Using Vitest and React Testing Library, write tests for the following scenarios: 1. Renders children correctly when there is no error. 2. Renders the fallback UI on a child component error. 3. The retry button in the fallback UI successfully re-renders the children. 4. The logging service is called correctly. Add a short usage example to the project's component documentation or README.",
+            "status": "done",
+            "testStrategy": "This task is the implementation of the test strategy itself. The tests must use `@testing-library/user-event` for user interactions like clicking the retry button. Integration tests should wrap a test component that throws an error and verify the application does not crash and the fallback is shown."
+          }
+        ]
       },
       {
         "id": 51,
@@ -3804,7 +3863,7 @@
       ],
       "created": "2025-11-22T08:34:31.548Z",
       "description": "Tasks for master context",
-      "updated": "2025-11-27T13:02:38.994Z"
+      "updated": "2025-11-28T00:44:24.125Z"
     }
   }
 }
