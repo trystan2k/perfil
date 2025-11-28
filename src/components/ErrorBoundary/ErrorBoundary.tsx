@@ -11,7 +11,6 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
-  errorInfo?: ErrorInfo;
 }
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -37,17 +36,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       componentStack: errorInfo.componentStack,
       loggingContext: loggingContext || 'Unknown',
     });
-
-    this.setState({
-      errorInfo,
-    });
   }
 
   handleRetry = (): void => {
     this.setState({
       hasError: false,
       error: undefined,
-      errorInfo: undefined,
     });
   };
 
