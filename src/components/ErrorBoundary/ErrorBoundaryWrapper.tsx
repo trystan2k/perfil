@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 
 interface ErrorBoundaryWrapperProps {
@@ -9,6 +9,6 @@ interface ErrorBoundaryWrapperProps {
 export function ErrorBoundaryWrapper({
   children,
   loggingContext = 'Route',
-}: ErrorBoundaryWrapperProps) {
+}: ErrorBoundaryWrapperProps): ReactElement {
   return <ErrorBoundary loggingContext={loggingContext}>{children}</ErrorBoundary>;
 }

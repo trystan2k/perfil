@@ -50,7 +50,9 @@ const FallbackUI: FC<FallbackUIProps> = ({ error, onRetry, loggingContext }) => 
             {t('errorHandler.title')}
           </CardTitle>
           <CardDescription>
-            {loggingContext ? `Error in ${loggingContext}` : t('errorHandler.defaultMessage')}
+            {loggingContext
+              ? t('errorHandler.contextMessage', { context: loggingContext })
+              : t('errorHandler.defaultMessage')}
           </CardDescription>
         </CardHeader>
         <CardContent>
