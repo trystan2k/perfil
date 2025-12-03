@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { useGameSession } from '@/hooks/useGameSession';
 import { useTranslation } from '@/hooks/useTranslations';
-import { navigateWithLocale } from '@/i18n/utils';
+import { navigateWithLocale } from '@/i18n/locales';
 import { deleteGameSession, saveGameSession } from '@/lib/gameSessionDB';
 import type { Player } from '@/types/models';
 import { Button } from './ui/button';

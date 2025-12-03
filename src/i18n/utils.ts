@@ -14,10 +14,14 @@ const translationsCache = new Map<string, Record<string, any>>();
 /**
  * Load translations for a specific locale
  * @param locale - The locale to load translations for
+ * @param isRetry - Internal flag to prevent infinite recursion when falling back to English
  * @returns The translations object
  */
-// biome-ignore lint/suspicious/noExplicitAny: Translation objects have dynamic structure
-export async function loadTranslations(locale: SupportedLocale): Promise<Record<string, any>> {
+export async function loadTranslations(
+  locale: SupportedLocale,
+  isRetry = false
+  // biome-ignore lint/suspicious/noExplicitAny: Translation objects have dynamic structure
+): Promise<Record<string, any>> {
   // Check cache first
   if (translationsCache.has(locale)) {
     const cached = translationsCache.get(locale);
@@ -48,9 +52,9 @@ export async function loadTranslations(locale: SupportedLocale): Promise<Record<
 
     if (!response.ok) {
       console.error(`Failed to load translations for ${locale}`);
-      // Fallback to English if translation loading fails
-      if (locale !== 'en') {
-        return loadTranslations('en');
+      // Fallback to English if translation loading fails (but only once to prevent infinite recursion)
+      if (locale !== 'en' && !isRetry) {
+        return loadTranslations('en', true);
       }
       return {};
     }
@@ -60,9 +64,9 @@ export async function loadTranslations(locale: SupportedLocale): Promise<Record<
     return translations;
   } catch (error) {
     console.error(`Error loading translations for ${locale}:`, error);
-    // Fallback to English if translation loading fails
-    if (locale !== 'en') {
-      return loadTranslations('en');
+    // Fallback to English if translation loading fails (but only once to prevent infinite recursion)
+    if (locale !== 'en' && !isRetry) {
+      return loadTranslations('en', true);
     }
     return {};
   }
@@ -88,9 +92,27 @@ export async function getTranslations(locale: SupportedLocale) {
     let value: any = translations;
 
     // Navigate through the nested object
-    for (const key of keys) {
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
       if (value && typeof value === 'object' && key in value) {
         value = value[key];
+      } else if (i === keys.length - 1 && params?.count !== undefined) {
+        // Last key doesn't exist, but we have count param - check for plural forms in current value
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+          const count = Number(params.count);
+          const pluralSuffix = count === 1 ? '_one' : '_other';
+          const pluralKey = `${key}${pluralSuffix}`;
+          const pluralValue = value[pluralKey];
+
+          if (typeof pluralValue === 'string') {
+            // Handle interpolation in plural string
+            return pluralValue.replace(/\{\{(\w+)\}\}/g, (match, paramKey) => {
+              return params[paramKey]?.toString() || match;
+            });
+          }
+        }
+        console.warn(`Translation key not found: ${keyPath} for locale ${locale}`);
+        return keyPath;
       } else {
         console.warn(`Translation key not found: ${keyPath} for locale ${locale}`);
         return keyPath; // Return key path as fallback

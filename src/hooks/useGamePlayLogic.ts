@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useProfiles } from '@/hooks/useProfiles';
 import { useTranslation } from '@/hooks/useTranslations';
-import { getCurrentLocale, navigateWithLocale } from '@/i18n/utils';
+import { getCurrentLocale, navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
 

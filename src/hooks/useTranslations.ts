@@ -9,6 +9,7 @@
  */
 
 import { useState } from 'react';
+import { removeLocalePrefix } from '../i18n/locales';
 
 // Translation value can be string or nested object
 // Using 'unknown' to avoid circular reference, will narrow at runtime
@@ -47,9 +48,27 @@ export function useTranslation() {
     let value: TranslationValue | undefined = translations;
 
     // Navigate through the nested object
-    for (const key of keys) {
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
       if (value && typeof value === 'object' && !Array.isArray(value) && key in value) {
         value = (value as Record<string, unknown>)[key] as TranslationValue | undefined;
+      } else if (i === keys.length - 1 && params?.count !== undefined) {
+        // Last key doesn't exist, but we have count param - check for plural forms in current value
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+          const count = Number(params.count);
+          const pluralSuffix = count === 1 ? '_one' : '_other';
+          const pluralKey = `${key}${pluralSuffix}`;
+          const pluralValue = (value as Record<string, unknown>)[pluralKey];
+
+          if (typeof pluralValue === 'string') {
+            // Handle interpolation in plural string
+            return pluralValue.replace(/\{\{(\w+)\}\}/g, (match, paramKey) => {
+              return params[paramKey]?.toString() || match;
+            });
+          }
+        }
+        console.warn(`Translation key not found: ${keyPath}`);
+        return keyPath;
       } else {
         console.warn(`Translation key not found: ${keyPath}`);
         return keyPath; // Return key path as fallback
@@ -71,7 +90,7 @@ export function useTranslation() {
     changeLanguage: (newLocale: string) => {
       // Navigate to new locale URL
       const currentPath = window.location.pathname;
-      const pathWithoutLocale = currentPath.replace(/^\/(en|es|pt-BR)(\/|$)/, '/');
+      const pathWithoutLocale = removeLocalePrefix(currentPath);
 
       // Always include locale prefix (since prefixDefaultLocale is true)
       const newPath = `/${newLocale}${pathWithoutLocale || '/'}`;

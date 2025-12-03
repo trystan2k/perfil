@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect } from 'react';
 import { useTranslation } from '@/hooks/useTranslations';
-import { navigateWithLocale } from '@/i18n/utils';
+import { navigateWithLocale } from '@/i18n/locales';
 import { useGameStore } from '../stores/gameStore';
 import { Button } from './ui/button';
 import {

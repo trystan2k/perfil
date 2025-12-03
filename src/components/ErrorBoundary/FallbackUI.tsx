@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useTranslation } from '@/hooks/useTranslations';
-import { navigateWithLocale } from '@/i18n/utils';
+import { navigateWithLocale } from '@/i18n/locales';
 import { cn } from '@/lib/utils';
 
 interface FallbackUIProps {

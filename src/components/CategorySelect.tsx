@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useProfiles } from '@/hooks/useProfiles';
 import { useTranslation } from '@/hooks/useTranslations';
-import { navigateWithLocale } from '@/i18n/utils';
+import { navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface CategorySelectProps {

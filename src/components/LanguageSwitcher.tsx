@@ -1,4 +1,4 @@
-import type { SupportedLocale } from '../i18n/locales';
+import { removeLocalePrefix, type SupportedLocale } from '../i18n/locales';
 
 const locales = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -35,7 +35,7 @@ export function LanguageSwitcher({
 
           // Generate locale-aware URL
           // Remove current locale prefix if it exists, then add new locale
-          const pathWithoutLocale = currentPath.replace(/^\/(en|es|pt-BR)(\/|$)/, '/');
+          const pathWithoutLocale = removeLocalePrefix(currentPath);
 
           // Always add locale prefix (since prefixDefaultLocale is true)
           const targetPath = `/${locale.code}${pathWithoutLocale || '/'}`;
