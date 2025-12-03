@@ -1,9 +1,10 @@
 import { type ChangeEvent, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useProfiles } from '@/hooks/useProfiles';
+import { useTranslation } from '@/hooks/useTranslations';
+import { navigateWithLocale } from '@/i18n/utils';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 
 interface CategorySelectProps {
@@ -114,7 +115,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
       const numRounds = Number.parseInt(numberOfRounds, 10);
       startGame(Array.from(selectedCategories), numRounds);
       await forcePersist();
-      window.location.href = `/game/${sessionId}`;
+      navigateWithLocale(`/game/${sessionId}`);
     } catch (error) {
       console.error('Failed to persist game state:', error);
       // Use global error handler for critical failures

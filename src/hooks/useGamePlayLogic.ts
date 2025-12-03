@@ -1,7 +1,7 @@
-import type { TFunction } from 'i18next';
 import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useProfiles } from '@/hooks/useProfiles';
+import { useTranslation } from '@/hooks/useTranslations';
+import { navigateWithLocale } from '@/i18n/utils';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
 
@@ -52,11 +52,27 @@ export interface UseGamePlayLogicReturn {
   handleConfirmRemovePoints: (amount: number) => Promise<void>;
 
   // Translation
-  t: TFunction;
+  t: (key: string, options?: Record<string, string | number>) => string;
 }
 
 export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+
+  // Get current locale from URL
+  const getCurrentLocale = () => {
+    // Check if window and location are available (not in SSR or test environment)
+    if (typeof window === 'undefined' || !window.location || !window.location.pathname) {
+      return 'en'; // fallback for SSR/test
+    }
+
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    if (pathParts.length > 0 && ['en', 'es', 'pt-BR'].includes(pathParts[0])) {
+      return pathParts[0];
+    }
+    return 'en';
+  };
+
+  const currentLocale = getCurrentLocale();
 
   // Game store state - get id and status first for loading state computation
   const id = useGameStore((state) => state.id);
@@ -99,26 +115,20 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
   const setGlobalError = useGameStore((state) => state.setError);
 
   // Fetch profiles for current language with error handling
-  const { data: profilesData, isError, error } = useProfiles(i18n.language);
+  const { data: profilesData, isError, error } = useProfiles(currentLocale);
 
   // Track previous language to detect changes and handle errors
-  const prevLanguageRef = useRef(i18n.language);
+  const prevLanguageRef = useRef(currentLocale);
   // Track if we've synced profiles for the current session to avoid infinite loops
   const hasSyncedRef = useRef<string | null>(null);
 
-  // Handle profile fetch errors by reverting language
+  // Handle profile fetch errors
   useEffect(() => {
     if (isError && error) {
-      // If profiles failed to load for new language, revert to previous language
-      const prevLang = prevLanguageRef.current;
-      if (prevLang !== i18n.language) {
-        console.error('Failed to load profiles for language:', i18n.language, error);
-        // Revert language change to prevent inconsistent state
-        i18n.changeLanguage(prevLang);
-        prevLanguageRef.current = prevLang;
-      }
+      console.error('Failed to load profiles for language:', currentLocale, error);
+      setGlobalError('gamePlay.errors.loadFailed');
     }
-  }, [isError, error, i18n]);
+  }, [isError, error, currentLocale, setGlobalError]);
 
   // Consolidated effect: Handle both language changes and initial load sync
   useEffect(() => {
@@ -128,8 +138,8 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     }
 
     // Determine if this is a language change or initial load
-    const languageChanged = prevLanguageRef.current !== i18n.language;
-    const syncKey = `${id}-${i18n.language}`;
+    const languageChanged = prevLanguageRef.current !== currentLocale;
+    const syncKey = `${id}-${currentLocale}`;
     const needsInitialSync = id && status === 'active' && hasSyncedRef.current !== syncKey;
 
     // Only proceed if either language changed or initial sync is needed
@@ -140,7 +150,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     // For language changes, only proceed if game is active
     if (languageChanged && status !== 'active') {
       // Update ref even if game not active to track the change
-      prevLanguageRef.current = i18n.language;
+      prevLanguageRef.current = currentLocale;
       hasSyncedRef.current = null;
       return;
     }
@@ -149,9 +159,9 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     loadProfiles(profilesData.profiles);
 
     // Update tracking refs
-    prevLanguageRef.current = i18n.language;
+    prevLanguageRef.current = currentLocale;
     hasSyncedRef.current = syncKey;
-  }, [profilesData, i18n.language, id, status, loadProfiles]);
+  }, [profilesData, currentLocale, id, status, loadProfiles]);
 
   // Load game state from storage on mount if sessionId provided AND game doesn't already exist
   useEffect(() => {
@@ -194,11 +204,11 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
         try {
           await forcePersist();
           // After persistence is confirmed, navigate
-          window.location.href = `/scoreboard/${id}`;
+          navigateWithLocale(`/scoreboard/${id}`);
         } catch (error) {
           console.error('Failed to persist before navigation:', error);
           // Still navigate even if persistence fails to avoid getting stuck
-          window.location.href = `/scoreboard/${id}`;
+          navigateWithLocale(`/scoreboard/${id}`);
         }
       };
 
@@ -235,7 +245,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
   const handleFinishGame = async () => {
     await endGame();
     if (id) {
-      window.location.href = `/scoreboard/${id}`;
+      navigateWithLocale(`/scoreboard/${id}`);
     }
   };
 

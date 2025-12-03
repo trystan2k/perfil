@@ -11,6 +11,7 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
+    maxWorkers: '50%',
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
     coverage: {

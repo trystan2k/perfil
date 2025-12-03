@@ -1,10 +1,5 @@
 ---
-import { GameSetup } from '../components/GameSetup';
-import Layout from '../layouts/Layout.astro';
-
-export const prerender = true;
+// Root index that redirects to default locale
+// Using Astro.redirect for server-side redirect
+return Astro.redirect('/en/');
 ---
-
-<Layout title="Perfil - Game Setup">
-	<GameSetup client:only="react" />
-</Layout>

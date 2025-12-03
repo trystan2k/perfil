@@ -1,76 +1,55 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('Language Persistence', () => {
-  test.beforeEach(async ({ page, context }) => {
-    // Clear localStorage before each test
+  test.beforeEach(async ({ context }) => {
+    // Clear cookies before each test
     await context.clearCookies();
-    await page.goto('/');
-    await page.evaluate(() => localStorage.clear());
   });
 
   test('should load app with default language (English)', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/en/');
+
+    // Verify URL has /en/ prefix
+    await expect(page).toHaveURL(/\/en\//);
 
     // Verify language switcher is visible
     await expect(page.getByRole('navigation', { name: /language/i })).toBeVisible();
 
-    // Verify English is active (check for English flag or active state)
-    const englishButton = page.getByRole('button', { name: /english/i });
-    await expect(englishButton).toBeVisible();
-
-    // Verify default localStorage value
-    const storedLocale = await page.evaluate(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored ? JSON.parse(stored) : null;
-    });
-
-    // Should either be null (first visit) or have 'en' as locale
-    if (storedLocale) {
-      expect(storedLocale.state.locale).toBe('en');
-    }
+    // Verify English link is active (aria-current="page")
+    const englishLink = page.getByRole('link', { name: /english/i });
+    await expect(englishLink).toBeVisible();
+    await expect(englishLink).toHaveAttribute('aria-current', 'page');
   });
 
   test('should change language and update UI immediately', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/en/');
 
     // Wait for page to be fully loaded
     await page.waitForLoadState('networkidle');
 
-    // Click Spanish language button
-    const spanishButton = page.getByRole('button', { name: /español/i });
-    await spanishButton.click();
+    // Click Spanish language link
+    const spanishLink = page.getByRole('link', { name: /español/i });
+    await spanishLink.click();
 
-    // Wait for localStorage to be updated with Spanish locale
-    await page.waitForFunction(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored && JSON.parse(stored).state.locale === 'es';
-    });
+    // Wait for navigation to Spanish URL
+    await page.waitForURL(/\/es\//);
 
-    // Verify localStorage has Spanish locale
-    const storedLocale = await page.evaluate(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored ? JSON.parse(stored) : null;
-    });
-
-    expect(storedLocale).not.toBeNull();
-    expect(storedLocale.state.locale).toBe('es');
+    // Verify URL changed to Spanish
+    await expect(page).toHaveURL(/\/es\//);
 
     // Verify Spanish is now active
-    await expect(spanishButton).toHaveAttribute('aria-current', 'page');
+    const spanishLinkAfter = page.getByRole('link', { name: /español/i });
+    await expect(spanishLinkAfter).toHaveAttribute('aria-current', 'page');
   });
 
   test('should persist language across navigation', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/pt-BR/');
 
-    // Change to Portuguese
-    const portugueseButton = page.getByRole('button', { name: /português/i });
-    await portugueseButton.click();
+    // Wait for page load
+    await page.waitForLoadState('networkidle');
 
-    // Wait for localStorage to be updated with Portuguese locale
-    await page.waitForFunction(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored && JSON.parse(stored).state.locale === 'pt-BR';
-    });
+    // Verify we're on Portuguese URL
+    await expect(page).toHaveURL(/\/pt-BR\//);
 
     // Fill in player names to navigate to game setup
     for (let i = 1; i <= 2; i++) {
@@ -82,41 +61,27 @@ test.describe('Language Persistence', () => {
     // Start game
     await page.getByRole('button', { name: 'Iniciar Jogo' }).click();
 
-    // Verify we're on category select page
+    // Verify we're on Portuguese category select page
+    await page.waitForURL(/\/pt-BR\/game-setup\/.+/);
     await expect(page.getByRole('heading', { name: 'Selecionar Categorias' })).toBeVisible();
 
-    // Verify language is still Portuguese after navigation
-    const storedLocale = await page.evaluate(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored ? JSON.parse(stored) : null;
-    });
-
-    expect(storedLocale.state.locale).toBe('pt-BR');
-
     // Verify Portuguese language switcher is still active
-    const portugueseButtonAfterNav = page.getByRole('button', { name: /português/i });
-    await expect(portugueseButtonAfterNav).toHaveAttribute('aria-current', 'page');
+    const portugueseLink = page.getByRole('link', { name: /português/i });
+    await expect(portugueseLink).toHaveAttribute('aria-current', 'page');
   });
 
   test('should persist language after page refresh', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/es/');
 
-    // Change to Spanish
-    const spanishButton = page.getByRole('button', { name: /español/i });
-    await spanishButton.click();
+    // Wait for page load
+    await page.waitForLoadState('networkidle');
 
-    // Wait for localStorage to be updated with Spanish locale
-    await page.waitForFunction(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored && JSON.parse(stored).state.locale === 'es';
-    });
+    // Verify Spanish URL
+    await expect(page).toHaveURL(/\/es\//);
 
-    // Verify Spanish is set
-    let storedLocale = await page.evaluate(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored ? JSON.parse(stored) : null;
-    });
-    expect(storedLocale.state.locale).toBe('es');
+    // Verify Spanish is active
+    const spanishLinkBefore = page.getByRole('link', { name: /español/i });
+    await expect(spanishLinkBefore).toHaveAttribute('aria-current', 'page');
 
     // Refresh the page
     await page.reload();
@@ -125,19 +90,15 @@ test.describe('Language Persistence', () => {
     await page.waitForLoadState('networkidle');
 
     // Verify language is still Spanish after refresh
-    storedLocale = await page.evaluate(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored ? JSON.parse(stored) : null;
-    });
-    expect(storedLocale.state.locale).toBe('es');
+    await expect(page).toHaveURL(/\/es\//);
 
     // Verify Spanish is still active
-    const spanishButtonAfterRefresh = page.getByRole('button', { name: /español/i });
-    await expect(spanishButtonAfterRefresh).toHaveAttribute('aria-current', 'page');
+    const spanishLinkAfter = page.getByRole('link', { name: /español/i });
+    await expect(spanishLinkAfter).toHaveAttribute('aria-current', 'page');
   });
 
   test('should fetch profile data for correct locale', async ({ page }) => {
-    // Set up network interception to monitor fetch requests
+    // Set up network interception to monitor fetch requests BEFORE navigation
     const requests: string[] = [];
 
     page.on('request', (request) => {
@@ -147,17 +108,15 @@ test.describe('Language Persistence', () => {
       }
     });
 
-    await page.goto('/');
+    // Start from English to ensure the network listener is set up
+    await page.goto('/en/');
+    await page.waitForLoadState('networkidle');
 
-    // Change to Portuguese
-    const portugueseButton = page.getByRole('button', { name: /português/i });
-    await portugueseButton.click();
-
-    // Wait for localStorage to be updated with Portuguese locale
-    await page.waitForFunction(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored && JSON.parse(stored).state.locale === 'pt-BR';
-    });
+    // Now switch to Portuguese
+    const portugueseLink = page.getByRole('link', { name: /português/i });
+    await portugueseLink.click();
+    await page.waitForURL(/\/pt-BR\//);
+    await page.waitForLoadState('networkidle');
 
     // Fill in players and start game to trigger profile data fetch
     for (let i = 1; i <= 2; i++) {
@@ -168,14 +127,14 @@ test.describe('Language Persistence', () => {
 
     await page.getByRole('button', { name: 'Iniciar Jogo' }).click();
 
-    // Wait for category select to load (this triggers profile fetch)
+    // Wait for category select URL
+    await page.waitForURL(/\/pt-BR\/game-setup\/.+/);
+
+    // Wait for categories to load (this triggers profile fetch)
     await page.waitForLoadState('networkidle');
 
-    // Wait for the pt-BR profile request to be made
-    await page.waitForFunction(
-      (urls) => urls.some((url) => url.includes('/data/pt-BR/profiles.json')),
-      requests
-    );
+    // Give a bit more time for the request to be captured
+    await page.waitForTimeout(1000);
 
     // Verify that at least one request was made to pt-BR profiles
     const ptBRRequests = requests.filter((url) => url.includes('/data/pt-BR/profiles.json'));
@@ -183,62 +142,50 @@ test.describe('Language Persistence', () => {
   });
 
   test('should show language switcher on all pages', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/en/');
 
     // Verify language switcher on home page
     await expect(page.getByRole('navigation', { name: /language/i })).toBeVisible();
 
-    // Navigate to game page
-    await page.goto('/game');
+    // Navigate to game page (this will 404 but we're just checking the layout)
+    await page.goto('/en/game');
 
     // Verify language switcher on game page
     await expect(page.getByRole('navigation', { name: /language/i })).toBeVisible();
   });
 
   test('should switch between all three languages', async ({ page }) => {
-    await page.goto('/');
+    // Start with English
+    await page.goto('/en/');
     await page.waitForLoadState('networkidle');
 
-    // Test English
-    const englishButton = page.getByRole('button', { name: /english/i });
-    await englishButton.click();
-    await page.waitForFunction(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored && JSON.parse(stored).state.locale === 'en';
-    });
+    // Verify English
+    await expect(page).toHaveURL(/\/en\//);
+    const englishLink = page.getByRole('link', { name: /english/i });
+    await expect(englishLink).toHaveAttribute('aria-current', 'page');
 
-    let storedLocale = await page.evaluate(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored ? JSON.parse(stored) : null;
-    });
-    expect(storedLocale.state.locale).toBe('en');
+    // Switch to Spanish
+    const spanishLink = page.getByRole('link', { name: /español/i });
+    await spanishLink.click();
+    await page.waitForURL(/\/es\//);
+    await expect(page).toHaveURL(/\/es\//);
+    const spanishLinkActive = page.getByRole('link', { name: /español/i });
+    await expect(spanishLinkActive).toHaveAttribute('aria-current', 'page');
 
-    // Test Spanish
-    const spanishButton = page.getByRole('button', { name: /español/i });
-    await spanishButton.click();
-    await page.waitForFunction(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored && JSON.parse(stored).state.locale === 'es';
-    });
+    // Switch to Portuguese
+    const portugueseLink = page.getByRole('link', { name: /português/i });
+    await portugueseLink.click();
+    await page.waitForURL(/\/pt-BR\//);
+    await expect(page).toHaveURL(/\/pt-BR\//);
+    const portugueseLinkActive = page.getByRole('link', { name: /português/i });
+    await expect(portugueseLinkActive).toHaveAttribute('aria-current', 'page');
 
-    storedLocale = await page.evaluate(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored ? JSON.parse(stored) : null;
-    });
-    expect(storedLocale.state.locale).toBe('es');
-
-    // Test Portuguese
-    const portugueseButton = page.getByRole('button', { name: /português/i });
-    await portugueseButton.click();
-    await page.waitForFunction(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored && JSON.parse(stored).state.locale === 'pt-BR';
-    });
-
-    storedLocale = await page.evaluate(() => {
-      const stored = localStorage.getItem('perfil-i18n');
-      return stored ? JSON.parse(stored) : null;
-    });
-    expect(storedLocale.state.locale).toBe('pt-BR');
+    // Switch back to English
+    const englishLinkAgain = page.getByRole('link', { name: /english/i });
+    await englishLinkAgain.click();
+    await page.waitForURL(/\/en\//);
+    await expect(page).toHaveURL(/\/en\//);
+    const englishLinkActiveAgain = page.getByRole('link', { name: /english/i });
+    await expect(englishLinkActiveAgain).toHaveAttribute('aria-current', 'page');
   });
 });

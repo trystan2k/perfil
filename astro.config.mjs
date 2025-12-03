@@ -6,12 +6,26 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://perfil.example.com', // Update with actual production URL
   output: 'server',
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
     },
   }),
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es', 'pt-BR'],
+    routing: {
+      prefixDefaultLocale: true, // Always use locale prefix: /en/about, /es/about, /pt-BR/about
+      redirectToDefaultLocale: false,
+      fallbackType: 'rewrite', // Prevent 404s with fallback content
+    },
+    fallback: {
+      es: 'en',
+      'pt-BR': 'en',
+    },
+  },
   integrations: [react(), tailwind()],
   vite: {
     plugins: [

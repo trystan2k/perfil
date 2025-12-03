@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/hooks/useTranslations';
 
 export function NoGamePrompt() {
   const { t } = useTranslation();

@@ -197,7 +197,7 @@ describe('ErrorStateProvider', () => {
       await user.click(homeButton);
 
       await waitFor(() => {
-        expect(mockLocation.href).toBe('/');
+        expect(mockLocation.href).toBe('/en/');
       });
     });
 

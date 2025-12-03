@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { useGameSession } from '@/hooks/useGameSession';
+import { useTranslation } from '@/hooks/useTranslations';
+import { navigateWithLocale } from '@/i18n/utils';
 import { deleteGameSession, saveGameSession } from '@/lib/gameSessionDB';
 import type { Player } from '@/types/models';
 import { Button } from './ui/button';
@@ -25,19 +26,19 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     if (sessionId) {
       try {
         await deleteGameSession(sessionId);
-        window.location.href = '/';
+        navigateWithLocale('/');
       } catch (error) {
         console.error('Failed to clear game session:', error);
       }
     } else {
-      window.location.href = '/';
+      navigateWithLocale('/');
     }
   };
 
   // Handler: Start game with same players - reset scores and navigate to category selection
   const handleSamePlayers = async () => {
     if (!sessionId || !gameSession) {
-      window.location.href = '/';
+      navigateWithLocale('/');
       return;
     }
 
@@ -63,17 +64,17 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
       };
 
       await saveGameSession(resetGameState);
-      window.location.href = `/game-setup/${sessionId}`;
+      navigateWithLocale(`/game-setup/${sessionId}`);
     } catch (error) {
       console.error('Failed to reset game for same players:', error);
-      window.location.href = `/game-setup/${sessionId}`;
+      navigateWithLocale(`/game-setup/${sessionId}`);
     }
   };
 
   // Handler: Restart game - reset state with same participants, categories, and rounds
   const handleRestartGame = async () => {
     if (!sessionId || !gameSession) {
-      window.location.href = '/';
+      navigateWithLocale('/');
       return;
     }
 
@@ -131,7 +132,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
 
       if (!firstProfile) {
         console.error('Failed to find first profile for restart');
-        window.location.href = '/';
+        navigateWithLocale('/');
         return;
       }
 
@@ -152,10 +153,10 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
       };
 
       await saveGameSession(resetGameState);
-      window.location.href = `/game/${sessionId}`;
+      navigateWithLocale(`/game/${sessionId}`);
     } catch (error) {
       console.error('Failed to restart game:', error);
-      window.location.href = `/game/${sessionId}`;
+      navigateWithLocale(`/game/${sessionId}`);
     }
   };
 
@@ -216,7 +217,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
               )}
               <Button
                 onClick={() => {
-                  window.location.href = '/';
+                  navigateWithLocale('/');
                 }}
                 variant="outline"
                 className="w-full"

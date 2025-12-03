@@ -114,9 +114,33 @@
   @apply left-0 outline outline-2 outline-primary;
 }
 
+/* Theme Switcher Styles */
+.theme-switcher {
+  @apply flex;
+}
+
+.theme-list {
+  @apply flex gap-2 list-none m-0 p-0;
+}
+
+.theme-button {
+  @apply flex items-center justify-center min-h-12 min-w-12 rounded-md;
+  @apply text-foreground bg-background border border-border;
+  @apply transition-all duration-200;
+  @apply cursor-pointer;
+}
+
+.theme-button:hover {
+  @apply bg-accent border-accent;
+}
+
+.theme-button.active {
+  @apply bg-primary text-primary-foreground border-primary;
+}
+
 /* Language Switcher Styles */
 .language-switcher {
-  @apply flex justify-center p-4;
+  @apply flex;
 }
 
 .locale-list {

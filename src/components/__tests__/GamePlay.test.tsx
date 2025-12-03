@@ -1358,7 +1358,7 @@ describe('GamePlay Component', () => {
 
         // Wait a bit for async handleFinishGame to complete
         await waitFor(() => {
-          expect(mockLocation.href).toBe(`/scoreboard/${sessionId}`);
+          expect(mockLocation.href).toBe(`/en/scoreboard/${sessionId}`);
         });
       } finally {
         // Restore original location (always executes)
