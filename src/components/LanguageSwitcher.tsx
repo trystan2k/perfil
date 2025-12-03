@@ -35,13 +35,10 @@ export function LanguageSwitcher({
 
           // Generate locale-aware URL
           // Remove current locale prefix if it exists, then add new locale
-          let targetPath = currentPath;
-
-          // Remove locale prefix from path
           const pathWithoutLocale = currentPath.replace(/^\/(en|es|pt-BR)(\/|$)/, '/');
 
           // Always add locale prefix (since prefixDefaultLocale is true)
-          targetPath = `/${locale.code}${pathWithoutLocale || '/'}`;
+          const targetPath = `/${locale.code}${pathWithoutLocale || '/'}`;
 
           // Interpolate language name into switchToLabel
           const switchToText = switchToLabel.replace(/\{\{language\}\}/g, locale.name);

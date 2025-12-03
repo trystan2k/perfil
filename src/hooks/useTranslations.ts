@@ -73,12 +73,8 @@ export function useTranslation() {
       const currentPath = window.location.pathname;
       const pathWithoutLocale = currentPath.replace(/^\/(en|es|pt-BR)(\/|$)/, '/');
 
-      let newPath: string;
-      if (newLocale === 'en') {
-        newPath = pathWithoutLocale || '/';
-      } else {
-        newPath = `/${newLocale}${pathWithoutLocale || '/'}`;
-      }
+      // Always include locale prefix (since prefixDefaultLocale is true)
+      const newPath = `/${newLocale}${pathWithoutLocale || '/'}`;
 
       window.location.href = newPath;
     },

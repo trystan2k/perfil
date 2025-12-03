@@ -18,7 +18,7 @@ export default defineConfig({
     locales: ['en', 'es', 'pt-BR'],
     routing: {
       prefixDefaultLocale: true, // Always use locale prefix: /en/about, /es/about, /pt-BR/about
-      redirectToDefaultLocale: false,
+      redirectToDefaultLocale: true, // Redirect / to /en/
       fallbackType: 'rewrite', // Prevent 404s with fallback content
     },
     fallback: {

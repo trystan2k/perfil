@@ -1,4 +1,4 @@
-import type { SupportedLocale } from './locales';
+import { SUPPORTED_LOCALES, type SupportedLocale } from './locales';
 
 /**
  * Translation utilities for server-side i18n
@@ -112,9 +112,8 @@ export async function getTranslations(locale: SupportedLocale) {
  */
 export function getLangFromUrl(url: URL): SupportedLocale {
   const [, lang] = url.pathname.split('/');
-  const supportedLocales: readonly string[] = ['en', 'es', 'pt-BR'];
 
-  if (supportedLocales.includes(lang)) {
+  if ((SUPPORTED_LOCALES as readonly string[]).includes(lang)) {
     return lang as SupportedLocale;
   }
 
@@ -131,9 +130,8 @@ export function getCurrentLocale(): SupportedLocale {
   }
 
   const pathParts = window.location.pathname.split('/').filter(Boolean);
-  const supportedLocales: readonly string[] = ['en', 'es', 'pt-BR'];
 
-  if (pathParts.length > 0 && supportedLocales.includes(pathParts[0])) {
+  if (pathParts.length > 0 && (SUPPORTED_LOCALES as readonly string[]).includes(pathParts[0])) {
     return pathParts[0] as SupportedLocale;
   }
 

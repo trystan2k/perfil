@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useProfiles } from '@/hooks/useProfiles';
 import { useTranslation } from '@/hooks/useTranslations';
-import { navigateWithLocale } from '@/i18n/utils';
+import { getCurrentLocale, navigateWithLocale } from '@/i18n/utils';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
 
@@ -59,19 +59,6 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
   const { t } = useTranslation();
 
   // Get current locale from URL
-  const getCurrentLocale = () => {
-    // Check if window and location are available (not in SSR or test environment)
-    if (typeof window === 'undefined' || !window.location || !window.location.pathname) {
-      return 'en'; // fallback for SSR/test
-    }
-
-    const pathParts = window.location.pathname.split('/').filter(Boolean);
-    if (pathParts.length > 0 && ['en', 'es', 'pt-BR'].includes(pathParts[0])) {
-      return pathParts[0];
-    }
-    return 'en';
-  };
-
   const currentLocale = getCurrentLocale();
 
   // Game store state - get id and status first for loading state computation
