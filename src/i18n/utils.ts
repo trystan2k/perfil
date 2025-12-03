@@ -40,9 +40,12 @@ export async function loadTranslations(locale: SupportedLocale): Promise<Record<
     }
 
     // Client-side: use fetch
-    const response = await fetch(
-      `${import.meta.env.BASE_URL || ''}locales/${locale}/translation.json`
-    );
+    // Type-safe access to import.meta.env for environments without Astro types
+    const baseUrl =
+      typeof import.meta === 'object' && import.meta.env && 'BASE_URL' in import.meta.env
+        ? (import.meta.env as { BASE_URL?: string }).BASE_URL || ''
+        : '';
+    const response = await fetch(`${baseUrl}locales/${locale}/translation.json`);
 
     if (!response.ok) {
       console.error(`Failed to load translations for ${locale}`);
