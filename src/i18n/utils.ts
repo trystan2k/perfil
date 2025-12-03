@@ -40,11 +40,10 @@ export async function loadTranslations(locale: SupportedLocale): Promise<Record<
     }
 
     // Client-side: use fetch
-    // Type-safe access to import.meta.env for environments without Astro types
-    const baseUrl =
-      typeof import.meta === 'object' && import.meta.env && 'BASE_URL' in import.meta.env
-        ? (import.meta.env as { BASE_URL?: string }).BASE_URL || ''
-        : '';
+    // Access BASE_URL using type assertion to avoid TypeScript errors in CI environments without Astro types
+    // biome-ignore lint/suspicious/noExplicitAny: import.meta.env requires Astro types which may not be available in all environments
+    const importMeta = import.meta as any;
+    const baseUrl = importMeta?.env?.BASE_URL || '';
     const response = await fetch(`${baseUrl}locales/${locale}/translation.json`);
 
     if (!response.ok) {
