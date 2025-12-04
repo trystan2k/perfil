@@ -6,7 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://perfil.example.com', // Update with actual production URL
+  site: 'https://perfil-dzz.pages.dev/',
   output: 'server',
   adapter: cloudflare({
     platformProxy: {

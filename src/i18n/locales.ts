@@ -72,11 +72,15 @@ export function getLocalizedPath(path: string, locale?: SupportedLocale): string
 
 /**
  * Navigate to a path while preserving the current locale
+ * Uses standard navigation - compatible with all environments
  * @param path - The path to navigate to (e.g., '/game/123')
  */
 export function navigateWithLocale(path: string): void {
   if (typeof window === 'undefined') return;
 
   const localizedPath = getLocalizedPath(path);
+
+  // Use standard navigation
+  // Astro's ClientRouter will intercept this and provide smooth transitions
   window.location.href = localizedPath;
 }

@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import { ErrorStateProviderWrapper } from '../components/ErrorStateProviderWrapper';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
@@ -35,9 +36,10 @@ const t = await getTranslations(currentLocale);
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
     
     <!-- Inject translations for client-side React components -->
-    <script is:inline define:vars={{ currentLocale, translations }}>
+    <script is:inline data-astro-rerun define:vars={{ currentLocale, translations }}>
       // Inject locale and translations into window for client-side access
       window.__LOCALE__ = currentLocale;
       window.__TRANSLATIONS__ = translations;

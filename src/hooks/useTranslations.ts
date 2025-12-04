@@ -8,7 +8,7 @@
  * TODO: Refactor components to receive translations as props instead
  */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { removeLocalePrefix } from '../i18n/locales';
 
 // Translation value can be string or nested object
@@ -29,19 +29,40 @@ declare global {
 export function useTranslation() {
   // Initialize state with window values immediately (not in useEffect)
   // This ensures translations are available on first render
-  const [translations] = useState<Record<string, TranslationValue>>(() => {
+  const [translations, setTranslations] = useState<Record<string, TranslationValue>>(() => {
     if (typeof window !== 'undefined' && window.__TRANSLATIONS__) {
       return window.__TRANSLATIONS__;
     }
     return {};
   });
 
-  const [locale] = useState<string>(() => {
+  const [locale, setLocale] = useState<string>(() => {
     if (typeof window !== 'undefined' && window.__LOCALE__) {
       return window.__LOCALE__;
     }
     return 'en';
   });
+
+  // Listen to Astro's page swap event to update translations
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handlePageSwap = () => {
+      if (window.__TRANSLATIONS__) {
+        setTranslations(window.__TRANSLATIONS__);
+      }
+      if (window.__LOCALE__) {
+        setLocale(window.__LOCALE__);
+      }
+    };
+
+    // Update on astro:after-swap (after new page content is loaded)
+    document.addEventListener('astro:after-swap', handlePageSwap);
+
+    return () => {
+      document.removeEventListener('astro:after-swap', handlePageSwap);
+    };
+  }, []);
 
   const t = (keyPath: string, params?: Record<string, string | number>): string => {
     const keys = keyPath.split('.');
@@ -95,6 +116,8 @@ export function useTranslation() {
       // Always include locale prefix (since prefixDefaultLocale is true)
       const newPath = `/${newLocale}${pathWithoutLocale || '/'}`;
 
+      // Use standard navigation
+      // Astro's ClientRouter will intercept this and provide smooth transitions
       window.location.href = newPath;
     },
   };
