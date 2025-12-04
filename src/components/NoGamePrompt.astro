@@ -1,0 +1,23 @@
+---
+import type { SupportedLocale } from '../i18n/locales';
+import { getTranslations } from '../i18n/utils';
+
+// Get current locale from Astro's i18n routing
+const currentLocale = (Astro.currentLocale || 'en') as SupportedLocale;
+const t = await getTranslations(currentLocale);
+---
+
+<div class="flex items-center justify-center min-h-main p-4">
+  <div class="text-center space-y-4">
+    <h1 class="text-4xl font-bold">{t('noGamePage.title')}</h1>
+    <p class="text-muted-foreground text-lg">{t('noGamePage.description')}</p>
+    <div class="mt-6">
+      <a
+        href={`/${currentLocale}/`}
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-14 rounded-md px-8"
+      >
+        {t('noGamePage.createButton')}
+      </a>
+    </div>
+  </div>
+</div>
