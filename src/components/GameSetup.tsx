@@ -1,11 +1,12 @@
 import { X } from 'lucide-react';
 import { type KeyboardEvent, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useTranslation } from '@/hooks/useTranslations';
+import { navigateWithLocale } from '@/i18n/locales';
 import { MAX_PLAYERS } from '@/lib/constants';
 import { useGameStore } from '@/stores/gameStore';
 
@@ -53,7 +54,7 @@ export function GameSetup() {
 
       // Navigate to category selection screen
       // Persistence is guaranteed to be complete since createGame awaits it
-      window.location.href = `/game-setup/${newGameId}`;
+      navigateWithLocale(`/game-setup/${newGameId}`);
     } catch (err) {
       console.error('Failed to create game:', err);
       // Use global error handler for critical failures

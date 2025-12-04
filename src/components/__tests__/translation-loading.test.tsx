@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { useTranslation } from 'react-i18next';
 import { describe, expect, it } from 'vitest';
+import { useTranslation } from '@/hooks/useTranslations';
 
 // Test component that uses translations
 function TranslationTestComponent() {

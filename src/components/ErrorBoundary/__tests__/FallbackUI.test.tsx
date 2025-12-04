@@ -187,7 +187,7 @@ describe('FallbackUI Component', () => {
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       await user.click(goHomeButton);
 
-      expect(window.location.href).toBe('/');
+      expect(window.location.href).toBe('/en/');
     });
 
     it('should set window.location.href to "/" on click', async () => {
@@ -197,7 +197,7 @@ describe('FallbackUI Component', () => {
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       await user.click(goHomeButton);
 
-      expect(window.location.href).toBe('/');
+      expect(window.location.href).toBe('/en/');
     });
 
     it('should have variant="outline" for go home button styling', () => {
@@ -229,7 +229,7 @@ describe('FallbackUI Component', () => {
       // Click home - should not affect retry
       await user.click(goHomeButton);
       expect(mockOnRetry).toHaveBeenCalledTimes(1);
-      expect(window.location.href).toBe('/');
+      expect(window.location.href).toBe('/en/');
     });
   });
 
@@ -264,7 +264,7 @@ describe('FallbackUI Component', () => {
       goHomeButton.focus();
       await user.keyboard('{Enter}');
 
-      expect(window.location.href).toBe('/');
+      expect(window.location.href).toBe('/en/');
     });
 
     it('should activate go home button with Space key', async () => {
@@ -275,7 +275,7 @@ describe('FallbackUI Component', () => {
       goHomeButton.focus();
       await user.keyboard(' ');
 
-      expect(window.location.href).toBe('/');
+      expect(window.location.href).toBe('/en/');
     });
 
     it('should support tab navigation between buttons', async () => {
@@ -310,7 +310,7 @@ describe('FallbackUI Component', () => {
       // Tab to home button and activate
       await user.tab(); // Focus home button
       await user.keyboard(' ');
-      expect(window.location.href).toBe('/');
+      expect(window.location.href).toBe('/en/');
     });
   });
 
@@ -531,7 +531,7 @@ describe('FallbackUI Component', () => {
       // Use keyboard to navigate to home button
       await user.tab();
       await user.keyboard(' ');
-      expect(window.location.href).toBe('/');
+      expect(window.location.href).toBe('/en/');
     });
 
     it('should maintain focus management with all props', () => {
@@ -701,7 +701,7 @@ describe('FallbackUI Component', () => {
       // Click home
       button = screen.getByRole('button', { name: /go.*home/i });
       await user.click(button);
-      expect(window.location.href).toBe('/');
+      expect(window.location.href).toBe('/en/');
     });
 
     it('should maintain accessibility throughout interaction', async () => {

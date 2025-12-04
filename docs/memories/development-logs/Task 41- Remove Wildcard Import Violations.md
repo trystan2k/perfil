@@ -1,7 +1,7 @@
 ---
 title: 'Task 41: Remove Wildcard Import Violations'
 type: note
-permalink: null
+permalink: development-logs/task-41-remove-wildcard-import-violations
 ---
 
 # Task 41: Remove Wildcard Import Violations

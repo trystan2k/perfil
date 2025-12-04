@@ -1,5 +1,4 @@
 import { type FC, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -9,6 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useTranslation } from '@/hooks/useTranslations';
+import { navigateWithLocale } from '@/i18n/locales';
 import { cn } from '@/lib/utils';
 
 interface FallbackUIProps {
@@ -26,7 +27,7 @@ const FallbackUI: FC<FallbackUIProps> = ({ error, onRetry, loggingContext }) => 
   }, []);
 
   const handleGoHome = (): void => {
-    window.location.href = '/';
+    navigateWithLocale('/');
   };
 
   return (

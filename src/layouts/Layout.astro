@@ -1,11 +1,12 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import { ErrorStateProviderWrapper } from '../components/ErrorStateProviderWrapper';
-import { I18nProvider } from '../components/I18nProvider';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
 import { ThemeProvider } from '../components/ThemeProvider';
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
-import { FALLBACK_LOCALE } from '../i18n/locales';
+import type { SupportedLocale } from '../i18n/locales';
+import { getTranslations, loadTranslations } from '../i18n/utils';
 import '../styles/globals.css';
 import '../styles/theme.css';
 
@@ -15,9 +16,16 @@ interface Props {
 
 const { title = 'Perfil' } = Astro.props;
 
-// For SSG, we can't access request headers or Astro.currentLocale
-// Use fallback locale and let client-side i18next detect the user's language
-const currentLocale = FALLBACK_LOCALE;
+// Get current locale from Astro's i18n routing
+// This is automatically set by Astro's i18n routing
+const currentLocale = (Astro.currentLocale || 'en') as SupportedLocale;
+
+// Get current path for language switcher links
+const currentPath = Astro.url.pathname;
+
+// Load translations server-side for initial render
+const translations = await loadTranslations(currentLocale);
+const t = await getTranslations(currentLocale);
 ---
 
 <!doctype html>
@@ -28,23 +36,35 @@ const currentLocale = FALLBACK_LOCALE;
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
+    
+    <!-- Inject translations for client-side React components -->
+    <script is:inline data-astro-rerun define:vars={{ currentLocale, translations }}>
+      // Inject locale and translations into window for client-side access
+      window.__LOCALE__ = currentLocale;
+      window.__TRANSLATIONS__ = translations;
+    </script>
   </head>
   <body>
     <ThemeProvider client:only="react">
-      <I18nProvider client:only="react" locale={currentLocale}>
-        <ErrorStateProviderWrapper client:only="react">
-          <a href="#main-content" class="skip-link">Skip to main content</a>
-          <header aria-label="Site header">
-            <div class="header-controls">
-              <ThemeSwitcher client:only="react" />
-              <LanguageSwitcher client:only="react" />
-            </div>
-          </header>
-          <main id="main-content">
-            <slot />
-          </main>
-        </ErrorStateProviderWrapper>
-      </I18nProvider>
+      <ErrorStateProviderWrapper client:only="react">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <header aria-label="Site header">
+          <div class="header-controls">
+            <ThemeSwitcher client:only="react" />
+            <LanguageSwitcher 
+              currentLocale={currentLocale}
+              currentPath={currentPath}
+              ariaLabel={t('languageSwitcher.ariaLabel')}
+              switchToLabel={t('languageSwitcher.switchTo')}
+              client:load
+            />
+          </div>
+        </header>
+        <main id="main-content">
+          <slot />
+        </main>
+      </ErrorStateProviderWrapper>
     </ThemeProvider>
     <PwaUpdater client:load />
   </body>

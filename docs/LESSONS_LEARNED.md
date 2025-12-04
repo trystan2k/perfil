@@ -185,4 +185,31 @@
    3. Clean process execution without interference
    4. Reliable CI/CD pipeline behavior
 
+2025-12-03 — NEVER RUN COMPLETE-CHECK MULTIPLE TIMES UNNECESSARILY
+
+- Mistake: Running `pnpm run complete-check` multiple times in succession during the same fix cycle (e.g., running it 4-5 times while fixing linting errors, test failures, etc.) instead of running it once and extracting all needed information from that single output.
+- What's wrong:
+   1. `complete-check` runs lint + typecheck + test:coverage + test:e2e + build - this is a LONG, resource-intensive process
+   2. Running it repeatedly wastes time (6-8 seconds per run, plus user wait time)
+   3. Running it repeatedly wastes computational resources
+   4. It shows poor planning and inefficiency
+- Correct procedure: Run `pnpm run complete-check` ONCE and extract ALL information needed:
+   1. Run `pnpm run complete-check` a SINGLE time
+   2. Capture the FULL output (use `2>&1` to capture both stdout and stderr if needed)
+   3. From that ONE output, extract:
+      - Lint errors and warnings
+      - Typecheck errors
+      - Test failures (which files, which tests)
+      - Build errors
+      - Coverage reports
+   4. Fix ALL issues identified
+   5. Run `pnpm run complete-check` ONE more time to verify all fixes
+   6. If there are still issues, repeat steps 1-5
+- Exception: You may run individual scripts (lint, test, etc.) separately if you need focused feedback, but NEVER run complete-check more than necessary
+- This ensures:
+   1. Efficient use of time and resources
+   2. Better workflow planning
+   3. Faster development cycles
+   4. Less frustration waiting for repeated checks
+
 

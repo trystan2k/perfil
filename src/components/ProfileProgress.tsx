@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { Progress } from '@/components/ui/progress';
+import { useTranslation } from '@/hooks/useTranslations';
 
 export interface ProfileProgressProps {
   currentProfileIndex: number;

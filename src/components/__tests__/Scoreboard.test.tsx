@@ -355,7 +355,7 @@ describe('Scoreboard', () => {
 
         await waitFor(() => {
           expect(gameSessionDB.deleteGameSession).toHaveBeenCalledWith('test-session-123');
-          expect(locationSetter).toHaveBeenCalledWith('/');
+          expect(locationSetter).toHaveBeenCalledWith('/en/');
         });
       });
 
@@ -431,7 +431,7 @@ describe('Scoreboard', () => {
               category: undefined,
             })
           );
-          expect(locationSetter).toHaveBeenCalledWith('/game-setup/test-session-123');
+          expect(locationSetter).toHaveBeenCalledWith('/en/game-setup/test-session-123');
         });
       });
 
@@ -468,7 +468,7 @@ describe('Scoreboard', () => {
             'Failed to reset game for same players:',
             expect.any(Error)
           );
-          expect(locationSetter).toHaveBeenCalledWith('/game-setup/test-session-123');
+          expect(locationSetter).toHaveBeenCalledWith('/en/game-setup/test-session-123');
         });
 
         consoleErrorSpy.mockRestore();
@@ -539,7 +539,7 @@ describe('Scoreboard', () => {
             expect(saveCall.category).toBe(saveCall.currentProfile.category);
           }
 
-          expect(locationSetter).toHaveBeenCalledWith('/game/test-session-123');
+          expect(locationSetter).toHaveBeenCalledWith('/en/game/test-session-123');
         });
       });
 
@@ -576,7 +576,7 @@ describe('Scoreboard', () => {
             'Failed to restart game:',
             expect.any(Error)
           );
-          expect(locationSetter).toHaveBeenCalledWith('/game/test-session-123');
+          expect(locationSetter).toHaveBeenCalledWith('/en/game/test-session-123');
         });
 
         consoleErrorSpy.mockRestore();

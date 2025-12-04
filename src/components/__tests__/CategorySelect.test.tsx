@@ -512,7 +512,7 @@ describe('CategorySelect', () => {
 
       await waitFor(() => {
         expect(mockForcePersist).toHaveBeenCalledTimes(1);
-        expect(mockLocation.href).toBe('/game/test-session');
+        expect(mockLocation.href).toBe('/en/game/test-session');
       });
     });
 

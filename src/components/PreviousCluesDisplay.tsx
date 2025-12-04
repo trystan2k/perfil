@@ -1,5 +1,5 @@
 import { type SyntheticEvent, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/hooks/useTranslations';
 
 interface PreviousCluesDisplayProps {
   clues: string[];

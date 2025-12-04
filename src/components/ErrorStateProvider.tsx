@@ -1,5 +1,6 @@
 import { type ReactNode, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/hooks/useTranslations';
+import { navigateWithLocale } from '@/i18n/locales';
 import { useGameStore } from '../stores/gameStore';
 import { Button } from './ui/button';
 import {
@@ -28,7 +29,7 @@ export function ErrorStateProvider({ children }: ErrorStateProviderProps) {
   const handleRecovery = () => {
     clearError();
     if (!error?.informative) {
-      window.location.href = '/';
+      navigateWithLocale('/');
     }
   };
 

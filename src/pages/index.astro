@@ -1,10 +1,7 @@
 ---
-import { GameSetup } from '../components/GameSetup';
-import Layout from '../layouts/Layout.astro';
+// Root index page - redirect to default locale
+// This file must exist for Astro's i18n routing to work properly
 
-export const prerender = true;
+// Redirect to the default locale index page
+return Astro.redirect(`/${Astro.currentLocale || 'en'}/`);
 ---
-
-<Layout title="Perfil - Game Setup">
-	<GameSetup client:only="react" />
-</Layout>

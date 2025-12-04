@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/hooks/useTranslations';
 
 export interface ClueProgressProps {
   cluesRevealed: number;

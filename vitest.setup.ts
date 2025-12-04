@@ -25,6 +25,21 @@ beforeAll(() => {
     }
     originalWarn.call(console, ...args);
   };
+
+  // Setup window globals for translation injection
+  const translationPath = join(process.cwd(), 'public', 'locales', 'en', 'translation.json');
+  const translationContent = readFileSync(translationPath, 'utf-8');
+  const translationJson = JSON.parse(translationContent);
+
+  Object.defineProperty(window, '__TRANSLATIONS__', {
+    writable: true,
+    value: translationJson,
+  });
+
+  Object.defineProperty(window, '__LOCALE__', {
+    writable: true,
+    value: 'en',
+  });
 });
 
 afterAll(() => {
@@ -73,8 +88,8 @@ function loadTranslations(): Record<string, string> {
 // Load translations at test setup time
 const translations = loadTranslations();
 
-// Mock react-i18next
-vi.mock('react-i18next', () => ({
+// Mock our new useTranslations hook
+vi.mock('./src/hooks/useTranslations', () => ({
   useTranslation: () => ({
     t: (key: string, params?: Record<string, unknown>) => {
       let translation: string;
@@ -102,8 +117,4 @@ vi.mock('react-i18next', () => ({
       changeLanguage: vi.fn(),
     },
   }),
-  initReactI18next: {
-    type: '3rdParty',
-    init: vi.fn(),
-  },
 }));
