@@ -180,7 +180,7 @@ export function cancelPendingPersistence(): void {
  * // Before navigating away
  * try {
  *   await forcePersist();
- *   window.location.href = '/game/123';
+ *   navigate(`/game/${state.id}`);
  * } catch (error) {
  *   console.error('Failed to persist state:', error);
  *   // Handle the error appropriately

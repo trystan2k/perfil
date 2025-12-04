@@ -144,47 +144,5 @@ export function getLangFromUrl(url: URL): SupportedLocale {
   return 'en';
 }
 
-/**
- * Get the current locale from the browser's URL
- * This is useful in client-side code
- */
-export function getCurrentLocale(): SupportedLocale {
-  if (typeof window === 'undefined' || !window.location || !window.location.pathname) {
-    return 'en';
-  }
-
-  const pathParts = window.location.pathname.split('/').filter(Boolean);
-
-  if (pathParts.length > 0 && (SUPPORTED_LOCALES as readonly string[]).includes(pathParts[0])) {
-    return pathParts[0] as SupportedLocale;
-  }
-
-  return 'en';
-}
-
-/**
- * Add locale prefix to a path for navigation
- * @param path - The path to navigate to (e.g., '/game/123')
- * @param locale - Optional locale (defaults to current locale)
- * @returns Path with locale prefix (e.g., '/en/game/123', '/es/game/123')
- */
-export function getLocalizedPath(path: string, locale?: SupportedLocale): string {
-  const currentLocale = locale || getCurrentLocale();
-
-  // Ensure path starts with /
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
-
-  // Always add locale prefix (since prefixDefaultLocale is true)
-  return `/${currentLocale}${cleanPath}`;
-}
-
-/**
- * Navigate to a path while preserving the current locale
- * @param path - The path to navigate to (e.g., '/game/123')
- */
-export function navigateWithLocale(path: string): void {
-  if (typeof window === 'undefined') return;
-
-  const localizedPath = getLocalizedPath(path);
-  window.location.href = localizedPath;
-}
+// Re-export client-safe utilities from locales.ts to maintain backward compatibility
+export { getCurrentLocale, getLocalizedPath, navigateWithLocale } from './locales';

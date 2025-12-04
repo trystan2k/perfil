@@ -8,6 +8,7 @@
  * TODO: Refactor components to receive translations as props instead
  */
 
+import { navigate } from 'astro:transitions/client';
 import { useEffect, useState } from 'react';
 import { removeLocalePrefix } from '../i18n/locales';
 
@@ -118,7 +119,7 @@ export function useTranslation() {
 
       // Use standard navigation
       // Astro's ClientRouter will intercept this and provide smooth transitions
-      window.location.href = newPath;
+      navigate(newPath);
     },
   };
 

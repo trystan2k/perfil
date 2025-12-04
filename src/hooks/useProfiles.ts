@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { getCurrentLocale } from '@/i18n/locales';
 import type { ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 
@@ -18,25 +19,8 @@ async function fetchProfiles(locale: string = 'en'): Promise<ProfilesData> {
 }
 
 export function useProfiles(locale?: string) {
-  // Get current locale from URL or window location
-  const getCurrentLocale = () => {
-    if (locale) return locale;
-
-    // Check if window and location are available (not in SSR or test environment)
-    if (typeof window === 'undefined' || !window.location || !window.location.pathname) {
-      return 'en'; // fallback for SSR/test
-    }
-
-    // Extract locale from URL path (e.g., /en/game -> en)
-    const pathParts = window.location.pathname.split('/').filter(Boolean);
-    if (pathParts.length > 0 && ['en', 'es', 'pt-BR'].includes(pathParts[0])) {
-      return pathParts[0];
-    }
-
-    return 'en'; // fallback
-  };
-
-  const currentLocale = getCurrentLocale();
+  // Get current locale from URL, or use the provided locale parameter
+  const currentLocale = locale || getCurrentLocale();
 
   return useQuery({
     queryKey: ['profiles', currentLocale],

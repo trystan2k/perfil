@@ -1,8 +1,7 @@
 ---
-// Root index page - Astro will redirect to /en/ via i18n config
+// Root index page - redirect to default locale
 // This file must exist for Astro's i18n routing to work properly
 
 // Redirect to the default locale index page
-// Using Astro.redirect with proper locale-aware path
-return Astro.redirect('/en/');
+return Astro.redirect(`/${Astro.currentLocale || 'en'}/`);
 ---

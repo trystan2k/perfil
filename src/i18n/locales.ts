@@ -1,3 +1,5 @@
+import { navigate } from 'astro:transitions/client';
+
 /**
  * Supported locale codes for the application
  */
@@ -82,5 +84,5 @@ export function navigateWithLocale(path: string): void {
 
   // Use standard navigation
   // Astro's ClientRouter will intercept this and provide smooth transitions
-  window.location.href = localizedPath;
+  navigate(localizedPath);
 }
