@@ -7,9 +7,13 @@ import { useTheme } from '../../hooks/useTheme';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 
 // Mock the hook
-vi.mock('../../hooks/useTheme', () => ({
-  useTheme: vi.fn(),
-}));
+vi.mock(import('../../hooks/useTheme'), async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useTheme: vi.fn(),
+  };
+});
 
 describe('ThemeSwitcher', () => {
   let mockSetTheme: ReturnType<typeof vi.fn>;

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'perfil-theme';
 
-const THEMES = {
+export const THEMES = {
   light: 'light',
   dark: 'dark',
   system: 'system',
@@ -18,9 +18,19 @@ const parseStoredTheme = (raw: string | null): ThemeMode | null => {
   return null;
 };
 
-export const getThemeFromStorage = () => parseStoredTheme(window.localStorage.getItem(STORAGE_KEY));
-export const setThemeInStorage = (theme: ThemeMode) =>
+export const getThemeFromStorage = (): ThemeMode | null => {
+  if (typeof window === 'undefined') return null;
+  return parseStoredTheme(window.localStorage.getItem(STORAGE_KEY));
+};
+export const setThemeInStorage = (theme: ThemeMode): void => {
+  if (typeof window === 'undefined') return;
   window.localStorage.setItem(STORAGE_KEY, theme);
+};
+
+const calculateThemeFromSystem = (): ThemeMode => {
+  if (typeof window === 'undefined') return THEMES.light;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEMES.dark : THEMES.light;
+};
 
 export const updateSelectedTheme = (value: ThemeMode | null) => {
   if (typeof window === 'undefined') return;
@@ -28,9 +38,7 @@ export const updateSelectedTheme = (value: ThemeMode | null) => {
   let themeToSet = value;
   if (themeToSet === THEMES.system || !themeToSet) {
     // Check system preference
-    themeToSet = window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? THEMES.dark
-      : THEMES.light;
+    themeToSet = calculateThemeFromSystem();
   }
   setThemeInStorage(value || THEMES.system);
 

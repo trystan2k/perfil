@@ -37,15 +37,11 @@ const t = await getTranslations(currentLocale);
     <ClientRouter />
   </head>
   <body>
-    <!-- client:load - Critical for FOUC prevention. Must hydrate immediately to apply correct theme before first paint. -->
-    <!-- client:load - Critical error boundary. Must be ready to catch errors from any part of app immediately. -->
     <ErrorStateProviderWrapper locale={currentLocale} translations={translations} client:load>
       <a href="#main-content" class="skip-link">{t('layout.skipToMain')}</a>
       <header aria-label={t('layout.headerAriaLabel')}>
         <div class="header-controls">
-          <!-- client:idle - User-initiated interaction, non-critical. Can wait until browser is idle. -->
           <ThemeSwitcher client:idle locale={currentLocale} translations={translations} />
-          <!-- client:idle - User-initiated interaction. Can wait until browser is idle. -->
           <LanguageSwitcher
             currentLocale={currentLocale}
             currentPath={currentPath}
@@ -59,7 +55,6 @@ const t = await getTranslations(currentLocale);
         <slot />
       </main>
     </ErrorStateProviderWrapper>
-    <!-- client:idle - Background service worker check, not critical for initial render. -->
     <PwaUpdater client:idle t={t} />
   </body>
 </html>
@@ -93,8 +88,12 @@ const t = await getTranslations(currentLocale);
 </style>
 
 <script>
-import { getThemeFromStorage, updateSelectedTheme } from "../hooks/useTheme";
+import { getThemeFromStorage, THEMES, updateSelectedTheme } from "../hooks/useTheme";
 
 const theme = getThemeFromStorage();
-if (theme) updateSelectedTheme(theme);
+if (theme) {
+  updateSelectedTheme(theme);
+} else {
+  updateSelectedTheme(THEMES.system);
+}
 </script>

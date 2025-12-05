@@ -1,13 +1,13 @@
 import { Monitor, Moon, Sun } from 'lucide-react';
-import { useTheme } from '@/hooks/useTheme';
+import { THEMES, useTheme } from '@/hooks/useTheme';
 import type { SupportedLocale } from '../i18n/locales';
 import type { TranslationValue } from '../i18n/utils';
 import { TranslateProvider, useTranslate } from './TranslateProvider';
 
 const themes = [
-  { code: 'light' as const, icon: Sun },
-  { code: 'dark' as const, icon: Moon },
-  { code: 'system' as const, icon: Monitor },
+  { code: THEMES.light, icon: Sun },
+  { code: THEMES.dark, icon: Moon },
+  { code: THEMES.system, icon: Monitor },
 ] as const;
 
 type ThemeSwitcherProps = {
