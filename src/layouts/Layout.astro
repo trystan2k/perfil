@@ -55,7 +55,7 @@ const t = await getTranslations(currentLocale);
         <slot />
       </main>
     </ErrorStateProviderWrapper>
-    <PwaUpdater client:idle t={t} />
+    <PwaUpdater client:idle locale={currentLocale} translations={translations} />
   </body>
 </html>
 

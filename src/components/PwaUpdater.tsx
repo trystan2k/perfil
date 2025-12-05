@@ -1,10 +1,24 @@
 import { useRegisterSW } from 'virtual:pwa-register/react';
+import type { SupportedLocale } from '../i18n/locales';
+import type { TranslationValue } from '../i18n/utils';
+import { TranslateProvider, useTranslate } from './TranslateProvider';
 
 type PwaUpdaterProps = {
-  t: (keyPath: string, params?: Record<string, string | number>) => string;
+  locale: SupportedLocale;
+  translations: TranslationValue;
 };
 
-export function PwaUpdater({ t }: PwaUpdaterProps) {
+export const PwaUpdater = ({ locale, translations }: PwaUpdaterProps) => {
+  return (
+    <TranslateProvider locale={locale} translations={translations}>
+      <PwaUpdaterRaw />
+    </TranslateProvider>
+  );
+};
+
+const PwaUpdaterRaw = () => {
+  const { t } = useTranslate();
+
   const {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
@@ -47,4 +61,4 @@ export function PwaUpdater({ t }: PwaUpdaterProps) {
       </div>
     </div>
   );
-}
+};
