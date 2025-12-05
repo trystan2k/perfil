@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
+import { customRender } from '../../__mocks__/test-utils';
 import { PreviousCluesDisplay } from '../PreviousCluesDisplay';
 
 // Mock useTranslation hook
@@ -35,12 +35,12 @@ describe('PreviousCluesDisplay', () => {
   });
 
   it('should render nothing when clues array is empty', () => {
-    const { container } = render(<PreviousCluesDisplay clues={[]} />);
+    const { container } = customRender(<PreviousCluesDisplay clues={[]} />);
     expect(container.firstChild).toBeNull();
   });
 
   it('should render a single clue', () => {
-    render(<PreviousCluesDisplay clues={['First clue']} />);
+    customRender(<PreviousCluesDisplay clues={['First clue']} />);
 
     expect(screen.getByText(/Previous Clues \(1\)/)).toBeInTheDocument();
     expect(screen.getByText('First clue')).toBeInTheDocument();
@@ -48,7 +48,7 @@ describe('PreviousCluesDisplay', () => {
   });
 
   it('should render two clues with different styling', () => {
-    render(<PreviousCluesDisplay clues={['Most recent clue', 'Older clue']} />);
+    customRender(<PreviousCluesDisplay clues={['Most recent clue', 'Older clue']} />);
 
     expect(screen.getByText(/Previous Clues \(2\)/)).toBeInTheDocument();
     expect(screen.getByText('Most recent clue')).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('PreviousCluesDisplay', () => {
   });
 
   it('should display all clues when more than 2 are provided', () => {
-    render(<PreviousCluesDisplay clues={['Clue 1', 'Clue 2', 'Clue 3']} />);
+    customRender(<PreviousCluesDisplay clues={['Clue 1', 'Clue 2', 'Clue 3']} />);
 
     expect(screen.getByText(/Previous Clues \(3\)/)).toBeInTheDocument();
     expect(screen.getByText('Clue 1')).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe('PreviousCluesDisplay', () => {
   });
 
   it('should render with details element closed by default', () => {
-    const { container } = render(<PreviousCluesDisplay clues={['Test clue']} />);
+    const { container } = customRender(<PreviousCluesDisplay clues={['Test clue']} />);
 
     const details = container.querySelector('details');
     expect(details).not.toHaveAttribute('open');
@@ -78,7 +78,7 @@ describe('PreviousCluesDisplay', () => {
 
   it('should allow toggling collapse state via details element', async () => {
     const user = userEvent.setup();
-    const { container } = render(<PreviousCluesDisplay clues={['Toggleable clue']} />);
+    const { container } = customRender(<PreviousCluesDisplay clues={['Toggleable clue']} />);
 
     const details = container.querySelector('details') as HTMLDetailsElement;
     const summary = container.querySelector('summary') as HTMLElement;
@@ -96,7 +96,7 @@ describe('PreviousCluesDisplay', () => {
   });
 
   it('should render summary with toggle arrow indicator', () => {
-    const { container } = render(<PreviousCluesDisplay clues={['Clue with arrow']} />);
+    const { container } = customRender(<PreviousCluesDisplay clues={['Clue with arrow']} />);
 
     // Should render an arrow indicator (either ▼ when open or ▶ when closed)
     const summary = container.querySelector('summary');
@@ -105,14 +105,14 @@ describe('PreviousCluesDisplay', () => {
   });
 
   it('should handle empty strings in clues array gracefully', () => {
-    render(<PreviousCluesDisplay clues={['Valid clue', '']} />);
+    customRender(<PreviousCluesDisplay clues={['Valid clue', '']} />);
 
     expect(screen.getByText('Valid clue')).toBeInTheDocument();
     // The empty string should still render but be filtered
   });
 
   it('should style labels correctly for multiple clues', () => {
-    render(<PreviousCluesDisplay clues={['Current', 'Previous']} />);
+    customRender(<PreviousCluesDisplay clues={['Current', 'Previous']} />);
 
     // First clue should have "Most Recent" label
     expect(screen.getByText('Most Recent')).toBeInTheDocument();

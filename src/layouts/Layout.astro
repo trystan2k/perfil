@@ -5,6 +5,7 @@ import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
 import { ThemeProvider } from '../components/ThemeProvider';
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
+import { TranslationInitializer } from '../components/TranslationInitializer';
 import type { SupportedLocale } from '../i18n/locales';
 import { getTranslations, loadTranslations } from '../i18n/utils';
 import '../styles/globals.css';
@@ -35,24 +36,18 @@ const t = await getTranslations(currentLocale);
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>Perfil - {t(title)}</title>
     <ClientRouter />
-    
-    <!-- Inject translations for client-side React components -->
-    <script is:inline data-astro-rerun define:vars={{ currentLocale, translations }}>
-      // Inject locale and translations into window for client-side access
-      window.__LOCALE__ = currentLocale;
-      window.__TRANSLATIONS__ = translations;
-    </script>
   </head>
   <body>
     <ThemeProvider client:only="react">
+      <TranslationInitializer locale={currentLocale} translations={translations} client:load />
       <ErrorStateProviderWrapper client:only="react">
-        <a href="#main-content" class="skip-link">Skip to main content</a>
-        <header aria-label="Site header">
+        <a href="#main-content" class="skip-link">{t('layout.skipToMain')}</a>
+        <header aria-label={t('layout.headerAriaLabel')}>
           <div class="header-controls">
             <ThemeSwitcher client:only="react" />
-            <LanguageSwitcher 
+            <LanguageSwitcher
               currentLocale={currentLocale}
               currentPath={currentPath}
               ariaLabel={t('languageSwitcher.ariaLabel')}
@@ -64,7 +59,7 @@ const t = await getTranslations(currentLocale);
         <main id="main-content">
           <slot />
         </main>
-      </ErrorStateProviderWrapper>
+        </ErrorStateProviderWrapper>
     </ThemeProvider>
     <PwaUpdater client:load />
   </body>

@@ -4,7 +4,7 @@ import { MAX_PLAYERS } from '../../src/lib/constants';
 test.describe('Full game flow', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: 'Game Setup' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Add Players' })).toBeVisible();
   });
 
   test('create game, select category, play round and finish', async ({ page }) => {

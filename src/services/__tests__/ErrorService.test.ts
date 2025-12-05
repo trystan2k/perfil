@@ -14,6 +14,12 @@ import {
   type TelemetryProvider,
 } from '../ErrorService';
 
+const silentTelemetryProvider: TelemetryProvider = {
+  captureError: () => {},
+  captureMessage: () => {},
+  setContext: () => {},
+};
+
 describe('ErrorService', () => {
   beforeEach(() => {
     ErrorService.resetInstance();
@@ -24,6 +30,10 @@ describe('ErrorService', () => {
   });
 
   describe('Singleton Pattern', () => {
+    beforeEach(() => {
+      ErrorService.getInstance().setTelemetryProvider(silentTelemetryProvider);
+    });
+
     it('should return the same instance on multiple getInstance calls', () => {
       const instance1 = ErrorService.getInstance();
       const instance2 = ErrorService.getInstance();
@@ -77,6 +87,8 @@ describe('ErrorService', () => {
 
     it('should reapply context when changing telemetry provider', () => {
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
+
       service.setContext('userId', 'user123');
       service.setContext('gameId', 'game456');
 
@@ -97,6 +109,7 @@ describe('ErrorService', () => {
     it('should add error handler', () => {
       const handler: ErrorHandler = vi.fn();
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
 
       service.addErrorHandler(handler);
       const error = new AppError('Test error');
@@ -109,6 +122,7 @@ describe('ErrorService', () => {
       const handler1: ErrorHandler = vi.fn();
       const handler2: ErrorHandler = vi.fn();
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
 
       service.addErrorHandler(handler1);
       service.addErrorHandler(handler2);
@@ -123,6 +137,7 @@ describe('ErrorService', () => {
     it('should remove error handler', () => {
       const handler: ErrorHandler = vi.fn();
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
 
       service.addErrorHandler(handler);
       service.removeErrorHandler(handler);
@@ -136,6 +151,7 @@ describe('ErrorService', () => {
     it('should not add duplicate handlers', () => {
       const handler: ErrorHandler = vi.fn();
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
 
       service.addErrorHandler(handler);
       service.addErrorHandler(handler);
@@ -172,6 +188,7 @@ describe('ErrorService', () => {
     it('should call handlers with normalized errors', () => {
       const handler: ErrorHandler = vi.fn();
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
       service.addErrorHandler(handler);
 
       // Pass a native Error
@@ -187,6 +204,10 @@ describe('ErrorService', () => {
   });
 
   describe('Context Management', () => {
+    beforeEach(() => {
+      ErrorService.getInstance().setTelemetryProvider(silentTelemetryProvider);
+    });
+
     it('should set context', () => {
       const service = ErrorService.getInstance();
       const provider: TelemetryProvider = {
@@ -290,6 +311,9 @@ describe('ErrorService', () => {
   });
 
   describe('logError', () => {
+    beforeEach(() => {
+      ErrorService.getInstance().setTelemetryProvider(silentTelemetryProvider);
+    });
     it('should log AppError directly', () => {
       const service = ErrorService.getInstance();
       const provider: TelemetryProvider = {
@@ -546,6 +570,9 @@ describe('ErrorService', () => {
   });
 
   describe('getErrorMessage', () => {
+    beforeEach(() => {
+      ErrorService.getInstance().setTelemetryProvider(silentTelemetryProvider);
+    });
     it('should get message from AppError', () => {
       const service = ErrorService.getInstance();
       const error = new AppError('App error message');
@@ -575,6 +602,9 @@ describe('ErrorService', () => {
   });
 
   describe('isAppError', () => {
+    beforeEach(() => {
+      ErrorService.getInstance().setTelemetryProvider(silentTelemetryProvider);
+    });
     it('should identify AppError instances', () => {
       const service = ErrorService.getInstance();
       const error = new AppError('Test');
@@ -607,14 +637,19 @@ describe('ErrorService', () => {
   });
 
   describe('resetInstance', () => {
+    beforeEach(() => {
+      ErrorService.getInstance().setTelemetryProvider(silentTelemetryProvider);
+    });
     it('should clear error handlers', () => {
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
       const handler: ErrorHandler = vi.fn();
       service.addErrorHandler(handler);
 
       ErrorService.resetInstance();
 
       const newService = ErrorService.getInstance();
+      newService.setTelemetryProvider(silentTelemetryProvider);
       newService.logError(new AppError('Test'));
 
       expect(handler).not.toHaveBeenCalled();
@@ -700,6 +735,7 @@ describe('ErrorService', () => {
 
     it('should maintain state across multiple error logs', () => {
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
       const handler: ErrorHandler = vi.fn();
       service.addErrorHandler(handler);
 
@@ -712,20 +748,20 @@ describe('ErrorService', () => {
 
     it('should support chaining operations', () => {
       const service = ErrorService.getInstance();
+      const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       service.setContext('op1', 'value1');
       service.setContext('op2', 'value2');
       service.logMessage('Starting operation', ErrorSeverity.INFO);
       service.logError(new AppError('Operation failed'));
       service.clearContext('op1');
-
-      const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-
       service.logMessage('Cleanup', ErrorSeverity.INFO);
 
       expect(consoleLogSpy).toHaveBeenCalled();
 
       consoleLogSpy.mockRestore();
+      consoleErrorSpy.mockRestore();
     });
 
     it('should handle error with cause chain', () => {
@@ -754,6 +790,7 @@ describe('ErrorService', () => {
 
     it('should preserve error type and properties when adding additional context', () => {
       const service = ErrorService.getInstance();
+      service.setTelemetryProvider(silentTelemetryProvider);
       const handler = vi.fn();
       service.addErrorHandler(handler);
 

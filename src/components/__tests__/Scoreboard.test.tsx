@@ -1,11 +1,10 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { ReactNode } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import type { PersistedGameState } from '@/lib/gameSessionDB';
 import * as gameSessionDB from '@/lib/gameSessionDB';
 import type { Player, Profile } from '@/types/models';
+import { customRender } from '../../__mocks__/test-utils';
 import { Scoreboard } from '../Scoreboard';
 
 // Mock the gameSessionDB module
@@ -14,19 +13,6 @@ vi.mock('@/lib/gameSessionDB', () => ({
   deleteGameSession: vi.fn(),
   saveGameSession: vi.fn(),
 }));
-
-const createWrapper = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
-  return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-};
 
 const createMockProfile = (id: string): Profile => ({
   id,
@@ -85,12 +71,12 @@ describe('Scoreboard', () => {
       () => new Promise(() => {}) // Never resolves to keep loading
     );
 
-    render(<Scoreboard sessionId="test-session" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session" />, { withQueryProvider: true });
     expect(screen.getByText('Loading scoreboard...')).toBeInTheDocument();
   });
 
   it('should render error when no sessionId is provided', async () => {
-    render(<Scoreboard />, { wrapper: createWrapper() });
+    customRender(<Scoreboard />, { withQueryProvider: true });
 
     // With TanStack Query and enabled: !!sessionId, this should not execute the query
     // Instead of showing an error, it should just not be loading
@@ -100,7 +86,7 @@ describe('Scoreboard', () => {
   it('should render error when game session is not found', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(null);
 
-    render(<Scoreboard sessionId="non-existent-session" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="non-existent-session" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Not Found')).toBeInTheDocument();
@@ -111,7 +97,7 @@ describe('Scoreboard', () => {
   it('should render error when loading fails', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockRejectedValue(new Error('DB Error'));
 
-    render(<Scoreboard sessionId="test-session" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Error')).toBeInTheDocument();
@@ -122,7 +108,7 @@ describe('Scoreboard', () => {
   it('should render retry button for system errors', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockRejectedValue(new Error('DB Error'));
 
-    render(<Scoreboard sessionId="test-session" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Error')).toBeInTheDocument();
@@ -138,7 +124,7 @@ describe('Scoreboard', () => {
     // First call fails
     vi.mocked(gameSessionDB.loadGameSession).mockRejectedValueOnce(new Error('DB Error'));
 
-    render(<Scoreboard sessionId="test-session" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Error')).toBeInTheDocument();
@@ -159,7 +145,7 @@ describe('Scoreboard', () => {
   it('should render scoreboard with players sorted by score', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
-    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -195,7 +181,7 @@ describe('Scoreboard', () => {
   it('should render table headers correctly', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
-    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -213,7 +199,7 @@ describe('Scoreboard', () => {
     };
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(sessionWithoutCategory);
 
-    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -229,7 +215,7 @@ describe('Scoreboard', () => {
     };
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(singlePlayerSession);
 
-    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -253,7 +239,7 @@ describe('Scoreboard', () => {
     };
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(manyPlayersSession);
 
-    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -274,7 +260,7 @@ describe('Scoreboard', () => {
   it('should call loadGameSession with correct sessionId', async () => {
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
-    render(<Scoreboard sessionId="my-custom-session-id" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="my-custom-session-id" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(gameSessionDB.loadGameSession).toHaveBeenCalledWith('my-custom-session-id');
@@ -288,7 +274,7 @@ describe('Scoreboard', () => {
     };
     vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(emptyPlayersSession);
 
-    render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
     await waitFor(() => {
       expect(screen.getByText('No Players')).toBeInTheDocument();
@@ -300,7 +286,7 @@ describe('Scoreboard', () => {
     it('should render all three action buttons', async () => {
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
-      render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+      customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
       await waitFor(() => {
         expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -314,7 +300,7 @@ describe('Scoreboard', () => {
     it('should render action buttons with correct labels', async () => {
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
 
-      render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+      customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
       await waitFor(() => {
         expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -344,7 +330,7 @@ describe('Scoreboard', () => {
         vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
         vi.mocked(gameSessionDB.deleteGameSession).mockResolvedValue();
 
-        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
         await waitFor(() => {
           expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -366,7 +352,7 @@ describe('Scoreboard', () => {
         vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
         vi.mocked(gameSessionDB.deleteGameSession).mockRejectedValue(new Error('Delete failed'));
 
-        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
         await waitFor(() => {
           expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -405,7 +391,7 @@ describe('Scoreboard', () => {
         vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
         vi.mocked(gameSessionDB.saveGameSession).mockResolvedValue();
 
-        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
         await waitFor(() => {
           expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -454,7 +440,7 @@ describe('Scoreboard', () => {
         vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
         vi.mocked(gameSessionDB.saveGameSession).mockRejectedValue(new Error('Save failed'));
 
-        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
         await waitFor(() => {
           expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -494,7 +480,7 @@ describe('Scoreboard', () => {
         vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
         vi.mocked(gameSessionDB.saveGameSession).mockResolvedValue();
 
-        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
         await waitFor(() => {
           expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -562,7 +548,7 @@ describe('Scoreboard', () => {
         vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
         vi.mocked(gameSessionDB.saveGameSession).mockRejectedValue(new Error('Save failed'));
 
-        render(<Scoreboard sessionId="test-session-123" />, { wrapper: createWrapper() });
+        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
 
         await waitFor(() => {
           expect(screen.getByText('Scoreboard')).toBeInTheDocument();
@@ -606,7 +592,7 @@ describe('Scoreboard', () => {
 
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(session);
 
-      render(<Scoreboard sessionId="16-session" />, { wrapper: createWrapper() });
+      customRender(<Scoreboard sessionId="16-session" />, { withQueryProvider: true });
 
       await waitFor(() => expect(screen.getByText('Scoreboard')).toBeInTheDocument());
 
@@ -646,7 +632,7 @@ describe('Scoreboard', () => {
 
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(session);
 
-      render(<Scoreboard sessionId="16-session-2" />, { wrapper: createWrapper() });
+      customRender(<Scoreboard sessionId="16-session-2" />, { withQueryProvider: true });
 
       await waitFor(() => expect(screen.getByText('Scoreboard')).toBeInTheDocument());
 

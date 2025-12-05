@@ -20,12 +20,25 @@
     "sessionNotFound": "No se encontró la sesión de juego.",
     "sessionCorrupted": "La sesión de juego está corrupta."
   },
+  "layout": {
+    "headerAriaLabel": "Encabezado del sitio",
+    "skipToMain": "Saltar al contenido principal"
+  },
   "languageSwitcher": {
     "ariaLabel": "Selector de idioma",
     "switchTo": "Cambiar a {{language}}"
   },
-  "gameSetup": {
-    "title": "Configuración del Juego",
+  "themeSwitcher": {
+    "ariaLabel": "Selector de tema",
+    "switchTo": "Cambiar al tema {{theme}}",
+    "options": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    }
+  },
+  "playersAdd": {
+    "title": "Agregar Jugadores",
     "description": "Agrega jugadores para comenzar un nuevo juego. Necesitas al menos 2 jugadores.",
     "playerNameLabel": "Nombre del Jugador",
     "playerNamePlaceholder": "Ingresa el nombre del jugador",
@@ -173,6 +186,13 @@
       "samePlayers": "Mismos Jugadores",
       "restartGame": "Reiniciar Juego"
     }
+  },
+  "pwaUpdater": {
+    "message": "¡Hay una nueva versión disponible!",
+    "reload": "Recargar",
+    "dismiss": "Descartar",
+    "reloadAriaLabel": "Recargar para actualizar la aplicación",
+    "dismissAriaLabel": "Descartar notificación de actualización"
   },
   "noGamePage": {
     "title": "No Hay Juego en Curso",

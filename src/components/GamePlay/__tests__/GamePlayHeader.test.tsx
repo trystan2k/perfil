@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { customRender } from '../../../__mocks__/test-utils';
 import { GamePlayHeader } from '../GamePlayHeader';
 
 describe('GamePlayHeader', () => {
@@ -14,19 +15,19 @@ describe('GamePlayHeader', () => {
   };
 
   it('should render the title', () => {
-    render(<GamePlayHeader {...defaultProps} />);
+    customRender(<GamePlayHeader {...defaultProps} />);
 
     expect(screen.getByText('Game Play')).toBeInTheDocument();
   });
 
   it('should render round info when numberOfRounds is greater than 1', () => {
-    render(<GamePlayHeader {...defaultProps} numberOfRounds={3} />);
+    customRender(<GamePlayHeader {...defaultProps} numberOfRounds={3} />);
 
     expect(screen.getByText(/Round 1 of 5/)).toBeInTheDocument();
   });
 
   it('should not render round info when numberOfRounds is 1', () => {
-    render(<GamePlayHeader {...defaultProps} numberOfRounds={1} />);
+    customRender(<GamePlayHeader {...defaultProps} numberOfRounds={1} />);
 
     // Round info should not be shown, only category and profile progression
     expect(screen.queryByText(/Round 1 of 5/)).not.toBeInTheDocument();
@@ -34,13 +35,13 @@ describe('GamePlayHeader', () => {
   });
 
   it('should render category text', () => {
-    render(<GamePlayHeader {...defaultProps} />);
+    customRender(<GamePlayHeader {...defaultProps} />);
 
     expect(screen.getByText(/Category: Movies/)).toBeInTheDocument();
   });
 
   it('should render profile progression text', () => {
-    render(<GamePlayHeader {...defaultProps} />);
+    customRender(<GamePlayHeader {...defaultProps} />);
 
     const description = screen.getByText(/Round 1 of 5.*Category: Movies.*Profile 2 of 10/);
     expect(description).toBeInTheDocument();
@@ -48,14 +49,16 @@ describe('GamePlayHeader', () => {
   });
 
   it('should render all text elements together', () => {
-    render(<GamePlayHeader {...defaultProps} />);
+    customRender(<GamePlayHeader {...defaultProps} />);
 
     const description = screen.getByText(/Round 1 of 5.*Category: Movies.*Profile 2 of 10/);
     expect(description).toBeInTheDocument();
   });
 
   it('should handle different round numbers', () => {
-    const { rerender } = render(<GamePlayHeader {...defaultProps} roundInfoText="Round 3 of 5" />);
+    const { rerender } = customRender(
+      <GamePlayHeader {...defaultProps} roundInfoText="Round 3 of 5" />
+    );
 
     expect(screen.getByText(/Round 3 of 5/)).toBeInTheDocument();
 
@@ -65,7 +68,7 @@ describe('GamePlayHeader', () => {
   });
 
   it('should handle different profile progression', () => {
-    const { rerender } = render(
+    const { rerender } = customRender(
       <GamePlayHeader {...defaultProps} profileProgressionText="Profile 1 of 1" />
     );
 
@@ -77,7 +80,7 @@ describe('GamePlayHeader', () => {
   });
 
   it('should render ProfileProgress component with correct props', () => {
-    render(<GamePlayHeader {...defaultProps} currentProfileIndex={5} totalProfiles={20} />);
+    customRender(<GamePlayHeader {...defaultProps} currentProfileIndex={5} totalProfiles={20} />);
 
     // ProfileProgress renders an aria-label with progress info
     const progressElement = screen.getByLabelText(/Profile progress/);
@@ -85,7 +88,7 @@ describe('GamePlayHeader', () => {
   });
 
   it('should render the header as a Card component', () => {
-    const { container } = render(<GamePlayHeader {...defaultProps} />);
+    const { container } = customRender(<GamePlayHeader {...defaultProps} />);
 
     // Card should be present (it's the root element)
     expect(container.querySelector('[class*="rounded-lg"]')).toBeInTheDocument();

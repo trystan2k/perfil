@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { PlayersAdd } from '@/components/PlayersAdd';
 import { useGameStore } from '@/stores/gameStore';
-import { GameSetup } from '../GameSetup';
+import { customRender } from '../../__mocks__/test-utils';
 
 // Mock the game store
 const mockGetState = vi.fn();
@@ -55,10 +56,10 @@ describe('GameSetup', () => {
   });
 
   describe('Initial Render', () => {
-    it('should render the game setup form', () => {
-      render(<GameSetup />);
+    it('should render the players add form', () => {
+      customRender(<PlayersAdd />);
 
-      expect(screen.getByText('Game Setup')).toBeInTheDocument();
+      expect(screen.getByText('Add Players')).toBeInTheDocument();
       expect(
         screen.getByText('Add players to start a new game. You need at least 2 players.')
       ).toBeInTheDocument();
@@ -69,14 +70,14 @@ describe('GameSetup', () => {
     });
 
     it('should have start game button disabled initially', () => {
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const startButton = screen.getByRole('button', { name: /start game/i });
       expect(startButton).toBeDisabled();
     });
 
     it('should have add button disabled when input is empty', () => {
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const addButton = screen.getByRole('button', { name: /add/i });
       expect(addButton).toBeDisabled();
@@ -86,7 +87,7 @@ describe('GameSetup', () => {
   describe('Adding Players', () => {
     it('should add a player when clicking the add button', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -100,7 +101,7 @@ describe('GameSetup', () => {
 
     it('should add a player when pressing Enter key', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
 
@@ -111,7 +112,7 @@ describe('GameSetup', () => {
 
     it('should clear input after adding a player', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name') as HTMLInputElement;
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -124,7 +125,7 @@ describe('GameSetup', () => {
 
     it('should add multiple players', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -146,7 +147,7 @@ describe('GameSetup', () => {
 
     it('should trim whitespace from player names', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -161,7 +162,7 @@ describe('GameSetup', () => {
   describe('Player Validation', () => {
     it('should not allow clicking add button with empty name', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -174,7 +175,7 @@ describe('GameSetup', () => {
 
     it('should set global error when adding duplicate player name', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -186,12 +187,12 @@ describe('GameSetup', () => {
       await user.click(addButton);
 
       // Check that global error was set with informative flag
-      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
+      expect(mockSetError).toHaveBeenCalledWith('playersAdd.errors.duplicateName', true);
     });
 
     it('should not trigger error when max players reached and button disabled', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -212,7 +213,7 @@ describe('GameSetup', () => {
 
     it('should disable add button when 16 players are added', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -231,7 +232,7 @@ describe('GameSetup', () => {
 
     it('should not set error when adding valid player after duplicate error', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -243,7 +244,7 @@ describe('GameSetup', () => {
       // Try to add duplicate to create error
       await user.type(input, 'Alice');
       await user.click(addButton);
-      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
+      expect(mockSetError).toHaveBeenCalledWith('playersAdd.errors.duplicateName', true);
 
       // Add valid player - should succeed
       await user.clear(input);
@@ -258,7 +259,7 @@ describe('GameSetup', () => {
   describe('Removing Players', () => {
     it('should remove a player when clicking the remove button', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -275,7 +276,7 @@ describe('GameSetup', () => {
 
     it('should remove correct player from multiple players', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -300,7 +301,7 @@ describe('GameSetup', () => {
 
     it('should not clear error when removing player', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -311,7 +312,7 @@ describe('GameSetup', () => {
       // Create error
       await user.type(input, 'Alice');
       await user.click(addButton);
-      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
+      expect(mockSetError).toHaveBeenCalledWith('playersAdd.errors.duplicateName', true);
 
       // Remove player - error persists (not auto-cleared)
       const removeButton = screen.getByRole('button', { name: /remove alice/i });
@@ -325,7 +326,7 @@ describe('GameSetup', () => {
   describe('Starting Game', () => {
     it('should enable start game button when at least 2 players are added', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -344,7 +345,7 @@ describe('GameSetup', () => {
 
     it('should not call createGame when clicking disabled button with less than 2 players', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -360,7 +361,7 @@ describe('GameSetup', () => {
 
     it('should call createGame with player names when starting game', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -382,7 +383,7 @@ describe('GameSetup', () => {
 
     it('should navigate to category selection page after starting game', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -406,14 +407,14 @@ describe('GameSetup', () => {
 
   describe('Accessibility', () => {
     it('should have proper labels for form elements', () => {
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       expect(screen.getByLabelText('Player Name')).toBeInTheDocument();
     });
 
     it('should have proper aria-label for remove buttons', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -428,7 +429,7 @@ describe('GameSetup', () => {
   describe('Validation Edge Cases', () => {
     it('should not add empty player name when pressing Enter', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
 
@@ -442,7 +443,7 @@ describe('GameSetup', () => {
 
     it('should not add whitespace-only player name when pressing Enter', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
 
@@ -455,7 +456,7 @@ describe('GameSetup', () => {
 
     it('should not add 17th player when pressing Enter at 16-player limit', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
 
@@ -477,7 +478,7 @@ describe('GameSetup', () => {
     });
 
     it('should not add player when clicking Add button with empty name', async () => {
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const addButton = screen.getByRole('button', { name: /add/i });
 
@@ -487,7 +488,7 @@ describe('GameSetup', () => {
 
     it('should not add empty name even if handleAddPlayer is called programmatically', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
 
@@ -503,7 +504,7 @@ describe('GameSetup', () => {
 
     it('should not exceed 16 players even if handleAddPlayer is called at limit', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
 
@@ -526,7 +527,7 @@ describe('GameSetup', () => {
 
     it('should handle case-insensitive duplicate names', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -542,7 +543,7 @@ describe('GameSetup', () => {
       await user.click(addButton);
 
       // Should set global error
-      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
+      expect(mockSetError).toHaveBeenCalledWith('playersAdd.errors.duplicateName', true);
 
       // Should not add duplicate
       expect(screen.getByText('Players (1/16)')).toBeInTheDocument();
@@ -550,7 +551,7 @@ describe('GameSetup', () => {
 
     it('should handle case-insensitive duplicate names with Enter key', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
 
@@ -562,7 +563,7 @@ describe('GameSetup', () => {
       await user.type(input, 'BOB{Enter}');
 
       // Should set global error
-      expect(mockSetError).toHaveBeenCalledWith('gameSetup.errors.duplicateName', true);
+      expect(mockSetError).toHaveBeenCalledWith('playersAdd.errors.duplicateName', true);
 
       // Should not add duplicate
       expect(screen.getByText('Players (1/16)')).toBeInTheDocument();
@@ -572,7 +573,7 @@ describe('GameSetup', () => {
   describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
     it('should have remove player button with size="icon" (48x48px touch target)', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -589,7 +590,7 @@ describe('GameSetup', () => {
 
     it('should have remove button with proper icon sizing', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -606,7 +607,7 @@ describe('GameSetup', () => {
     });
 
     it('should maintain adequate touch target size for add button', () => {
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const addButton = screen.getByRole('button', { name: /add/i });
 
@@ -616,7 +617,7 @@ describe('GameSetup', () => {
 
     it('should maintain adequate touch target size for start game button', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -636,7 +637,7 @@ describe('GameSetup', () => {
 
     it('should have all form buttons with proper touch target accessibility', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });
@@ -659,7 +660,7 @@ describe('GameSetup', () => {
 
     it('should provide visual feedback on remove button hover without size change', async () => {
       const user = userEvent.setup();
-      render(<GameSetup />);
+      customRender(<PlayersAdd />);
 
       const input = screen.getByLabelText('Player Name');
       const addButton = screen.getByRole('button', { name: /add/i });

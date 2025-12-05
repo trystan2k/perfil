@@ -1,13 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+import { customRender } from '../../__mocks__/test-utils';
 import { RoundSummary } from '../RoundSummary';
 
 describe('RoundSummary', () => {
   it('should render with winner information', () => {
     const onContinue = vi.fn();
 
-    render(
+    customRender(
       <RoundSummary
         open={true}
         winnerName="Alice"
@@ -26,7 +27,7 @@ describe('RoundSummary', () => {
   it('should render with no winner', () => {
     const onContinue = vi.fn();
 
-    render(
+    customRender(
       <RoundSummary
         open={true}
         winnerName={null}
@@ -46,7 +47,7 @@ describe('RoundSummary', () => {
     const user = userEvent.setup();
     const onContinue = vi.fn();
 
-    render(
+    customRender(
       <RoundSummary
         open={true}
         winnerName="Bob"
@@ -65,7 +66,7 @@ describe('RoundSummary', () => {
   it('should not render when open is false', () => {
     const onContinue = vi.fn();
 
-    render(
+    customRender(
       <RoundSummary
         open={false}
         winnerName="Charlie"
@@ -82,7 +83,7 @@ describe('RoundSummary', () => {
   it('should display different point values correctly', () => {
     const onContinue = vi.fn();
 
-    const { rerender } = render(
+    const { rerender } = customRender(
       <RoundSummary
         open={true}
         winnerName="Dave"
@@ -110,7 +111,7 @@ describe('RoundSummary', () => {
   it('should display different profile names correctly', () => {
     const onContinue = vi.fn();
 
-    const { rerender } = render(
+    const { rerender } = customRender(
       <RoundSummary
         open={true}
         winnerName="Frank"

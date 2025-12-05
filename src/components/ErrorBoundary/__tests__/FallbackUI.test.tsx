@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { customRender } from '../../../__mocks__/test-utils';
 import FallbackUI from '../FallbackUI';
 
 describe('FallbackUI Component', () => {
@@ -19,28 +20,28 @@ describe('FallbackUI Component', () => {
 
   describe('ARIA Attributes & Accessibility', () => {
     it('should have role="alert" for semantic accessibility', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const alertContainer = screen.getByRole('alert');
       expect(alertContainer).toBeInTheDocument();
     });
 
     it('should have aria-live="assertive" to announce errors immediately', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const alertContainer = screen.getByRole('alert');
       expect(alertContainer).toHaveAttribute('aria-live', 'assertive');
     });
 
     it('should have aria-atomic="true" to announce entire alert content', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const alertContainer = screen.getByRole('alert');
       expect(alertContainer).toHaveAttribute('aria-atomic', 'true');
     });
 
     it('should have aria-label on retry button for screen readers', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       expect(retryButton).toHaveAttribute('aria-label');
@@ -49,7 +50,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('should have aria-label on go home button for screen readers', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       expect(goHomeButton).toHaveAttribute('aria-label');
@@ -59,7 +60,7 @@ describe('FallbackUI Component', () => {
 
     it('should maintain ARIA attributes when error message is present', () => {
       const error = new Error('Test error message');
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       const alertContainer = screen.getByRole('alert');
       expect(alertContainer).toHaveAttribute('role', 'alert');
@@ -68,7 +69,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('should maintain ARIA attributes when logging context is present', () => {
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext="GamePlay" />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext="GamePlay" />);
 
       const alertContainer = screen.getByRole('alert');
       expect(alertContainer).toHaveAttribute('role', 'alert');
@@ -79,14 +80,14 @@ describe('FallbackUI Component', () => {
 
   describe('Focus Management', () => {
     it('should focus heading on component mount', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const heading = screen.getByRole('heading', { level: 2 });
       expect(heading).toHaveFocus();
     });
 
     it('should have tabIndex={-1} on heading for programmatic focus', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const heading = screen.getByRole('heading', { level: 2 });
       expect(heading).toHaveAttribute('tabIndex', '-1');
@@ -94,21 +95,21 @@ describe('FallbackUI Component', () => {
 
     it('should focus heading even with error message', () => {
       const error = new Error('Something went wrong');
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       const heading = screen.getByRole('heading', { level: 2 });
       expect(heading).toHaveFocus();
     });
 
     it('should focus heading even with logging context', () => {
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext="CategorySelect" />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext="CategorySelect" />);
 
       const heading = screen.getByRole('heading', { level: 2 });
       expect(heading).toHaveFocus();
     });
 
     it('should focus heading on every mount (independent rerenders)', () => {
-      const { rerender } = render(<FallbackUI onRetry={mockOnRetry} />);
+      const { rerender } = customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       let heading = screen.getByRole('heading', { level: 2 });
       expect(heading).toHaveFocus();
@@ -122,7 +123,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('heading should have focus outline support', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const heading = screen.getByRole('heading', { level: 2 });
       expect(heading).toHaveClass('focus:outline-none');
@@ -132,7 +133,7 @@ describe('FallbackUI Component', () => {
   describe('Retry Button Functionality', () => {
     it('should call onRetry when retry button is clicked', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       await user.click(retryButton);
@@ -142,7 +143,7 @@ describe('FallbackUI Component', () => {
 
     it('should call onRetry only once per click', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       await user.click(retryButton);
@@ -152,7 +153,7 @@ describe('FallbackUI Component', () => {
 
     it('should call onRetry multiple times for multiple clicks', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       await user.click(retryButton);
@@ -163,7 +164,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('should have variant="default" for retry button styling', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       // The Button component applies variant styles via className
@@ -171,7 +172,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('should render retry button with proper text from i18n', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       expect(retryButton).toBeInTheDocument();
@@ -182,7 +183,7 @@ describe('FallbackUI Component', () => {
   describe('Go Home Button Functionality', () => {
     it('should navigate to home page when go home button is clicked', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       await user.click(goHomeButton);
@@ -192,7 +193,7 @@ describe('FallbackUI Component', () => {
 
     it('should set window.location.href to "/" on click', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       await user.click(goHomeButton);
@@ -201,14 +202,14 @@ describe('FallbackUI Component', () => {
     });
 
     it('should have variant="outline" for go home button styling', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       expect(goHomeButton).toBeInTheDocument();
     });
 
     it('should render go home button with proper text from i18n', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       expect(goHomeButton).toBeInTheDocument();
@@ -217,7 +218,7 @@ describe('FallbackUI Component', () => {
 
     it('should not interfere with retry functionality', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
@@ -236,7 +237,7 @@ describe('FallbackUI Component', () => {
   describe('Keyboard Accessibility', () => {
     it('should activate retry button with Enter key', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       retryButton.focus();
@@ -247,7 +248,7 @@ describe('FallbackUI Component', () => {
 
     it('should activate retry button with Space key', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       retryButton.focus();
@@ -258,7 +259,7 @@ describe('FallbackUI Component', () => {
 
     it('should activate go home button with Enter key', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       goHomeButton.focus();
@@ -269,7 +270,7 @@ describe('FallbackUI Component', () => {
 
     it('should activate go home button with Space key', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       goHomeButton.focus();
@@ -280,7 +281,7 @@ describe('FallbackUI Component', () => {
 
     it('should support tab navigation between buttons', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       // Tab to first button (heading should already be focused, so tab to retry)
       await user.tab();
@@ -300,7 +301,7 @@ describe('FallbackUI Component', () => {
 
     it('should be fully keyboard accessible without mouse', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       // Tab through and activate retry
       await user.tab(); // Focus retry button
@@ -316,7 +317,7 @@ describe('FallbackUI Component', () => {
 
   describe('i18n Translations', () => {
     it('should display translated error title from errorHandler.title', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       // The heading should contain the translated title
       const heading = screen.getByRole('heading', { level: 2 });
@@ -325,7 +326,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('should display translated default message when no context provided', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       // Should use errorHandler.defaultMessage
       const defaultMessages = screen.getAllByText('An unexpected error occurred.');
@@ -333,21 +334,21 @@ describe('FallbackUI Component', () => {
     });
 
     it('should display translated retry button text from common.retry', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       expect(retryButton).toBeInTheDocument();
     });
 
     it('should display translated go home button text from common.goHome', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       expect(goHomeButton).toBeInTheDocument();
     });
 
     it('should use translation for aria-label on retry button', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
       const ariaLabel = retryButton.getAttribute('aria-label');
@@ -356,7 +357,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('should use translation for aria-label on go home button', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
       const ariaLabel = goHomeButton.getAttribute('aria-label');
@@ -369,20 +370,20 @@ describe('FallbackUI Component', () => {
     it('should display error message when error prop is provided', () => {
       const errorMessage = 'Something went wrong!';
       const error = new Error(errorMessage);
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       expect(screen.getByText(errorMessage)).toBeInTheDocument();
     });
 
     it('should display custom error messages', () => {
       const error = new Error('Database connection failed');
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       expect(screen.getByText('Database connection failed')).toBeInTheDocument();
     });
 
     it('should display default message when error is undefined', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       // Should show default error message from translation
       const defaultMessages = screen.getAllByText('An unexpected error occurred.');
@@ -392,7 +393,7 @@ describe('FallbackUI Component', () => {
     it('should display error message in CardContent section', () => {
       const errorMessage = 'Network timeout';
       const error = new Error(errorMessage);
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       // Error should be in the content area (not title or description)
       const errorText = screen.getByText(errorMessage);
@@ -403,7 +404,7 @@ describe('FallbackUI Component', () => {
     it('should handle very long error messages', () => {
       const longMessage = 'A'.repeat(500);
       const error = new Error(longMessage);
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       expect(screen.getByText(longMessage)).toBeInTheDocument();
     });
@@ -411,7 +412,7 @@ describe('FallbackUI Component', () => {
     it('should handle error messages with special characters', () => {
       const specialMessage = 'Error: <script>alert("xss")</script>';
       const error = new Error(specialMessage);
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       // Should escape the message safely
       expect(screen.getByText(specialMessage)).toBeInTheDocument();
@@ -419,7 +420,7 @@ describe('FallbackUI Component', () => {
 
     it('should handle empty error message', () => {
       const error = new Error('');
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       // Empty error message - both CardDescription and CardContent show default message
       const defaultMessages = screen.getAllByText('An unexpected error occurred.');
@@ -429,21 +430,23 @@ describe('FallbackUI Component', () => {
 
   describe('LoggingContext Display', () => {
     it('should display logging context when provided', () => {
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext="GamePlay" />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext="GamePlay" />);
 
       expect(screen.getByText(/Error in GamePlay/i)).toBeInTheDocument();
     });
 
     it('should display context in CardDescription', () => {
       const context = 'CategorySelect';
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext={context} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext={context} />);
 
       const description = screen.getByText(new RegExp(`Error in ${context}`, 'i'));
       expect(description).toBeInTheDocument();
     });
 
     it('should display different logging contexts', () => {
-      const { rerender } = render(<FallbackUI onRetry={mockOnRetry} loggingContext="Context1" />);
+      const { rerender } = customRender(
+        <FallbackUI onRetry={mockOnRetry} loggingContext="Context1" />
+      );
 
       expect(screen.getByText(/Error in Context1/i)).toBeInTheDocument();
 
@@ -453,7 +456,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('should use default message when logging context is not provided', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       // Should display default message instead of "Error in ..."
       const defaultMessages = screen.getAllByText('An unexpected error occurred.');
@@ -462,7 +465,7 @@ describe('FallbackUI Component', () => {
     });
 
     it('should use default message when logging context is empty string', () => {
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext="" />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext="" />);
 
       // Empty string is falsy, so should use default message
       const defaultMessages = screen.getAllByText('An unexpected error occurred.');
@@ -471,21 +474,21 @@ describe('FallbackUI Component', () => {
 
     it('should handle logging context with special characters', () => {
       const context = 'Component/With-Special_Chars.123';
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext={context} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext={context} />);
 
       expect(screen.getByText(new RegExp(`Error in ${context}`, 'i'))).toBeInTheDocument();
     });
 
     it('should handle long logging context strings', () => {
       const context = 'VeryLongContextNameWithManyCharactersForTestingPurposes';
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext={context} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext={context} />);
 
       expect(screen.getByText(new RegExp(`Error in ${context}`, 'i'))).toBeInTheDocument();
     });
 
     it('should prioritize logging context over default message', () => {
       const context = 'PriorityContext';
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext={context} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext={context} />);
 
       // Should show context message, not default
       expect(screen.getByText(new RegExp(`Error in ${context}`, 'i'))).toBeInTheDocument();
@@ -496,7 +499,7 @@ describe('FallbackUI Component', () => {
     it('should display all props together: error, context, and buttons', () => {
       const error = new Error('Critical error');
       const context = 'GameSetup';
-      render(<FallbackUI error={error} onRetry={mockOnRetry} loggingContext={context} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} loggingContext={context} />);
 
       // Check title
       const heading = screen.getByRole('heading', { level: 2 });
@@ -517,7 +520,7 @@ describe('FallbackUI Component', () => {
       const user = userEvent.setup();
       const error = new Error('Test error');
       const context = 'TestContext';
-      render(<FallbackUI error={error} onRetry={mockOnRetry} loggingContext={context} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} loggingContext={context} />);
 
       // Verify all content is present
       expect(screen.getByText(new RegExp(`Error in ${context}`, 'i'))).toBeInTheDocument();
@@ -536,7 +539,7 @@ describe('FallbackUI Component', () => {
 
     it('should maintain focus management with all props', () => {
       const error = new Error('Error message');
-      render(<FallbackUI error={error} onRetry={mockOnRetry} loggingContext="Context" />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} loggingContext="Context" />);
 
       const heading = screen.getByRole('heading', { level: 2 });
       expect(heading).toHaveFocus();
@@ -545,7 +548,7 @@ describe('FallbackUI Component', () => {
 
   describe('Component Rendering & Layout', () => {
     it('should render inside a Card component', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       // Check for Card structure
       const heading = screen.getByRole('heading', { level: 2 });
@@ -554,21 +557,21 @@ describe('FallbackUI Component', () => {
     });
 
     it('should render heading as h2 element', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const heading = screen.getByRole('heading', { level: 2 });
       expect(heading.tagName).toBe('H2');
     });
 
     it('should render two buttons in footer', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const buttons = screen.getAllByRole('button');
       expect(buttons).toHaveLength(2);
     });
 
     it('should have proper CSS classes for styling', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const alertContainer = screen.getByRole('alert');
       expect(alertContainer).toHaveClass(
@@ -581,21 +584,21 @@ describe('FallbackUI Component', () => {
     });
 
     it('should apply animation classes', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const alertContainer = screen.getByRole('alert');
       expect(alertContainer).toHaveClass('animate-in', 'fade-in-50', 'duration-300');
     });
 
     it('should apply heading text color class', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const heading = screen.getByRole('heading', { level: 2 });
       expect(heading).toHaveClass('text-destructive');
     });
 
     it('should apply responsive width classes to buttons', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const buttons = screen.getAllByRole('button');
       buttons.forEach((button) => {
@@ -606,7 +609,7 @@ describe('FallbackUI Component', () => {
 
   describe('Edge Cases & Error Scenarios', () => {
     it('should render with minimal props (only onRetry)', () => {
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       expect(screen.getByRole('alert')).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
@@ -614,7 +617,7 @@ describe('FallbackUI Component', () => {
 
     it('should handle rapidly consecutive retries', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const retryButton = screen.getByRole('button', { name: /retry/i });
 
@@ -629,7 +632,7 @@ describe('FallbackUI Component', () => {
 
     it('should not throw when window.location is accessed', async () => {
       const user = userEvent.setup();
-      render(<FallbackUI onRetry={mockOnRetry} />);
+      customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       const goHomeButton = screen.getByRole('button', { name: /go.*home/i });
 
@@ -642,7 +645,7 @@ describe('FallbackUI Component', () => {
       const error = new Error();
       error.message = '';
 
-      render(<FallbackUI error={error} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} />);
 
       // When error message is empty, both CardDescription and CardContent show default message
       const defaultMessages = screen.getAllByText('An unexpected error occurred.');
@@ -650,14 +653,14 @@ describe('FallbackUI Component', () => {
     });
 
     it('should render correctly when re-mounted with different props', () => {
-      const { unmount } = render(<FallbackUI onRetry={mockOnRetry} />);
+      const { unmount } = customRender(<FallbackUI onRetry={mockOnRetry} />);
 
       expect(screen.getByRole('alert')).toBeInTheDocument();
 
       unmount();
 
       const newMockOnRetry = vi.fn();
-      render(<FallbackUI error={new Error('New error')} onRetry={newMockOnRetry} />);
+      customRender(<FallbackUI error={new Error('New error')} onRetry={newMockOnRetry} />);
 
       expect(screen.getByText('New error')).toBeInTheDocument();
     });
@@ -668,7 +671,7 @@ describe('FallbackUI Component', () => {
       const user = userEvent.setup();
       const error = new Error('Operation failed');
 
-      render(<FallbackUI error={error} onRetry={mockOnRetry} loggingContext="Operation" />);
+      customRender(<FallbackUI error={error} onRetry={mockOnRetry} loggingContext="Operation" />);
 
       // Verify error is displayed
       expect(screen.getByText('Operation failed')).toBeInTheDocument();
@@ -691,7 +694,7 @@ describe('FallbackUI Component', () => {
     it('should support complete navigation flow with mouse', async () => {
       const user = userEvent.setup();
 
-      render(<FallbackUI onRetry={mockOnRetry} loggingContext="Test" />);
+      customRender(<FallbackUI onRetry={mockOnRetry} loggingContext="Test" />);
 
       // Click retry
       let button = screen.getByRole('button', { name: /retry/i });
@@ -707,7 +710,7 @@ describe('FallbackUI Component', () => {
     it('should maintain accessibility throughout interaction', async () => {
       const user = userEvent.setup();
 
-      render(<FallbackUI error={new Error('Accessibility test')} onRetry={mockOnRetry} />);
+      customRender(<FallbackUI error={new Error('Accessibility test')} onRetry={mockOnRetry} />);
 
       // Verify initial accessibility
       expect(screen.getByRole('alert')).toBeInTheDocument();

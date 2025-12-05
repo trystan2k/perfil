@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest';
 import { getErrorService } from '@/services/ErrorService';
+import { customRender } from '../../../__mocks__/test-utils';
 import ErrorBoundary from '../ErrorBoundary';
 
 // Mock the ErrorService
@@ -61,7 +62,7 @@ describe('ErrorBoundary', () => {
 
   describe('Normal Rendering (No Error)', () => {
     it('should render children correctly when no error occurs', () => {
-      render(
+      customRender(
         <ErrorBoundary>
           <SuccessComponent message="Hello World" />
         </ErrorBoundary>
@@ -72,7 +73,7 @@ describe('ErrorBoundary', () => {
     });
 
     it('should render multiple children successfully', () => {
-      render(
+      customRender(
         <ErrorBoundary>
           <div>Child 1</div>
           <div>Child 2</div>
@@ -86,7 +87,7 @@ describe('ErrorBoundary', () => {
     });
 
     it('should render nested components without error', () => {
-      render(
+      customRender(
         <ErrorBoundary>
           <div>
             <SuccessComponent message="Nested" />
@@ -100,7 +101,7 @@ describe('ErrorBoundary', () => {
     it('should not call ErrorService.logError when no error occurs', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary>
           <SuccessComponent message="Test" />
         </ErrorBoundary>
@@ -112,7 +113,7 @@ describe('ErrorBoundary', () => {
 
   describe('Error Rendering - Shows Fallback', () => {
     it('should show fallback when child component throws error', () => {
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Test error" />
         </ErrorBoundary>
@@ -123,7 +124,7 @@ describe('ErrorBoundary', () => {
     });
 
     it('should display the error message in fallback UI', () => {
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Something went wrong" />
         </ErrorBoundary>
@@ -141,7 +142,7 @@ describe('ErrorBoundary', () => {
         </div>
       );
 
-      render(
+      customRender(
         <ErrorBoundary>
           <NestedThrowingComponent />
         </ErrorBoundary>
@@ -152,7 +153,7 @@ describe('ErrorBoundary', () => {
     });
 
     it('should replace entire child tree with fallback on error', () => {
-      render(
+      customRender(
         <ErrorBoundary>
           <SuccessComponent message="Original" />
           <ThrowError message="Error" />
@@ -170,7 +171,7 @@ describe('ErrorBoundary', () => {
     it('should use custom fallback when provided as ReactNode', () => {
       const customFallback = <div data-testid="custom-fallback">Custom Error UI</div>;
 
-      render(
+      customRender(
         <ErrorBoundary fallback={customFallback}>
           <ThrowError message="Test error" />
         </ErrorBoundary>
@@ -190,7 +191,7 @@ describe('ErrorBoundary', () => {
         </div>
       );
 
-      render(
+      customRender(
         <ErrorBoundary fallback={customFallback}>
           <ThrowError message="Test" />
         </ErrorBoundary>
@@ -204,7 +205,7 @@ describe('ErrorBoundary', () => {
     it('should prefer custom fallback over default FallbackUI', () => {
       const customFallback = <div data-testid="my-fallback">My Error</div>;
 
-      render(
+      customRender(
         <ErrorBoundary fallback={customFallback} loggingContext="test-context">
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -220,7 +221,7 @@ describe('ErrorBoundary', () => {
       const errorService = getMockedErrorService();
       const customFallback = <div>Error</div>;
 
-      render(
+      customRender(
         <ErrorBoundary fallback={customFallback}>
           <ThrowError message="Test error" />
         </ErrorBoundary>
@@ -234,7 +235,7 @@ describe('ErrorBoundary', () => {
     it('should call function fallback with error and retry', () => {
       const fallbackFn = vi.fn(() => <div>Fallback</div>);
 
-      render(
+      customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowError message="Test error" />
         </ErrorBoundary>
@@ -250,7 +251,7 @@ describe('ErrorBoundary', () => {
     it('should pass error object to function fallback', () => {
       const fallbackFn = vi.fn((error: Error) => <div>Error: {error.message}</div>);
 
-      render(
+      customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowError message="Specific error" />
         </ErrorBoundary>
@@ -267,7 +268,7 @@ describe('ErrorBoundary', () => {
         </button>
       ));
 
-      render(
+      customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -286,7 +287,7 @@ describe('ErrorBoundary', () => {
         </div>
       );
 
-      render(
+      customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowError message="Test" />
         </ErrorBoundary>
@@ -299,7 +300,7 @@ describe('ErrorBoundary', () => {
     it('should give function fallback priority over ReactNode fallback', () => {
       const fallbackFn = () => <div data-testid="fn-fallback">Function Fallback</div>;
 
-      render(
+      customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -319,7 +320,7 @@ describe('ErrorBoundary', () => {
         </div>
       );
 
-      render(
+      customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowError message="Application error" />
         </ErrorBoundary>
@@ -348,7 +349,7 @@ describe('ErrorBoundary', () => {
         return <SuccessComponent message="Recovered" />;
       };
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ConditionalComponent />
         </ErrorBoundary>
@@ -380,7 +381,7 @@ describe('ErrorBoundary', () => {
         </button>
       ));
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -412,7 +413,7 @@ describe('ErrorBoundary', () => {
         </button>
       );
 
-      render(
+      customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -444,7 +445,7 @@ describe('ErrorBoundary', () => {
         return <SuccessComponent message="Recovered" />;
       };
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ConditionalComponent />
         </ErrorBoundary>
@@ -484,7 +485,7 @@ describe('ErrorBoundary', () => {
         </button>
       );
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorBoundary fallback={fallbackFn}>
           <ThrowOnDemand />
         </ErrorBoundary>
@@ -512,7 +513,7 @@ describe('ErrorBoundary', () => {
     it('should call ErrorService.logError when error occurs', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Test error" />
         </ErrorBoundary>
@@ -524,7 +525,7 @@ describe('ErrorBoundary', () => {
     it('should pass error to ErrorService.logError', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Specific error" />
         </ErrorBoundary>
@@ -539,7 +540,7 @@ describe('ErrorBoundary', () => {
     it('should pass additional context to ErrorService.logError', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext="GamePlay">
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -557,7 +558,7 @@ describe('ErrorBoundary', () => {
     it('should include componentStack in error payload', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -574,7 +575,7 @@ describe('ErrorBoundary', () => {
     it('should use "Unknown" as default loggingContext if not provided', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -596,7 +597,7 @@ describe('ErrorBoundary', () => {
         const fn = errorService.logError as MockedFunction<typeof errorService.logError>;
         fn.mockClear();
 
-        render(
+        customRender(
           <ErrorBoundary loggingContext={context} key={context}>
             <ThrowError message="Error" />
           </ErrorBoundary>
@@ -612,7 +613,7 @@ describe('ErrorBoundary', () => {
     it('should call logError exactly once per error', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -626,7 +627,7 @@ describe('ErrorBoundary', () => {
     it('should pass loggingContext to ErrorService', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext="TestComponent">
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -642,7 +643,7 @@ describe('ErrorBoundary', () => {
     it('should include loggingContext in error payload structure', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext="GameSetup">
           <ThrowError message="Setup failed" />
         </ErrorBoundary>
@@ -658,7 +659,7 @@ describe('ErrorBoundary', () => {
 
     it('should pass loggingContext to FallbackUI component', () => {
       // Since FallbackUI is mocked, we need to check the props it receives
-      render(
+      customRender(
         <ErrorBoundary loggingContext="CategorySelect">
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -670,7 +671,7 @@ describe('ErrorBoundary', () => {
     it('should handle empty string loggingContext', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext="">
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -687,7 +688,7 @@ describe('ErrorBoundary', () => {
     it('should use "Unknown" when loggingContext is undefined', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -705,7 +706,7 @@ describe('ErrorBoundary', () => {
       const errorMessage = 'Critical failure';
       const contextName = 'FailureZone';
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext={contextName}>
           <ThrowError message={errorMessage} />
         </ErrorBoundary>
@@ -724,7 +725,7 @@ describe('ErrorBoundary', () => {
 
   describe('Edge Cases', () => {
     it('should handle synchronous errors in render', () => {
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Render error" />
         </ErrorBoundary>
@@ -745,7 +746,7 @@ describe('ErrorBoundary', () => {
         throw new CustomError('Custom error');
       };
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowCustom />
         </ErrorBoundary>
@@ -755,7 +756,7 @@ describe('ErrorBoundary', () => {
     });
 
     it('should show default FallbackUI when no fallback prop provided', () => {
-      render(
+      customRender(
         <ErrorBoundary loggingContext="TestContext">
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -767,7 +768,7 @@ describe('ErrorBoundary', () => {
     it('should handle errors with very long error messages', () => {
       const longMessage = 'Error: '.repeat(100);
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message={longMessage} />
         </ErrorBoundary>
@@ -778,7 +779,7 @@ describe('ErrorBoundary', () => {
 
     it('should handle when ErrorService is not available', () => {
       // This shouldn't crash even if getErrorService fails
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -790,7 +791,7 @@ describe('ErrorBoundary', () => {
     it('should maintain state across multiple error boundaries', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <>
           <ErrorBoundary loggingContext="Boundary1">
             <ThrowError message="Error 1" />
@@ -809,14 +810,14 @@ describe('ErrorBoundary', () => {
     });
 
     it('should handle undefined children gracefully', () => {
-      render(<ErrorBoundary>{undefined}</ErrorBoundary>);
+      customRender(<ErrorBoundary>{undefined}</ErrorBoundary>);
 
       // Should render without error
       expect(screen.queryByTestId('fallback-ui')).not.toBeInTheDocument();
     });
 
     it('should handle null children gracefully', () => {
-      render(<ErrorBoundary>{null}</ErrorBoundary>);
+      customRender(<ErrorBoundary>{null}</ErrorBoundary>);
 
       // Should render without error
       expect(screen.queryByTestId('fallback-ui')).not.toBeInTheDocument();
@@ -827,7 +828,7 @@ describe('ErrorBoundary', () => {
     it('should capture error info with componentStack', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -855,7 +856,7 @@ describe('ErrorBoundary', () => {
         </div>
       );
 
-      render(
+      customRender(
         <ErrorBoundary>
           <DeepNested />
         </ErrorBoundary>
@@ -871,7 +872,7 @@ describe('ErrorBoundary', () => {
     it('should have complete error context for debugging', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext="DebugContext">
           <ThrowError message="Debug error" />
         </ErrorBoundary>
@@ -908,7 +909,7 @@ describe('ErrorBoundary', () => {
         </button>
       );
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorBoundary fallback={fallbackFn} loggingContext="RecoveryTest">
           <ConditionalComponent />
         </ErrorBoundary>
@@ -948,7 +949,7 @@ describe('ErrorBoundary', () => {
       errors.forEach((errorInfo) => {
         errorService.logError.mockClear();
 
-        render(
+        customRender(
           <ErrorBoundary loggingContext={errorInfo.context} key={errorInfo.msg}>
             <ThrowError message={errorInfo.msg} />
           </ErrorBoundary>
@@ -961,7 +962,7 @@ describe('ErrorBoundary', () => {
 
   describe('Accessibility', () => {
     it('should render fallback UI with proper accessibility', () => {
-      render(
+      customRender(
         <ErrorBoundary>
           <ThrowError message="Error" />
         </ErrorBoundary>
@@ -976,7 +977,7 @@ describe('ErrorBoundary', () => {
     });
 
     it('should provide error information for screen readers', () => {
-      render(
+      customRender(
         <ErrorBoundary loggingContext="ImportantComponent">
           <ThrowError message="Failed to load data" />
         </ErrorBoundary>

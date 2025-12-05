@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { customRender } from '../../__mocks__/test-utils';
 import { useThemeStore } from '../../stores/themeStore';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 
@@ -21,7 +22,7 @@ describe('ThemeSwitcher', () => {
   });
 
   it('renders theme switcher with all theme options', () => {
-    render(<ThemeSwitcher />);
+    customRender(<ThemeSwitcher />);
 
     expect(screen.getByRole('navigation', { name: /theme switcher/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/switch to light theme/i)).toBeInTheDocument();
@@ -35,7 +36,7 @@ describe('ThemeSwitcher', () => {
       setTheme: mockSetTheme,
     });
 
-    render(<ThemeSwitcher />);
+    customRender(<ThemeSwitcher />);
 
     const darkButton = screen.getByLabelText(/switch to dark theme/i);
     expect(darkButton).toHaveAttribute('aria-current', 'page');
@@ -43,7 +44,7 @@ describe('ThemeSwitcher', () => {
 
   it('calls setTheme when clicking a theme button', async () => {
     const user = userEvent.setup();
-    render(<ThemeSwitcher />);
+    customRender(<ThemeSwitcher />);
 
     const darkButton = screen.getByLabelText(/switch to dark theme/i);
     await user.click(darkButton);
@@ -52,7 +53,7 @@ describe('ThemeSwitcher', () => {
   });
 
   it('updates active state when theme changes', () => {
-    const { rerender } = render(<ThemeSwitcher />);
+    const { rerender } = customRender(<ThemeSwitcher />);
 
     let darkButton = screen.getByLabelText(/switch to dark theme/i);
     expect(darkButton).not.toHaveAttribute('aria-current', 'page');
@@ -69,7 +70,7 @@ describe('ThemeSwitcher', () => {
   });
 
   it('renders with accessible labels and icons', () => {
-    render(<ThemeSwitcher />);
+    customRender(<ThemeSwitcher />);
 
     const buttons = screen.getAllByRole('button');
     expect(buttons).toHaveLength(3);
@@ -82,7 +83,7 @@ describe('ThemeSwitcher', () => {
 
   describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
     it('should have minimum 48x48px touch targets for theme buttons (via theme-button CSS class)', () => {
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       const buttons = screen.getAllByRole('button');
       buttons.forEach((button) => {
@@ -93,7 +94,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should have 24px icon size inside theme buttons', () => {
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       // Get the first SVG icon (Sun for Light theme)
       const icons = screen.getAllByRole('button')[0].querySelectorAll('svg');
@@ -106,7 +107,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should have proper button styling for touch target accessibility', () => {
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       const buttons = screen.getAllByRole('button');
       buttons.forEach((button) => {
@@ -123,7 +124,7 @@ describe('ThemeSwitcher', () => {
         setTheme: mockSetTheme,
       });
 
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       const darkButton = screen.getByLabelText(/switch to dark theme/i);
 
@@ -132,7 +133,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should have all theme buttons with proper accessibility attributes', () => {
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       const buttons = screen.getAllByRole('button');
       expect(buttons).toHaveLength(3);
@@ -146,7 +147,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should render theme switcher nav with proper spacing between buttons', () => {
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       const themeList = screen.getByRole('navigation').querySelector('ul');
       expect(themeList).toHaveClass('theme-list');
@@ -154,7 +155,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should have icon inside button for proper touch target interaction', () => {
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       const buttons = screen.getAllByRole('button');
       buttons.forEach((button) => {
@@ -166,7 +167,7 @@ describe('ThemeSwitcher', () => {
 
     it('should support hover state without affecting touch target size', async () => {
       const user = userEvent.setup();
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       const lightButton = screen.getByLabelText(/switch to light theme/i);
 
@@ -181,7 +182,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should maintain consistent touch target across all theme options', () => {
-      render(<ThemeSwitcher />);
+      customRender(<ThemeSwitcher />);
 
       const buttons = screen.getAllByRole('button');
       // All three theme buttons should have consistent touch target sizing

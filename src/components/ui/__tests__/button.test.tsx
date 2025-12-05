@@ -1,16 +1,17 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { customRender } from '../../../__mocks__/test-utils';
 import { Button } from '../button';
 
 describe('Button', () => {
   it('renders as a button element by default', () => {
-    render(<Button>Click me</Button>);
+    customRender(<Button>Click me</Button>);
     const button = screen.getByRole('button', { name: /click me/i });
     expect(button.tagName).toBe('BUTTON');
   });
 
   it('renders with asChild prop using Slot component', () => {
-    render(
+    customRender(
       <Button asChild>
         <a href="/test">Link Button</a>
       </Button>
@@ -21,7 +22,7 @@ describe('Button', () => {
   });
 
   it('applies variant classes correctly', () => {
-    const { rerender } = render(<Button variant="default">Default</Button>);
+    const { rerender } = customRender(<Button variant="default">Default</Button>);
     expect(screen.getByRole('button')).toHaveClass('bg-primary');
 
     rerender(<Button variant="destructive">Destructive</Button>);
@@ -41,7 +42,7 @@ describe('Button', () => {
   });
 
   it('applies size classes correctly', () => {
-    const { rerender } = render(<Button size="default">Default Size</Button>);
+    const { rerender } = customRender(<Button size="default">Default Size</Button>);
     expect(screen.getByRole('button')).toHaveClass('h-12');
 
     rerender(<Button size="sm">Small</Button>);
@@ -55,18 +56,18 @@ describe('Button', () => {
   });
 
   it('applies custom className', () => {
-    render(<Button className="custom-class">Custom</Button>);
+    customRender(<Button className="custom-class">Custom</Button>);
     expect(screen.getByRole('button')).toHaveClass('custom-class');
   });
 
   it('forwards ref correctly', () => {
     const ref = { current: null as HTMLButtonElement | null };
-    render(<Button ref={ref}>Ref Button</Button>);
+    customRender(<Button ref={ref}>Ref Button</Button>);
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });
 
   it('passes through additional props', () => {
-    render(
+    customRender(
       <Button type="submit" data-testid="submit-btn">
         Submit
       </Button>
@@ -77,49 +78,49 @@ describe('Button', () => {
 
   describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
     it('should have minimum 48px height for default size button', () => {
-      render(<Button size="default">Default Button</Button>);
+      customRender(<Button size="default">Default Button</Button>);
       const button = screen.getByRole('button');
       expect(button).toHaveClass('h-12');
       // h-12 = 48px (12 * 4px Tailwind unit)
     });
 
     it('should have minimum 44px height for small size button', () => {
-      render(<Button size="sm">Small Button</Button>);
+      customRender(<Button size="sm">Small Button</Button>);
       const button = screen.getByRole('button');
       expect(button).toHaveClass('h-11');
       // h-11 = 44px (11 * 4px Tailwind unit)
     });
 
     it('should have minimum 56px height for large size button', () => {
-      render(<Button size="lg">Large Button</Button>);
+      customRender(<Button size="lg">Large Button</Button>);
       const button = screen.getByRole('button');
       expect(button).toHaveClass('h-14');
       // h-14 = 56px (14 * 4px Tailwind unit)
     });
 
     it('should have minimum 48x48px for icon button', () => {
-      render(<Button size="icon">Icon</Button>);
+      customRender(<Button size="icon">Icon</Button>);
       const button = screen.getByRole('button');
       expect(button).toHaveClass('h-12', 'w-12');
       // h-12 w-12 = 48x48px
     });
 
     it('should apply proper touch target sizing with padding for default buttons', () => {
-      render(<Button size="default">Clickable</Button>);
+      customRender(<Button size="default">Clickable</Button>);
       const button = screen.getByRole('button');
       expect(button).toHaveClass('h-12', 'px-4', 'py-2');
       // Ensures adequate touch target with proper padding
     });
 
     it('should apply proper touch target sizing with padding for small buttons', () => {
-      render(<Button size="sm">Small</Button>);
+      customRender(<Button size="sm">Small</Button>);
       const button = screen.getByRole('button');
       expect(button).toHaveClass('h-11', 'rounded-md', 'px-3');
       // Ensures adequate touch target for small variant
     });
 
     it('should apply proper touch target sizing with padding for large buttons', () => {
-      render(<Button size="lg">Large</Button>);
+      customRender(<Button size="lg">Large</Button>);
       const button = screen.getByRole('button');
       expect(button).toHaveClass('h-14', 'rounded-md', 'px-8');
       // Ensures adequate touch target for large variant
@@ -129,7 +130,7 @@ describe('Button', () => {
       const variants = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] as const;
 
       for (const variant of variants) {
-        const { unmount } = render(<Button variant={variant}>Test</Button>);
+        const { unmount } = customRender(<Button variant={variant}>Test</Button>);
         const button = screen.getByRole('button');
 
         // All buttons should have at least h-12 (default size, 48px minimum)
@@ -140,7 +141,7 @@ describe('Button', () => {
     });
 
     it('should have proper Tailwind classes for flexbox alignment in touch targets', () => {
-      render(<Button>Aligned Button</Button>);
+      customRender(<Button>Aligned Button</Button>);
       const button = screen.getByRole('button');
 
       // Ensure flexbox classes for proper content alignment

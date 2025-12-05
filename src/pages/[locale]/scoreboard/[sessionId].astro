@@ -9,6 +9,6 @@ if (!sessionId) {
 }
 ---
 
-<Layout title="Scoreboard - Perfil Game">
-	<ScoreboardWithProvider client:only="react" sessionId={sessionId} />
+<Layout title="scoreboard.title">
+	<ScoreboardWithProvider client:load sessionId={sessionId} />
 </Layout>

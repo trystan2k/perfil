@@ -1,10 +1,11 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Component, type ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest';
 import { queryClient } from '@/components/QueryProvider';
 import { getErrorService } from '@/services/ErrorService';
+import { customRender } from '../../../__mocks__/test-utils';
 import ErrorBoundary from '../ErrorBoundary';
 
 // Mock the ErrorService with proper logging capture
@@ -100,7 +101,7 @@ describe('ErrorBoundary Integration Tests', () => {
 
   describe('GamePlay Error Isolation', () => {
     it('should show fallback only for GamePlay section when GamePlay throws error', () => {
-      render(<AppLayout gamePlayError={true} scoreboardError={false} />);
+      customRender(<AppLayout gamePlayError={true} scoreboardError={false} />);
 
       // GamePlay error should be visible
       expect(screen.getByTestId('gameplay-error')).toBeInTheDocument();
@@ -117,7 +118,7 @@ describe('ErrorBoundary Integration Tests', () => {
     });
 
     it('should not show scoreboard error when only GamePlay has error', () => {
-      render(<AppLayout gamePlayError={true} scoreboardError={false} />);
+      customRender(<AppLayout gamePlayError={true} scoreboardError={false} />);
 
       // Scoreboard error fallback should not be shown
       expect(screen.queryByTestId('scoreboard-error')).not.toBeInTheDocument();
@@ -129,7 +130,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should log GamePlay error with correct context', () => {
       const errorService = getMockedErrorService();
 
-      render(<AppLayout gamePlayError={true} scoreboardError={false} />);
+      customRender(<AppLayout gamePlayError={true} scoreboardError={false} />);
 
       expect(errorService.logError).toHaveBeenCalledTimes(1);
 
@@ -141,7 +142,7 @@ describe('ErrorBoundary Integration Tests', () => {
     });
 
     it('should keep GamePlay error isolated from Scoreboard rendering', () => {
-      render(<AppLayout gamePlayError={true} scoreboardError={false} />);
+      customRender(<AppLayout gamePlayError={true} scoreboardError={false} />);
 
       // GamePlay should show error
       expect(screen.getByTestId('gameplay-error')).toBeInTheDocument();
@@ -155,7 +156,7 @@ describe('ErrorBoundary Integration Tests', () => {
 
   describe('Scoreboard Error Isolation', () => {
     it('should show fallback only for Scoreboard section when Scoreboard throws error', () => {
-      render(<AppLayout gamePlayError={false} scoreboardError={true} />);
+      customRender(<AppLayout gamePlayError={false} scoreboardError={true} />);
 
       // Scoreboard error should be visible
       expect(screen.getByTestId('scoreboard-error')).toBeInTheDocument();
@@ -172,7 +173,7 @@ describe('ErrorBoundary Integration Tests', () => {
     });
 
     it('should not show gameplay error when only Scoreboard has error', () => {
-      render(<AppLayout gamePlayError={false} scoreboardError={true} />);
+      customRender(<AppLayout gamePlayError={false} scoreboardError={true} />);
 
       // GamePlay error fallback should not be shown
       expect(screen.queryByTestId('gameplay-error')).not.toBeInTheDocument();
@@ -184,7 +185,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should log Scoreboard error with correct context', () => {
       const errorService = getMockedErrorService();
 
-      render(<AppLayout gamePlayError={false} scoreboardError={true} />);
+      customRender(<AppLayout gamePlayError={false} scoreboardError={true} />);
 
       expect(errorService.logError).toHaveBeenCalledTimes(1);
 
@@ -196,7 +197,7 @@ describe('ErrorBoundary Integration Tests', () => {
     });
 
     it('should keep Scoreboard error isolated from GamePlay rendering', () => {
-      render(<AppLayout gamePlayError={false} scoreboardError={true} />);
+      customRender(<AppLayout gamePlayError={false} scoreboardError={true} />);
 
       // Scoreboard should show error
       expect(screen.getByTestId('scoreboard-error')).toBeInTheDocument();
@@ -210,7 +211,7 @@ describe('ErrorBoundary Integration Tests', () => {
 
   describe('Multiple Boundaries Simultaneously', () => {
     it('should handle multiple error boundaries without interference', () => {
-      render(<AppLayout gamePlayError={true} scoreboardError={true} />);
+      customRender(<AppLayout gamePlayError={true} scoreboardError={true} />);
 
       // Both errors should be visible
       expect(screen.getByTestId('gameplay-error')).toBeInTheDocument();
@@ -223,7 +224,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should log both errors separately', () => {
       const errorService = getMockedErrorService();
 
-      render(<AppLayout gamePlayError={true} scoreboardError={true} />);
+      customRender(<AppLayout gamePlayError={true} scoreboardError={true} />);
 
       expect(errorService.logError).toHaveBeenCalledTimes(2);
 
@@ -249,7 +250,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should have separate logging contexts for each boundary', () => {
       const errorService = getMockedErrorService();
 
-      render(<AppLayout gamePlayError={true} scoreboardError={true} />);
+      customRender(<AppLayout gamePlayError={true} scoreboardError={true} />);
 
       const fn = errorService.logError as MockedFunction<typeof errorService.logError>;
       const calls = fn.mock.calls;
@@ -264,7 +265,7 @@ describe('ErrorBoundary Integration Tests', () => {
     });
 
     it('should render each boundary error independently', () => {
-      render(<AppLayout gamePlayError={true} scoreboardError={true} />);
+      customRender(<AppLayout gamePlayError={true} scoreboardError={true} />);
 
       const gameplayErrorElement = screen.getByTestId('gameplay-error');
       const scoreboardErrorElement = screen.getByTestId('scoreboard-error');
@@ -329,7 +330,7 @@ describe('ErrorBoundary Integration Tests', () => {
         );
       };
 
-      render(<AppWithRecovery gamePlayError={true} scoreboardError={true} />);
+      customRender(<AppWithRecovery gamePlayError={true} scoreboardError={true} />);
 
       // Both retry buttons should be available
       expect(screen.getByTestId('gameplay-retry')).toBeInTheDocument();
@@ -346,7 +347,7 @@ describe('ErrorBoundary Integration Tests', () => {
 
   describe('Provider Integration - Query Provider', () => {
     it('should work correctly when placed inside QueryProvider', () => {
-      render(
+      customRender(
         <QueryClientProvider client={queryClient}>
           <AppLayout gamePlayError={true} scoreboardError={false} />
         </QueryClientProvider>
@@ -363,7 +364,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should log errors correctly with QueryProvider', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <QueryClientProvider client={queryClient}>
           <AppLayout gamePlayError={true} scoreboardError={false} />
         </QueryClientProvider>
@@ -379,7 +380,7 @@ describe('ErrorBoundary Integration Tests', () => {
     });
 
     it('should not interfere with QueryProvider functionality', () => {
-      render(
+      customRender(
         <QueryClientProvider client={queryClient}>
           <AppLayout gamePlayError={false} scoreboardError={false} />
         </QueryClientProvider>
@@ -393,7 +394,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should handle multiple error boundaries within QueryProvider', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <QueryClientProvider client={queryClient}>
           <AppLayout gamePlayError={true} scoreboardError={true} />
         </QueryClientProvider>
@@ -426,7 +427,7 @@ describe('ErrorBoundary Integration Tests', () => {
         </button>
       );
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorBoundary fallback={fallbackFn} loggingContext="RecoveryTest">
           <ConditionalComponent />
         </ErrorBoundary>
@@ -495,7 +496,7 @@ describe('ErrorBoundary Integration Tests', () => {
         );
       };
 
-      render(<AppWithSelectiveRecovery gamePlayError={true} scoreboardError={true} />);
+      customRender(<AppWithSelectiveRecovery gamePlayError={true} scoreboardError={true} />);
 
       // Both errors should be shown
       expect(screen.getByTestId('gameplay-retry')).toBeInTheDocument();
@@ -520,7 +521,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should log error with component stack context', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext="TestComponent">
           <ThrowError message="Test error" />
         </ErrorBoundary>
@@ -539,7 +540,7 @@ describe('ErrorBoundary Integration Tests', () => {
       const errorService = getMockedErrorService();
       const errorMessage = 'Specific component error';
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext="TestComponent">
           <ThrowError message={errorMessage} />
         </ErrorBoundary>
@@ -555,7 +556,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should log errors with different contexts separately', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <>
           <ErrorBoundary loggingContext="GamePlay">
             <ThrowError message="GamePlay Error" />
@@ -617,7 +618,7 @@ describe('ErrorBoundary Integration Tests', () => {
         </div>
       );
 
-      render(<ComplexLayout section1Error={true} section2Error={false} />);
+      customRender(<ComplexLayout section1Error={true} section2Error={false} />);
 
       // Only section 1 should show error
       expect(screen.getByTestId('error-1')).toBeInTheDocument();
@@ -666,7 +667,7 @@ describe('ErrorBoundary Integration Tests', () => {
         </div>
       );
 
-      render(<ComplexLayout section1Error={false} section2Error={true} />);
+      customRender(<ComplexLayout section1Error={false} section2Error={true} />);
 
       // Only section 2 should show error
       expect(screen.queryByTestId('error-1')).not.toBeInTheDocument();
@@ -695,7 +696,7 @@ describe('ErrorBoundary Integration Tests', () => {
         </div>
       );
 
-      render(<ComplexLayout section1Error={true} section2Error={true} />);
+      customRender(<ComplexLayout section1Error={true} section2Error={true} />);
 
       const fn = errorService.logError as MockedFunction<typeof errorService.logError>;
       expect(fn).toHaveBeenCalledTimes(2);
@@ -717,7 +718,7 @@ describe('ErrorBoundary Integration Tests', () => {
         throw new Error('Inner component error');
       };
 
-      render(
+      customRender(
         <QueryClientProvider client={queryClient}>
           <ErrorBoundary loggingContext="OuterBoundary" fallback={<div>Outer caught error</div>}>
             <InnerBoundaryThrows />
@@ -744,7 +745,7 @@ describe('ErrorBoundary Integration Tests', () => {
         </div>
       );
 
-      render(<NestedBoundariesLayout />);
+      customRender(<NestedBoundariesLayout />);
 
       const fn = errorService.logError as MockedFunction<typeof errorService.logError>;
       const callArgs = fn.mock.calls[0];
@@ -759,7 +760,7 @@ describe('ErrorBoundary Integration Tests', () => {
     it('should capture accurate componentStack for debugging', () => {
       const errorService = getMockedErrorService();
 
-      render(
+      customRender(
         <div data-testid="outer-div">
           <ErrorBoundary loggingContext="TestContext">
             <div data-testid="middle-div">
@@ -791,7 +792,7 @@ describe('ErrorBoundary Integration Tests', () => {
         }
       }
 
-      render(
+      customRender(
         <ErrorBoundary loggingContext="IdentityTest">
           <ErrorThrower />
         </ErrorBoundary>

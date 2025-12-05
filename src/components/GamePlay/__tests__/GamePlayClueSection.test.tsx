@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+import { customRender } from '../../../__mocks__/test-utils';
 import { GamePlayClueSection } from '../GamePlayClueSection';
 
 describe('GamePlayClueSection', () => {
@@ -23,28 +24,28 @@ describe('GamePlayClueSection', () => {
   };
 
   it('should render show next clue button when not on final clue', () => {
-    render(<GamePlayClueSection {...defaultProps} isOnFinalClue={false} />);
+    customRender(<GamePlayClueSection {...defaultProps} isOnFinalClue={false} />);
 
     expect(screen.getByText('Show Next Clue')).toBeInTheDocument();
     expect(screen.queryByText('No Winner')).not.toBeInTheDocument();
   });
 
   it('should render no winner button when on final clue', () => {
-    render(<GamePlayClueSection {...defaultProps} isOnFinalClue={true} />);
+    customRender(<GamePlayClueSection {...defaultProps} isOnFinalClue={true} />);
 
     expect(screen.getByText('No Winner')).toBeInTheDocument();
     expect(screen.queryByText('Show Next Clue')).not.toBeInTheDocument();
   });
 
   it('should disable show next clue button when max clues reached', () => {
-    render(<GamePlayClueSection {...defaultProps} isMaxCluesReached={true} />);
+    customRender(<GamePlayClueSection {...defaultProps} isMaxCluesReached={true} />);
 
     const button = screen.getByText('Show Next Clue');
     expect(button).toBeDisabled();
   });
 
   it('should enable show next clue button when max clues not reached', () => {
-    render(<GamePlayClueSection {...defaultProps} isMaxCluesReached={false} />);
+    customRender(<GamePlayClueSection {...defaultProps} isMaxCluesReached={false} />);
 
     const button = screen.getByText('Show Next Clue');
     expect(button).not.toBeDisabled();
@@ -54,7 +55,7 @@ describe('GamePlayClueSection', () => {
     const user = userEvent.setup();
     const onNextClue = vi.fn();
 
-    render(<GamePlayClueSection {...defaultProps} onNextClue={onNextClue} />);
+    customRender(<GamePlayClueSection {...defaultProps} onNextClue={onNextClue} />);
 
     await user.click(screen.getByText('Show Next Clue'));
 
@@ -65,7 +66,9 @@ describe('GamePlayClueSection', () => {
     const user = userEvent.setup();
     const onNoWinner = vi.fn();
 
-    render(<GamePlayClueSection {...defaultProps} isOnFinalClue={true} onNoWinner={onNoWinner} />);
+    customRender(
+      <GamePlayClueSection {...defaultProps} isOnFinalClue={true} onNoWinner={onNoWinner} />
+    );
 
     await user.click(screen.getByText('No Winner'));
 
@@ -73,19 +76,23 @@ describe('GamePlayClueSection', () => {
   });
 
   it('should display current clue text when clues have been read', () => {
-    render(<GamePlayClueSection {...defaultProps} cluesRead={2} currentClueText="Test clue" />);
+    customRender(
+      <GamePlayClueSection {...defaultProps} cluesRead={2} currentClueText="Test clue" />
+    );
 
     expect(screen.getByText('Test clue')).toBeInTheDocument();
   });
 
   it('should display clue count text when clues have been read', () => {
-    render(<GamePlayClueSection {...defaultProps} cluesRead={2} clueCountText="Clue 2 of 5" />);
+    customRender(
+      <GamePlayClueSection {...defaultProps} cluesRead={2} clueCountText="Clue 2 of 5" />
+    );
 
     expect(screen.getByText('Clue 2 of 5')).toBeInTheDocument();
   });
 
   it('should display press show next clue text when no clues read', () => {
-    render(
+    customRender(
       <GamePlayClueSection
         {...defaultProps}
         cluesRead={0}
@@ -102,7 +109,7 @@ describe('GamePlayClueSection', () => {
     const user = userEvent.setup();
     const onFinishGame = vi.fn();
 
-    render(<GamePlayClueSection {...defaultProps} onFinishGame={onFinishGame} />);
+    customRender(<GamePlayClueSection {...defaultProps} onFinishGame={onFinishGame} />);
 
     await user.click(screen.getByText('Finish Game'));
 
@@ -110,7 +117,7 @@ describe('GamePlayClueSection', () => {
   });
 
   it('should render ClueProgress component', () => {
-    render(
+    customRender(
       <GamePlayClueSection {...defaultProps} cluesRead={3} totalClues={5} pointsRemaining={2} />
     );
 
@@ -122,21 +129,23 @@ describe('GamePlayClueSection', () => {
   it('should render PreviousCluesDisplay with clue history', () => {
     const revealedClueHistory = ['First clue', 'Second clue', 'Third clue'];
 
-    render(<GamePlayClueSection {...defaultProps} revealedClueHistory={revealedClueHistory} />);
+    customRender(
+      <GamePlayClueSection {...defaultProps} revealedClueHistory={revealedClueHistory} />
+    );
 
     // PreviousCluesDisplay should render the clues (checking for at least one)
     expect(screen.getByText(/First clue/)).toBeInTheDocument();
   });
 
   it('should handle empty clue history', () => {
-    render(<GamePlayClueSection {...defaultProps} revealedClueHistory={[]} />);
+    customRender(<GamePlayClueSection {...defaultProps} revealedClueHistory={[]} />);
 
     // Should still render without errors
     expect(screen.getByText('Show Next Clue')).toBeInTheDocument();
   });
 
   it('should display all UI sections', () => {
-    const { container } = render(<GamePlayClueSection {...defaultProps} />);
+    const { container } = customRender(<GamePlayClueSection {...defaultProps} />);
 
     // Should have the clue section card
     expect(container.querySelector('.bg-secondary')).toBeInTheDocument();
@@ -147,7 +156,9 @@ describe('GamePlayClueSection', () => {
   });
 
   it('should handle transition from not final to final clue', () => {
-    const { rerender } = render(<GamePlayClueSection {...defaultProps} isOnFinalClue={false} />);
+    const { rerender } = customRender(
+      <GamePlayClueSection {...defaultProps} isOnFinalClue={false} />
+    );
 
     expect(screen.getByText('Show Next Clue')).toBeInTheDocument();
 
@@ -158,7 +169,7 @@ describe('GamePlayClueSection', () => {
   });
 
   it('should update clue text when new clue is revealed', () => {
-    const { rerender } = render(
+    const { rerender } = customRender(
       <GamePlayClueSection {...defaultProps} currentClueText="Clue 1" clueCountText="Clue 1 of 5" />
     );
 

@@ -21,6 +21,12 @@ import {
   ValidationError,
 } from '../errors';
 
+const silentTelemetryProvider: TelemetryProvider = {
+  captureError: () => {},
+  captureMessage: () => {},
+  setContext: () => {},
+};
+
 // Mock the gameSessionDB module
 vi.mock('../../lib/gameSessionDB', () => ({
   saveGameSession: vi.fn().mockResolvedValue(undefined),
@@ -60,6 +66,8 @@ describe('Error Integration Tests', () => {
   beforeEach(() => {
     ErrorService.resetInstance();
     resetGameStore();
+    const service = getErrorService();
+    service.setTelemetryProvider(silentTelemetryProvider);
   });
 
   afterEach(() => {
@@ -651,6 +659,7 @@ describe('Error Integration Tests', () => {
       it('should normalize null and undefined', () => {
         const handler1 = vi.fn();
         const service1 = getErrorService();
+        service1.setTelemetryProvider(silentTelemetryProvider);
         service1.addErrorHandler(handler1);
 
         service1.logError(null);
@@ -661,6 +670,7 @@ describe('Error Integration Tests', () => {
 
         const handler2 = vi.fn();
         const service2 = getErrorService();
+        service2.setTelemetryProvider(silentTelemetryProvider);
         service2.addErrorHandler(handler2);
 
         service2.logError(undefined);
@@ -785,6 +795,7 @@ describe('Error Integration Tests', () => {
     it('should not leak handler registrations between tests', () => {
       const handler1: ErrorHandler = vi.fn();
       const service1 = getErrorService();
+      service1.setTelemetryProvider(silentTelemetryProvider);
       service1.addErrorHandler(handler1);
 
       service1.logError(new AppError('Error 1'));
@@ -796,6 +807,7 @@ describe('Error Integration Tests', () => {
       // New instance should have no handlers
       const handler2: ErrorHandler = vi.fn();
       const service2 = getErrorService();
+      service2.setTelemetryProvider(silentTelemetryProvider);
       service2.addErrorHandler(handler2);
 
       service2.logError(new AppError('Error 2'));

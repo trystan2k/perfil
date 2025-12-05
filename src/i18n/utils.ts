@@ -11,6 +11,62 @@ import { SUPPORTED_LOCALES, type SupportedLocale } from './locales';
 // biome-ignore lint/suspicious/noExplicitAny: Translation objects have dynamic structure
 const translationsCache = new Map<string, Record<string, any>>();
 
+// Translation value can be string or nested object
+// Using 'unknown' to avoid circular reference, will narrow at runtime
+export type TranslationValue = string | Record<string, unknown> | null;
+
+export const translateFunction = (
+  translations: TranslationValue,
+  locale: SupportedLocale,
+  keyPath: string,
+  params?: Record<string, string | number>
+) => {
+  const keys = keyPath.split('.');
+  let value = translations;
+
+  if (!value) {
+    // Translation object not loaded yet
+    return keyPath;
+  }
+
+  // Navigate through the nested object
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    if (value && typeof value === 'object' && !Array.isArray(value) && key in value) {
+      value = (value as Record<string, unknown>)[key] as TranslationValue;
+    } else if (i === keys.length - 1 && params?.count !== undefined) {
+      // Last key doesn't exist, but we have count param - check for plural forms in current value
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        const count = Number(params.count);
+        const pluralSuffix = count === 1 ? '_one' : '_other';
+        const pluralKey = `${key}${pluralSuffix}`;
+        const pluralValue = (value as Record<string, unknown>)[pluralKey];
+
+        if (typeof pluralValue === 'string') {
+          // Handle interpolation in plural string
+          return pluralValue.replace(/\{\{(\w+)\}\}/g, (match, paramKey) => {
+            return params[paramKey]?.toString() || match;
+          });
+        }
+      }
+      console.warn(`Translation key not found: ${keyPath} for locale ${locale}`);
+      return keyPath;
+    } else {
+      console.warn(`Translation key not found: ${keyPath} for locale ${locale}`);
+      return keyPath; // Return key path as fallback
+    }
+  }
+
+  // Handle interpolation (simple {{key}} replacement)
+  if (typeof value === 'string' && params) {
+    return value.replace(/\{\{(\w+)\}\}/g, (match, key) => {
+      return params[key]?.toString() || match;
+    });
+  }
+
+  return typeof value === 'string' ? value : keyPath;
+};
+
 /**
  * Load translations for a specific locale
  * @param locale - The locale to load translations for
@@ -81,52 +137,13 @@ export async function getTranslations(locale: SupportedLocale) {
   const translations = await loadTranslations(locale);
 
   /**
-   * Get a translation by key path (e.g., 'gameSetup.title')
+   * Get a translation by key path (e.g., 'playersAdd.title')
    * @param keyPath - Dot-separated path to the translation key
    * @param params - Optional parameters for interpolation
    * @returns The translated string
    */
   return function t(keyPath: string, params?: Record<string, string | number>): string {
-    const keys = keyPath.split('.');
-    // biome-ignore lint/suspicious/noExplicitAny: Need to navigate dynamic translation object
-    let value: any = translations;
-
-    // Navigate through the nested object
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      if (value && typeof value === 'object' && key in value) {
-        value = value[key];
-      } else if (i === keys.length - 1 && params?.count !== undefined) {
-        // Last key doesn't exist, but we have count param - check for plural forms in current value
-        if (value && typeof value === 'object' && !Array.isArray(value)) {
-          const count = Number(params.count);
-          const pluralSuffix = count === 1 ? '_one' : '_other';
-          const pluralKey = `${key}${pluralSuffix}`;
-          const pluralValue = value[pluralKey];
-
-          if (typeof pluralValue === 'string') {
-            // Handle interpolation in plural string
-            return pluralValue.replace(/\{\{(\w+)\}\}/g, (match, paramKey) => {
-              return params[paramKey]?.toString() || match;
-            });
-          }
-        }
-        console.warn(`Translation key not found: ${keyPath} for locale ${locale}`);
-        return keyPath;
-      } else {
-        console.warn(`Translation key not found: ${keyPath} for locale ${locale}`);
-        return keyPath; // Return key path as fallback
-      }
-    }
-
-    // Handle interpolation
-    if (typeof value === 'string' && params) {
-      return value.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-        return params[key]?.toString() || match;
-      });
-    }
-
-    return typeof value === 'string' ? value : keyPath;
+    return translateFunction(translations, locale, keyPath, params);
   };
 }
 

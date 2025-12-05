@@ -9,6 +9,6 @@ if (!sessionId) {
 }
 ---
 
-<Layout title="Perfil - Game Session">
-	<GamePlayWithProvider sessionId={sessionId} client:only="react" />
+<Layout title="gamePlay.title">
+	<GamePlayWithProvider sessionId={sessionId} client:load />
 </Layout>

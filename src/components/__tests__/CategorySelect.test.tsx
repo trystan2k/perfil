@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ReactElement } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
+import { customRender } from '../../__mocks__/test-utils';
 import { CategorySelect } from '../CategorySelect';
 
 // Mock the game store - use vi.hoisted to ensure mocks are available before vi.mock
@@ -75,7 +76,7 @@ const queryClient = new QueryClient({
 });
 
 const renderWithProviders = (component: ReactElement) => {
-  return render(<QueryClientProvider client={queryClient}>{component}</QueryClientProvider>);
+  return customRender(<QueryClientProvider client={queryClient}>{component}</QueryClientProvider>);
 };
 
 describe('CategorySelect', () => {
