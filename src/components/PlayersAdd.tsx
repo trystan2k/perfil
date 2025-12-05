@@ -10,7 +10,7 @@ import { navigateWithLocale } from '@/i18n/locales';
 import { MAX_PLAYERS } from '@/lib/constants';
 import { useGameStore } from '@/stores/gameStore';
 
-export function GameSetup() {
+export function PlayersAdd() {
   const { t } = useTranslation();
   const [playerName, setPlayerName] = useState('');
   const [playerNames, setPlayerNames] = useState<string[]>([]);
@@ -32,7 +32,7 @@ export function GameSetup() {
 
     // Check for duplicate names (case-insensitive)
     if (playerNames.some((name) => name.toLowerCase() === trimmedName.toLowerCase())) {
-      setGlobalError('gameSetup.errors.duplicateName', true);
+      setGlobalError('playersAdd.errors.duplicateName', true);
       return;
     }
 
@@ -58,7 +58,7 @@ export function GameSetup() {
     } catch (err) {
       console.error('Failed to create game:', err);
       // Use global error handler for critical failures
-      setGlobalError('gameSetup.errors.failedToCreateGame');
+      setGlobalError('playersAdd.errors.failedToCreateGame');
     }
   };
 
@@ -75,19 +75,19 @@ export function GameSetup() {
         <Card className="w-full">
           <CardHeader>
             <CardTitle as="h3" className="text-2xl">
-              {t('gameSetup.title')}
+              {t('playersAdd.title')}
             </CardTitle>
-            <CardDescription>{t('gameSetup.description')}</CardDescription>
+            <CardDescription>{t('playersAdd.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Add Player Input */}
             <div className="space-y-2">
-              <Label htmlFor="playerName">{t('gameSetup.playerNameLabel')}</Label>
+              <Label htmlFor="playerName">{t('playersAdd.playerNameLabel')}</Label>
               <div className="flex gap-2">
                 <Input
                   id="playerName"
                   type="text"
-                  placeholder={t('gameSetup.playerNamePlaceholder')}
+                  placeholder={t('playersAdd.playerNamePlaceholder')}
                   value={playerName}
                   onChange={(e) => setPlayerName(e.target.value)}
                   onKeyDown={handleKeyDown}
@@ -98,7 +98,7 @@ export function GameSetup() {
                   onClick={handleAddPlayer}
                   disabled={!playerName.trim() || playerNames.length >= MAX_PLAYERS}
                 >
-                  {t('gameSetup.addButton')}
+                  {t('playersAdd.addButton')}
                 </Button>
               </div>
             </div>
@@ -107,7 +107,7 @@ export function GameSetup() {
             {playerNames.length > 0 && (
               <div className="space-y-2">
                 <Label>
-                  {t('gameSetup.playersLabel', { count: playerNames.length, max: MAX_PLAYERS })}
+                  {t('playersAdd.playersLabel', { count: playerNames.length, max: MAX_PLAYERS })}
                 </Label>
                 <div className="space-y-2">
                   {playerNames.map((name, index) => (
@@ -120,7 +120,7 @@ export function GameSetup() {
                         variant="ghost"
                         size="icon"
                         onClick={() => handleRemovePlayer(index)}
-                        aria-label={t('gameSetup.removePlayerAriaLabel', { name })}
+                        aria-label={t('playersAdd.removePlayerAriaLabel', { name })}
                       >
                         <X className="h-5 w-5" />
                       </Button>
@@ -137,7 +137,7 @@ export function GameSetup() {
               className="w-full"
               size="lg"
             >
-              {t('gameSetup.startButton')}
+              {t('playersAdd.startButton')}
             </Button>
           </CardContent>
         </Card>

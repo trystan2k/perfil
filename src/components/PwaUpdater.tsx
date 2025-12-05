@@ -1,10 +1,12 @@
 import { useRegisterSW } from 'virtual:pwa-register/react';
+import { useTranslation } from '@/hooks/useTranslations';
 
 export function PwaUpdater() {
   const {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW();
+  const { t } = useTranslation();
 
   const handleUpdate = () => {
     updateServiceWorker(true);
@@ -21,23 +23,23 @@ export function PwaUpdater() {
   return (
     <div className="pwa-updater" role="alert" aria-live="polite">
       <div className="pwa-updater-content">
-        <p className="pwa-updater-message">A new version is available!</p>
+        <p className="pwa-updater-message">{t('pwaUpdater.message')}</p>
         <div className="pwa-updater-actions">
           <button
             type="button"
             onClick={handleUpdate}
             className="pwa-updater-button primary"
-            aria-label="Reload to update application"
+            aria-label={t('pwaUpdater.reloadAriaLabel')}
           >
-            Reload
+            {t('pwaUpdater.reload')}
           </button>
           <button
             type="button"
             onClick={handleDismiss}
             className="pwa-updater-button secondary"
-            aria-label="Dismiss update notification"
+            aria-label={t('pwaUpdater.dismissAriaLabel')}
           >
-            Dismiss
+            {t('pwaUpdater.dismiss')}
           </button>
         </div>
       </div>

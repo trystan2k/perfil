@@ -1,6 +1,7 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { customRender } from '../../__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import { GameError } from '../../lib/errors';
 import { useGameStore } from '../../stores/gameStore';
@@ -58,7 +59,7 @@ describe('ErrorStateProvider', () => {
 
   describe('Rendering', () => {
     it('should render children when no error', () => {
-      render(
+      customRender(
         <ErrorStateProvider>
           <div data-testid="child-content">Test Content</div>
         </ErrorStateProvider>
@@ -73,7 +74,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Test error message', { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div data-testid="child-content">Test Content</div>
         </ErrorStateProvider>
@@ -88,7 +89,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Game session not found', { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -102,7 +103,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('', { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -117,7 +118,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Test error', { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -134,7 +135,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Error without recovery path'),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -149,7 +150,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Informative error', { informative: true }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -165,7 +166,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Informative error', { informative: true }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -187,7 +188,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Critical error', { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -207,7 +208,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Test error', { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -228,7 +229,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Test error', { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -243,7 +244,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Test error', { informative: false }),
       });
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -270,7 +271,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('First error', { informative: false }),
       });
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -302,7 +303,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Test error', { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -316,7 +317,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Test error', { informative: false }),
       });
 
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -343,7 +344,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError('Test error', { informative: false }),
       });
 
-      const { unmount } = render(
+      const { unmount } = customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -359,7 +360,7 @@ describe('ErrorStateProvider', () => {
 
   describe('Integration scenarios', () => {
     it('should handle multiple error state changes', () => {
-      const { rerender } = render(
+      const { rerender } = customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>
@@ -412,7 +413,7 @@ describe('ErrorStateProvider', () => {
         error: new GameError(longMessage, { informative: false }),
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <div>Content</div>
         </ErrorStateProvider>

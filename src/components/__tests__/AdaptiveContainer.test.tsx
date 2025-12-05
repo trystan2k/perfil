@@ -1,12 +1,13 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
+import { customRender } from '../../__mocks__/test-utils';
 import { AdaptiveContainer } from '../AdaptiveContainer';
 
 describe('AdaptiveContainer', () => {
   describe('Rendering', () => {
     it('should render children correctly', () => {
-      render(
+      customRender(
         <AdaptiveContainer>
           <div data-testid="child-content">Test Content</div>
         </AdaptiveContainer>
@@ -17,7 +18,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should render multiple children correctly', () => {
-      render(
+      customRender(
         <AdaptiveContainer>
           <div data-testid="child-1">Child 1</div>
           <div data-testid="child-2">Child 2</div>
@@ -31,20 +32,20 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should render text nodes as children', () => {
-      render(<AdaptiveContainer>Plain text content</AdaptiveContainer>);
+      customRender(<AdaptiveContainer>Plain text content</AdaptiveContainer>);
 
       expect(screen.getByText('Plain text content')).toBeInTheDocument();
     });
 
     it('should render with empty children', () => {
-      const { container } = render(<AdaptiveContainer>{null}</AdaptiveContainer>);
+      const { container } = customRender(<AdaptiveContainer>{null}</AdaptiveContainer>);
 
       // Should render the container div
       expect(container.querySelector('div')).toBeInTheDocument();
     });
 
     it('should render as a div element', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer>
           <span>Content</span>
         </AdaptiveContainer>
@@ -57,7 +58,7 @@ describe('AdaptiveContainer', () => {
 
   describe('maxWidth prop - applies correct Tailwind classes', () => {
     it('should apply max-w-sm class for maxWidth="sm"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="sm">
           <span>Content</span>
         </AdaptiveContainer>
@@ -68,7 +69,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply max-w-md class for maxWidth="md"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="md">
           <span>Content</span>
         </AdaptiveContainer>
@@ -79,7 +80,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply max-w-lg class for maxWidth="lg"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="lg">
           <span>Content</span>
         </AdaptiveContainer>
@@ -90,7 +91,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply max-w-xl class for maxWidth="xl"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="xl">
           <span>Content</span>
         </AdaptiveContainer>
@@ -101,7 +102,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply max-w-2xl class for maxWidth="2xl"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="2xl">
           <span>Content</span>
         </AdaptiveContainer>
@@ -112,7 +113,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply max-w-4xl class for maxWidth="4xl"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="4xl">
           <span>Content</span>
         </AdaptiveContainer>
@@ -123,7 +124,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply max-w-6xl class for maxWidth="6xl"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="6xl">
           <span>Content</span>
         </AdaptiveContainer>
@@ -134,7 +135,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply max-w-7xl class for maxWidth="7xl"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="7xl">
           <span>Content</span>
         </AdaptiveContainer>
@@ -145,7 +146,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply max-w-full class for maxWidth="full"', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="full">
           <span>Content</span>
         </AdaptiveContainer>
@@ -158,7 +159,7 @@ describe('AdaptiveContainer', () => {
 
   describe('Default maxWidth', () => {
     it('should apply max-w-7xl when maxWidth prop is not specified', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer>
           <span>Content</span>
         </AdaptiveContainer>
@@ -169,7 +170,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply default max-w-7xl with undefined maxWidth', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth={undefined}>
           <span>Content</span>
         </AdaptiveContainer>
@@ -182,7 +183,7 @@ describe('AdaptiveContainer', () => {
 
   describe('Default classes', () => {
     it('should always apply container class', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer>
           <span>Content</span>
         </AdaptiveContainer>
@@ -193,7 +194,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should always apply mx-auto class', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer>
           <span>Content</span>
         </AdaptiveContainer>
@@ -204,7 +205,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should always apply px-4 class', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer>
           <span>Content</span>
         </AdaptiveContainer>
@@ -215,7 +216,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should always apply sm:px-6 class', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer>
           <span>Content</span>
         </AdaptiveContainer>
@@ -226,7 +227,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should always apply lg:px-8 class', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer>
           <span>Content</span>
         </AdaptiveContainer>
@@ -237,7 +238,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should have all default classes together', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer>
           <span>Content</span>
         </AdaptiveContainer>
@@ -257,7 +258,7 @@ describe('AdaptiveContainer', () => {
 
   describe('className prop - merging with cn utility', () => {
     it('should merge custom className with default classes', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer className="custom-class">
           <span>Content</span>
         </AdaptiveContainer>
@@ -269,7 +270,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should merge multiple custom classes', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer className="custom-class another-class">
           <span>Content</span>
         </AdaptiveContainer>
@@ -280,7 +281,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should merge custom className with specific maxWidth', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="md" className="custom-class">
           <span>Content</span>
         </AdaptiveContainer>
@@ -291,7 +292,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should handle conflicting Tailwind classes using cn utility (twMerge)', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer className="max-w-sm">
           <span>Content</span>
         </AdaptiveContainer>
@@ -304,7 +305,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should apply custom className alongside default padding classes', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer className="bg-white rounded-lg shadow">
           <span>Content</span>
         </AdaptiveContainer>
@@ -315,7 +316,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should handle empty string className', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer className="">
           <span>Content</span>
         </AdaptiveContainer>
@@ -329,7 +330,7 @@ describe('AdaptiveContainer', () => {
   describe('Ref forwarding', () => {
     it('should forward ref correctly', () => {
       const ref = createRef<HTMLDivElement>();
-      render(
+      customRender(
         <AdaptiveContainer ref={ref}>
           <span>Content</span>
         </AdaptiveContainer>
@@ -340,7 +341,7 @@ describe('AdaptiveContainer', () => {
 
     it('should allow accessing div properties through ref', () => {
       const ref = createRef<HTMLDivElement>();
-      render(
+      customRender(
         <AdaptiveContainer ref={ref}>
           <span>Content</span>
         </AdaptiveContainer>
@@ -352,7 +353,7 @@ describe('AdaptiveContainer', () => {
 
     it('should allow manipulating DOM through ref', () => {
       const ref = createRef<HTMLDivElement>();
-      render(
+      customRender(
         <AdaptiveContainer ref={ref}>
           <span>Content</span>
         </AdaptiveContainer>
@@ -370,7 +371,7 @@ describe('AdaptiveContainer', () => {
         capturedElement = element;
       };
 
-      render(
+      customRender(
         <AdaptiveContainer ref={refCallback}>
           <span>Content</span>
         </AdaptiveContainer>
@@ -382,7 +383,7 @@ describe('AdaptiveContainer', () => {
 
     it('should maintain ref through updates', () => {
       const ref = createRef<HTMLDivElement>();
-      const { rerender } = render(
+      const { rerender } = customRender(
         <AdaptiveContainer ref={ref}>
           <span>Original</span>
         </AdaptiveContainer>
@@ -403,7 +404,7 @@ describe('AdaptiveContainer', () => {
 
   describe('HTML div props - pass-through behavior', () => {
     it('should forward data attributes', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer data-testid="adaptive-container" data-custom="value">
           <span>Content</span>
         </AdaptiveContainer>
@@ -415,7 +416,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should forward id attribute', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer id="main-container">
           <span>Content</span>
         </AdaptiveContainer>
@@ -426,7 +427,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should forward title attribute', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer title="Container Title">
           <span>Content</span>
         </AdaptiveContainer>
@@ -437,7 +438,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should forward role attribute', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer role="region">
           <span>Content</span>
         </AdaptiveContainer>
@@ -448,7 +449,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should forward aria-label attribute', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer aria-label="Main content area">
           <span>Content</span>
         </AdaptiveContainer>
@@ -459,7 +460,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should forward aria-labelledby attribute', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer aria-labelledby="heading-id">
           <span>Content</span>
         </AdaptiveContainer>
@@ -470,7 +471,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should forward aria-describedby attribute', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer aria-describedby="description-id">
           <span>Content</span>
         </AdaptiveContainer>
@@ -481,7 +482,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should forward multiple props together', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer
           id="container"
           data-testid="test-container"
@@ -502,7 +503,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should handle style prop (inline styles)', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer style={{ minHeight: '200px' }}>
           <span>Content</span>
         </AdaptiveContainer>
@@ -513,7 +514,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should handle multiple data attributes', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer data-feature="enabled" data-version="1.0" data-status="active">
           <span>Content</span>
         </AdaptiveContainer>
@@ -540,7 +541,7 @@ describe('AdaptiveContainer', () => {
 
   describe('Component composition and integration', () => {
     it('should work with complex nested children', () => {
-      render(
+      customRender(
         <AdaptiveContainer>
           <div data-testid="outer">
             <div data-testid="inner">
@@ -556,7 +557,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should work with multiple maxWidth sizes in a test', () => {
-      const { rerender } = render(
+      const { rerender } = customRender(
         <AdaptiveContainer maxWidth="sm">
           <span>Small</span>
         </AdaptiveContainer>
@@ -576,7 +577,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should combine className and maxWidth prop correctly', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="4xl" className="pt-8 pb-12">
           <span>Content</span>
         </AdaptiveContainer>
@@ -590,7 +591,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should maintain all classes in className attribute', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer maxWidth="xl" className="custom">
           <span>Content</span>
         </AdaptiveContainer>
@@ -611,7 +612,7 @@ describe('AdaptiveContainer', () => {
 
   describe('Edge cases and robustness', () => {
     it('should handle rapid re-renders', () => {
-      const { rerender } = render(
+      const { rerender } = customRender(
         <AdaptiveContainer maxWidth="sm">
           <span>Content 1</span>
         </AdaptiveContainer>
@@ -654,7 +655,7 @@ describe('AdaptiveContainer', () => {
       };
 
       widths.forEach((width) => {
-        const { container } = render(
+        const { container } = customRender(
           <AdaptiveContainer maxWidth={width}>
             <span>Content</span>
           </AdaptiveContainer>
@@ -666,7 +667,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should handle special characters in data attributes', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer data-test="value-with-dash" data-value="123">
           <span>Content</span>
         </AdaptiveContainer>
@@ -678,7 +679,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should handle undefined and null in spread props gracefully', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer data-undefined={undefined} title="">
           <span>Content</span>
         </AdaptiveContainer>
@@ -692,7 +693,7 @@ describe('AdaptiveContainer', () => {
 
   describe('Accessibility compliance', () => {
     it('should be keyboard accessible with proper role', () => {
-      render(
+      customRender(
         <AdaptiveContainer role="region" aria-label="Main content">
           <button type="button">Click me</button>
         </AdaptiveContainer>
@@ -703,7 +704,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should support semantic HTML attributes', () => {
-      const { container } = render(
+      const { container } = customRender(
         <AdaptiveContainer role="main" aria-label="Main container">
           <span>Content</span>
         </AdaptiveContainer>
@@ -715,7 +716,7 @@ describe('AdaptiveContainer', () => {
     });
 
     it('should have predictable structure for screen readers', () => {
-      render(
+      customRender(
         <AdaptiveContainer role="region" aria-label="Product details">
           <h1>Product Title</h1>
           <p>Product description</p>

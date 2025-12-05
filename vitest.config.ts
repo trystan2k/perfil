@@ -14,6 +14,7 @@ export default defineConfig({
     },
   },
   test: {
+    root: path.resolve(__dirname, './src'),
     environment: 'jsdom',
     maxWorkers: '50%',
     globals: true,
@@ -27,6 +28,7 @@ export default defineConfig({
         functions: 80,
         lines: 80,
       },
+      exclude: ['**/node_modules/**', '**/dist/**', '**/src/**/__mocks__/**'],
     },
   },
 });

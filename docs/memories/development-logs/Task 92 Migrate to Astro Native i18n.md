@@ -1,3 +1,11 @@
+---
+title: 'Task 92: Migrate to Astro Native i18n'
+type: note
+permalink: development-logs/task-92-migrate-to-astro-native-i18n
+tags:
+- task-92,i18n,astro,migration,completed
+---
+
 # Task 92: Migrate to Astro Native i18n
 
 **Date:** 2025-12-03
@@ -5,7 +13,8 @@
 **Status:** ✅ Complete
 
 ## Overview
-Successfully migrated the Perfil app from client-side i18next to Astro's native server-side i18n routing system.
+Successfully migrated the Perfil app from client-side i18next to Astro's native 
+server-side i18n routing system.
 
 ## Objectives
 - Eliminate FOUC (Flash of Unstyled Content) caused by client-side i18n
@@ -52,9 +61,9 @@ Refactored 11 components to use new translation system:
 **Created (5):**
 - `src/i18n/utils.ts` - Server-side translation utilities
 - `src/hooks/useTranslations.ts` - Client-side translation hook
-- `src/pages/[locale]/index.astro` - Localized home page
-- `src/pages/[locale]/game.astro` - Localized game page
-- Pages reorganized to `[locale]/` structure
+- `src/pages//index.astro` - Localized home page
+- `src/pages//game.astro` - Localized game page
+- Pages reorganized to `/` structure
 
 **Deleted (6):**
 - `src/i18n/config.ts` - Old i18next config
@@ -78,10 +87,13 @@ Refactored 11 components to use new translation system:
 - ✅ **Build:** Production-ready
 
 ## Key Learnings
-1. **Lazy State Initialization:** Use `useState(() => window.__TRANSLATIONS__)` to avoid race conditions during hydration
-2. **Server Props > Client Hooks:** Pass translation strings as props to avoid SSR warnings
+1. **Lazy State Initialization:** Use `useState(() => window.__TRANSLATIONS__)` 
+to avoid race conditions during hydration
+2. **Server Props > Client Hooks:** Pass translation strings as props to avoid 
+SSR warnings
 3. **E2E Test Migration:** URL-based locales require complete E2E test rewrites
-4. **Window Object is OK:** Using `window.__TRANSLATIONS__` is a common, acceptable pattern for Astro + React
+4. **Window Object is OK:** Using `window.__TRANSLATIONS__` is a common, 
+acceptable pattern for Astro + React
 
 ## Benefits Achieved
 - ✅ No FOUC - translations load server-side
@@ -94,3 +106,4 @@ Refactored 11 components to use new translation system:
 ## Related Documentation
 - Lesson learned added: "NEVER RUN COMPLETE-CHECK MULTIPLE TIMES UNNECESSARILY"
 - Updated dev workflow understanding
+

@@ -1,7 +1,8 @@
-import { render, screen, within } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Player } from '@/types/models';
+import { customRender } from '../../__mocks__/test-utils';
 import { RemovePointsDialog } from '../RemovePointsDialog';
 
 const createPlayer = (id: string, name: string, score = 10): Player => ({
@@ -20,7 +21,7 @@ describe('RemovePointsDialog', () => {
 
   it('renders title and description with player name', () => {
     const player = createPlayer('1', 'Alice', 12);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -36,7 +37,7 @@ describe('RemovePointsDialog', () => {
   it('validates empty amount', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Alice', 5);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -57,7 +58,7 @@ describe('RemovePointsDialog', () => {
   it('rejects non-numeric amounts', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Bob', 8);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -84,7 +85,7 @@ describe('RemovePointsDialog', () => {
   it('rejects negative amounts', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Bob', 8);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -107,7 +108,7 @@ describe('RemovePointsDialog', () => {
   it('rejects zero amount', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Carol', 8);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -130,7 +131,7 @@ describe('RemovePointsDialog', () => {
   it('rejects amount greater than player score', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Dave', 3);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -155,7 +156,7 @@ describe('RemovePointsDialog', () => {
   it('enables confirm for valid amount and calls onConfirm', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Eve', 10);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -177,7 +178,7 @@ describe('RemovePointsDialog', () => {
   it('pressing Enter triggers confirmation', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Frank', 6);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -196,7 +197,7 @@ describe('RemovePointsDialog', () => {
   it('cancel button closes dialog without calling onConfirm', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Grace', 6);
-    render(
+    customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}
@@ -215,7 +216,7 @@ describe('RemovePointsDialog', () => {
   it('resets state when closed and reopened', async () => {
     const user = userEvent.setup();
     const player = createPlayer('1', 'Hank', 12);
-    const { rerender } = render(
+    const { rerender } = customRender(
       <RemovePointsDialog
         open={true}
         onOpenChange={onOpenChange}

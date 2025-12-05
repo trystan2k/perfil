@@ -20,12 +20,25 @@
     "sessionNotFound": "Game session not found.",
     "sessionCorrupted": "Game session is corrupted."
   },
+  "layout": {
+    "headerAriaLabel": "Site header",
+    "skipToMain": "Skip to main content"
+  },
   "languageSwitcher": {
     "ariaLabel": "Language selector",
     "switchTo": "Switch to {{language}}"
   },
-  "gameSetup": {
-    "title": "Game Setup",
+  "themeSwitcher": {
+    "ariaLabel": "Theme switcher",
+    "switchTo": "Switch to {{theme}} theme",
+    "options": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "playersAdd": {
+    "title": "Add Players",
     "description": "Add players to start a new game. You need at least 2 players.",
     "playerNameLabel": "Player Name",
     "playerNamePlaceholder": "Enter player name",
@@ -173,6 +186,13 @@
       "samePlayers": "Same Players",
       "restartGame": "Restart Game"
     }
+  },
+  "pwaUpdater": {
+    "message": "A new version is available!",
+    "reload": "Reload",
+    "dismiss": "Dismiss",
+    "reloadAriaLabel": "Reload to update application",
+    "dismissAriaLabel": "Dismiss update notification"
   },
   "noGamePage": {
     "title": "No Game in Progress",

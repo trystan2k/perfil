@@ -1,11 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { customRender } from '../../__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import { ClueProgress } from '../ClueProgress';
 
 describe('ClueProgress', () => {
   it('should render points remaining correctly', () => {
-    render(
+    customRender(
       <ClueProgress cluesRevealed={3} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={18} />
     );
 
@@ -13,7 +14,7 @@ describe('ClueProgress', () => {
   });
 
   it('should render correct number of clue dots', () => {
-    const { container } = render(
+    const { container } = customRender(
       <ClueProgress cluesRevealed={5} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={16} />
     );
 
@@ -22,7 +23,7 @@ describe('ClueProgress', () => {
   });
 
   it('should highlight revealed clues correctly', () => {
-    const { container } = render(
+    const { container } = customRender(
       <ClueProgress cluesRevealed={5} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={16} />
     );
 
@@ -42,7 +43,7 @@ describe('ClueProgress', () => {
   });
 
   it('should render progressbar with correct aria attributes', () => {
-    render(
+    customRender(
       <ClueProgress
         cluesRevealed={10}
         totalClues={DEFAULT_CLUES_PER_PROFILE}
@@ -61,7 +62,7 @@ describe('ClueProgress', () => {
   });
 
   it('should handle no clues revealed', () => {
-    const { container } = render(
+    const { container } = customRender(
       <ClueProgress cluesRevealed={0} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={20} />
     );
 
@@ -78,7 +79,7 @@ describe('ClueProgress', () => {
   });
 
   it('should handle all clues revealed', () => {
-    const { container } = render(
+    const { container } = customRender(
       <ClueProgress cluesRevealed={20} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={1} />
     );
 
@@ -94,7 +95,7 @@ describe('ClueProgress', () => {
   });
 
   it('should handle first clue revealed', () => {
-    const { container } = render(
+    const { container } = customRender(
       <ClueProgress cluesRevealed={1} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={20} />
     );
 
@@ -113,7 +114,7 @@ describe('ClueProgress', () => {
   });
 
   it('should update when clues are revealed dynamically', () => {
-    const { container, rerender } = render(
+    const { container, rerender } = customRender(
       <ClueProgress cluesRevealed={5} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={16} />
     );
 

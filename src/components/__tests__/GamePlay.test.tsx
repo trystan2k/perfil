@@ -1,9 +1,10 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
+import { customRender } from '../../__mocks__/test-utils';
 import * as gameSessionDB from '../../lib/gameSessionDB';
 import { ErrorStateProvider } from '../ErrorStateProvider';
 import { GamePlay } from '../GamePlay';
@@ -77,7 +78,7 @@ describe('GamePlay Component', () => {
   describe('Initial Rendering', () => {
     it('should show "gamePlay.errors.loadFailed" message when status is pending', () => {
       // Store starts in pending state by default
-      render(
+      customRender(
         <ErrorStateProvider>
           <GamePlay />
         </ErrorStateProvider>
@@ -94,7 +95,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.endGame();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.getByText('Game Complete!')).toBeInTheDocument();
       expect(screen.getByText('Redirecting to scoreboard...')).toBeInTheDocument();
@@ -107,7 +108,7 @@ describe('GamePlay Component', () => {
         currentTurn: null,
       });
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <GamePlay />
         </ErrorStateProvider>
@@ -123,7 +124,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(
+      customRender(
         <ErrorStateProvider>
           <GamePlay />
         </ErrorStateProvider>
@@ -138,7 +139,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const state = useGameStore.getState();
       expect(state.status).toBe('active');
@@ -154,7 +155,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(
         screen.getByText('Press "Show Next Clue" to reveal the first clue')
@@ -168,7 +169,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places now)
@@ -181,7 +182,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places now)
@@ -209,7 +210,7 @@ describe('GamePlay Component', () => {
         store.nextClue();
       }
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.getByText(`Clue 5 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Use getAllByText and check the first one in the main clue display area
@@ -223,7 +224,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.getByRole('button', { name: 'Show Next Clue' })).toBeInTheDocument();
     });
@@ -233,7 +234,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const button = screen.getByRole('button', { name: 'Show Next Clue' });
 
@@ -252,7 +253,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       const button = screen.getByRole('button', { name: 'Show Next Clue' });
 
@@ -280,7 +281,7 @@ describe('GamePlay Component', () => {
         store.nextClue();
       }
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       // When on final clue, "Show Next Clue" button is hidden
       expect(screen.queryByRole('button', { name: 'Show Next Clue' })).not.toBeInTheDocument();
@@ -300,7 +301,7 @@ describe('GamePlay Component', () => {
         store.nextClue();
       }
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       // Find the "No Winner" button
       const noWinnerButton = screen.getByRole('button', { name: /No Winner/i });
@@ -329,7 +330,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 2);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       // Skip button is no longer part of the UI - skip functionality is now through Round Summary
       const buttons = screen.getAllByRole('button');
@@ -342,7 +343,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies', 'Sports'], 2);
       store.nextClue(); // Show first clue
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       // Skip Profile button is no longer part of the main UI layout
       // The skip functionality is still available through the Round Summary modal
@@ -358,7 +359,7 @@ describe('GamePlay Component', () => {
 
       const initialProfileId = useGameStore.getState().currentProfile?.id;
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       // Verify profile is still the same (no confirmation needed since button doesn't exist)
       const finalProfileId = useGameStore.getState().currentProfile?.id;
@@ -383,7 +384,7 @@ describe('GamePlay Component', () => {
     });
 
     it('should render without loading when no sessionId provided and no game in store', () => {
-      render(
+      customRender(
         <ErrorStateProvider>
           <GamePlay />
         </ErrorStateProvider>
@@ -402,7 +403,7 @@ describe('GamePlay Component', () => {
       // Mock loadGameSession to return a never-resolving promise to keep component in loading state
       vi.mocked(gameSessionDB.loadGameSession).mockImplementation(() => new Promise(() => {}));
 
-      render(<GamePlay sessionId="test-session-123" />);
+      customRender(<GamePlay sessionId="test-session-123" />);
 
       expect(screen.getByText('Loading Game')).toBeInTheDocument();
       expect(screen.getByText('Loading game session...')).toBeInTheDocument();
@@ -411,7 +412,7 @@ describe('GamePlay Component', () => {
     it('should call setError when session not found', async () => {
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValueOnce(null);
 
-      render(<GamePlay sessionId="non-existent-session" />);
+      customRender(<GamePlay sessionId="non-existent-session" />);
 
       // Wait for store to be updated with i18n key
       await waitFor(() => {
@@ -425,7 +426,7 @@ describe('GamePlay Component', () => {
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       vi.mocked(gameSessionDB.loadGameSession).mockRejectedValueOnce(new Error('Database error'));
 
-      render(<GamePlay sessionId="failing-session" />);
+      customRender(<GamePlay sessionId="failing-session" />);
 
       // Wait for store to be updated with corrupted session error (i18n key)
       await waitFor(() => {
@@ -445,7 +446,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
 
       // Even with sessionId, should not load from storage because game already exists
-      render(<GamePlay sessionId="some-session" />);
+      customRender(<GamePlay sessionId="some-session" />);
 
       // Should immediately show the game (no loading, no storage call)
       expect(screen.getByText('Game Play')).toBeInTheDocument();
@@ -463,7 +464,7 @@ describe('GamePlay Component', () => {
           })
       );
 
-      const { unmount } = render(<GamePlay sessionId="failing-session" />);
+      const { unmount } = customRender(<GamePlay sessionId="failing-session" />);
 
       // Unmount immediately (sets cancelled = true)
       unmount();
@@ -508,7 +509,7 @@ describe('GamePlay Component', () => {
           })
       );
 
-      const { unmount } = render(<GamePlay sessionId="test-session" />);
+      const { unmount } = customRender(<GamePlay sessionId="test-session" />);
 
       // Unmount before the load completes (sets cancelled = true, mounted = false)
       unmount();
@@ -528,7 +529,7 @@ describe('GamePlay Component', () => {
           })
       );
 
-      const { unmount } = render(<GamePlay sessionId="not-found-session" />);
+      const { unmount } = customRender(<GamePlay sessionId="not-found-session" />);
 
       // Unmount before the load completes (sets mounted = false)
       unmount();
@@ -550,7 +551,7 @@ describe('GamePlay Component', () => {
           })
       );
 
-      const { unmount } = render(<GamePlay sessionId="error-session" />);
+      const { unmount } = customRender(<GamePlay sessionId="error-session" />);
 
       // Unmount before the error occurs (sets mounted = false)
       unmount();
@@ -566,7 +567,7 @@ describe('GamePlay Component', () => {
       // Mock loadGameSession to return null quickly
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(null);
 
-      const { unmount } = render(<GamePlay sessionId="quick-session" />);
+      const { unmount } = customRender(<GamePlay sessionId="quick-session" />);
 
       // Unmount immediately
       unmount();
@@ -584,7 +585,7 @@ describe('GamePlay Component', () => {
       store.loadProfiles(mockProfiles);
       store.startGame(['Movies']);
 
-      const { unmount } = render(<GamePlay sessionId="some-session" />);
+      const { unmount } = customRender(<GamePlay sessionId="some-session" />);
 
       // Unmount immediately (this should hit the mounted check in the early return)
       unmount();
@@ -628,7 +629,7 @@ describe('GamePlay Component', () => {
 
       vi.mocked(gameSessionDB.loadGameSession).mockResolvedValueOnce(mockSession);
 
-      render(<GamePlay sessionId="loaded-session-123" />);
+      customRender(<GamePlay sessionId="loaded-session-123" />);
 
       // Wait for loading to complete and game to render
       await screen.findByText('Game Play');
@@ -654,7 +655,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.getByText('Award Points')).toBeInTheDocument();
     });
@@ -663,7 +664,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
 
@@ -682,7 +683,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
 
@@ -696,7 +697,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.getByText('Show at least one clue to award points')).toBeInTheDocument();
     });
@@ -706,7 +707,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
 
@@ -721,7 +722,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.queryByText('Show at least one clue to award points')).not.toBeInTheDocument();
     });
@@ -734,7 +735,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       const playerToClick = players[1]; // Click second player
@@ -769,7 +770,7 @@ describe('GamePlay Component', () => {
           .players.map((p, i) => ({ ...p, score: (i + 1) * 10 }));
         useGameStore.setState({ players });
 
-        render(<GamePlay />);
+        customRender(<GamePlay />);
 
         for (const player of players) {
           const removeButton = screen.getByRole('button', {
@@ -788,7 +789,7 @@ describe('GamePlay Component', () => {
         const updated = players.map((p, i) => ({ ...p, score: i === 0 ? 0 : 10 }));
         useGameStore.setState({ players: updated });
 
-        render(<GamePlay />);
+        customRender(<GamePlay />);
 
         const first = updated[0];
         const firstRemove = screen.getByRole('button', {
@@ -811,7 +812,7 @@ describe('GamePlay Component', () => {
         const players = useGameStore.getState().players.map((p, _i) => ({ ...p, score: 10 }));
         useGameStore.setState({ players });
 
-        render(<GamePlay />);
+        customRender(<GamePlay />);
 
         const target = players[0];
         const removeBtn = screen.getByRole('button', {
@@ -847,7 +848,7 @@ describe('GamePlay Component', () => {
 
         useGameStore.setState({ removePoints: mockRemove });
 
-        render(<GamePlay />);
+        customRender(<GamePlay />);
 
         const target = useGameStore.getState().players[0];
         const removeBtn = screen.getByRole('button', {
@@ -882,7 +883,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles to avoid auto-completion
       store.nextClue();
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       const playerToClick = players[0];
@@ -914,7 +915,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
 
@@ -933,7 +934,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
 
@@ -947,7 +948,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.getByText('Show at least one clue to award points')).toBeInTheDocument();
     });
@@ -957,7 +958,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
 
@@ -972,7 +973,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.queryByText('Show at least one clue to award points')).not.toBeInTheDocument();
     });
@@ -983,7 +984,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       const playerToClick = players[1]; // Click second player
@@ -1012,7 +1013,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles to avoid auto-completion
       store.nextClue();
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       const playerToClick = players[0];
@@ -1046,7 +1047,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue(); // cluesRead = 1
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       const playerToClick = players[0];
@@ -1078,7 +1079,7 @@ describe('GamePlay Component', () => {
         store.nextClue();
       }
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       const playerToClick = players[1];
@@ -1106,7 +1107,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies', 'Sports', 'Music'], 3); // Use multiple profiles
       store.nextClue(); // First round
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       const playerToClick = players[0];
@@ -1161,7 +1162,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const state = useGameStore.getState();
 
@@ -1179,7 +1180,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       // Pick the second player to award points to
@@ -1208,7 +1209,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports', 'Music'], 3); // Start with 3 profiles
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
 
@@ -1257,7 +1258,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
       const playerToClick = players[0];
@@ -1284,7 +1285,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(screen.getByRole('button', { name: /finish game/i })).toBeInTheDocument();
     });
@@ -1294,7 +1295,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const finishButton = screen.getByRole('button', { name: /finish game/i });
 
@@ -1311,7 +1312,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       expect(useGameStore.getState().status).toBe('active');
 
@@ -1325,7 +1326,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const finishButton = screen.getByRole('button', { name: /finish game/i });
 
@@ -1349,7 +1350,7 @@ describe('GamePlay Component', () => {
         // @ts-expect-error - Need to mock window.location for testing
         window.location = mockLocation;
 
-        render(<GamePlay />);
+        customRender(<GamePlay />);
 
         const finishButton = screen.getByRole('button', { name: /finish game/i });
         const sessionId = useGameStore.getState().id;
@@ -1376,7 +1377,7 @@ describe('GamePlay Component', () => {
       // 1. Start game with 3 profiles
       store.startGame(['Movies', 'Sports', 'Music'], 3);
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       // 2. Verify no turn UI elements exist
       expect(screen.queryByText(/current player/i)).not.toBeInTheDocument();
@@ -1475,7 +1476,7 @@ describe('GamePlay Component', () => {
 
       store.startGame(['Movies', 'Sports'], 2);
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       const players = store.players;
       const favoritePlayer = players[1]; // Pick player 1 to win both rounds
@@ -1521,7 +1522,7 @@ describe('GamePlay Component', () => {
 
       store.startGame(['Movies', 'Sports'], 2); // Use 2 profiles to keep game active
 
-      const { rerender } = render(<GamePlay />);
+      const { rerender } = customRender(<GamePlay />);
 
       // Initially all players should have 0 pts
       expect(screen.getAllByText('0 pts')).toHaveLength(3);
@@ -1549,7 +1550,7 @@ describe('GamePlay Component', () => {
     it('should render floating action button with correct accessibility attributes', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
       expect(fab).toBeInTheDocument();
@@ -1560,7 +1561,7 @@ describe('GamePlay Component', () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
       await user.click(fab);
@@ -1573,7 +1574,7 @@ describe('GamePlay Component', () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
       await user.click(fab);
@@ -1587,7 +1588,7 @@ describe('GamePlay Component', () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
       expect(fab).toHaveAttribute('aria-label');
@@ -1602,7 +1603,7 @@ describe('GamePlay Component', () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       // Open popover
       const fab = screen.getByTestId('answer-fab');
@@ -1622,7 +1623,7 @@ describe('GamePlay Component', () => {
     it('should have correct z-index class for FAB positioning', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
       expect(fab).toHaveClass('z-40');
@@ -1633,7 +1634,7 @@ describe('GamePlay Component', () => {
     it('should maintain 56x56px size for reveal answer FAB', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
 
@@ -1646,7 +1647,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = store.players;
       players.forEach((player) => {
@@ -1662,7 +1663,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = store.players;
       players.forEach((player) => {
@@ -1678,7 +1679,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const players = store.players;
       players.forEach((player) => {
@@ -1693,7 +1694,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const button = screen.getByRole('button', { name: 'Show Next Clue' });
 
@@ -1705,7 +1706,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies']);
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const button = screen.getByRole('button', { name: /finish game/i });
 
@@ -1722,7 +1723,7 @@ describe('GamePlay Component', () => {
         store.nextClue();
       }
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const button = screen.getByRole('button', { name: /no winner/i });
 
@@ -1733,7 +1734,7 @@ describe('GamePlay Component', () => {
     it('should have FAB with proper accessibility attributes for touch targets', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
 
@@ -1747,7 +1748,7 @@ describe('GamePlay Component', () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
 
@@ -1764,7 +1765,7 @@ describe('GamePlay Component', () => {
     it('should have rounded corners on FAB for touch accessibility', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
 
@@ -1775,7 +1776,7 @@ describe('GamePlay Component', () => {
     it('should maintain z-index for FAB above other elements', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
 
@@ -1786,7 +1787,7 @@ describe('GamePlay Component', () => {
     it('should position FAB for easy access on bottom right', () => {
       const store = useGameStore.getState();
       store.startGame(['Movies', 'Sports'], 1);
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
 
@@ -1800,7 +1801,7 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies', 'Sports'], 2);
       store.nextClue();
 
-      render(<GamePlay />);
+      customRender(<GamePlay />);
 
       // Show Next Clue button
       const nextClueButton = screen.getByRole('button', { name: 'Show Next Clue' });
