@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { useGameSession } from '@/hooks/useGameSession';
-import { useTranslation } from '@/hooks/useTranslations';
 import { navigateWithLocale } from '@/i18n/locales';
 import { deleteGameSession, saveGameSession } from '@/lib/gameSessionDB';
 import type { Player } from '@/types/models';
+import { useTranslate } from './TranslateProvider';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
@@ -18,7 +18,7 @@ interface RankedPlayer extends Player {
 }
 
 export function Scoreboard({ sessionId }: ScoreboardProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
   const { data: gameSession, isLoading, error, refetch } = useGameSession(sessionId);
 
   // Handler: Start new fresh game - clears session and navigates to home

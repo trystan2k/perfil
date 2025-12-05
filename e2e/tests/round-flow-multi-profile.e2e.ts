@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test.describe('Profile flow with multiple profiles', () => {
   test.beforeEach(async ({ page }) => {
     // Start from home for each test
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'networkidle' });
   });
 
   test('advances through multiple profiles and shows scoreboard at end', async ({ page }) => {

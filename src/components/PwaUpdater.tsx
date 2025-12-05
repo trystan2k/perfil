@@ -1,12 +1,14 @@
 import { useRegisterSW } from 'virtual:pwa-register/react';
-import { useTranslation } from '@/hooks/useTranslations';
 
-export function PwaUpdater() {
+type PwaUpdaterProps = {
+  t: (keyPath: string, params?: Record<string, string | number>) => string;
+};
+
+export function PwaUpdater({ t }: PwaUpdaterProps) {
   const {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW();
-  const { t } = useTranslation();
 
   const handleUpdate = () => {
     updateServiceWorker(true);

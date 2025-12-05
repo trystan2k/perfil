@@ -3,7 +3,7 @@ import { MAX_PLAYERS } from '../../src/lib/constants';
 
 test.describe('Full game flow', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.getByRole('heading', { name: 'Add Players' })).toBeVisible();
   });
 

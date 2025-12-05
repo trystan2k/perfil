@@ -10,8 +10,8 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useTranslation } from '@/hooks/useTranslations';
 import type { Player } from '@/types/models';
+import { useTranslate } from './TranslateProvider';
 
 interface RemovePointsDialogProps {
   open: boolean;
@@ -26,7 +26,7 @@ export function RemovePointsDialog({
   player,
   onConfirm,
 }: RemovePointsDialogProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
   const [amount, setAmount] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);

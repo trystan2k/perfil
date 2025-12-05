@@ -2,8 +2,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { TranslateProvider } from '@/components/TranslateProvider';
 import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
+import translations from '../../../public/locales/en/translation.json';
 import { useGamePlayLogic } from '../useGamePlayLogic';
 
 // Mock the useProfiles hook
@@ -55,7 +57,9 @@ describe('useGamePlayLogic', () => {
       },
     });
     return ({ children }: { children: ReactNode }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <TranslateProvider locale="en" translations={translations}>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      </TranslateProvider>
     );
   };
 

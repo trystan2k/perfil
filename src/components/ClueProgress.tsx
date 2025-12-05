@@ -1,4 +1,4 @@
-import { useTranslation } from '@/hooks/useTranslations';
+import { useTranslate } from './TranslateProvider';
 
 export interface ClueProgressProps {
   cluesRevealed: number;
@@ -7,7 +7,7 @@ export interface ClueProgressProps {
 }
 
 export function ClueProgress({ cluesRevealed, totalClues, pointsRemaining }: ClueProgressProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
 
   // Generate stable clue dot data
   const clueDots = Array.from({ length: totalClues }, (_, index) => ({

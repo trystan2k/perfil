@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { useTranslation } from '@/hooks/useTranslations';
+import { useTranslate } from './TranslateProvider';
 
 export interface RoundSummaryProps {
   open: boolean;
@@ -24,7 +24,7 @@ export function RoundSummary({
   profileName,
   onContinue,
 }: RoundSummaryProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
 
   return (
     <Dialog open={open} modal>

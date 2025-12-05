@@ -1,5 +1,5 @@
 import { Progress } from '@/components/ui/progress';
-import { useTranslation } from '@/hooks/useTranslations';
+import { useTranslate } from './TranslateProvider';
 
 export interface ProfileProgressProps {
   currentProfileIndex: number;
@@ -7,7 +7,7 @@ export interface ProfileProgressProps {
 }
 
 export function ProfileProgress({ currentProfileIndex, totalProfiles }: ProfileProgressProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
 
   // Calculate progress percentage
   const progressPercentage = (currentProfileIndex / totalProfiles) * 100;

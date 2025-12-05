@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test.describe('Error Handling', () => {
   test.beforeEach(async ({ page }) => {
     // Clear IndexedDB before each test
-    await page.goto('/en/');
+    await page.goto('/', { waitUntil: 'networkidle' });
     await page.evaluate(() => {
       return new Promise<void>((resolve) => {
         const request = indexedDB.deleteDatabase('perfil-game-sessions');
@@ -16,11 +16,13 @@ test.describe('Error Handling', () => {
 
   test('should show error overlay when navigating to invalid session ID', async ({ page }) => {
     // Navigate to a game page with an invalid session ID
-    await page.goto('/en/game/invalid-session-id-12345');
+    await page.goto('/en/game/invalid-session-id-12345', { waitUntil: 'networkidle' });
 
     // Wait for error overlay to appear
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
-    await expect(page.getByText('Failed to load game session. Please try again.')).toBeVisible();
+    await expect(
+      page.getByText('Failed to load game session. Please try again.', { exact: true })
+    ).toBeVisible();
 
     // Verify recovery button is present
     const recoveryButton = page.getByRole('button', { name: /go.*home/i });
@@ -33,7 +35,7 @@ test.describe('Error Handling', () => {
 
   test('should show error overlay when session is missing from IndexedDB', async ({ page }) => {
     // Start a new game
-    await page.goto('/en/');
+    await page.goto('/', { waitUntil: 'networkidle' });
     await page.getByPlaceholder('Enter player name').fill('Player 1');
     await page.getByRole('button', { name: 'Add' }).click();
     await page.getByPlaceholder('Enter player name').fill('Player 2');
@@ -56,11 +58,13 @@ test.describe('Error Handling', () => {
     });
 
     // Navigate to game page with the session ID (should trigger error)
-    await page.goto(`/en/game/${sessionId}`);
+    await page.goto(`/en/game/${sessionId}`, { waitUntil: 'networkidle' });
 
     // Wait for error overlay
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
-    await expect(page.getByText('Failed to load game session. Please try again.')).toBeVisible();
+    await expect(
+      page.getByText('Failed to load game session. Please try again.', { exact: true })
+    ).toBeVisible();
 
     // Verify recovery button works
     const recoveryButton = page.getByRole('button', { name: /go.*home/i });
@@ -70,7 +74,7 @@ test.describe('Error Handling', () => {
 
   test('should not show close button on error dialog', async ({ page }) => {
     // Navigate to invalid session
-    await page.goto('/en/game/invalid-session-123');
+    await page.goto('/en/game/invalid-session-123', { waitUntil: 'networkidle' });
 
     // Wait for error overlay
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
@@ -86,7 +90,7 @@ test.describe('Error Handling', () => {
 
   test('should prevent body scroll when error is shown', async ({ page }) => {
     // Navigate to invalid session
-    await page.goto('/en/game/invalid-session-456');
+    await page.goto('/en/game/invalid-session-456', { waitUntil: 'networkidle' });
 
     // Wait for error overlay
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
@@ -100,7 +104,7 @@ test.describe('Error Handling', () => {
 
   test('should clear error on successful session load', async ({ page }) => {
     // Start a complete game flow
-    await page.goto('/en/');
+    await page.goto('/en/', { waitUntil: 'networkidle' });
     await page.getByPlaceholder('Enter player name').fill('Player 1');
     await page.getByRole('button', { name: 'Add' }).click();
     await page.getByPlaceholder('Enter player name').fill('Player 2');
@@ -129,7 +133,7 @@ test.describe('Error Handling', () => {
 
   test('should show error with recovery path for persistence failures', async ({ page }) => {
     // This test verifies that critical errors during game flow show appropriate recovery
-    await page.goto('/en/');
+    await page.goto('/en/', { waitUntil: 'networkidle' });
 
     // Simulate a scenario where createGame might fail (this is harder to test in E2E)
     // For now, we verify the error doesn't show on successful flow
@@ -146,11 +150,11 @@ test.describe('Error Handling', () => {
 
   test('should handle navigation to game-setup with invalid session', async ({ page }) => {
     // Navigate to game-setup with invalid session
-    await page.goto('/en/game-setup/invalid-session-789');
+    await page.goto('/en/game-setup/invalid-session-789', { waitUntil: 'networkidle' });
 
     // Wait for error overlay
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
-    await expect(page.getByText('Game session not found.')).toBeVisible();
+    await expect(page.getByText('Game session not found.', { exact: true })).toBeVisible();
 
     // Recovery should go to home
     const recoveryButton = page.getByRole('button', { name: /go.*home/i });

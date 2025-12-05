@@ -7,7 +7,7 @@ test.describe('Language Persistence', () => {
   });
 
   test('should load app with default language (English)', async ({ page }) => {
-    await page.goto('/en/');
+    await page.goto('/en/', { waitUntil: 'networkidle' });
 
     // Verify URL has /en/ prefix
     await expect(page).toHaveURL(/\/en\//);
@@ -22,7 +22,7 @@ test.describe('Language Persistence', () => {
   });
 
   test('should change language and update UI immediately', async ({ page }) => {
-    await page.goto('/en/');
+    await page.goto('/en/', { waitUntil: 'networkidle' });
 
     // Wait for page to be fully loaded
     await page.waitForLoadState('networkidle');
@@ -43,7 +43,7 @@ test.describe('Language Persistence', () => {
   });
 
   test('should persist language across navigation', async ({ page }) => {
-    await page.goto('/pt-BR/');
+    await page.goto('/pt-BR/', { waitUntil: 'networkidle' });
 
     // Wait for page load
     await page.waitForLoadState('networkidle');
@@ -71,7 +71,7 @@ test.describe('Language Persistence', () => {
   });
 
   test('should persist language after page refresh', async ({ page }) => {
-    await page.goto('/es/');
+    await page.goto('/es/', { waitUntil: 'networkidle' });
 
     // Wait for page load
     await page.waitForLoadState('networkidle');
@@ -142,7 +142,7 @@ test.describe('Language Persistence', () => {
   });
 
   test('should show language switcher on all pages', async ({ page }) => {
-    await page.goto('/en/');
+    await page.goto('/en/', { waitUntil: 'networkidle' });
 
     // Verify language switcher on home page
     await expect(page.getByRole('navigation', { name: /language/i })).toBeVisible();

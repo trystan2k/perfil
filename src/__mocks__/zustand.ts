@@ -37,8 +37,6 @@ const createStoreUncurried = <T>(stateCreator: ZustandExportedTypes.StateCreator
 
 // when creating a store, we get its initial state, create a reset function and add it in the set
 export const createStore = (<T>(stateCreator: ZustandExportedTypes.StateCreator<T>) => {
-  console.log('zustand createStore mock');
-
   // to support curried version of createStore
   return typeof stateCreator === 'function'
     ? createStoreUncurried(stateCreator)
