@@ -78,21 +78,4 @@ describe('useTheme', () => {
 
     await waitFor(() => expect(result.current.theme).toBe('light'));
   });
-
-  it('polls localStorage and updates theme without storage event', async () => {
-    vi.useFakeTimers();
-
-    const { result } = renderHook(() => useTheme());
-
-    act(() => {
-      localStorage.setItem(STORAGE_KEY, 'dark');
-    });
-
-    act(() => {
-      vi.advanceTimersByTime(350);
-      vi.runOnlyPendingTimers();
-    });
-
-    expect(result.current.theme).toBe('dark');
-  });
 });

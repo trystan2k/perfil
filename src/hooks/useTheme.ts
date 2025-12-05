@@ -18,6 +18,11 @@ const parseStoredTheme = (raw: string | null): ThemeMode | null => {
   return null;
 };
 
+const calculateThemeFromSystem = (): ThemeMode => {
+  if (typeof window === 'undefined') return THEMES.light;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEMES.dark : THEMES.light;
+};
+
 export const getThemeFromStorage = (): ThemeMode | null => {
   if (typeof window === 'undefined') return null;
   return parseStoredTheme(window.localStorage.getItem(STORAGE_KEY));
@@ -25,11 +30,6 @@ export const getThemeFromStorage = (): ThemeMode | null => {
 export const setThemeInStorage = (theme: ThemeMode): void => {
   if (typeof window === 'undefined') return;
   window.localStorage.setItem(STORAGE_KEY, theme);
-};
-
-const calculateThemeFromSystem = (): ThemeMode => {
-  if (typeof window === 'undefined') return THEMES.light;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEMES.dark : THEMES.light;
 };
 
 export const updateSelectedTheme = (value: ThemeMode | null) => {
@@ -68,25 +68,15 @@ export const useTheme = () => {
       const next = parseStoredTheme(e.newValue);
       if (!next) return;
       setThemeState(next);
+      updateSelectedTheme(next);
     };
 
     window.addEventListener('storage', onStorage);
 
-    let timer: number | undefined;
-    timer = window.setInterval(() => {
-      const next = getThemeFromStorage();
-      if (next && next !== theme) {
-        setThemeState(next);
-      }
-    }, 300);
-
     return () => {
       window.removeEventListener('storage', onStorage);
-      if (timer) {
-        window.clearInterval(timer);
-      }
     };
-  }, [theme]);
+  }, []);
 
   const updateTheme = useCallback((value: ThemeMode) => {
     setThemeState(value);
