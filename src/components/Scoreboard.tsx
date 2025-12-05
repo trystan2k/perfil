@@ -1,8 +1,10 @@
-import { useMemo } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useMemo, useState } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { useGameSession } from '@/hooks/useGameSession';
 import { navigateWithLocale } from '@/i18n/locales';
 import { deleteGameSession, saveGameSession } from '@/lib/gameSessionDB';
+import { useGameStore } from '@/stores/gameStore';
 import type { Player } from '@/types/models';
 import { useTranslate } from './TranslateProvider';
 import { Button } from './ui/button';
@@ -19,16 +21,55 @@ interface RankedPlayer extends Player {
 
 export function Scoreboard({ sessionId }: ScoreboardProps) {
   const { t } = useTranslate();
+  const queryClient = useQueryClient();
   const { data: gameSession, isLoading, error, refetch } = useGameSession(sessionId);
+
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Invalidate cache on mount to ensure we always load fresh data from IndexedDB
+  // This is critical because the game might have just finished and persisted new scores
+  useEffect(() => {
+    if (sessionId) {
+      queryClient.invalidateQueries({ queryKey: ['gameSession', sessionId] });
+    }
+  }, [sessionId, queryClient]);
+
+  useEffect(() => {
+    setIsHydrated(true);
+
+    return () => {
+      setIsHydrated(false);
+    };
+  }, []);
 
   // Handler: Start new fresh game - clears session and navigates to home
   const handleNewGame = async () => {
+    // Reset Zustand store to initial state to prevent stale state issues
+    useGameStore.setState({
+      id: '',
+      players: [],
+      currentTurn: null,
+      remainingProfiles: [],
+      status: 'pending',
+      profiles: [],
+      selectedProfiles: [],
+      currentProfile: null,
+      category: undefined,
+      totalProfilesCount: 0,
+      numberOfRounds: 0,
+      currentRound: 0,
+      roundCategoryMap: [],
+      revealedClueHistory: [],
+      error: null,
+    });
+
     if (sessionId) {
       try {
         await deleteGameSession(sessionId);
         navigateWithLocale('/');
       } catch (error) {
         console.error('Failed to clear game session:', error);
+        navigateWithLocale('/');
       }
     } else {
       navigateWithLocale('/');
@@ -61,9 +102,18 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
         category: undefined,
         totalProfilesCount: 0,
         currentRound: 0,
+        revealedClueHistory: [], // Reset clue history
+        revealedClueIndices: [], // Reset clue indices
+        error: null, // Clear any errors
       };
 
+      // Persist the reset state to IndexedDB
       await saveGameSession(resetGameState);
+
+      // Clear the Zustand store's id to force reload from storage
+      useGameStore.setState({ id: '' });
+
+      // Navigate - CategorySelect will load from IndexedDB since id is cleared
       navigateWithLocale(`/game-setup/${sessionId}`);
     } catch (error) {
       console.error('Failed to reset game for same players:', error);
@@ -150,9 +200,19 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
           cluesRead: 0,
           revealed: false,
         },
+        revealedClueHistory: [], // Reset clue history
+        revealedClueIndices: [], // Reset clue indices
+        error: null, // Clear any errors
       };
 
+      // Persist the reset state to IndexedDB
       await saveGameSession(resetGameState);
+
+      // Clear the Zustand store's id to force the game page to reload from storage
+      // This ensures we get a clean state from IndexedDB rather than relying on in-memory state
+      useGameStore.setState({ id: '' });
+
+      // Navigate - GamePlay will load from IndexedDB since id is cleared
       navigateWithLocale(`/game/${sessionId}`);
     } catch (error) {
       console.error('Failed to restart game:', error);
@@ -184,7 +244,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     });
   }, [gameSession]);
 
-  if (isLoading) {
+  if (!isHydrated || isLoading) {
     return (
       <div className="flex items-center justify-center min-h-main p-4">
         <div className="text-center">

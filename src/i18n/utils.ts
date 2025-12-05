@@ -135,7 +135,10 @@ export async function loadTranslations(
  */
 export async function getTranslations(locale: SupportedLocale) {
   const translations = await loadTranslations(locale);
+  return getTranslateFunction(translations, locale);
+}
 
+export const getTranslateFunction = (translations: TranslationValue, locale: SupportedLocale) => {
   /**
    * Get a translation by key path (e.g., 'playersAdd.title')
    * @param keyPath - Dot-separated path to the translation key
@@ -145,7 +148,7 @@ export async function getTranslations(locale: SupportedLocale) {
   return function t(keyPath: string, params?: Record<string, string | number>): string {
     return translateFunction(translations, locale, keyPath, params);
   };
-}
+};
 
 /**
  * Get the locale from the current Astro URL

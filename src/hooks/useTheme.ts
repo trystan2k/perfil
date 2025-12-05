@@ -57,7 +57,10 @@ export const useTheme = () => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const initial = getThemeFromStorage();
-    if (initial) setThemeState(initial);
+    if (initial) {
+      setThemeState(initial);
+      updateSelectedTheme(initial);
+    }
   }, []);
 
   useEffect(() => {
