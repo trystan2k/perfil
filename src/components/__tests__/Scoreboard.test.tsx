@@ -495,8 +495,8 @@ describe('Scoreboard', () => {
           const saveCall = calls[calls.length - 1][0];
 
           // Verify basic reset
+          expect(saveCall.id).toMatch(/^game-/);
           expect(saveCall).toMatchObject({
-            id: 'test-session-123',
             status: 'active',
             currentRound: 1,
             numberOfRounds: 5,
@@ -525,7 +525,7 @@ describe('Scoreboard', () => {
             expect(saveCall.category).toBe(saveCall.currentProfile.category);
           }
 
-          expect(locationSetter).toHaveBeenCalledWith('/en/game/test-session-123');
+          expect(locationSetter).toHaveBeenCalledWith(expect.stringMatching(/^\/en\/game\/game-/));
         });
       });
 

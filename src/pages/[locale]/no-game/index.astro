@@ -13,5 +13,5 @@ const translations = await loadTranslations(currentLocale);
 ---
 
 <Layout title="noGamePage.title" translations={translations}>
-	<NoGamePrompt locale={currentLocale} translations={translations} client:load />
+	<NoGamePrompt translations={translations} />
 </Layout>

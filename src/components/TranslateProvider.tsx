@@ -27,6 +27,7 @@ export function TranslateProvider({ locale, translations, children }: TranslateP
     const i18n = {
       language: locale,
       changeLanguage: (newLocale: string) => {
+        if (typeof newLocale !== 'string') return;
         const currentPath = window.location.pathname;
         const pathWithoutLocale = removeLocalePrefix(currentPath);
         const newPath = `/${newLocale}${pathWithoutLocale || '/'}`;

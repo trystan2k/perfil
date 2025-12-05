@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { useGameSession } from '@/hooks/useGameSession';
@@ -21,25 +20,12 @@ interface RankedPlayer extends Player {
 
 export function Scoreboard({ sessionId }: ScoreboardProps) {
   const { t } = useTranslate();
-  const queryClient = useQueryClient();
   const { data: gameSession, isLoading, error, refetch } = useGameSession(sessionId);
 
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Invalidate cache on mount to ensure we always load fresh data from IndexedDB
-  // This is critical because the game might have just finished and persisted new scores
-  useEffect(() => {
-    if (sessionId) {
-      queryClient.invalidateQueries({ queryKey: ['gameSession', sessionId] });
-    }
-  }, [sessionId, queryClient]);
-
   useEffect(() => {
     setIsHydrated(true);
-
-    return () => {
-      setIsHydrated(false);
-    };
   }, []);
 
   // Handler: Start new fresh game - clears session and navigates to home
@@ -129,66 +115,57 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     }
 
     try {
-      // Reset player scores
-      const resetPlayers: Player[] = gameSession.players.map((player) => ({
-        ...player,
+      const newSessionId = `game-${Date.now()}`;
+      const resetPlayers: Player[] = gameSession.players.map((player, index) => ({
+        id: `player-${Date.now()}-${index}`,
+        name: player.name,
         score: 0,
       }));
 
-      // Regenerate selectedProfiles based on the original roundCategoryMap
-      // This ensures we start from the beginning with fresh profile selection
-      const roundPlan = gameSession.roundCategoryMap;
-      const profilesToPlay: string[] = [];
-      const availableProfilesByCategory = new Map<string, string[]>();
-
-      // Group available profiles by category
-      for (const profile of gameSession.profiles) {
-        if (!availableProfilesByCategory.has(profile.category)) {
-          availableProfilesByCategory.set(profile.category, []);
+      let profilesToPlay: string[] = [];
+      const desiredRounds = gameSession.numberOfRounds || gameSession.roundCategoryMap.length || 1;
+      if (gameSession.selectedProfiles && gameSession.selectedProfiles.length >= desiredRounds) {
+        profilesToPlay = gameSession.selectedProfiles.slice(0, desiredRounds);
+      } else {
+        const roundPlan = gameSession.roundCategoryMap;
+        const availableProfilesByCategory = new Map<string, string[]>();
+        for (const profile of gameSession.profiles) {
+          if (!availableProfilesByCategory.has(profile.category)) {
+            availableProfilesByCategory.set(profile.category, []);
+          }
+          availableProfilesByCategory.get(profile.category)?.push(profile.id);
         }
-        availableProfilesByCategory.get(profile.category)?.push(profile.id);
-      }
-
-      // Shuffle profiles within each category for randomness (new shuffle for restart)
-      for (const [category, profileIds] of availableProfilesByCategory.entries()) {
-        const shuffled = [...profileIds];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        for (const [category, profileIds] of availableProfilesByCategory.entries()) {
+          const shuffled = [...profileIds];
+          for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
+          availableProfilesByCategory.set(category, shuffled);
         }
-        availableProfilesByCategory.set(category, shuffled);
-      }
-
-      // Pick one profile from each category in the round plan
-      const usedIndices = new Map<string, number>();
-      for (const category of roundPlan) {
-        const categoryProfiles = availableProfilesByCategory.get(category) || [];
-        const currentIndex = usedIndices.get(category) || 0;
-
-        if (currentIndex < categoryProfiles.length) {
-          profilesToPlay.push(categoryProfiles[currentIndex]);
-          usedIndices.set(category, currentIndex + 1);
-        } else {
-          // Fallback: reuse profiles if we run out (wrap around)
-          const wrappedIndex = currentIndex % categoryProfiles.length;
-          profilesToPlay.push(categoryProfiles[wrappedIndex]);
+        const usedIndices = new Map<string, number>();
+        for (const category of roundPlan) {
+          const categoryProfiles = availableProfilesByCategory.get(category) || [];
+          const currentIndex = usedIndices.get(category) || 0;
+          if (categoryProfiles.length === 0) {
+            continue;
+          }
+          const idx = currentIndex % categoryProfiles.length;
+          profilesToPlay.push(categoryProfiles[idx]);
           usedIndices.set(category, currentIndex + 1);
         }
       }
 
-      // Find the first profile
       const firstProfileId = profilesToPlay[0];
       const firstProfile = gameSession.profiles.find((p) => p.id === firstProfileId);
-
       if (!firstProfile) {
-        console.error('Failed to find first profile for restart');
         navigateWithLocale('/');
         return;
       }
 
-      // Reset game state to active with same configuration but fresh profile selection
       const resetGameState = {
         ...gameSession,
+        id: newSessionId,
         players: resetPlayers,
         status: 'active' as const,
         currentRound: 1,
@@ -200,20 +177,14 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
           cluesRead: 0,
           revealed: false,
         },
-        revealedClueHistory: [], // Reset clue history
-        revealedClueIndices: [], // Reset clue indices
-        error: null, // Clear any errors
+        revealedClueHistory: [],
+        revealedClueIndices: [],
+        error: null,
       };
 
-      // Persist the reset state to IndexedDB
       await saveGameSession(resetGameState);
-
-      // Clear the Zustand store's id to force the game page to reload from storage
-      // This ensures we get a clean state from IndexedDB rather than relying on in-memory state
       useGameStore.setState({ id: '' });
-
-      // Navigate - GamePlay will load from IndexedDB since id is cleared
-      navigateWithLocale(`/game/${sessionId}`);
+      navigateWithLocale(`/game/${newSessionId}`);
     } catch (error) {
       console.error('Failed to restart game:', error);
       navigateWithLocale(`/game/${sessionId}`);

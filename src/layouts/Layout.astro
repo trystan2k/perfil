@@ -86,15 +86,3 @@ const t = getTranslateFunction(translations, currentLocale);
 		align-items: center;
 	}
 </style>
-
-<script>
-import { getThemeFromStorage, THEMES, updateSelectedTheme } from "../hooks/useTheme";
-
-
-const theme = getThemeFromStorage();
-if (theme) {
-  updateSelectedTheme(theme);
-} else {
-  updateSelectedTheme(THEMES.system);
-}
-</script>
