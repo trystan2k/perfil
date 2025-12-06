@@ -13,7 +13,7 @@
     "astro": "astro",
     "lint": "biome check --error-on-warnings .",
     "format": "biome format --write .",
-    "typecheck": "tsc --noEmit && astro check",
+    "typecheck": "tsc --noEmit && astro check --minimumFailingSeverity hint",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test --config=e2e/playwright.config.ts",
