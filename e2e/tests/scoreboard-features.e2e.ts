@@ -1,4 +1,11 @@
-import { expect, test } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
+
+// At the top of the file or in a test utilities file
+async function showClues(page: Page, count: number) {
+  for (let i = 0; i < count; i++) {
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+  }
+}
 
 test.describe('Scoreboard Features', () => {
   test('should correctly show points and support new game', async ({ page }) => {
@@ -35,7 +42,7 @@ test.describe('Scoreboard Features', () => {
     // Step 3: Play first round - award 10 points to Alice
     await page.waitForURL(/\/game\//);
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 1);
 
     // Award points to Alice
     const aliceButton = page.getByRole('button', { name: /award points to alice/i });
@@ -47,8 +54,7 @@ test.describe('Scoreboard Features', () => {
 
     // Step 4: Play second round - award 9 points to Bob
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 2);
 
     const bobButton = page.getByRole('button', { name: /award points to bob/i });
     await bobButton.click();
@@ -114,7 +120,7 @@ test.describe('Scoreboard Features', () => {
 
     // Play one round
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 1);
     const aliceBtn = page.getByRole('button', { name: /award points to alice/i });
     await aliceBtn.click();
 
@@ -150,8 +156,7 @@ test.describe('Scoreboard Features', () => {
 
     // Play the game - award different points
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 2);
 
     // Award to Bob this time (19 points)
     const bobBtn2 = page.getByRole('button', { name: /award points to bob/i });
@@ -162,7 +167,7 @@ test.describe('Scoreboard Features', () => {
     await page.getByRole('button', { name: 'Next Profile' }).click();
 
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 1);
 
     // Award to Alice (20 points)
     const aliceBtn2 = page.getByRole('button', { name: /award points to alice/i });
@@ -212,7 +217,7 @@ test.describe('Scoreboard Features', () => {
 
     // Play one round
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 1);
     const aliceBtn = page.getByRole('button', { name: /award points to alice/i });
     await aliceBtn.click();
 
@@ -220,9 +225,7 @@ test.describe('Scoreboard Features', () => {
     await page.getByRole('button', { name: 'Next Profile' }).click();
 
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 3);
     const bobBtn = page.getByRole('button', { name: /award points to bob/i });
     await bobBtn.click();
 
@@ -248,14 +251,7 @@ test.describe('Scoreboard Features', () => {
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
 
     // Play the game - award points differently
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 8);
 
     // Award 13 points to Bob
     const bobBtn3 = page.getByRole('button', { name: /award points to bob/i });
@@ -266,16 +262,7 @@ test.describe('Scoreboard Features', () => {
     await page.getByRole('button', { name: 'Next Profile' }).click();
 
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await showClues(page, 10);
 
     // Award 11 points to Alice
     const aliceBtn3 = page.getByRole('button', { name: /award points to alice/i });
