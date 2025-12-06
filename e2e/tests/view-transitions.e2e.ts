@@ -32,7 +32,7 @@ test.describe('View Transitions API and State Persistence', () => {
       await page.goto('/', { waitUntil: 'networkidle' });
       const initialUrl = page.url();
 
-      // Track if document is reloaded by checking for reload network requests
+      // Track document requests AFTER initial page load
       const documentRequests: string[] = [];
       page.on('request', (request) => {
         if (request.resourceType() === 'document') {
@@ -56,12 +56,9 @@ test.describe('View Transitions API and State Persistence', () => {
       // Verify we navigated
       await expect(page).not.toHaveURL(initialUrl);
 
-      // Verify only one document request was made during initial page load
-      // (not multiple due to full page reloads during navigation)
-      const documentRequestsDuringNav = documentRequests.filter(
-        (url) => !url.includes(initialUrl.split('?')[0])
-      );
-      expect(documentRequestsDuringNav.length).toBeLessThanOrEqual(0);
+      // Verify no document requests were made during navigation
+      // Since we registered the listener after initial page load, any document request means a full reload
+      expect(documentRequests).toHaveLength(0);
     });
 
     test('should use view transitions across full game navigation flow', async ({ page }) => {
@@ -231,9 +228,16 @@ test.describe('View Transitions API and State Persistence', () => {
         return (window as Window).__gameStoreState;
       });
 
-      // All store snapshots should have data (meaning store was preserved)
-      // Note: The actual store may not attach to window, but this shows the pattern
-      expect([storeState1, storeState2, storeState3]).toBeDefined();
+      // Verify store state is preserved across navigations
+      // If store is attached to window, verify it persists; otherwise skip this check
+      if (storeState1 !== undefined) {
+        expect(storeState2).toBeDefined();
+        expect(storeState3).toBeDefined();
+      } else {
+        // Store might not be attached to window - verify via UI state instead
+        // The presence of game UI elements confirms state is working
+        expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
+      }
     });
 
     test('should persist IndexedDB data across navigations', async ({ page }) => {
