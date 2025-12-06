@@ -2840,13 +2840,79 @@
       {
         "id": "43",
         "title": "Implement View Transitions API and Replace window.location-based Navigation",
-        "description": "Consolidated ASTRO-002 and REACT-009: Add View Transitions to Layout and replace direct window.location navigation with `navigate()` or History API to preserve state and provide smooth transitions.",
-        "details": "Problem: window.location.href causes full reloads and losing state. Solution: Add <ViewTransitions/> to Layout.astro, replace window.location usages with astro:transitions/client navigate() or a custom navigation hook that persists state before navigation. Ensure SPA-like transitions and smooth visuals.",
-        "testStrategy": "Functional tests to ensure state persistence on navigation, Playwright e2e to validate transitions, visual regression to confirm no flicker.",
-        "status": "pending",
+        "description": "Verified and enhanced the application's View Transitions implementation. The investigation confirmed that modern client-side navigation was already in place using Astro's ClientRouter and a custom `navigateWithLocale` utility. The primary outcome was the creation of a comprehensive E2E test suite to validate smooth transitions and state preservation, ensuring a robust SPA-like user experience.",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "details": "Initial investigation revealed that the core requirements were already met:\n1.  **View Transitions Enabled:** The main layout already included `<ClientRouter />`, which is the successor to `<ViewTransitions />` in Astro 5+, meaning transitions were active.\n2.  **No `window.location` Usage:** A codebase audit confirmed that no internal navigation relied on `window.location`. All navigation was correctly handled by the `navigateWithLocale()` utility, which wraps Astro's `navigate()` function.\n3.  **Components Compliant:** All relevant components were already using `navigateWithLocale()` for navigation.\n\nThe focus of the task shifted to creating a robust testing strategy. A new E2E test suite was created at `e2e/tests/view-transitions.e2e.ts` with 14 tests covering state persistence, visual smoothness, and locale preservation during navigation.",
+        "testStrategy": "The implementation was validated by a new, comprehensive E2E test suite using Playwright, located at `e2e/tests/view-transitions.e2e.ts`. This suite includes 14 tests that verify:\n- No full page reloads occur during key navigation flows.\n- Client-side state (e.g., game state in Zustand) is preserved across page transitions.\n- Visual transitions are smooth and free of flickering.\n- The user's selected locale is maintained during navigation.\nAll QA checks, including linting, type checking, unit tests (987), and E2E tests (50 total), are passing.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Enable Astro View Transitions in the Main Layout",
+            "description": "Integrate Astro's `<ViewTransitions />` component into the main `Layout.astro` file to enable the View Transitions API globally across the application, providing a baseline for smooth, SPA-like navigation.",
+            "dependencies": [],
+            "details": "Locate the primary `Layout.astro` file used by most pages. Import the `ViewTransitions` component from `astro:transitions` and add it within the `<head>` section of the layout. This will enable the API and start intercepting navigations with a default cross-fade effect.\n<info added on 2025-12-06T11:49:42.916Z>\nNo changes were needed. The Layout.astro file already contained the ClientRouter component. In Astro 5+, ClientRouter is the new name for the deprecated ViewTransitions component, meaning this functionality was already properly configured.\n</info added on 2025-12-06T11:49:42.916Z>",
+            "status": "done",
+            "testStrategy": "Manually navigate between a few static pages to confirm that the transitions are active and the page does not perform a full reload. Check the browser's developer console for any errors related to the View Transitions setup.",
+            "updatedAt": "2025-12-06T11:13:54.157Z",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Audit Codebase for `window.location` Navigation Usages",
+            "description": "Perform a comprehensive search across the entire codebase to identify and document all instances where `window.location.href`, `window.location.assign()`, or `window.location.replace()` are used for internal application navigation.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use a global search tool (e.g., VS Code's search, `grep`) to find all occurrences of \"window.location\". Create a checklist or document of the files and line numbers where these navigations occur to track the replacement process systematically.\n<info added on 2025-12-06T11:15:27.896Z>\nNo window.location navigation calls were found in the production code. The only usages are for read-only pathname access in src/i18n/locales.ts and src/components/TranslateProvider.tsx, which are used for locale detection. All navigation is already handled by the navigateWithLocale() utility.\n</info added on 2025-12-06T11:15:27.896Z>",
+            "status": "done",
+            "testStrategy": "The primary output is a list of code locations. The test is to verify that the list is complete by having a second developer review the search results and methodology to ensure no instances were missed.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-06T11:15:31.260Z"
+          },
+          {
+            "id": 3,
+            "title": "Replace `window.location` with `navigate()` in React Components",
+            "description": "Refactor all identified instances of `window.location` navigation within React components (`.tsx` files) to use the `navigate()` function from `astro:transitions/client`.",
+            "dependencies": [
+              2
+            ],
+            "details": "For each instance found in the audit within a `.tsx` file, import `navigate` from `astro:transitions/client`. Replace the `window.location` call with `navigate('/path/to/page')`. Ensure any dynamic paths are correctly constructed and passed to the function.\n<info added on 2025-12-06T11:15:43.218Z>\nUse the existing `navigateWithLocale()` utility from `src/i18n/locales.ts`. This function wraps Astro's `navigate()` and should be used for navigation instead of importing `navigate` directly.\n</info added on 2025-12-06T11:15:43.218Z>",
+            "status": "done",
+            "testStrategy": "For each modified component, perform a manual test of the navigation flow. Update relevant Vitest/RTL unit tests to mock or spy on the `navigate` function to assert it's called with the correct arguments.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-06T11:15:46.194Z"
+          },
+          {
+            "id": 4,
+            "title": "Replace `window.location` in Astro and Vanilla JS Files",
+            "description": "Refactor all identified instances of `window.location` navigation within Astro files (`.astro`) and plain JavaScript files (`.js`) to use client-side navigation techniques compatible with View Transitions.",
+            "dependencies": [
+              2
+            ],
+            "details": "In `.astro` files, use client-side `<script>` tags to import and call `navigate()`. For vanilla JS modules, ensure they can import `navigate` from `astro:transitions/client` or use a custom event system to trigger navigation from a component that has access to the `navigate` function.\n<info added on 2025-12-06T11:15:55.835Z>\nNo refactoring needed: All components (CategorySelect, PlayersAdd, Scoreboard, useGamePlayLogic, FallbackUI) already use navigateWithLocale() for navigation.\n</info added on 2025-12-06T11:15:55.835Z>\n<info added on 2025-12-06T11:16:38.613Z>\nNo refactoring needed: All components (CategorySelect, PlayersAdd, Scoreboard, useGamePlayLogic, FallbackUI) already use navigateWithLocale() for navigation.\n</info added on 2025-12-06T11:16:38.613Z>",
+            "status": "done",
+            "testStrategy": "Manually test the navigation flows initiated from these files. Verify in the browser's network tab that a full page request is not made and that the transition animation occurs as expected.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-06T11:15:58.493Z"
+          },
+          {
+            "id": 5,
+            "title": "Implement E2E and Visual Tests for Navigation Transitions",
+            "description": "Create and run a suite of tests to verify that all key navigation flows are handled by the View Transitions API, transitions are visually smooth, and client-side state is preserved across navigations. [Updated: 12/6/2025]",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Using a framework like Playwright, create end-to-end tests for critical user flows (e.g., game setup -> category selection -> gameplay). These tests should assert that the URL changes correctly without a full page reload. Implement visual regression tests to catch any flickering or layout shifts during transitions.\n<info added on 2025-12-06T11:16:11.848Z>\nAdd tests to verify that client-side state is preserved across these transitions. For example, ensure that game state, such as the selected category or current scores, remains intact when navigating between pages.\n</info added on 2025-12-06T11:16:11.848Z>\n<info added on 2025-12-06T11:32:25.185Z>\nCreated a comprehensive E2E test suite at e2e/tests/view-transitions.e2e.ts. It includes 14 tests covering: no full page reloads during navigation (3 tests), state persistence across navigation (4 tests), view transitions visual smoothness (4 tests), and locale preservation across navigation (3 tests). All tests are passing. QA is complete: lint, typecheck (2 safe deprecation warnings), unit tests (987 tests), E2E tests (50 tests), and build have all passed.\n</info added on 2025-12-06T11:32:25.185Z>",
+            "status": "done",
+            "testStrategy": "Execute the full suite of Playwright E2E tests in a CI environment. Manually test complex flows to confirm that client-side state (e.g., from Zustand stores) is not lost during navigation. Review visual diffs from the regression tests to approve or reject changes.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-06T11:32:28.428Z"
+          }
+        ],
+        "updatedAt": "2025-12-06T11:50:59.611Z"
       },
       {
         "id": "44",
@@ -4050,9 +4116,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-05T02:05:26.500Z",
+      "lastModified": "2025-12-06T11:50:59.612Z",
       "taskCount": 92,
-      "completedCount": 52,
+      "completedCount": 53,
       "tags": [
         "master"
       ]
