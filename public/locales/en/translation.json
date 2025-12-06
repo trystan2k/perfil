@@ -11,7 +11,8 @@
     "continue": "Continue",
     "goHome": "Go Home",
     "goToRecoveryPage": "Go to Recovery Page",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "unknownError": "An unknown error occurred"
   },
   "errorHandler": {
     "title": "Error",
@@ -171,6 +172,12 @@
     "title": "Scoreboard",
     "loading": "Loading scoreboard...",
     "category": "Category: {{category}}",
+    "error": {
+      "title": "Error",
+      "sessionNotFound": "Game session not found",
+      "loadFailed": "Failed to load scoreboard data",
+      "noSessionId": "No session ID provided"
+    },
     "table": {
       "rank": "Rank",
       "player": "Player",

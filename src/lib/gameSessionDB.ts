@@ -15,6 +15,7 @@ export interface PersistedGameState extends GameSession {
   totalProfilesCount: number;
   numberOfRounds: number;
   currentRound: number;
+  selectedCategories: string[];
   roundCategoryMap: string[];
   revealedClueHistory: string[];
   revealedClueIndices?: number[];

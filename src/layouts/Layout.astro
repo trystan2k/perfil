@@ -5,7 +5,7 @@ import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import type { SupportedLocale } from '../i18n/locales';
-import { getTranslateFunction, getTranslations, type TranslationValue } from '../i18n/utils';
+import { getTranslateFunction, type TranslationValue } from '../i18n/utils';
 import '../styles/globals.css';
 import '../styles/theme.css';
 
@@ -86,3 +86,15 @@ const t = getTranslateFunction(translations, currentLocale);
 		align-items: center;
 	}
 </style>
+
+<script>
+import { getThemeFromStorage, THEMES, updateSelectedTheme } from "../hooks/useTheme";
+
+
+const theme = getThemeFromStorage();
+if (theme) {
+  updateSelectedTheme(theme);
+} else {
+  updateSelectedTheme(THEMES.system);
+}
+</script>

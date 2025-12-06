@@ -1,18 +1,10 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
-import type { PersistedGameState } from '@/lib/gameSessionDB';
-import * as gameSessionDB from '@/lib/gameSessionDB';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile } from '@/types/models';
 import { customRender } from '../../__mocks__/test-utils';
 import { Scoreboard } from '../Scoreboard';
-
-// Mock the gameSessionDB module
-vi.mock('@/lib/gameSessionDB', () => ({
-  loadGameSession: vi.fn(),
-  deleteGameSession: vi.fn(),
-  saveGameSession: vi.fn(),
-}));
 
 const createMockProfile = (id: string): Profile => ({
   id,
@@ -28,37 +20,8 @@ const mockProfiles: Profile[] = [
   createMockProfile('3'),
 ];
 
-const mockGameSession: PersistedGameState = {
-  id: 'test-session-123',
-  status: 'completed',
-  category: 'Historical Figures',
-  players: [
-    { id: '1', name: 'Alice', score: 150 },
-    { id: '2', name: 'Bob', score: 200 },
-    { id: '3', name: 'Charlie', score: 100 },
-    { id: '4', name: 'Diana', score: 200 },
-  ],
-  currentTurn: null,
-  remainingProfiles: [],
-  totalCluesPerProfile: 10,
-  profiles: mockProfiles,
-  selectedProfiles: ['1', '2', '3'],
-  currentProfile: null,
-  totalProfilesCount: 0,
-  numberOfRounds: 5,
-  currentRound: 1,
-  roundCategoryMap: [
-    'Historical Figures',
-    'Historical Figures',
-    'Historical Figures',
-    'Historical Figures',
-    'Historical Figures',
-  ],
-  revealedClueHistory: [],
-};
-
-const make16Players = () => {
-  const players = [] as Array<{ id: string; name: string; score: number }>;
+const make16Players = (): Player[] => {
+  const players: Player[] = [];
   for (let i = 1; i <= 16; i++) {
     players.push({ id: String(i), name: `Player ${i}`, score: i * 10 });
   }
@@ -66,27 +29,52 @@ const make16Players = () => {
 };
 
 describe('Scoreboard', () => {
-  it('should render loading state initially', () => {
-    vi.mocked(gameSessionDB.loadGameSession).mockImplementation(
-      () => new Promise(() => {}) // Never resolves to keep loading
-    );
+  beforeEach(() => {
+    // Reset store before each test
+    useGameStore.setState({
+      id: '',
+      players: [],
+      currentTurn: null,
+      remainingProfiles: [],
+      totalCluesPerProfile: 10,
+      status: 'pending',
+      category: undefined,
+      profiles: [],
+      selectedProfiles: [],
+      currentProfile: null,
+      totalProfilesCount: 0,
+      numberOfRounds: 0,
+      currentRound: 0,
+      selectedCategories: [],
+      roundCategoryMap: [],
+      revealedClueHistory: [],
+      error: null,
+    });
+  });
 
-    customRender(<Scoreboard sessionId="test-session" />, { withQueryProvider: true });
+  it('should render loading state initially', () => {
+    // Mock loadFromStorage to never resolve
+    const mockLoadFromStorage = vi.fn((): Promise<boolean> => new Promise(() => {}));
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+    customRender(<Scoreboard sessionId="test-session" />);
     expect(screen.getByText('Loading scoreboard...')).toBeInTheDocument();
   });
 
   it('should render error when no sessionId is provided', async () => {
-    customRender(<Scoreboard />, { withQueryProvider: true });
+    customRender(<Scoreboard />);
 
-    // With TanStack Query and enabled: !!sessionId, this should not execute the query
-    // Instead of showing an error, it should just not be loading
-    expect(screen.queryByText('Loading scoreboard...')).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Not Found')).toBeInTheDocument();
+      expect(screen.getByText('No session ID provided')).toBeInTheDocument();
+    });
   });
 
   it('should render error when game session is not found', async () => {
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(null);
+    const mockLoadFromStorage = vi.fn(async () => false);
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-    customRender(<Scoreboard sessionId="non-existent-session" />, { withQueryProvider: true });
+    customRender(<Scoreboard sessionId="non-existent-session" />);
 
     await waitFor(() => {
       expect(screen.getByText('Not Found')).toBeInTheDocument();
@@ -95,20 +83,26 @@ describe('Scoreboard', () => {
   });
 
   it('should render error when loading fails', async () => {
-    vi.mocked(gameSessionDB.loadGameSession).mockRejectedValue(new Error('DB Error'));
+    const mockLoadFromStorage = vi.fn(async () => {
+      throw new Error('DB Error');
+    });
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-    customRender(<Scoreboard sessionId="test-session" />, { withQueryProvider: true });
+    customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
       expect(screen.getByText('Error')).toBeInTheDocument();
-      expect(screen.getByText('DB Error')).toBeInTheDocument();
+      expect(screen.getByText('Failed to load scoreboard data')).toBeInTheDocument();
     });
   });
 
   it('should render retry button for system errors', async () => {
-    vi.mocked(gameSessionDB.loadGameSession).mockRejectedValue(new Error('DB Error'));
+    const mockLoadFromStorage = vi.fn(async () => {
+      throw new Error('DB Error');
+    });
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-    customRender(<Scoreboard sessionId="test-session" />, { withQueryProvider: true });
+    customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
       expect(screen.getByText('Error')).toBeInTheDocument();
@@ -118,23 +112,40 @@ describe('Scoreboard', () => {
     expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
   });
 
-  it('should call refetch when retry button is clicked', async () => {
+  it('should call loadFromStorage again when retry button is clicked', async () => {
     const user = userEvent.setup();
 
     // First call fails
-    vi.mocked(gameSessionDB.loadGameSession).mockRejectedValueOnce(new Error('DB Error'));
+    const mockLoadFromStorage = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('DB Error'))
+      .mockImplementation(async (sessionId: string) => {
+        // Second call succeeds - update store state
+        useGameStore.setState({
+          id: sessionId,
+          status: 'completed',
+          players: [
+            { id: '1', name: 'Alice', score: 150 },
+            { id: '2', name: 'Bob', score: 200 },
+          ],
+          profiles: mockProfiles,
+          selectedProfiles: ['1', '2'],
+          numberOfRounds: 2,
+          selectedCategories: ['Historical Figures'],
+          roundCategoryMap: ['Historical Figures', 'Historical Figures'],
+        });
+        return true;
+      });
 
-    customRender(<Scoreboard sessionId="test-session" />, { withQueryProvider: true });
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+    customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
       expect(screen.getByText('Error')).toBeInTheDocument();
     });
 
     const retryButton = screen.getByRole('button', { name: /retry/i });
-
-    // Second call succeeds
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-
     await user.click(retryButton);
 
     await waitFor(() => {
@@ -143,138 +154,185 @@ describe('Scoreboard', () => {
   });
 
   it('should render scoreboard with players sorted by score', async () => {
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+    const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+      useGameStore.setState({
+        id: sessionId,
+        status: 'completed',
+        category: 'Historical Figures',
+        players: [
+          { id: '1', name: 'Alice', score: 150 },
+          { id: '2', name: 'Bob', score: 200 },
+          { id: '3', name: 'Charlie', score: 100 },
+          { id: '4', name: 'Diana', score: 200 },
+        ],
+        profiles: mockProfiles,
+        selectedProfiles: ['1', '2', '3'],
+        numberOfRounds: 5,
+        selectedCategories: ['Historical Figures'],
+        roundCategoryMap: [
+          'Historical Figures',
+          'Historical Figures',
+          'Historical Figures',
+          'Historical Figures',
+          'Historical Figures',
+        ],
+      });
+      return true;
+    });
 
-    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+    customRender(<Scoreboard sessionId="test-session-123" />);
 
     await waitFor(() => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
-    // Check players are displayed in correct order (by score, descending)
-    const playerRows = screen.getAllByRole('row');
-    // Skip header row
-    const dataRows = playerRows.slice(1);
-
-    expect(dataRows).toHaveLength(4);
-
-    // Bob and Diana tied for first with 200 points (both rank 1)
-    expect(dataRows[0]).toHaveTextContent('Bob');
-    expect(dataRows[0]).toHaveTextContent('200');
-    expect(dataRows[0]).toHaveTextContent('🥇');
-
-    expect(dataRows[1]).toHaveTextContent('Diana');
-    expect(dataRows[1]).toHaveTextContent('200');
-    expect(dataRows[1]).toHaveTextContent('🥇'); // Same rank as Bob
-
-    // Alice third with 150 (rank 3, skipping rank 2)
-    expect(dataRows[2]).toHaveTextContent('Alice');
-    expect(dataRows[2]).toHaveTextContent('150');
-    expect(dataRows[2]).toHaveTextContent('🥉');
-
-    // Charlie fourth with 100 (rank 4)
-    expect(dataRows[3]).toHaveTextContent('Charlie');
-    expect(dataRows[3]).toHaveTextContent('100');
-    expect(dataRows[3]).toHaveTextContent('4');
+    // Verify players are sorted by score (descending)
+    const rows = screen.getAllByRole('row');
+    expect(rows[1]).toHaveTextContent('Bob'); // 200 points (rank 1)
+    expect(rows[1]).toHaveTextContent('🥇');
+    expect(rows[2]).toHaveTextContent('Diana'); // 200 points (rank 1, tied)
+    expect(rows[2]).toHaveTextContent('🥇');
+    expect(rows[3]).toHaveTextContent('Alice'); // 150 points (rank 3)
+    expect(rows[3]).toHaveTextContent('🥉');
+    expect(rows[4]).toHaveTextContent('Charlie'); // 100 points (rank 4)
+    expect(rows[4]).toHaveTextContent('4');
   });
 
   it('should render table headers correctly', async () => {
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-
-    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
-
-    await waitFor(() => {
-      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+    const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+      useGameStore.setState({
+        id: sessionId,
+        status: 'completed',
+        players: [{ id: '1', name: 'Alice', score: 100 }],
+        profiles: mockProfiles,
+      });
+      return true;
     });
 
-    expect(screen.getByText('Rank')).toBeInTheDocument();
-    expect(screen.getByText('Player')).toBeInTheDocument();
-    expect(screen.getByText('Score')).toBeInTheDocument();
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+    customRender(<Scoreboard sessionId="test-session" />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Rank')).toBeInTheDocument();
+      expect(screen.getByText('Player')).toBeInTheDocument();
+      expect(screen.getByText('Score')).toBeInTheDocument();
+    });
   });
 
   it('should render without category when not provided', async () => {
-    const sessionWithoutCategory: PersistedGameState = {
-      ...mockGameSession,
-      category: undefined,
-    };
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(sessionWithoutCategory);
+    const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+      useGameStore.setState({
+        id: sessionId,
+        status: 'completed',
+        category: undefined,
+        players: [{ id: '1', name: 'Alice', score: 100 }],
+        profiles: mockProfiles,
+      });
+      return true;
+    });
 
-    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+    customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
-    expect(screen.queryByText(/Category:/i)).not.toBeInTheDocument();
+    // Category should not be displayed
+    expect(screen.queryByText(/Category:/)).not.toBeInTheDocument();
   });
 
   it('should handle single player correctly', async () => {
-    const singlePlayerSession: PersistedGameState = {
-      ...mockGameSession,
-      players: [{ id: '1', name: 'Solo Player', score: 100 }],
-    };
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(singlePlayerSession);
-
-    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
-
-    await waitFor(() => {
-      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+    const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+      useGameStore.setState({
+        id: sessionId,
+        status: 'completed',
+        players: [{ id: '1', name: 'Solo Player', score: 250 }],
+        profiles: mockProfiles,
+      });
+      return true;
     });
 
-    expect(screen.getByText('Solo Player')).toBeInTheDocument();
-    expect(screen.getByText('100')).toBeInTheDocument();
-    expect(screen.getByText('🥇')).toBeInTheDocument();
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+    customRender(<Scoreboard sessionId="test-session" />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Solo Player')).toBeInTheDocument();
+      expect(screen.getByText('250')).toBeInTheDocument();
+      expect(screen.getByText('🥇')).toBeInTheDocument();
+    });
   });
 
   it('should handle many players with correct rank display', async () => {
-    const manyPlayersSession: PersistedGameState = {
-      ...mockGameSession,
-      players: [
-        { id: '1', name: 'Player 1', score: 500 },
-        { id: '2', name: 'Player 2', score: 400 },
-        { id: '3', name: 'Player 3', score: 300 },
-        { id: '4', name: 'Player 4', score: 200 },
-        { id: '5', name: 'Player 5', score: 100 },
-      ],
-    };
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(manyPlayersSession);
-
-    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
-
-    await waitFor(() => {
-      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+    const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+      useGameStore.setState({
+        id: sessionId,
+        status: 'completed',
+        players: [
+          { id: '1', name: 'Player 1', score: 100 },
+          { id: '2', name: 'Player 2', score: 90 },
+          { id: '3', name: 'Player 3', score: 80 },
+          { id: '4', name: 'Player 4', score: 70 },
+          { id: '5', name: 'Player 5', score: 60 },
+        ],
+        profiles: mockProfiles,
+      });
+      return true;
     });
 
-    const dataRows = screen.getAllByRole('row').slice(1);
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-    // Check medals for top 3
-    expect(dataRows[0]).toHaveTextContent('🥇');
-    expect(dataRows[1]).toHaveTextContent('🥈');
-    expect(dataRows[2]).toHaveTextContent('🥉');
-
-    // Check numeric ranks for others
-    expect(dataRows[3]).toHaveTextContent('4');
-    expect(dataRows[4]).toHaveTextContent('5');
-  });
-
-  it('should call loadGameSession with correct sessionId', async () => {
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-
-    customRender(<Scoreboard sessionId="my-custom-session-id" />, { withQueryProvider: true });
+    customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
-      expect(gameSessionDB.loadGameSession).toHaveBeenCalledWith('my-custom-session-id');
+      const rows = screen.getAllByRole('row');
+      expect(rows[1]).toHaveTextContent('🥇'); // Rank 1
+      expect(rows[2]).toHaveTextContent('🥈'); // Rank 2
+      expect(rows[3]).toHaveTextContent('🥉'); // Rank 3
+      expect(rows[4]).toHaveTextContent('4'); // Rank 4
+      expect(rows[5]).toHaveTextContent('5'); // Rank 5
+    });
+  });
+
+  it('should call loadFromStorage with correct sessionId', async () => {
+    const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+      useGameStore.setState({
+        id: sessionId,
+        status: 'completed',
+        players: [{ id: '1', name: 'Alice', score: 100 }],
+        profiles: mockProfiles,
+      });
+      return true;
+    });
+
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+    customRender(<Scoreboard sessionId="my-session-id" />);
+
+    await waitFor(() => {
+      expect(mockLoadFromStorage).toHaveBeenCalledWith('my-session-id');
     });
   });
 
   it('should handle empty players array', async () => {
-    const emptyPlayersSession: PersistedGameState = {
-      ...mockGameSession,
-      players: [],
-    };
-    vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(emptyPlayersSession);
+    const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+      useGameStore.setState({
+        id: sessionId,
+        status: 'completed',
+        players: [],
+        profiles: mockProfiles,
+      });
+      return true;
+    });
 
-    customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
+    useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+    customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
       expect(screen.getByText('No Players')).toBeInTheDocument();
@@ -282,367 +340,242 @@ describe('Scoreboard', () => {
     });
   });
 
-  describe('Action Buttons', () => {
+  describe('Action buttons', () => {
     it('should render all three action buttons', async () => {
-      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-
-      customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
-
-      await waitFor(() => {
-        expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+      const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+        useGameStore.setState({
+          id: sessionId,
+          status: 'completed',
+          players: [{ id: '1', name: 'Alice', score: 100 }],
+          profiles: mockProfiles,
+        });
+        return true;
       });
 
-      expect(screen.getByTestId('scoreboard-new-game-button')).toBeInTheDocument();
-      expect(screen.getByTestId('scoreboard-same-players-button')).toBeInTheDocument();
-      expect(screen.getByTestId('scoreboard-restart-game-button')).toBeInTheDocument();
+      useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+      customRender(<Scoreboard sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('scoreboard-new-game-button')).toBeInTheDocument();
+        expect(screen.getByTestId('scoreboard-same-players-button')).toBeInTheDocument();
+        expect(screen.getByTestId('scoreboard-restart-game-button')).toBeInTheDocument();
+      });
     });
 
     it('should render action buttons with correct labels', async () => {
-      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
+      const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+        useGameStore.setState({
+          id: sessionId,
+          status: 'completed',
+          players: [{ id: '1', name: 'Alice', score: 100 }],
+          profiles: mockProfiles,
+        });
+        return true;
+      });
 
-      customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
+      useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
+
+      customRender(<Scoreboard sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+        expect(screen.getByText('New Game')).toBeInTheDocument();
+        expect(screen.getByText('Same Players')).toBeInTheDocument();
+        expect(screen.getByText('Restart Game')).toBeInTheDocument();
       });
-
-      expect(screen.getByRole('button', { name: 'New Game' })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'Same Players' })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'Restart Game' })).toBeInTheDocument();
     });
 
-    describe('New Game Button', () => {
-      it('should call deleteGameSession and navigate to home when clicked', async () => {
+    describe('New Game button', () => {
+      it('should reset store to initial state when clicked', async () => {
         const user = userEvent.setup();
-        const locationSetter = vi.fn();
 
-        Object.defineProperty(window, 'location', {
-          value: { href: '' },
-          writable: true,
-          configurable: true,
+        const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+          useGameStore.setState({
+            id: sessionId,
+            status: 'completed',
+            players: [{ id: '1', name: 'Alice', score: 100 }],
+            profiles: mockProfiles,
+            totalCluesPerProfile: 10,
+          });
+          return true;
         });
 
-        Object.defineProperty(window.location, 'href', {
-          set: locationSetter,
-          configurable: true,
-        });
+        useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-        vi.mocked(gameSessionDB.deleteGameSession).mockResolvedValue();
-
-        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
+        customRender(<Scoreboard sessionId="test-session" />);
 
         await waitFor(() => {
-          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+          expect(screen.getByTestId('scoreboard-new-game-button')).toBeInTheDocument();
         });
 
         const newGameButton = screen.getByTestId('scoreboard-new-game-button');
         await user.click(newGameButton);
 
+        // Wait a bit for state updates
         await waitFor(() => {
-          expect(gameSessionDB.deleteGameSession).toHaveBeenCalledWith('test-session-123');
-          expect(locationSetter).toHaveBeenCalledWith('/en/');
-        });
-      });
-
-      it('should handle errors when deleteGameSession fails', async () => {
-        const user = userEvent.setup();
-        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-        vi.mocked(gameSessionDB.deleteGameSession).mockRejectedValue(new Error('Delete failed'));
-
-        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
-
-        await waitFor(() => {
-          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+          const state = useGameStore.getState();
+          expect(state.id).not.toBe('test-session');
+          expect(state.id).toContain('game-');
         });
 
-        const newGameButton = screen.getByTestId('scoreboard-new-game-button');
-        await user.click(newGameButton);
-
-        await waitFor(() => {
-          expect(consoleErrorSpy).toHaveBeenCalledWith(
-            'Failed to clear game session:',
-            expect.any(Error)
-          );
-        });
-
-        consoleErrorSpy.mockRestore();
+        // Verify store was reset
+        const state = useGameStore.getState();
+        expect(state.players).toEqual([]);
+        expect(state.status).toBe('pending');
       });
     });
 
-    describe('Same Players Button', () => {
-      it('should reset player scores and navigate to game-setup when clicked', async () => {
+    describe('Same Players button', () => {
+      it('should reset scores and navigate to game-setup when clicked', async () => {
         const user = userEvent.setup();
-        const locationSetter = vi.fn();
 
-        Object.defineProperty(window, 'location', {
-          value: { href: '' },
-          writable: true,
-          configurable: true,
+        const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+          useGameStore.setState({
+            id: sessionId,
+            status: 'completed',
+            players: [
+              { id: '1', name: 'Alice', score: 150 },
+              { id: '2', name: 'Bob', score: 200 },
+            ],
+            profiles: mockProfiles,
+            totalCluesPerProfile: 10,
+          });
+          return true;
         });
 
-        Object.defineProperty(window.location, 'href', {
-          set: locationSetter,
-          configurable: true,
-        });
+        useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-        vi.mocked(gameSessionDB.saveGameSession).mockResolvedValue();
-
-        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
+        customRender(<Scoreboard sessionId="test-session-123" />);
 
         await waitFor(() => {
-          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+          expect(screen.getByTestId('scoreboard-same-players-button')).toBeInTheDocument();
         });
 
         const samePlayersButton = screen.getByTestId('scoreboard-same-players-button');
         await user.click(samePlayersButton);
 
+        // Wait for state updates
         await waitFor(() => {
-          expect(gameSessionDB.saveGameSession).toHaveBeenCalledWith(
-            expect.objectContaining({
-              id: 'test-session-123',
-              status: 'pending',
-              players: expect.arrayContaining([
-                expect.objectContaining({ id: '1', name: 'Alice', score: 0 }),
-                expect.objectContaining({ id: '2', name: 'Bob', score: 0 }),
-                expect.objectContaining({ id: '3', name: 'Charlie', score: 0 }),
-                expect.objectContaining({ id: '4', name: 'Diana', score: 0 }),
-              ]),
-              currentTurn: null,
-              currentProfile: null,
-              selectedProfiles: [],
-              category: undefined,
-            })
-          );
-          expect(locationSetter).toHaveBeenCalledWith('/en/game-setup/test-session-123');
-        });
-      });
-
-      it('should handle errors when saveGameSession fails', async () => {
-        const user = userEvent.setup();
-        const locationSetter = vi.fn();
-        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-        Object.defineProperty(window, 'location', {
-          value: { href: '' },
-          writable: true,
-          configurable: true,
+          const state = useGameStore.getState();
+          expect(state.status).toBe('pending');
         });
 
-        Object.defineProperty(window.location, 'href', {
-          set: locationSetter,
-          configurable: true,
-        });
-
-        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-        vi.mocked(gameSessionDB.saveGameSession).mockRejectedValue(new Error('Save failed'));
-
-        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
-
-        await waitFor(() => {
-          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
-        });
-
-        const samePlayersButton = screen.getByTestId('scoreboard-same-players-button');
-        await user.click(samePlayersButton);
-
-        await waitFor(() => {
-          expect(consoleErrorSpy).toHaveBeenCalledWith(
-            'Failed to reset game for same players:',
-            expect.any(Error)
-          );
-          expect(locationSetter).toHaveBeenCalledWith('/en/game-setup/test-session-123');
-        });
-
-        consoleErrorSpy.mockRestore();
+        // Verify scores were reset
+        const state = useGameStore.getState();
+        expect(state.players[0].score).toBe(0);
+        expect(state.players[1].score).toBe(0);
+        expect(state.players[0].name).toBe('Alice');
+        expect(state.players[1].name).toBe('Bob');
       });
     });
 
-    describe('Restart Game Button', () => {
-      it('should reset scores and restart game with fresh profile selection when clicked', async () => {
+    describe('Restart Game button', () => {
+      it('should create new session and navigate to game', async () => {
         const user = userEvent.setup();
-        const locationSetter = vi.fn();
 
-        Object.defineProperty(window, 'location', {
-          value: { href: '' },
-          writable: true,
-          configurable: true,
+        const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+          useGameStore.setState({
+            id: sessionId,
+            status: 'completed',
+            players: [
+              { id: 'old-1', name: 'Alice', score: 150 },
+              { id: 'old-2', name: 'Bob', score: 200 },
+            ],
+            profiles: mockProfiles,
+            selectedProfiles: ['1', '2'],
+            numberOfRounds: 2,
+            selectedCategories: ['Historical Figures'],
+            roundCategoryMap: ['Historical Figures', 'Historical Figures'],
+            totalCluesPerProfile: 10,
+          });
+          return true;
         });
 
-        Object.defineProperty(window.location, 'href', {
-          set: locationSetter,
-          configurable: true,
-        });
+        useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-        vi.mocked(gameSessionDB.saveGameSession).mockResolvedValue();
-
-        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
+        customRender(<Scoreboard sessionId="old-session" />);
 
         await waitFor(() => {
-          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+          expect(screen.getByTestId('scoreboard-restart-game-button')).toBeInTheDocument();
         });
 
         const restartButton = screen.getByTestId('scoreboard-restart-game-button');
         await user.click(restartButton);
 
+        // Wait for state updates
         await waitFor(() => {
-          // Get the last call to saveGameSession (restart game handler)
-          const calls = vi.mocked(gameSessionDB.saveGameSession).mock.calls;
-          const saveCall = calls[calls.length - 1][0];
-
-          // Verify basic reset
-          expect(saveCall.id).toMatch(/^game-/);
-          expect(saveCall).toMatchObject({
-            status: 'active',
-            currentRound: 1,
-            numberOfRounds: 5,
-          });
-
-          // Verify all player scores are reset to 0
-          expect(saveCall.players).toHaveLength(4);
-          saveCall.players.forEach((player: Player) => {
-            expect(player.score).toBe(0);
-          });
-
-          // Verify selectedProfiles is regenerated (should have 5 profiles for 5 rounds)
-          expect(saveCall.selectedProfiles).toHaveLength(5);
-
-          // Verify currentProfile and currentTurn are set to the first profile
-          expect(saveCall.currentProfile).toBeDefined();
-          expect(saveCall.currentProfile).not.toBeNull();
-          expect(saveCall.currentTurn).toMatchObject({
-            profileId: saveCall.selectedProfiles[0],
-            cluesRead: 0,
-            revealed: false,
-          });
-
-          // Verify category matches the first profile's category
-          if (saveCall.currentProfile) {
-            expect(saveCall.category).toBe(saveCall.currentProfile.category);
-          }
-
-          expect(locationSetter).toHaveBeenCalledWith(expect.stringMatching(/^\/en\/game\/game-/));
-        });
-      });
-
-      it('should handle errors when saveGameSession fails', async () => {
-        const user = userEvent.setup();
-        const locationSetter = vi.fn();
-        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-        Object.defineProperty(window, 'location', {
-          value: { href: '' },
-          writable: true,
-          configurable: true,
+          const state = useGameStore.getState();
+          expect(state.status).toBe('active');
         });
 
-        Object.defineProperty(window.location, 'href', {
-          set: locationSetter,
-          configurable: true,
-        });
+        // Verify new session was created
+        const state = useGameStore.getState();
+        expect(state.id).toMatch(/^game-\d+$/); // New session ID format
+        expect(state.id).not.toBe('old-session');
+        expect(state.currentRound).toBe(1);
 
-        vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(mockGameSession);
-        vi.mocked(gameSessionDB.saveGameSession).mockRejectedValue(new Error('Save failed'));
-
-        customRender(<Scoreboard sessionId="test-session-123" />, { withQueryProvider: true });
-
-        await waitFor(() => {
-          expect(screen.getByText('Scoreboard')).toBeInTheDocument();
-        });
-
-        const restartButton = screen.getByTestId('scoreboard-restart-game-button');
-        await user.click(restartButton);
-
-        await waitFor(() => {
-          expect(consoleErrorSpy).toHaveBeenCalledWith(
-            'Failed to restart game:',
-            expect.any(Error)
-          );
-          expect(locationSetter).toHaveBeenCalledWith('/en/game/test-session-123');
-        });
-
-        consoleErrorSpy.mockRestore();
+        // Verify players were reset with new IDs but same names
+        expect(state.players).toHaveLength(2);
+        expect(state.players[0].name).toBe('Alice');
+        expect(state.players[1].name).toBe('Bob');
+        expect(state.players[0].score).toBe(0);
+        expect(state.players[1].score).toBe(0);
+        expect(state.players[0].id).not.toBe('old-1');
+        expect(state.players[1].id).not.toBe('old-2');
       });
     });
   });
 
-  describe('Scoreboard - 16 players', () => {
+  describe('Large player list', () => {
     it('renders 16 players and shows correct count', async () => {
-      const session: PersistedGameState = {
-        id: '16-session',
-        status: 'completed',
-        category: 'Mixed',
-        players: make16Players(),
-        currentTurn: null,
-        remainingProfiles: [],
-        totalCluesPerProfile: 10,
-        profiles: [],
-        selectedProfiles: [],
-        currentProfile: null,
-        totalProfilesCount: 0,
-        numberOfRounds: 5,
-        currentRound: 1,
-        roundCategoryMap: ['Mixed', 'Mixed', 'Mixed', 'Mixed', 'Mixed'],
-        revealedClueHistory: [],
-      };
+      const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+        useGameStore.setState({
+          id: sessionId,
+          status: 'completed',
+          players: make16Players(),
+          profiles: mockProfiles,
+        });
+        return true;
+      });
 
-      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(session);
+      useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-      customRender(<Scoreboard sessionId="16-session" />, { withQueryProvider: true });
+      customRender(<Scoreboard sessionId="test-session" />);
 
-      await waitFor(() => expect(screen.getByText('Scoreboard')).toBeInTheDocument());
+      await waitFor(() => {
+        expect(screen.getByText('Player 1')).toBeInTheDocument();
+        expect(screen.getByText('Player 16')).toBeInTheDocument();
+      });
 
-      // Verify 16 players are rendered by counting data rows. Note: Table uses div wrapper; select tbody rows specifically
-      const table = screen.getByRole('table');
-      const dataRows = Array.from(table.querySelectorAll('tbody > tr'));
-      expect(dataRows).toHaveLength(16);
-
-      // Check a few players
-      expect(screen.getByText('Player 1')).toBeInTheDocument();
-      expect(screen.getByText('Player 16')).toBeInTheDocument();
+      const rows = screen.getAllByRole('row');
+      expect(rows).toHaveLength(17); // Header + 16 players
     });
 
     it('displays ranks correctly for 16 players', async () => {
-      const players = make16Players();
-      // shuffle scores to ensure ranking sorts
-      players[0].score = 1000; // top
-      players[15].score = 5; // bottom
+      const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
+        useGameStore.setState({
+          id: sessionId,
+          status: 'completed',
+          players: make16Players(),
+          profiles: mockProfiles,
+        });
+        return true;
+      });
 
-      const session: PersistedGameState = {
-        id: '16-session-2',
-        status: 'completed',
-        category: 'Mixed',
-        players,
-        currentTurn: null,
-        remainingProfiles: [],
-        totalCluesPerProfile: 10,
-        profiles: [],
-        selectedProfiles: [],
-        currentProfile: null,
-        totalProfilesCount: 0,
-        numberOfRounds: 5,
-        currentRound: 1,
-        roundCategoryMap: ['Mixed', 'Mixed', 'Mixed', 'Mixed', 'Mixed'],
-        revealedClueHistory: [],
-      };
+      useGameStore.setState({ loadFromStorage: mockLoadFromStorage });
 
-      vi.mocked(gameSessionDB.loadGameSession).mockResolvedValue(session);
+      customRender(<Scoreboard sessionId="test-session" />);
 
-      customRender(<Scoreboard sessionId="16-session-2" />, { withQueryProvider: true });
-
-      await waitFor(() => expect(screen.getByText('Scoreboard')).toBeInTheDocument());
-
-      const rows = screen.getAllByRole('row').slice(1);
-      expect(rows[0]).toHaveTextContent('Player 1');
-      expect(rows[0]).toHaveTextContent('1000');
-
-      // bottom row should be Player 16 with score 5
-      expect(rows[rows.length - 1]).toHaveTextContent('Player 16');
-      expect(rows[rows.length - 1]).toHaveTextContent('5');
+      await waitFor(() => {
+        const rows = screen.getAllByRole('row');
+        // Verify medals for top 3
+        expect(rows[1]).toHaveTextContent('🥇'); // Player 16 - 160 points
+        expect(rows[2]).toHaveTextContent('🥈'); // Player 15 - 150 points
+        expect(rows[3]).toHaveTextContent('🥉'); // Player 14 - 140 points
+        // Verify numeric ranks for others
+        expect(rows[4]).toHaveTextContent('4'); // Player 13
+        expect(rows[16]).toHaveTextContent('16'); // Player 1 - 10 points
+      });
     });
   });
 });

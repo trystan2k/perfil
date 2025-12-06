@@ -11,7 +11,8 @@
     "continue": "Continuar",
     "goHome": "Ir al Inicio",
     "goToRecoveryPage": "Ir a la Página de Recuperación",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "unknownError": "Ocurrió un error desconocido"
   },
   "errorHandler": {
     "title": "Error",
@@ -185,6 +186,12 @@
       "newGame": "Nuevo Juego",
       "samePlayers": "Mismos Jugadores",
       "restartGame": "Reiniciar Juego"
+    },
+    "error": {
+      "title": "Error",
+      "sessionNotFound": "Sesión de juego no encontrada",
+      "loadFailed": "Error al cargar la sesión de juego",
+      "noSessionId": "No se proporcionó ID de sesión"
     }
   },
   "pwaUpdater": {

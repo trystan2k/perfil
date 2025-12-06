@@ -44,6 +44,7 @@ describe('GamePersistenceService', () => {
     totalProfilesCount: 5,
     numberOfRounds: 3,
     currentRound: 1,
+    selectedCategories: ['Movies', 'TV', 'Sports'],
     roundCategoryMap: ['Movies', 'TV', 'Sports'],
     revealedClueHistory: [],
   });

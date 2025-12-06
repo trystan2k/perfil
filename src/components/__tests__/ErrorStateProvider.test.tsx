@@ -48,6 +48,7 @@ describe('ErrorStateProvider', () => {
       totalProfilesCount: 0,
       numberOfRounds: 1,
       currentRound: 1,
+      selectedCategories: [],
       roundCategoryMap: [],
       revealedClueHistory: [],
       error: null,

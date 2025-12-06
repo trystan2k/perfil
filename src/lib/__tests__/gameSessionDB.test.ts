@@ -54,6 +54,7 @@ describe('gameSessionDB', () => {
     totalProfilesCount: 1,
     numberOfRounds: 5,
     currentRound: 1,
+    selectedCategories: ['Movies'],
     roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
     revealedClueHistory: [],
   };
