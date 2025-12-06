@@ -62,7 +62,7 @@ test.describe('Scoreboard Features', () => {
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
     // Verify scores are displayed correctly
-    // Alice won round 1 (20 points), Bob won round 2 (19 points)
+    // Alice won round 1 (20 points), Bob won round 2 (9 points - 12 clues shown total)
     const rows = page.getByRole('row');
 
     // Check that all three players are listed
