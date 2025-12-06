@@ -1,24 +1,11 @@
-import type { IDBPDatabase, OpenDBCallbacks } from 'idb';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, type Mock, type Mocked, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import type { Profile } from '@/types/models';
-
-// Mock the idb module
-vi.mock('idb', () => ({
-  openDB: vi.fn(),
-}));
+import type * as MockIDB from '../../__mocks__/idb';
 
 describe('gameSessionDB', () => {
-  let mockDB: {
-    put: ReturnType<typeof vi.fn>;
-    get: ReturnType<typeof vi.fn>;
-    delete: ReturnType<typeof vi.fn>;
-    getAll: ReturnType<typeof vi.fn>;
-    clear: ReturnType<typeof vi.fn>;
-    objectStoreNames: {
-      contains: ReturnType<typeof vi.fn>;
-    };
-    createObjectStore: ReturnType<typeof vi.fn>;
+  let mockDB: Mocked<Awaited<ReturnType<typeof import('idb').openDB>>> & {
+    objectStoreNames: { contains: Mock };
   };
 
   const createMockProfile = (id: string): Profile => ({
@@ -62,32 +49,8 @@ describe('gameSessionDB', () => {
   beforeEach(async () => {
     // Reset modules to clear the cached dbPromise
     vi.resetModules();
-
-    // Create mock DB object
-    mockDB = {
-      put: vi.fn().mockResolvedValue(undefined),
-      get: vi.fn().mockResolvedValue(null),
-      delete: vi.fn().mockResolvedValue(undefined),
-      getAll: vi.fn().mockResolvedValue([]),
-      clear: vi.fn().mockResolvedValue(undefined),
-      objectStoreNames: {
-        contains: vi.fn().mockReturnValue(false),
-      },
-      createObjectStore: vi.fn(),
-    };
-
-    // Mock the openDB function from idb
-    const { openDB } = await import('idb');
-    vi.mocked(openDB).mockImplementation(
-      async (_name: string, _version?: number, options?: OpenDBCallbacks<unknown>) => {
-        // Simulate upgrade if needed
-        if (options?.upgrade) {
-          // biome-ignore lint/suspicious/noExplicitAny: Required for test mocking - complex IDB types
-          options.upgrade(mockDB as unknown as IDBPDatabase, 0, 1, {} as any, {} as any);
-        }
-        return mockDB as unknown as IDBPDatabase;
-      }
-    );
+    const idb = (await import('idb')) as unknown as typeof MockIDB;
+    mockDB = idb.mockDB as unknown as typeof mockDB;
   });
 
   afterEach(() => {

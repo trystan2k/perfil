@@ -185,55 +185,118 @@ test.describe('Scoreboard Features', () => {
     await expect(newRows.nth(1)).toContainText('20');
     await expect(newRows.nth(2)).toContainText(/Bob/);
     await expect(newRows.nth(2)).toContainText('19');
+  });
 
-    // // Step 8: Test "Restart Game" feature
-    // await page.getByTestId('scoreboard-restart-game-button').click();
+  test('should correctly show points and support restart game', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await expect(page.getByRole('heading', { name: 'Add Players' })).toBeVisible();
 
-    // // Should navigate directly to game with same settings
-    // await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
+    const addButton = page.getByRole('button', { name: 'Add' });
 
-    // // Play the game - award points differently
-    // await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    // await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    // await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByLabel('Player Name').fill('Alice');
+    await expect(addButton).toBeEnabled({ timeout: 5000 });
+    await addButton.click();
 
-    // // Award 8 points to Bob
-    // const bobBtn3 = page.getByRole('button', { name: /award points to bob/i });
-    // await bobBtn3.click();
+    await page.getByLabel('Player Name').fill('Bob');
+    await expect(addButton).toBeEnabled({ timeout: 5000 });
+    await addButton.click();
+    await page.getByRole('button', { name: 'Start Game' }).click();
 
-    // // Handle Round Complete dialog
-    // await expect(page.getByRole('dialog')).toContainText('Round Complete!');
-    // await page.getByRole('button', { name: 'Next Profile' }).click();
+    await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
+    await page.getByRole('button', { name: /Select All/ }).click();
+    await page.getByRole('button', { name: 'Continue' }).click();
 
-    // await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
-    // await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    // await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    // await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    // await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
+    await page.getByLabel('Number of rounds').fill('2');
+    await page.getByRole('button', { name: 'Start Game' }).click();
 
-    // // Award 7 points to Alice
-    // const aliceBtn3 = page.getByRole('button', { name: /award points to alice/i });
-    // await aliceBtn3.click();
+    // Play one round
+    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    const aliceBtn = page.getByRole('button', { name: /award points to alice/i });
+    await aliceBtn.click();
 
-    // // Handle Round Complete dialog
-    // await expect(page.getByRole('dialog')).toContainText('Round Complete!');
-    // await page.getByRole('button', { name: 'Next Profile' }).click();
+    await expect(page.getByRole('dialog')).toContainText('Round Complete!');
+    await page.getByRole('button', { name: 'Next Profile' }).click();
 
-    // await expect(page.getByRole('button', { name: 'Finish Game' })).toBeVisible();
-    // await page.getByRole('button', { name: 'Finish Game' }).click();
+    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    const bobBtn = page.getByRole('button', { name: /award points to bob/i });
+    await bobBtn.click();
 
-    // // Verify final scoreboard shows correct scores from THIS game only
-    // await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
+    // Handle Round Complete dialog
+    await expect(page.getByRole('dialog')).toContainText('Round Complete!');
+    await page.getByRole('button', { name: 'Next Profile' }).click();
 
-    // const finalRows = page.getByRole('row');
+    // Should navigate directly to scoreboard
+    await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    // // Verify both players are shown with medals (exact scores may vary)
-    // await expect(finalRows.nth(1)).toContainText(/Alice|Bob/);
-    // await expect(finalRows.nth(1)).toContainText('🥇');
-    // await expect(finalRows.nth(2)).toContainText(/Alice|Bob/);
-    // await expect(finalRows.nth(2)).toContainText('🥈');
+    const rows = page.getByRole('row');
 
-    // // Each restart should create a completely fresh game with reset scores
-    // // This verifies that scores from previous games don't carry over
+    // Verify both players are on scoreboard (exact scores may vary based on clues shown)
+    await expect(rows.nth(1)).toContainText(/Alice/);
+    await expect(rows.nth(1)).toContainText('20');
+    await expect(rows.nth(2)).toContainText(/Bob/);
+    await expect(rows.nth(2)).toContainText('18');
+
+    // Step 8: Test "Restart Game" feature
+    await page.getByTestId('scoreboard-restart-game-button').click();
+
+    // Should navigate directly to game with same settings
+    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
+
+    // Play the game - award points differently
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+
+    // Award 13 points to Bob
+    const bobBtn3 = page.getByRole('button', { name: /award points to bob/i });
+    await bobBtn3.click();
+
+    // Handle Round Complete dialog
+    await expect(page.getByRole('dialog')).toContainText('Round Complete!');
+    await page.getByRole('button', { name: 'Next Profile' }).click();
+
+    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+
+    // Award 11 points to Alice
+    const aliceBtn3 = page.getByRole('button', { name: /award points to alice/i });
+    await aliceBtn3.click();
+
+    // Handle Round Complete dialog
+    await expect(page.getByRole('dialog')).toContainText('Round Complete!');
+    await page.getByRole('button', { name: 'Next Profile' }).click();
+
+    // Verify final scoreboard shows correct scores from THIS game only
+    await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
+
+    const finalRows = page.getByRole('row');
+
+    // Verify both players are shown with medals (exact scores may vary)
+    await expect(finalRows.nth(1)).toContainText(/Bob/);
+    await expect(finalRows.nth(1)).toContainText('13');
+    await expect(finalRows.nth(2)).toContainText(/Alice/);
+    await expect(finalRows.nth(2)).toContainText('11');
+
+    // Each restart should create a completely fresh game with reset scores
+    // This verifies that scores from previous games don't carry over
   });
 });

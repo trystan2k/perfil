@@ -4,19 +4,8 @@ import { getErrorService, type TelemetryProvider } from './src/services/ErrorSer
 
 vi.mock('zustand');
 
-// Mock the idb library to prevent IndexedDB errors in Node.js test environment
-vi.mock('idb', () => ({
-  openDB: vi.fn(() =>
-    Promise.resolve({
-      get: vi.fn(() => Promise.resolve(null)),
-      put: vi.fn(() => Promise.resolve()),
-      delete: vi.fn(() => Promise.resolve()),
-      clear: vi.fn(() => Promise.resolve()),
-      getAll: vi.fn(() => Promise.resolve([])),
-    })
-  ),
-  deleteDB: vi.fn(() => Promise.resolve()),
-}));
+// Mock the idb module
+vi.mock('idb');
 
 // Suppress Radix UI accessibility warnings in tests
 // These warnings are about missing Description elements, but our components

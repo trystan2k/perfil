@@ -29,7 +29,7 @@ const make16Players = (): Player[] => {
 };
 
 describe('Scoreboard', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     // Reset store before each test
     useGameStore.setState({
       id: '',
