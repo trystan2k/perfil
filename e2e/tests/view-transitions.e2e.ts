@@ -236,7 +236,7 @@ test.describe('View Transitions API and State Persistence', () => {
       } else {
         // Store might not be attached to window - verify via UI state instead
         // The presence of game UI elements confirms state is working
-        expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
+        await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
       }
     });
 
