@@ -44,6 +44,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const { request, url } = context;
   const startTime = Date.now();
 
+  const isDebug = import.meta.env.DEBUG === 'true' || import.meta.env.DEV;
+
   try {
     // Get response from next middleware or route
     const response = await next();
@@ -56,8 +58,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
       response.headers.set(key, value);
     });
 
-    // Development logging with performance timing
-    const isDebug = import.meta.env.DEBUG === 'true' || import.meta.env.DEV;
     if (isDebug) {
       const duration = Date.now() - startTime;
       console.log(`📝 ${request.method} ${url.pathname} - ${duration}ms`);
@@ -67,7 +67,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
     return response;
   } catch (error) {
-    console.error('❌ Middleware error:', error);
+    if (isDebug) {
+      console.error('❌ Middleware error:', error);
+    }
 
     // Return secure error response with security headers
     const errorHeaders: Record<string, string> = {};
@@ -79,6 +81,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
       status: 500,
       headers: {
         'Content-Type': 'text/plain',
+        'Content-Security-Policy': getCspHeader(),
         ...errorHeaders,
       },
     });

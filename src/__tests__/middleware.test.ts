@@ -953,6 +953,7 @@ describe('middleware', () => {
 
       // Should include script-src with self
       expect(cspHeader).toContain("script-src 'self'");
+      expect(cspHeader).toContain("'unsafe-inline'");
 
       import.meta.env.DEV = false;
       const responseProd = assertResponse(await onRequest(context, nextFn));
@@ -961,6 +962,7 @@ describe('middleware', () => {
 
       // Should include script-src with self
       expect(cspHeaderProd).toContain("script-src 'self'");
+      expect(cspHeaderProd).not.toContain("'unsafe-inline'");
     });
 
     it('should always catch and handle errors in any environment', async () => {
