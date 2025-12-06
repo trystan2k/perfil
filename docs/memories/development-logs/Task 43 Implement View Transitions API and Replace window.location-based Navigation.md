@@ -69,6 +69,6 @@ All 14 new tests pass, bringing total E2E test count to 50 tests. Tests verify:
 
 ## PR
 
-- PR Link: (To be added after PR creation)
+- PR Link: https://github.com/trystan2k/perfil/pull/60
 
 Recorded by: basic-memory-specialist
