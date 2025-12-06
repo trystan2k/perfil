@@ -1,18 +1,34 @@
 import { Monitor, Moon, Sun } from 'lucide-react';
-import { useTranslation } from '@/hooks/useTranslations';
-import { type ThemeMode, useThemeStore } from '../stores/themeStore';
+import { THEMES, useTheme } from '@/hooks/useTheme';
+import type { SupportedLocale } from '../i18n/locales';
+import type { TranslationValue } from '../i18n/utils';
+import { TranslateProvider, useTranslate } from './TranslateProvider';
 
 const themes = [
-  { code: 'light' as const, icon: Sun },
-  { code: 'dark' as const, icon: Moon },
-  { code: 'system' as const, icon: Monitor },
+  { code: THEMES.light, icon: Sun },
+  { code: THEMES.dark, icon: Moon },
+  { code: THEMES.system, icon: Monitor },
 ] as const;
 
-export function ThemeSwitcher() {
-  const { theme: currentTheme, setTheme } = useThemeStore();
-  const { t } = useTranslation();
+type ThemeSwitcherProps = {
+  locale: SupportedLocale;
+  translations: TranslationValue;
+};
 
-  const handleThemeChange = (theme: ThemeMode) => {
+export const ThemeSwitcher = ({ locale, translations }: ThemeSwitcherProps) => {
+  return (
+    <TranslateProvider locale={locale} translations={translations}>
+      <ThemeSwitcherRaw />
+    </TranslateProvider>
+  );
+};
+
+function ThemeSwitcherRaw() {
+  const { t } = useTranslate();
+  const { theme: currentTheme, setTheme } = useTheme();
+  type ThemeCode = (typeof themes)[number]['code'];
+
+  const handleThemeChange = (theme: ThemeCode) => {
     setTheme(theme);
   };
 

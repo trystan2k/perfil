@@ -1,8 +1,17 @@
 ---
 import NoGamePrompt from '../../../components/NoGamePrompt.astro';
+import type { SupportedLocale } from '../../../i18n/locales';
+import { loadTranslations } from '../../../i18n/utils';
 import Layout from '../../../layouts/Layout.astro';
+
+// Get current locale from Astro's i18n routing
+// This is automatically set by Astro's i18n routing
+const currentLocale = (Astro.currentLocale || 'en') as SupportedLocale;
+
+// Load translations server-side for initial render
+const translations = await loadTranslations(currentLocale);
 ---
 
-<Layout title="noGamePage.title">
-	<NoGamePrompt />
+<Layout title="noGamePage.title" translations={translations}>
+	<NoGamePrompt translations={translations} />
 </Layout>

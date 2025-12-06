@@ -1,24 +1,22 @@
 import type { SupportedLocale } from '../i18n/locales';
 import type { TranslationValue } from '../i18n/utils';
-import { CategorySelect } from './CategorySelect';
+import { ErrorBoundary } from './ErrorBoundary';
+import { PlayersAdd } from './PlayersAdd';
 import { QueryProvider } from './QueryProvider';
 import { TranslateProvider } from './TranslateProvider';
 
-interface CategorySelectWithProviderProps {
-  sessionId: string;
+interface PlayersAddWithProviderProps {
   locale: SupportedLocale;
   translations: TranslationValue;
 }
 
-export function CategorySelectWithProvider({
-  sessionId,
-  locale,
-  translations,
-}: CategorySelectWithProviderProps) {
+export function PlayersAddWithProvider({ locale, translations }: PlayersAddWithProviderProps) {
   return (
     <TranslateProvider locale={locale} translations={translations}>
       <QueryProvider>
-        <CategorySelect sessionId={sessionId} />
+        <ErrorBoundary loggingContext="PlayersAdd">
+          <PlayersAdd />
+        </ErrorBoundary>
       </QueryProvider>
     </TranslateProvider>
   );

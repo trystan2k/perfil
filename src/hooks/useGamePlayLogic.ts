@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useProfiles } from '@/hooks/useProfiles';
-import { useTranslation } from '@/hooks/useTranslations';
 import { getCurrentLocale, navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
+import { useTranslate } from '../components/TranslateProvider';
 
 export interface UseGamePlayLogicReturn {
   // State
@@ -56,7 +56,7 @@ export interface UseGamePlayLogicReturn {
 }
 
 export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
 
   // Get current locale from URL
   const currentLocale = getCurrentLocale();

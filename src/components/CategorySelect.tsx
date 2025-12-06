@@ -3,16 +3,16 @@ import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useProfiles } from '@/hooks/useProfiles';
-import { useTranslation } from '@/hooks/useTranslations';
 import { navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
+import { useTranslate } from './TranslateProvider';
 
 interface CategorySelectProps {
   sessionId: string;
 }
 
 export function CategorySelect({ sessionId }: CategorySelectProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
   const { data: profilesData, isLoading, error } = useProfiles();
   const [isStarting, setIsStarting] = useState(false);
   const [sessionLoading, setSessionLoading] = useState(true);

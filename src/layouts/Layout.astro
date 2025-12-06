@@ -3,19 +3,18 @@ import { ClientRouter } from 'astro:transitions';
 import { ErrorStateProviderWrapper } from '../components/ErrorStateProviderWrapper';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
-import { ThemeProvider } from '../components/ThemeProvider';
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
-import { TranslationInitializer } from '../components/TranslationInitializer';
 import type { SupportedLocale } from '../i18n/locales';
-import { getTranslations, loadTranslations } from '../i18n/utils';
+import { getTranslateFunction, type TranslationValue } from '../i18n/utils';
 import '../styles/globals.css';
 import '../styles/theme.css';
 
 interface Props {
   title?: string;
+  translations?: TranslationValue;
 }
 
-const { title = 'Perfil' } = Astro.props;
+const { title = 'Perfil', translations = {} } = Astro.props;
 
 // Get current locale from Astro's i18n routing
 // This is automatically set by Astro's i18n routing
@@ -24,9 +23,7 @@ const currentLocale = (Astro.currentLocale || 'en') as SupportedLocale;
 // Get current path for language switcher links
 const currentPath = Astro.url.pathname;
 
-// Load translations server-side for initial render
-const translations = await loadTranslations(currentLocale);
-const t = await getTranslations(currentLocale);
+const t = getTranslateFunction(translations, currentLocale);
 ---
 
 <!doctype html>
@@ -40,28 +37,25 @@ const t = await getTranslations(currentLocale);
     <ClientRouter />
   </head>
   <body>
-    <ThemeProvider client:only="react">
-      <TranslationInitializer locale={currentLocale} translations={translations} client:load />
-      <ErrorStateProviderWrapper client:only="react">
-        <a href="#main-content" class="skip-link">{t('layout.skipToMain')}</a>
-        <header aria-label={t('layout.headerAriaLabel')}>
-          <div class="header-controls">
-            <ThemeSwitcher client:only="react" />
-            <LanguageSwitcher
-              currentLocale={currentLocale}
-              currentPath={currentPath}
-              ariaLabel={t('languageSwitcher.ariaLabel')}
-              switchToLabel={t('languageSwitcher.switchTo')}
-              client:load
-            />
-          </div>
-        </header>
-        <main id="main-content">
-          <slot />
-        </main>
-        </ErrorStateProviderWrapper>
-    </ThemeProvider>
-    <PwaUpdater client:load />
+    <ErrorStateProviderWrapper locale={currentLocale} translations={translations} client:load>
+      <a href="#main-content" class="skip-link">{t('layout.skipToMain')}</a>
+      <header aria-label={t('layout.headerAriaLabel')}>
+        <div class="header-controls">
+          <ThemeSwitcher client:idle locale={currentLocale} translations={translations} />
+          <LanguageSwitcher
+            currentLocale={currentLocale}
+            currentPath={currentPath}
+            ariaLabel={t('languageSwitcher.ariaLabel')}
+            switchToLabel={t('languageSwitcher.switchTo')}
+            client:idle
+          />
+        </div>
+      </header>
+      <main id="main-content">
+        <slot />
+      </main>
+    </ErrorStateProviderWrapper>
+    <PwaUpdater client:idle locale={currentLocale} translations={translations} />
   </body>
 </html>
 
@@ -92,3 +86,15 @@ const t = await getTranslations(currentLocale);
 		align-items: center;
 	}
 </style>
+
+<script>
+import { getThemeFromStorage, THEMES, updateSelectedTheme } from "../hooks/useTheme";
+
+
+const theme = getThemeFromStorage();
+if (theme) {
+  updateSelectedTheme(theme);
+} else {
+  updateSelectedTheme(THEMES.system);
+}
+</script>

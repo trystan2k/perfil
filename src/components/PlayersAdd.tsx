@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useTranslation } from '@/hooks/useTranslations';
 import { navigateWithLocale } from '@/i18n/locales';
 import { MAX_PLAYERS } from '@/lib/constants';
 import { useGameStore } from '@/stores/gameStore';
+import { useTranslate } from './TranslateProvider';
 
 export function PlayersAdd() {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
   const [playerName, setPlayerName] = useState('');
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const createGame = useGameStore((state) => state.createGame);

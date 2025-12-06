@@ -4,6 +4,9 @@ import { getErrorService, type TelemetryProvider } from './src/services/ErrorSer
 
 vi.mock('zustand');
 
+// Mock the idb module
+vi.mock('idb');
+
 // Suppress Radix UI accessibility warnings in tests
 // These warnings are about missing Description elements, but our components
 // properly implement aria-describedby for accessibility
@@ -21,7 +24,14 @@ beforeAll(() => {
 
   console.error = (...args: unknown[]) => {
     const message = String(args[0]);
-    if (message.includes('Missing `Description`') || message.includes('aria-describedby')) {
+    // Suppress known benign errors
+    if (
+      message.includes('Missing `Description`') ||
+      message.includes('aria-describedby') ||
+      message.includes('indexedDB is not defined') ||
+      message.includes('Failed to load game session from IndexedDB') ||
+      message.includes('Failed to load game from storage')
+    ) {
       return;
     }
     originalError.call(console, ...args);

@@ -8,9 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useTranslation } from '@/hooks/useTranslations';
 import { navigateWithLocale } from '@/i18n/locales';
 import { cn } from '@/lib/utils';
+import { useTranslate } from '../TranslateProvider';
 
 interface FallbackUIProps {
   error?: Error;
@@ -19,7 +19,7 @@ interface FallbackUIProps {
 }
 
 const FallbackUI: FC<FallbackUIProps> = ({ error, onRetry, loggingContext }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {

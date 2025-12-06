@@ -1,10 +1,14 @@
 ---
 import type { SupportedLocale } from '../i18n/locales';
-import { getTranslations } from '../i18n/utils';
+import { getTranslateFunction } from '../i18n/utils';
 
 // Get current locale from Astro's i18n routing
+// This is automatically set by Astro's i18n routing
 const currentLocale = (Astro.currentLocale || 'en') as SupportedLocale;
-const t = await getTranslations(currentLocale);
+
+const { translations = {} } = Astro.props;
+
+const t = getTranslateFunction(translations, currentLocale);
 ---
 
 <div class="flex items-center justify-center min-h-main p-4">

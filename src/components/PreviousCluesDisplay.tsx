@@ -1,12 +1,12 @@
 import { type SyntheticEvent, useRef, useState } from 'react';
-import { useTranslation } from '@/hooks/useTranslations';
+import { useTranslate } from './TranslateProvider';
 
 interface PreviousCluesDisplayProps {
   clues: string[];
 }
 
 export function PreviousCluesDisplay({ clues }: PreviousCluesDisplayProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
   const [isOpen, setIsOpen] = useState(false); // Default to closed
   const detailsRef = useRef<HTMLDetailsElement>(null);
 

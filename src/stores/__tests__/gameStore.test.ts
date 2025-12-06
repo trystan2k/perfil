@@ -47,6 +47,7 @@ describe('gameStore', () => {
       totalProfilesCount: 0,
       numberOfRounds: 1,
       currentRound: 1,
+      selectedCategories: ['Movies'],
       roundCategoryMap: ['Movies'],
     });
   });
@@ -896,6 +897,7 @@ describe('gameStore', () => {
         totalProfilesCount: 1,
         numberOfRounds: 1,
         currentRound: 1,
+        selectedCategories: ['Movies'],
         roundCategoryMap: ['Movies'],
         revealedClueHistory: [],
       };
@@ -938,6 +940,7 @@ describe('gameStore', () => {
         totalProfilesCount: 1,
         numberOfRounds: 1,
         currentRound: 1,
+        selectedCategories: ['Movies'],
         roundCategoryMap: ['Movies'],
         revealedClueHistory: [],
       };
@@ -991,6 +994,7 @@ describe('gameStore', () => {
         totalProfilesCount: state.totalProfilesCount,
         numberOfRounds: state.numberOfRounds,
         currentRound: state.currentRound,
+        selectedCategories: state.selectedCategories,
         roundCategoryMap: state.roundCategoryMap,
         revealedClueHistory: state.revealedClueHistory,
         revealedClueIndices: state.revealedClueIndices,
@@ -1029,6 +1033,7 @@ describe('gameStore', () => {
         totalProfilesCount: 0,
         numberOfRounds: 1,
         currentRound: 1,
+        selectedCategories: ['Movies'],
         roundCategoryMap: ['Movies'],
         revealedClueHistory: [],
       };
@@ -1140,6 +1145,7 @@ describe('gameStore', () => {
         totalProfilesCount: 0,
         numberOfRounds: 0,
         currentRound: 0,
+        selectedCategories: [],
         roundCategoryMap: [],
       });
       await useGameStore.getState().createGame(['Player 1', 'Player 2']);
@@ -1170,6 +1176,7 @@ describe('gameStore', () => {
       const state = useGameStore.getState();
       expect(state.numberOfRounds).toBe(5);
       expect(state.currentRound).toBe(1);
+      expect(state.selectedCategories).toEqual(['Movies']);
       expect(state.roundCategoryMap).toEqual(['Movies', 'Movies', 'Movies', 'Movies', 'Movies']);
     });
 
@@ -1548,6 +1555,39 @@ describe('gameStore', () => {
         expect(state.currentTurn?.cluesRead).toBe(1);
         expect(state.error).toBeNull();
       });
+    });
+  });
+
+  describe('resetGame', () => {
+    it('should reset game state and scores', async () => {
+      // Setup a game in progress
+      await useGameStore.getState().createGame(['Alice', 'Bob']);
+      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      useGameStore.getState().startGame(['Movies']);
+
+      // Advance game to modify state
+      useGameStore.getState().nextClue();
+      await useGameStore.getState().awardPoints(useGameStore.getState().players[0].id);
+
+      // Verify state before reset
+      let state = useGameStore.getState();
+      expect(state.players[0].score).toBeGreaterThan(0);
+      // Game completes because we only had 1 round/profile
+      expect(state.status).toBe('completed');
+      expect(state.currentTurn).toBeNull();
+
+      // Reset game
+      await useGameStore.getState().resetGame(true);
+
+      // Verify state after reset
+      state = useGameStore.getState();
+      expect(state.status).toBe('pending');
+      expect(state.currentTurn).toBeNull();
+      expect(state.players).toHaveLength(2);
+      expect(state.players[0].score).toBe(0);
+      expect(state.players[1].score).toBe(0);
+      expect(state.selectedProfiles).toEqual([]);
+      expect(state.currentProfile).toBeNull();
     });
   });
 });

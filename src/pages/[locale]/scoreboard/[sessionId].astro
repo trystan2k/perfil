@@ -1,5 +1,7 @@
 ---
 import { ScoreboardWithProvider } from '@/components/ScoreboardWithProvider';
+import type { SupportedLocale } from '../../../i18n/locales';
+import { loadTranslations } from '../../../i18n/utils';
 import Layout from '../../../layouts/Layout.astro';
 
 const { sessionId } = Astro.params;
@@ -7,8 +9,15 @@ const { sessionId } = Astro.params;
 if (!sessionId) {
   return Astro.redirect('/');
 }
+
+// Get current locale from Astro's i18n routing
+// This is automatically set by Astro's i18n routing
+const currentLocale = (Astro.currentLocale || 'en') as SupportedLocale;
+
+// Load translations server-side for initial render
+const translations = await loadTranslations(currentLocale);
 ---
 
-<Layout title="scoreboard.title">
-	<ScoreboardWithProvider client:load sessionId={sessionId} />
+<Layout title="scoreboard.title" translations={translations}>
+	<ScoreboardWithProvider locale={currentLocale} translations={translations} client:load sessionId={sessionId} />
 </Layout>

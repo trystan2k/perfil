@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test.describe('Theme switching', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'networkidle' });
   });
 
   test('theme switcher renders with all theme options', async ({ page }) => {

@@ -40,6 +40,7 @@ interface GameState extends GameSession {
   totalProfilesCount: number;
   numberOfRounds: number;
   currentRound: number;
+  selectedCategories: string[];
   roundCategoryMap: string[];
   revealedClueHistory: string[];
   revealedClueIndices: number[];
@@ -53,6 +54,7 @@ interface GameState extends GameSession {
   removePoints: (playerId: string, amount: number) => Promise<void>;
   skipProfile: () => Promise<void>;
   endGame: () => Promise<void>;
+  resetGame: (samePlayers?: boolean) => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<boolean>;
   /**
    * Sets an error in the store and logs it to ErrorService.
@@ -75,6 +77,7 @@ const initialState: Omit<
   | 'removePoints'
   | 'skipProfile'
   | 'endGame'
+  | 'resetGame'
   | 'loadFromStorage'
   | 'setError'
   | 'clearError'
@@ -92,6 +95,7 @@ const initialState: Omit<
   totalProfilesCount: 0,
   numberOfRounds: 0,
   currentRound: 0,
+  selectedCategories: [],
   roundCategoryMap: [],
   revealedClueHistory: [],
   revealedClueIndices: [],
@@ -131,6 +135,7 @@ function buildPersistedState(state: GameState): PersistedGameState {
     totalProfilesCount: state.totalProfilesCount,
     numberOfRounds: state.numberOfRounds,
     currentRound: state.currentRound,
+    selectedCategories: state.selectedCategories,
     roundCategoryMap: state.roundCategoryMap,
     revealedClueHistory: state.revealedClueHistory,
     revealedClueIndices: state.revealedClueIndices,
@@ -313,6 +318,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       totalProfilesCount: 0,
       numberOfRounds: 0,
       currentRound: 0,
+      selectedCategories: [],
       roundCategoryMap: [],
     };
 
@@ -425,6 +431,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         totalProfilesCount: profilesToPlay.length,
         numberOfRounds,
         currentRound: 1,
+        selectedCategories,
         // Store the round plan for potential future features (e.g., round-specific UI, analytics)
         roundCategoryMap: roundPlan,
         currentTurn: {
@@ -610,6 +617,43 @@ export const useGameStore = create<GameState>((set, get) => ({
       return newState;
     });
   },
+  resetGame: async (samePlayers = false) => {
+    set((state) => {
+      const resetPlayers = state.players.map((player) => ({
+        ...player,
+        score: 0,
+      }));
+
+      const newState = {
+        id: `game-${Date.now()}`,
+        players: samePlayers ? resetPlayers : [],
+        status: 'pending' as GameStatus,
+        currentTurn: null,
+        profiles: [],
+        remainingProfiles: [],
+        selectedProfiles: [],
+        currentProfile: null,
+        category: undefined,
+        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalProfilesCount: 0,
+        currentRound: 0,
+        numberOfRounds: 0,
+        revealedClueHistory: [],
+        revealedClueIndices: [],
+        selectedCategories: [],
+        roundCategoryMap: [],
+        error: null,
+      };
+
+      return newState;
+    });
+
+    // Force immediate persistence before returning to ensure state is saved before navigation
+    const state = get();
+    if (state.id) {
+      await persistenceService.forceSave(state.id, buildPersistedState(state));
+    }
+  },
   loadFromStorage: async (sessionId: string): Promise<boolean> => {
     try {
       // Start rehydration to block any persistence operations
@@ -645,6 +689,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         totalProfilesCount: loadedState.totalProfilesCount || loadedState.selectedProfiles.length,
         numberOfRounds: loadedState.numberOfRounds ?? 0,
         currentRound: loadedState.currentRound ?? 0,
+        selectedCategories: loadedState.selectedCategories ?? [],
         roundCategoryMap: loadedState.roundCategoryMap ?? [],
         revealedClueHistory: loadedState.revealedClueHistory ?? [],
         revealedClueIndices: loadedState.revealedClueIndices ?? [],

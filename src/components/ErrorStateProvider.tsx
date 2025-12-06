@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect } from 'react';
-import { useTranslation } from '@/hooks/useTranslations';
 import { navigateWithLocale } from '@/i18n/locales';
 import { useGameStore } from '../stores/gameStore';
+import { useTranslate } from './TranslateProvider';
 import { Button } from './ui/button';
 import {
   Dialog,
@@ -21,7 +21,7 @@ interface ErrorStateProviderProps {
  * Subscribes to the gameStore error state and shows a modal with recovery options
  */
 export function ErrorStateProvider({ children }: ErrorStateProviderProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslate();
   const error = useGameStore((state) => state.error);
   const clearError = useGameStore((state) => state.clearError);
 
