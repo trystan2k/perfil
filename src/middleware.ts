@@ -71,18 +71,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
       console.error('❌ Middleware error:', error);
     }
 
-    // Return secure error response with security headers
-    const errorHeaders: Record<string, string> = {};
-    for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
-      errorHeaders[key] = value;
-    }
-
     return new Response('Internal Server Error', {
       status: 500,
       headers: {
         'Content-Type': 'text/plain',
         'Content-Security-Policy': getCspHeader(),
-        ...errorHeaders,
+        ...SECURITY_HEADERS,
       },
     });
   }
