@@ -41,7 +41,7 @@ test.describe('Middleware Security Headers', () => {
     const response = await page.goto('/', { waitUntil: 'networkidle' });
 
     const headers = response?.headers();
-    expect(headers?.['cross-origin-embedder-policy']).toBe('require-corp');
+    expect(headers?.['cross-origin-embedder-policy']).toBe('credentialless');
     expect(headers?.['cross-origin-opener-policy']).toBe('same-origin');
     expect(headers?.['cross-origin-resource-policy']).toBe('same-origin');
   });
@@ -75,7 +75,7 @@ test.describe('Middleware Security Headers', () => {
     expect(cspHeader).toContain("form-action 'self'");
   });
 
-  test('should block inline scripts from unauthorized sources via CSP', async ({ page }) => {
+  test('should block external scripts from unauthorized sources via CSP', async ({ page }) => {
     // Navigate to home
     await page.goto('/', { waitUntil: 'networkidle' });
 

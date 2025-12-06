@@ -7,11 +7,17 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      'astro:middleware': path.resolve(__dirname, './src/__mocks__/astro-middleware.ts'),
       'astro:transitions/client': path.resolve(
         __dirname,
         './src/__mocks__/astro-transitions-client.ts'
       ),
     },
+  },
+  define: {
+    'import.meta.env.DEV': false,
+    'import.meta.env.PROD': true,
+    'import.meta.env.DEBUG': false,
   },
   test: {
     root: path.resolve(__dirname, './src'),

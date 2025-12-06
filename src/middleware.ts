@@ -1,83 +1,85 @@
 import { defineMiddleware } from 'astro:middleware';
 
-// Environment-based configuration
-const isDev = import.meta.env.DEV;
-const isProd = import.meta.env.PROD;
-
-// Security headers configuration
-const SECURITY_HEADERS = {
-  'Strict-Transport-Security': isProd
-    ? 'max-age=31536000; includeSubDomains; preload'
-    : 'max-age=3600',
+// Security headers configuration - optimized for production vs development
+const SECURITY_HEADERS: Record<string, string> = {
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-  'Cross-Origin-Embedder-Policy': 'require-corp',
+  'Cross-Origin-Embedder-Policy': 'credentialless',
   'Cross-Origin-Opener-Policy': 'same-origin',
   'Cross-Origin-Resource-Policy': 'same-origin',
 };
 
-// Content Security Policy
-const CSP_DIRECTIVES = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // Required for React development
-  "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
-  "font-src 'self' fonts.gstatic.com",
-  "img-src 'self' data: https:",
-  "connect-src 'self'",
-  "frame-src 'none'",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-  'upgrade-insecure-requests',
-];
+// Content Security Policy with environment-aware directives
+const getCspHeader = (): string => {
+  const baseDirectives = [
+    "default-src 'self'",
+    "font-src 'self' fonts.gstatic.com",
+    "img-src 'self' data: https:",
+    "connect-src 'self'",
+    "frame-src 'none'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+    'upgrade-insecure-requests',
+  ];
 
-const CSP_HEADER = CSP_DIRECTIVES.join('; ');
+  // Add script-src with unsafe-inline/eval only in development
+  const isDev = import.meta.env.DEV;
+  if (isDev) {
+    baseDirectives.push("script-src 'self' 'unsafe-inline' 'unsafe-eval'");
+    baseDirectives.push("style-src 'self' 'unsafe-inline' fonts.googleapis.com");
+  } else {
+    baseDirectives.push("script-src 'self'");
+    baseDirectives.push("style-src 'self' fonts.googleapis.com");
+  }
+
+  return baseDirectives.join('; ');
+};
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { request, url } = context;
   const startTime = Date.now();
 
   try {
-    // Get the response
+    // Get response from next middleware or route
     const response = await next();
 
-    // Create a new response with modified headers
-    const newResponse = new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers,
-    });
+    // Apply security headers to response
+    response.headers.set('Content-Security-Policy', getCspHeader());
 
-    // Add security headers
-    newResponse.headers.set('Content-Security-Policy', CSP_HEADER);
-
+    // Apply additional security headers
     Object.entries(SECURITY_HEADERS).forEach(([key, value]) => {
-      newResponse.headers.set(key, value);
+      response.headers.set(key, value);
     });
 
-    // Development logging
-    if (isDev) {
+    // Development logging with performance timing
+    const isDebug = import.meta.env.DEBUG === 'true' || import.meta.env.DEV;
+    if (isDebug) {
       const duration = Date.now() - startTime;
       console.log(`📝 ${request.method} ${url.pathname} - ${duration}ms`);
-
-      // Log request details
       console.log('🔍 Request headers:', Object.fromEntries(request.headers.entries()));
-      console.log('🔍 Response headers:', Object.fromEntries(newResponse.headers.entries()));
+      console.log('🔍 Response headers:', Object.fromEntries(response.headers.entries()));
     }
 
-    return newResponse;
+    return response;
   } catch (error) {
     console.error('❌ Middleware error:', error);
 
-    // Return a basic error response
+    // Return secure error response with security headers
+    const errorHeaders: Record<string, string> = {};
+    for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
+      errorHeaders[key] = value;
+    }
+
     return new Response('Internal Server Error', {
       status: 500,
       headers: {
         'Content-Type': 'text/plain',
-        ...SECURITY_HEADERS,
+        ...errorHeaders,
       },
     });
   }
