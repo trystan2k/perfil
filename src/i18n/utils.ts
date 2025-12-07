@@ -85,37 +85,7 @@ export async function loadTranslations(
   }
 
   try {
-    // Check if we're in a Node.js/server environment
-    if (typeof window === 'undefined') {
-      // Server-side: use direct file read
-      const fs = await import('node:fs/promises');
-      const path = await import('node:path');
-
-      // Resolve path relative to project root
-      const filePath = path.join(process.cwd(), 'public', 'locales', locale, 'translation.json');
-      const fileContent = await fs.readFile(filePath, 'utf-8');
-      const translations = JSON.parse(fileContent);
-      translationsCache.set(locale, translations);
-      return translations;
-    }
-
-    // Client-side: use fetch
-    // Access BASE_URL using type assertion to avoid TypeScript errors in CI environments without Astro types
-    // biome-ignore lint/suspicious/noExplicitAny: import.meta.env requires Astro types which may not be available in all environments
-    const importMeta = import.meta as any;
-    const baseUrl = importMeta?.env?.BASE_URL || '';
-    const response = await fetch(`${baseUrl}locales/${locale}/translation.json`);
-
-    if (!response.ok) {
-      console.error(`Failed to load translations for ${locale}`);
-      // Fallback to English if translation loading fails (but only once to prevent infinite recursion)
-      if (locale !== 'en' && !isRetry) {
-        return loadTranslations('en', true);
-      }
-      return {};
-    }
-
-    const translations = await response.json();
+    const translations = (await import(`../../public/locales/${locale}/translation.json`)).default;
     translationsCache.set(locale, translations);
     return translations;
   } catch (error) {

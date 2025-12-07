@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import translations from '../../../public/locales/en/translation.json';
-import { getLangFromUrl, loadTranslations, translateFunction } from '../utils';
+import { getLangFromUrl, translateFunction } from '../utils';
 
 describe('translateFunction', () => {
   beforeEach(() => {
@@ -45,69 +45,17 @@ describe('translateFunction', () => {
   });
 });
 
-describe('loadTranslations (client)', () => {
-  beforeEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  it('loads translations via fetch and caches subsequent calls', async () => {
-    const mockData = { x: { y: 'z' } };
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => mockData });
-    globalThis.fetch = fetchMock as unknown as typeof fetch;
-
-    const first = await loadTranslations('pt-BR');
-    expect(first).toEqual(mockData);
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-
-    const second = await loadTranslations('pt-BR');
-    expect(second).toEqual(mockData);
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-  });
-
-  it('falls back to English when non-English fetch fails', async () => {
-    const enData = { common: { loading: 'Loading...' } };
-    const fetchMock = vi
-      .fn()
-      .mockResolvedValueOnce({ ok: false, statusText: 'Not Found' })
-      .mockResolvedValueOnce({ ok: true, json: async () => enData });
-    globalThis.fetch = fetchMock as unknown as typeof fetch;
-
-    const result = await loadTranslations('es');
-    expect(result).toEqual(enData);
-    expect(fetchMock).toHaveBeenCalledTimes(2);
-  });
-});
-
 describe('loadTranslations (server)', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
 
-  it('reads translations from filesystem when window is undefined', async () => {
-    const originalWindow = (globalThis as unknown as { window?: unknown }).window;
-    Object.defineProperty(globalThis, 'window', {
-      value: undefined,
-      writable: true,
-      configurable: true,
-    });
-
-    vi.mock('node:fs/promises', () => ({
-      readFile: vi.fn().mockResolvedValue('{"foo": {"bar": "baz"}}'),
-    }));
-    vi.mock('node:path', () => ({
-      join: (...parts: string[]) => parts.join('/'),
-    }));
-
-    vi.resetModules();
+  it('reads translations from JSON files', async () => {
     const utils = await import('../utils');
     const data = await utils.loadTranslations('es');
-    expect(data).toEqual({ foo: { bar: 'baz' } });
 
-    Object.defineProperty(globalThis, 'window', {
-      value: originalWindow,
-      writable: true,
-      configurable: true,
-    });
+    const translations = (await import(`../../../public/locales/es/translation.json`)).default;
+    expect(data).toEqual(translations);
   });
 });
 
@@ -117,15 +65,11 @@ describe('getTranslations', () => {
   });
 
   it('returns a function that translates keys', async () => {
-    const data = { sample: { value: 'Hello {{name}}' } };
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => data });
-    globalThis.fetch = fetchMock as unknown as typeof fetch;
-
     vi.resetModules();
     const utils = await import('../utils');
     const t = await utils.getTranslations('en');
-    const result = t('sample.value', { name: 'Alice' });
-    expect(result).toBe('Hello Alice');
+    const result = t('errorHandler.contextMessage', { context: 'Test' });
+    expect(result).toBe('Error in Test');
   });
 });
 

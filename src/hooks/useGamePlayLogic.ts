@@ -158,6 +158,12 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
         try {
           await loadFromStorage(sessionId);
           setHasLoadError(false);
+
+          if (profilesData?.profiles) {
+            // IMPORTANT: After loading from storage, immediately sync profiles to current language
+            // This prevents the loaded state from having profiles in a different language
+            loadProfiles(profilesData.profiles);
+          }
         } catch (err) {
           console.error('Failed to load session:', err);
           setHasLoadError(true);
@@ -169,7 +175,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
 
       loadSession();
     }
-  }, [sessionId, gameAlreadyExists, loadFromStorage, setGlobalError]);
+  }, [sessionId, gameAlreadyExists, loadFromStorage, setGlobalError, profilesData, loadProfiles]);
 
   // Detect invalid game state and set error flag
   useEffect(() => {
