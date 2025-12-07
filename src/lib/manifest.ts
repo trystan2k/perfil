@@ -1,21 +1,24 @@
 import type { Profile, ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 
-interface ManifestCategory {
+export interface ManifestCategory {
   slug: string;
   displayName: string;
   profileCount: number;
   files: string[];
 }
 
-interface Manifest {
+export interface Manifest {
   version: string;
   locale: string;
   categories: ManifestCategory[];
   generatedAt: string;
 }
 
-async function fetchManifest(locale: string): Promise<Manifest> {
+/**
+ * Fetch manifest file for a locale to discover available categories
+ */
+export async function fetchManifest(locale: string): Promise<Manifest> {
   const response = await fetch(`/data/${locale}/manifest.json`);
 
   if (!response.ok) {
@@ -25,7 +28,11 @@ async function fetchManifest(locale: string): Promise<Manifest> {
   return response.json();
 }
 
-export default async function fetchProfilesByCategory(
+/**
+ * Fetch profiles for a specific category
+ * Merges all data files (data-1.json, data-2.json, etc.) for the category
+ */
+export async function fetchProfilesByCategory(
   locale: string,
   categorySlug: string
 ): Promise<ProfilesData> {
