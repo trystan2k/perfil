@@ -67,6 +67,21 @@ export default defineConfig({
         },
         workbox: {
           navigateFallback: null,
+          // Explicitly define which files to precache (excludes SSR-generated content)
+          globPatterns: ['**/*.{js,css,ico,png,svg,webp,woff,woff2,json}'],
+          // Exclude Cloudflare worker files and their paths from precaching
+          globIgnores: [
+            '**/node_modules/**/*',
+            '_worker.js/**/*',
+            '**/_worker.js*',
+            '**/workbox-*.js',
+          ],
+          // Don't cache bust Astro build assets (they have content hashes)
+          dontCacheBustURLsMatching: /\/_astro\//,
+          // Clean up outdated caches automatically
+          cleanupOutdatedCaches: true,
+          // Don't try to precache HTML files (they're SSR-generated)
+          globDirectory: 'dist',
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
