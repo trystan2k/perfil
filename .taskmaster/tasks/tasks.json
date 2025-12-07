@@ -3342,10 +3342,11 @@
         "description": "TS-002: Consolidate i18n initialization into a single effect/state machine to avoid races during rapid language switches or remounts.",
         "details": "Refactor I18nProvider to use useReducer or a small state machine handling INIT_START/INIT_SUCCESS/INIT_ERROR with cancellation tokens. Ensure predictable transitions and no memory leaks. Add tests for concurrent scenarios.",
         "testStrategy": "Unit tests for I18nProvider simulating rapid locale changes, integration tests verifying UI translation stability.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-07T02:34:34.757Z"
       },
       {
         "id": "53",
@@ -4311,7 +4312,7 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-06T13:10:27.798Z",
+      "lastModified": "2025-12-07T02:34:34.758Z",
       "taskCount": 92,
       "completedCount": 54,
       "tags": [
