@@ -258,7 +258,19 @@ describe('useProfiles', () => {
       expect(result.current.error?.message).toContain('Category "nonexistent" not found');
     });
 
-    it('should auto-discover and merge multiple data files for a category', async () => {
+    it('should merge multiple data files listed in manifest for a category', async () => {
+      const manifestWithMultipleFiles = {
+        ...mockManifest,
+        categories: [
+          {
+            slug: 'movies',
+            displayName: 'Movies',
+            profileCount: 3,
+            files: ['data-1.json', 'data-2.json'],
+          },
+        ],
+      };
+
       const mockData1 = {
         version: '1',
         profiles: [
@@ -289,43 +301,19 @@ describe('useProfiles', () => {
         ],
       };
 
-      vi.mocked(fetch).mockImplementation(async (url: string | URL | Request) => {
-        const urlStr = url.toString();
-
-        if (urlStr.includes('manifest.json')) {
-          return {
-            ok: true,
-            json: async () => mockManifest,
-          } as Response;
-        }
-
-        if (urlStr.includes('movies/data-1.json')) {
-          return {
-            ok: true,
-            json: async () => mockData1,
-          } as Response;
-        }
-
-        if (urlStr.includes('movies/data-2.json')) {
-          return {
-            ok: true,
-            json: async () => mockData2,
-          } as Response;
-        }
-
-        if (urlStr.includes('movies/data-3.json')) {
-          // No more files - return 404
-          return {
-            ok: false,
-            statusText: 'Not Found',
-          } as Response;
-        }
-
-        return {
-          ok: false,
-          statusText: 'Not Found',
-        } as Response;
-      });
+      vi.mocked(fetch)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => manifestWithMultipleFiles,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => mockData1,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => mockData2,
+        } as Response);
 
       const { result } = renderHook(() => useProfiles({ category: 'movies' }), {
         wrapper: createWrapper(),

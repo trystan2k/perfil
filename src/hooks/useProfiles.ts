@@ -46,36 +46,20 @@ async function fetchProfilesByCategory(
     throw new Error(`Category "${categorySlug}" not found in manifest for locale ${locale}`);
   }
 
-  // Auto-discover and fetch all data files for this category
-  // Try data-1.json, data-2.json, data-3.json... until we get a 404
-  const dataFiles = [];
-  let fileIndex = 1;
-  let hasMoreFiles = true;
+  // Fetch all data files for this category using manifest's files array
+  const dataPromises = category.files.map(async (file) => {
+    const response = await fetch(`/data/${locale}/${categorySlug}/${file}`);
 
-  while (hasMoreFiles) {
-    const fileName = `data-${fileIndex}.json`;
-    try {
-      const response = await fetch(`/data/${locale}/${categorySlug}/${fileName}`);
-
-      if (!response.ok) {
-        // No more files to fetch
-        hasMoreFiles = false;
-        break;
-      }
-
-      const data = await response.json();
-      dataFiles.push(data);
-      fileIndex++;
-    } catch (_error) {
-      // Network error or invalid JSON - stop trying
-      hasMoreFiles = false;
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch ${file} for category ${categorySlug}: ${response.statusText}`
+      );
     }
-  }
 
-  // If no files found, throw error
-  if (dataFiles.length === 0) {
-    throw new Error(`No data files found for category ${categorySlug} in locale ${locale}`);
-  }
+    return response.json();
+  });
+
+  const dataFiles = await Promise.all(dataPromises);
 
   // Merge all profiles from all data files
   const allProfiles: Profile[] = [];
