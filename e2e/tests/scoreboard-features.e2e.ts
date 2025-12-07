@@ -3,7 +3,11 @@ import { expect, type Page, test } from '@playwright/test';
 // At the top of the file or in a test utilities file
 async function showClues(page: Page, count: number) {
   for (let i = 0; i < count; i++) {
-    await page.getByRole('button', { name: 'Show Next Clue' }).click();
+    const button = page.getByRole('button', { name: 'Show Next Clue' });
+    await expect(button).toBeEnabled({ timeout: 5000 });
+    await button.click();
+    // Wait for state to persist and UI to update
+    await page.waitForTimeout(150);
   }
 }
 
@@ -141,6 +145,9 @@ test.describe('Scoreboard Features', () => {
     // Step 7: Test "Same Players" feature
     await page.getByTestId('scoreboard-same-players-button').click();
 
+    // Wait for navigation to complete
+    await page.waitForTimeout(300);
+
     // Players should be preserved but we should be able to select categories again
     await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
 
@@ -244,6 +251,9 @@ test.describe('Scoreboard Features', () => {
 
     // Step 8: Test "Restart Game" feature
     await page.getByTestId('scoreboard-restart-game-button').click();
+
+    // Wait for game state to reinitialize properly
+    await page.waitForTimeout(500);
 
     // Should navigate directly to game with same settings
     await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();

@@ -1,4 +1,4 @@
-import type { ProfilesData } from '../types/models';
+import type { Profile, ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 
 interface ManifestCategory {
@@ -69,7 +69,7 @@ export default async function fetchProfilesByCategory(
   }
 
   // Merge all profiles from all data files
-  const allProfiles = [];
+  const allProfiles: Profile[] = [];
   for (const dataFile of dataFiles) {
     if (dataFile.profiles && Array.isArray(dataFile.profiles)) {
       allProfiles.push(...dataFile.profiles);

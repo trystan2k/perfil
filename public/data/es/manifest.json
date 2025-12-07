@@ -9,13 +9,13 @@
       "files": ["data-1.json"]
     },
     {
-      "slug": "pases",
+      "slug": "paises",
       "displayName": "Países",
       "profileCount": 1,
       "files": ["data-1.json"]
     },
     {
-      "slug": "pelculas",
+      "slug": "peliculas",
       "displayName": "Películas",
       "profileCount": 1,
       "files": ["data-1.json"]
@@ -27,7 +27,7 @@
       "files": ["data-1.json"]
     },
     {
-      "slug": "tecnologa",
+      "slug": "tecnologia",
       "displayName": "Tecnología",
       "profileCount": 1,
       "files": ["data-1.json"]
