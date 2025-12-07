@@ -2,8 +2,10 @@ import { type ChangeEvent, useEffect, useState } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { usePrefetchProfiles } from '@/hooks/usePrefetchProfiles';
 import { useProfiles } from '@/hooks/useProfiles';
 import { navigateWithLocale } from '@/i18n/locales';
+import { getPopularCategoriesForLocale, PREFETCH_CONFIG } from '@/lib/prefetch-config';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import { useTranslate } from './TranslateProvider';
 
@@ -24,6 +26,17 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
   const setGlobalError = useGameStore((state) => state.setError);
+
+  // Get current locale for prefetch configuration
+  // Use getCurrentLocale utility which is test-safe
+  const currentLocale =
+    (typeof window !== 'undefined' && window.location?.pathname?.split('/')[1]) || 'en';
+
+  // Prefetch popular categories in the background
+  usePrefetchProfiles({
+    categories: getPopularCategoriesForLocale(currentLocale),
+    enabled: PREFETCH_CONFIG.enabled && !isLoading && !error,
+  });
 
   useEffect(() => {
     const loadSession = async () => {

@@ -30,6 +30,193 @@ const defaultMockProfiles: Profile[] = [
   createMockProfile('3', 'Music', 'The Beatles'),
 ];
 
+describe('Category Randomization', () => {
+  beforeEach(() => {
+    // Reset store before each test
+    useGameStore.getState().resetGame();
+  });
+
+  it('should produce different category orders on multiple game starts', async () => {
+    const mockProfiles = [
+      {
+        id: 'movie-1',
+        category: 'Movies',
+        name: 'Movie Profile',
+        clues: ['C1', 'C2', 'C3'],
+      },
+      {
+        id: 'sport-1',
+        category: 'Sports',
+        name: 'Sport Profile',
+        clues: ['C1', 'C2', 'C3'],
+      },
+      {
+        id: 'animal-1',
+        category: 'Animals',
+        name: 'Animal Profile',
+        clues: ['C1', 'C2', 'C3'],
+      },
+    ];
+
+    const categories = ['Movies', 'Sports', 'Animals'];
+    const rounds = 9;
+    const orders = new Set<string>();
+
+    // Start game multiple times and capture category orders
+    for (let i = 0; i < 10; i++) {
+      // Create fresh game for each iteration
+      await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+      useGameStore.getState().loadProfiles(mockProfiles);
+      useGameStore.getState().startGame(categories, rounds);
+
+      const order = useGameStore.getState().roundCategoryMap?.join(',') || '';
+      orders.add(order);
+
+      // Reset for next iteration
+      useGameStore.getState().resetGame();
+    }
+
+    // Should have more than 1 unique order (very high probability with randomization)
+    expect(orders.size).toBeGreaterThan(1);
+  });
+
+  it('should maintain fair distribution of categories', async () => {
+    // Setup
+    await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+
+    const mockProfiles = [
+      {
+        id: 'movie-1',
+        category: 'Movies',
+        name: 'Movie Profile',
+        clues: ['C1', 'C2', 'C3'],
+      },
+      {
+        id: 'sport-1',
+        category: 'Sports',
+        name: 'Sport Profile',
+        clues: ['C1', 'C2', 'C3'],
+      },
+      {
+        id: 'animal-1',
+        category: 'Animals',
+        name: 'Animal Profile',
+        clues: ['C1', 'C2', 'C3'],
+      },
+    ];
+
+    useGameStore.getState().loadProfiles(mockProfiles);
+
+    const categories = ['Movies', 'Sports', 'Animals'];
+    const rounds = 9;
+
+    useGameStore.getState().startGame(categories, rounds);
+    const roundPlan = useGameStore.getState().roundCategoryMap || [];
+
+    // Count occurrences of each category
+    const counts = new Map<string, number>();
+    for (const cat of roundPlan) {
+      counts.set(cat, (counts.get(cat) || 0) + 1);
+    }
+
+    // With 9 rounds and 3 categories, each should appear exactly 3 times
+    expect(counts.get('Movies')).toBe(3);
+    expect(counts.get('Sports')).toBe(3);
+    expect(counts.get('Animals')).toBe(3);
+  });
+
+  it('should maintain deterministic behavior for single category', async () => {
+    // Setup
+    await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+
+    const mockProfiles = [
+      {
+        id: 'movie-1',
+        category: 'Movies',
+        name: 'Movie 1',
+        clues: ['C1', 'C2', 'C3'],
+      },
+      {
+        id: 'movie-2',
+        category: 'Movies',
+        name: 'Movie 2',
+        clues: ['C1', 'C2', 'C3'],
+      },
+    ];
+
+    useGameStore.getState().loadProfiles(mockProfiles);
+
+    const categories = ['Movies'];
+    const rounds = 5;
+
+    useGameStore.getState().startGame(categories, rounds);
+    const roundPlan = useGameStore.getState().roundCategoryMap || [];
+
+    // All rounds should be the same category
+    expect(roundPlan).toEqual(['Movies', 'Movies', 'Movies', 'Movies', 'Movies']);
+    expect(roundPlan.every((cat) => cat === 'Movies')).toBe(true);
+  });
+
+  it('should handle uneven distribution correctly', async () => {
+    // Setup
+    await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+
+    const mockProfiles = [
+      { id: 'm1', category: 'Movies', name: 'M1', clues: ['C1', 'C2', 'C3'] },
+      { id: 's1', category: 'Sports', name: 'S1', clues: ['C1', 'C2', 'C3'] },
+    ];
+
+    useGameStore.getState().loadProfiles(mockProfiles);
+
+    const categories = ['Movies', 'Sports'];
+    const rounds = 5; // Odd number
+
+    useGameStore.getState().startGame(categories, rounds);
+    const roundPlan = useGameStore.getState().roundCategoryMap || [];
+
+    // Count occurrences
+    const counts = new Map<string, number>();
+    for (const cat of roundPlan) {
+      counts.set(cat, (counts.get(cat) || 0) + 1);
+    }
+
+    // One category should have 3, the other 2
+    const values = Array.from(counts.values()).sort();
+    expect(values).toEqual([2, 3]);
+    expect(roundPlan).toHaveLength(5);
+  });
+
+  it('should randomize first category across multiple runs', async () => {
+    const mockProfiles = [
+      { id: 'm1', category: 'Movies', name: 'M1', clues: ['C1', 'C2', 'C3'] },
+      { id: 's1', category: 'Sports', name: 'S1', clues: ['C1', 'C2', 'C3'] },
+      { id: 'a1', category: 'Animals', name: 'A1', clues: ['C1', 'C2', 'C3'] },
+    ];
+
+    const categories = ['Movies', 'Sports', 'Animals'];
+    const firstCategories = new Set<string>();
+
+    // Run multiple times and capture first category
+    for (let i = 0; i < 15; i++) {
+      // Create fresh game for each iteration
+      await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+      useGameStore.getState().loadProfiles(mockProfiles);
+      useGameStore.getState().startGame(categories, 3);
+
+      const roundPlan = useGameStore.getState().roundCategoryMap || [];
+      if (roundPlan.length > 0) {
+        firstCategories.add(roundPlan[0]);
+      }
+
+      // Reset for next iteration
+      useGameStore.getState().resetGame();
+    }
+
+    // With randomization, we should see at least 2 different first categories
+    expect(firstCategories.size).toBeGreaterThan(1);
+  });
+});
+
 describe('gameStore', () => {
   beforeEach(() => {
     // Reset store to initial state before each test
@@ -356,6 +543,8 @@ describe('gameStore', () => {
       useGameStore.getState().loadProfiles(defaultMockProfiles);
       useGameStore.getState().startGame(['Movies', 'Sports'], 2);
 
+      const firstProfileId = useGameStore.getState().currentTurn?.profileId;
+
       useGameStore.getState().nextClue();
       useGameStore.getState().nextClue();
       const playerId = useGameStore.getState().players[0].id;
@@ -365,7 +554,9 @@ describe('gameStore', () => {
       const state = useGameStore.getState();
 
       expect(state.currentTurn?.cluesRead).toBe(0);
-      expect(state.currentTurn?.profileId).toBe('2');
+      // Should move to next profile (different from first)
+      expect(state.currentTurn?.profileId).not.toBe(firstProfileId);
+      expect(state.currentTurn?.profileId).toBeDefined();
       expect(state.currentTurn?.revealed).toBe(false);
     });
 
@@ -1218,8 +1409,15 @@ describe('gameStore', () => {
       expect(state.numberOfRounds).toBe(2);
       expect(state.currentRound).toBe(1);
       expect(state.roundCategoryMap).toHaveLength(2);
-      // Should use first 2 categories in round-robin order
-      expect(state.roundCategoryMap).toEqual(['Movies', 'Sports']);
+      // With randomization, check distribution instead of exact order
+      const roundCategories = state.roundCategoryMap || [];
+      const uniqueCategories = new Set(roundCategories);
+      // Should have 2 different categories (one from each)
+      expect(uniqueCategories.size).toBe(2);
+      // All categories should be from the selected list
+      for (const cat of roundCategories) {
+        expect(['Movies', 'Sports', 'Music', 'History']).toContain(cat);
+      }
     });
 
     it('should generate round plan with multiple categories - rounds equal to categories', async () => {
@@ -1252,7 +1450,17 @@ describe('gameStore', () => {
       const state = useGameStore.getState();
       expect(state.numberOfRounds).toBe(3);
       expect(state.currentRound).toBe(1);
-      expect(state.roundCategoryMap).toEqual(['Movies', 'Sports', 'History']);
+      // With randomization, check distribution instead of exact order
+      const roundCategories = state.roundCategoryMap || [];
+      expect(roundCategories).toHaveLength(3);
+      // All 3 categories should appear exactly once
+      const counts = new Map<string, number>();
+      for (const cat of roundCategories) {
+        counts.set(cat, (counts.get(cat) || 0) + 1);
+      }
+      expect(counts.get('Movies')).toBe(1);
+      expect(counts.get('Sports')).toBe(1);
+      expect(counts.get('History')).toBe(1);
     });
 
     it('should generate round plan with multiple categories - rounds greater than categories', async () => {
@@ -1287,27 +1495,22 @@ describe('gameStore', () => {
       expect(state.currentRound).toBe(1);
       expect(state.roundCategoryMap).toHaveLength(8);
 
-      // Should distribute evenly in round-robin: 3 categories, 8 rounds
-      // Expected: [Movies, Sports, History, Movies, Sports, History, Movies, Sports]
-      expect(state.roundCategoryMap).toEqual([
-        'Movies',
-        'Sports',
-        'History',
-        'Movies',
-        'Sports',
-        'History',
-        'Movies',
-        'Sports',
-      ]);
+      // Should distribute evenly: 3 categories, 8 rounds
+      // With randomization, order will vary but distribution should be fair
+      expect(state.roundCategoryMap).toHaveLength(8);
 
-      // Count occurrences to verify even distribution
+      // Count occurrences to verify fair distribution
       const movieCount = state.roundCategoryMap.filter((c) => c === 'Movies').length;
       const sportsCount = state.roundCategoryMap.filter((c) => c === 'Sports').length;
       const historyCount = state.roundCategoryMap.filter((c) => c === 'History').length;
 
-      expect(movieCount).toBe(3); // ceil(8/3) = 3
-      expect(sportsCount).toBe(3); // ceil(8/3) = 3
-      expect(historyCount).toBe(2); // floor(8/3) = 2
+      // With 8 rounds and 3 categories, distribution should be 3,3,2 (in any order)
+      const counts = [movieCount, sportsCount, historyCount].sort();
+      expect(counts).toEqual([2, 3, 3]);
+      // All categories should be present
+      expect(movieCount).toBeGreaterThan(0);
+      expect(sportsCount).toBeGreaterThan(0);
+      expect(historyCount).toBeGreaterThan(0);
     });
 
     it('should handle edge case - 1 round with single category', async () => {

@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0006",
+      "category": "Tecnologia",
+      "name": "Smartphone",
+      "clues": [
+        "Tornou-se popular em 2007",
+        "Combina múltiplos dispositivos em um",
+        "Interface de tela sensível ao toque",
+        "Pode acessar a internet",
+        "Tem câmera embutida",
+        "Navegação GPS",
+        "Milhares de aplicativos disponíveis",
+        "Usado por bilhões no mundo todo",
+        "A maioria das pessoas verifica em minutos após acordar",
+        "Contém acelerômetro e giroscópio",
+        "Pode fazer chamadas de vídeo",
+        "Substituiu muitos dispositivos dedicados",
+        "Bateria tipicamente dura um dia",
+        "Usa redes celulares",
+        "Mídia social é uso principal",
+        "Revolucionou a fotografia",
+        "A maioria tem reconhecimento de impressão digital ou facial",
+        "É essencialmente um computador de bolso",
+        "iPhone e Android são os mais populares",
+        "Pessoa média gasta 3+ horas por dia nele"
+      ],
+      "metadata": {
+        "language": "pt",
+        "difficulty": "easy",
+        "source": "modern-tech"
+      }
+    }
+  ]
+}

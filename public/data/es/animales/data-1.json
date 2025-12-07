@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0005",
+      "category": "Animales",
+      "name": "Pulpo",
+      "clues": [
+        "Invertebrado marino",
+        "Tiene tres corazones",
+        "Sangre azul debido al cobre",
+        "Puede cambiar de color instantáneamente",
+        "Ocho apéndices",
+        "Altamente inteligente",
+        "Puede apretarse a través de espacios diminutos",
+        "Se encuentra en arrecifes de coral y fondo oceánico",
+        "Lanza tinta cuando está amenazado",
+        "Vida corta de 1-5 años",
+        "No tiene huesos ni esqueleto",
+        "Puede regenerar brazos perdidos",
+        "Nueve cerebros en total",
+        "Excelentes resolviendo problemas",
+        "Puede abrir frascos y recipientes",
+        "Criaturas solitarias",
+        "Boca en forma de pico",
+        "Relacionado con el calamar",
+        "Algunas especies son venenosas",
+        "Muere después de la reproducción"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "nature"
+      }
+    }
+  ]
+}

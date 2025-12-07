@@ -276,11 +276,24 @@ function generateRoundPlan(selectedCategories: string[], numberOfRounds: number)
       roundPlan.push(category);
     }
   } else {
-    // Multiple categories: distribute evenly with minimal repeats
-    // Use round-robin distribution
+    // Multiple categories: shuffle first for randomization, then distribute evenly
+    const shuffledCategories = [...selectedCategories];
+
+    // Fisher-Yates shuffle for true randomization
+    // This ensures each permutation is equally likely
+    for (let i = shuffledCategories.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledCategories[i], shuffledCategories[j]] = [
+        shuffledCategories[j],
+        shuffledCategories[i],
+      ];
+    }
+
+    // Use round-robin distribution on the shuffled array
+    // This maintains fair distribution while category order is randomized
     for (let i = 0; i < numberOfRounds; i++) {
-      const categoryIndex = i % selectedCategories.length;
-      roundPlan.push(selectedCategories[categoryIndex]);
+      const categoryIndex = i % shuffledCategories.length;
+      roundPlan.push(shuffledCategories[categoryIndex]);
     }
   }
 
@@ -373,8 +386,11 @@ export const useGameStore = create<GameState>((set, get) => ({
         throw new Error('No profiles found for selected categories');
       }
 
-      // Generate round plan
-      const roundPlan = generateRoundPlan(selectedCategories, numberOfRounds);
+      // Get only categories that have profiles available
+      const categoriesWithProfiles = Array.from(new Set(selectedProfiles.map((p) => p.category)));
+
+      // Generate round plan using only categories that have profiles
+      const roundPlan = generateRoundPlan(categoriesWithProfiles, numberOfRounds);
 
       // Select exactly numberOfRounds profiles based on the round plan
       const profilesToPlay: string[] = [];

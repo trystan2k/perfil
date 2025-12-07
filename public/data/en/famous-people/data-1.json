@@ -1,0 +1,101 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0001",
+      "category": "Famous People",
+      "name": "Albert Einstein",
+      "clues": [
+        "Born in Germany in 1879",
+        "Developed a revolutionary theory in physics",
+        "Won the Nobel Prize in Physics in 1921",
+        "Famous for an equation that starts with E=mc",
+        "Known for wild white hair",
+        "Worked at Princeton University",
+        "His theory changed our understanding of space and time",
+        "Fled Nazi Germany in 1933",
+        "Played the violin as a hobby",
+        "Theory of relativity is his most famous work",
+        "Pacifist who later regretted involvement in atomic bomb development",
+        "Born on Pi Day (March 14)",
+        "Refused surgery that could have prolonged life",
+        "His brain was preserved after death for study",
+        "TIME Magazine's Person of the Century",
+        "Famous for saying: 'Imagination is more important than knowledge'",
+        "Was offered presidency of Israel but declined",
+        "Worked as a patent clerk early in career",
+        "Developed the theory of the photoelectric effect",
+        "First name means 'noble' or 'bright'"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
+    },
+    {
+      "id": "profile-0002",
+      "category": "Famous People",
+      "name": "Leonardo da Vinci",
+      "clues": [
+        "Born in Italy in 1452",
+        "Master of multiple disciplines",
+        "Famous for painting a mysterious smile",
+        "Created detailed anatomical drawings",
+        "Designed flying machines centuries before flight",
+        "Studied in Florence with Andrea del Verrocchio",
+        "Left many works unfinished",
+        "Painted The Last Supper",
+        "Wrote backwards in mirror writing",
+        "Designed tanks and submarines",
+        "Vegetarian who bought caged birds to set them free",
+        "Never married or had children",
+        "Moved to France late in life",
+        "Notebooks filled with inventions and observations",
+        "Painted one of the most famous portraits ever",
+        "Worked for powerful Italian families",
+        "The subject has no eyebrows in the famous painting",
+        "Renaissance polymath",
+        "Studied nature obsessively",
+        "Mona Lisa is his most famous work"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "historical-figures"
+      }
+    },
+    {
+      "id": "profile-0008",
+      "category": "Famous People",
+      "name": "Marie Curie",
+      "clues": [
+        "Born in Poland in 1867",
+        "Pioneering scientist",
+        "First woman to win Nobel Prize",
+        "Only person to win Nobel in two sciences",
+        "Studied radioactivity",
+        "Discovered two elements",
+        "Polonium named after her homeland",
+        "Also discovered radium",
+        "Worked with husband Pierre",
+        "Conducted research in Paris",
+        "Died from radiation exposure",
+        "First female professor at University of Paris",
+        "Mobile X-ray units in World War I",
+        "Daughter also won Nobel Prize",
+        "Overcame gender discrimination in science",
+        "Self-taught in early years",
+        "Worked in a shed laboratory",
+        "Won Nobel in Physics and Chemistry",
+        "Remains are in Paris Pantheon",
+        "Pioneered cancer treatment with radiation"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0004",
+      "category": "Películas",
+      "name": "Matrix",
+      "clues": [
+        "Estrenada en 1999",
+        "Dirigida por las Wachowskis",
+        "Película de acción de ciencia ficción",
+        "Presenta realidad virtual",
+        "Efectos especiales revolucionarios",
+        "Famosa por el efecto 'bullet time'",
+        "Protagonizada por Keanu Reeves",
+        "El protagonista aprende artes marciales por descarga",
+        "Elección entre píldora roja o azul",
+        "Los humanos son usados como baterías",
+        "Los agentes usan gafas de sol y auriculares",
+        "'No hay cuchara' es una línea famosa",
+        "Personaje llamado Morpheus",
+        "Código verde cayendo en la pantalla",
+        "Personaje Trinity",
+        "Ganó cuatro Óscar",
+        "El personaje principal es 'El Elegido'",
+        "Preguntas filosóficas sobre la realidad",
+        "Realidad simulada controlada por máquinas",
+        "El nombre del protagonista es Neo"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0001",
+      "category": "Pessoas Famosas",
+      "name": "Albert Einstein",
+      "clues": [
+        "Nascido na Alemanha em 1879",
+        "Desenvolveu uma teoria revolucionária na física",
+        "Ganhou o Prêmio Nobel de Física em 1921",
+        "Famoso por uma equação que começa com E=mc",
+        "Conhecido por cabelos brancos desgrenhados",
+        "Trabalhou na Universidade de Princeton",
+        "Sua teoria mudou nossa compreensão do espaço e tempo",
+        "Fugiu da Alemanha nazista em 1933",
+        "Tocava violino como hobby",
+        "Teoria da relatividade é seu trabalho mais famoso",
+        "Pacifista que mais tarde se arrependeu do envolvimento no desenvolvimento da bomba atômica",
+        "Nascido no Dia do Pi (14 de março)",
+        "Recusou cirurgia que poderia ter prolongado a vida",
+        "Seu cérebro foi preservado após a morte para estudo",
+        "Pessoa do Século da Revista TIME",
+        "Famoso por dizer: 'A imaginação é mais importante que o conhecimento'",
+        "Foi oferecido a presidência de Israel mas recusou",
+        "Trabalhou como escriturário de patentes no início da carreira",
+        "Desenvolveu a teoria do efeito fotoelétrico",
+        "Primeiro nome significa 'nobre' ou 'brilhante'"
+      ],
+      "metadata": {
+        "language": "pt",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
+    },
+    {
+      "id": "profile-0002",
+      "category": "Pessoas Famosas",
+      "name": "Leonardo da Vinci",
+      "clues": [
+        "Nascido na Itália em 1452",
+        "Mestre de múltiplas disciplinas",
+        "Famoso por pintar um sorriso misterioso",
+        "Criou desenhos anatômicos detalhados",
+        "Projetou máquinas voadoras séculos antes do voo",
+        "Estudou em Florença com Andrea del Verrocchio",
+        "Deixou muitas obras inacabadas",
+        "Pintou A Última Ceia",
+        "Escrevia ao contrário em letra espelhada",
+        "Projetou tanques e submarinos",
+        "Vegetariano que comprava pássaros em gaiolas para libertá-los",
+        "Nunca se casou nem teve filhos",
+        "Mudou-se para a França no final da vida",
+        "Cadernos cheios de invenções e observações",
+        "Pintou um dos retratos mais famosos de todos os tempos",
+        "Trabalhou para famílias italianas poderosas",
+        "O sujeito não tem sobrancelhas na pintura famosa",
+        "Polímata do Renascimento",
+        "Estudava a natureza obsessivamente",
+        "Mona Lisa é sua obra mais famosa"
+      ],
+      "metadata": {
+        "language": "pt",
+        "difficulty": "easy",
+        "source": "historical-figures"
+      }
+    },
+    {
+      "id": "profile-0008",
+      "category": "Pessoas Famosas",
+      "name": "Marie Curie",
+      "clues": [
+        "Nascida na Polônia em 1867",
+        "Cientista pioneira",
+        "Primeira mulher a ganhar Prêmio Nobel",
+        "Única pessoa a ganhar Nobel em duas ciências",
+        "Estudou radioatividade",
+        "Descobriu dois elementos",
+        "Polônio nomeado em homenagem à sua pátria",
+        "Também descobriu o rádio",
+        "Trabalhou com o marido Pierre",
+        "Conduziu pesquisas em Paris",
+        "Morreu devido à exposição à radiação",
+        "Primeira professora mulher na Universidade de Paris",
+        "Unidades móveis de raio-X na Primeira Guerra Mundial",
+        "Filha também ganhou Prêmio Nobel",
+        "Superou discriminação de gênero na ciência",
+        "Autodidata nos primeiros anos",
+        "Trabalhou em um laboratório de galpão",
+        "Ganhou Nobel em Física e Química",
+        "Restos estão no Panteão de Paris",
+        "Pioneira no tratamento de câncer com radiação"
+      ],
+      "metadata": {
+        "language": "pt",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
+    }
+  ]
+}

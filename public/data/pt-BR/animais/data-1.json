@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0005",
+      "category": "Animais",
+      "name": "Polvo",
+      "clues": [
+        "Invertebrado marinho",
+        "Tem três corações",
+        "Sangue azul devido ao cobre",
+        "Pode mudar de cor instantaneamente",
+        "Oito apêndices",
+        "Altamente inteligente",
+        "Pode se espremer por espaços minúsculos",
+        "Encontrado em recifes de coral e fundo do oceano",
+        "Joga tinta quando ameaçado",
+        "Vida curta de 1-5 anos",
+        "Não tem ossos ou esqueleto",
+        "Pode regenerar braços perdidos",
+        "Nove cérebros no total",
+        "Excelentes resolvedores de problemas",
+        "Pode abrir potes e recipientes",
+        "Criaturas solitárias",
+        "Boca em forma de bico",
+        "Parente da lula",
+        "Algumas espécies são venenosas",
+        "Morre após reprodução"
+      ],
+      "metadata": {
+        "language": "pt",
+        "difficulty": "hard",
+        "source": "nature"
+      }
+    }
+  ]
+}

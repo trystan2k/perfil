@@ -109,15 +109,46 @@ export default defineConfig({
               },
             },
             {
+              // Legacy profiles.json (backward compatibility)
               urlPattern: /\/data\/[^/]+\/profiles\.json$/i,
               handler: 'NetworkFirst',
               options: {
-                cacheName: 'profiles-data-cache',
+                cacheName: 'profiles-legacy-cache',
                 expiration: {
-                  maxEntries: 10,
+                  maxEntries: 5,
                   maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
                 },
                 networkTimeoutSeconds: 10,
+              },
+            },
+            {
+              // Category-based profile data files
+              urlPattern: /\/data\/[^/]+\/[^/]+\/data-\d+\.json$/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'category-profiles-cache',
+                expiration: {
+                  maxEntries: 50, // Allow caching many category files
+                  maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days (data rarely changes)
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+            {
+              // Manifest files for each locale
+              urlPattern: /\/data\/[^/]+\/manifest\.json$/i,
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'manifest-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24, // 1 day
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
               },
             },
             {

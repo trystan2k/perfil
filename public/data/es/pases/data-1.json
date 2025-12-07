@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0003",
+      "category": "Países",
+      "name": "Japón",
+      "clues": [
+        "Nación insular en Asia Oriental",
+        "Población superior a 125 millones",
+        "La capital tiene más de 13 millones de habitantes",
+        "Experimenta terremotos frecuentes",
+        "Famoso por las flores de cerezo",
+        "Sistema de tren bala llamado Shinkansen",
+        "Cuatro islas principales",
+        "Familia imperial antigua",
+        "Conocido por tecnología y robótica",
+        "El anime y el manga se originaron aquí",
+        "El Monte Fuji es el pico más alto",
+        "Usa tres sistemas de escritura",
+        "El sushi es un plato tradicional",
+        "Organizó los Juegos Olímpicos en 1964 y 2021",
+        "Guerreros samurái en el período histórico",
+        "La capital es Tokio",
+        "La bandera presenta un círculo rojo",
+        "Hacer reverencias es un saludo común",
+        "Conocido por la puntualidad estricta",
+        "Llamado 'Tierra del Sol Naciente'"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "geography"
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "version": "1",
+  "locale": "pt-BR",
+  "categories": [
+    {
+      "slug": "pessoas-famosas",
+      "displayName": "Pessoas Famosas",
+      "profileCount": 3,
+      "files": ["data-1.json"]
+    },
+    {
+      "slug": "pases",
+      "displayName": "Países",
+      "profileCount": 1,
+      "files": ["data-1.json"]
+    },
+    {
+      "slug": "filmes",
+      "displayName": "Filmes",
+      "profileCount": 1,
+      "files": ["data-1.json"]
+    },
+    {
+      "slug": "animais",
+      "displayName": "Animais",
+      "profileCount": 1,
+      "files": ["data-1.json"]
+    },
+    {
+      "slug": "tecnologia",
+      "displayName": "Tecnologia",
+      "profileCount": 1,
+      "files": ["data-1.json"]
+    },
+    {
+      "slug": "esportes",
+      "displayName": "Esportes",
+      "profileCount": 1,
+      "files": ["data-1.json"]
+    }
+  ],
+  "generatedAt": "2025-12-07T10:06:52.648Z"
+}
