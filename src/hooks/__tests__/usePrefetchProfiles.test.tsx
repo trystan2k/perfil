@@ -6,22 +6,27 @@ import { usePrefetchProfiles } from '../usePrefetchProfiles';
 
 const mockManifest = {
   version: '1',
-  locale: 'en',
+  generatedAt: '2025-12-07T10:00:00.000Z',
   categories: [
     {
       slug: 'movies',
-      displayName: 'Movies',
-      profileCount: 2,
-      files: ['data-1.json'],
+      locales: {
+        en: {
+          name: 'Movies',
+          files: ['data-1.json'],
+        },
+      },
     },
     {
       slug: 'sports',
-      displayName: 'Sports',
-      profileCount: 1,
-      files: ['data-1.json'],
+      locales: {
+        en: {
+          name: 'Sports',
+          files: ['data-1.json'],
+        },
+      },
     },
   ],
-  generatedAt: '2025-12-07T10:00:00.000Z',
 };
 
 const mockMoviesData = {
@@ -97,14 +102,14 @@ describe('usePrefetchProfiles', () => {
     // Wait for prefetch to complete
     await waitFor(
       () => {
-        expect(fetch).toHaveBeenCalledWith('/data/en/manifest.json');
+        expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
       },
       { timeout: 2000 }
     );
 
     await waitFor(
       () => {
-        expect(fetch).toHaveBeenCalledWith('/data/en/movies/data-1.json');
+        expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
       },
       { timeout: 2000 }
     );

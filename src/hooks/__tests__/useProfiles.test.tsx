@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { clearManifestCache } from '../../lib/manifest';
 import type { ProfilesData } from '../../types/models';
 import { useProfiles } from '../useProfiles';
 
@@ -38,10 +39,12 @@ function createWrapper() {
 describe('useProfiles', () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn());
+    clearManifestCache();
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    clearManifestCache();
   });
 
   it('should fetch profiles successfully (legacy mode)', async () => {
@@ -183,22 +186,43 @@ describe('useProfiles', () => {
   describe('category-based loading', () => {
     const mockManifest = {
       version: '1',
-      locale: 'en',
+      generatedAt: '2025-12-07T10:00:00.000Z',
       categories: [
         {
           slug: 'movies',
-          displayName: 'Movies',
-          profileCount: 2,
-          files: ['data-1.json'],
+          locales: {
+            en: {
+              name: 'Movies',
+              files: ['data-1.json'],
+            },
+            es: {
+              name: 'Películas',
+              files: ['data-1.json'],
+            },
+            'pt-BR': {
+              name: 'Filmes',
+              files: ['data-1.json'],
+            },
+          },
         },
         {
           slug: 'sports',
-          displayName: 'Sports',
-          profileCount: 1,
-          files: ['data-1.json'],
+          locales: {
+            en: {
+              name: 'Sports',
+              files: ['data-1.json'],
+            },
+            es: {
+              name: 'Deportes',
+              files: ['data-1.json'],
+            },
+            'pt-BR': {
+              name: 'Esportes',
+              files: ['data-1.json'],
+            },
+          },
         },
       ],
-      generatedAt: '2025-12-07T10:00:00.000Z',
     };
 
     const mockMoviesData = {
@@ -238,8 +262,8 @@ describe('useProfiles', () => {
 
       expect(result.current.data?.profiles).toHaveLength(2);
       expect(result.current.data?.profiles[0]?.id).toBe('movie-001');
-      expect(fetch).toHaveBeenCalledWith('/data/en/manifest.json');
-      expect(fetch).toHaveBeenCalledWith('/data/en/movies/data-1.json');
+      expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
     });
 
     it('should handle category not found error', async () => {
@@ -260,13 +284,17 @@ describe('useProfiles', () => {
 
     it('should merge multiple data files listed in manifest for a category', async () => {
       const manifestWithMultipleFiles = {
-        ...mockManifest,
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
         categories: [
           {
             slug: 'movies',
-            displayName: 'Movies',
-            profileCount: 3,
-            files: ['data-1.json', 'data-2.json'],
+            locales: {
+              en: {
+                name: 'Movies',
+                files: ['data-1.json', 'data-2.json'],
+              },
+            },
           },
         ],
       };
@@ -333,10 +361,7 @@ describe('useProfiles', () => {
       vi.mocked(fetch)
         .mockResolvedValueOnce({
           ok: true,
-          json: async () => ({
-            ...mockManifest,
-            locale: 'es',
-          }),
+          json: async () => mockManifest,
         } as Response)
         .mockResolvedValueOnce({
           ok: true,
@@ -349,8 +374,8 @@ describe('useProfiles', () => {
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect(fetch).toHaveBeenCalledWith('/data/es/manifest.json');
-      expect(fetch).toHaveBeenCalledWith('/data/es/movies/data-1.json');
+      expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/es/data-1.json');
     });
 
     it('should fallback to new structure when legacy profiles.json does not exist', async () => {
@@ -386,16 +411,16 @@ describe('useProfiles', () => {
           } as Response;
         }
 
-        if (urlStr.includes('movies/data-1.json')) {
-          // Movies data - success
+        if (urlStr.includes('movies') && urlStr.includes('en') && urlStr.includes('data-1.json')) {
+          // Movies data - success: /data/movies/en/data-1.json
           return {
             ok: true,
             json: async () => mockMoviesData,
           } as Response;
         }
 
-        if (urlStr.includes('sports/data-1.json')) {
-          // Sports data - success
+        if (urlStr.includes('sports') && urlStr.includes('en') && urlStr.includes('data-1.json')) {
+          // Sports data - success: /data/sports/en/data-1.json
           return {
             ok: true,
             json: async () => mockSportsData,
@@ -417,7 +442,7 @@ describe('useProfiles', () => {
 
       expect(result.current.data?.profiles).toHaveLength(3);
       expect(fetch).toHaveBeenCalledWith('/data/en/profiles.json');
-      expect(fetch).toHaveBeenCalledWith('/data/en/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
     });
   });
 

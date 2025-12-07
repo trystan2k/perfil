@@ -1,56 +1,108 @@
 import type { Profile, ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 
-export interface ManifestCategory {
-  slug: string;
-  displayName: string;
-  profileCount: number;
+/**
+ * Locale-specific category information
+ */
+export interface CategoryLocaleInfo {
+  name: string;
   files: string[];
 }
 
+/**
+ * Category with all locale information
+ */
+export interface ManifestCategory {
+  slug: string;
+  locales: Record<string, CategoryLocaleInfo>;
+}
+
+/**
+ * Global manifest structure
+ */
 export interface Manifest {
   version: string;
-  locale: string;
-  categories: ManifestCategory[];
   generatedAt: string;
+  categories: ManifestCategory[];
+}
+
+// Cache for manifest to avoid multiple fetches
+let manifestCache: Manifest | null = null;
+
+/**
+ * Clear manifest cache (useful for testing)
+ */
+export function clearManifestCache(): void {
+  manifestCache = null;
 }
 
 /**
- * Fetch manifest file for a locale to discover available categories
+ * Fetch global manifest file
  */
-export async function fetchManifest(locale: string): Promise<Manifest> {
-  const response = await fetch(`/data/${locale}/manifest.json`);
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch manifest for locale ${locale}: ${response.statusText}`);
+export async function fetchManifest(): Promise<Manifest> {
+  if (manifestCache) {
+    return manifestCache;
   }
 
-  return response.json();
+  const response = await fetch('/data/manifest.json');
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch manifest: ${response.statusText}`);
+  }
+
+  manifestCache = await response.json();
+  return manifestCache as Manifest;
 }
 
 /**
- * Fetch profiles for a specific category
- * Merges all data files (data-1.json, data-2.json, etc.) for the category
+ * Get localized category display name from manifest
+ */
+export async function getCategoryDisplayName(
+  categorySlug: string,
+  locale: string
+): Promise<string> {
+  const manifest = await fetchManifest();
+  const category = manifest.categories.find((c) => c.slug === categorySlug);
+
+  if (!category) {
+    return categorySlug; // Fallback to slug if not found
+  }
+
+  const localeInfo = category.locales[locale];
+  return localeInfo?.name || categorySlug; // Fallback to slug if locale not found
+}
+
+/**
+ * Fetch profiles for a specific category and locale
+ * Merges all data files (data-1.json, data-2.json, etc.) for the category/locale
+ *
+ * New path structure: /data/{categorySlug}/{locale}/{file}
  */
 export async function fetchProfilesByCategory(
   locale: string,
   categorySlug: string
 ): Promise<ProfilesData> {
-  const manifest = await fetchManifest(locale);
+  const manifest = await fetchManifest();
 
   const category = manifest.categories.find((c) => c.slug === categorySlug);
 
   if (!category) {
-    throw new Error(`Category "${categorySlug}" not found in manifest for locale ${locale}`);
+    throw new Error(`Category "${categorySlug}" not found in manifest`);
   }
 
-  // Fetch all data files for this category using manifest's files array
-  const dataPromises = category.files.map(async (file) => {
-    const response = await fetch(`/data/${locale}/${categorySlug}/${file}`);
+  const localeInfo = category.locales[locale];
+
+  if (!localeInfo) {
+    throw new Error(`Locale "${locale}" not found for category "${categorySlug}"`);
+  }
+
+  // Fetch all data files for this category/locale using manifest's files array
+  const dataPromises = localeInfo.files.map(async (file) => {
+    const response = await fetch(`/data/${categorySlug}/${locale}/${file}`);
 
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch ${file} for category ${categorySlug}: ${response.statusText}`
+        `Failed to fetch ${file} for category ${categorySlug} (${locale}): ${response.statusText}`
       );
     }
 

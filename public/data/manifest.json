@@ -1,0 +1,108 @@
+{
+  "version": "1",
+  "generatedAt": "2025-12-07T16:40:57.994Z",
+  "categories": [
+    {
+      "slug": "famous-people",
+      "locales": {
+        "en": {
+          "name": "Famous People",
+          "files": ["data-1.json"]
+        },
+        "es": {
+          "name": "Personas Famosas",
+          "files": ["data-1.json"]
+        },
+        "pt-BR": {
+          "name": "Pessoas Famosas",
+          "files": ["data-1.json"]
+        }
+      }
+    },
+    {
+      "slug": "countries",
+      "locales": {
+        "en": {
+          "name": "Countries",
+          "files": ["data-1.json"]
+        },
+        "es": {
+          "name": "Países",
+          "files": ["data-1.json"]
+        },
+        "pt-BR": {
+          "name": "Países",
+          "files": ["data-1.json"]
+        }
+      }
+    },
+    {
+      "slug": "movies",
+      "locales": {
+        "en": {
+          "name": "Movies",
+          "files": ["data-1.json"]
+        },
+        "es": {
+          "name": "Películas",
+          "files": ["data-1.json"]
+        },
+        "pt-BR": {
+          "name": "Filmes",
+          "files": ["data-1.json"]
+        }
+      }
+    },
+    {
+      "slug": "animals",
+      "locales": {
+        "en": {
+          "name": "Animals",
+          "files": ["data-1.json"]
+        },
+        "es": {
+          "name": "Animales",
+          "files": ["data-1.json"]
+        },
+        "pt-BR": {
+          "name": "Animais",
+          "files": ["data-1.json"]
+        }
+      }
+    },
+    {
+      "slug": "technology",
+      "locales": {
+        "en": {
+          "name": "Technology",
+          "files": ["data-1.json"]
+        },
+        "es": {
+          "name": "Tecnología",
+          "files": ["data-1.json"]
+        },
+        "pt-BR": {
+          "name": "Tecnologia",
+          "files": ["data-1.json"]
+        }
+      }
+    },
+    {
+      "slug": "sports",
+      "locales": {
+        "en": {
+          "name": "Sports",
+          "files": ["data-1.json"]
+        },
+        "es": {
+          "name": "Deportes",
+          "files": ["data-1.json"]
+        },
+        "pt-BR": {
+          "name": "Esportes",
+          "files": ["data-1.json"]
+        }
+      }
+    }
+  ]
+}

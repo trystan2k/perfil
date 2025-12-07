@@ -4,16 +4,6 @@
  */
 
 /**
- * Popular categories to prefetch on game setup page
- * Based on expected usage patterns
- */
-export const POPULAR_CATEGORIES = [
-  'famous-people', // Often selected first
-  'movies', // Popular choice
-  'sports', // Common category
-] as const;
-
-/**
  * Get popular categories for a specific locale
  * Translates slugs to locale-specific slugs if needed
  */

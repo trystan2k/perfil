@@ -122,7 +122,7 @@ export default defineConfig({
               },
             },
             {
-              // Category-based profile data files
+              // Category-based profile data files: /data/{category}/{locale}/data-1.json
               urlPattern: /\/data\/[^/]+\/[^/]+\/data-\d+\.json$/i,
               handler: 'CacheFirst',
               options: {
@@ -137,13 +137,13 @@ export default defineConfig({
               },
             },
             {
-              // Manifest files for each locale
-              urlPattern: /\/data\/[^/]+\/manifest\.json$/i,
+              // Global manifest file: /data/manifest.json
+              urlPattern: /\/data\/manifest\.json$/i,
               handler: 'StaleWhileRevalidate',
               options: {
                 cacheName: 'manifest-cache',
                 expiration: {
-                  maxEntries: 10,
+                  maxEntries: 1,
                   maxAgeSeconds: 60 * 60 * 24, // 1 day
                 },
                 cacheableResponse: {

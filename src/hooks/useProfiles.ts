@@ -9,7 +9,7 @@ import { profilesDataSchema } from '../types/models';
  * Loads all categories and merges them
  */
 async function fetchAllProfiles(locale: string): Promise<ProfilesData> {
-  const manifest = await fetchManifest(locale);
+  const manifest = await fetchManifest();
 
   // Fetch all categories in parallel
   const categoryPromises = manifest.categories.map((category) =>
