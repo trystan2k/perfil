@@ -465,17 +465,6 @@ describe('middleware', () => {
       expect(response.headers.get('Content-Type')).toBe('text/plain');
     });
 
-    it('should log error to console when error occurs', async () => {
-      const { context } = createMiddlewareContext('GET', '/');
-      const errorNext = createErrorNext(new Error('Test error'));
-
-      await onRequest(context, errorNext);
-
-      expect(consoleErrorSpy).toHaveBeenCalled();
-      const errorCall = consoleErrorSpy.mock.calls[0];
-      expect(String(errorCall[0])).toContain('Middleware error');
-    });
-
     it('should include security headers in error response', async () => {
       const { context } = createMiddlewareContext('GET', '/');
       const errorNext = createErrorNext(new Error('Error to test security headers'));
@@ -943,9 +932,7 @@ describe('middleware', () => {
       expect(hsts).toMatch(/max-age=\d+/);
     });
 
-    it('should handle both development and production CSP setups', async () => {
-      import.meta.env.DEV = true;
-
+    it('should handle CSP setups', async () => {
       const { nextFn, context } = createMiddlewareContext('GET', '/');
       const response = assertResponse(await onRequest(context, nextFn));
 
@@ -954,15 +941,6 @@ describe('middleware', () => {
       // Should include script-src with self
       expect(cspHeader).toContain("script-src 'self'");
       expect(cspHeader).toContain("'unsafe-inline'");
-
-      import.meta.env.DEV = false;
-      const responseProd = assertResponse(await onRequest(context, nextFn));
-
-      const cspHeaderProd = responseProd.headers.get('Content-Security-Policy');
-
-      // Should include script-src with self
-      expect(cspHeaderProd).toContain("script-src 'self'");
-      expect(cspHeaderProd).not.toContain("'unsafe-inline'");
     });
 
     it('should always catch and handle errors in any environment', async () => {

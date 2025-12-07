@@ -1,4 +1,5 @@
 import cloudflare from '@astrojs/cloudflare';
+// import node from '@astrojs/node';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
@@ -13,6 +14,9 @@ export default defineConfig({
       enabled: true,
     },
   }),
+  // adapter: node({
+  //   mode: 'standalone',
+  // }),
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es', 'pt-BR'],
@@ -62,6 +66,7 @@ export default defineConfig({
           ],
         },
         workbox: {
+          navigateFallback: null,
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

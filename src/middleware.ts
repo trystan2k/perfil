@@ -17,6 +17,8 @@ const getCspHeader = (): string => {
   const baseDirectives = [
     "default-src 'self'",
     "font-src 'self' fonts.gstatic.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+    "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
     "img-src 'self' data: https:",
     "connect-src 'self'",
     "frame-src 'none'",
@@ -27,25 +29,10 @@ const getCspHeader = (): string => {
     'upgrade-insecure-requests',
   ];
 
-  // Add script-src with unsafe-inline/eval only in development
-  const isDev = import.meta.env.DEV;
-  if (isDev) {
-    baseDirectives.push("script-src 'self' 'unsafe-inline' 'unsafe-eval'");
-    baseDirectives.push("style-src 'self' 'unsafe-inline' fonts.googleapis.com");
-  } else {
-    baseDirectives.push("script-src 'self'");
-    baseDirectives.push("style-src 'self' fonts.googleapis.com");
-  }
-
   return baseDirectives.join('; ');
 };
 
-export const onRequest = defineMiddleware(async (context, next) => {
-  const { request, url } = context;
-  const startTime = Date.now();
-
-  const isDebug = import.meta.env.DEBUG === 'true' || import.meta.env.DEV;
-
+export const onRequest = defineMiddleware(async (_context, next) => {
   try {
     // Get response from next middleware or route
     const response = await next();
@@ -58,19 +45,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
       response.headers.set(key, value);
     });
 
-    if (isDebug) {
-      const duration = Date.now() - startTime;
-      console.log(`📝 ${request.method} ${url.pathname} - ${duration}ms`);
-      console.log('🔍 Request headers:', Object.fromEntries(request.headers.entries()));
-      console.log('🔍 Response headers:', Object.fromEntries(response.headers.entries()));
-    }
-
     return response;
-  } catch (error) {
-    if (isDebug) {
-      console.error('❌ Middleware error:', error);
-    }
-
+  } catch (_error) {
     return new Response('Internal Server Error', {
       status: 500,
       headers: {
