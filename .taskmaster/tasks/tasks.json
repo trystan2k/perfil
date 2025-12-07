@@ -3352,7 +3352,7 @@
         "id": "53",
         "title": "Implement Progressive Data Loading (Split profiles by category)",
         "description": "ARCH-006: Reduce initial data load by splitting profiles per category and loading on-demand with prefetching and service worker caching.",
-        "details": "Move public/data/{locale}/profiles.json -> public/data/{locale}/{category}.json. Update useProfiles hooks to load per-category, implement prefetch hooks and service worker caching for popular categories. Aim to reduce initial load by 50%+.",
+        "details": "Move public/data/{locale}/profiles.json -> public/data/{locale}/{category}/data-1.json (so we can have multiple files per category that will be merged when loaded). Update useProfiles hooks to load per-category, implement prefetch hooks and service worker caching for popular categories. Aim to reduce initial load by 50%+.",
         "testStrategy": "Performance tests to compare initial load payloads, network simulations (3G), and integration tests verifying category loading and prefetch behavior.",
         "status": "pending",
         "dependencies": [],
