@@ -47,11 +47,31 @@ describe('useProfiles', () => {
     clearManifestCache();
   });
 
-  it('should fetch profiles successfully (legacy mode)', async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockProfilesData,
-    } as Response);
+  it('should fetch profiles successfully using manifest and all categories', async () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: { name: 'Movies', files: ['data-1.json'] },
+            es: { name: 'Películas', files: ['data-1.json'] },
+            'pt-BR': { name: 'Filmes', files: ['data-1.json'] },
+          },
+        },
+      ],
+    };
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockProfilesData,
+      } as Response);
 
     const { result } = renderHook(() => useProfiles(), {
       wrapper: createWrapper(),
@@ -63,21 +83,16 @@ describe('useProfiles', () => {
 
     expect(result.current.data).toEqual(mockProfilesData);
     expect(result.current.error).toBeNull();
-    expect(fetch).toHaveBeenCalledWith('/data/en/profiles.json');
+    expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+    expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
   });
 
   it('should handle fetch errors', async () => {
-    // Mock legacy fetch to fail
-    vi.mocked(fetch)
-      .mockResolvedValueOnce({
-        ok: false,
-        statusText: 'Not Found',
-      } as Response)
-      // Mock manifest fetch to also fail (no fallback)
-      .mockResolvedValueOnce({
-        ok: false,
-        statusText: 'Not Found',
-      } as Response);
+    // Mock manifest fetch to fail
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: false,
+      statusText: 'Not Found',
+    } as Response);
 
     const { result } = renderHook(() => useProfiles(), {
       wrapper: createWrapper(),
@@ -91,11 +106,8 @@ describe('useProfiles', () => {
 
   it('should handle network errors', async () => {
     const networkError = new Error('Network error');
-    // Mock all retries to fail
-    vi.mocked(fetch)
-      .mockRejectedValueOnce(networkError)
-      .mockRejectedValueOnce(networkError)
-      .mockRejectedValueOnce(networkError);
+    // Mock manifest fetch to fail with network error
+    vi.mocked(fetch).mockRejectedValueOnce(networkError);
 
     const { result } = renderHook(() => useProfiles(), {
       wrapper: createWrapper(),
@@ -123,6 +135,19 @@ describe('useProfiles', () => {
   });
 
   it('should handle invalid JSON schema', async () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: { name: 'Movies', files: ['data-1.json'] },
+          },
+        },
+      ],
+    };
+
     const invalidData = {
       version: '1',
       profiles: [
@@ -135,11 +160,16 @@ describe('useProfiles', () => {
       ],
     };
 
-    // Mock all retry attempts to return invalid data
-    vi.mocked(fetch).mockResolvedValue({
-      ok: true,
-      json: async () => invalidData,
-    } as Response);
+    // Mock manifest success, then invalid data for category
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => invalidData,
+      } as Response);
 
     const { result } = renderHook(() => useProfiles(), {
       wrapper: createWrapper(),
@@ -151,11 +181,31 @@ describe('useProfiles', () => {
     expect(result.current.error).toBeDefined();
   });
 
-  it('should fetch profiles for Spanish locale', async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockProfilesData,
-    } as Response);
+  it('should fetch profiles for Spanish locale using manifest', async () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: { name: 'Movies', files: ['data-1.json'] },
+            es: { name: 'Películas', files: ['data-1.json'] },
+            'pt-BR': { name: 'Filmes', files: ['data-1.json'] },
+          },
+        },
+      ],
+    };
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockProfilesData,
+      } as Response);
 
     const { result } = renderHook(() => useProfiles('es'), {
       wrapper: createWrapper(),
@@ -164,14 +214,35 @@ describe('useProfiles', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data).toEqual(mockProfilesData);
-    expect(fetch).toHaveBeenCalledWith('/data/es/profiles.json');
+    expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+    expect(fetch).toHaveBeenCalledWith('/data/movies/es/data-1.json');
   });
 
-  it('should fetch profiles for Portuguese locale', async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockProfilesData,
-    } as Response);
+  it('should fetch profiles for Portuguese locale using manifest', async () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: { name: 'Movies', files: ['data-1.json'] },
+            es: { name: 'Películas', files: ['data-1.json'] },
+            'pt-BR': { name: 'Filmes', files: ['data-1.json'] },
+          },
+        },
+      ],
+    };
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockProfilesData,
+      } as Response);
 
     const { result } = renderHook(() => useProfiles('pt-BR'), {
       wrapper: createWrapper(),
@@ -180,7 +251,8 @@ describe('useProfiles', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data).toEqual(mockProfilesData);
-    expect(fetch).toHaveBeenCalledWith('/data/pt-BR/profiles.json');
+    expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+    expect(fetch).toHaveBeenCalledWith('/data/movies/pt-BR/data-1.json');
   });
 
   describe('category-based loading', () => {
@@ -378,7 +450,7 @@ describe('useProfiles', () => {
       expect(fetch).toHaveBeenCalledWith('/data/movies/es/data-1.json');
     });
 
-    it('should fallback to new structure when legacy profiles.json does not exist', async () => {
+    it('should fetch all profiles from manifest when calling without category', async () => {
       const mockSportsData = {
         version: '1',
         profiles: [
@@ -394,14 +466,6 @@ describe('useProfiles', () => {
       // Setup mock fetch with custom implementation
       vi.mocked(fetch).mockImplementation(async (url: string | URL | Request) => {
         const urlStr = url.toString();
-
-        if (urlStr.includes('profiles.json')) {
-          // Legacy profiles.json - fail
-          return {
-            ok: false,
-            statusText: 'Not Found',
-          } as Response;
-        }
 
         if (urlStr.includes('manifest.json')) {
           // Manifest - success
@@ -441,8 +505,9 @@ describe('useProfiles', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(result.current.data?.profiles).toHaveLength(3);
-      expect(fetch).toHaveBeenCalledWith('/data/en/profiles.json');
       expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
+      expect(fetch).toHaveBeenCalledWith('/data/sports/en/data-1.json');
     });
   });
 
@@ -459,6 +524,20 @@ describe('useProfiles', () => {
       const wrapper = ({ children }: { children: ReactNode }) => (
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       );
+
+      const mockManifest = {
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', files: ['data-1.json'] },
+              es: { name: 'Películas', files: ['data-1.json'] },
+            },
+          },
+        ],
+      };
 
       const enProfilesData: ProfilesData = {
         version: '1',
@@ -489,6 +568,10 @@ describe('useProfiles', () => {
       vi.mocked(fetch)
         .mockResolvedValueOnce({
           ok: true,
+          json: async () => mockManifest,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
           json: async () => enProfilesData,
         } as Response)
         .mockResolvedValueOnce({
@@ -504,19 +587,20 @@ describe('useProfiles', () => {
       // Wait for initial English profiles to load
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       expect(result.current.data).toEqual(enProfilesData);
-      expect(fetch).toHaveBeenCalledWith('/data/en/profiles.json');
+      expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
 
       // Change locale to Spanish
       rerender({ locale: 'es' });
 
-      // Wait for Spanish profiles to load
+      // Wait for Spanish profiles to load (uses cached manifest)
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       await waitFor(() => {
         return result.current.data?.profiles[0]?.id === 'es-001';
       });
 
       expect(result.current.data).toEqual(esProfilesData);
-      expect(fetch).toHaveBeenCalledWith('/data/es/profiles.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/es/data-1.json');
     });
 
     it('should use cached profiles when switching back to previously loaded locale', async () => {
@@ -531,6 +615,20 @@ describe('useProfiles', () => {
       const wrapper = ({ children }: { children: ReactNode }) => (
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       );
+
+      const mockManifest = {
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', files: ['data-1.json'] },
+              es: { name: 'Películas', files: ['data-1.json'] },
+            },
+          },
+        ],
+      };
 
       const enProfilesData: ProfilesData = {
         version: '1',
@@ -559,6 +657,10 @@ describe('useProfiles', () => {
       vi.mocked(fetch)
         .mockResolvedValueOnce({
           ok: true,
+          json: async () => mockManifest,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
           json: async () => enProfilesData,
         } as Response)
         .mockResolvedValueOnce({
@@ -575,7 +677,7 @@ describe('useProfiles', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       expect(result.current.data).toEqual(enProfilesData);
 
-      // Switch to Spanish
+      // Switch to Spanish (uses cached manifest)
       rerender({ locale: 'es' });
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       await waitFor(() => {
@@ -583,7 +685,7 @@ describe('useProfiles', () => {
       });
       expect(result.current.data).toEqual(esProfilesData);
 
-      // Switch back to English - should use cache
+      // Switch back to English - should use cache (both manifest and query)
       rerender({ locale: 'en' });
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       await waitFor(() => {
@@ -605,6 +707,20 @@ describe('useProfiles', () => {
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       );
 
+      const mockManifest = {
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', files: ['data-1.json'] },
+              es: { name: 'Películas', files: ['data-1.json'] },
+            },
+          },
+        ],
+      };
+
       const enProfilesData: ProfilesData = {
         version: '1',
         profiles: [
@@ -620,23 +736,13 @@ describe('useProfiles', () => {
       vi.mocked(fetch)
         .mockResolvedValueOnce({
           ok: true,
+          json: async () => mockManifest,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
           json: async () => enProfilesData,
         } as Response)
-        // Mock Spanish fetch to fail (legacy)
-        .mockResolvedValueOnce({
-          ok: false,
-          statusText: 'Not Found',
-        } as Response)
-        // Mock manifest fetch to also fail (fallback attempt)
-        .mockResolvedValueOnce({
-          ok: false,
-          statusText: 'Not Found',
-        } as Response)
-        // Mock retries to also fail
-        .mockResolvedValueOnce({
-          ok: false,
-          statusText: 'Not Found',
-        } as Response)
+        // Mock Spanish fetch to fail (using cached manifest + trying to fetch category data)
         .mockResolvedValueOnce({
           ok: false,
           statusText: 'Not Found',
@@ -651,7 +757,7 @@ describe('useProfiles', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       expect(result.current.data).toEqual(enProfilesData);
 
-      // Try to switch to Spanish but get error (mock all retries)
+      // Try to switch to Spanish but get error when fetching category data
       rerender({ locale: 'es' });
 
       await waitFor(() => expect(result.current.isError).toBe(true));

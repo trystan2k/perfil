@@ -46,7 +46,6 @@ describe('Scoreboard', () => {
       numberOfRounds: 0,
       currentRound: 0,
       selectedCategories: [],
-      roundCategoryMap: [],
       revealedClueHistory: [],
       error: null,
     });
@@ -132,7 +131,6 @@ describe('Scoreboard', () => {
           selectedProfiles: ['1', '2'],
           numberOfRounds: 2,
           selectedCategories: ['Historical Figures'],
-          roundCategoryMap: ['Historical Figures', 'Historical Figures'],
         });
         return true;
       });
@@ -169,13 +167,6 @@ describe('Scoreboard', () => {
         selectedProfiles: ['1', '2', '3'],
         numberOfRounds: 5,
         selectedCategories: ['Historical Figures'],
-        roundCategoryMap: [
-          'Historical Figures',
-          'Historical Figures',
-          'Historical Figures',
-          'Historical Figures',
-          'Historical Figures',
-        ],
       });
       return true;
     });
@@ -485,7 +476,6 @@ describe('Scoreboard', () => {
             selectedProfiles: ['1', '2'],
             numberOfRounds: 2,
             selectedCategories: ['Historical Figures'],
-            roundCategoryMap: ['Historical Figures', 'Historical Figures'],
             totalCluesPerProfile: 10,
           });
           return true;

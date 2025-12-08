@@ -45,8 +45,8 @@ const t = getTranslateFunction(translations, currentLocale);
           <LanguageSwitcher
             currentLocale={currentLocale}
             currentPath={currentPath}
-            ariaLabel={t('languageSwitcher.ariaLabel')}
-            switchToLabel={t('languageSwitcher.switchTo')}
+            locale={currentLocale}
+            translations={translations}
             client:idle
           />
         </div>

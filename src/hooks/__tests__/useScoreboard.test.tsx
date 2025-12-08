@@ -71,7 +71,6 @@ describe('useScoreboard', () => {
       numberOfRounds: 1,
       currentRound: 1,
       selectedCategories: [],
-      roundCategoryMap: [],
       revealedClueHistory: [],
       error: null,
     });
@@ -567,7 +566,6 @@ describe('useScoreboard', () => {
         currentProfile: profile,
         numberOfRounds: 1,
         selectedCategories: ['Movies'],
-        roundCategoryMap: ['Movies'],
       });
 
       const { result } = renderHook(() => useScoreboard(originalSessionId), {
@@ -615,7 +613,6 @@ describe('useScoreboard', () => {
         currentProfile: profiles[0],
         numberOfRounds: 2,
         selectedCategories: ['Movies', 'Music'],
-        roundCategoryMap: ['Movies', 'Music'],
       });
 
       const { result } = renderHook(() => useScoreboard(sessionId), {
@@ -654,7 +651,6 @@ describe('useScoreboard', () => {
         currentProfile: profiles[0],
         numberOfRounds: 2,
         selectedCategories: ['Movies', 'Music'],
-        roundCategoryMap: ['Movies', 'Music'],
       });
 
       const { result } = renderHook(() => useScoreboard(sessionId), {

@@ -36,7 +36,7 @@ describe('Category Randomization', () => {
     useGameStore.getState().resetGame();
   });
 
-  it('should produce different category orders on multiple game starts', async () => {
+  it('should produce different profile orders on multiple game starts', async () => {
     const mockProfiles = [
       {
         id: 'movie-1',
@@ -60,24 +60,14 @@ describe('Category Randomization', () => {
 
     const categories = ['Movies', 'Sports', 'Animals'];
     const rounds = 9;
-    const orders = new Set<string>();
 
-    // Start game multiple times and capture category orders
-    for (let i = 0; i < 10; i++) {
-      // Create fresh game for each iteration
-      await useGameStore.getState().createGame(['Player 1', 'Player 2']);
-      useGameStore.getState().loadProfiles(mockProfiles);
+    // Should throw error because requesting 9 rounds but only have 3 unique profiles
+    await useGameStore.getState().createGame(['Player 1', 'Player 2']);
+    useGameStore.getState().loadProfiles(mockProfiles);
+
+    expect(() => {
       useGameStore.getState().startGame(categories, rounds);
-
-      const order = useGameStore.getState().roundCategoryMap?.join(',') || '';
-      orders.add(order);
-
-      // Reset for next iteration
-      useGameStore.getState().resetGame();
-    }
-
-    // Should have more than 1 unique order (very high probability with randomization)
-    expect(orders.size).toBeGreaterThan(1);
+    }).toThrow('Not enough profiles available');
   });
 
   it('should maintain fair distribution of categories', async () => {
@@ -110,19 +100,10 @@ describe('Category Randomization', () => {
     const categories = ['Movies', 'Sports', 'Animals'];
     const rounds = 9;
 
-    useGameStore.getState().startGame(categories, rounds);
-    const roundPlan = useGameStore.getState().roundCategoryMap || [];
-
-    // Count occurrences of each category
-    const counts = new Map<string, number>();
-    for (const cat of roundPlan) {
-      counts.set(cat, (counts.get(cat) || 0) + 1);
-    }
-
-    // With 9 rounds and 3 categories, each should appear exactly 3 times
-    expect(counts.get('Movies')).toBe(3);
-    expect(counts.get('Sports')).toBe(3);
-    expect(counts.get('Animals')).toBe(3);
+    // Should throw error because requesting 9 rounds but only have 3 unique profiles
+    expect(() => {
+      useGameStore.getState().startGame(categories, rounds);
+    }).toThrow('Not enough profiles available');
   });
 
   it('should maintain deterministic behavior for single category', async () => {
@@ -149,12 +130,10 @@ describe('Category Randomization', () => {
     const categories = ['Movies'];
     const rounds = 5;
 
-    useGameStore.getState().startGame(categories, rounds);
-    const roundPlan = useGameStore.getState().roundCategoryMap || [];
-
-    // All rounds should be the same category
-    expect(roundPlan).toEqual(['Movies', 'Movies', 'Movies', 'Movies', 'Movies']);
-    expect(roundPlan.every((cat) => cat === 'Movies')).toBe(true);
+    // Should throw error because requesting 5 rounds but only have 2 unique profiles
+    expect(() => {
+      useGameStore.getState().startGame(categories, rounds);
+    }).toThrow('Not enough profiles available');
   });
 
   it('should handle uneven distribution correctly', async () => {
@@ -171,22 +150,13 @@ describe('Category Randomization', () => {
     const categories = ['Movies', 'Sports'];
     const rounds = 5; // Odd number
 
-    useGameStore.getState().startGame(categories, rounds);
-    const roundPlan = useGameStore.getState().roundCategoryMap || [];
-
-    // Count occurrences
-    const counts = new Map<string, number>();
-    for (const cat of roundPlan) {
-      counts.set(cat, (counts.get(cat) || 0) + 1);
-    }
-
-    // One category should have 3, the other 2
-    const values = Array.from(counts.values()).sort();
-    expect(values).toEqual([2, 3]);
-    expect(roundPlan).toHaveLength(5);
+    // Should throw error because requesting 5 rounds but only have 2 unique profiles
+    expect(() => {
+      useGameStore.getState().startGame(categories, rounds);
+    }).toThrow('Not enough profiles available');
   });
 
-  it('should randomize first category across multiple runs', async () => {
+  it('should randomize first profile across multiple runs', async () => {
     const mockProfiles = [
       { id: 'm1', category: 'Movies', name: 'M1', clues: ['C1', 'C2', 'C3'] },
       { id: 's1', category: 'Sports', name: 'S1', clues: ['C1', 'C2', 'C3'] },
@@ -194,26 +164,26 @@ describe('Category Randomization', () => {
     ];
 
     const categories = ['Movies', 'Sports', 'Animals'];
-    const firstCategories = new Set<string>();
+    const firstProfiles = new Set<string>();
 
-    // Run multiple times and capture first category
+    // Run multiple times and capture first profile ID
     for (let i = 0; i < 15; i++) {
       // Create fresh game for each iteration
       await useGameStore.getState().createGame(['Player 1', 'Player 2']);
       useGameStore.getState().loadProfiles(mockProfiles);
       useGameStore.getState().startGame(categories, 3);
 
-      const roundPlan = useGameStore.getState().roundCategoryMap || [];
-      if (roundPlan.length > 0) {
-        firstCategories.add(roundPlan[0]);
+      const state = useGameStore.getState();
+      if (state.selectedProfiles.length > 0) {
+        firstProfiles.add(state.selectedProfiles[0]);
       }
 
       // Reset for next iteration
       useGameStore.getState().resetGame();
     }
 
-    // With randomization, we should see at least 2 different first categories
-    expect(firstCategories.size).toBeGreaterThan(1);
+    // With randomization, we should see at least 2 different first profiles
+    expect(firstProfiles.size).toBeGreaterThan(1);
   });
 });
 
@@ -235,7 +205,6 @@ describe('gameStore', () => {
       numberOfRounds: 1,
       currentRound: 1,
       selectedCategories: ['Movies'],
-      roundCategoryMap: ['Movies'],
     });
   });
 
@@ -1089,7 +1058,6 @@ describe('gameStore', () => {
         numberOfRounds: 1,
         currentRound: 1,
         selectedCategories: ['Movies'],
-        roundCategoryMap: ['Movies'],
         revealedClueHistory: [],
       };
 
@@ -1132,7 +1100,6 @@ describe('gameStore', () => {
         numberOfRounds: 1,
         currentRound: 1,
         selectedCategories: ['Movies'],
-        roundCategoryMap: ['Movies'],
         revealedClueHistory: [],
       };
 
@@ -1186,7 +1153,6 @@ describe('gameStore', () => {
         numberOfRounds: state.numberOfRounds,
         currentRound: state.currentRound,
         selectedCategories: state.selectedCategories,
-        roundCategoryMap: state.roundCategoryMap,
         revealedClueHistory: state.revealedClueHistory,
         revealedClueIndices: state.revealedClueIndices,
       });
@@ -1225,7 +1191,6 @@ describe('gameStore', () => {
         numberOfRounds: 1,
         currentRound: 1,
         selectedCategories: ['Movies'],
-        roundCategoryMap: ['Movies'],
         revealedClueHistory: [],
       };
 
@@ -1337,7 +1302,6 @@ describe('gameStore', () => {
         numberOfRounds: 0,
         currentRound: 0,
         selectedCategories: [],
-        roundCategoryMap: [],
       });
       await useGameStore.getState().createGame(['Player 1', 'Player 2']);
     });
@@ -1362,13 +1326,11 @@ describe('gameStore', () => {
       ];
 
       useGameStore.getState().loadProfiles(singleCategoryProfiles);
-      useGameStore.getState().startGame(['Movies'], 5);
 
-      const state = useGameStore.getState();
-      expect(state.numberOfRounds).toBe(5);
-      expect(state.currentRound).toBe(1);
-      expect(state.selectedCategories).toEqual(['Movies']);
-      expect(state.roundCategoryMap).toEqual(['Movies', 'Movies', 'Movies', 'Movies', 'Movies']);
+      // Should throw error because requesting 5 rounds but only have 2 unique profiles
+      expect(() => {
+        useGameStore.getState().startGame(['Movies'], 5);
+      }).toThrow('Not enough profiles available');
     });
 
     it('should generate round plan with multiple categories - rounds less than categories', async () => {
@@ -1408,14 +1370,20 @@ describe('gameStore', () => {
       const state = useGameStore.getState();
       expect(state.numberOfRounds).toBe(2);
       expect(state.currentRound).toBe(1);
-      expect(state.roundCategoryMap).toHaveLength(2);
+
       // With randomization, check distribution instead of exact order
-      const roundCategories = state.roundCategoryMap || [];
-      const uniqueCategories = new Set(roundCategories);
-      // Should have 2 different categories (one from each)
-      expect(uniqueCategories.size).toBe(2);
+      const selectedCategories = new Set<string>();
+      for (const profileId of state.selectedProfiles) {
+        const profile = state.profiles.find((p) => p.id === profileId);
+        if (profile) {
+          selectedCategories.add(profile.category);
+        }
+      }
+
+      // Should have 2 different categories
+      expect(selectedCategories.size).toBe(2);
       // All categories should be from the selected list
-      for (const cat of roundCategories) {
+      for (const cat of selectedCategories) {
         expect(['Movies', 'Sports', 'Music', 'History']).toContain(cat);
       }
     });
@@ -1450,13 +1418,16 @@ describe('gameStore', () => {
       const state = useGameStore.getState();
       expect(state.numberOfRounds).toBe(3);
       expect(state.currentRound).toBe(1);
+
       // With randomization, check distribution instead of exact order
-      const roundCategories = state.roundCategoryMap || [];
-      expect(roundCategories).toHaveLength(3);
+      expect(state.selectedProfiles).toHaveLength(3);
       // All 3 categories should appear exactly once
       const counts = new Map<string, number>();
-      for (const cat of roundCategories) {
-        counts.set(cat, (counts.get(cat) || 0) + 1);
+      for (const profileId of state.selectedProfiles) {
+        const profile = state.profiles.find((p) => p.id === profileId);
+        if (profile) {
+          counts.set(profile.category, (counts.get(profile.category) || 0) + 1);
+        }
       }
       expect(counts.get('Movies')).toBe(1);
       expect(counts.get('Sports')).toBe(1);
@@ -1488,29 +1459,11 @@ describe('gameStore', () => {
       ];
 
       useGameStore.getState().loadProfiles(multiCategoryProfiles);
-      useGameStore.getState().startGame(['Movies', 'Sports', 'History'], 8);
 
-      const state = useGameStore.getState();
-      expect(state.numberOfRounds).toBe(8);
-      expect(state.currentRound).toBe(1);
-      expect(state.roundCategoryMap).toHaveLength(8);
-
-      // Should distribute evenly: 3 categories, 8 rounds
-      // With randomization, order will vary but distribution should be fair
-      expect(state.roundCategoryMap).toHaveLength(8);
-
-      // Count occurrences to verify fair distribution
-      const movieCount = state.roundCategoryMap.filter((c) => c === 'Movies').length;
-      const sportsCount = state.roundCategoryMap.filter((c) => c === 'Sports').length;
-      const historyCount = state.roundCategoryMap.filter((c) => c === 'History').length;
-
-      // With 8 rounds and 3 categories, distribution should be 3,3,2 (in any order)
-      const counts = [movieCount, sportsCount, historyCount].sort();
-      expect(counts).toEqual([2, 3, 3]);
-      // All categories should be present
-      expect(movieCount).toBeGreaterThan(0);
-      expect(sportsCount).toBeGreaterThan(0);
-      expect(historyCount).toBeGreaterThan(0);
+      // Should throw error because requesting 8 rounds but only have 3 unique profiles
+      expect(() => {
+        useGameStore.getState().startGame(['Movies', 'Sports', 'History'], 8);
+      }).toThrow('Not enough profiles available');
     });
 
     it('should handle edge case - 1 round with single category', async () => {
@@ -1531,7 +1484,6 @@ describe('gameStore', () => {
       const state = useGameStore.getState();
       expect(state.numberOfRounds).toBe(1);
       expect(state.currentRound).toBe(1);
-      expect(state.roundCategoryMap).toEqual(['Movies']);
     });
 
     it('should handle edge case - many rounds with single category', async () => {
@@ -1553,13 +1505,11 @@ describe('gameStore', () => {
       ];
 
       useGameStore.getState().loadProfiles(singleCategoryProfiles);
-      useGameStore.getState().startGame(['Sports'], 20);
 
-      const state = useGameStore.getState();
-      expect(state.numberOfRounds).toBe(20);
-      expect(state.currentRound).toBe(1);
-      expect(state.roundCategoryMap).toHaveLength(20);
-      expect(state.roundCategoryMap.every((c) => c === 'Sports')).toBe(true);
+      // Should throw error because requesting 20 rounds but only have 2 unique profiles
+      expect(() => {
+        useGameStore.getState().startGame(['Sports'], 20);
+      }).toThrow('Not enough profiles available');
     });
 
     it('should default to 1 round when numberOfRounds not specified', async () => {
@@ -1580,7 +1530,6 @@ describe('gameStore', () => {
       const state = useGameStore.getState();
       expect(state.numberOfRounds).toBe(1);
       expect(state.currentRound).toBe(1);
-      expect(state.roundCategoryMap).toEqual(['Movies']);
     });
 
     it('should handle distribution with very large number of rounds', async () => {
@@ -1608,22 +1557,11 @@ describe('gameStore', () => {
       ];
 
       useGameStore.getState().loadProfiles(multiCategoryProfiles);
-      useGameStore.getState().startGame(['A', 'B', 'C'], 100);
 
-      const state = useGameStore.getState();
-      expect(state.numberOfRounds).toBe(100);
-      expect(state.roundCategoryMap).toHaveLength(100);
-
-      // Verify distribution is as even as possible
-      const aCount = state.roundCategoryMap.filter((c) => c === 'A').length;
-      const bCount = state.roundCategoryMap.filter((c) => c === 'B').length;
-      const cCount = state.roundCategoryMap.filter((c) => c === 'C').length;
-
-      // With 100 rounds and 3 categories: 34, 33, 33 or similar distribution
-      expect(Math.abs(aCount - bCount)).toBeLessThanOrEqual(1);
-      expect(Math.abs(bCount - cCount)).toBeLessThanOrEqual(1);
-      expect(Math.abs(aCount - cCount)).toBeLessThanOrEqual(1);
-      expect(aCount + bCount + cCount).toBe(100);
+      // Should throw error because requesting 100 rounds but only have 3 unique profiles
+      expect(() => {
+        useGameStore.getState().startGame(['A', 'B', 'C'], 100);
+      }).toThrow('Not enough profiles available');
     });
   });
 
@@ -1644,7 +1582,6 @@ describe('gameStore', () => {
         totalProfilesCount: 0,
         numberOfRounds: 1,
         currentRound: 1,
-        roundCategoryMap: ['Movies'],
         revealedClueHistory: [],
         error: null,
       });

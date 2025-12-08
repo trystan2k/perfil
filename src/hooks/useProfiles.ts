@@ -5,7 +5,7 @@ import type { Profile, ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 
 /**
- * Fetch all profiles for a locale (backward compatibility)
+ * Fetch all profiles for a locale
  * Loads all categories and merges them
  */
 async function fetchAllProfiles(locale: string): Promise<ProfilesData> {
@@ -35,28 +35,6 @@ async function fetchAllProfiles(locale: string): Promise<ProfilesData> {
   return validatedData;
 }
 
-/**
- * Legacy function for backward compatibility with old profiles.json
- * Falls back to new structure if old file doesn't exist
- */
-async function fetchProfilesLegacy(locale: string): Promise<ProfilesData> {
-  try {
-    const response = await fetch(`/data/${locale}/profiles.json`);
-
-    if (!response.ok) {
-      // If old file doesn't exist, use new structure
-      return fetchAllProfiles(locale);
-    }
-
-    const data = await response.json();
-    const validatedData = profilesDataSchema.parse(data);
-    return validatedData;
-  } catch {
-    // Fallback to new structure
-    return fetchAllProfiles(locale);
-  }
-}
-
 export interface UseProfilesOptions {
   locale?: string;
   category?: string;
@@ -66,7 +44,7 @@ export interface UseProfilesOptions {
  * Hook to fetch profiles
  * @param options - { locale?, category? }
  * - If category is provided, loads only that category
- * - If category is omitted, loads all profiles (backward compatible)
+ * - If category is omitted, loads all profiles
  */
 export function useProfiles(options?: UseProfilesOptions | string) {
   // Support legacy string parameter for locale
@@ -82,7 +60,7 @@ export function useProfiles(options?: UseProfilesOptions | string) {
       if (category) {
         return fetchProfilesByCategory(currentLocale, category);
       }
-      return fetchProfilesLegacy(currentLocale);
+      return fetchAllProfiles(currentLocale);
     },
     staleTime: 1000 * 60 * 5, // Consider data stale after 5 minutes
   });

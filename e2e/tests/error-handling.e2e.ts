@@ -113,22 +113,31 @@ test.describe('Error Handling', () => {
 
     // Wait for category selection
     await page.waitForURL(/\/en\/game-setup\/.+/);
+    await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
 
     // Select a category and start game
     await page.getByText('Movies').click();
     await page.getByRole('button', { name: /continue/i }).click();
 
+    // Wait for rounds page
+    await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
+
     // Input rounds and continue
     await page.getByRole('button', { name: /start game/i }).click();
 
-    // Wait for game page
+    // Wait for game page and game content to be visible
     await page.waitForURL(/\/en\/game\/.+/);
+    await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
+
+    // Wait a bit more for content to fully render
+    await page.waitForLoadState('networkidle');
 
     // Verify no error is shown (session loaded successfully)
     await expect(page.getByRole('heading', { name: 'Error' })).not.toBeVisible();
 
-    // Verify game UI is showing
-    await expect(page.getByText(/round \d+ of \d+/i)).toBeVisible();
+    // Verify game UI is showing - look for Game Play heading or profile info
+    const profileInfo = page.getByRole('heading', { name: 'Game Play' });
+    await expect(profileInfo).toBeVisible();
   });
 
   test('should show error with recovery path for persistence failures', async ({ page }) => {

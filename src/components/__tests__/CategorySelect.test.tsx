@@ -31,7 +31,92 @@ Object.defineProperty(window, 'location', {
   writable: true,
 });
 
-// Mock profiles data
+// Mock manifest with new structure
+const mockManifest = {
+  version: '1',
+  generatedAt: '2025-01-01T00:00:00Z',
+  categories: [
+    {
+      slug: 'famous-people',
+      locales: {
+        en: { name: 'Famous People', files: ['data-1.json'] },
+      },
+    },
+    {
+      slug: 'countries',
+      locales: {
+        en: { name: 'Countries', files: ['data-1.json'] },
+      },
+    },
+    {
+      slug: 'movies',
+      locales: {
+        en: { name: 'Movies', files: ['data-1.json'] },
+      },
+    },
+  ],
+};
+
+// Mock data by category
+const mockCategoryData: Record<string, Record<string, Record<string, unknown>>> = {
+  'famous-people': {
+    en: {
+      'data-1.json': {
+        version: '1',
+        profiles: [
+          {
+            id: 'profile-1',
+            category: 'Famous People',
+            name: 'Albert Einstein',
+            clues: ['Clue 1', 'Clue 2'],
+            metadata: { language: 'en' },
+          },
+          {
+            id: 'profile-2',
+            category: 'Famous People',
+            name: 'Leonardo da Vinci',
+            clues: ['Clue 1', 'Clue 2'],
+            metadata: { language: 'en' },
+          },
+        ],
+      },
+    },
+  },
+  countries: {
+    en: {
+      'data-1.json': {
+        version: '1',
+        profiles: [
+          {
+            id: 'profile-3',
+            category: 'Countries',
+            name: 'Japan',
+            clues: ['Clue 1', 'Clue 2'],
+            metadata: { language: 'en' },
+          },
+        ],
+      },
+    },
+  },
+  movies: {
+    en: {
+      'data-1.json': {
+        version: '1',
+        profiles: [
+          {
+            id: 'profile-4',
+            category: 'Movies',
+            name: 'The Matrix',
+            clues: ['Clue 1', 'Clue 2'],
+            metadata: { language: 'en' },
+          },
+        ],
+      },
+    },
+  },
+};
+
+// For compatibility with tests, create merged profiles data
 const mockProfilesData = {
   version: '1',
   profiles: [
@@ -85,13 +170,36 @@ describe('CategorySelect', () => {
     mockLocation.href = '';
     queryClient.clear();
 
-    // Mock fetch for profiles data
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(mockProfilesData),
-      })
-    ) as unknown as typeof fetch;
+    // Mock fetch to handle the new manifest + category data structure
+    global.fetch = vi.fn((url: string) => {
+      // Handle manifest request
+      if (url.includes('/data/manifest.json')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockManifest),
+        });
+      }
+
+      // Handle category data requests: /data/{category}/{locale}/{file}
+      // Pattern: /data/famous-people/en/data-1.json
+      const categoryMatch = url.match(/\/data\/([^/]+)\/([^/]+)\/([^/]+)$/);
+      if (categoryMatch) {
+        const [, category, locale, file] = categoryMatch;
+        const categoryData = mockCategoryData[category]?.[locale]?.[file];
+        if (categoryData) {
+          return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve(categoryData),
+          });
+        }
+      }
+
+      // Fallback: return 404
+      return Promise.resolve({
+        ok: false,
+        statusText: 'Not Found',
+      });
+    }) as unknown as typeof fetch;
 
     // Mock zustand store with getState support
     const useGameStoreMock = useGameStore as unknown as ReturnType<typeof vi.fn> & {
@@ -276,7 +384,9 @@ describe('CategorySelect', () => {
         expect.arrayContaining(['Famous People', 'Countries', 'Movies'])
       );
       expect(categoriesArg).toHaveLength(3);
-      expect(roundsArg).toBe(5);
+      // With 4 total profiles (2 Famous People + 1 Countries + 1 Movies),
+      // initial rounds = Math.min(5, 4) = 4
+      expect(roundsArg).toBe(4);
     });
   });
 
@@ -422,9 +532,11 @@ describe('CategorySelect', () => {
       });
 
       const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
-      expect(roundsInput.value).toBe('5');
+      // Famous People has 2 profiles, so initial value = Math.min(5, 2) = 2
+      expect(roundsInput.value).toBe('2');
       expect(roundsInput.min).toBe('1');
-      expect(roundsInput.max).toBe('50');
+      // Max should be 2 (number of Famous People profiles)
+      expect(roundsInput.max).toBe('2');
     });
 
     it('should allow going back to category selection', async () => {
@@ -556,8 +668,11 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      await user.click(checkbox);
+      // Select all categories to have more profiles available
+      const buttons = screen.getAllByRole('button');
+      const selectAllButton = buttons.find((btn) => btn.textContent === 'Select All');
+      if (!selectAllButton) throw new Error('Select All button not found');
+      await user.click(selectAllButton);
 
       const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
@@ -572,11 +687,12 @@ describe('CategorySelect', () => {
       await user.clear(roundsInput);
       expect(roundsInput.value).toBe('');
 
-      // Type a new value
-      await user.type(roundsInput, '10');
+      // Type a new value - with all categories selected, we have 4 total profiles,
+      // so we can type any value from 1-4
+      await user.type(roundsInput, '3');
 
       // New value should be displayed
-      expect(roundsInput.value).toBe('10');
+      expect(roundsInput.value).toBe('3');
 
       // Start button should be enabled
       const startButton = screen.getByText('Start Game');
@@ -659,8 +775,11 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      await user.click(checkbox);
+      // Select all categories to have more profiles available (4 total)
+      const buttons = screen.getAllByRole('button');
+      const selectAllButton = buttons.find((btn) => btn.textContent === 'Select All');
+      if (!selectAllButton) throw new Error('Select All button not found');
+      await user.click(selectAllButton);
 
       const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
@@ -672,9 +791,12 @@ describe('CategorySelect', () => {
       const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
       const startButton = screen.getByText('Start Game');
 
-      // Clear and type valid value
+      // Start button should be enabled initially (value is 4, which is valid for 4 profiles)
+      expect(startButton).not.toBeDisabled();
+
+      // Clear and type valid value - with 4 profiles, 3 is valid
       await user.clear(roundsInput);
-      await user.type(roundsInput, '20');
+      await user.type(roundsInput, '3');
 
       // Start button should be enabled
       await waitFor(() => {

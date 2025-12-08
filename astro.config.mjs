@@ -109,19 +109,6 @@ export default defineConfig({
               },
             },
             {
-              // Legacy profiles.json (backward compatibility)
-              urlPattern: /\/data\/[^/]+\/profiles\.json$/i,
-              handler: 'NetworkFirst',
-              options: {
-                cacheName: 'profiles-legacy-cache',
-                expiration: {
-                  maxEntries: 5,
-                  maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
-                },
-                networkTimeoutSeconds: 10,
-              },
-            },
-            {
               // Category-based profile data files: /data/{category}/{locale}/data-1.json
               urlPattern: /\/data\/[^/]+\/[^/]+\/data-\d+\.json$/i,
               handler: 'CacheFirst',

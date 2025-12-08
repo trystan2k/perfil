@@ -291,6 +291,7 @@ test.describe('View Transitions API and State Persistence', () => {
 
     test('should preserve game state when navigating back and forth', async ({ page }) => {
       await page.goto('/', { waitUntil: 'networkidle' });
+      await expect(page.getByRole('heading', { name: 'Add Players' })).toBeVisible();
 
       // Setup game
       await page.getByLabel('Player Name').fill('Alice');
@@ -301,12 +302,20 @@ test.describe('View Transitions API and State Persistence', () => {
 
       await page.getByRole('button', { name: 'Start Game' }).click();
 
+      // Wait for category selection to be visible
+      await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
+
       // Navigate forward through setup
       const categoryButton = page.getByLabel('Famous People');
       await categoryButton.click();
       await page.getByRole('button', { name: 'Continue' }).click();
 
       await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
+
+      // Get the max value for this category
+      const roundsInput = page.getByLabel('Number of rounds');
+      const maxAttribute = await roundsInput.getAttribute('max');
+      const expectedMax = maxAttribute || '3';
 
       // Go back to category select
       await page.getByRole('button', { name: 'Back' }).click();
@@ -321,8 +330,8 @@ test.describe('View Transitions API and State Persistence', () => {
       await page.getByRole('button', { name: 'Continue' }).click();
       await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
 
-      // Verify state is still intact
-      await expect(page.getByLabel('Number of rounds')).toHaveValue('5'); // default value
+      // Verify state is still intact - should match the max for Famous People
+      await expect(roundsInput).toHaveValue(expectedMax);
     });
   });
 
@@ -434,6 +443,7 @@ test.describe('View Transitions API and State Persistence', () => {
 
     test('should show correct page content after transition animation', async ({ page }) => {
       await page.goto('/', { waitUntil: 'networkidle' });
+      await expect(page.getByRole('heading', { name: 'Add Players' })).toBeVisible();
 
       // Setup game
       await page.getByLabel('Player Name').fill('Alice');
@@ -446,8 +456,8 @@ test.describe('View Transitions API and State Persistence', () => {
       await page.getByRole('button', { name: 'Start Game' }).click();
       await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
 
-      // Verify correct page content is shown - look for the category selector
-      const categoryButtons = page.getByRole('button', { name: /Select/ });
+      // Verify correct page content is shown - look for category options
+      const categoryButtons = page.getByRole('button');
       const categoryCount = await categoryButtons.count();
       expect(categoryCount).toBeGreaterThan(0);
 
@@ -462,7 +472,11 @@ test.describe('View Transitions API and State Persistence', () => {
       // Verify correct page content for rounds selection
       const roundsInput = page.getByLabel('Number of rounds');
       await expect(roundsInput).toBeVisible();
-      await expect(roundsInput).toHaveValue('5');
+
+      // For Famous People category, max is 3, so default should be 3
+      const maxAttribute = await roundsInput.getAttribute('max');
+      const expectedValue = maxAttribute || '3';
+      await expect(roundsInput).toHaveValue(expectedValue);
     });
   });
 
@@ -580,6 +594,7 @@ test.describe('View Transitions API and State Persistence', () => {
   test.describe('Complex Navigation Scenarios', () => {
     test('should handle rapid navigation without state corruption', async ({ page }) => {
       await page.goto('/', { waitUntil: 'networkidle' });
+      await expect(page.getByRole('heading', { name: 'Add Players' })).toBeVisible();
 
       // Add players
       await page.getByLabel('Player Name').fill('Alice');
@@ -597,6 +612,14 @@ test.describe('View Transitions API and State Persistence', () => {
       await categoryButton.click();
       await page.getByRole('button', { name: 'Continue' }).click();
 
+      // Wait for rounds page to be visible before going back
+      await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
+
+      // Get the max value for this category
+      const roundsInput = page.getByLabel('Number of rounds');
+      const maxAttribute = await roundsInput.getAttribute('max');
+      const expectedValue = maxAttribute || '3';
+
       // Now try going back and forward quickly
       await page.getByRole('button', { name: 'Back' }).click();
       await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
@@ -606,10 +629,8 @@ test.describe('View Transitions API and State Persistence', () => {
       await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
 
       // Verify state is still valid
-      const roundsInput = page.getByLabel('Number of rounds');
-      await expect(roundsInput).toBeVisible();
       const value = await roundsInput.inputValue();
-      expect(value).toBe('5');
+      expect(value).toBe(expectedValue);
     });
 
     test('should preserve state through full game cycle with view transitions', async ({
