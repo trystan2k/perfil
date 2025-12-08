@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0006",
+      "category": "Tecnología",
+      "name": "Teléfono Inteligente",
+      "clues": [
+        "Se hizo popular en 2007",
+        "Combina múltiples dispositivos en uno",
+        "Interfaz de pantalla táctil",
+        "Puede acceder a internet",
+        "Tiene cámara incorporada",
+        "Navegación GPS",
+        "Miles de aplicaciones disponibles",
+        "Usado por miles de millones en todo el mundo",
+        "La mayoría de las personas lo revisan minutos después de despertar",
+        "Contiene acelerómetro y giroscopio",
+        "Puede hacer videollamadas",
+        "Reemplazó muchos dispositivos dedicados",
+        "La batería típicamente dura un día",
+        "Usa redes celulares",
+        "Las redes sociales son el uso principal",
+        "Revolucionó la fotografía",
+        "La mayoría tiene reconocimiento de huella digital o facial",
+        "Esencialmente una computadora de bolsillo",
+        "iPhone y Android son los más populares",
+        "La persona promedio pasa más de 3 horas diarias en él"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "modern-tech"
+      }
+    }
+  ]
+}

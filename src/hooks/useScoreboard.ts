@@ -88,8 +88,7 @@ export function useScoreboard(sessionId?: string): UseScoreboardReturn {
         } else {
           loadedSessionRef.current = sessionId;
         }
-      } catch (err) {
-        console.error('Failed to load game session:', err);
+      } catch (_err) {
         setError('scoreboard.error.loadFailed');
       } finally {
         setIsLoading(false);

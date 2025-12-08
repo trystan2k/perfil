@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0004",
+      "category": "Movies",
+      "name": "The Matrix",
+      "clues": [
+        "Released in 1999",
+        "Directed by the Wachowskis",
+        "Science fiction action film",
+        "Features virtual reality",
+        "Revolutionary special effects",
+        "Famous for 'bullet time' effect",
+        "Stars Keanu Reeves",
+        "Protagonist learns martial arts by download",
+        "Choice between red pill or blue pill",
+        "Humans are used as batteries",
+        "Agents wear sunglasses and earpieces",
+        "'There is no spoon' is famous line",
+        "Character named Morpheus",
+        "Green falling code on screen",
+        "Character Trinity",
+        "Won four Oscars",
+        "Main character is 'The One'",
+        "Philosophical questions about reality",
+        "Simulated reality controlled by machines",
+        "Protagonist's name is Neo"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    }
+  ]
+}

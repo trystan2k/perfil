@@ -109,15 +109,33 @@ export default defineConfig({
               },
             },
             {
-              urlPattern: /\/data\/[^/]+\/profiles\.json$/i,
-              handler: 'NetworkFirst',
+              // Category-based profile data files: /data/{category}/{locale}/data-1.json
+              urlPattern: /\/data\/[^/]+\/[^/]+\/data-\d+\.json$/i,
+              handler: 'CacheFirst',
               options: {
-                cacheName: 'profiles-data-cache',
+                cacheName: 'category-profiles-cache',
                 expiration: {
-                  maxEntries: 10,
-                  maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+                  maxEntries: 50, // Allow caching many category files
+                  maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days (data rarely changes)
                 },
-                networkTimeoutSeconds: 10,
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+            {
+              // Global manifest file: /data/manifest.json
+              urlPattern: /\/data\/manifest\.json$/i,
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'manifest-cache',
+                expiration: {
+                  maxEntries: 1,
+                  maxAgeSeconds: 60 * 60 * 24, // 1 day
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
               },
             },
             {

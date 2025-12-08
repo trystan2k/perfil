@@ -3352,12 +3352,87 @@
         "id": "53",
         "title": "Implement Progressive Data Loading (Split profiles by category)",
         "description": "ARCH-006: Reduce initial data load by splitting profiles per category and loading on-demand with prefetching and service worker caching.",
-        "details": "Move public/data/{locale}/profiles.json -> public/data/{locale}/{category}/data-1.json (so we can have multiple files per category that will be merged when loaded). Update useProfiles hooks to load per-category, implement prefetch hooks and service worker caching for popular categories. Aim to reduce initial load by 50%+.",
-        "testStrategy": "Performance tests to compare initial load payloads, network simulations (3G), and integration tests verifying category loading and prefetch behavior.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "details": "Move public/data/{locale}/profiles.json -> public/data/{locale}/{category}/data-1.json (so we can have multiple files per category that will be merged when loaded). Update useProfiles hooks to load per-category, implement prefetch hooks and service worker caching for popular categories. Aim to reduce initial load by 50%+.",
+        "testStrategy": "Performance tests to compare initial load payloads, network simulations (3G), and integration tests verifying category loading and prefetch behavior.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Refactor data directory structure for category-based profile storage",
+            "description": "Move profiles.json to category-specific directories with numbered files",
+            "dependencies": [],
+            "details": "Create category subdirectories under public/data/{locale}/. Split profiles.json into multiple files per category (e.g., public/data/en/animals/data-1.json). Implement script to generate these files from existing profiles.json while maintaining data integrity.",
+            "status": "done",
+            "testStrategy": "Verify file structure matches requirements and all profiles are accounted for in new structure",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Update useProfiles hook for category-based loading",
+            "description": "Modify hook to fetch and merge category-specific profile files",
+            "dependencies": [
+              1
+            ],
+            "details": "Update useProfiles to accept category parameter. Implement logic to fetch all data-*.json files for a category, merge results, and cache locally. Handle loading states and error cases for partial failures. Maintain backward compatibility for existing implementations.",
+            "status": "done",
+            "testStrategy": "Unit tests for merging logic, network failure scenarios, and category filtering",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-07T10:38:07.480Z"
+          },
+          {
+            "id": 3,
+            "title": "Implement prefetching mechanism for popular categories",
+            "description": "Create hook to prefetch category data based on usage patterns",
+            "dependencies": [
+              2
+            ],
+            "details": "Analyze usage data to identify popular categories. Implement usePrefetchProfiles hook that loads data for likely categories in background. Use IntersectionObserver or time-based triggers. Manage cache size and prioritize based on likelihood of use.",
+            "status": "done",
+            "testStrategy": "Test prefetch timing accuracy and verify data is available when needed",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-07T10:46:06.052Z"
+          },
+          {
+            "id": 4,
+            "title": "Configure service worker caching strategy",
+            "description": "Set up cache rules for profile data files",
+            "dependencies": [
+              3
+            ],
+            "details": "Update service worker configuration to cache category profile files with CacheFirst strategy. Implement cache expiration based on data freshness requirements. Add cache cleanup logic for least recently used items when storage limits are reached.",
+            "status": "done",
+            "testStrategy": "Verify cache hits/misses in different network conditions using Lighthouse",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-07T10:47:56.548Z"
+          },
+          {
+            "id": 5,
+            "title": "Conduct performance validation and optimization",
+            "description": "Measure and verify 50%+ initial load reduction",
+            "dependencies": [
+              4
+            ],
+            "details": "Run performance tests comparing old vs new implementation. Use Web Vitals metrics to measure TTI and FCP improvements. Adjust file splitting strategy if needed to meet 50% reduction target. Document results and create monitoring for production validation.",
+            "status": "done",
+            "testStrategy": "Compare payload sizes in network tab, run Lighthouse tests on both implementations",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-07T10:51:14.662Z"
+          },
+          {
+            "id": 6,
+            "title": "Improve game shuffling and randomization",
+            "description": "The current implementation always shows categories in the same order when starting a game with all categories selected. The generateRoundPlan function uses a deterministic round-robin approach (i % selectedCategories.length) which produces the same category order every time.\\n\\nIssues to fix:\\n1. Category order is deterministic (not random)\\n2. Profiles within each category are shuffled, but the category order itself is predictable\\n3. Users selecting 'all categories' always see the same sequence\\n\\nImplementation requirements:\\n1. Randomize the category order before distributing rounds\\n2. Ensure truly random selection on each game start\\n3. Maintain even distribution of categories across rounds\\n4. Add tests to verify randomization works correctly\\n5. Ensure backward compatibility\\n\\nFiles to modify:\\n- src/stores/gameStore.ts (generateRoundPlan function)\\n- src/stores/__tests__/gameStore.test.ts (add randomization tests)\\n\\nAcceptance criteria:\\n- Categories appear in random order on each game start\\n- Distribution remains fair (each category appears roughly equally)\\n- Tests verify randomization behavior\\n- No regressions in existing game flow\\n\\nPriority: medium\\nComplexity: medium\\n",
+            "details": "",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 53,
+            "updatedAt": "2025-12-07T14:15:48.683Z",
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-12-08T07:40:04.207Z"
       },
       {
         "id": "54",
@@ -4312,9 +4387,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-07T02:34:34.758Z",
+      "lastModified": "2025-12-08T07:40:04.208Z",
       "taskCount": 92,
-      "completedCount": 54,
+      "completedCount": 55,
       "tags": [
         "master"
       ]

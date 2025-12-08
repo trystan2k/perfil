@@ -62,6 +62,8 @@
         "git+https://github.com/oraios/serena",
         "serena",
         "start-mcp-server",
+        "--enable-web-dashboard",
+        "false",
         "--project",
         "perfil"
       ]

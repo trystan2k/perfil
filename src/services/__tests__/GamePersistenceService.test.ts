@@ -45,7 +45,6 @@ describe('GamePersistenceService', () => {
     numberOfRounds: 3,
     currentRound: 1,
     selectedCategories: ['Movies', 'TV', 'Sports'],
-    roundCategoryMap: ['Movies', 'TV', 'Sports'],
     revealedClueHistory: [],
   });
 
@@ -771,7 +770,6 @@ describe('GamePersistenceService', () => {
       const largeState = createMockGameState(sessionId);
 
       // Add a large array to simulate large state
-      largeState.roundCategoryMap = new Array(10000).fill('Category');
 
       service.debouncedSave(sessionId, largeState);
       await vi.advanceTimersByTimeAsync(100);

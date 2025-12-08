@@ -1,4 +1,19 @@
-import { removeLocalePrefix, type SupportedLocale } from '../i18n/locales';
+import { navigate } from 'astro:transitions/client';
+import { useState } from 'react';
+import type { SupportedLocale } from '../i18n/locales';
+import { removeLocalePrefix } from '../i18n/locales';
+import type { TranslationValue } from '../i18n/utils';
+import { useGameStore } from '../stores/gameStore';
+import { TranslateProvider, useTranslate } from './TranslateProvider';
+import { Button } from './ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from './ui/dialog';
 
 const locales = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -6,60 +21,152 @@ const locales = [
   { code: 'pt-BR', name: 'Português', flag: '🇧🇷' },
 ] as const;
 
-interface LanguageSwitcherProps {
+type LanguageSwitcherProps = {
   currentLocale: SupportedLocale;
   currentPath: string;
-  ariaLabel: string;
-  switchToLabel: string;
-}
+  locale: SupportedLocale;
+  translations: TranslationValue;
+};
 
 /**
- * Language switcher component using server-side i18n
- *
- * @param currentLocale - The current active locale
- * @param currentPath - The current page path (for generating locale-aware links)
- * @param ariaLabel - Translated aria-label for the nav element
- * @param switchToLabel - Translated "Switch to {language}" label template (with {{language}} placeholder)
+ * Language switcher with TranslateProvider wrapper (similar to ThemeSwitcher pattern)
  */
-export function LanguageSwitcher({
+export const LanguageSwitcher = ({
   currentLocale,
   currentPath,
-  ariaLabel,
-  switchToLabel,
-}: LanguageSwitcherProps) {
+  locale,
+  translations,
+}: LanguageSwitcherProps) => {
   return (
-    <nav aria-label={ariaLabel} className="language-switcher">
-      <ul className="locale-list">
-        {locales.map((locale) => {
-          const isActive = currentLocale === locale.code;
+    <TranslateProvider locale={locale} translations={translations}>
+      <LanguageSwitcherRaw currentLocale={currentLocale} currentPath={currentPath} />
+    </TranslateProvider>
+  );
+};
 
-          // Generate locale-aware URL
-          // Remove current locale prefix if it exists, then add new locale
-          const pathWithoutLocale = removeLocalePrefix(currentPath);
+type LanguageSwitcherRawProps = {
+  currentLocale: SupportedLocale;
+  currentPath: string;
+};
 
-          // Always add locale prefix (since prefixDefaultLocale is true)
-          const targetPath = `/${locale.code}${pathWithoutLocale || '/'}`;
+/**
+ * Language switcher component with game state awareness
+ */
+function LanguageSwitcherRaw({ currentLocale, currentPath }: LanguageSwitcherRawProps) {
+  const { t } = useTranslate();
+  const gameStatus = useGameStore((state) => state.status);
+  const sessionId = useGameStore((state) => state.id);
+  const resetGame = useGameStore((state) => state.resetGame);
 
-          // Interpolate language name into switchToLabel
-          const switchToText = switchToLabel.replace(/\{\{language\}\}/g, locale.name);
+  const [showWarning, setShowWarning] = useState(false);
+  const [pendingLocale, setPendingLocale] = useState<SupportedLocale | null>(null);
 
-          return (
-            <li key={locale.code}>
-              <a
-                href={targetPath}
-                aria-current={isActive ? 'page' : undefined}
-                className={`locale-link ${isActive ? 'active' : ''}`}
-                aria-label={switchToText}
-              >
-                <span className="locale-flag" aria-hidden="true">
-                  {locale.flag}
-                </span>
-                <span className="locale-name">{locale.name}</span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+  const handleLocaleClick = async (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    localeCode: SupportedLocale
+  ) => {
+    // If game is active, show warning dialog
+    if (gameStatus === 'active') {
+      e.preventDefault();
+      setPendingLocale(localeCode);
+      setShowWarning(true);
+      return;
+    }
+
+    // Otherwise allow normal navigation
+  };
+
+  const handleConfirmLanguageChange = async () => {
+    if (!pendingLocale) return;
+
+    if (sessionId) {
+      try {
+        const dbName = 'perfil-game-db';
+        const storeName = 'game-sessions';
+
+        // Delete the old session from IndexedDB
+        await new Promise<void>((resolve, reject) => {
+          const dbRequest = indexedDB.open(dbName);
+          dbRequest.onerror = () => reject(dbRequest.error);
+          dbRequest.onsuccess = () => {
+            const db = dbRequest.result;
+            const transaction = db.transaction([storeName], 'readwrite');
+            const store = transaction.objectStore(storeName);
+            store.delete(sessionId);
+            transaction.oncomplete = () => resolve();
+            transaction.onerror = () => reject(transaction.error);
+          };
+        });
+
+        // Manually reset store to initial state WITHOUT calling resetGame()
+        // This avoids creating a new session that gets persisted
+        // Using empty id ensures no persistence will happen (persistState checks for empty id)
+        await resetGame();
+      } catch (error) {
+        console.error('Failed to clear game state:', error);
+      }
+    }
+
+    navigate(`/${pendingLocale}/`);
+  };
+
+  const handleCancelLanguageChange = () => {
+    setShowWarning(false);
+    setPendingLocale(null);
+  };
+
+  const ariaLabel = t('languageSwitcher.ariaLabel');
+
+  return (
+    <>
+      <nav aria-label={ariaLabel} className="language-switcher">
+        <ul className="locale-list">
+          {locales.map((locale) => {
+            const isActive = currentLocale === locale.code;
+
+            // Generate locale-aware URL
+            const pathWithoutLocale = removeLocalePrefix(currentPath);
+            const targetPath = `/${locale.code}${pathWithoutLocale || '/'}`;
+
+            // Interpolate language name into switchToLabel
+            const switchToText = t('languageSwitcher.switchTo', { language: locale.name });
+
+            return (
+              <li key={locale.code}>
+                <a
+                  href={targetPath}
+                  onClick={(e) => handleLocaleClick(e, locale.code as SupportedLocale)}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`locale-link ${isActive ? 'active' : ''}`}
+                  aria-label={switchToText}
+                >
+                  <span className="locale-flag" aria-hidden="true">
+                    {locale.flag}
+                  </span>
+                  <span className="locale-name">{locale.name}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      <Dialog open={showWarning} onOpenChange={setShowWarning}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('languageSwitcher.warning.title')}</DialogTitle>
+            <DialogDescription>{t('languageSwitcher.warning.description')}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={handleCancelLanguageChange}>
+              {t('languageSwitcher.warning.cancel')}
+            </Button>
+            <Button onClick={handleConfirmLanguageChange}>
+              {t('languageSwitcher.warning.confirm')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

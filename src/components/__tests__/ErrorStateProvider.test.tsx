@@ -49,7 +49,6 @@ describe('ErrorStateProvider', () => {
       numberOfRounds: 1,
       currentRound: 1,
       selectedCategories: [],
-      roundCategoryMap: [],
       revealedClueHistory: [],
       error: null,
     });

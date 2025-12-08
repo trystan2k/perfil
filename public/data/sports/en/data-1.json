@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0007",
+      "category": "Sports",
+      "name": "Soccer",
+      "clues": [
+        "World's most popular sport",
+        "Played mainly with feet",
+        "Round ball",
+        "Two teams of 11 players",
+        "Goal is to score in opponent's net",
+        "90 minutes of play",
+        "Called football in most countries",
+        "World Cup every four years",
+        "Cannot use hands except goalkeeper",
+        "Yellow and red cards for fouls",
+        "Offside rule",
+        "Penalties from 12 yards",
+        "Corner kicks and throw-ins",
+        "Played on grass or artificial turf",
+        "Rectangular field with goals at each end",
+        "Header is using head to hit ball",
+        "Billions watch World Cup finals",
+        "Professional leagues on every continent",
+        "Messi and Ronaldo are famous players",
+        "Also called 'the beautiful game'"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "sports"
+      }
+    }
+  ]
+}

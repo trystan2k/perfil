@@ -1,13 +1,14 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import translations from '../../../public/locales/en/translation.json';
 import { customRender } from '../../__mocks__/test-utils';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 
 const defaultProps = {
   currentLocale: 'en' as const,
   currentPath: '/game',
-  ariaLabel: 'Language selector',
-  switchToLabel: 'Switch to {{language}}',
+  locale: 'en' as const,
+  translations,
 };
 
 describe('LanguageSwitcher', () => {

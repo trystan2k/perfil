@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0005",
+      "category": "Animals",
+      "name": "Octopus",
+      "clues": [
+        "Marine invertebrate",
+        "Has three hearts",
+        "Blue blood due to copper",
+        "Can change color instantly",
+        "Eight appendages",
+        "Highly intelligent",
+        "Can squeeze through tiny spaces",
+        "Found in coral reefs and ocean floor",
+        "Shoots ink when threatened",
+        "Short lifespan of 1-5 years",
+        "Has no bones or skeleton",
+        "Can regenerate lost arms",
+        "Nine brains total",
+        "Excellent problem solvers",
+        "Can open jars and containers",
+        "Solitary creatures",
+        "Beak-shaped mouth",
+        "Related to squid",
+        "Some species are venomous",
+        "Dies after reproduction"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "nature"
+      }
+    }
+  ]
+}

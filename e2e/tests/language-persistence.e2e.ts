@@ -103,7 +103,8 @@ test.describe('Language Persistence', () => {
 
     page.on('request', (request) => {
       const url = request.url();
-      if (url.includes('/data/') && url.includes('/profiles.json')) {
+      // Monitor requests to manifest or category data files
+      if (url.includes('/data/') && (url.includes('/manifest.json') || url.includes('/data-'))) {
         requests.push(url);
       }
     });
@@ -136,9 +137,14 @@ test.describe('Language Persistence', () => {
     // Give a bit more time for the request to be captured
     await page.waitForTimeout(1000);
 
-    // Verify that at least one request was made to pt-BR profiles
-    const ptBRRequests = requests.filter((url) => url.includes('/data/pt-BR/profiles.json'));
-    expect(ptBRRequests.length).toBeGreaterThan(0);
+    // Verify that requests were made to manifest and pt-BR category data files
+    const manifestRequests = requests.filter((url) => url.includes('/data/manifest.json'));
+    const ptBRDataRequests = requests.filter(
+      (url) => url.includes('/pt-BR/') && url.includes('/data-')
+    );
+
+    expect(manifestRequests.length).toBeGreaterThan(0);
+    expect(ptBRDataRequests.length).toBeGreaterThan(0);
   });
 
   test('should show language switcher on all pages', async ({ page }) => {

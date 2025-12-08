@@ -21,6 +21,8 @@ You MUST:
 - ❌ **NEVER** begin implementation without authorization
 - ❌ **NEVER** run git commands (commit/push/etc.) without authorization
 - ❌ **NEVER** commit or push - ALWAYS ask for explicit permission first
+- ❌ **NEVER** EVER run multiple npm commands at the same time. If one command hangs or is taking too long,
+KILL IT before running the next one.
 - ✅ **ALWAYS** wait for the user to explicitly tell you: "Start task #X" or similar
 
 ## ⚠️ ### FUNDAMENTAL PRINCIPLES

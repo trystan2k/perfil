@@ -154,6 +154,15 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
   useEffect(() => {
     // Skip loading if game already exists in store
     if (sessionId && !gameAlreadyExists) {
+      if (id.trim().length > 0 && id !== sessionId) {
+        // Additional check: If store has a non-matching id, skip loading
+        // This prevents trying to reload a session that was just deleted during language change
+        // id.trim().length > 0 means the store has a session (not empty string from reset)
+        // If that session doesn't match the URL sessionId, we're in a transition - don't load
+        setIsLoading(false);
+        return;
+      }
+
       const loadSession = async () => {
         try {
           await loadFromStorage(sessionId);
@@ -175,10 +184,25 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
 
       loadSession();
     }
-  }, [sessionId, gameAlreadyExists, loadFromStorage, setGlobalError, profilesData, loadProfiles]);
+  }, [
+    sessionId,
+    gameAlreadyExists,
+    loadFromStorage,
+    setGlobalError,
+    profilesData,
+    loadProfiles,
+    id,
+  ]);
 
   // Detect invalid game state and set error flag
   useEffect(() => {
+    // Skip error check if we're in a transition state (mismatched ids)
+    // This prevents showing errors when navigating away from a game (e.g., language change)
+    // Only skip if BOTH sessionId and id exist and don't match
+    if (sessionId && id.trim().length > 0 && id !== sessionId) {
+      return;
+    }
+
     // Only check after loading is complete and if we haven't already detected an error
     if (!isLoading && !hasLoadError && status !== 'completed') {
       if (!currentTurn || !currentProfile || status === 'pending') {
@@ -186,7 +210,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
         setGlobalError('gamePlay.errors.loadFailed');
       }
     }
-  }, [isLoading, hasLoadError, currentTurn, currentProfile, status, setGlobalError]);
+  }, [isLoading, hasLoadError, currentTurn, currentProfile, status, setGlobalError, id, sessionId]);
 
   // Automatically navigate to scoreboard when game completes
   useEffect(() => {

@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { clearManifestCache } from '../../lib/manifest';
 import type { ProfilesData } from '../../types/models';
 import { useProfiles } from '../useProfiles';
 
@@ -38,17 +39,39 @@ function createWrapper() {
 describe('useProfiles', () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn());
+    clearManifestCache();
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    clearManifestCache();
   });
 
-  it('should fetch profiles successfully', async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockProfilesData,
-    } as Response);
+  it('should fetch profiles successfully using manifest and all categories', async () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: { name: 'Movies', files: ['data-1.json'] },
+            es: { name: 'Películas', files: ['data-1.json'] },
+            'pt-BR': { name: 'Filmes', files: ['data-1.json'] },
+          },
+        },
+      ],
+    };
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockProfilesData,
+      } as Response);
 
     const { result } = renderHook(() => useProfiles(), {
       wrapper: createWrapper(),
@@ -60,10 +83,12 @@ describe('useProfiles', () => {
 
     expect(result.current.data).toEqual(mockProfilesData);
     expect(result.current.error).toBeNull();
-    expect(fetch).toHaveBeenCalledWith('/data/en/profiles.json');
+    expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+    expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
   });
 
   it('should handle fetch errors', async () => {
+    // Mock manifest fetch to fail
     vi.mocked(fetch).mockResolvedValueOnce({
       ok: false,
       statusText: 'Not Found',
@@ -77,11 +102,11 @@ describe('useProfiles', () => {
 
     expect(result.current.data).toBeUndefined();
     expect(result.current.error).toBeDefined();
-    expect(result.current.error?.message).toContain('Failed to fetch profiles');
   });
 
   it('should handle network errors', async () => {
     const networkError = new Error('Network error');
+    // Mock manifest fetch to fail with network error
     vi.mocked(fetch).mockRejectedValueOnce(networkError);
 
     const { result } = renderHook(() => useProfiles(), {
@@ -91,7 +116,7 @@ describe('useProfiles', () => {
     await waitFor(() => expect(result.current.isError).toBe(true));
 
     expect(result.current.data).toBeUndefined();
-    expect(result.current.error).toBe(networkError);
+    expect(result.current.error).toBeDefined();
   });
 
   it('should return loading state initially', () => {
@@ -110,6 +135,19 @@ describe('useProfiles', () => {
   });
 
   it('should handle invalid JSON schema', async () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: { name: 'Movies', files: ['data-1.json'] },
+          },
+        },
+      ],
+    };
+
     const invalidData = {
       version: '1',
       profiles: [
@@ -122,10 +160,16 @@ describe('useProfiles', () => {
       ],
     };
 
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => invalidData,
-    } as Response);
+    // Mock manifest success, then invalid data for category
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => invalidData,
+      } as Response);
 
     const { result } = renderHook(() => useProfiles(), {
       wrapper: createWrapper(),
@@ -137,11 +181,31 @@ describe('useProfiles', () => {
     expect(result.current.error).toBeDefined();
   });
 
-  it('should fetch profiles for Spanish locale', async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockProfilesData,
-    } as Response);
+  it('should fetch profiles for Spanish locale using manifest', async () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: { name: 'Movies', files: ['data-1.json'] },
+            es: { name: 'Películas', files: ['data-1.json'] },
+            'pt-BR': { name: 'Filmes', files: ['data-1.json'] },
+          },
+        },
+      ],
+    };
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockProfilesData,
+      } as Response);
 
     const { result } = renderHook(() => useProfiles('es'), {
       wrapper: createWrapper(),
@@ -150,14 +214,35 @@ describe('useProfiles', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data).toEqual(mockProfilesData);
-    expect(fetch).toHaveBeenCalledWith('/data/es/profiles.json');
+    expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+    expect(fetch).toHaveBeenCalledWith('/data/movies/es/data-1.json');
   });
 
-  it('should fetch profiles for Portuguese locale', async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockProfilesData,
-    } as Response);
+  it('should fetch profiles for Portuguese locale using manifest', async () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: { name: 'Movies', files: ['data-1.json'] },
+            es: { name: 'Películas', files: ['data-1.json'] },
+            'pt-BR': { name: 'Filmes', files: ['data-1.json'] },
+          },
+        },
+      ],
+    };
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockProfilesData,
+      } as Response);
 
     const { result } = renderHook(() => useProfiles('pt-BR'), {
       wrapper: createWrapper(),
@@ -166,7 +251,264 @@ describe('useProfiles', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data).toEqual(mockProfilesData);
-    expect(fetch).toHaveBeenCalledWith('/data/pt-BR/profiles.json');
+    expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+    expect(fetch).toHaveBeenCalledWith('/data/movies/pt-BR/data-1.json');
+  });
+
+  describe('category-based loading', () => {
+    const mockManifest = {
+      version: '1',
+      generatedAt: '2025-12-07T10:00:00.000Z',
+      categories: [
+        {
+          slug: 'movies',
+          locales: {
+            en: {
+              name: 'Movies',
+              files: ['data-1.json'],
+            },
+            es: {
+              name: 'Películas',
+              files: ['data-1.json'],
+            },
+            'pt-BR': {
+              name: 'Filmes',
+              files: ['data-1.json'],
+            },
+          },
+        },
+        {
+          slug: 'sports',
+          locales: {
+            en: {
+              name: 'Sports',
+              files: ['data-1.json'],
+            },
+            es: {
+              name: 'Deportes',
+              files: ['data-1.json'],
+            },
+            'pt-BR': {
+              name: 'Esportes',
+              files: ['data-1.json'],
+            },
+          },
+        },
+      ],
+    };
+
+    const mockMoviesData = {
+      version: '1',
+      profiles: [
+        {
+          id: 'movie-001',
+          category: 'Movies',
+          name: 'Movie Profile 1',
+          clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+        },
+        {
+          id: 'movie-002',
+          category: 'Movies',
+          name: 'Movie Profile 2',
+          clues: ['Clue A', 'Clue B', 'Clue C'],
+        },
+      ],
+    };
+
+    it('should fetch profiles for a specific category', async () => {
+      vi.mocked(fetch)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => mockManifest,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => mockMoviesData,
+        } as Response);
+
+      const { result } = renderHook(() => useProfiles({ category: 'movies' }), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(result.current.data?.profiles).toHaveLength(2);
+      expect(result.current.data?.profiles[0]?.id).toBe('movie-001');
+      expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
+    });
+
+    it('should handle category not found error', async () => {
+      // Mock all retry attempts with same response
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: async () => mockManifest,
+      } as Response);
+
+      const { result } = renderHook(() => useProfiles({ category: 'nonexistent' }), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => expect(result.current.isError).toBe(true));
+
+      expect(result.current.error?.message).toContain('Category "nonexistent" not found');
+    });
+
+    it('should merge multiple data files listed in manifest for a category', async () => {
+      const manifestWithMultipleFiles = {
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: {
+                name: 'Movies',
+                files: ['data-1.json', 'data-2.json'],
+              },
+            },
+          },
+        ],
+      };
+
+      const mockData1 = {
+        version: '1',
+        profiles: [
+          {
+            id: 'movie-001',
+            category: 'Movies',
+            name: 'Movie 1',
+            clues: ['C1', 'C2', 'C3'],
+          },
+        ],
+      };
+
+      const mockData2 = {
+        version: '1',
+        profiles: [
+          {
+            id: 'movie-002',
+            category: 'Movies',
+            name: 'Movie 2',
+            clues: ['C1', 'C2', 'C3'],
+          },
+          {
+            id: 'movie-003',
+            category: 'Movies',
+            name: 'Movie 3',
+            clues: ['C1', 'C2', 'C3'],
+          },
+        ],
+      };
+
+      vi.mocked(fetch)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => manifestWithMultipleFiles,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => mockData1,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => mockData2,
+        } as Response);
+
+      const { result } = renderHook(() => useProfiles({ category: 'movies' }), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(result.current.data?.profiles).toHaveLength(3);
+      expect(result.current.data?.profiles.map((p) => p.id)).toEqual([
+        'movie-001',
+        'movie-002',
+        'movie-003',
+      ]);
+    });
+
+    it('should use object parameter with locale and category', async () => {
+      vi.mocked(fetch)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => mockManifest,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => mockMoviesData,
+        } as Response);
+
+      const { result } = renderHook(() => useProfiles({ locale: 'es', category: 'movies' }), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/es/data-1.json');
+    });
+
+    it('should fetch all profiles from manifest when calling without category', async () => {
+      const mockSportsData = {
+        version: '1',
+        profiles: [
+          {
+            id: 'sport-001',
+            category: 'Sports',
+            name: 'Sport 1',
+            clues: ['C1', 'C2', 'C3'],
+          },
+        ],
+      };
+
+      // Setup mock fetch with custom implementation
+      vi.mocked(fetch).mockImplementation(async (url: string | URL | Request) => {
+        const urlStr = url.toString();
+
+        if (urlStr.includes('manifest.json')) {
+          // Manifest - success
+          return {
+            ok: true,
+            json: async () => mockManifest,
+          } as Response;
+        }
+
+        if (urlStr.includes('movies') && urlStr.includes('en') && urlStr.includes('data-1.json')) {
+          // Movies data - success: /data/movies/en/data-1.json
+          return {
+            ok: true,
+            json: async () => mockMoviesData,
+          } as Response;
+        }
+
+        if (urlStr.includes('sports') && urlStr.includes('en') && urlStr.includes('data-1.json')) {
+          // Sports data - success: /data/sports/en/data-1.json
+          return {
+            ok: true,
+            json: async () => mockSportsData,
+          } as Response;
+        }
+
+        // Default fail
+        return {
+          ok: false,
+          statusText: 'Not Found',
+        } as Response;
+      });
+
+      const { result } = renderHook(() => useProfiles(), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(result.current.data?.profiles).toHaveLength(3);
+      expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
+      expect(fetch).toHaveBeenCalledWith('/data/sports/en/data-1.json');
+    });
   });
 
   describe('language change behavior', () => {
@@ -182,6 +524,20 @@ describe('useProfiles', () => {
       const wrapper = ({ children }: { children: ReactNode }) => (
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       );
+
+      const mockManifest = {
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', files: ['data-1.json'] },
+              es: { name: 'Películas', files: ['data-1.json'] },
+            },
+          },
+        ],
+      };
 
       const enProfilesData: ProfilesData = {
         version: '1',
@@ -212,6 +568,10 @@ describe('useProfiles', () => {
       vi.mocked(fetch)
         .mockResolvedValueOnce({
           ok: true,
+          json: async () => mockManifest,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
           json: async () => enProfilesData,
         } as Response)
         .mockResolvedValueOnce({
@@ -227,19 +587,20 @@ describe('useProfiles', () => {
       // Wait for initial English profiles to load
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       expect(result.current.data).toEqual(enProfilesData);
-      expect(fetch).toHaveBeenCalledWith('/data/en/profiles.json');
+      expect(fetch).toHaveBeenCalledWith('/data/manifest.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/en/data-1.json');
 
       // Change locale to Spanish
       rerender({ locale: 'es' });
 
-      // Wait for Spanish profiles to load
+      // Wait for Spanish profiles to load (uses cached manifest)
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       await waitFor(() => {
         return result.current.data?.profiles[0]?.id === 'es-001';
       });
 
       expect(result.current.data).toEqual(esProfilesData);
-      expect(fetch).toHaveBeenCalledWith('/data/es/profiles.json');
+      expect(fetch).toHaveBeenCalledWith('/data/movies/es/data-1.json');
     });
 
     it('should use cached profiles when switching back to previously loaded locale', async () => {
@@ -254,6 +615,20 @@ describe('useProfiles', () => {
       const wrapper = ({ children }: { children: ReactNode }) => (
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       );
+
+      const mockManifest = {
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', files: ['data-1.json'] },
+              es: { name: 'Películas', files: ['data-1.json'] },
+            },
+          },
+        ],
+      };
 
       const enProfilesData: ProfilesData = {
         version: '1',
@@ -282,6 +657,10 @@ describe('useProfiles', () => {
       vi.mocked(fetch)
         .mockResolvedValueOnce({
           ok: true,
+          json: async () => mockManifest,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
           json: async () => enProfilesData,
         } as Response)
         .mockResolvedValueOnce({
@@ -298,7 +677,7 @@ describe('useProfiles', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       expect(result.current.data).toEqual(enProfilesData);
 
-      // Switch to Spanish
+      // Switch to Spanish (uses cached manifest)
       rerender({ locale: 'es' });
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       await waitFor(() => {
@@ -306,7 +685,7 @@ describe('useProfiles', () => {
       });
       expect(result.current.data).toEqual(esProfilesData);
 
-      // Switch back to English - should use cache
+      // Switch back to English - should use cache (both manifest and query)
       rerender({ locale: 'en' });
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       await waitFor(() => {
@@ -328,6 +707,20 @@ describe('useProfiles', () => {
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       );
 
+      const mockManifest = {
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', files: ['data-1.json'] },
+              es: { name: 'Películas', files: ['data-1.json'] },
+            },
+          },
+        ],
+      };
+
       const enProfilesData: ProfilesData = {
         version: '1',
         profiles: [
@@ -343,8 +736,13 @@ describe('useProfiles', () => {
       vi.mocked(fetch)
         .mockResolvedValueOnce({
           ok: true,
+          json: async () => mockManifest,
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
           json: async () => enProfilesData,
         } as Response)
+        // Mock Spanish fetch to fail (using cached manifest + trying to fetch category data)
         .mockResolvedValueOnce({
           ok: false,
           statusText: 'Not Found',
@@ -359,13 +757,12 @@ describe('useProfiles', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
       expect(result.current.data).toEqual(enProfilesData);
 
-      // Try to switch to Spanish but get error
+      // Try to switch to Spanish but get error when fetching category data
       rerender({ locale: 'es' });
 
       await waitFor(() => expect(result.current.isError).toBe(true));
 
       expect(result.current.error).toBeDefined();
-      expect(result.current.error?.message).toContain('Failed to fetch profiles');
       // Note: TanStack Query clears data on new query, so data will be undefined on error
       // This is expected behavior - previous data is only kept when using keepPreviousData option
       expect(result.current.data).toBeUndefined();

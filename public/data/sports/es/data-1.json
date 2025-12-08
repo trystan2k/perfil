@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0007",
+      "category": "Deportes",
+      "name": "Fútbol",
+      "clues": [
+        "Deporte más popular del mundo",
+        "Se juega principalmente con los pies",
+        "Balón redondo",
+        "Dos equipos de 11 jugadores",
+        "El objetivo es marcar en la portería del oponente",
+        "90 minutos de juego",
+        "Llamado football en la mayoría de los países",
+        "Copa del Mundo cada cuatro años",
+        "No se puede usar las manos excepto el portero",
+        "Tarjetas amarillas y rojas por faltas",
+        "Regla del fuera de juego",
+        "Penaltis desde 12 yardas",
+        "Saques de esquina y de banda",
+        "Se juega en césped o césped artificial",
+        "Campo rectangular con porterías en cada extremo",
+        "Cabezazo es usar la cabeza para golpear el balón",
+        "Miles de millones ven las finales de la Copa del Mundo",
+        "Ligas profesionales en todos los continentes",
+        "Messi y Ronaldo son jugadores famosos",
+        "También llamado 'el juego bonito'"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "sports"
+      }
+    }
+  ]
+}

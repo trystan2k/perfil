@@ -52,7 +52,6 @@ describe('IndexedDBGameSessionRepository', () => {
     numberOfRounds: 5,
     currentRound: 1,
     selectedCategories: ['Movies'],
-    roundCategoryMap: ['Movies', 'Movies', 'Movies', 'Movies', 'Movies'],
     revealedClueHistory: [],
   });
 

@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0003",
+      "category": "Countries",
+      "name": "Japan",
+      "clues": [
+        "Island nation in East Asia",
+        "Population over 125 million",
+        "Capital has over 13 million inhabitants",
+        "Experiences frequent earthquakes",
+        "Famous for cherry blossoms",
+        "Bullet train system called Shinkansen",
+        "Four main islands",
+        "Ancient imperial family",
+        "Known for technology and robotics",
+        "Anime and manga originated here",
+        "Mount Fuji is the highest peak",
+        "Uses three writing systems",
+        "Sushi is a traditional dish",
+        "Hosted Olympics in 1964 and 2021",
+        "Samurai warriors in historical period",
+        "Capital is Tokyo",
+        "Flag features a red circle",
+        "Bowing is common greeting",
+        "Known for strict punctuality",
+        "Called 'Land of the Rising Sun'"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "geography"
+      }
+    }
+  ]
+}

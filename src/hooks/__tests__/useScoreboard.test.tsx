@@ -71,7 +71,6 @@ describe('useScoreboard', () => {
       numberOfRounds: 1,
       currentRound: 1,
       selectedCategories: [],
-      roundCategoryMap: [],
       revealedClueHistory: [],
       error: null,
     });
@@ -567,7 +566,6 @@ describe('useScoreboard', () => {
         currentProfile: profile,
         numberOfRounds: 1,
         selectedCategories: ['Movies'],
-        roundCategoryMap: ['Movies'],
       });
 
       const { result } = renderHook(() => useScoreboard(originalSessionId), {
@@ -615,7 +613,6 @@ describe('useScoreboard', () => {
         currentProfile: profiles[0],
         numberOfRounds: 2,
         selectedCategories: ['Movies', 'Music'],
-        roundCategoryMap: ['Movies', 'Music'],
       });
 
       const { result } = renderHook(() => useScoreboard(sessionId), {
@@ -654,7 +651,6 @@ describe('useScoreboard', () => {
         currentProfile: profiles[0],
         numberOfRounds: 2,
         selectedCategories: ['Movies', 'Music'],
-        roundCategoryMap: ['Movies', 'Music'],
       });
 
       const { result } = renderHook(() => useScoreboard(sessionId), {
@@ -671,11 +667,13 @@ describe('useScoreboard', () => {
 
       const state = useGameStore.getState();
       expect(state.selectedProfiles).toHaveLength(2);
-      // Should have selected one from each category
+      // Should have selected one from each category (order may vary due to randomization)
       const profile1 = state.profiles.find((p) => p.id === state.selectedProfiles[0]);
       const profile2 = state.profiles.find((p) => p.id === state.selectedProfiles[1]);
-      expect(profile1?.category).toBe('Movies');
-      expect(profile2?.category).toBe('Music');
+      const categories = [profile1?.category, profile2?.category].sort();
+      expect(categories).toEqual(['Movies', 'Music']);
+      // Verify both are from different categories
+      expect(profile1?.category).not.toBe(profile2?.category);
     });
   });
 

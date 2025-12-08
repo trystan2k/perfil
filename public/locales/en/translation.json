@@ -27,7 +27,13 @@
   },
   "languageSwitcher": {
     "ariaLabel": "Language selector",
-    "switchTo": "Switch to {{language}}"
+    "switchTo": "Switch to {{language}}",
+    "warning": {
+      "title": "Change Language?",
+      "description": "Changing the language will end your current game and you'll lose all progress. You'll be redirected to the home page to start a new game.",
+      "confirm": "Change Language",
+      "cancel": "Cancel"
+    }
   },
   "themeSwitcher": {
     "ariaLabel": "Theme switcher",
@@ -161,7 +167,7 @@
       "descriptionShuffleAll": "How many rounds would you like to play with all profiles shuffled?",
       "descriptionCategory": "How many rounds would you like to play with {{category}} profiles?",
       "label": "Number of rounds",
-      "hint": "Choose between 1 and 50 rounds",
+      "hint": "Choose between {{min}} and {{max}} rounds",
       "invalidInput": "Invalid value",
       "startButton": "Start Game"
     },

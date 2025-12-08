@@ -2,8 +2,10 @@ import { type ChangeEvent, useEffect, useState } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { usePrefetchProfiles } from '@/hooks/usePrefetchProfiles';
 import { useProfiles } from '@/hooks/useProfiles';
 import { navigateWithLocale } from '@/i18n/locales';
+import { getPopularCategoriesForLocale, PREFETCH_CONFIG } from '@/lib/prefetch-config';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import { useTranslate } from './TranslateProvider';
 
@@ -24,6 +26,17 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
   const setGlobalError = useGameStore((state) => state.setError);
+
+  // Get current locale for prefetch configuration
+  // Use getCurrentLocale utility which is test-safe
+  const currentLocale =
+    (typeof window !== 'undefined' && window.location?.pathname?.split('/')[1]) || 'en';
+
+  // Prefetch popular categories in the background
+  usePrefetchProfiles({
+    categories: getPopularCategoriesForLocale(currentLocale),
+    enabled: PREFETCH_CONFIG.enabled && !isLoading && !error,
+  });
 
   useEffect(() => {
     const loadSession = async () => {
@@ -76,6 +89,11 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const profiles = profilesData.profiles;
   const categories = Array.from(new Set(profiles.map((profile) => profile.category))).sort();
 
+  // Calculate max available profiles for selected categories
+  const maxAvailableProfiles = profiles.filter((p) =>
+    Array.from(selectedCategories).includes(p.category)
+  ).length;
+
   const handleCategoryToggle = (category: string) => {
     setSelectedCategories((prev) => {
       const newSet = new Set(prev);
@@ -98,6 +116,17 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   const handleContinueToRounds = () => {
     if (selectedCategories.size === 0) return;
+
+    // Calculate max available profiles for selected categories
+    const maxProfiles = profiles.filter((p) =>
+      Array.from(selectedCategories).includes(p.category)
+    ).length;
+
+    // Set initial value to min(5, maxProfiles)
+    const initialRounds = Math.min(5, maxProfiles);
+    setNumberOfRounds(String(initialRounds));
+    setRoundsInputError(null);
+
     setShowRoundsScreen(true);
   };
 
@@ -117,8 +146,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
       await forcePersist();
       navigateWithLocale(`/game/${sessionId}`);
     } catch (error) {
-      console.error('Failed to persist game state:', error);
-      // Use global error handler for critical failures
+      console.error('Failed to start game:', error);
       setGlobalError('categorySelect.error.description');
       setIsStarting(false);
     }
@@ -133,7 +161,8 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
       setRoundsInputError(null);
     } else {
       const numValue = Number.parseInt(value, 10);
-      if (Number.isNaN(numValue) || numValue < 1 || numValue > 50) {
+      const maxAllowed = maxAvailableProfiles > 0 ? maxAvailableProfiles : 50;
+      if (Number.isNaN(numValue) || numValue < 1 || numValue > maxAllowed) {
         setRoundsInputError(t('categorySelect.rounds.invalidInput'));
       } else {
         setRoundsInputError(null);
@@ -169,7 +198,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
                   id="rounds-input"
                   type="number"
                   min="1"
-                  max="50"
+                  max={maxAvailableProfiles > 0 ? maxAvailableProfiles : 50}
                   value={numberOfRounds}
                   onChange={handleRoundsChange}
                   aria-invalid={roundsInputError !== null}
@@ -180,7 +209,10 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
                   id="rounds-hint"
                   className={`text-sm ${roundsInputError ? 'text-destructive' : 'text-muted-foreground'}`}
                 >
-                  {t('categorySelect.rounds.hint')}
+                  {t('categorySelect.rounds.hint', {
+                    min: 1,
+                    max: maxAvailableProfiles > 0 ? maxAvailableProfiles : 50,
+                  })}
                   {roundsInputError && ` (${roundsInputError})`}
                 </p>
               </div>

@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0004",
+      "category": "Filmes",
+      "name": "Matrix",
+      "clues": [
+        "Lançado em 1999",
+        "Dirigido pelas Wachowskis",
+        "Filme de ação de ficção científica",
+        "Apresenta realidade virtual",
+        "Efeitos especiais revolucionários",
+        "Famoso pelo efeito 'bullet time'",
+        "Estrela Keanu Reeves",
+        "Protagonista aprende artes marciais por download",
+        "Escolha entre pílula vermelha ou azul",
+        "Humanos são usados como baterias",
+        "Agentes usam óculos escuros e fones de ouvido",
+        "'Não existe colher' é linha famosa",
+        "Personagem chamado Morpheus",
+        "Código verde caindo na tela",
+        "Personagem Trinity",
+        "Ganhou quatro Oscars",
+        "Personagem principal é 'O Escolhido'",
+        "Questões filosóficas sobre realidade",
+        "Realidade simulada controlada por máquinas",
+        "Nome do protagonista é Neo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    }
+  ]
+}

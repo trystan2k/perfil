@@ -1,0 +1,37 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-0006",
+      "category": "Technology",
+      "name": "Smartphone",
+      "clues": [
+        "Became popular in 2007",
+        "Combines multiple devices into one",
+        "Touchscreen interface",
+        "Can access the internet",
+        "Has built-in camera",
+        "GPS navigation",
+        "Thousands of apps available",
+        "Used by billions worldwide",
+        "Most people check within minutes of waking",
+        "Contains accelerometer and gyroscope",
+        "Can make video calls",
+        "Replaced many dedicated devices",
+        "Battery typically lasts one day",
+        "Uses cellular networks",
+        "Social media is primary use",
+        "Revolutionized photography",
+        "Most have fingerprint or facial recognition",
+        "Essentially a pocket computer",
+        "iPhone and Android are most popular",
+        "Average person spends 3+ hours daily on it"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "modern-tech"
+      }
+    }
+  ]
+}

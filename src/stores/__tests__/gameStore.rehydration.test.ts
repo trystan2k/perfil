@@ -33,7 +33,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
       numberOfRounds: 0,
       currentRound: 0,
       selectedCategories: [],
-      roundCategoryMap: [],
       revealedClueHistory: [],
       revealedClueIndices: [],
       error: null,
@@ -88,7 +87,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
           numberOfRounds: state.numberOfRounds,
           currentRound: state.currentRound,
           selectedCategories: state.selectedCategories,
-          roundCategoryMap: state.roundCategoryMap,
           revealedClueHistory: state.revealedClueHistory,
           revealedClueIndices: state.revealedClueIndices,
         });
@@ -107,7 +105,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
           numberOfRounds: 0,
           currentRound: 0,
           selectedCategories: [],
-          roundCategoryMap: [],
           revealedClueHistory: [],
           revealedClueIndices: [],
         };
@@ -143,7 +140,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
         numberOfRounds: 0,
         currentRound: 0,
         selectedCategories: [],
-        roundCategoryMap: [],
         revealedClueHistory: [],
         revealedClueIndices: [],
       });
@@ -178,7 +174,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
         numberOfRounds: 0,
         currentRound: 0,
         selectedCategories: [],
-        roundCategoryMap: [],
         revealedClueHistory: [],
         revealedClueIndices: [],
       });
@@ -220,7 +215,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
           numberOfRounds: 0,
           currentRound: 0,
           selectedCategories: [],
-          roundCategoryMap: [],
           revealedClueHistory: [],
           revealedClueIndices: [],
         });
@@ -260,7 +254,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
         numberOfRounds: 0,
         currentRound: 0,
         selectedCategories: [],
-        roundCategoryMap: [],
         revealedClueHistory: [],
         revealedClueIndices: [],
       });
@@ -363,7 +356,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
           numberOfRounds: 0,
           currentRound: 0,
           selectedCategories: [],
-          roundCategoryMap: [],
           revealedClueHistory: [],
           revealedClueIndices: [],
         };
@@ -408,7 +400,6 @@ describe('GameStore Rehydration Race Condition Tests', () => {
         numberOfRounds: 0,
         currentRound: 0,
         selectedCategories: [],
-        roundCategoryMap: [],
         revealedClueHistory: [],
         revealedClueIndices: [],
       });

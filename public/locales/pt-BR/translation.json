@@ -27,7 +27,13 @@
   },
   "languageSwitcher": {
     "ariaLabel": "Seletor de idioma",
-    "switchTo": "Mudar para {{language}}"
+    "switchTo": "Mudar para {{language}}",
+    "warning": {
+      "title": "Mudar Idioma?",
+      "description": "Mudar o idioma encerrará seu jogo atual e você perderá todo o progresso. Você será redirecionado para a página inicial para começar um novo jogo.",
+      "confirm": "Mudar Idioma",
+      "cancel": "Cancelar"
+    }
   },
   "themeSwitcher": {
     "ariaLabel": "Seletor de tema",
@@ -161,7 +167,7 @@
       "descriptionShuffleAll": "Quantas rodadas você gostaria de jogar com todos os perfis embaralhados?",
       "descriptionCategory": "Quantas rodadas você gostaria de jogar com perfis de {{category}}?",
       "label": "Número de rodadas",
-      "hint": "Escolha entre 1 e 50 rodadas",
+      "hint": "Escolha entre {{min}} e {{max}} rodadas",
       "invalidInput": "Valor inválido",
       "startButton": "Iniciar Jogo"
     },

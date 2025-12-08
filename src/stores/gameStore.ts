@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
 import { type AppError, GameError, PersistenceError } from '../lib/errors';
 import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB';
@@ -41,7 +42,6 @@ interface GameState extends GameSession {
   numberOfRounds: number;
   currentRound: number;
   selectedCategories: string[];
-  roundCategoryMap: string[];
   revealedClueHistory: string[];
   revealedClueIndices: number[];
   error: AppError | null;
@@ -96,7 +96,6 @@ const initialState: Omit<
   numberOfRounds: 0,
   currentRound: 0,
   selectedCategories: [],
-  roundCategoryMap: [],
   revealedClueHistory: [],
   revealedClueIndices: [],
   error: null,
@@ -136,7 +135,6 @@ function buildPersistedState(state: GameState): PersistedGameState {
     numberOfRounds: state.numberOfRounds,
     currentRound: state.currentRound,
     selectedCategories: state.selectedCategories,
-    roundCategoryMap: state.roundCategoryMap,
     revealedClueHistory: state.revealedClueHistory,
     revealedClueIndices: state.revealedClueIndices,
   };
@@ -266,485 +264,555 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
  * @param numberOfRounds - Number of rounds to play
  * @returns Array of category names, one per round
  */
-function generateRoundPlan(selectedCategories: string[], numberOfRounds: number): string[] {
-  const roundPlan: string[] = [];
+/**
+ * Fisher-Yates shuffle algorithm for true randomization
+ * @param array - Array to shuffle (will not modify original)
+ * @returns New shuffled array
+ */
+function fisherYatesShuffle<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
-  if (selectedCategories.length === 1) {
-    // Single category: repeat it for all rounds
-    const category = selectedCategories[0];
-    for (let i = 0; i < numberOfRounds; i++) {
-      roundPlan.push(category);
-    }
-  } else {
-    // Multiple categories: distribute evenly with minimal repeats
-    // Use round-robin distribution
-    for (let i = 0; i < numberOfRounds; i++) {
-      const categoryIndex = i % selectedCategories.length;
-      roundPlan.push(selectedCategories[categoryIndex]);
+/**
+ * Select N random profiles from categories with even distribution
+ * @param availableProfilesByCategory - Map of category to profile IDs
+ * @param selectedCategories - Categories to select from
+ * @param numberOfRounds - Total number of profiles to select
+ * @returns Array of profile IDs, shuffled and ready to play
+ * @throws Error if not enough unique profiles available
+ */
+function selectAndShuffleProfiles(
+  availableProfilesByCategory: Map<string, string[]>,
+  selectedCategories: string[],
+  numberOfRounds: number
+): string[] {
+  // Calculate total available profiles (no duplicates)
+  const totalAvailable = Array.from(availableProfilesByCategory.values()).reduce(
+    (sum, profiles) => sum + profiles.length,
+    0
+  );
+
+  // Check if we have enough unique profiles
+  if (numberOfRounds > totalAvailable) {
+    throw new Error(
+      `Not enough profiles available. Selected categories have ${totalAvailable} unique profiles, but ${numberOfRounds} rounds were requested.`
+    );
+  }
+
+  const profilesToPlay: string[] = [];
+  const usedProfiles = new Set<string>(); // Track used profiles to avoid duplicates
+
+  // Calculate base profiles per category
+  const profilesPerCategory = Math.floor(numberOfRounds / selectedCategories.length);
+  const remainingSlots = numberOfRounds % selectedCategories.length;
+
+  // Shuffle categories to randomize which get the extra slots
+  const shuffledCategories = fisherYatesShuffle(selectedCategories);
+
+  // First pass: Try to take from each category fairly
+  const categoriesNeedingRedistribution: Array<{ category: string; needed: number }> = [];
+
+  for (let i = 0; i < shuffledCategories.length; i++) {
+    const category = shuffledCategories[i];
+    const categoryProfiles = availableProfilesByCategory.get(category) || [];
+
+    // Calculate how many to take from this category
+    const needed = profilesPerCategory + (i < remainingSlots ? 1 : 0);
+    const available = categoryProfiles.filter((id) => !usedProfiles.has(id)).length;
+
+    if (available < needed) {
+      // This category doesn't have enough profiles
+      // Take all available and mark for redistribution
+      const shuffledProfiles = fisherYatesShuffle(categoryProfiles);
+      for (const profileId of shuffledProfiles) {
+        if (!usedProfiles.has(profileId)) {
+          profilesToPlay.push(profileId);
+          usedProfiles.add(profileId);
+        }
+      }
+      categoriesNeedingRedistribution.push({ category, needed: needed - available });
+    } else {
+      // This category has enough - take what we need
+      const shuffledProfiles = fisherYatesShuffle(categoryProfiles);
+      let taken = 0;
+      for (const profileId of shuffledProfiles) {
+        if (!usedProfiles.has(profileId) && taken < needed) {
+          profilesToPlay.push(profileId);
+          usedProfiles.add(profileId);
+          taken++;
+        }
+      }
     }
   }
 
-  return roundPlan;
+  // Second pass: Redistribute from categories that have extra profiles
+  if (categoriesNeedingRedistribution.length > 0) {
+    const totalNeeded = categoriesNeedingRedistribution.reduce((sum, item) => sum + item.needed, 0);
+
+    // Collect all available profiles from other categories
+    const redistributionPool: string[] = [];
+    for (const category of shuffledCategories) {
+      const categoryProfiles = availableProfilesByCategory.get(category) || [];
+      for (const profileId of categoryProfiles) {
+        if (!usedProfiles.has(profileId)) {
+          redistributionPool.push(profileId);
+        }
+      }
+    }
+
+    // Shuffle and take from redistribution pool
+    const shuffledPool = fisherYatesShuffle(redistributionPool);
+    for (let i = 0; i < Math.min(totalNeeded, shuffledPool.length); i++) {
+      profilesToPlay.push(shuffledPool[i]);
+      usedProfiles.add(shuffledPool[i]);
+    }
+  }
+
+  // Final shuffle: randomize the order of all selected profiles
+  return fisherYatesShuffle(profilesToPlay);
 }
 
-export const useGameStore = create<GameState>((set, get) => ({
-  ...initialState,
-  createGame: async (playerNames: string[]) => {
-    // Validate player count limits
-    if (playerNames.length > MAX_PLAYERS) {
-      throw new Error(`Game supports a maximum of ${MAX_PLAYERS} players`);
-    }
-    if (playerNames.length < MIN_PLAYERS) {
-      throw new Error(`Game requires at least ${MIN_PLAYERS} players`);
-    }
-
-    const players: Player[] = playerNames.map((name, index) => ({
-      id: `player-${Date.now()}-${index}`,
-      name,
-      score: 0,
-    }));
-
-    const newState = {
-      id: `game-${Date.now()}`,
-      players,
-      currentTurn: null,
-      remainingProfiles: [],
-      totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
-      status: 'pending' as GameStatus,
-      category: undefined,
-      profiles: [],
-      selectedProfiles: [],
-      currentProfile: null,
-      totalProfilesCount: 0,
-      numberOfRounds: 0,
-      currentRound: 0,
-      selectedCategories: [],
-      roundCategoryMap: [],
-    };
-
-    // Reset rehydration state for any session that might have had the same ID from a previous test/run
-    resetRehydrationState(newState.id);
-
-    set(newState);
-
-    // Force immediate persistence before returning to ensure state is saved before navigation
-    const state = get();
-    await persistenceService.forceSave(state.id, buildPersistedState(state));
-  },
-  loadProfiles: (profiles: Profile[]) => {
-    set((state) => {
-      const updates: Partial<GameState> = { profiles };
-
-      // If there's a current profile, update it with the new localized version
-      if (state.currentProfile) {
-        const updatedCurrentProfile = profiles.find((p) => p.id === state.currentProfile?.id);
-        if (updatedCurrentProfile) {
-          updates.currentProfile = updatedCurrentProfile;
-
-          // Rebuild revealed clue history from indices
-          const revealedClueIndices = state.revealedClueIndices || [];
-          const rebuiltHistory = revealedClueIndices
-            .map((index) => updatedCurrentProfile.clues[index])
-            .filter((clue): clue is string => clue !== undefined);
-          updates.revealedClueHistory = rebuiltHistory;
+export const useGameStore = create<GameState>()(
+  devtools(
+    (set, get) => ({
+      ...initialState,
+      createGame: async (playerNames: string[]) => {
+        // Validate player count limits
+        if (playerNames.length > MAX_PLAYERS) {
+          throw new Error(`Game supports a maximum of ${MAX_PLAYERS} players`);
         }
-      }
-
-      return updates;
-    });
-    persistState(get());
-  },
-  startGame: (selectedCategories: string[], numberOfRounds = 1) => {
-    set((state) => {
-      if (state.players.length === 0) {
-        throw new Error('Cannot start game without players');
-      }
-
-      if (selectedCategories.length === 0) {
-        throw new Error('Cannot start game without selected categories');
-      }
-
-      // Filter profiles by selected categories
-      const selectedProfiles = state.profiles.filter((p) =>
-        selectedCategories.includes(p.category)
-      );
-
-      if (selectedProfiles.length === 0) {
-        throw new Error('No profiles found for selected categories');
-      }
-
-      // Generate round plan
-      const roundPlan = generateRoundPlan(selectedCategories, numberOfRounds);
-
-      // Select exactly numberOfRounds profiles based on the round plan
-      const profilesToPlay: string[] = [];
-      const availableProfilesByCategory = new Map<string, string[]>();
-
-      // Group available profiles by category
-      for (const profile of selectedProfiles) {
-        if (!availableProfilesByCategory.has(profile.category)) {
-          availableProfilesByCategory.set(profile.category, []);
+        if (playerNames.length < MIN_PLAYERS) {
+          throw new Error(`Game requires at least ${MIN_PLAYERS} players`);
         }
-        availableProfilesByCategory.get(profile.category)?.push(profile.id);
-      }
 
-      // Shuffle profiles within each category for randomness
-      for (const [category, profileIds] of availableProfilesByCategory.entries()) {
-        const shuffled = [...profileIds];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        availableProfilesByCategory.set(category, shuffled);
-      }
+        const players: Player[] = playerNames.map((name, index) => ({
+          id: `player-${Date.now()}-${index}`,
+          name,
+          score: 0,
+        }));
 
-      // Pick one profile from each category in the round plan
-      const usedIndices = new Map<string, number>();
-      for (const category of roundPlan) {
-        const categoryProfiles = availableProfilesByCategory.get(category) || [];
-        const currentIndex = usedIndices.get(category) || 0;
+        const newState = {
+          id: `game-${Date.now()}`,
+          players,
+          currentTurn: null,
+          remainingProfiles: [],
+          totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+          status: 'pending' as GameStatus,
+          category: undefined,
+          profiles: [],
+          selectedProfiles: [],
+          currentProfile: null,
+          totalProfilesCount: 0,
+          numberOfRounds: 0,
+          currentRound: 0,
+          selectedCategories: [],
+        };
 
-        if (currentIndex < categoryProfiles.length) {
-          profilesToPlay.push(categoryProfiles[currentIndex]);
-          usedIndices.set(category, currentIndex + 1);
-        } else {
-          // Fallback: reuse profiles if we run out (wrap around)
-          const wrappedIndex = currentIndex % categoryProfiles.length;
-          profilesToPlay.push(categoryProfiles[wrappedIndex]);
-          usedIndices.set(category, currentIndex + 1);
-        }
-      }
+        // Reset rehydration state for any session that might have had the same ID from a previous test/run
+        resetRehydrationState(newState.id);
 
-      // Find the first profile
-      const firstProfileId = profilesToPlay[0];
-      const firstProfile = state.profiles.find((p) => p.id === firstProfileId);
+        set(newState);
 
-      if (!firstProfile) {
-        throw new Error('Selected profile not found');
-      }
-
-      const newState = {
-        status: 'active' as GameStatus,
-        category: firstProfile.category,
-        selectedProfiles: profilesToPlay,
-        currentProfile: firstProfile,
-        totalProfilesCount: profilesToPlay.length,
-        numberOfRounds,
-        currentRound: 1,
-        selectedCategories,
-        // Store the round plan for potential future features (e.g., round-specific UI, analytics)
-        roundCategoryMap: roundPlan,
-        currentTurn: {
-          profileId: firstProfile.id,
-          cluesRead: 0,
-          revealed: false,
-        },
-      };
-
-      persistState({ ...state, ...newState });
-      return newState;
-    });
-  },
-  nextClue: () => {
-    set((state) => {
-      if (!state.currentTurn) {
-        throw new Error('Cannot advance clue without an active turn');
-      }
-
-      if (state.currentTurn.cluesRead >= state.totalCluesPerProfile) {
-        throw new Error('Maximum clues reached');
-      }
-
-      const currentlyVisibleClueIndex =
-        state.currentTurn.cluesRead > 0 ? state.currentTurn.cluesRead - 1 : -1;
-      const currentClueText =
-        currentlyVisibleClueIndex >= 0
-          ? state.currentProfile?.clues[currentlyVisibleClueIndex] || null
-          : null;
-
-      // Update state with incremented clue counter
-      const newState = {
-        currentTurn: {
-          ...state.currentTurn,
-          cluesRead: state.currentTurn.cluesRead + 1,
-        },
-        // Add the current clue to history using the helper function
-        revealedClueHistory: addToHistory(currentClueText, state.revealedClueHistory),
-        // Track the clue index for language switching
-        revealedClueIndices:
-          currentlyVisibleClueIndex >= 0
-            ? [currentlyVisibleClueIndex, ...state.revealedClueIndices]
-            : state.revealedClueIndices,
-      };
-
-      persistState({ ...state, ...newState });
-      return newState;
-    });
-  },
-
-  addClueToHistory: (clue: string) => {
-    set((state) => {
-      if (!clue) {
-        return state;
-      }
-
-      const newState = { revealedClueHistory: addToHistory(clue, state.revealedClueHistory) };
-      persistState({ ...state, ...newState });
-      return newState;
-    });
-  },
-  awardPoints: async (playerId: string) => {
-    set((state) => {
-      if (!state.currentTurn) {
-        throw new Error('Cannot award points without an active turn');
-      }
-
-      if (state.currentTurn.cluesRead === 0) {
-        throw new Error('Cannot award points before reading any clues');
-      }
-
-      // Find the player to award points to
-      const playerIndex = state.players.findIndex((p) => p.id === playerId);
-
-      if (playerIndex === -1) {
-        throw new Error('Player not found');
-      }
-
-      // Calculate points based on formula: points = TOTAL_CLUES - (cluesRead - 1)
-      const points = state.totalCluesPerProfile - (state.currentTurn.cluesRead - 1);
-
-      // Update player score
-      const updatedPlayers = [...state.players];
-      updatedPlayers[playerIndex] = {
-        ...updatedPlayers[playerIndex],
-        score: updatedPlayers[playerIndex].score + points,
-      };
-
-      // Advance to next profile
-      const profileAdvancement = advanceToNextProfile(state);
-
-      const newState = {
-        players: updatedPlayers,
-        ...profileAdvancement,
-      };
-
-      persistState({ ...state, ...newState });
-      return newState;
-    });
-  },
-  removePoints: async (playerId: string, amount: number) => {
-    set((state) => {
-      // Validate input
-      if (!playerId) {
-        throw new Error('Player ID is required');
-      }
-
-      if (!Number.isInteger(amount) || amount < 0) {
-        throw new Error('Amount must be a non-negative integer');
-      }
-
-      if (amount === 0) {
-        // No-op: return early without updating state
-        return state;
-      }
-
-      // Find the player to remove points from
-      const playerIndex = state.players.findIndex((p) => p.id === playerId);
-
-      if (playerIndex === -1) {
-        throw new Error('Player not found');
-      }
-
-      const player = state.players[playerIndex];
-
-      // Validate that player has enough points (floor at zero)
-      if (player.score < amount) {
-        throw new Error(
-          `Cannot remove ${amount} points from ${player.name}. ` + `Current score: ${player.score}`
-        );
-      }
-
-      // Update player score by removing points
-      const updatedPlayers = [...state.players];
-      updatedPlayers[playerIndex] = {
-        ...updatedPlayers[playerIndex],
-        score: player.score - amount,
-      };
-
-      const newState = {
-        players: updatedPlayers,
-      };
-
-      persistState({ ...state, ...newState });
-      return newState;
-    });
-  },
-  skipProfile: async () => {
-    set((state) => {
-      if (!state.currentTurn) {
-        throw new Error('Cannot skip profile without an active turn');
-      }
-
-      // Advance to next profile without awarding points
-      const profileAdvancement = advanceToNextProfile(state);
-
-      persistState({ ...state, ...profileAdvancement });
-      return profileAdvancement;
-    });
-  },
-  endGame: async () => {
-    set((state) => {
-      if (state.status === 'completed') {
-        throw new Error('Game has already ended');
-      }
-
-      if (state.status === 'pending') {
-        throw new Error('Cannot end a game that has not started');
-      }
-
-      const newState = {
-        status: 'completed' as GameStatus,
-        currentTurn: null,
-      };
-
-      persistState({ ...state, ...newState });
-
-      // Reset rehydration state for the session
-      if (state.id) {
-        resetRehydrationState(state.id);
-      }
-
-      return newState;
-    });
-  },
-  resetGame: async (samePlayers = false) => {
-    set((state) => {
-      const resetPlayers = state.players.map((player) => ({
-        ...player,
-        score: 0,
-      }));
-
-      const newState = {
-        id: `game-${Date.now()}`,
-        players: samePlayers ? resetPlayers : [],
-        status: 'pending' as GameStatus,
-        currentTurn: null,
-        profiles: [],
-        remainingProfiles: [],
-        selectedProfiles: [],
-        currentProfile: null,
-        category: undefined,
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
-        totalProfilesCount: 0,
-        currentRound: 0,
-        numberOfRounds: 0,
-        revealedClueHistory: [],
-        revealedClueIndices: [],
-        selectedCategories: [],
-        roundCategoryMap: [],
-        error: null,
-      };
-
-      return newState;
-    });
-
-    // Force immediate persistence before returning to ensure state is saved before navigation
-    const state = get();
-    if (state.id) {
-      await persistenceService.forceSave(state.id, buildPersistedState(state));
-    }
-  },
-  loadFromStorage: async (sessionId: string): Promise<boolean> => {
-    try {
-      // Start rehydration to block any persistence operations
-      startRehydration(sessionId);
-
-      const loadedState = await loadGameSession(sessionId);
-
-      if (!loadedState) {
-        // Session not found - transition state machine to active and set error
-        completeRehydration(sessionId);
+        // Force immediate persistence before returning to ensure state is saved before navigation
         const state = get();
-        state.setError(
-          new PersistenceError('errorHandler.sessionNotFound', {
-            code: 'SESSION_NOT_FOUND',
-            context: { sessionId },
-          })
-        );
-        return false;
-      }
+        await persistenceService.forceSave(state.id, buildPersistedState(state));
+      },
+      loadProfiles: (profiles: Profile[]) => {
+        set((state) => {
+          const updates: Partial<GameState> = { profiles };
 
-      // Rehydrate the store with loaded state
-      set({
-        id: loadedState.id,
-        players: loadedState.players,
-        currentTurn: loadedState.currentTurn,
-        remainingProfiles: loadedState.remainingProfiles,
-        totalCluesPerProfile: loadedState.totalCluesPerProfile,
-        status: loadedState.status,
-        category: loadedState.category,
-        profiles: loadedState.profiles,
-        selectedProfiles: loadedState.selectedProfiles,
-        currentProfile: loadedState.currentProfile,
-        totalProfilesCount: loadedState.totalProfilesCount || loadedState.selectedProfiles.length,
-        numberOfRounds: loadedState.numberOfRounds ?? 0,
-        currentRound: loadedState.currentRound ?? 0,
-        selectedCategories: loadedState.selectedCategories ?? [],
-        roundCategoryMap: loadedState.roundCategoryMap ?? [],
-        revealedClueHistory: loadedState.revealedClueHistory ?? [],
-        revealedClueIndices: loadedState.revealedClueIndices ?? [],
-        error: null, // Clear any previous errors on successful load
-      });
+          if (state.currentProfile) {
+            const updatedCurrentProfile = profiles.find((p) => p.id === state.currentProfile?.id);
+            if (updatedCurrentProfile) {
+              updates.currentProfile = updatedCurrentProfile;
 
-      // Complete rehydration after state has been applied
-      completeRehydration(sessionId);
+              // Rebuild revealed clue history from indices
+              const revealedClueIndices = state.revealedClueIndices || [];
+              const rebuiltHistory = revealedClueIndices
+                .map((index) => updatedCurrentProfile.clues[index])
+                .filter((clue): clue is string => clue !== undefined);
+              updates.revealedClueHistory = rebuiltHistory;
+            }
+          }
 
-      return true;
-    } catch (error) {
-      // Mark rehydration as failed but transition to active state
-      failRehydration(sessionId, error instanceof Error ? error : new Error(String(error)));
-      console.error('Failed to load game from storage:', error);
-      // Set error state for corrupted/invalid sessions
-      const state = get();
-      state.setError(
-        new PersistenceError('errorHandler.sessionCorrupted', {
-          code: 'SESSION_CORRUPTED',
-          context: { sessionId },
-          cause: error instanceof Error ? error : undefined,
-        })
-      );
-      return false;
-    }
-  },
-  /**
-   * Sets an error state for the game
-   * @param error - AppError instance or string message
-   * @param informative - Only applies when a string is passed. When an AppError is provided,
-   *                      its own informative property is used instead. Defaults to false.
-   */
-  setError: (error: AppError | string, informative?: boolean) => {
-    const errorService = getErrorService();
-    let appError: AppError;
+          return updates;
+        });
+        persistState(get());
+      },
+      startGame: (selectedCategories: string[], numberOfRounds = 1) => {
+        set((state) => {
+          if (state.players.length === 0) {
+            throw new Error('Cannot start game without players');
+          }
 
-    if (typeof error === 'string') {
-      // Create GameError from string message
-      // Only the informative parameter applies when creating from string
-      appError = new GameError(error, { informative: informative ?? false });
-    } else {
-      // When AppError is provided, use it as-is
-      // The informative parameter is ignored (caller should set it when creating the error)
-      appError = error;
-    }
+          if (selectedCategories.length === 0) {
+            throw new Error('Cannot start game without selected categories');
+          }
 
-    // Log error to ErrorService
-    errorService.logError(appError);
+          // Filter profiles by selected categories
+          const availableProfiles = state.profiles.filter((p) =>
+            selectedCategories.includes(p.category)
+          );
 
-    set({ error: appError });
-  },
-  clearError: () => {
-    set({ error: null });
-  },
-}));
+          if (availableProfiles.length === 0) {
+            throw new Error('No profiles found for selected categories');
+          }
+
+          // Get only categories that have profiles available
+          const categoriesWithProfiles = Array.from(
+            new Set(availableProfiles.map((p) => p.category))
+          );
+
+          // Group available profiles by category
+          const availableProfilesByCategory = new Map<string, string[]>();
+          for (const profile of availableProfiles) {
+            if (!availableProfilesByCategory.has(profile.category)) {
+              availableProfilesByCategory.set(profile.category, []);
+            }
+            availableProfilesByCategory.get(profile.category)?.push(profile.id);
+          }
+
+          // Select and shuffle profiles for the game
+          const profilesToPlay = selectAndShuffleProfiles(
+            availableProfilesByCategory,
+            categoriesWithProfiles,
+            numberOfRounds
+          );
+
+          // Find the first profile
+          const firstProfileId = profilesToPlay[0];
+          const firstProfile = state.profiles.find((p) => p.id === firstProfileId);
+
+          if (!firstProfile) {
+            throw new Error('Selected profile not found');
+          }
+
+          const newState = {
+            status: 'active' as GameStatus,
+            category: firstProfile.category,
+            selectedProfiles: profilesToPlay,
+            currentProfile: firstProfile,
+            totalProfilesCount: profilesToPlay.length,
+            numberOfRounds,
+            currentRound: 1,
+            selectedCategories,
+            currentTurn: {
+              profileId: firstProfile.id,
+              cluesRead: 0,
+              revealed: false,
+            },
+          };
+
+          persistState({ ...state, ...newState });
+          return newState;
+        });
+      },
+      nextClue: () => {
+        set((state) => {
+          if (!state.currentTurn) {
+            throw new Error('Cannot advance clue without an active turn');
+          }
+
+          if (state.currentTurn.cluesRead >= state.totalCluesPerProfile) {
+            throw new Error('Maximum clues reached');
+          }
+
+          const currentlyVisibleClueIndex =
+            state.currentTurn.cluesRead > 0 ? state.currentTurn.cluesRead - 1 : -1;
+          const currentClueText =
+            currentlyVisibleClueIndex >= 0
+              ? state.currentProfile?.clues[currentlyVisibleClueIndex] || null
+              : null;
+
+          // Update state with incremented clue counter
+          const newState = {
+            currentTurn: {
+              ...state.currentTurn,
+              cluesRead: state.currentTurn.cluesRead + 1,
+            },
+            // Add the current clue to history using the helper function
+            revealedClueHistory: addToHistory(currentClueText, state.revealedClueHistory),
+            // Track the clue index for language switching
+            revealedClueIndices:
+              currentlyVisibleClueIndex >= 0
+                ? [currentlyVisibleClueIndex, ...state.revealedClueIndices]
+                : state.revealedClueIndices,
+          };
+
+          persistState({ ...state, ...newState });
+          return newState;
+        });
+      },
+
+      addClueToHistory: (clue: string) => {
+        set((state) => {
+          if (!clue) {
+            return state;
+          }
+
+          const newState = { revealedClueHistory: addToHistory(clue, state.revealedClueHistory) };
+          persistState({ ...state, ...newState });
+          return newState;
+        });
+      },
+      awardPoints: async (playerId: string) => {
+        set((state) => {
+          if (!state.currentTurn) {
+            throw new Error('Cannot award points without an active turn');
+          }
+
+          if (state.currentTurn.cluesRead === 0) {
+            throw new Error('Cannot award points before reading any clues');
+          }
+
+          // Find the player to award points to
+          const playerIndex = state.players.findIndex((p) => p.id === playerId);
+
+          if (playerIndex === -1) {
+            throw new Error('Player not found');
+          }
+
+          // Calculate points based on formula: points = TOTAL_CLUES - (cluesRead - 1)
+          const points = state.totalCluesPerProfile - (state.currentTurn.cluesRead - 1);
+
+          // Update player score
+          const updatedPlayers = [...state.players];
+          updatedPlayers[playerIndex] = {
+            ...updatedPlayers[playerIndex],
+            score: updatedPlayers[playerIndex].score + points,
+          };
+
+          // Advance to next profile
+          const profileAdvancement = advanceToNextProfile(state);
+
+          const newState = {
+            players: updatedPlayers,
+            ...profileAdvancement,
+          };
+
+          persistState({ ...state, ...newState });
+          return newState;
+        });
+      },
+      removePoints: async (playerId: string, amount: number) => {
+        set((state) => {
+          // Validate input
+          if (!playerId) {
+            throw new Error('Player ID is required');
+          }
+
+          if (!Number.isInteger(amount) || amount < 0) {
+            throw new Error('Amount must be a non-negative integer');
+          }
+
+          if (amount === 0) {
+            // No-op: return early without updating state
+            return state;
+          }
+
+          // Find the player to remove points from
+          const playerIndex = state.players.findIndex((p) => p.id === playerId);
+
+          if (playerIndex === -1) {
+            throw new Error('Player not found');
+          }
+
+          const player = state.players[playerIndex];
+
+          if (player.score < amount) {
+            throw new Error(
+              `Cannot remove ${amount} points from ${player.name}. ` +
+                `Current score: ${player.score}`
+            );
+          }
+
+          // Update player score by removing points
+          const updatedPlayers = [...state.players];
+          updatedPlayers[playerIndex] = {
+            ...updatedPlayers[playerIndex],
+            score: player.score - amount,
+          };
+
+          const newState = {
+            players: updatedPlayers,
+          };
+
+          persistState({ ...state, ...newState });
+          return newState;
+        });
+      },
+      skipProfile: async () => {
+        set((state) => {
+          if (!state.currentTurn) {
+            throw new Error('Cannot skip profile without an active turn');
+          }
+
+          // Advance to next profile without awarding points
+          const profileAdvancement = advanceToNextProfile(state);
+
+          persistState({ ...state, ...profileAdvancement });
+          return profileAdvancement;
+        });
+      },
+      endGame: async () => {
+        set((state) => {
+          if (state.status === 'completed') {
+            throw new Error('Game has already ended');
+          }
+
+          if (state.status === 'pending') {
+            throw new Error('Cannot end a game that has not started');
+          }
+
+          const newState = {
+            status: 'completed' as GameStatus,
+            currentTurn: null,
+          };
+
+          persistState({ ...state, ...newState });
+
+          if (state.id) {
+            resetRehydrationState(state.id);
+          }
+
+          return newState;
+        });
+      },
+      resetGame: async (samePlayers = false) => {
+        set((state) => {
+          const resetPlayers = state.players.map((player) => ({
+            ...player,
+            score: 0,
+          }));
+
+          const newState = {
+            id: `game-${Date.now()}`,
+            players: samePlayers ? resetPlayers : [],
+            status: 'pending' as GameStatus,
+            currentTurn: null,
+            profiles: [],
+            remainingProfiles: [],
+            selectedProfiles: [],
+            currentProfile: null,
+            category: undefined,
+            totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+            totalProfilesCount: 0,
+            currentRound: 0,
+            numberOfRounds: 0,
+            revealedClueHistory: [],
+            revealedClueIndices: [],
+            selectedCategories: [],
+            error: null,
+          };
+
+          return newState;
+        });
+
+        // Force immediate persistence before returning to ensure state is saved before navigation
+        const state = get();
+        if (state.id) {
+          await persistenceService.forceSave(state.id, buildPersistedState(state));
+        }
+      },
+      loadFromStorage: async (sessionId: string): Promise<boolean> => {
+        try {
+          // Start rehydration to block any persistence operations
+          startRehydration(sessionId);
+
+          const loadedState = await loadGameSession(sessionId);
+
+          if (!loadedState) {
+            // Session not found - transition state machine to active and set error
+            completeRehydration(sessionId);
+            const state = get();
+            state.setError(
+              new PersistenceError('errorHandler.sessionNotFound', {
+                code: 'SESSION_NOT_FOUND',
+                context: { sessionId },
+              })
+            );
+            return false;
+          }
+
+          // Rehydrate the store with loaded state
+          set({
+            id: loadedState.id,
+            players: loadedState.players,
+            currentTurn: loadedState.currentTurn,
+            remainingProfiles: loadedState.remainingProfiles,
+            totalCluesPerProfile: loadedState.totalCluesPerProfile,
+            status: loadedState.status,
+            category: loadedState.category,
+            profiles: loadedState.profiles,
+            selectedProfiles: loadedState.selectedProfiles,
+            currentProfile: loadedState.currentProfile,
+            totalProfilesCount:
+              loadedState.totalProfilesCount || loadedState.selectedProfiles.length,
+            numberOfRounds: loadedState.numberOfRounds ?? 0,
+            currentRound: loadedState.currentRound ?? 0,
+            selectedCategories: loadedState.selectedCategories ?? [],
+            revealedClueHistory: loadedState.revealedClueHistory ?? [],
+            revealedClueIndices: loadedState.revealedClueIndices ?? [],
+            error: null, // Clear any previous errors on successful load
+          });
+
+          // Complete rehydration after state has been applied
+          completeRehydration(sessionId);
+
+          return true;
+        } catch (error) {
+          // Mark rehydration as failed but transition to active state
+          failRehydration(sessionId, error instanceof Error ? error : new Error(String(error)));
+          console.error('Failed to load game from storage:', error);
+          // Set error state for corrupted/invalid sessions
+          const state = get();
+          state.setError(
+            new PersistenceError('errorHandler.sessionCorrupted', {
+              code: 'SESSION_CORRUPTED',
+              context: { sessionId },
+              cause: error instanceof Error ? error : undefined,
+            })
+          );
+          return false;
+        }
+      },
+      /**
+       * Sets an error state for the game
+       * @param error - AppError instance or string message
+       * @param informative - Only applies when a string is passed. When an AppError is provided,
+       *                      its own informative property is used instead. Defaults to false.
+       */
+      setError: (error: AppError | string, informative?: boolean) => {
+        const errorService = getErrorService();
+        let appError: AppError;
+
+        if (typeof error === 'string') {
+          // Create GameError from string message
+          // Only the informative parameter applies when creating from string
+          appError = new GameError(error, { informative: informative ?? false });
+        } else {
+          // When AppError is provided, use it as-is
+          // The informative parameter is ignored (caller should set it when creating the error)
+          appError = error;
+        }
+
+        // Log error to ErrorService
+        errorService.logError(appError);
+
+        set({ error: appError });
+      },
+      clearError: () => {
+        set({ error: null });
+      },
+    }),
+    { name: 'Game Store' }
+  )
+);
 
 /**
  * Export cleanup function for use in app lifecycle and test teardown

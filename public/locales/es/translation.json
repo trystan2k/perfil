@@ -27,7 +27,13 @@
   },
   "languageSwitcher": {
     "ariaLabel": "Selector de idioma",
-    "switchTo": "Cambiar a {{language}}"
+    "switchTo": "Cambiar a {{language}}",
+    "warning": {
+      "title": "¿Cambiar Idioma?",
+      "description": "Cambiar el idioma finalizará tu juego actual y perderás todo el progreso. Serás redirigido a la página de inicio para comenzar un nuevo juego.",
+      "confirm": "Cambiar Idioma",
+      "cancel": "Cancelar"
+    }
   },
   "themeSwitcher": {
     "ariaLabel": "Selector de tema",
@@ -161,7 +167,7 @@
       "descriptionShuffleAll": "¿Cuántas rondas te gustaría jugar con todos los perfiles mezclados?",
       "descriptionCategory": "¿Cuántas rondas te gustaría jugar con perfiles de {{category}}?",
       "label": "Número de rondas",
-      "hint": "Elige entre 1 y 50 rondas",
+      "hint": "Elige entre {{min}} y {{max}} rondas",
       "invalidInput": "Valor no válido",
       "startButton": "Iniciar Juego"
     },

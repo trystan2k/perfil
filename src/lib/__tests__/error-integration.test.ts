@@ -55,7 +55,6 @@ const resetGameStore = () => {
     numberOfRounds: 1,
     currentRound: 1,
     selectedCategories: [],
-    roundCategoryMap: [],
     revealedClueHistory: [],
     revealedClueIndices: [],
     error: null,
