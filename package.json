@@ -11,47 +11,48 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "biome check --error-on-warnings .",
+    "lint": "biome lint --error-on-warnings .",
+    "lint:fix": "biome lint --write --error-on-warnings .",
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit && astro check --minimumFailingSeverity hint",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test --config=e2e/playwright.config.ts",
-    "complete-check": "pnpm astro sync && pnpm run lint && pnpm run typecheck && pnpm run test:coverage && pnpm run test:e2e && pnpm run build",
+    "complete-check": "pnpm astro sync && pnpm run format && pnpm run lint:fix && pnpm run typecheck && pnpm run test:coverage && pnpm run test:e2e && pnpm run build",
     "prepare": "husky"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,astro,json,css}": [
       "biome format --write",
-      "biome check --write --error-on-warnings"
+      "biome lint --write --error-on-warnings"
     ],
     "e2e/**/*.{ts}": [
       "biome format --write",
-      "biome check --write --error-on-warnings"
+      "biome lint --write --error-on-warnings"
     ],
     "astro.config.mjs": [
       "biome format --write",
-      "biome check --write --error-on-warnings"
+      "biome lint --write --error-on-warnings"
     ],
     "tailwind.config.mjs": [
       "biome format --write",
-      "biome check --write --error-on-warnings"
+      "biome lint --write --error-on-warnings"
     ],
     "biome.json": [
       "biome format --write",
-      "biome check --write --error-on-warnings"
+      "biome lint --write --error-on-warnings"
     ],
     "vitest.config.*": [
       "biome format --write",
-      "biome check --write --error-on-warnings"
+      "biome lint --write --error-on-warnings"
     ],
     "package.json": [
       "biome format --write",
-      "biome check --write --error-on-warnings"
+      "biome lint --write --error-on-warnings"
     ],
     "public/**/*.json": [
       "biome format --write",
-      "biome check --write --error-on-warnings"
+      "biome lint --write --error-on-warnings"
     ],
     "src/**/*.{ts,tsx}": [
       "vitest related --run"

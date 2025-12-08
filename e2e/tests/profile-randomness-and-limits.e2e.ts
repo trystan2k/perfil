@@ -240,6 +240,8 @@ test.describe('Profile Randomness and Limits', () => {
           await expect(homeHeading).toBeVisible();
         }
       }
+    } else {
+      throw new Error('Could not find Portuguese or Spanish language link');
     }
   });
 });

@@ -75,8 +75,8 @@ Rationale
 Design
 - A single global manifest (`public/data/manifest.json`) contains the canonical category slugs and for each category a mapping of locale => display name. Example:
   {
-    \\"categories\\": [
-      { \\"slug\\": \\"famous-people\\", \\"displayNames\\": {\\"en\\": \\"Famous People\\", \\"es\\": \\"Personas Famosas\\"} }
+    "categories": [
+      { "slug": "famous-people", "displayNames": {"en": "Famous People", "es": "Personas Famosas"} }
     ]
   }
 - Data files are organized as `/public/data/{category}/{locale}/data.json` (or data-1.json when chunked). This makes request paths predictable and cache keys stable.
@@ -131,7 +131,7 @@ Edge cases handled
 Dynamic max rounds
 - The rounds input uses the manifest and selected categories to compute `maxAvailable`.
 - Input attributes set `min=1`, `max=maxAvailable`. Initial value computed as `min(5, maxAvailable)`.
-- A small hint element displays \\"You can choose up to X rounds based on selected categories\\" with translation keys updated.
+- A small hint element displays "You can choose up to X rounds based on selected categories" with translation keys updated.
 
 Language change flow
 - If a user attempts to change language mid-game, LanguageSwitcher opens a confirmation dialog.
@@ -176,6 +176,16 @@ Fisher-Yates shuffle to ensure fairness and randomness.
 bandwidth without UX benefit.
    - Solution: Centralized prefetch config to a small set of popular categories 
 per locale and removed hover-based prefetch.
+
+## Hotfix: Language change confirmation dialog showing on home page
+
+- Bug Fix: Language change confirmation dialog showing incorrectly on home page
+- Root cause: `useGamePlayLogic` hook attempted to reload a deleted session during Astro view transitions, causing the confirmation dialog to trigger when not in an active game.
+- Solution: Added a mismatch check between the sessionId in the URL and the `id` in the store to prevent loading the session during Astro view transitions. Also added an additional guard in the error detection useEffect to ignore errors that occur while a session id mismatch is present.
+- Files modified:
+  - `src/hooks/useGamePlayLogic.ts` — added id mismatch checks in the loading and error detection useEffects to avoid reloading/deleting during transitions
+  - `src/components/LanguageSwitcher.tsx` — manual store reset with `id: ''`, `status: 'pending'` and explicit delete from IndexedDB when confirming language change
+- Tests: All tests passing (102 tests)
 
 ## QA Results
 

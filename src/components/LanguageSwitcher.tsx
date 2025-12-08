@@ -1,3 +1,4 @@
+import { navigate } from 'astro:transitions/client';
 import { useState } from 'react';
 import type { SupportedLocale } from '../i18n/locales';
 import { removeLocalePrefix } from '../i18n/locales';
@@ -55,11 +56,12 @@ function LanguageSwitcherRaw({ currentLocale, currentPath }: LanguageSwitcherRaw
   const { t } = useTranslate();
   const gameStatus = useGameStore((state) => state.status);
   const sessionId = useGameStore((state) => state.id);
+  const resetGame = useGameStore((state) => state.resetGame);
 
   const [showWarning, setShowWarning] = useState(false);
   const [pendingLocale, setPendingLocale] = useState<SupportedLocale | null>(null);
 
-  const handleLocaleClick = (
+  const handleLocaleClick = async (
     e: React.MouseEvent<HTMLAnchorElement>,
     localeCode: SupportedLocale
   ) => {
@@ -77,26 +79,35 @@ function LanguageSwitcherRaw({ currentLocale, currentPath }: LanguageSwitcherRaw
   const handleConfirmLanguageChange = async () => {
     if (!pendingLocale) return;
 
-    // Clear persisted state for current session
     if (sessionId) {
       try {
         const dbName = 'perfil-game-db';
         const storeName = 'game-sessions';
 
-        const dbRequest = indexedDB.open(dbName);
-        dbRequest.onsuccess = () => {
-          const db = dbRequest.result;
-          const transaction = db.transaction([storeName], 'readwrite');
-          const store = transaction.objectStore(storeName);
-          store.delete(sessionId);
-        };
+        // Delete the old session from IndexedDB
+        await new Promise<void>((resolve, reject) => {
+          const dbRequest = indexedDB.open(dbName);
+          dbRequest.onerror = () => reject(dbRequest.error);
+          dbRequest.onsuccess = () => {
+            const db = dbRequest.result;
+            const transaction = db.transaction([storeName], 'readwrite');
+            const store = transaction.objectStore(storeName);
+            store.delete(sessionId);
+            transaction.oncomplete = () => resolve();
+            transaction.onerror = () => reject(transaction.error);
+          };
+        });
+
+        // Manually reset store to initial state WITHOUT calling resetGame()
+        // This avoids creating a new session that gets persisted
+        // Using empty id ensures no persistence will happen (persistState checks for empty id)
+        await resetGame();
       } catch (error) {
-        console.error('Failed to clear persisted state:', error);
+        console.error('Failed to clear game state:', error);
       }
     }
 
-    // Navigate to home page with new locale
-    window.location.href = `/${pendingLocale}/`;
+    navigate(`/${pendingLocale}/`);
   };
 
   const handleCancelLanguageChange = () => {
