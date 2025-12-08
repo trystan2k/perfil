@@ -2,7 +2,7 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
+        "id": "1",
         "title": "Project Setup and Tooling Configuration",
         "description": "Initialize the Astro project with the React integration. Configure all required development tools including Tailwind CSS, Biome for linting/formatting, and Vitest for testing.",
         "details": "Use `pnpm create astro@latest` with the React template. Install dependencies: `pnpm add react react-dom zustand @tanstack/react-query idb shadcn-ui tailwindcss-animate lucide-react`. Initialize Tailwind CSS with `npx astro add tailwind`. Configure `biome.json` to handle `.astro`, `.ts`, and `.tsx` files. Set up `vitest.config.ts` to work with Astro and React components, including `@astrojs/testing` and `@testing-library/react`.",
@@ -72,7 +72,7 @@
         ]
       },
       {
-        "id": 2,
+        "id": "2",
         "title": "Static Data Layer and Profile Loading",
         "description": "Created the `profiles.json` data structure and implemented a service to load and parse this data for the game. TanStack Query is used to manage data fetching, even for local static assets, establishing a consistent pattern for future remote data.",
         "status": "done",
@@ -146,7 +146,7 @@
         "updatedAt": "2025-11-09T18:52:16.737Z"
       },
       {
-        "id": 3,
+        "id": "3",
         "title": "Game Session State Management with Zustand",
         "description": "A global state management store has been set up using Zustand to handle the entire game session, including players, scores, turn state, and remaining profiles. This store serves as the single source of truth for all interactive React components.",
         "status": "done",
@@ -218,7 +218,7 @@
         ]
       },
       {
-        "id": 4,
+        "id": "4",
         "title": "Implement Player Setup and Game Creation UI",
         "description": "Develop the initial screen where the Master of Ceremonies (MC) can create a new game by entering player names. This will be an interactive React island component.",
         "details": "Create a React component, `GameSetup.tsx`, that will be hydrated as an Astro island. Use `shadcn/ui` components like `Input` for player names, `Button` for 'Add Player' and 'Start Game', and `Card` for layout. On 'Start Game', call the `createGame` action from the Zustand store with the list of player names and navigate to the main game screen.",
@@ -233,7 +233,7 @@
         "updatedAt": "2025-11-10T19:07:01.114Z"
       },
       {
-        "id": 5,
+        "id": "5",
         "title": "Develop Core Game Screen Layout (Mobile-First)",
         "description": "Built the main game screen layout using Astro and Tailwind CSS, focusing on a mobile-first responsive design. This screen now hosts the interactive game components and is ready for future React island integration.",
         "status": "done",
@@ -305,7 +305,7 @@
         ]
       },
       {
-        "id": 6,
+        "id": "6",
         "title": "Implement Turn Management and Clue Display",
         "description": "Create the interactive React component for the main game loop, which displays the active player, shows clues progressively, and handles turn advancement.",
         "details": "Develop a `GamePlay.tsx` React island. This component will subscribe to the Zustand store to get the `currentTurn` state. It will display the active player's name, the current clue number, and the clue text. Implement a 'Show Next Clue' button for the MC, which triggers the `nextClue` action in the store. Also, implement a 'Pass' button that triggers the `passTurn` action.",
@@ -382,7 +382,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": "7",
         "title": "Implement Swipe-to-Reveal Answer Component",
         "description": "Build the swipeable card component that hides the answer. The MC can swipe right to reveal the answer for a 3-second timeout before it automatically hides again.",
         "details": "Create a `RevealAnswer.tsx` React component. Use a gesture library like `framer-motion` or a lightweight custom hook to detect a right swipe. The component's state will manage the revealed status. On reveal, display the answer and use a `setTimeout` to hide it after 3000ms. The answer text will be fetched from the game state.",
@@ -459,7 +459,7 @@
         "updatedAt": "2025-11-11T12:54:05.573Z"
       },
       {
-        "id": 8,
+        "id": "8",
         "title": "Implement MC Scoring Interaction",
         "description": "Enable the MC to award points to the player who guesses correctly. The player list should be interactive, allowing the MC to tap a player's name to trigger the scoring logic.",
         "details": "Enhance the player list UI within the `GamePlay.tsx` island. Make each player's name a clickable element (e.g., a `Button`). When the MC clicks a player's name, call the `awardPoints(playerId)` action from the Zustand store. The store action will calculate points based on `TOTAL_CLUES - (cluesRead - 1)` and update the player's score.",
@@ -472,7 +472,7 @@
         "subtasks": []
       },
       {
-        "id": 9,
+        "id": "9",
         "title": "Integrate Game Session Persistence with IndexedDB",
         "description": "Persist the game session state to IndexedDB to allow players to resume a game after a page refresh. Use the 'idb' library for a clean, promise-based API.",
         "details": "Create a utility module for IndexedDB interactions using the `idb` library. Subscribe to the Zustand store. Whenever the state changes, serialize it and save it to an IndexedDB object store. When the application loads, attempt to read from IndexedDB to rehydrate the store's initial state. This ensures the game state (players, scores, current turn) persists.",
@@ -485,7 +485,7 @@
         "subtasks": []
       },
       {
-        "id": 10,
+        "id": "10",
         "title": "Implement Final Scoreboard and Game End Flow",
         "description": "Create the final scoreboard view that is displayed when the MC ends the game. The scoreboard should list all players ranked by their final scores.",
         "details": "Create a new Astro page `src/pages/scoreboard.astro` or a conditional view within the main game island. This component will read the final player list from the Zustand store, sort it by score in descending order, and display the results using a `Table` from `shadcn/ui`. Add a 'Finish Game' button to the main game UI that triggers the `endGame` action and navigates to this view.",
@@ -557,7 +557,7 @@
         ]
       },
       {
-        "id": 11,
+        "id": "11",
         "title": "Implement Internationalization (i18n) Support",
         "description": "Successfully integrated complete internationalization (i18n) support for the application, providing translations for English (en), Spanish (es), and Portuguese (pt-BR). The implementation leverages Astro's i18n routing and react-i18next for React island components, covering both UI text and dynamic profile data.",
         "status": "done",
@@ -660,7 +660,7 @@
         ]
       },
       {
-        "id": 12,
+        "id": "12",
         "title": "Implement Progressive Web App (PWA) Support",
         "description": "Integrate PWA features to make the application installable, work offline, and feel like a native app. This involves generating a service worker for caching assets and a web manifest for installation metadata using the vite-plugin-pwa library.",
         "details": "1. **Installation**: Add `vite-plugin-pwa` as a development dependency: `npm install vite-plugin-pwa -D`.\n2. **Configuration**: Update `astro.config.mjs` to include the PWA plugin in the Vite configuration. Configure the manifest with properties like `name`, `short_name`, `description`, `theme_color`, `background_color`, and specify paths to various icon sizes (e.g., 192x192, 512x512) in the `public/icons/` directory.\n3. **Service Worker Strategy**: Use the `generateSW` strategy within the plugin options. Configure `workbox` runtime caching rules. Create a rule for the app's static assets (JS, CSS, fonts) using a `StaleWhileRevalidate` strategy. Create a separate rule for the profiles JSON data endpoint using a `NetworkFirst` strategy to ensure users get the latest profiles when online but have a fallback for offline play.\n4. **Client-side Registration**: Create a small React component or client-side script (`<script is:inline>`) in the main layout (`src/layouts/Layout.astro`) to register the service worker. Consider using a library like `virtual:pwa-register/react` to provide users with a UI prompt to reload the page when a new version of the app is available.\n5. **Manifest Linking**: Ensure the web manifest is automatically linked in the `<head>` of the document by the plugin.",
@@ -732,7 +732,7 @@
         ]
       },
       {
-        "id": 13,
+        "id": "13",
         "title": "Configure Vitest Test Coverage",
         "description": "Add test coverage collection and enforcement to the Vitest configuration and project scripts. Define coverage thresholds and a CI-friendly coverage report format.",
         "details": "1. Update `vitest.config.ts` to enable coverage provider (e.g., 'c8' or 'istanbul') and configure coverage reporters (text, lcov).\n2. Add an npm script `test:coverage` that runs `vitest --coverage` and outputs an `lcov` report.\n3. Set minimum coverage thresholds (e.g., 80% statements, branches, functions, and lines) in the Vitest config so the test run fails when thresholds are not met.\n4. Add documentation in `docs/` (or PRD) describing how to run coverage locally and interpret the reports.",
@@ -792,7 +792,7 @@
         ]
       },
       {
-        "id": 14,
+        "id": "14",
         "title": "Configure Git Hooks (Husky + lint-staged)",
         "description": "Configured Husky and lint-staged to run formatting, linting, and tests automatically on pre-commit and pre-push hooks. This ensures code quality and consistency before code is committed or pushed to the repository.",
         "status": "done",
@@ -877,7 +877,7 @@
         ]
       },
       {
-        "id": 15,
+        "id": "15",
         "title": "Configure GitHub Actions CI (lint, typecheck, test, build, deploy)",
         "description": "Create a GitHub Actions workflow that runs linting, type checking, tests, coverage, and build on PRs and pushes to `main`. Add a deploy step to Cloudflare Pages using wrangler-action.",
         "details": "1. Add `.github/workflows/ci.yml` with jobs for: install (pnpm install), lint (pnpm lint), typecheck (pnpm typecheck), test (pnpm test), coverage (pnpm test:coverage), and build (pnpm build).\n2. Configure matrix runs if necessary (node versions).\n3. Add artifacts upload for coverage reports and build artifacts.\n4. Add a separate `deploy` job that runs on `workflow_run` or push to `main` and uses `cloudflare/wrangler-action` with secrets configured in repository settings (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID).",
@@ -964,7 +964,7 @@
         ]
       },
       {
-        "id": 16,
+        "id": "16",
         "title": "Extend Zustand Store with Profile Management Logic",
         "description": "Enhance the Zustand game store to manage the loading, selection, and turn-by-turn rotation of game profiles. This involves updating the game state interface and key actions like startGame, awardPoints, and adding a new skipProfile action.",
         "details": "1. **Update GameState Interface**: In `src/stores/gameStore.ts`, extend the `GameState` interface to include `profiles: Profile[]`, `selectedProfiles: number[]` (a queue of profile IDs), and `currentProfile: Profile | null`. 2. **Implement `loadProfiles` Action**: Add a new action `loadProfiles(profiles: Profile[])` that populates the `profiles` state array with all available profiles fetched from the data layer. 3. **Modify `startGame` Action**: Update the `startGame` action to accept a `selectedProfileIds: number[]` parameter. It should set the `selectedProfiles` state and initialize `currentProfile` with the first profile from the queue. 4. **Enhance `awardPoints` Action**: After awarding points, update the action to advance to the next profile. It should remove the completed profile's ID from `selectedProfiles`, set `currentProfile` to the next one, and reset turn-specific data (e.g., `cluesRead`). If `selectedProfiles` becomes empty, set the game `status` to 'completed'. 5. **Create `skipProfile` Action**: Implement a new `skipProfile()` action that performs the same profile advancement logic as `awardPoints` but without modifying any player's score, allowing the MC to pass on a profile.",
@@ -979,7 +979,7 @@
         "subtasks": []
       },
       {
-        "id": 17,
+        "id": "17",
         "title": "Integrate Answer Reveal Component into GamePlay",
         "description": "Add the existing RevealAnswer component to the GamePlay screen so the MC can swipe to verify answers",
         "details": "Import and render RevealAnswer in GamePlay.tsx below the clue display, passing answer={currentProfile?.name} prop. Style and position the reveal card to be prominent but not intrusive. Ensure swipe gesture works on mobile devices. Add visual feedback to indicate when answer can be revealed and show answer reveal state clearly.",
@@ -1038,7 +1038,7 @@
         ]
       },
       {
-        "id": 18,
+        "id": "18",
         "title": "Fix Navigation Flow Between Game Screens",
         "description": "Ensure proper navigation with session IDs throughout the entire game flow",
         "details": "Fix GameSetup to navigate to /game-setup/${sessionId} after createGame. Fix CategorySelect to load session from URL param and navigate to /game/${sessionId} after startGame. Update Astro getStaticPaths to remove hardcoded sample-session and use proper dynamic routing or SSR mode. Add loading states to handle session not found errors and show loading while hydrating from IndexedDB.",
@@ -1109,7 +1109,7 @@
         ]
       },
       {
-        "id": 19,
+        "id": "19",
         "title": "Implement Skip Profile and All Pass Scenario Handling",
         "description": "Handle the case when all players pass on a profile or MC wants to skip to the next profile",
         "details": "Add Skip Profile button to GamePlay that only shows after at least one clue revealed, calling new skipProfile action. Implement all-pass detection by tracking passes in current turn and auto-skip after all players have passed on same profile. Add confirmation dialog before skipping to prevent accidental skips.",
@@ -1120,7 +1120,7 @@
         "subtasks": []
       },
       {
-        "id": 20,
+        "id": "20",
         "title": "Add Game Progress Indicators and UX Improvements",
         "description": "Improve user experience with better progress feedback throughout the game",
         "details": "Add profile progress indicator showing Profile X of Y display and progress bar for profiles. Add clue progress indicator with visual representation of clues revealed and estimated points remaining display. Add round summary between profiles showing brief summary of who scored and how many points they earned.",
@@ -1192,7 +1192,7 @@
         ]
       },
       {
-        "id": 21,
+        "id": "21",
         "title": "Fix Placeholder Game Page at /game Route",
         "description": "Update src/pages/game.astro to redirect or show proper content instead of placeholder",
         "details": "Update src/pages/game.astro to either redirect to home page or setup, or show a proper Create a game first message with a link to the setup page. Currently it shows Coming soon placeholder which is confusing since there is a working game at /game/[sessionId].",
@@ -1263,7 +1263,7 @@
         ]
       },
       {
-        "id": 22,
+        "id": "22",
         "title": "Implement Category Selection Screen",
         "description": "Create category selection screen that allows MC to select a category or shuffle all profiles before starting the game",
         "details": "Create CategorySelect.tsx component with buttons for each available category (extracted from profiles data using useProfiles hook) and a Shuffle All button. Create /game-setup/[sessionId].astro page to host the CategorySelect component. When category selected: filter profiles by category and shuffle within category, store selectedProfileIds in game state. When Shuffle All selected: shuffle all profiles across all categories. After selection, call loadProfiles and startGame actions, then navigate to /game/[sessionId]. Add i18n support for all UI text.",
@@ -1277,7 +1277,7 @@
         "subtasks": []
       },
       {
-        "id": 23,
+        "id": "23",
         "title": "Integrate Real Profile Data into GamePlay Component",
         "description": "Replace mock clues in GamePlay with real profile data from the Zustand store",
         "details": "Update GamePlay.tsx to remove the mock clues array. Get currentProfile from Zustand store state. Display actual clues from currentProfile.clues[currentTurn.cluesRead - 1]. Show profile category in the UI. Update clue count display to show correct current/total values. Disable Next Clue button when cluesRead >= currentProfile.clues.length. Add profile progression indicator showing Profile X of Y where Y is selectedProfiles.length. Handle edge case when currentProfile is null gracefully with a message. Update all tests to use real profile data structure instead of mocks.",
@@ -1291,7 +1291,7 @@
         "subtasks": []
       },
       {
-        "id": 24,
+        "id": "24",
         "title": "Fix Race Condition Between State Persistence and Navigation on Category Selection",
         "description": "Resolve a critical bug where navigating from the category selection screen occurs before the game state is saved to IndexedDB, leading to a 'No Active Game' error. This task will ensure the persistence operation is completed before the application navigates to the gameplay page.",
         "details": "The current implementation in `CategorySelect.tsx` calls `startGame()` and then immediately navigates. However, the `persistState` function in `gameStore.ts` has a 300ms debounce, causing a race condition. To fix this, we will implement a mechanism for synchronous persistence. \n1. In `src/stores/gameStore.ts`, expose a manual, awaitable persistence function. This could be achieved by calling the `flush()` method if using Zustand's built-in persistence middleware, or by creating a new exported function that directly invokes the save-to-IndexedDB logic without the debounce. \n2. In `src/components/CategorySelect.tsx`, modify the category selection handler. Before calling `window.location.href`, call and `await` the new synchronous persistence function. This will guarantee that the game state is successfully written to IndexedDB before the GamePlay component attempts to load it.",
@@ -1366,7 +1366,7 @@
         ]
       },
       {
-        "id": 25,
+        "id": "25",
         "title": "Implement Global Loading and Error States for Game Flow",
         "description": "Refocus this task to exclusively implement a global error state in the Zustand store to handle invalid session data and other potential failures. This will provide clear user feedback and recovery paths. Any implementation of global loading states or spinners is explicitly out of scope for this task.",
         "status": "done",
@@ -1449,7 +1449,7 @@
         "updatedAt": "2025-11-19T21:59:49.756Z"
       },
       {
-        "id": 26,
+        "id": "26",
         "title": "Add three scoreboard action buttons with behavior",
         "description": "Implemented three action buttons on the scoreboard: 'New Game', 'Same Players, New Game', and 'Restart Game'. 'New Game' clears the session and navigates home. 'Same Players' reuses participants for a new game, navigating to category selection. 'Restart Game' restarts the current game configuration. The 'Close' button was removed at user request as it did not work as intended.",
         "status": "done",
@@ -1540,7 +1540,7 @@
         "updatedAt": "2025-11-17T09:48:32.925Z"
       },
       {
-        "id": 27,
+        "id": "27",
         "title": "Persist language across the game and keep language selector visible on all screens",
         "description": "Current language selection from the initial screen is not persisted when navigating to the game. The language switcher should be visible on all screens and persist across page navigation and refresh, so the app uses chosen language consistently in all islands (UI and data loading).",
         "details": "Acceptance criteria:\\n- LanguageSwitcher renders in the global Layout across all pages.\\n- Selected locale is stored in a central place (i18n provider or app store) and rehydrated on load.\\n- React islands load translations and localized data using the persisted locale (e.g., /data/{locale}/profiles.json).\\n- Changing language updates UI immediately and persists across navigation/refresh.\\n- Tests (unit/integration) cover persistence and visibility.\\nTags: i18n, UX",
@@ -1620,7 +1620,7 @@
         "updatedAt": "2025-11-17T10:59:37.101Z"
       },
       {
-        "id": 28,
+        "id": "28",
         "title": "Remove 'player turn' UI — allow anyone to guess; MC awards points by tapping player's name",
         "description": "Remove the active-turn UI so any participant can guess; MC awards points by tapping a player's name in the participant list when a guess is correct.",
         "details": "Acceptance criteria:\\n- GamePlay no longer shows/enforce a current player turn UI.\\n- Pass/turn controls are removed; MC can still award points by tapping a player's name.\\n- AwardPoints flow remains intact and updates scores; multiplayer behavior preserved.\\nTags: gameplay, UX",
@@ -1695,7 +1695,7 @@
         ]
       },
       {
-        "id": 29,
+        "id": "29",
         "title": "Add rounds selection after category selection and implement round-category distribution",
         "description": "After category selection (and Shuffle All), MC should specify number of rounds. The game runs exactly that many rounds. If a single category is selected, use it exclusively; if multiple categories, distribute per round with minimal repeats (prefer not more than ~2 repeats per category when rounds >> categories).",
         "details": "Acceptance criteria:\\n- CategorySelect prompts for rounds count; rounds stored in game state.\\n- Game plays exactly N rounds; distribution respects single/multiple categories and shuffle rules.\\n- Includes unit tests for distribution algorithm and an integration test for flow from CategorySelect to GamePlay.",
@@ -1801,7 +1801,7 @@
         "updatedAt": "2025-11-15T18:40:56.162Z"
       },
       {
-        "id": 30,
+        "id": "30",
         "title": "Fix game end navigation to always show scoreboard",
         "description": "Ensure both end flows—finishing via Finish Game and running out of profiles—navigate to the scoreboard instead of a transient No Game page.",
         "details": "Acceptance criteria:\\n- Finish Game navigates directly to scoreboard; no No Game screen.\\n- When all profiles completed, automatically show scoreboard.\\n- Navigation is deterministic and uses persisted state as needed.",
@@ -1878,7 +1878,7 @@
         "updatedAt": "2025-11-17T19:10:25.769Z"
       },
       {
-        "id": 31,
+        "id": "31",
         "title": "Implement Dark Mode with Header Switcher",
         "description": "Integrate a full dark mode theme across the application, controlled by a toggle in the header. The theme will default to the user's system preference and persist their selection in local storage.",
         "details": "Implement a theme provider using a library like `next-themes` to manage light, dark, and system themes. This provider will be configured in the main Astro layout to wrap the entire application and apply the appropriate class (e.g., 'dark') to the root HTML element. Create a new React island component, `ThemeSwitcher.tsx`, which will use the `useTheme` hook from the library to toggle and display the current theme state. This component will feature accessible icons (e.g., sun/moon/monitor) and be placed in the application header next to the existing i18n language switcher. All major UI components, especially those from `shadcn/ui` and custom components like the game screen, scoreboard, and dialogs, must be reviewed to ensure they correctly adapt to the theme by using CSS variables for colors, as defined in the global stylesheet.",
@@ -1960,7 +1960,7 @@
         "updatedAt": "2025-11-19T09:54:04.442Z"
       },
       {
-        "id": 32,
+        "id": "32",
         "title": "Allow Multiple Category Selection on Category Screen",
         "description": "The category selection screen has been updated to support choosing multiple categories. The game now draws profiles from all selected categories, shuffling them together, which replaces the previous 'Shuffle All' functionality.",
         "status": "done",
@@ -2075,7 +2075,7 @@
         "updatedAt": "2025-11-18T08:17:17.847Z"
       },
       {
-        "id": 33,
+        "id": "33",
         "title": "Fix Round Count Input to Allow Keyboard Deletion of Last Digit",
         "description": "Corrected the behavior of the round count input field on the category selection screen, allowing users to fully edit the pre-filled value using the keyboard, including deleting the final digit. The fix ensures a smoother user experience when setting the number of rounds.",
         "status": "done",
@@ -2148,7 +2148,7 @@
         "updatedAt": "2025-11-18T09:45:32.894Z"
       },
       {
-        "id": 34,
+        "id": "34",
         "title": "Show Previous Clues After Reveal in Game Screen",
         "description": "Modify the game play screen to persistently display the last one or two revealed clues after an answer is revealed. This provides a history for the MC to reference when passing the device to the next player.",
         "details": "The implementation will involve updating the Zustand game state to track recently revealed clues and creating a new UI component to display them. First, augment the game state slice by adding a `revealedClueHistory: string[]` array. Create a corresponding action, `addClueToHistory(clue: string)`, which prepends the new clue to the array and truncates it to a maximum length of 2. This action should be invoked from the `GamePlay` component when the 'Next Clue' button is pressed, capturing the clue that is about to be replaced. Next, create a new React component, `PreviousCluesDisplay.tsx`, responsible for rendering the `revealedClueHistory` array. This component should apply distinct styling to differentiate the most recent previous clue from older ones (e.g., using decreasing opacity or font size). Integrate this component into `GamePlay.tsx`, positioning it logically, perhaps above the current clue display. For responsiveness on smaller viewports, the history area should be collapsible, potentially using a lightweight disclosure pattern or a component like `shadcn/ui`'s `Accordion` to save screen real estate.",
@@ -2162,7 +2162,7 @@
         "subtasks": []
       },
       {
-        "id": 35,
+        "id": "35",
         "title": "Fix Last Round Scoring Bug Before Scoreboard Navigation",
         "description": "Investigate and resolve a bug where points awarded in the final round are not reflected on the final scoreboard. This is likely a race condition between the final state update/persistence and the navigation to the scoreboard view.",
         "details": "The root cause is suspected to be a race condition where the navigation to the scoreboard, triggered by the `endGame` action, occurs before the final `awardPoints` state update has been fully persisted to IndexedDB. The fix will involve ensuring the state persistence operation completes before the application navigates. The implementation should focus on the interaction between the Zustand store's persistence middleware and the game-ending logic. A potential solution is to make the `endGame` action or the component logic that calls it asynchronous, awaiting a confirmation promise from the persistence layer before redirecting the user to the scoreboard.",
@@ -2244,7 +2244,7 @@
         "updatedAt": "2025-11-18T13:21:58.968Z"
       },
       {
-        "id": 36,
+        "id": "36",
         "title": "Optimize Test Translations in vitest.setup.ts",
         "description": "Refactor the test setup to eliminate hardcoded translation objects by dynamically loading the actual translation JSON files from the `public/locales` directory, ensuring a single source of truth for i18n strings in the Vitest environment.",
         "details": "The current `vitest.setup.ts` contains large, hardcoded JavaScript objects that duplicate the contents of our translation JSON files. This violates the DRY principle and creates a maintenance burden, requiring manual updates in two places. This task involves modifying the setup file to use Node.js's built-in `fs` and `path` modules to read the `public/locales` directory, iterate through each language subfolder (e.g., 'en'), and load the corresponding `translation.json` file. The contents will be parsed and aggregated into a single `resources` object that will be passed to the `i18next.init()` configuration. This ensures that tests always run against the most current translation strings. Finally, a brief note should be added to `docs/tests.md` explaining this new automated setup to future contributors.",
@@ -2395,7 +2395,7 @@
         "updatedAt": "2025-11-20T01:02:07.612Z"
       },
       {
-        "id": 37,
+        "id": "37",
         "title": "Implement 'No Winner' Button for Final Clue",
         "description": "When the final clue for a profile is revealed, replace the 'Show next clue' button with a 'No winner' button. Clicking this button will advance the game to the next profile or the scoreboard without awarding any points.",
         "details": "In the main game component (likely `GamePlay.tsx`), add conditional logic to render a 'No winner' button when the current clue index equals the total number of clues for the active profile. This will replace the existing 'Show next clue' button. A new action, such as `skipProfileWithoutPoints`, needs to be added to the Zustand store (`gameStore.ts`). This action will advance the `currentProfileIndex` to the next profile. If the current profile is the last one in the session, the action should set the game status to 'completed'. Crucially, this action must not modify any player scores. The click handler for the 'No winner' button will invoke this new store action, which will trigger the navigation to the next profile or, upon game completion, to the scoreboard page (`/scoreboard/[sessionId]`). Ensure the updated game state is persisted to IndexedDB via `gameSessionDB.ts`.",
@@ -2475,7 +2475,7 @@
         "updatedAt": "2025-11-18T13:54:55.013Z"
       },
       {
-        "id": 38,
+        "id": "38",
         "title": "Refactor Answer Reveal to a Floating Button with Popover",
         "description": "The large, swipe-to-reveal answer block has been replaced with a compact, floating action button (FAB). Clicking the button now opens a popover dialog to display the answer, which has improved the game board's layout and removed the previous swipe gesture.",
         "status": "done",
@@ -2550,7 +2550,7 @@
         "updatedAt": "2025-11-18T15:34:18.338Z"
       },
       {
-        "id": 39,
+        "id": "39",
         "title": "Increase Touch Target Sizes (Accessibility)",
         "description": "Consolidated task from FRONTEND FR-003 and UI/UX review: increase interactive touch target sizes throughout the app to meet platform and WCAG guidance.",
         "status": "done",
@@ -2651,7 +2651,7 @@
         "updatedAt": "2025-11-22T07:31:53.874Z"
       },
       {
-        "id": 40,
+        "id": "40",
         "title": "Implement Responsive Desktop Layouts (Adaptive Containers)",
         "description": "Consolidated task from FRONTEND FR-002 and UI/UX review: implement progressive responsive layouts and adaptive container widths to better utilize tablet/desktop screen real estate.",
         "details": "Problem: App remains narrow on desktop, wasting horizontal space. Solution: Add min-width breakpoints (sm, md, lg, xl), adaptive container classes, multi-column grids for gameplay/scoreboard/category selection, CSS Container Queries where useful. Update Card and Grid usage to support larger max-widths and side-by-side layouts for GamePlay.",
@@ -2749,7 +2749,7 @@
         ]
       },
       {
-        "id": 41,
+        "id": "41",
         "title": "Remove Wildcard Import Violations",
         "description": "FR-001: Replace all `import * as ...` wildcard imports in UI components with explicit named imports to improve tree-shaking and bundle size.",
         "details": "Location: src/components/ui/* files (dialog.tsx, label.tsx, popover.tsx, progress.tsx). Solution: Replace wildcard imports with explicit named imports, run build and verify bundle size reduction (>15KB target) and remove build warnings.",
@@ -2760,7 +2760,7 @@
         "subtasks": []
       },
       {
-        "id": 42,
+        "id": "42",
         "title": "Replace Excessive client:only with Strategic Hydration",
         "description": "Successfully completed the audit and refactoring of client-side hydration. All `client:only` directives were eliminated and replaced with strategic hydration (`client:load`, `client:idle`), improving performance and adhering to the new, documented hydration strategy. This consolidated ASTRO-001 and FR-003 hydration recommendations.",
         "status": "done",
@@ -2838,7 +2838,7 @@
         "updatedAt": "2025-12-05T02:05:26.498Z"
       },
       {
-        "id": 43,
+        "id": "43",
         "title": "Implement View Transitions API and Replace window.location-based Navigation",
         "description": "Verified and enhanced the application's View Transitions implementation. The investigation confirmed that modern client-side navigation was already in place using Astro's ClientRouter and a custom `navigateWithLocale` utility. The primary outcome was the creation of a comprehensive E2E test suite to validate smooth transitions and state preservation, ensuring a robust SPA-like user experience.",
         "status": "done",
@@ -2915,7 +2915,7 @@
         "updatedAt": "2025-12-06T11:50:59.611Z"
       },
       {
-        "id": 44,
+        "id": "44",
         "title": "Implement Astro Middleware (Security & Logging)",
         "description": "Successfully implemented server-side middleware for cross-cutting concerns, including comprehensive security headers, development-only request logging, and centralized error handling. The middleware is configurable via environment variables and is covered by an extensive automated test suite.",
         "status": "done",
@@ -3121,7 +3121,7 @@
         "updatedAt": "2025-12-06T13:10:27.797Z"
       },
       {
-        "id": 45,
+        "id": "45",
         "title": "Fix Memory Leak in Store Persistence Timers",
         "description": "TS-001: Prevent memory leaks caused by persistence timer Map in gameStore.ts by implementing proper cleanup and lifecycle handling.",
         "details": "Location: src/stores/gameStore.ts. Implement cleanupTimer, export cleanupPersistence, or refactor to use WeakMap and ensure timers cleared on unmount and on session delete. Add tests for cleanup and run memory profiling.\n<info added on 2025-11-27T07:03:18.335Z>\nCancellation analysis added on behalf of the reporter:\n\nReason for cancellation: The memory leak issue described in this task has already been addressed in the current codebase. After reviewing the implementation in GamePersistenceService.ts and gameStore.ts, the following facts support cancelling this task:\n\n1. Auto-cleanup on timer completion: Persistence timer logic executes clean-up in finally blocks (or equivalent) ensuring timer entries are removed from the timer Map when the timer completes, regardless of success or error.\n2. Explicit cancellation API: A cancelPendingPersistence() (or equivalently named) function is exported and used by higher-level code to proactively cancel and clear timers during unmount, session deletion, or other lifecycle events.\n3. Error-resilient handling: The persistence flow includes comprehensive try/catch/finally and defensive checks to guarantee no timers remain referenced after failures or aborted flows.\n4. Test coverage: Unit and integration tests covering cleanup scenarios exist and pass, demonstrating the cleanup behavior works under normal and error paths.\n5. No observed leak: There is no evidence of retained timers or Map growth in test runs and profiling; therefore this issue is resolved.\n\nAction taken: Marking this task as cancelled and documenting this analysis so it remains visible in the task history. If future regressions appear or new evidence of a leak is found, please re-open or create a new task with repro steps and profiling artifacts.\n</info added on 2025-11-27T07:03:18.335Z>",
@@ -3134,7 +3134,7 @@
         "subtasks": []
       },
       {
-        "id": 46,
+        "id": "46",
         "title": "Refactor State Persistence to Repository Pattern",
         "description": "ARCH-001: Extract persistence logic from game store into a repository and a persistence service to separate concerns and improve testability.",
         "status": "done",
@@ -3206,7 +3206,7 @@
         ]
       },
       {
-        "id": 47,
+        "id": "47",
         "title": "Implement Domain-Driven Design Structure for Game Logic",
         "description": "ARCH-002: Reorganize large gameStore into domain layer with entities, services, and value objects to move business rules out of the store.",
         "details": "Create src/domain/game with entities (Game, Round, Turn, Player, Profile), services (ScoringService, TurnManager), value objects, and refactor store to be a thin orchestration layer delegating to domain services. Add documentation and unit tests for domain logic.",
@@ -3219,7 +3219,7 @@
         "subtasks": []
       },
       {
-        "id": 48,
+        "id": "48",
         "title": "Fix Race Condition in State Rehydration",
         "description": "ARCH-003: Eliminate race between rehydration and persistence by adding rehydration flags or adopting a lifecycle state machine (XState).",
         "status": "done",
@@ -3232,7 +3232,7 @@
         "subtasks": []
       },
       {
-        "id": 49,
+        "id": "49",
         "title": "Implement Integration Testing Layer (Store + Persistence + Components)",
         "description": "ARCH-008: Add an integration testing layer to cover store, persistence (real IndexedDB), and component interaction to fix inverted testing pyramid.",
         "details": "Create src/**/__integration__ tests for GameStore+IndexedDB, Component+Store, Query+Store. Aim for 50+ integration tests covering critical flows. Use real IndexedDB in CI or a test harness, ensure tests are stable and fast enough for CI.",
@@ -3247,7 +3247,7 @@
         "subtasks": []
       },
       {
-        "id": 50,
+        "id": "50",
         "title": "Implement Component Error Boundaries",
         "description": "REACT-007: Add granular component ErrorBoundaries to catch and gracefully render UI for component failures and integrate with error reporting.",
         "details": "Create ErrorBoundary component with fallback UI and logging (Sentry or telemetry). Wrap major sections (GamePlay, Scoreboard, Route-level). Ensure error boundaries report to centralized ErrorService.",
@@ -3324,7 +3324,7 @@
         ]
       },
       {
-        "id": 51,
+        "id": "51",
         "title": "Optimize Zustand Store Selectors and Reduce Re-renders",
         "description": "REACT-004: Consolidate selectors, use shallow comparison and custom selector hooks to prevent excessive re-renders.",
         "details": "Replace multiple single-value selectors with useShallow or create custom hooks (useGamePlayState) to select grouped state. Add guidelines for selector usage and examples. Measure re-renders with React Profiler.",
@@ -3337,7 +3337,7 @@
         "subtasks": []
       },
       {
-        "id": 52,
+        "id": "52",
         "title": "Fix Race Condition in i18n Initialization",
         "description": "TS-002: Consolidate i18n initialization into a single effect/state machine to avoid races during rapid language switches or remounts.",
         "details": "Refactor I18nProvider to use useReducer or a small state machine handling INIT_START/INIT_SUCCESS/INIT_ERROR with cancellation tokens. Ensure predictable transitions and no memory leaks. Add tests for concurrent scenarios.",
@@ -3352,7 +3352,7 @@
         "id": "53",
         "title": "Implement Progressive Data Loading (Split profiles by category)",
         "description": "ARCH-006: Reduce initial data load by splitting profiles per category and loading on-demand with prefetching and service worker caching.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "details": "Move public/data/{locale}/profiles.json -> public/data/{locale}/{category}/data-1.json (so we can have multiple files per category that will be merged when loaded). Update useProfiles hooks to load per-category, implement prefetch hooks and service worker caching for popular categories. Aim to reduce initial load by 50%+.",
@@ -3365,7 +3365,8 @@
             "dependencies": [],
             "details": "Create category subdirectories under public/data/{locale}/. Split profiles.json into multiple files per category (e.g., public/data/en/animals/data-1.json). Implement script to generate these files from existing profiles.json while maintaining data integrity.",
             "status": "done",
-            "testStrategy": "Verify file structure matches requirements and all profiles are accounted for in new structure"
+            "testStrategy": "Verify file structure matches requirements and all profiles are accounted for in new structure",
+            "parentId": "undefined"
           },
           {
             "id": 2,
@@ -3430,10 +3431,11 @@
             "updatedAt": "2025-12-07T14:15:48.683Z",
             "parentId": "undefined"
           }
-        ]
+        ],
+        "updatedAt": "2025-12-08T07:40:04.207Z"
       },
       {
-        "id": 54,
+        "id": "54",
         "title": "Implement Lazy Loading for Heavy Components and Suspense Boundaries",
         "description": "Consolidated FR lazy loading and REACT-008 Suspense: Lazy-load Scoreboard, RoundSummary, CategorySelect, Dialog, Popover; add Suspense boundaries with fallbacks.",
         "details": "Use React.lazy + Suspense and configure React Query for suspense where appropriate. Add 4-6 lazy-loaded components with loading fallbacks and ensure no waterfall loading issues. Measure TTI improvement target 30%+.",
@@ -3447,7 +3449,7 @@
         "subtasks": []
       },
       {
-        "id": 55,
+        "id": "55",
         "title": "Migrate to useActionState for Async Mutations",
         "description": "REACT-001: Replace manual async mutation patterns with React 19 useActionState to get built-in pending state and simplify forms.",
         "details": "Update GameSetup, CategorySelect, Scoreboard forms to use useActionState. Remove manual loading flags and ensure optimistic or rollback handling is applied where appropriate.",
@@ -3458,7 +3460,7 @@
         "subtasks": []
       },
       {
-        "id": 56,
+        "id": "56",
         "title": "Add Component Memoization (useMemo/useCallback)",
         "description": "Consolidated FR-003 memoization recommendations: apply useMemo and useCallback strategically to reduce re-renders in GamePlay, CategorySelect, ClueProgress and others.",
         "details": "Add 8-10 strategic useMemo usages, wrap event handlers with useCallback, and update heavy computations to memoized selectors. Verify no regressions and improved profiler metrics.",
@@ -3471,7 +3473,7 @@
         "subtasks": []
       },
       {
-        "id": 57,
+        "id": "57",
         "title": "Add React.memo to Pure Presentational Components",
         "description": "REACT-005: Wrap presentational components (ClueProgress, ProfileProgress, PreviousCluesDisplay, RoundSummary) with React.memo and add display names and custom prop comparisons where necessary.",
         "details": "Identify pure components and wrap with memo. Add tests and ensure displayName set for debugging. Verify Profiler reduction of re-renders.",
@@ -3485,7 +3487,7 @@
         "subtasks": []
       },
       {
-        "id": 58,
+        "id": "58",
         "title": "Implement AbortController for In-flight Async Operations",
         "description": "TS-003: Ensure fetches and custom async operations support cancellation to avoid state updates on unmounted components.",
         "details": "Update useGameSession and useProfiles to pass signal to fetch; add AbortController in custom effects; configure TanStack Query usage to utilize signal. Add tests for aborted requests and ensure no warnings.",
@@ -3496,7 +3498,7 @@
         "subtasks": []
       },
       {
-        "id": 59,
+        "id": "59",
         "title": "Fix PWA Theme Color Mismatch and Improve Dark Mode Contrast",
         "description": "Consolidated FR PWA theme color mismatch and UI-UX dark mode contrast task: align manifest theme_color/background_color with design tokens and adjust dark mode token values to meet WCAG AA.",
         "details": "Update astro.config.mjs manifest theme_color to match --primary, adjust background for dark mode, update CSS variables for muted-foreground and border contrast to meet WCAG thresholds, and test splash screens and address bar color. Include automated contrast checks and WebAIM verification.",
@@ -3507,7 +3509,7 @@
         "subtasks": []
       },
       {
-        "id": 60,
+        "id": "60",
         "title": "Implement Loading States and Skeleton Screens (UX)",
         "description": "Consolidated FR and UI-UX loading recommendations: add skeletons, button loading states, page loaders, and transition loaders for operations >300ms.",
         "details": "Add ProfileLoadingSkeleton, RoundTransition loader, PageLoader and consistent button loading states. Use aria-busy and aria-live for accessibility. Ensure smooth transitions and avoid layout shifts.",
@@ -3521,7 +3523,7 @@
         "subtasks": []
       },
       {
-        "id": 61,
+        "id": "61",
         "title": "Add Visual Feedback Animations & Micro-interactions",
         "description": "Consolidated visual feedback tasks: implement Framer Motion animations for clue reveal, point awards, progress dots, hover/active states and respect prefers-reduced-motion.",
         "details": "Use framer-motion for key interactions (clue reveal, points awarded), CSS transitions for simple hover/active effects, ensure animations are performant (60fps) and non-distracting. Add configuration to disable animations for reduced-motion users.",
@@ -3532,7 +3534,7 @@
         "subtasks": []
       },
       {
-        "id": 62,
+        "id": "62",
         "title": "Optimize Mobile Header Layout (Compact Header / Settings Drawer)",
         "description": "Consolidated header optimization: reduce mobile header height from 87px to 56-64px, move settings into a sheet or dropdown, support auto-hide on scroll.",
         "details": "Implement CompactHeader or AdaptiveHeader component, ensure settings accessible within 2 taps, keep touch targets >=48px, support safe area insets. Add desktop variants to keep inline controls.",
@@ -3546,7 +3548,7 @@
         "subtasks": []
       },
       {
-        "id": 63,
+        "id": "63",
         "title": "Implement Swipe Gestures for Mobile Navigation (Swipe-to-Reveal Answer)",
         "description": "UI-UX Medium: Add touch gestures for swipe-to-reveal answer, swipe between profiles, and swipe-to-dismiss dialogs using react-swipeable or framer-motion.",
         "details": "Implement AnswerReveal using useSwipeable with threshold and haptic feedback, provide fallback reveal button, ensure gestures don't conflict with scroll and provide discovery hints. Respect accessibility and provide setting to disable gestures.",
@@ -3557,7 +3559,7 @@
         "subtasks": []
       },
       {
-        "id": 64,
+        "id": "64",
         "title": "Improve Scoreboard Visual Design and Information Density",
         "description": "UI-UX Medium: Redesign scoreboard to highlight winner, show visual score comparisons, add game statistics, action hierarchy, and celebration animations.",
         "details": "Add winner spotlight, score bars, game stats card, action hierarchy, and subtle confetti animation. Ensure accessibility, responsive layout, and social sharing option.",
@@ -3571,7 +3573,7 @@
         "subtasks": []
       },
       {
-        "id": 65,
+        "id": "65",
         "title": "Optimize Icon Assets (Compress/Convert to WebP)",
         "description": "FR-003: Compress public/icons PNGs to target <50KB for 512×512 or convert to WebP with PNG fallback and add optimization in build pipeline.",
         "details": "Use imagemin/sharp to compress icons, add build step to optimize and validate sizes, and ensure visual quality maintained.",
@@ -3584,7 +3586,7 @@
         "subtasks": []
       },
       {
-        "id": 66,
+        "id": "66",
         "title": "Optimize Bundle Splitting and Set Budget Limits",
         "description": "ARCH-007: Configure manual chunk splitting, generate bundle visualizer reports, and enforce budget limits for main/vendor/islands.",
         "details": "Update astro.config.mjs/Vite RollupOptions with manualChunks, set chunk size warnings, add visualizer plugin, document budget limits and fail CI on violations.",
@@ -3598,7 +3600,7 @@
         "subtasks": []
       },
       {
-        "id": 67,
+        "id": "67",
         "title": "Migrate to useOptimistic for Score Updates (Optimistic UI)",
         "description": "REACT-002: Implement useOptimistic for immediate score updates with rollback on persistence error to improve perceived responsiveness.",
         "details": "Use useOptimistic in GamePlay for players array update when awarding points, ensure rollback on failure and tests for optimistic flow.",
@@ -3612,7 +3614,7 @@
         "subtasks": []
       },
       {
-        "id": 68,
+        "id": "68",
         "title": "Add useTransition for Non-Urgent UI Updates",
         "description": "REACT-003: Use useTransition for input-heavy components to keep UI responsive during non-urgent updates (typing in forms).",
         "details": "Apply in GameSetup and CategorySelect for typing and heavy updates, provide visual pending indicator for transitions.",
@@ -3623,7 +3625,7 @@
         "subtasks": []
       },
       {
-        "id": 69,
+        "id": "69",
         "title": "Add Keyboard Navigation Enhancements and Power User Shortcuts",
         "description": "Consolidated keyboard improvements: Arrow key navigation, documented shortcuts, focus management, and power-user shortcuts (Ctrl+N, Ctrl+R, 1-8 to award points).",
         "details": "Implement accessible keyboard patterns for CategorySelect, GamePlay, Scoreboard. Provide a help modal listing shortcuts, allow disabling shortcuts in settings, and ensure no conflicts with browser defaults.",
@@ -3634,7 +3636,7 @@
         "subtasks": []
       },
       {
-        "id": 70,
+        "id": "70",
         "title": "Strengthen Zod Schema Type Definitions and Export Validation Helpers",
         "description": "TS-004: Improve type safety by strengthening Zod schemas, exporting validation helpers, and removing catchall(z.unknown()) usage.",
         "details": "Update src/types/models.ts to export validateProfile and isValidProfile helpers, replace catchall with explicit metadata schema, add tests for validation edge cases and type inference.",
@@ -3645,7 +3647,7 @@
         "subtasks": []
       },
       {
-        "id": 71,
+        "id": "71",
         "title": "Eliminate any/unknown in Error Handling (Typed Error Classes)",
         "description": "TS-005: Replace generic error handling with typed domain error classes and type guards for better diagnostics.",
         "details": "Create GameError and domain-specific error classes, implement isGameError type guard, update catch blocks to preserve context and improve logging.\n<info added on 2025-11-27T13:02:11.585Z>\nImplementation is complete. A comprehensive typed error class hierarchy has been created in `src/lib/errors.ts`. This includes an `AppError` base class with properties for severity, code, context, an informative flag, and a timestamp. Domain-specific errors like `GameError`, `PersistenceError`, `ValidationError`, and `NetworkError` extend this base class. The implementation also provides type guards for all error types (e.g., `isAppError`, `isGameError`), utility functions (`getErrorMessage`, `normalizeError`), and an error serialization `toJSON()` method. The feature is covered by 80 unit tests, and all QA checks (lint, typecheck, tests, e2e, build) are passing.\n</info added on 2025-11-27T13:02:11.585Z>",
@@ -3656,7 +3658,7 @@
         "subtasks": []
       },
       {
-        "id": 72,
+        "id": "72",
         "title": "Implement Centralized Error Architecture (ErrorService & Hierarchical Boundaries)",
         "description": "ARCH-012: Create a central ErrorService, typed domain errors, and hierarchical error boundaries to standardize error handling across the app.",
         "details": "Implement ErrorService singleton, typed errors (GameError, PersistenceError), integrate with ErrorBoundary components and telemetry. Document error handling in ERROR_HANDLING.md.\n<info added on 2025-11-27T13:02:36.161Z>\nThe centralized error handling system has been implemented. This includes the ErrorService singleton in src/services/ErrorService.ts, a telemetry provider interface with a console implementation, an error handler registration system, and context management for error tracking. The system is integrated with the Zustand gameStore, and the ErrorStateProvider has been updated to handle typed errors. The implementation is covered by comprehensive testing (54 unit tests + 44 integration tests) and documented in docs/ERROR_HANDLING.md. All QA checks (lint, typecheck, tests, e2e, build) have passed.\n</info added on 2025-11-27T13:02:36.161Z>",
@@ -3814,7 +3816,7 @@
         ]
       },
       {
-        "id": 73,
+        "id": "73",
         "title": "Implement Observability Architecture (Web Vitals & Telemetry)",
         "description": "ARCH-013: Add telemetry, web vitals tracking, and structured logging for production observability.",
         "details": "Add TelemetryService, useWebVitals hook, structured logging with pino, and custom event tracking for game actions. Add documentation in OBSERVABILITY.md and gating to enable analytics via config.",
@@ -3827,7 +3829,7 @@
         "subtasks": []
       },
       {
-        "id": 74,
+        "id": "74",
         "title": "Implement State Machine for Game Flow (XState)",
         "description": "ARCH-005: Introduce an explicit state machine to manage game flow transitions (idle, playerSetup, categorySelection, playing, roundEnd, gameEnd) and integrate with the store.",
         "details": "Create gameFlowMachine with defined transitions and guards, integrate with Zustand store, visualize machine and add tests for all transitions, preventing invalid state transitions.",
@@ -3840,7 +3842,7 @@
         "subtasks": []
       },
       {
-        "id": 75,
+        "id": "75",
         "title": "Clarify SSR vs SSG Strategy and Configuration Management",
         "description": "Consolidated ARCH-010 (SSR/SSG clarification) and ARCH-011 (config management): Audit actual requirements, document deployment strategy, and implement centralized build-time config with Zod validation.",
         "details": "Choose appropriate output mode (static, hybrid, server); update astro.config.mjs and document decision in ADR. Create src/config/index.ts with Zod-validated build-time config for pwa, indexedDB, features and environment-specific values. Use in astro.config.mjs and provide .env.example.",
@@ -3851,7 +3853,7 @@
         "subtasks": []
       },
       {
-        "id": 76,
+        "id": "76",
         "title": "Implement Architectural Fitness Functions (Lint Rules & Architecture Tests)",
         "description": "ARCH-009: Add automated checks for architectural rules using eslint-plugin-boundaries and ts-morph-based tests to prevent architecture drift.",
         "details": "Configure eslint-plugin-boundaries for layer isolation rules, add tests/architecture.test.ts for circular dependency and layer boundary checks, document rules in ADRs, and enforce in CI.",
@@ -3865,7 +3867,7 @@
         "subtasks": []
       },
       {
-        "id": 77,
+        "id": "77",
         "title": "Standardize Null vs Undefined Usage and Add Lint Rule",
         "description": "TS-006: Establish project convention for null vs undefined and enforce via linting and docs.",
         "details": "Document convention (undefined for optional, null for explicit empty states) in style guide, refactor code progressively, and add lint rule to enforce pattern.",
@@ -3876,7 +3878,7 @@
         "subtasks": []
       },
       {
-        "id": 78,
+        "id": "78",
         "title": "Extract Magic Numbers to Central Configuration",
         "description": "TS-007: Move hardcoded numeric constants (debounceMs, maxCluesPerProfile, maxPlayers, animation durations) into a typed GAME_CONFIG central module.",
         "details": "Create src/config/gameConfig.ts with GAME_CONFIG as const and update usages across codebase. Ensure tests and docs reference config values.",
@@ -3889,7 +3891,7 @@
         "subtasks": []
       },
       {
-        "id": 79,
+        "id": "79",
         "title": "Implement ESM Import Best Practices and tsconfig tuning",
         "description": "TS-008: Ensure relative imports include extensions where needed, set moduleResolution to 'bundler', and configure Biome to enforce import styles to avoid ESM resolution issues.",
         "details": "Audit imports, adjust tsconfig, add Biome lint rules, and validate build in pure ESM environment.",
@@ -3900,7 +3902,7 @@
         "subtasks": []
       },
       {
-        "id": 80,
+        "id": "80",
         "title": "Add Social Sharing Functionality for Scoreboard",
         "description": "UI-UX Low: Implement Web Share API to allow sharing game results and invite messages with fallbacks for unsupported browsers.",
         "details": "Add Share button to scoreboard, use navigator.share when available, fallback to copy-to-clipboard. Compose formatted share text and include basic Open Graph metadata for share previews.",
@@ -3913,7 +3915,7 @@
         "subtasks": []
       },
       {
-        "id": 81,
+        "id": "81",
         "title": "Improve Form Validation Feedback and Inline Error UI",
         "description": "UI-UX Low: Enhance inline form validation for player names, round counts and other inputs with accessible error messages, icons and suggestions.",
         "details": "Use aria-invalid, aria-describedby, and inline messages with AlertIcon; add real-time validation and helpful hints. Update tests and documentation.",
@@ -3926,7 +3928,7 @@
         "subtasks": []
       },
       {
-        "id": 82,
+        "id": "82",
         "title": "Create Component Documentation and Design Tokens Guidance",
         "description": "Low priority: Create component docs (Storybook/MDX) with usage, accessibility notes and responsive behavior. Document color/spacing tokens and guidelines.",
         "details": "Set up Storybook or MDX docs, document semantic color tokens, spacing system, and component usage. Include examples and do/don't guidelines.",
@@ -3937,7 +3939,7 @@
         "subtasks": []
       },
       {
-        "id": 83,
+        "id": "83",
         "title": "Reload profiles on language change during game",
         "description": "When a user is in the middle of the game and changes the language, the profile is now reloaded so that the questions also appear in the language the user just selected. This was achieved by listening for language changes within the game component and refetching the localized profile data without affecting the ongoing game state.",
         "status": "done",
@@ -4033,7 +4035,7 @@
         ]
       },
       {
-        "id": 84,
+        "id": "84",
         "title": "Implement point removal functionality for MC",
         "description": "Allow the Master of Ceremonies (MC) to remove points from a specific player if points were awarded by mistake. This provides a correction mechanism, restricted to the MC role, with safety checks to prevent errors.",
         "status": "done",
@@ -4118,7 +4120,7 @@
         ]
       },
       {
-        "id": 85,
+        "id": "85",
         "title": "Extend game support to up to 16 players",
         "description": "Extend the current game architecture to support more players, up to a maximum of 16 participants instead of the current lower limit",
         "status": "done",
@@ -4180,7 +4182,7 @@
         ]
       },
       {
-        "id": 86,
+        "id": "86",
         "title": "Fix all E2E tests and integrate into complete-check script",
         "description": "- Fix all existing E2E tests that are currently failing or broken\n- Integrate E2E test execution into the complete-check script to ensure they run as part of QA checks\n- Ensure all E2E tests pass consistently\n- Update any necessary configurations or dependencies for E2E testing",
         "details": "Technical details:\n- Project uses Playwright for E2E testing (see e2e/ directory)\n- E2E tests are located in e2e/tests/\n- Update complete-check script to include E2E execution (e.g. pnpm run e2e or pnpm test:e2e)\n- Ensure Playwright config, browsers and any test fixtures/data are configured for reliable runs\n- Investigate and fix flaky tests, update selectors, mocks, or test timing where needed\n- Update CI scripts if necessary to run E2E in pipeline\n\nAcceptance Criteria:\n- All E2E tests pass consistently\n- E2E tests integrated into complete-check script\n- No test failures or flakiness\n- Proper error handling and reporting in E2E runs\n\nPriority: High",
@@ -4253,7 +4255,7 @@
         ]
       },
       {
-        "id": 87,
+        "id": "87",
         "title": "Epic: Persistence & Domain Refactor - Phase Planning & Coordination",
         "description": "Coordination task for a cohesive architectural refactor spanning persistence layer, domain-driven design, and store optimization.\n\nRelated Tasks: #46, #45, #48, #49, #47, #74, #76, #67, #51\n\nPhase Breakdown:\n- Phase 1: Persistence service & repository (#46) + integration tests foundation (#49)\n- Phase 2: Fix memory leaks and rehydration race (#45, #48) using persistence API\n- Phase 3: Domain extraction & state machine (#47, #74) integrating persistence service\n- Phase 4: Selector optimization & optimistic updates (#51, #67)\n- Phase 5: Add architectural fitness checks (#76) to enforce boundaries post-refactor\n\nBenefits: Single cohesive architectural improvement vs. fragmented PRs. Avoids duplicated effort and coordinates dependent work.",
         "details": "",
@@ -4264,7 +4266,7 @@
         "subtasks": []
       },
       {
-        "id": 88,
+        "id": "88",
         "title": "Epic: Client Hydration & Runtime Performance - Phase Planning & Coordination",
         "description": "Coordination task for client-side performance optimization through hydration strategy, lazy-loading, progressive data loading, and memoization.\n\nRelated Tasks: #42, #54, #53, #56, #57, #58, #55, #68, #66\n\nPhase Breakdown:\n- Phase 1: Audit client:only footprint and split data by category (#42, #53)\n- Phase 2: Introduce lazy-loading and Suspense for heavy components (#54)\n- Phase 3: Apply memoization and React.memo (#56, #57)\n- Phase 4: Introduce cancellation patterns and modern React hooks (#58, #55, #68)\n- Phase 5: Tune bundle splitting and CI budgets (#66)\n\nBenefits: Coherent performance strategy. Hydration changes affect lazy-loading which affects bundle splitting - coordinating prevents conflicts.",
         "details": "",
@@ -4275,7 +4277,7 @@
         "subtasks": []
       },
       {
-        "id": 89,
+        "id": "89",
         "title": "Epic: UX & Visual Polish / PWA - Phase Planning & Coordination",
         "description": "Coordination task for user-facing design and UX improvements including responsive layouts, animations, mobile optimizations, and PWA enhancements.\n\nRelated Tasks: #40, #61, #60, #62, #63, #64, #65, #59, #80, #81\n\nPhase Breakdown:\n- Phase 1: Design/ADR finalization and responsive breakpoints (#40, #64)\n- Phase 2: Implement skeletons & loading states (#60) alongside lazy-loading\n- Phase 3: Add animations & micro-interactions (#61) with reduced-motion support\n- Phase 4: Mobile tweaks and PWA theme/contrast fixes (#62, #63, #59)\n- Phase 5: Icon optimization and validation UX improvements (#65, #80, #81)\n\nBenefits: Cohesive user-facing release. Single design review cycle and visual regression testing.",
         "details": "",
@@ -4286,7 +4288,7 @@
         "subtasks": []
       },
       {
-        "id": 90,
+        "id": "90",
         "title": "Epic: Error Handling & Observability - Phase Planning & Coordination",
         "description": "Coordination task for implementing a complete error propagation and observability system including typed errors, centralized error handling, boundaries, and telemetry.\n\nRelated Tasks: #71, #72, #50, #73\n\nPhase Breakdown:\n- Phase 1: Define typed error classes and guards (#71)\n- Phase 2: Implement ErrorService and ErrorBoundary usage (#72, #50)\n- Phase 3: Hook telemetry and web-vitals (#73)\n\nBenefits: Complete system with pieces that depend on each other. Single coherent error/observability layer vs. piecemeal implementation.",
         "details": "",
@@ -4297,7 +4299,7 @@
         "subtasks": []
       },
       {
-        "id": 91,
+        "id": "91",
         "title": "Epic: Code Hygiene & Build Config - Phase Planning & Coordination",
         "description": "Coordination task for maintenance and standardization work including code hygiene, type improvements, build config tuning, and documentation.\n\nRelated Tasks: #41, #70, #77, #78, #79, #82\n\nPhase Breakdown:\n- Phase 1: Fix wildcard imports and ESM/tsconfig tuning (#41, #79)\n- Phase 2: Strengthen Zod schemas & error typing (#70)\n- Phase 3: Standardize null/undefined and move constants (#77, #78)\n- Phase 4: Create component documentation (#82)\n\nBenefits: Single maintenance pass. Low-risk changes grouped together for efficient review.",
         "details": "",
@@ -4308,7 +4310,7 @@
         "subtasks": []
       },
       {
-        "id": 92,
+        "id": "92",
         "title": "Migrate to Astro Native i18n with astro-i18next",
         "description": "Successfully replaced the client-side i18next implementation with Astro's native i18n routing. This migration, utilizing custom server-side utilities and a lightweight client hook, has eliminated FOUC, reduced client-side dependencies, and improved performance and SEO by ensuring translations are rendered on the server.",
         "status": "done",
@@ -4385,14 +4387,12 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-07T14:15:48.684Z",
+      "lastModified": "2025-12-08T07:40:04.208Z",
       "taskCount": 92,
-      "completedCount": 54,
+      "completedCount": 55,
       "tags": [
         "master"
-      ],
-      "created": "2025-12-07T14:18:10.822Z",
-      "description": "Tasks for master context"
+      ]
     }
   },
   "refactor": {

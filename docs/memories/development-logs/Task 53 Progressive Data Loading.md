@@ -75,8 +75,8 @@ Rationale
 Design
 - A single global manifest (`public/data/manifest.json`) contains the canonical category slugs and for each category a mapping of locale => display name. Example:
   {
-    "categories": [
-      { "slug": "famous-people", "displayNames": {"en": "Famous People", "es": "Personas Famosas"} }
+    \\"categories\\": [
+      { \\"slug\\": \\"famous-people\\", \\"displayNames\\": {\\"en\\": \\"Famous People\\", \\"es\\": \\"Personas Famosas\\"} }
     ]
   }
 - Data files are organized as `/public/data/{category}/{locale}/data.json` (or data-1.json when chunked). This makes request paths predictable and cache keys stable.
@@ -131,7 +131,7 @@ Edge cases handled
 Dynamic max rounds
 - The rounds input uses the manifest and selected categories to compute `maxAvailable`.
 - Input attributes set `min=1`, `max=maxAvailable`. Initial value computed as `min(5, maxAvailable)`.
-- A small hint element displays "You can choose up to X rounds based on selected categories" with translation keys updated.
+- A small hint element displays \\"You can choose up to X rounds based on selected categories\\" with translation keys updated.
 
 Language change flow
 - If a user attempts to change language mid-game, LanguageSwitcher opens a confirmation dialog.
@@ -144,6 +144,7 @@ Language change flow
 
 - Unit tests updated across hooks and store modules to reflect removal of legacy
 functions and new manifest behavior.
+- Updated 22 test files across unit and integration suites.
 - Added end-to-end test `profile-randomness-and-limits.e2e.ts` to assert:
   - No duplicate profiles in a single game session.
   - Rounds input clamps and displays correct hints.
@@ -218,3 +219,4 @@ release after sufficient adoption.
 
 
 Recorded by: basic-memory-specialist
+PR: https://github.com/trystan2k/perfil/pull/62
