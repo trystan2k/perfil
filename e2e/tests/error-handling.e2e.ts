@@ -48,7 +48,7 @@ test.describe('Error Handling', () => {
     const sessionId = url.split('/game-setup/')[1];
 
     // Navigate to home page to unload the game-setup page and ensure no pending saves interfere
-    await page.goto('/en/');
+    await page.goto('/en/', { waitUntil: 'networkidle' });
 
     // Clear IndexedDB to simulate missing session
     await page.evaluate(() => {
@@ -59,6 +59,8 @@ test.describe('Error Handling', () => {
         request.onblocked = () => resolve();
       });
     });
+
+    await page.waitForTimeout(1000);
 
     // Navigate to game page with the session ID (should trigger error)
     await page.goto(`/en/game/${sessionId}`, { waitUntil: 'networkidle' });

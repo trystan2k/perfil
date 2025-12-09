@@ -33,7 +33,7 @@ import { getErrorService } from '../services/ErrorService';
 import { GamePersistenceService } from '../services/GamePersistenceService';
 import type { GameSession, Player, Profile } from '../types/models';
 
-interface GameState extends GameSession {
+export interface GameState extends GameSession {
   status: GameStatus;
   category?: string;
   profiles: Profile[];
