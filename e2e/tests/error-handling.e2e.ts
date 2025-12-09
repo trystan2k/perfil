@@ -47,6 +47,9 @@ test.describe('Error Handling', () => {
     const url = page.url();
     const sessionId = url.split('/game-setup/')[1];
 
+    // Navigate to home page to unload the game-setup page and ensure no pending saves interfere
+    await page.goto('/en/');
+
     // Clear IndexedDB to simulate missing session
     await page.evaluate(() => {
       return new Promise<void>((resolve) => {
