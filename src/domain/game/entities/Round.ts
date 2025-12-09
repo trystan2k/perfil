@@ -41,6 +41,5 @@ export function isFirstRound(round: Round): boolean {
  * @returns true if valid, throws error otherwise
  */
 export function validateRound(round: unknown): round is Round {
-  RoundSchema.parse(round);
-  return true;
+  return RoundSchema.safeParse(round).success;
 }

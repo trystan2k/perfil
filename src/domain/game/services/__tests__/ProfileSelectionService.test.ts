@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import type { Profile } from '@/domain/game/entities/Profile';
 import {
+  getAvailableProfileCount,
+  hasEnoughProfiles,
   selectProfilesForGame,
   shuffleProfiles,
-  hasEnoughProfiles,
-  getAvailableProfileCount,
 } from '../ProfileSelectionService';
 
 describe('ProfileSelectionService', () => {
@@ -50,7 +50,10 @@ describe('ProfileSelectionService', () => {
         const selectedIds = selectProfilesForGame(allProfiles, ['movies'], 3);
 
         expect(selectedIds).toHaveLength(3);
-        expect(selectedIds).toEqual(expect.arrayContaining(selectedIds));
+        const movieIds = moviesProfiles.map((p) => p.id);
+        selectedIds.forEach((id) => {
+          expect(movieIds).toContain(id);
+        });
       });
 
       it('should select all requested rounds from single category', () => {

@@ -99,6 +99,5 @@ export function getCurrentClueIndex(turn: Turn): number {
  * @returns true if valid, throws error otherwise
  */
 export function validateTurn(turn: unknown): turn is Turn {
-  TurnSchema.parse(turn);
-  return true;
+  return TurnSchema.safeParse(turn).success;
 }
