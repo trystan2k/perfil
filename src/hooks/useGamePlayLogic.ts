@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useProfiles } from '@/hooks/useProfiles';
 import { getCurrentLocale, navigateWithLocale } from '@/i18n/locales';
-import { forcePersist, useGameStore } from '@/stores/gameStore';
+import { forcePersist } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
 import { useTranslate } from '../components/TranslateProvider';
+import { useGamePlayState, useGamePlayActions } from './selectors';
 
 export interface UseGamePlayLogicReturn {
   // State
@@ -61,9 +62,32 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
   // Get current locale from URL
   const currentLocale = getCurrentLocale();
 
-  // Game store state - get id and status first for loading state computation
-  const id = useGameStore((state) => state.id);
-  const status = useGameStore((state) => state.status);
+  // Game store state - using grouped selectors for performance optimization
+  // Consolidates 18 individual selectors into 2 grouped hooks to reduce re-renders
+  const {
+    id,
+    status,
+    currentTurn,
+    players,
+    currentProfile,
+    selectedProfiles,
+    totalProfilesCount,
+    numberOfRounds,
+    currentRound,
+    revealedClueHistory,
+  } = useGamePlayState();
+
+  // Game store actions - using grouped selectors for performance optimization
+  const {
+    nextClue,
+    awardPoints,
+    removePoints,
+    skipProfile,
+    endGame,
+    loadFromStorage,
+    loadProfiles,
+    setError: setGlobalError,
+  } = useGamePlayActions();
 
   // Determine if loading is needed: only if sessionId provided AND no game already in store
   const gameAlreadyExists = !!id && (status === 'active' || status === 'completed');
@@ -82,24 +106,6 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     pointsAwarded: number;
     profileName: string;
   } | null>(null);
-
-  // Game store state - remaining values
-  const currentTurn = useGameStore((state) => state.currentTurn);
-  const players = useGameStore((state) => state.players);
-  const currentProfile = useGameStore((state) => state.currentProfile);
-  const selectedProfiles = useGameStore((state) => state.selectedProfiles);
-  const totalProfilesCount = useGameStore((state) => state.totalProfilesCount);
-  const numberOfRounds = useGameStore((state) => state.numberOfRounds);
-  const currentRound = useGameStore((state) => state.currentRound);
-  const revealedClueHistory = useGameStore((state) => state.revealedClueHistory);
-  const nextClue = useGameStore((state) => state.nextClue);
-  const awardPoints = useGameStore((state) => state.awardPoints);
-  const removePoints = useGameStore((state) => state.removePoints);
-  const skipProfile = useGameStore((state) => state.skipProfile);
-  const endGame = useGameStore((state) => state.endGame);
-  const loadFromStorage = useGameStore((state) => state.loadFromStorage);
-  const loadProfiles = useGameStore((state) => state.loadProfiles);
-  const setGlobalError = useGameStore((state) => state.setError);
 
   // Fetch profiles for current language with error handling
   const { data: profilesData, isError, error } = useProfiles(currentLocale);

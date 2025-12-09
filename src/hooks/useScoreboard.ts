@@ -3,6 +3,7 @@ import { navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import type { Player } from '@/types/models';
 import { useTranslate } from '../components/TranslateProvider';
+import { useScoreboardState, useGameActions } from './selectors';
 
 export interface RankedPlayer extends Player {
   rank: number;
@@ -40,16 +41,10 @@ export interface UseScoreboardReturn {
 export function useScoreboard(sessionId?: string): UseScoreboardReturn {
   const { t } = useTranslate();
 
-  // Game store state
-  const id = useGameStore((state) => state.id);
-  const status = useGameStore((state) => state.status);
-  const players = useGameStore((state) => state.players);
-  const category = useGameStore((state) => state.category);
-  const loadProfiles = useGameStore((state) => state.loadProfiles);
-  const loadFromStorage = useGameStore((state) => state.loadFromStorage);
-  const resetGame = useGameStore((state) => state.resetGame);
-  const createGame = useGameStore((state) => state.createGame);
-  const startGame = useGameStore((state) => state.startGame);
+  // Game store state - using grouped selectors for performance optimization
+  // Consolidates 8 individual selectors into 2 grouped hooks to reduce re-renders
+  const { id, status, players, category } = useScoreboardState();
+  const { loadProfiles, loadFromStorage, resetGame, createGame, startGame } = useGameActions();
 
   // Local state
   const [isLoading, setIsLoading] = useState(false);
