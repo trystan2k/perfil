@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../../../lib/constants';
+import { GameStatus as GameStatusConstants, GameStatusSchema } from '../value-objects/GameStatus';
 import { type Player, PlayerSchema } from './Player';
 import { type Turn, TurnSchema } from './Turn';
-import { GameStatusSchema } from '../value-objects/GameStatus';
 
 /**
  * Game entity schema representing the complete game state
@@ -33,7 +33,7 @@ export function createGame(players: Player[]): Game {
     currentTurn: null,
     remainingProfiles: [],
     totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
-    status: 'pending',
+    status: GameStatusConstants.pending,
   });
 }
 
@@ -46,7 +46,7 @@ export function createGame(players: Player[]): Game {
  * @throws Error if game is not in pending state
  */
 export function startGame(game: Game, profileIds: string[], firstTurn: Turn): Game {
-  if (game.status !== 'pending') {
+  if (game.status !== GameStatusConstants.pending) {
     throw new Error('Cannot start a game that is not in pending state');
   }
 
@@ -56,7 +56,7 @@ export function startGame(game: Game, profileIds: string[], firstTurn: Turn): Ga
 
   return GameSchema.parse({
     ...game,
-    status: 'active',
+    status: GameStatusConstants.active,
     remainingProfiles: profileIds,
     currentTurn: firstTurn,
   });
@@ -69,13 +69,13 @@ export function startGame(game: Game, profileIds: string[], firstTurn: Turn): Ga
  * @throws Error if game is not in active state
  */
 export function endGame(game: Game): Game {
-  if (game.status !== 'active') {
+  if (game.status !== GameStatusConstants.active) {
     throw new Error('Cannot end a game that is not active');
   }
 
   return GameSchema.parse({
     ...game,
-    status: 'completed',
+    status: GameStatusConstants.completed,
     currentTurn: null,
   });
 }
@@ -88,7 +88,7 @@ export function endGame(game: Game): Game {
  * @throws Error if game is not active
  */
 export function updateTurn(game: Game, turn: Turn | null): Game {
-  if (game.status !== 'active') {
+  if (game.status !== GameStatusConstants.active) {
     throw new Error('Cannot update turn for a game that is not active');
   }
 
@@ -160,33 +160,6 @@ export function getNextProfileId(game: Game): string | null {
  */
 export function findPlayer(game: Game, playerId: string): Player | undefined {
   return game.players.find((p) => p.id === playerId);
-}
-
-/**
- * Check if the game can be started
- * @param game - The game to check
- * @returns true if game is in pending state
- */
-export function canStart(game: Game): boolean {
-  return game.status === 'pending';
-}
-
-/**
- * Check if the game is active
- * @param game - The game to check
- * @returns true if game is in active state
- */
-export function isActive(game: Game): boolean {
-  return game.status === 'active';
-}
-
-/**
- * Check if the game is completed
- * @param game - The game to check
- * @returns true if game is in completed state
- */
-export function isCompleted(game: Game): boolean {
-  return game.status === 'completed';
 }
 
 /**

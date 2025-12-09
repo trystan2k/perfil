@@ -13,6 +13,10 @@ import {
   getRevealedClueIndices,
   getRevealedClues,
 } from '../domain/game/services/TurnManager';
+import {
+  type GameStatus,
+  GameStatus as GameStatusConstants,
+} from '../domain/game/value-objects/GameStatus';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
 import { type AppError, GameError, PersistenceError } from '../lib/errors';
 import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB';
@@ -28,8 +32,6 @@ import { IndexedDBGameSessionRepository } from '../repositories/GameSessionRepos
 import { getErrorService } from '../services/ErrorService';
 import { GamePersistenceService } from '../services/GamePersistenceService';
 import type { GameSession, Player, Profile } from '../types/models';
-
-type GameStatus = 'pending' | 'active' | 'completed';
 
 interface GameState extends GameSession {
   status: GameStatus;
@@ -84,7 +86,7 @@ const initialState: Omit<
   currentTurn: null,
   remainingProfiles: [],
   totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
-  status: 'pending',
+  status: GameStatusConstants.pending,
   category: undefined,
   profiles: [],
   selectedProfiles: [],
@@ -221,7 +223,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
   if (remainingSelectedProfiles.length === 0) {
     // No more profiles - all rounds completed, end the game
     return {
-      status: 'completed',
+      status: GameStatusConstants.completed,
       selectedProfiles: [],
       currentProfile: null,
       currentTurn: null,
@@ -279,7 +281,7 @@ export const useGameStore = create<GameState>()(
           currentTurn: null,
           remainingProfiles: [],
           totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
-          status: 'pending' as GameStatus,
+          status: GameStatusConstants.pending as GameStatus,
           category: undefined,
           profiles: [],
           selectedProfiles: [],
@@ -350,7 +352,7 @@ export const useGameStore = create<GameState>()(
           const firstTurn = createTurn(firstProfile.id);
 
           const newState = {
-            status: 'active' as GameStatus,
+            status: GameStatusConstants.active as GameStatus,
             category: firstProfile.category,
             selectedProfiles: profilesToPlay,
             currentProfile: firstProfile,
@@ -484,16 +486,16 @@ export const useGameStore = create<GameState>()(
       },
       endGame: async () => {
         set((state) => {
-          if (state.status === 'completed') {
+          if (state.status === GameStatusConstants.completed) {
             throw new Error('Game has already ended');
           }
 
-          if (state.status === 'pending') {
+          if (state.status === GameStatusConstants.pending) {
             throw new Error('Cannot end a game that has not started');
           }
 
           const newState = {
-            status: 'completed' as GameStatus,
+            status: GameStatusConstants.completed as GameStatus,
             currentTurn: null,
           };
 
@@ -516,7 +518,7 @@ export const useGameStore = create<GameState>()(
           const newState = {
             id: `game-${Date.now()}`,
             players: samePlayers ? resetPlayers : [],
-            status: 'pending' as GameStatus,
+            status: GameStatusConstants.pending as GameStatus,
             currentTurn: null,
             profiles: [],
             remainingProfiles: [],

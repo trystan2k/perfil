@@ -2,14 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '@/lib/constants';
 import {
   advanceProfileQueue,
-  canStart,
   createGame,
   endGame,
   findPlayer,
   getNextProfileId,
   hasRemainingProfiles,
-  isActive,
-  isCompleted,
   startGame,
   updatePlayer,
   updateTurn,
@@ -561,102 +558,6 @@ describe('Game Entity', () => {
     });
   });
 
-  describe('canStart', () => {
-    it('should return true for pending game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      const game = createGame(players);
-
-      expect(canStart(game)).toBe(true);
-    });
-
-    it('should return false for active game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      let game = createGame(players);
-      const profileIds = ['profile1'];
-      const turn = createTurn('profile1');
-
-      game = startGame(game, profileIds, turn);
-
-      expect(canStart(game)).toBe(false);
-    });
-
-    it('should return false for completed game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      let game = createGame(players);
-      const profileIds = ['profile1'];
-      const turn = createTurn('profile1');
-
-      game = startGame(game, profileIds, turn);
-      game = endGame(game);
-
-      expect(canStart(game)).toBe(false);
-    });
-  });
-
-  describe('isActive', () => {
-    it('should return true for active game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      let game = createGame(players);
-      const profileIds = ['profile1'];
-      const turn = createTurn('profile1');
-
-      game = startGame(game, profileIds, turn);
-
-      expect(isActive(game)).toBe(true);
-    });
-
-    it('should return false for pending game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      const game = createGame(players);
-
-      expect(isActive(game)).toBe(false);
-    });
-
-    it('should return false for completed game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      let game = createGame(players);
-      const profileIds = ['profile1'];
-      const turn = createTurn('profile1');
-
-      game = startGame(game, profileIds, turn);
-      game = endGame(game);
-
-      expect(isActive(game)).toBe(false);
-    });
-  });
-
-  describe('isCompleted', () => {
-    it('should return true for completed game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      let game = createGame(players);
-      const profileIds = ['profile1'];
-      const turn = createTurn('profile1');
-
-      game = startGame(game, profileIds, turn);
-      game = endGame(game);
-
-      expect(isCompleted(game)).toBe(true);
-    });
-
-    it('should return false for pending game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      const game = createGame(players);
-
-      expect(isCompleted(game)).toBe(false);
-    });
-
-    it('should return false for active game', () => {
-      const players = createPlayers(['Alice', 'Bob']);
-      let game = createGame(players);
-      const profileIds = ['profile1'];
-      const turn = createTurn('profile1');
-
-      game = startGame(game, profileIds, turn);
-
-      expect(isCompleted(game)).toBe(false);
-    });
-  });
-
   describe('validateGame', () => {
     it('should validate correct game', () => {
       const players = createPlayers(['Alice', 'Bob']);
@@ -775,19 +676,16 @@ describe('Game Entity', () => {
       let game = createGame(players);
 
       expect(game.status).toBe('pending');
-      expect(canStart(game)).toBe(true);
 
       const profileIds = ['profile1'];
       const turn = createTurn('profile1');
       game = startGame(game, profileIds, turn);
 
       expect(game.status).toBe('active');
-      expect(isActive(game)).toBe(true);
 
       game = endGame(game);
 
       expect(game.status).toBe('completed');
-      expect(isCompleted(game)).toBe(true);
     });
   });
 });
