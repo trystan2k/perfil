@@ -3211,12 +3211,69 @@
         "description": "ARCH-002: Reorganize large gameStore into domain layer with entities, services, and value objects to move business rules out of the store.",
         "details": "Create src/domain/game with entities (Game, Round, Turn, Player, Profile), services (ScoringService, TurnManager), value objects, and refactor store to be a thin orchestration layer delegating to domain services. Add documentation and unit tests for domain logic.",
         "testStrategy": "Extensive unit tests for domain services (ScoringService, TurnManager) and integration tests verifying store orchestration. Code review and ADR documenting domain model.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "46"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create domain layer and core entities",
+            "description": "Create src/domain/game and add entity classes and types for Game, Round, Turn, Player, and Profile. Implement constructors, validation/invariants, and (de)serialization helpers so entities can be persisted to the existing persistence layer. Keep entities encapsulated and free of store logic.",
+            "details": "",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 47,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T11:07:40.366Z"
+          },
+          {
+            "id": 2,
+            "title": "Implement domain services (ScoringService, TurnManager)",
+            "description": "Add ScoringService and TurnManager under src/domain/game/services. Move scoring and turn progression business rules from store into these services with clear method contracts and pure logic where possible. Design service APIs for store orchestration.",
+            "details": "",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 47,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T11:12:24.051Z"
+          },
+          {
+            "id": 3,
+            "title": "Create value objects and utility types",
+            "description": "Define value objects (e.g., Score, PlayerId, ProfileId, ClueIndex) and small immutable types in src/domain/game/value-objects. Provide parsing/validation and unit tests for them to ensure correctness.",
+            "details": "",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 47,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T11:13:51.554Z"
+          },
+          {
+            "id": 4,
+            "title": "Refactor store to orchestration layer",
+            "description": "Refactor the existing gameStore to delegate business logic to domain services and entities. Keep store as thin orchestration: map store actions to domain service calls, persist state via existing persistence interfaces, and maintain backwards-compatible public API.",
+            "details": "",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 47,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T11:20:19.819Z"
+          },
+          {
+            "id": 5,
+            "title": "Add tests and ADR for domain model",
+            "description": "Write unit tests for ScoringService, TurnManager, value objects, and simple integration tests for store orchestration. Create an ADR describing the domain model, decisions, and migration plan. Update task with test results and ADR path.",
+            "details": "",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 47,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T11:30:03.420Z"
+          }
+        ],
+        "updatedAt": "2025-12-09T11:30:03.420Z"
       },
       {
         "id": "48",
@@ -4481,9 +4538,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-08T18:08:06.919Z",
+      "lastModified": "2025-12-09T11:30:03.421Z",
       "taskCount": 92,
-      "completedCount": 56,
+      "completedCount": 57,
       "tags": [
         "master"
       ]

@@ -5,6 +5,7 @@ import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { GameStatus } from '@/domain/game/value-objects/GameStatus';
 import { useGamePlayLogic } from '@/hooks/useGamePlayLogic';
 import { GamePlayClueSection } from './GamePlay/GamePlayClueSection';
 import { GamePlayHeader } from './GamePlay/GamePlayHeader';
@@ -33,8 +34,8 @@ export function GamePlay({ sessionId }: GamePlayProps) {
     );
   }
 
-  // If status is 'completed' and id exists, show loading while navigating to scoreboard
-  if (logic.status === 'completed' && logic.id) {
+  // If status is completed and id exists, show loading while navigating to scoreboard
+  if (logic.status === GameStatus.completed && logic.id) {
     return (
       <div className="flex items-center justify-center min-h-main p-4">
         <Card className="w-full max-w-md">
