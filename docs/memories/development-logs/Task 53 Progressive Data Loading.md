@@ -56,6 +56,8 @@ Task #53 implemented progressive data loading and several related improvements t
 - `scripts/validate-performance.mjs` — Performance validation script used during QA.
 - `public/data/manifest.json` — Global manifest placed under public/data.
 - `e2e/tests/profile-randomness-and-limits.e2e.ts` — End-to-end tests verifying randomness and rounds limits.
+- `src/hooks/usePrefetchProfiles.ts` — Background prefetching hook.
+- `src/lib/prefetch-config.ts` — Configuration for popular categories per locale.
 
 ## Files Modified (high level)
 
@@ -63,6 +65,8 @@ Task #53 implemented progressive data loading and several related improvements t
 - 3 translation files: `locales/en/translation.json`, `locales/es/translation.json`, `locales/pt-BR/translation.json`.
 - 1 config file: `astro.config.mjs` (service worker caching rules updated).
 - 18 data files restructured into category-first layout under `public/data/{category}/{locale}/...`.
+- `src/hooks/useProfiles.ts` (enhanced for category loading).
+- `src/components/CategorySelect.tsx` (integrated prefetching).
 
 ## Implementation Details and Rationale
 
@@ -96,16 +100,24 @@ Benefits
 - Removed duplication across components and hooks that previously implemented manifest-like responsibilities (~186 lines removed).
 - Centralized caching logic and fallbacks.
 
+### Profile Loading & useProfiles Hook
+
+- Enhanced `useProfiles` hook to accept optional `category` parameter.
+- Supports multiple data files per category (merging), enabling chunked loading if needed.
+- Maintains backward compatibility by falling back to legacy `profiles.json` if new structure is unavailable.
+- Added 15 comprehensive tests specifically for category loading.
+
 ### Prefetching and service worker caching
 
 Prefetching
 - Prefetch config moved to `src/lib/prefetch-config.ts` with a list of popular categories to prefetch for each locale.
 - `usePrefetchProfiles` is a simple background prefetch hook that uses the manifest to build requests and warms the browser cache.
+- **Integration:** `CategorySelect` component utilizes this hook to prefetch popular categories.
 - `usePrefetchOnHover` was removed because it created complex lifecycle edge cases and offered little benefit given the category-first approach.
 
 Service worker
 - Updated `astro.config.mjs` to reflect new caching strategy:
-  - Category files: CacheFirst with 30-day TTL and a maxEntries value.
+  - Category files: CacheFirst with 30-day TTL and **50 max entries**.
   - Manifest: StaleWhileRevalidate to keep UI snappy while updating metadata.
   - Legacy `profiles.json` (if present) is served NetworkFirst to preserve backward compatibility until fully removed.
 
