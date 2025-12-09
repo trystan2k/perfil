@@ -15,6 +15,9 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     isHydrated,
     error,
     rankedPlayers,
+    isNewGamePending,
+    isSamePlayersPending,
+    isRestartGamePending,
     handleNewGame,
     handleSamePlayers,
     handleRestartGame,
@@ -121,6 +124,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
               <div className="space-y-3">
                 <Button
                   onClick={handleNewGame}
+                  disabled={isNewGamePending || isSamePlayersPending || isRestartGamePending}
                   variant="default"
                   className="w-full"
                   data-testid="scoreboard-new-game-button"
@@ -130,6 +134,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
                 </Button>
                 <Button
                   onClick={handleSamePlayers}
+                  disabled={isNewGamePending || isSamePlayersPending || isRestartGamePending}
                   variant="default"
                   className="w-full"
                   data-testid="scoreboard-same-players-button"
@@ -139,6 +144,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
                 </Button>
                 <Button
                   onClick={handleRestartGame}
+                  disabled={isNewGamePending || isSamePlayersPending || isRestartGamePending}
                   variant="default"
                   className="w-full"
                   data-testid="scoreboard-restart-game-button"

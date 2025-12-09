@@ -463,13 +463,15 @@ describe('useScoreboard', () => {
         result.current.handleNewGame();
       });
 
-      const state = useGameStore.getState();
-      expect(state.id).not.toBe('session-123');
-      expect(state.id).toContain('game-');
-      expect(state.players).toEqual([]);
-      expect(state.status).toBe('pending');
-      expect(state.category).toBeUndefined();
-      expect(navigateWithLocale).toHaveBeenCalledWith('/');
+      await waitFor(() => {
+        const state = useGameStore.getState();
+        expect(state.id).not.toBe('session-123');
+        expect(state.id).toContain('game-');
+        expect(state.players).toEqual([]);
+        expect(state.status).toBe('pending');
+        expect(state.category).toBeUndefined();
+        expect(navigateWithLocale).toHaveBeenCalledWith('/');
+      });
     });
   });
 
@@ -498,7 +500,7 @@ describe('useScoreboard', () => {
       const { navigateWithLocale } = await import('@/i18n/locales');
 
       await act(async () => {
-        await result.current.handleSamePlayers();
+        result.current.handleSamePlayers();
       });
 
       const state = useGameStore.getState();
@@ -579,7 +581,7 @@ describe('useScoreboard', () => {
       const { navigateWithLocale } = await import('@/i18n/locales');
 
       await act(async () => {
-        await result.current.handleRestartGame();
+        result.current.handleRestartGame();
       });
 
       const state = useGameStore.getState();
@@ -624,7 +626,7 @@ describe('useScoreboard', () => {
       });
 
       await act(async () => {
-        await result.current.handleRestartGame();
+        result.current.handleRestartGame();
       });
 
       const state = useGameStore.getState();
@@ -662,7 +664,7 @@ describe('useScoreboard', () => {
       });
 
       await act(async () => {
-        await result.current.handleRestartGame();
+        result.current.handleRestartGame();
       });
 
       const state = useGameStore.getState();
@@ -1033,6 +1035,292 @@ describe('useScoreboard', () => {
       const ranked = result.current.rankedPlayers;
       expect(ranked[0].rank).toBe(1);
       expect(ranked[1].rank).toBe(2);
+    });
+  });
+
+  describe('useActionState Pending State Behavior - Handler Actions', () => {
+    it('should return pending flags with correct initial values', async () => {
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // All pending flags should be false initially
+      expect(result.current.isNewGamePending).toBe(false);
+      expect(result.current.isSamePlayersPending).toBe(false);
+      expect(result.current.isRestartGamePending).toBe(false);
+    });
+
+    it('should handle action errors for new game', async () => {
+      const resetGameSpy = vi.fn(async () => {
+        throw new Error('Reset failed');
+      });
+
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+        resetGame: resetGameSpy,
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // Trigger new game action
+      act(() => {
+        result.current.handleNewGame();
+      });
+
+      // Wait for error handling and pending to resolve
+      await waitFor(() => {
+        expect(result.current.isNewGamePending).toBe(false);
+      });
+    });
+
+    it('should handle action errors for same players', async () => {
+      const resetGameSpy = vi.fn(async () => {
+        throw new Error('Reset failed');
+      });
+
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+        resetGame: resetGameSpy,
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // Trigger same players action
+      act(() => {
+        result.current.handleSamePlayers();
+      });
+
+      // Wait for error handling and pending to resolve
+      await waitFor(() => {
+        expect(result.current.isSamePlayersPending).toBe(false);
+      });
+    });
+
+    it('should handle action errors for restart game', async () => {
+      const createGameSpy = vi.fn(async () => {
+        throw new Error('Create failed');
+      });
+
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+        profiles: [createMockProfile('1'), createMockProfile('2')],
+        selectedCategories: ['Movies'],
+        numberOfRounds: 2,
+        createGame: createGameSpy,
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // Trigger restart game action
+      act(() => {
+        result.current.handleRestartGame();
+      });
+
+      // Wait for error handling and pending to resolve
+      await waitFor(() => {
+        expect(result.current.isRestartGamePending).toBe(false);
+      });
+    });
+
+    it('should execute new game handler successfully', async () => {
+      const resetGameSpy = vi.fn(async () => {
+        // Success
+      });
+
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+        resetGame: resetGameSpy,
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // Trigger new game action
+      act(() => {
+        result.current.handleNewGame();
+      });
+
+      // Wait for action to complete
+      await waitFor(() => {
+        expect(resetGameSpy).toHaveBeenCalled();
+      });
+    });
+
+    it('should execute same players handler successfully', async () => {
+      const resetGameSpy = vi.fn(async () => {
+        // Success
+      });
+
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+        resetGame: resetGameSpy,
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // Trigger same players action
+      act(() => {
+        result.current.handleSamePlayers();
+      });
+
+      // Wait for action to complete
+      await waitFor(() => {
+        expect(resetGameSpy).toHaveBeenCalled();
+      });
+    });
+
+    it('should execute restart game handler successfully', async () => {
+      const createGameSpy = vi.fn(async () => {
+        // Success
+      });
+
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+        profiles: [createMockProfile('1'), createMockProfile('2')],
+        selectedCategories: ['Movies'],
+        numberOfRounds: 2,
+        createGame: createGameSpy,
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // Trigger restart game action
+      act(() => {
+        result.current.handleRestartGame();
+      });
+
+      // Wait for action to complete
+      await waitFor(() => {
+        expect(createGameSpy).toHaveBeenCalled();
+      });
+    });
+
+    it('should return all three pending flags in interface', async () => {
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // All pending properties should be present
+      expect(result.current).toHaveProperty('isNewGamePending');
+      expect(result.current).toHaveProperty('isSamePlayersPending');
+      expect(result.current).toHaveProperty('isRestartGamePending');
+
+      // All should be boolean
+      expect(typeof result.current.isNewGamePending).toBe('boolean');
+      expect(typeof result.current.isSamePlayersPending).toBe('boolean');
+      expect(typeof result.current.isRestartGamePending).toBe('boolean');
+    });
+
+    it('should verify new game action is callable', async () => {
+      const resetGameSpy = vi.fn(async () => {
+        // Success - just complete quickly
+      });
+
+      useGameStore.setState({
+        loadFromStorage: vi.fn(async () => true),
+        id: 'session-123',
+        status: 'completed',
+        players: createMockPlayers(),
+        resetGame: resetGameSpy,
+      });
+
+      const { result } = renderHook(() => useScoreboard('session-123'), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      // Verify handlers are functions
+      expect(typeof result.current.handleNewGame).toBe('function');
+      expect(typeof result.current.handleSamePlayers).toBe('function');
+      expect(typeof result.current.handleRestartGame).toBe('function');
+
+      // Call the handler - it should not throw
+      act(() => {
+        result.current.handleNewGame();
+      });
+
+      // Wait a bit for async operations
+      await waitFor(() => {
+        expect(resetGameSpy).toHaveBeenCalled();
+      });
     });
   });
 });

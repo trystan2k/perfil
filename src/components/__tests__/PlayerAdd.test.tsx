@@ -570,6 +570,180 @@ describe('GameSetup', () => {
     });
   });
 
+  describe('useActionState Integration', () => {
+    it('should navigate to game setup after successful game creation', async () => {
+      const user = userEvent.setup();
+
+      mockCreateGame.mockResolvedValue(undefined);
+
+      customRender(<PlayersAdd />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+      const startButton = screen.getByRole('button', { name: /start game/i });
+
+      // Add 2 players
+      await user.type(input, 'Alice');
+      await user.click(addButton);
+
+      await user.type(input, 'Bob');
+      await user.click(addButton);
+
+      // Click start game
+      await user.click(startButton);
+
+      // Wait for navigation to game setup
+      await vi.waitFor(() => {
+        expect(mockLocation.href).toContain('/game-setup/');
+      });
+
+      // Verify createGame was called with the correct players
+      expect(mockCreateGame).toHaveBeenCalledWith(['Alice', 'Bob']);
+    });
+
+    it('should handle game creation errors gracefully', async () => {
+      const user = userEvent.setup();
+      const createError = new Error('Failed to create game');
+
+      mockCreateGame.mockRejectedValue(createError);
+
+      customRender(<PlayersAdd />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+      const startButton = screen.getByRole('button', { name: /start game/i });
+
+      // Add 2 players
+      await user.type(input, 'Alice');
+      await user.click(addButton);
+
+      await user.type(input, 'Bob');
+      await user.click(addButton);
+
+      // Click start game
+      await user.click(startButton);
+
+      // Wait for error handling
+      await vi.waitFor(() => {
+        // Should set global error on failure
+        expect(mockSetError).toHaveBeenCalledWith('playersAdd.errors.failedToCreateGame');
+      });
+
+      // Start button should be enabled for retry
+      expect(startButton).not.toBeDisabled();
+    });
+
+    it('should allow retrying game creation after failure', async () => {
+      const user = userEvent.setup();
+      let callCount = 0;
+
+      mockCreateGame.mockImplementation(() => {
+        callCount++;
+        if (callCount === 1) {
+          return Promise.reject(new Error('First attempt failed'));
+        }
+        return Promise.resolve();
+      });
+
+      customRender(<PlayersAdd />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+      const startButton = screen.getByRole('button', { name: /start game/i });
+
+      // Add 2 players
+      await user.type(input, 'Alice');
+      await user.click(addButton);
+
+      await user.type(input, 'Bob');
+      await user.click(addButton);
+
+      // First attempt - click start game
+      await user.click(startButton);
+
+      // Wait for error
+      await vi.waitFor(() => {
+        expect(mockSetError).toHaveBeenCalledWith('playersAdd.errors.failedToCreateGame');
+      });
+
+      // Button should be enabled for retry
+      expect(startButton).not.toBeDisabled();
+
+      // Second attempt - click start game again
+      await user.click(startButton);
+
+      // Wait for successful navigation
+      await vi.waitFor(() => {
+        expect(mockLocation.href).toContain('/game-setup/');
+      });
+
+      expect(mockCreateGame).toHaveBeenCalledTimes(2);
+    });
+
+    it('should preserve player list during game creation flow', async () => {
+      const user = userEvent.setup();
+
+      mockCreateGame.mockResolvedValue(undefined);
+
+      customRender(<PlayersAdd />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+      const startButton = screen.getByRole('button', { name: /start game/i });
+
+      // Add 3 players
+      await user.type(input, 'Alice');
+      await user.click(addButton);
+
+      await user.type(input, 'Bob');
+      await user.click(addButton);
+
+      await user.type(input, 'Charlie');
+      await user.click(addButton);
+
+      // Verify players are displayed
+      expect(screen.getByText('Alice')).toBeInTheDocument();
+      expect(screen.getByText('Bob')).toBeInTheDocument();
+      expect(screen.getByText('Charlie')).toBeInTheDocument();
+
+      // Click start game
+      await user.click(startButton);
+
+      // Wait for navigation
+      await vi.waitFor(() => {
+        expect(mockLocation.href).toContain('/game-setup/');
+      });
+    });
+
+    it('should pass all players to createGame action', async () => {
+      const user = userEvent.setup();
+      customRender(<PlayersAdd />);
+
+      const input = screen.getByLabelText('Player Name');
+      const addButton = screen.getByRole('button', { name: /add/i });
+      const startButton = screen.getByRole('button', { name: /start game/i });
+
+      // Add 4 players
+      await user.type(input, 'Player1');
+      await user.click(addButton);
+
+      await user.type(input, 'Player2');
+      await user.click(addButton);
+
+      await user.type(input, 'Player3');
+      await user.click(addButton);
+
+      await user.type(input, 'Player4');
+      await user.click(addButton);
+
+      // Click start game
+      await user.click(startButton);
+
+      // Verify createGame was called with correct player list
+      expect(mockCreateGame).toHaveBeenCalledWith(['Player1', 'Player2', 'Player3', 'Player4']);
+    });
+  });
+
   describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
     it('should have remove player button with size="icon" (48x48px touch target)', async () => {
       const user = userEvent.setup();

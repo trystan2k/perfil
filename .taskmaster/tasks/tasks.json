@@ -3452,12 +3452,106 @@
         "id": "55",
         "title": "Migrate to useActionState for Async Mutations",
         "description": "REACT-001: Replace manual async mutation patterns with React 19 useActionState to get built-in pending state and simplify forms.",
-        "details": "Update GameSetup, CategorySelect, Scoreboard forms to use useActionState. Remove manual loading flags and ensure optimistic or rollback handling is applied where appropriate.",
-        "testStrategy": "Unit tests for form actions verifying pending behavior, integration tests for flows like starting a game and creating sessions.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "details": "Update GameSetup, CategorySelect, Scoreboard forms to use useActionState. Remove manual loading flags and ensure optimistic or rollback handling is applied where appropriate.",
+        "testStrategy": "Unit tests for form actions verifying pending behavior, integration tests for flows like starting a game and creating sessions.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Analyze manual loading flags and mutation patterns in GameSetup, CategorySelect, Scoreboard",
+            "description": "Inspect GameSetup, CategorySelect, and Scoreboard components to identify manual loading flags, async mutation patterns, optimistic updates, and rollback code paths. Produce a short report listing files, flags, and places to change.",
+            "dependencies": [],
+            "details": "Note: Task 67 (Migrate to useOptimistic for Score Updates) is dependent on this task. Ensure analysis includes components that will need useOptimistic integration after useActionState migration.",
+            "status": "done",
+            "testStrategy": "Review code for loading states, error handling, and async patterns in target components. Document findings in a shared report.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T16:13:23.270Z"
+          },
+          {
+            "id": 2,
+            "title": "Migrate GameSetup to useActionState for async mutations",
+            "description": "Update GameSetup component to replace manual loading flags with useActionState for its async actions. Ensure pending UI behavior uses action state and implement optimistic updates or rollback where applicable.",
+            "dependencies": [
+              1
+            ],
+            "details": "Note: GameSetup interacts with the Zustand store (Task 3) for game session creation. Ensure useActionState properly integrates with the store's async actions.",
+            "status": "done",
+            "testStrategy": "Unit tests verifying pending state during game creation, error handling, and successful state transitions.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T16:21:55.098Z"
+          },
+          {
+            "id": 3,
+            "title": "Migrate CategorySelect to useActionState for async mutations",
+            "description": "Refactor CategorySelect to use useActionState for its async category loading and selection actions. Replace manual loading flags and ensure appropriate optimistic behavior and rollback handling.",
+            "dependencies": [
+              1
+            ],
+            "details": "Note: CategorySelect loads profile data (Task 2). Ensure useActionState properly handles the data loading from the profiles.json data layer.",
+            "status": "done",
+            "testStrategy": "Unit tests for category selection flow, verifying loading states and error handling during profile data retrieval.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T16:28:20.693Z"
+          },
+          {
+            "id": 4,
+            "title": "Migrate Scoreboard to useActionState for async mutations",
+            "description": "Refactor Scoreboard to use useActionState for score update and persistence actions. Remove manual loading flags, ensure optimistic UI updates, and implement rollback on error.",
+            "dependencies": [
+              1
+            ],
+            "details": "Note: Scoreboard will need coordination with Task 67 (useOptimistic implementation). First implement useActionState for async persistence, then integrate with useOptimistic for immediate UI updates.",
+            "status": "done",
+            "testStrategy": "Unit tests for score update actions, verifying pending state during persistence and proper error handling.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T17:49:23.316Z"
+          },
+          {
+            "id": 5,
+            "title": "Add and update unit tests for useActionState integration",
+            "description": "Write/modify unit tests for GameSetup, CategorySelect, and Scoreboard to assert useActionState pending flags, optimistic updates, and rollback behavior. Ensure tests are isolated and use Vitest.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Note: Align testing approach with the successful testing patterns from Task 2 (Static Data Layer) and Task 3 (Zustand Store).",
+            "status": "done",
+            "testStrategy": "Component-level unit tests using Vitest and React Testing Library to verify useActionState behavior in isolation.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T18:01:56.445Z"
+          },
+          {
+            "id": 6,
+            "title": "Add integration tests for end-to-end flows (start game, create session, scoring)",
+            "description": "Create or update integration/e2e tests to cover flows: starting a game (GameSetup), creating sessions (CategorySelect), and scoring updates (Scoreboard). Use Playwright/Vitest e2e tests to validate end-to-end behavior and pending states.",
+            "dependencies": [
+              5
+            ],
+            "details": "Note: Follow the testing patterns established in Task 92 (Astro i18n migration) for E2E test structure and validation.",
+            "status": "done",
+            "testStrategy": "Playwright tests validating complete user flows with proper pending state visualization and error recovery.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T18:05:45.820Z"
+          },
+          {
+            "id": 7,
+            "title": "Verify optimistic update and rollback logic with tests",
+            "description": "Create tests that simulate success and failure during optimistic updates across GameSetup/Scoreboard flows. Ensure rollback occurs and UI reflects correct state after failure.",
+            "dependencies": [
+              4,
+              5
+            ],
+            "details": "Note: Coordinate with Task 67 team to ensure testing covers both useActionState and useOptimistic integration points.",
+            "status": "done",
+            "testStrategy": "Tests that simulate network failures during async operations to verify proper rollback behavior and UI state recovery.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T18:08:06.918Z"
+          }
+        ],
+        "updatedAt": "2025-12-08T18:08:06.918Z"
       },
       {
         "id": "56",
@@ -4387,9 +4481,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-08T07:40:04.208Z",
+      "lastModified": "2025-12-08T18:08:06.919Z",
       "taskCount": 92,
-      "completedCount": 55,
+      "completedCount": 56,
       "tags": [
         "master"
       ]
