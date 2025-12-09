@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const PORT_NUMBER = Number(process.env.PORT_NUMBER) || 4321;
+
 export default defineConfig({
   testDir: './tests',
   testMatch: /.*\.e2e\.ts/,
@@ -11,13 +13,13 @@ export default defineConfig({
     : [['list']],
   use: {
     actionTimeout: 10000,
-    baseURL: process.env.BASE_URL || 'http://localhost:4321',
+    baseURL: process.env.BASE_URL || `http://localhost:${PORT_NUMBER}`,
     trace: 'on-first-retry',
     headless: true,
   },
   webServer: {
-    command: 'pnpm run dev',
-    port: 4321,
+    command: `PORT_NUMBER=${PORT_NUMBER} pnpm run dev`,
+    port: PORT_NUMBER,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },

@@ -9,6 +9,9 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
   site: 'https://perfil-dzz.pages.dev/',
   output: 'server',
+  server: {
+    port: Number(process.env.PORT_NUMBER) || 4321,
+  },
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
