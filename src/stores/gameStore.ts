@@ -1,5 +1,18 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
+import {
+  awardPoints as awardPlayerPoints,
+  removePoints as removePlayerPoints,
+} from '../domain/game/entities/Player';
+import { createTurn } from '../domain/game/entities/Turn';
+import { selectProfilesForGame } from '../domain/game/services/ProfileSelectionService';
+// Import domain services
+import { calculatePoints } from '../domain/game/services/ScoringService';
+import {
+  advanceToNextClue,
+  getRevealedClueIndices,
+  getRevealedClues,
+} from '../domain/game/services/TurnManager';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
 import { type AppError, GameError, PersistenceError } from '../lib/errors';
 import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB';
@@ -15,20 +28,6 @@ import { IndexedDBGameSessionRepository } from '../repositories/GameSessionRepos
 import { getErrorService } from '../services/ErrorService';
 import { GamePersistenceService } from '../services/GamePersistenceService';
 import type { GameSession, Player, Profile } from '../types/models';
-
-// Import domain services
-import { calculatePoints } from '../domain/game/services/ScoringService';
-import { selectProfilesForGame } from '../domain/game/services/ProfileSelectionService';
-import {
-  advanceToNextClue,
-  getRevealedClues,
-  getRevealedClueIndices,
-} from '../domain/game/services/TurnManager';
-import { createTurn } from '../domain/game/entities/Turn';
-import {
-  awardPoints as awardPlayerPoints,
-  removePoints as removePlayerPoints,
-} from '../domain/game/entities/Player';
 
 type GameStatus = 'pending' | 'active' | 'completed';
 
@@ -49,7 +48,6 @@ interface GameState extends GameSession {
   loadProfiles: (profiles: Profile[]) => void;
   startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
   nextClue: () => void;
-  addClueToHistory: (clue: string) => void;
   awardPoints: (playerId: string) => Promise<void>;
   removePoints: (playerId: string, amount: number) => Promise<void>;
   skipProfile: () => Promise<void>;
@@ -72,7 +70,6 @@ const initialState: Omit<
   | 'loadProfiles'
   | 'startGame'
   | 'nextClue'
-  | 'addClueToHistory'
   | 'awardPoints'
   | 'removePoints'
   | 'skipProfile'
@@ -392,18 +389,6 @@ export const useGameStore = create<GameState>()(
         });
       },
 
-      addClueToHistory: (clue: string) => {
-        set((state) => {
-          if (!clue) {
-            return state;
-          }
-
-          // Prepend clue to history
-          const newState = { revealedClueHistory: [clue, ...state.revealedClueHistory] };
-          persistState({ ...state, ...newState });
-          return newState;
-        });
-      },
       awardPoints: async (playerId: string) => {
         set((state) => {
           if (!state.currentTurn) {

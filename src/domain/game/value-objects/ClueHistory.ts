@@ -20,28 +20,6 @@ export function createEmptyHistory(): ClueHistory {
 }
 
 /**
- * Add a clue to the history (prepends to list)
- * @param history - Current clue history
- * @param clue - Clue text to add (null or empty is ignored)
- * @param index - Clue index
- * @returns Updated clue history
- */
-export function addClueToHistory(
-  history: ClueHistory,
-  clue: string | null,
-  index: number
-): ClueHistory {
-  if (!clue) {
-    return history;
-  }
-
-  return {
-    clues: [clue, ...history.clues],
-    indices: [index, ...history.indices],
-  };
-}
-
-/**
  * Clear the clue history
  * @returns Empty clue history
  */
