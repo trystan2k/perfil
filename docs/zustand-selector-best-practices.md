@@ -200,10 +200,10 @@ function GamePlay() {
 ```typescript
 {
   nextClue: () => void;
-  awardPoints: (playerId: string, points: number) => void;
-  removePoints: (playerId: string, amount: number) => void;
-  skipProfile: () => void;
-  endGame: () => void;
+  awardPoints: (playerId: string) => Promise<void>;
+  removePoints: (playerId: string, amount: number) => Promise<void>;
+  skipProfile: () => Promise<void>;
+  endGame: () => Promise<void>;
   loadFromStorage: (sessionId: string) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
   setError: (error: string) => void;
@@ -218,7 +218,7 @@ function GamePlay() {
   const { nextClue, awardPoints, skipProfile } = useGamePlayActions();
   
   const handlePlayerClick = (playerId: string) => {
-    awardPoints(playerId, calculatePoints());
+    awardPoints(playerId);
     nextClue();
   };
   
@@ -266,9 +266,9 @@ function Scoreboard() {
 {
   loadProfiles: (profiles: Profile[]) => void;
   loadFromStorage: (sessionId: string) => Promise<void>;
-  resetGame: () => void;
-  createGame: (config: GameConfig) => string;
-  startGame: () => void;
+  resetGame: (samePlayers?: boolean) => Promise<void>;
+  createGame: (playerNames: string[]) => Promise<void>;
+  startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
 }
 ```
 
