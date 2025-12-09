@@ -35,9 +35,6 @@ export default defineConfig({
   },
   integrations: [react(), tailwind()],
   vite: {
-    ssr: {
-      external: ['node:fs/promises', 'node:path'],
-    },
     plugins: [
       VitePWA({
         registerType: 'autoUpdate',
