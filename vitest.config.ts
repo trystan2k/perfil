@@ -28,6 +28,7 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'html', 'lcov'],
+      reportsDirectory: '../coverage',
       thresholds: {
         statements: 80,
         branches: 80,
