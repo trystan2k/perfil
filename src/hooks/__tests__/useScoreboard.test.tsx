@@ -463,13 +463,15 @@ describe('useScoreboard', () => {
         result.current.handleNewGame();
       });
 
-      const state = useGameStore.getState();
-      expect(state.id).not.toBe('session-123');
-      expect(state.id).toContain('game-');
-      expect(state.players).toEqual([]);
-      expect(state.status).toBe('pending');
-      expect(state.category).toBeUndefined();
-      expect(navigateWithLocale).toHaveBeenCalledWith('/');
+      await waitFor(() => {
+        const state = useGameStore.getState();
+        expect(state.id).not.toBe('session-123');
+        expect(state.id).toContain('game-');
+        expect(state.players).toEqual([]);
+        expect(state.status).toBe('pending');
+        expect(state.category).toBeUndefined();
+        expect(navigateWithLocale).toHaveBeenCalledWith('/');
+      });
     });
   });
 

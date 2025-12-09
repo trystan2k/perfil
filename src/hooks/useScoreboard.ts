@@ -66,7 +66,7 @@ export function useScoreboard(sessionId?: string): UseScoreboardReturn {
   const [_newGameState, newGameAction, isNewGamePending] = useActionState<ActionState, FormData>(
     async (_prevState: ActionState, _formData: FormData): Promise<ActionState> => {
       try {
-        resetGame();
+        await resetGame();
         navigateWithLocale('/');
         return { error: null };
       } catch (err) {
