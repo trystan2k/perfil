@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
 import { navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import type { Player } from '@/types/models';
@@ -8,20 +8,29 @@ export interface RankedPlayer extends Player {
   rank: number;
 }
 
+type ActionState = {
+  error: string | null;
+};
+
 export interface UseScoreboardReturn {
   // State
   isLoading: boolean;
   isHydrated: boolean;
   error: string | null;
 
+  // Pending states for actions
+  isNewGamePending: boolean;
+  isSamePlayersPending: boolean;
+  isRestartGamePending: boolean;
+
   // Data
   rankedPlayers: RankedPlayer[];
   category?: string;
 
   // Actions
-  handleNewGame: () => Promise<void>;
-  handleSamePlayers: () => Promise<void>;
-  handleRestartGame: () => Promise<void>;
+  handleNewGame: () => void;
+  handleSamePlayers: () => void;
+  handleRestartGame: () => void;
   handleRetry: () => Promise<void>;
 
   // Translation
@@ -52,6 +61,64 @@ export function useScoreboard(sessionId?: string): UseScoreboardReturn {
 
   // Track if we've already loaded this session to prevent reloading on state changes
   const loadedSessionRef = useRef<string | null>(null);
+
+  // useActionState for new game action
+  const [_newGameState, newGameAction, isNewGamePending] = useActionState<ActionState, FormData>(
+    async (_prevState: ActionState, _formData: FormData): Promise<ActionState> => {
+      try {
+        resetGame();
+        navigateWithLocale('/');
+        return { error: null };
+      } catch (err) {
+        console.error('Failed to start new game:', err);
+        return { error: 'scoreboard.error.newGameFailed' };
+      }
+    },
+    { error: null }
+  );
+
+  // useActionState for same players action
+  const [_samePlayersState, samePlayersAction, isSamePlayersPending] = useActionState<
+    ActionState,
+    FormData
+  >(
+    async (_prevState: ActionState, _formData: FormData): Promise<ActionState> => {
+      try {
+        const samePlayers = true;
+        await resetGame(samePlayers);
+        const newId = useGameStore.getState().id;
+        navigateWithLocale(`/game-setup/${newId}`);
+        return { error: null };
+      } catch (err) {
+        console.error('Failed to restart with same players:', err);
+        return { error: 'scoreboard.error.samePlayersFailed' };
+      }
+    },
+    { error: null }
+  );
+
+  // useActionState for restart game action
+  const [_restartGameState, restartGameAction, isRestartGamePending] = useActionState<
+    ActionState,
+    FormData
+  >(
+    async (_prevState: ActionState, _formData: FormData): Promise<ActionState> => {
+      try {
+        const resetPlayers: string[] = players.map((player) => player.name);
+        await createGame(resetPlayers);
+        loadProfiles(profiles);
+        startGame(selectedCategories, numberOfRounds);
+        await forcePersist();
+        const newSessionId = useGameStore.getState().id;
+        navigateWithLocale(`/game/${newSessionId}`);
+        return { error: null };
+      } catch (err) {
+        console.error('Failed to restart game:', err);
+        return { error: 'scoreboard.error.restartGameFailed' };
+      }
+    },
+    { error: null }
+  );
 
   // Hydration effect
   useEffect(() => {
@@ -122,35 +189,19 @@ export function useScoreboard(sessionId?: string): UseScoreboardReturn {
     });
   }, [players]);
 
-  // Handler: Start new fresh game - clears session and navigates to home
-  const handleNewGame = async () => {
-    // Reset Zustand store to initial state
-    resetGame();
-    // Navigate to home
-    navigateWithLocale('/');
+  // Handler: Start new fresh game - triggers action
+  const handleNewGame = () => {
+    newGameAction(new FormData());
   };
 
-  // Handler: Start game with same players - reset scores and navigate to category selection
-  const handleSamePlayers = async () => {
-    const samePlayers = true;
-    await resetGame(samePlayers);
-    const newId = useGameStore.getState().id;
-
-    // Navigate to category selection
-    navigateWithLocale(`/game-setup/${newId}`);
+  // Handler: Start game with same players - triggers action
+  const handleSamePlayers = () => {
+    samePlayersAction(new FormData());
   };
 
-  // Handler: Restart game - reset state with same participants, categories, and rounds
-  const handleRestartGame = async () => {
-    const resetPlayers: string[] = players.map((player) => player.name);
-    await createGame(resetPlayers);
-    loadProfiles(profiles);
-    startGame(selectedCategories, numberOfRounds);
-    await forcePersist();
-
-    const newSessionId = useGameStore.getState().id;
-    // Navigate to game
-    navigateWithLocale(`/game/${newSessionId}`);
+  // Handler: Restart game - triggers action
+  const handleRestartGame = () => {
+    restartGameAction(new FormData());
   };
 
   // Handler: Retry loading
@@ -183,6 +234,11 @@ export function useScoreboard(sessionId?: string): UseScoreboardReturn {
     isLoading,
     isHydrated,
     error,
+
+    // Pending states for actions
+    isNewGamePending,
+    isSamePlayersPending,
+    isRestartGamePending,
 
     // Data
     rankedPlayers,

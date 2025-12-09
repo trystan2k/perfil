@@ -1,4 +1,4 @@
-import { type ChangeEvent, useEffect, useState } from 'react';
+import { type ChangeEvent, useActionState, useEffect, useState } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,10 +13,13 @@ interface CategorySelectProps {
   sessionId: string;
 }
 
+type StartGameState = {
+  error: string | null;
+};
+
 export function CategorySelect({ sessionId }: CategorySelectProps) {
   const { t } = useTranslate();
   const { data: profilesData, isLoading, error } = useProfiles();
-  const [isStarting, setIsStarting] = useState(false);
   const [sessionLoading, setSessionLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [numberOfRounds, setNumberOfRounds] = useState<string>('5');
@@ -26,6 +29,29 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
   const setGlobalError = useGameStore((state) => state.setError);
+
+  // useActionState for game start with built-in pending state
+  const [_actionState, startGameAction, isPending] = useActionState<StartGameState, FormData>(
+    async (_prevState: StartGameState, _formData: FormData): Promise<StartGameState> => {
+      if (selectedCategories.size === 0) {
+        return { error: 'categorySelect.error.noCategories' };
+      }
+
+      try {
+        loadProfiles(profiles);
+        const numRounds = Number.parseInt(numberOfRounds, 10);
+        startGame(Array.from(selectedCategories), numRounds);
+        await forcePersist();
+        navigateWithLocale(`/game/${sessionId}`);
+        return { error: null };
+      } catch (error) {
+        console.error('Failed to start game:', error);
+        setGlobalError('categorySelect.error.description');
+        return { error: 'categorySelect.error.description' };
+      }
+    },
+    { error: null }
+  );
 
   // Get current locale for prefetch configuration
   // Use getCurrentLocale utility which is test-safe
@@ -134,22 +160,9 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     setShowRoundsScreen(false);
   };
 
-  const handleStartGame = async () => {
-    if (isStarting || selectedCategories.size === 0) return;
-
-    setIsStarting(true);
-
-    try {
-      loadProfiles(profiles);
-      const numRounds = Number.parseInt(numberOfRounds, 10);
-      startGame(Array.from(selectedCategories), numRounds);
-      await forcePersist();
-      navigateWithLocale(`/game/${sessionId}`);
-    } catch (error) {
-      console.error('Failed to start game:', error);
-      setGlobalError('categorySelect.error.description');
-      setIsStarting(false);
-    }
+  const handleStartGame = () => {
+    // Trigger the action by calling it with a FormData object
+    startGameAction(new FormData());
   };
 
   const handleRoundsChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -220,7 +233,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
               <div className="flex gap-2">
                 <Button
                   onClick={handleBackToCategories}
-                  disabled={isStarting}
+                  disabled={isPending}
                   className="flex-1"
                   variant="outline"
                   size="lg"
@@ -229,7 +242,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
                 </Button>
                 <Button
                   onClick={handleStartGame}
-                  disabled={isStarting || roundsInputError !== null || numberOfRounds === ''}
+                  disabled={isPending || roundsInputError !== null || numberOfRounds === ''}
                   className="flex-1"
                   size="lg"
                 >
@@ -259,7 +272,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
             <div className="flex gap-2">
               <Button
                 onClick={handleSelectAll}
-                disabled={isStarting || selectedCategories.size === categories.length}
+                disabled={isPending || selectedCategories.size === categories.length}
                 variant="outline"
                 size="sm"
                 className="flex-1"
@@ -268,7 +281,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
               </Button>
               <Button
                 onClick={handleDeselectAll}
-                disabled={isStarting || selectedCategories.size === 0}
+                disabled={isPending || selectedCategories.size === 0}
                 variant="outline"
                 size="sm"
                 className="flex-1"
@@ -290,7 +303,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
                       type="checkbox"
                       checked={selectedCategories.has(category)}
                       onChange={() => handleCategoryToggle(category)}
-                      disabled={isStarting}
+                      disabled={isPending}
                       className="w-5 h-5 rounded border-2 border-input cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
                     />
                     <span className="text-sm font-medium">{category}</span>
@@ -302,7 +315,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
             {/* Continue Button */}
             <Button
               onClick={handleContinueToRounds}
-              disabled={isStarting || selectedCategories.size === 0}
+              disabled={isPending || selectedCategories.size === 0}
               className="w-full"
               size="lg"
             >

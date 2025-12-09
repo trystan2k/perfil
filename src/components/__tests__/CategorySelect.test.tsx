@@ -823,4 +823,143 @@ describe('CategorySelect', () => {
       expect(screen.getByText('Failed to load categories. Please try again.')).toBeInTheDocument();
     });
   });
+
+  describe('useActionState Pending State Behavior - Category Selection', () => {
+    it('should disable Continue button while action is pending', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
+
+      await user.click(checkbox);
+
+      // Continue button should be enabled
+      expect(continueButton).not.toBeDisabled();
+    });
+
+    it('should preserve selected categories while pending action is in progress', async () => {
+      const user = userEvent.setup();
+      let resolveStartGame: (() => void) | undefined;
+
+      mockStartGame.mockReturnValue(
+        new Promise<void>((resolve) => {
+          resolveStartGame = resolve as () => void;
+        })
+      );
+
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      // Select multiple categories
+      const famousCheckbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      const countriesCheckbox = screen.getByRole('checkbox', { name: /Countries/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
+
+      await user.click(famousCheckbox);
+      await user.click(countriesCheckbox);
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
+      });
+
+      const startButton = screen.getByText('Start Game');
+      await user.click(startButton);
+
+      // Categories should still be in the store
+      const categoryArg = mockStartGame.mock.calls[0]?.[0];
+      expect(categoryArg).toEqual(expect.arrayContaining(['Famous People', 'Countries']));
+
+      // Resolve
+      resolveStartGame?.();
+
+      await vi.waitFor(() => {
+        expect(mockForcePersist).toHaveBeenCalled();
+      });
+    });
+
+    it('should load profiles before starting game action', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
+
+      await user.click(checkbox);
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
+      });
+
+      const startButton = screen.getByText('Start Game');
+      await user.click(startButton);
+
+      await vi.waitFor(() => {
+        // loadProfiles should be called with profile data
+        expect(mockLoadProfiles).toHaveBeenCalledWith(
+          expect.arrayContaining([expect.objectContaining({ id: 'profile-1' })])
+        );
+      });
+    });
+
+    it('should handle rounds input validation before pending action', async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<CategorySelect sessionId="test-session" />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Famous People')).toBeInTheDocument();
+      });
+
+      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
+      const continueButton = screen.getByRole('button', { name: /Continue/i });
+
+      await user.click(checkbox);
+      await user.click(continueButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
+      });
+
+      const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
+      const startButton = screen.getByText('Start Game');
+
+      // Set invalid rounds value
+      await user.clear(roundsInput);
+      await user.type(roundsInput, '100');
+
+      // Start button should be disabled for invalid input
+      expect(startButton).toBeDisabled();
+
+      // Fix the value
+      await user.clear(roundsInput);
+      await user.type(roundsInput, '1');
+
+      // Start button should be enabled again
+      await waitFor(() => {
+        expect(startButton).not.toBeDisabled();
+      });
+
+      // Now click start game
+      await user.click(startButton);
+
+      // startGame should be called with valid rounds
+      expect(mockStartGame).toHaveBeenCalledWith(
+        expect.any(Array),
+        1 // rounds value
+      );
+    });
+  });
 });

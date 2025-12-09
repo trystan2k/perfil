@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { type KeyboardEvent, useState } from 'react';
+import { type KeyboardEvent, useActionState, useState } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,12 +10,41 @@ import { MAX_PLAYERS } from '@/lib/constants';
 import { useGameStore } from '@/stores/gameStore';
 import { useTranslate } from './TranslateProvider';
 
+type StartGameState = {
+  error: string | null;
+};
+
 export function PlayersAdd() {
   const { t } = useTranslate();
   const [playerName, setPlayerName] = useState('');
   const [playerNames, setPlayerNames] = useState<string[]>([]);
   const createGame = useGameStore((state) => state.createGame);
   const setGlobalError = useGameStore((state) => state.setError);
+
+  // useActionState for game creation with built-in pending state
+  const [_actionState, startGameAction, isPending] = useActionState<StartGameState, FormData>(
+    async (_prevState: StartGameState, _formData: FormData): Promise<StartGameState> => {
+      try {
+        // Wait for game creation and persistence to complete
+        await createGame(playerNames);
+
+        // Access the game ID directly from the store after createGame completes
+        const newGameId = useGameStore.getState().id;
+
+        // Navigate to category selection screen
+        // Persistence is guaranteed to be complete since createGame awaits it
+        navigateWithLocale(`/game-setup/${newGameId}`);
+
+        return { error: null };
+      } catch (err) {
+        console.error('Failed to create game:', err);
+        // Use global error handler for critical failures
+        setGlobalError('playersAdd.errors.failedToCreateGame');
+        return { error: 'playersAdd.errors.failedToCreateGame' };
+      }
+    },
+    { error: null }
+  );
 
   const handleAddPlayer = () => {
     const trimmedName = playerName.trim();
@@ -44,22 +73,10 @@ export function PlayersAdd() {
     setPlayerNames(playerNames.filter((_, i) => i !== index));
   };
 
-  const handleStartGame = async () => {
-    try {
-      // Wait for game creation and persistence to complete
-      await createGame(playerNames);
-
-      // Access the game ID directly from the store after createGame completes
-      const newGameId = useGameStore.getState().id;
-
-      // Navigate to category selection screen
-      // Persistence is guaranteed to be complete since createGame awaits it
-      navigateWithLocale(`/game-setup/${newGameId}`);
-    } catch (err) {
-      console.error('Failed to create game:', err);
-      // Use global error handler for critical failures
-      setGlobalError('playersAdd.errors.failedToCreateGame');
-    }
+  const handleStartGame = () => {
+    // Trigger the action by calling it with a FormData object
+    // FormData is not used in this case, but required by useActionState signature
+    startGameAction(new FormData());
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -133,7 +150,7 @@ export function PlayersAdd() {
             {/* Start Game Button */}
             <Button
               onClick={handleStartGame}
-              disabled={playerNames.length < 2}
+              disabled={playerNames.length < 2 || isPending}
               className="w-full"
               size="lg"
             >
