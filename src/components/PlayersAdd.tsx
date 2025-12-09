@@ -23,10 +23,13 @@ export function PlayersAdd() {
 
   // useActionState for game creation with built-in pending state
   const [_actionState, startGameAction, isPending] = useActionState<StartGameState, FormData>(
-    async (_prevState: StartGameState, _formData: FormData): Promise<StartGameState> => {
+    async (_prevState: StartGameState, formData: FormData): Promise<StartGameState> => {
       try {
+        // Extract player names from FormData to avoid stale closure over state
+        const names = Array.from(formData.values()).map((v) => v.toString());
+
         // Wait for game creation and persistence to complete
-        await createGame(playerNames);
+        await createGame(names);
 
         // Access the game ID directly from the store after createGame completes
         const newGameId = useGameStore.getState().id;
@@ -74,9 +77,12 @@ export function PlayersAdd() {
   };
 
   const handleStartGame = () => {
-    // Trigger the action by calling it with a FormData object
-    // FormData is not used in this case, but required by useActionState signature
-    startGameAction(new FormData());
+    // Pass player names via FormData to avoid stale closure
+    const formData = new FormData();
+    for (let i = 0; i < playerNames.length; i++) {
+      formData.append(`player-${i}`, playerNames[i]);
+    }
+    startGameAction(formData);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

@@ -32,15 +32,20 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   // useActionState for game start with built-in pending state
   const [_actionState, startGameAction, isPending] = useActionState<StartGameState, FormData>(
-    async (_prevState: StartGameState, _formData: FormData): Promise<StartGameState> => {
-      if (selectedCategories.size === 0) {
+    async (_prevState: StartGameState, formData: FormData): Promise<StartGameState> => {
+      // Extract values from FormData to avoid stale closures
+      const categoriesStr = formData.get('categories') as string;
+      const categories = JSON.parse(categoriesStr) as string[];
+      const roundsStr = formData.get('rounds') as string;
+
+      if (categories.length === 0) {
         return { error: 'categorySelect.error.noCategories' };
       }
 
       try {
         loadProfiles(profiles);
-        const numRounds = Number.parseInt(numberOfRounds, 10);
-        startGame(Array.from(selectedCategories), numRounds);
+        const numRounds = Number.parseInt(roundsStr, 10);
+        startGame(categories, numRounds);
         await forcePersist();
         navigateWithLocale(`/game/${sessionId}`);
         return { error: null };
@@ -161,8 +166,11 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   };
 
   const handleStartGame = () => {
-    // Trigger the action by calling it with a FormData object
-    startGameAction(new FormData());
+    // Pass categories and rounds via FormData to avoid stale closure
+    const formData = new FormData();
+    formData.append('categories', JSON.stringify(Array.from(selectedCategories)));
+    formData.append('rounds', numberOfRounds);
+    startGameAction(formData);
   };
 
   const handleRoundsChange = (e: ChangeEvent<HTMLInputElement>) => {

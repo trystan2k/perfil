@@ -45,10 +45,7 @@ export function useScoreboard(sessionId?: string): UseScoreboardReturn {
   const status = useGameStore((state) => state.status);
   const players = useGameStore((state) => state.players);
   const category = useGameStore((state) => state.category);
-  const profiles = useGameStore((state) => state.profiles);
   const loadProfiles = useGameStore((state) => state.loadProfiles);
-  const numberOfRounds = useGameStore((state) => state.numberOfRounds);
-  const selectedCategories = useGameStore((state) => state.selectedCategories);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
   const resetGame = useGameStore((state) => state.resetGame);
   const createGame = useGameStore((state) => state.createGame);
@@ -104,10 +101,12 @@ export function useScoreboard(sessionId?: string): UseScoreboardReturn {
   >(
     async (_prevState: ActionState, _formData: FormData): Promise<ActionState> => {
       try {
-        const resetPlayers: string[] = players.map((player) => player.name);
+        // Access fresh state from store to avoid stale closure
+        const state = useGameStore.getState();
+        const resetPlayers: string[] = state.players.map((player) => player.name);
         await createGame(resetPlayers);
-        loadProfiles(profiles);
-        startGame(selectedCategories, numberOfRounds);
+        loadProfiles(state.profiles);
+        startGame(state.selectedCategories, state.numberOfRounds);
         await forcePersist();
         const newSessionId = useGameStore.getState().id;
         navigateWithLocale(`/game/${newSessionId}`);
