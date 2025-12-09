@@ -8,16 +8,12 @@
  */
 
 import { useShallow } from 'zustand/react/shallow';
-import { useGameStore } from '../../stores/gameStore';
-import type { Profile } from '../../types/models';
+import { type GameState, useGameStore } from '../../stores/gameStore';
 
-export type GameActions = {
-  loadProfiles: (profiles: Profile[]) => void;
-  loadFromStorage: (sessionId: string) => Promise<boolean>;
-  resetGame: (samePlayers?: boolean) => Promise<void>;
-  createGame: (playerNames: string[]) => Promise<void>;
-  startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
-};
+export type GameActions = Pick<
+  GameState,
+  'loadProfiles' | 'loadFromStorage' | 'resetGame' | 'createGame' | 'startGame'
+>;
 
 export const useGameActions = (): GameActions =>
   useGameStore(

@@ -10,20 +10,19 @@
  */
 
 import { useShallow } from 'zustand/react/shallow';
-import type { AppError } from '../../lib/errors';
-import { useGameStore } from '../../stores/gameStore';
-import type { Profile } from '../../types/models';
+import { type GameState, useGameStore } from '../../stores/gameStore';
 
-export type GamePlayActions = {
-  nextClue: () => void;
-  awardPoints: (profileId: string) => Promise<void>;
-  removePoints: (profileId: string, amount: number) => Promise<void>;
-  skipProfile: () => Promise<void>;
-  endGame: () => Promise<void>;
-  loadFromStorage: (sessionId: string) => Promise<boolean>;
-  loadProfiles: (profiles: Profile[]) => void;
-  setError: (error: AppError | string, informative?: boolean) => void;
-};
+export type GamePlayActions = Pick<
+  GameState,
+  | 'nextClue'
+  | 'awardPoints'
+  | 'removePoints'
+  | 'skipProfile'
+  | 'endGame'
+  | 'loadFromStorage'
+  | 'loadProfiles'
+  | 'setError'
+>;
 
 export const useGamePlayActions = (): GamePlayActions =>
   useGameStore(
