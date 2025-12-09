@@ -446,25 +446,25 @@ describe('Turn Entity', () => {
       expect(validateTurn(turn)).toBe(true);
     });
 
-    it('should throw for turn with negative clues read', () => {
+    it('should return false for turn with negative clues read', () => {
       const turn = createMockTurn({ cluesRead: -1 });
 
       expect(validateTurn(turn)).toBe(false);
     });
 
-    it('should throw for turn with clues exceeding maximum', () => {
+    it('should return false for turn with clues exceeding maximum', () => {
       const turn = createMockTurn({ cluesRead: DEFAULT_CLUES_PER_PROFILE + 1 });
 
       expect(validateTurn(turn)).toBe(false);
     });
 
-    it('should throw for turn with empty profile ID', () => {
+    it('should return false for turn with empty profile ID', () => {
       const turn = createMockTurn({ profileId: '' });
 
       expect(validateTurn(turn)).toBe(false);
     });
 
-    it('should throw for turn with missing fields', () => {
+    it('should return false for turn with missing fields', () => {
       const incompleteTurn = {
         profileId: 'profile-1',
       };

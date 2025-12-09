@@ -197,7 +197,7 @@ describe('Game Entity', () => {
       expect(endedGame.players).toEqual(game.players);
     });
 
-    it('should clear remaining profiles when ending', () => {
+    it('should preserve remaining profiles when ending', () => {
       const players = createPlayers(['Alice', 'Bob']);
       let game = createGame(players);
       const profileIds = ['profile1', 'profile2'];

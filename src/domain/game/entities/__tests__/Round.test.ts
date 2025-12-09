@@ -134,31 +134,31 @@ describe('Round Entity', () => {
       expect(validateRound(createMockRound({ roundNumber: 100 }))).toBe(true);
     });
 
-    it('should throw for round with zero number', () => {
+    it('should return false for round with zero number', () => {
       const round = createMockRound({ roundNumber: 0 });
 
       expect(validateRound(round)).toBe(false);
     });
 
-    it('should throw for round with negative number', () => {
+    it('should return false for round with negative number', () => {
       const round = createMockRound({ roundNumber: -1 });
 
       expect(validateRound(round)).toBe(false);
     });
 
-    it('should throw for round with empty profile ID', () => {
+    it('should return false for round with empty profile ID', () => {
       const round = createMockRound({ profileId: '' });
 
       expect(validateRound(round)).toBe(false);
     });
 
-    it('should throw for round with empty category', () => {
+    it('should return false for round with empty category', () => {
       const round = createMockRound({ category: '' });
 
       expect(validateRound(round)).toBe(false);
     });
 
-    it('should throw for missing required fields', () => {
+    it('should return false for missing required fields', () => {
       const incompleteRound = {
         roundNumber: 1,
         profileId: 'profile-1',
@@ -168,7 +168,7 @@ describe('Round Entity', () => {
       expect(validateRound(incompleteRound as any)).toBe(false);
     });
 
-    it('should throw for null values', () => {
+    it('should return false for null values', () => {
       // biome-ignore lint/suspicious/noExplicitAny: Testing validation with invalid types
       const round = createMockRound({ profileId: null as any });
 

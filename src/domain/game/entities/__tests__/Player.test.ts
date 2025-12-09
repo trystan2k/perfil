@@ -349,12 +349,8 @@ describe('Player Entity', () => {
       let player = createPlayer('Alice');
       player = awardPoints(player, 10);
 
-      try {
-        removePoints(player, 50);
-      } catch (error) {
-        expect(String(error)).toContain('Alice');
-        expect(String(error)).toContain('10');
-      }
+      expect(() => removePoints(player, 50)).toThrow(/Alice/);
+      expect(() => removePoints(player, 50)).toThrow(/10/);
     });
   });
 
