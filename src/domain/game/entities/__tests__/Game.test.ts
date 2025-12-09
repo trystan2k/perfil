@@ -50,7 +50,7 @@ describe('Game Entity', () => {
       const game1 = createGame(players);
 
       // Add a small delay to ensure different timestamps
-      await new Promise((resolve) => setTimeout(resolve, 1));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       const game2 = createGame(players);
       expect(game1.id).not.toBe(game2.id);
     });
@@ -650,7 +650,7 @@ describe('Game Entity', () => {
       const game1 = createGame(players1);
 
       // Add delay to ensure different timestamp
-      await new Promise((resolve) => setTimeout(resolve, 1));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       const game2 = createGame(players2);
       expect(game1).not.toBe(game2);
       expect(game1.id).not.toBe(game2.id);

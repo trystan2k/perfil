@@ -9,9 +9,30 @@
  */
 
 import { useShallow } from 'zustand/react/shallow';
+import type { GameStatus, Player, Profile } from '../../domain/game';
 import { useGameStore } from '../../stores/gameStore';
 
-export const useGamePlayState = () =>
+export interface GamePlayState {
+  // Core identifiers
+  id: string;
+  status: GameStatus;
+
+  // Game state
+  currentTurn: {
+    profileId: string;
+    cluesRead: number;
+    revealed: boolean;
+  } | null;
+  players: Player[];
+  currentProfile: Profile | null;
+  selectedProfiles: string[];
+  totalProfilesCount: number;
+  numberOfRounds: number;
+  currentRound: number;
+  revealedClueHistory: string[];
+}
+
+export const useGamePlayState = (): GamePlayState =>
   useGameStore(
     useShallow((state) => ({
       // Core identifiers

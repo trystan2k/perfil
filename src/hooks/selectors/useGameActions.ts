@@ -9,8 +9,17 @@
 
 import { useShallow } from 'zustand/react/shallow';
 import { useGameStore } from '../../stores/gameStore';
+import type { Profile } from '../../types/models';
 
-export const useGameActions = () =>
+export type GameActions = {
+  loadProfiles: (profiles: Profile[]) => void;
+  loadFromStorage: (sessionId: string) => Promise<boolean>;
+  resetGame: (samePlayers?: boolean) => Promise<void>;
+  createGame: (playerNames: string[]) => Promise<void>;
+  startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
+};
+
+export const useGameActions = (): GameActions =>
   useGameStore(
     useShallow((state) => ({
       loadProfiles: state.loadProfiles,

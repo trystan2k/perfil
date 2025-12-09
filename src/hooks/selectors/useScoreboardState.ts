@@ -9,9 +9,17 @@
  */
 
 import { useShallow } from 'zustand/react/shallow';
+import type { GameStatus, Player } from '../../domain/game';
 import { useGameStore } from '../../stores/gameStore';
 
-export const useScoreboardState = () =>
+export interface ScoreboardState {
+  id: string;
+  status: GameStatus;
+  players: Player[];
+  category: string | undefined;
+}
+
+export const useScoreboardState = (): ScoreboardState =>
   useGameStore(
     useShallow((state) => ({
       id: state.id,
