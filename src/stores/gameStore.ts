@@ -16,21 +16,21 @@ import { getErrorService } from '../services/ErrorService';
 import { GamePersistenceService } from '../services/GamePersistenceService';
 import type { GameSession, Player, Profile } from '../types/models';
 
-type GameStatus = 'pending' | 'active' | 'completed';
+// Import domain services
+import { calculatePoints } from '../domain/game/services/ScoringService';
+import { selectProfilesForGame } from '../domain/game/services/ProfileSelectionService';
+import {
+  advanceToNextClue,
+  getRevealedClues,
+  getRevealedClueIndices,
+} from '../domain/game/services/TurnManager';
+import { createTurn } from '../domain/game/entities/Turn';
+import {
+  awardPoints as awardPlayerPoints,
+  removePoints as removePlayerPoints,
+} from '../domain/game/entities/Player';
 
-/**
- * Add a clue to the history, keeping only the most recent entries.
- * @param clue - The clue to add (null or empty is ignored)
- * @param history - The current clue history
- * @param maxLength - Maximum number of clues to keep (default: 2)
- * @returns Updated history with clue prepended and truncated
- */
-function addToHistory(clue: string | null, history: string[]): string[] {
-  if (!clue) {
-    return history;
-  }
-  return [clue, ...history];
-}
+type GameStatus = 'pending' | 'active' | 'completed';
 
 interface GameState extends GameSession {
   status: GameStatus;
@@ -244,137 +244,17 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
   // Increment the current round counter
   const nextRound = state.currentRound + 1;
 
+  // Create new turn using domain entity
+  const nextTurn = createTurn(nextProfile.id);
+
   return {
     selectedProfiles: remainingSelectedProfiles,
     currentProfile: nextProfile,
     currentRound: nextRound,
-    currentTurn: {
-      profileId: nextProfile.id,
-      cluesRead: 0,
-      revealed: false,
-    },
+    currentTurn: nextTurn,
     revealedClueHistory: [],
     revealedClueIndices: [],
   };
-}
-
-/**
- * Generate a round plan that distributes categories across rounds
- * @param selectedCategories - Categories selected by user (single category or 'shuffle-all')
- * @param numberOfRounds - Number of rounds to play
- * @returns Array of category names, one per round
- */
-/**
- * Fisher-Yates shuffle algorithm for true randomization
- * @param array - Array to shuffle (will not modify original)
- * @returns New shuffled array
- */
-function fisherYatesShuffle<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
-/**
- * Select N random profiles from categories with even distribution
- * @param availableProfilesByCategory - Map of category to profile IDs
- * @param selectedCategories - Categories to select from
- * @param numberOfRounds - Total number of profiles to select
- * @returns Array of profile IDs, shuffled and ready to play
- * @throws Error if not enough unique profiles available
- */
-function selectAndShuffleProfiles(
-  availableProfilesByCategory: Map<string, string[]>,
-  selectedCategories: string[],
-  numberOfRounds: number
-): string[] {
-  // Calculate total available profiles (no duplicates)
-  const totalAvailable = Array.from(availableProfilesByCategory.values()).reduce(
-    (sum, profiles) => sum + profiles.length,
-    0
-  );
-
-  // Check if we have enough unique profiles
-  if (numberOfRounds > totalAvailable) {
-    throw new Error(
-      `Not enough profiles available. Selected categories have ${totalAvailable} unique profiles, but ${numberOfRounds} rounds were requested.`
-    );
-  }
-
-  const profilesToPlay: string[] = [];
-  const usedProfiles = new Set<string>(); // Track used profiles to avoid duplicates
-
-  // Calculate base profiles per category
-  const profilesPerCategory = Math.floor(numberOfRounds / selectedCategories.length);
-  const remainingSlots = numberOfRounds % selectedCategories.length;
-
-  // Shuffle categories to randomize which get the extra slots
-  const shuffledCategories = fisherYatesShuffle(selectedCategories);
-
-  // First pass: Try to take from each category fairly
-  const categoriesNeedingRedistribution: Array<{ category: string; needed: number }> = [];
-
-  for (let i = 0; i < shuffledCategories.length; i++) {
-    const category = shuffledCategories[i];
-    const categoryProfiles = availableProfilesByCategory.get(category) || [];
-
-    // Calculate how many to take from this category
-    const needed = profilesPerCategory + (i < remainingSlots ? 1 : 0);
-    const available = categoryProfiles.filter((id) => !usedProfiles.has(id)).length;
-
-    if (available < needed) {
-      // This category doesn't have enough profiles
-      // Take all available and mark for redistribution
-      const shuffledProfiles = fisherYatesShuffle(categoryProfiles);
-      for (const profileId of shuffledProfiles) {
-        if (!usedProfiles.has(profileId)) {
-          profilesToPlay.push(profileId);
-          usedProfiles.add(profileId);
-        }
-      }
-      categoriesNeedingRedistribution.push({ category, needed: needed - available });
-    } else {
-      // This category has enough - take what we need
-      const shuffledProfiles = fisherYatesShuffle(categoryProfiles);
-      let taken = 0;
-      for (const profileId of shuffledProfiles) {
-        if (!usedProfiles.has(profileId) && taken < needed) {
-          profilesToPlay.push(profileId);
-          usedProfiles.add(profileId);
-          taken++;
-        }
-      }
-    }
-  }
-
-  // Second pass: Redistribute from categories that have extra profiles
-  if (categoriesNeedingRedistribution.length > 0) {
-    const totalNeeded = categoriesNeedingRedistribution.reduce((sum, item) => sum + item.needed, 0);
-
-    // Collect all available profiles from other categories
-    const redistributionPool: string[] = [];
-    for (const category of shuffledCategories) {
-      const categoryProfiles = availableProfilesByCategory.get(category) || [];
-      for (const profileId of categoryProfiles) {
-        if (!usedProfiles.has(profileId)) {
-          redistributionPool.push(profileId);
-        }
-      }
-    }
-
-    // Shuffle and take from redistribution pool
-    const shuffledPool = fisherYatesShuffle(redistributionPool);
-    for (let i = 0; i < Math.min(totalNeeded, shuffledPool.length); i++) {
-      profilesToPlay.push(shuffledPool[i]);
-      usedProfiles.add(shuffledPool[i]);
-    }
-  }
-
-  // Final shuffle: randomize the order of all selected profiles
-  return fisherYatesShuffle(profilesToPlay);
 }
 
 export const useGameStore = create<GameState>()(
@@ -454,33 +334,10 @@ export const useGameStore = create<GameState>()(
             throw new Error('Cannot start game without selected categories');
           }
 
-          // Filter profiles by selected categories
-          const availableProfiles = state.profiles.filter((p) =>
-            selectedCategories.includes(p.category)
-          );
-
-          if (availableProfiles.length === 0) {
-            throw new Error('No profiles found for selected categories');
-          }
-
-          // Get only categories that have profiles available
-          const categoriesWithProfiles = Array.from(
-            new Set(availableProfiles.map((p) => p.category))
-          );
-
-          // Group available profiles by category
-          const availableProfilesByCategory = new Map<string, string[]>();
-          for (const profile of availableProfiles) {
-            if (!availableProfilesByCategory.has(profile.category)) {
-              availableProfilesByCategory.set(profile.category, []);
-            }
-            availableProfilesByCategory.get(profile.category)?.push(profile.id);
-          }
-
-          // Select and shuffle profiles for the game
-          const profilesToPlay = selectAndShuffleProfiles(
-            availableProfilesByCategory,
-            categoriesWithProfiles,
+          // Use domain service to select profiles
+          const profilesToPlay = selectProfilesForGame(
+            state.profiles,
+            selectedCategories,
             numberOfRounds
           );
 
@@ -492,6 +349,9 @@ export const useGameStore = create<GameState>()(
             throw new Error('Selected profile not found');
           }
 
+          // Create initial turn using domain entity
+          const firstTurn = createTurn(firstProfile.id);
+
           const newState = {
             status: 'active' as GameStatus,
             category: firstProfile.category,
@@ -501,11 +361,7 @@ export const useGameStore = create<GameState>()(
             numberOfRounds,
             currentRound: 1,
             selectedCategories,
-            currentTurn: {
-              profileId: firstProfile.id,
-              cluesRead: 0,
-              revealed: false,
-            },
+            currentTurn: firstTurn,
           };
 
           persistState({ ...state, ...newState });
@@ -514,34 +370,21 @@ export const useGameStore = create<GameState>()(
       },
       nextClue: () => {
         set((state) => {
-          if (!state.currentTurn) {
-            throw new Error('Cannot advance clue without an active turn');
+          if (!state.currentTurn || !state.currentProfile) {
+            throw new Error('Cannot advance clue without an active turn and profile');
           }
 
-          if (state.currentTurn.cluesRead >= state.totalCluesPerProfile) {
-            throw new Error('Maximum clues reached');
-          }
+          // Use domain service to advance to next clue
+          const { turn: updatedTurn } = advanceToNextClue(state.currentTurn, state.currentProfile);
 
-          const currentlyVisibleClueIndex =
-            state.currentTurn.cluesRead > 0 ? state.currentTurn.cluesRead - 1 : -1;
-          const currentClueText =
-            currentlyVisibleClueIndex >= 0
-              ? state.currentProfile?.clues[currentlyVisibleClueIndex] || null
-              : null;
+          // Get updated clue history using domain service
+          const revealedClueHistory = getRevealedClues(updatedTurn, state.currentProfile);
+          const revealedClueIndices = getRevealedClueIndices(updatedTurn);
 
-          // Update state with incremented clue counter
           const newState = {
-            currentTurn: {
-              ...state.currentTurn,
-              cluesRead: state.currentTurn.cluesRead + 1,
-            },
-            // Add the current clue to history using the helper function
-            revealedClueHistory: addToHistory(currentClueText, state.revealedClueHistory),
-            // Track the clue index for language switching
-            revealedClueIndices:
-              currentlyVisibleClueIndex >= 0
-                ? [currentlyVisibleClueIndex, ...state.revealedClueIndices]
-                : state.revealedClueIndices,
+            currentTurn: updatedTurn,
+            revealedClueHistory,
+            revealedClueIndices,
           };
 
           persistState({ ...state, ...newState });
@@ -555,7 +398,8 @@ export const useGameStore = create<GameState>()(
             return state;
           }
 
-          const newState = { revealedClueHistory: addToHistory(clue, state.revealedClueHistory) };
+          // Prepend clue to history
+          const newState = { revealedClueHistory: [clue, ...state.revealedClueHistory] };
           persistState({ ...state, ...newState });
           return newState;
         });
@@ -577,15 +421,16 @@ export const useGameStore = create<GameState>()(
             throw new Error('Player not found');
           }
 
-          // Calculate points based on formula: points = TOTAL_CLUES - (cluesRead - 1)
-          const points = state.totalCluesPerProfile - (state.currentTurn.cluesRead - 1);
+          // Use domain service to calculate points
+          const points = calculatePoints(state.currentTurn.cluesRead, state.totalCluesPerProfile);
 
-          // Update player score
+          // Use domain entity to award points
+          const player = state.players[playerIndex];
+          const updatedPlayer = awardPlayerPoints(player, points);
+
+          // Update player in array
           const updatedPlayers = [...state.players];
-          updatedPlayers[playerIndex] = {
-            ...updatedPlayers[playerIndex],
-            score: updatedPlayers[playerIndex].score + points,
-          };
+          updatedPlayers[playerIndex] = updatedPlayer;
 
           // Advance to next profile
           const profileAdvancement = advanceToNextProfile(state);
@@ -624,19 +469,12 @@ export const useGameStore = create<GameState>()(
 
           const player = state.players[playerIndex];
 
-          if (player.score < amount) {
-            throw new Error(
-              `Cannot remove ${amount} points from ${player.name}. ` +
-                `Current score: ${player.score}`
-            );
-          }
+          // Use domain entity to remove points (will validate and throw if insufficient)
+          const updatedPlayer = removePlayerPoints(player, amount);
 
-          // Update player score by removing points
+          // Update player in array
           const updatedPlayers = [...state.players];
-          updatedPlayers[playerIndex] = {
-            ...updatedPlayers[playerIndex],
-            score: player.score - amount,
-          };
+          updatedPlayers[playerIndex] = updatedPlayer;
 
           const newState = {
             players: updatedPlayers,

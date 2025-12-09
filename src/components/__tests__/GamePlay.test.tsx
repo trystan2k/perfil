@@ -172,8 +172,8 @@ describe('GamePlay Component', () => {
       customRender(<GamePlay />);
 
       expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
-      // Check that the clue text exists (may appear in multiple places now)
-      expect(screen.queryByText('Clue 1 text...')).toBeInTheDocument();
+      // Check that the clue text exists (may appear in multiple places: current clue + history)
+      expect(screen.getAllByText('Clue 1 text...').length).toBeGreaterThan(0);
     });
 
     it('should update clue number and text when advancing to next clue', () => {
@@ -185,8 +185,8 @@ describe('GamePlay Component', () => {
       const { rerender } = customRender(<GamePlay />);
 
       expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
-      // Check that the clue text exists (may appear in multiple places now)
-      expect(screen.queryByText('Clue 1 text...')).toBeInTheDocument();
+      // Check that the clue text exists (may appear in multiple places: current clue + history)
+      expect(screen.getAllByText('Clue 1 text...').length).toBeGreaterThan(0);
 
       // Advance to second clue
       act(() => {
@@ -196,8 +196,8 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       expect(screen.getByText(`Clue 2 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
-      // Check that the clue text exists (may appear in multiple places now)
-      expect(screen.queryByText('Clue 2 text...')).toBeInTheDocument();
+      // Check that the clue text exists (may appear in multiple places: current clue + history)
+      expect(screen.getAllByText('Clue 2 text...').length).toBeGreaterThan(0);
     });
 
     it('should display correct clue progress (e.g., 5 of 20)', () => {
