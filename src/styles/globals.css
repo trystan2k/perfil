@@ -67,7 +67,7 @@
     --secondary-foreground: 0 0% 95%;
 
     --muted: 0 0% 16%;                /* Slightly muted dark grey */
-    --muted-foreground: 0 0% 60%;     /* Muted text */
+    --muted-foreground: 0 0% 65%;     /* Increased from 60% for better contrast (6.47:1 → 7.57:1) */
 
     --accent: 0 0% 20%;               /* Accent backgrounds */
     --accent-foreground: 0 0% 95%;
@@ -75,8 +75,8 @@
     --destructive: 0 72% 51%;         /* Red for destructive actions */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 22%;               /* Subtle borders */
-    --input: 0 0% 16%;                /* Input backgrounds */
+    --border: 0 0% 38%;               /* Increased from 22% to 38% for WCAG AA 3:1 border contrast */
+    --input: 0 0% 20%;                /* Increased from 16% to 20% for better input visibility */
     --ring: 45 85% 52%;               /* Yellow focus ring */
 
     --chart-1: 45 85% 52%;
