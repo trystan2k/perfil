@@ -103,15 +103,6 @@ Document any manual testing completed:
 - Theme colors apply: ✓ / ✗ (notes: )
 - Installer UI: ✓ / ✗ (notes: )
 
-## Automated Contrast Verification
-
-See `src/lib/contrast.ts` for WCAG AA compliance checking utilities.
-
-Run tests to verify all color combinations:
-```bash
-pnpm test src/lib/__tests__/contrast.test.ts
-```
-
 ## Color Values Reference
 
 ### Light Mode
