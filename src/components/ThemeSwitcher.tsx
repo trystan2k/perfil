@@ -1,4 +1,5 @@
 import { Monitor, Moon, Sun } from 'lucide-react';
+import { useEffect } from 'react';
 import { THEMES, useTheme } from '@/hooks/useTheme';
 import type { SupportedLocale } from '../i18n/locales';
 import type { TranslationValue } from '../i18n/utils';
@@ -31,6 +32,26 @@ function ThemeSwitcherRaw() {
   const handleThemeChange = (theme: ThemeCode) => {
     setTheme(theme);
   };
+
+  // Listen for system theme changes when using system theme
+  useEffect(() => {
+    const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const systemThemeChangeHandler = () => {
+      // Only update if current theme is system
+      if (currentTheme === THEMES.system) {
+        // Trigger theme update to re-evaluate system preference
+        setTheme(THEMES.system);
+      }
+    };
+
+    systemThemeQuery.addEventListener('change', systemThemeChangeHandler);
+
+    // Cleanup on unmount
+    return () => {
+      systemThemeQuery.removeEventListener('change', systemThemeChangeHandler);
+    };
+  }, [currentTheme, setTheme]);
 
   return (
     <nav aria-label={t('themeSwitcher.ariaLabel')} className="theme-switcher">
