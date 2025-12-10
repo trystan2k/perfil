@@ -69,6 +69,7 @@
     "@radix-ui/react-progress": "~1.1.8",
     "@radix-ui/react-slot": "~1.2.4",
     "@tanstack/react-query": "~5.90.7",
+    "@vite-pwa/astro": "~1.2.0",
     "astro": "~5.15.9",
     "class-variance-authority": "~0.7.1",
     "clsx": "~2.1.1",
@@ -101,7 +102,6 @@
     "lint-staged": "~16.2.6",
     "playwright": "~1.56.1",
     "typescript": "~5.9.3",
-    "vite-plugin-pwa": "~1.1.0",
     "vitest": "~4.0.8",
     "workbox-window": "~7.3.0",
     "wrangler": "~4.46.0"

@@ -4698,28 +4698,117 @@
         "subtasks": []
       },
       {
-        "id": 94,
+        "id": "94",
         "title": "Migrate from vite-plugin-pwa to @vite-pwa/astro",
         "description": "Replace the current vite-plugin-pwa implementation with the official Astro PWA integration (@vite-pwa/astro). This involves configuration changes only with no breaking changes to components or functionality.",
-        "details": "1. Install @vite-pwa/astro package via npm/yarn\n2. Remove vite-plugin-pwa dependency from package.json and node_modules\n3. Update astro.config.mjs to import and configure the @vite-pwa/astro integration instead of vite-plugin-pwa\n4. Verify all PWA configurations (service worker, caching strategies, update prompts) are preserved in the new integration\n5. Ensure PwaUpdater component remains functional without changes\n6. Follow official @vite-pwa/astro documentation for Astro-specific PWA best practices\n7. Validate configuration matches current production behavior exactly",
-        "testStrategy": "1. Run complete-check to verify build succeeds without errors\n2. Test PWA update prompt functionality in development and production builds\n3. Verify offline support works via simulated offline mode testing\n4. Confirm service worker registration and scope using browser dev tools\n5. Validate caching strategies match pre-migration behavior\n6. Run full test suite to ensure no regressions\n7. Deploy to Cloudflare Pages staging environment and verify PWA features in production environment",
-        "status": "pending",
+        "details": "Successfully completed migration steps 1-3:\n- Installed @vite-pwa/astro@1.2.0 (package.json and pnpm-lock.yaml updated)\n- Removed vite-plugin-pwa dependency (no remaining imports/usages)\n- Updated astro.config.mjs: replaced VitePWA import with AstroPWA, moved configuration to integrations array, preserved all PWA options (manifest, workbox, caching strategies)\n- Files modified: astro.config.mjs, package.json, pnpm-lock.yaml\n- QA Results: Typecheck PASSED, Lint PASSED, Build PASSED, Service Worker generated (dist/sw.js), Manifest generated (dist/manifest.webmanifest), Precaching: 55 entries (2033.07 KiB)\n\nRemaining work requires manual browser testing and staging deployment validation for subtasks 4-7.",
+        "testStrategy": "1. Confirm subtasks 1-3 passed (package installation, dependency removal, configuration update)\n2. Test PWA update prompt functionality in development and production builds\n3. Verify offline support works via simulated offline mode testing\n4. Confirm service worker registration and scope using browser dev tools\n5. Validate caching strategies match pre-migration behavior\n6. Run full test suite to ensure no regressions\n7. Deploy to Cloudflare Pages staging environment and verify PWA features in production environment",
+        "status": "in-progress",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install @vite-pwa/astro package",
+            "description": "Add the @vite-pwa/astro package to the project dependencies using npm or yarn.",
+            "dependencies": [],
+            "details": "Use pnpm install or yarn add to include @vite-pwa/astro. Verify package is in node_modules and package.json. Run pnpm install and pnpm build to ensure no errors occur during installation or build process.",
+            "status": "done",
+            "testStrategy": "Run pnpm install followed by pnpm build to confirm success without errors. Verify presence in package.json and node_modules.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Remove vite-plugin-pwa dependency",
+            "description": "Remove the vite-plugin-pwa dependency from package.json and node_modules.",
+            "dependencies": [
+              1
+            ],
+            "details": "Uninstall vite-plugin-pwa using pnpm remove or yarn remove. Remove any references to vite-plugin-pwa from astro.config.mjs. Run pnpm install and build to confirm the removal does not break existing functionality.",
+            "status": "done",
+            "testStrategy": "Check package.json for removal of vite-plugin-pwa. Verify build succeeds after removal. Ensure no import/require statements for vite-plugin-pwa remain in code.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Update astro.config.mjs configuration",
+            "description": "Configure astro.config.mjs to use @vite-pwa/astro integration and port existing PWA settings.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Import the @vite-pwa/astro integration and map existing service worker, caching, and update prompt configurations from previous vite-plugin-pwa setup. Ensure all options are correctly translated to the new integration's API.",
+            "status": "done",
+            "testStrategy": "Review astro.config.mjs for correct integration import and configuration mapping. Run build to detect configuration errors.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Verify PWA configurations",
+            "description": "Confirm that service worker registration, caching strategies, and update prompts function as before.",
+            "dependencies": [
+              3
+            ],
+            "details": "Check that the service worker is registered correctly, caching strategies match previous behavior, and update prompts display appropriately in both development and production builds.",
+            "status": "pending",
+            "testStrategy": "Use browser dev tools to inspect service worker registration, test offline functionality, and verify caching behavior matches previous implementation.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Validate PwaUpdater component functionality",
+            "description": "Ensure the PwaUpdater component works with the new integration without changes.",
+            "dependencies": [
+              4
+            ],
+            "details": "Test that the PwaUpdater component correctly displays update prompts and handles user actions (e.g., update confirmation) as before, using the new underlying integration.",
+            "status": "pending",
+            "testStrategy": "Trigger update scenarios in development and verify PwaUpdater UI behaves correctly. Check console logs for proper messaging between component and service worker.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 6,
+            "title": "Align configuration with Astro PWA best practices",
+            "description": "Review and adjust configurations to follow @vite-pwa/astro documentation and Astro best practices.",
+            "dependencies": [
+              3
+            ],
+            "details": "Compare current settings against official @vite-pwa/astro guides and Astro documentation. Apply recommendations for Astro-specific PWA optimizations and security practices.",
+            "status": "pending",
+            "testStrategy": "Cross-reference configuration with current documentation. Validate no deprecated options are used and all practices are up-to-date.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 7,
+            "title": "Validate production behavior in staging",
+            "description": "Deploy the updated configuration to a staging environment and verify PWA behavior matches production.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "details": "Deploy to staging environment and execute end-to-end validation of PWA functionality including service worker scope, caching strategies, offline support, and update prompts under production-like conditions.",
+            "status": "pending",
+            "testStrategy": "Perform staging deployment and run comprehensive E2E tests. Validate service worker behavior, caching, and user experience matches current production behavior exactly.",
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-12-10T00:38:59.412Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-09T19:40:29.885Z",
-      "taskCount": 92,
+      "lastModified": "2025-12-10T00:38:59.413Z",
+      "taskCount": 94,
       "completedCount": 58,
       "tags": [
         "master"
       ],
-      "created": "2025-12-09T23:40:08.650Z",
-      "description": "Tasks for master context",
-      "updated": "2025-12-10T00:04:34.565Z"
+      "created": "2025-12-10T01:16:02.950Z",
+      "description": "Tasks for master context"
     }
   },
   "refactor": {
