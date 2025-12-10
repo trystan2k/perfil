@@ -3899,13 +3899,172 @@
         "description": "Consolidated header optimization: reduce mobile header height from 87px to 56-64px, move settings into a sheet or dropdown, support auto-hide on scroll.",
         "details": "Implement CompactHeader or AdaptiveHeader component, ensure settings accessible within 2 taps, keep touch targets >=48px, support safe area insets. Add desktop variants to keep inline controls.",
         "testStrategy": "Responsive checks, manual mobile testing, accessibility verification for focus and keyboard navigation, e2e checks for header interactions.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           "39",
           "40"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and architecture planning for Compact Header",
+            "description": "Create design specifications and architecture plan for the CompactHeader component, including mobile and desktop variants.",
+            "dependencies": [],
+            "details": "Define component structure, props, and state management. Acceptance criteria: design document approved, architecture aligns with project standards. Effort: medium. Owner: Front-end Lead.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement CompactHeader component with mobile and desktop variants",
+            "description": "Develop the CompactHeader component to reduce mobile header height from 87px to 56-64px and add desktop variants.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create React component with responsive variants, ensure touch targets >=48px. Acceptance criteria: header height reduced on mobile, desktop controls remain inline. Effort: large. Owner: Senior Developer.",
+            "status": "pending",
+            "testStrategy": "Responsive design checks across devices, manual verification of touch targets",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement settings sheet/drawer for mobile",
+            "description": "Create a settings sheet or dropdown accessible within 2 taps in the mobile header.",
+            "dependencies": [
+              2
+            ],
+            "details": "Develop settings interface using modal sheet or dropdown, ensure accessibility and performance. Acceptance criteria: settings accessible within 2 taps, proper focus management. Effort: medium. Owner: Mobile UI Developer.",
+            "status": "pending",
+            "testStrategy": "Manual testing of settings access flow, keyboard navigation verification",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Implement auto-hide on scroll and safe-area inset support",
+            "description": "Add auto-hide functionality on scroll and ensure proper safe-area inset handling for Notches and edges.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement scroll detection for header hiding, apply safe-area insets using React Native or CSS env variables. Acceptance criteria: header auto-hides on scroll, insets correctly applied. Effort: medium. Owner: UI Engineer.",
+            "status": "pending",
+            "testStrategy": "Scroll interaction testing, device-specific safe-area validation",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Conduct accessibility testing, unit/e2e tests, and mobile QA verification",
+            "description": "Perform comprehensive accessibility testing, write unit and e2e tests, and execute mobile QA verification.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Test focus order, keyboard navigation, touch targets. Write Jest tests for component logic and Playwright e2e tests. Effort: large. Owner: QA Lead.",
+            "status": "pending",
+            "testStrategy": "Accessibility audit tools, React Profiler for render checks, CI pipeline integration for test runs",
+            "parentId": "undefined"
+          },
+          {
+            "id": 6,
+            "title": "Component design & architecture planning",
+            "description": "Design CompactHeader component architecture with mobile and desktop variants, define props and state management strategy",
+            "dependencies": [],
+            "details": "Acceptance: Component structure documented with props interface. Effort: medium. Owner: @frontend-dev. Create design docs covering responsive behavior, props interface, and state management approach.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 7,
+            "title": "Implement CompactHeader component with mobile and desktop variants",
+            "description": "Create CompactHeader component reducing mobile height from 87px to 56-64px, implement desktop variant maintaining inline controls",
+            "dependencies": [
+              6
+            ],
+            "details": "Acceptance: Mobile height between 56-64px, desktop retains original controls. Effort: large. Owner: @frontend-dev. Use CSS variables for height adjustments, implement responsive conditional rendering.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 8,
+            "title": "Implement settings sheet/drawer for mobile",
+            "description": "Create settings accessibility pattern using sheet or dropdown with <=2 tap access, ensure touch targets >=48px",
+            "dependencies": [
+              7
+            ],
+            "details": "Acceptance: Settings accessible in 2 taps, touch targets meet size requirements. Effort: medium. Owner: @frontend-dev. Implement using native sheet component or custom drawer with proper focus management.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 9,
+            "title": "Implement auto-hide on scroll",
+            "description": "Add scroll-based header hiding functionality that collapses header smoothly on vertical scroll",
+            "dependencies": [
+              7
+            ],
+            "details": "Acceptance: Header auto-hides on scroll with smooth animation. Effort: medium. Owner: @frontend-dev. Use intersection observer or scroll event listeners with debouncing, implement throttle for performance.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 10,
+            "title": "Support safe-area insets",
+            "description": "Ensure proper handling of iOS/Android safe area insets across all header variants",
+            "dependencies": [
+              7
+            ],
+            "details": "Acceptance: Header adapts to device safe areas on all platforms. Effort: small. Owner: @frontend-dev. Use CSS env-safe area variables, test on iOS and Android simulators with notch/inset variations.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 11,
+            "title": "Accessibility testing (focus management, keyboard, touch targets)",
+            "description": "Conduct comprehensive accessibility verification including keyboard navigation, focus order, and touch target validation",
+            "dependencies": [
+              8
+            ],
+            "details": "Acceptance: Passes WCAG 2.1 AA, keyboard navigable, touch targets >=48px. Effort: medium. Owner: @accessibility-dev. Use axe-core, manual testing with screen readers, and focus validation tools.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 12,
+            "title": "Unit and e2e tests",
+            "description": "Implement comprehensive test coverage for component logic, responsive behavior, and user interactions",
+            "dependencies": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "details": "Acceptance: 85%+ unit test coverage, critical paths covered by e2e tests. Effort: large. Owner: @test-dev. Create Jest unit tests for logic branches, Cypress tests for responsive behavior and interactions.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 13,
+            "title": "Mobile QA verification",
+            "description": "Execute mobile-specific quality assurance including device testing, performance checks, and regression verification",
+            "dependencies": [
+              11,
+              12
+            ],
+            "details": "Acceptance: Passes on all target mobile devices, no regression in existing functionality. Effort: medium. Owner: @mobile-qa. Test on iOS and Android devices, verify performance metrics, conduct regression testing.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-12-10T14:53:00.747Z"
       },
       {
         "id": "63",
@@ -5013,7 +5172,7 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-10T13:27:59.306Z",
+      "lastModified": "2025-12-10T14:53:00.750Z",
       "taskCount": 94,
       "completedCount": 61,
       "tags": [

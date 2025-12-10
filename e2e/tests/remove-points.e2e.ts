@@ -71,12 +71,12 @@ test.describe('Remove points flow', () => {
     await removeAliceBtn.click();
     await page.waitForTimeout(500);
 
-    // Dialog should show
-    await expect(page.getByRole('dialog')).toBeVisible({ timeout: 5000 });
+    // Dialog should show - check for RemovePointsDialog which contains the "Points to Remove" label
+    const removePointsLabel = page.getByLabel('Points to Remove');
+    await expect(removePointsLabel).toBeVisible({ timeout: 5000 });
 
     // Enter amount to remove
-    const amountInput = page.getByLabel('Points to Remove');
-    await expect(amountInput).toBeVisible({ timeout: 5000 });
+    const amountInput = removePointsLabel;
     await amountInput.fill('5');
     await page.waitForTimeout(300);
 
@@ -85,8 +85,8 @@ test.describe('Remove points flow', () => {
     await dialogRemoveBtn.click();
     await page.waitForTimeout(500);
 
-    // Dialog should close
-    await expect(page.getByRole('dialog')).not.toBeVisible({ timeout: 5000 });
+    // Dialog should close - verify the input is no longer visible
+    await expect(removePointsLabel).not.toBeVisible({ timeout: 5000 });
 
     // Finish game - click Next Profile multiple times if needed to get to finish
     await page.getByRole('button', { name: /Finish Game/i }).click();

@@ -185,9 +185,17 @@ test.describe('Profile Randomness and Limits', () => {
     // Should be on game play screen
     await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
 
-    // Get language switcher
-    const languageSwitcher = page.getByRole('navigation', { name: /language/i });
-    await expect(languageSwitcher).toBeVisible();
+    // Open settings drawer to access language switcher
+    const settingsButton = page
+      .locator('header')
+      .first()
+      .getByRole('button', { name: /open settings/i });
+    await settingsButton.click();
+
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible({ timeout: 3000 });
+
+    const languageSwitcher = drawer.getByRole('navigation', { name: /language/i });
 
     // Try finding Portuguese or Spanish
     const portugueseLink = languageSwitcher.getByRole('link', { name: /português|portuguese/i });

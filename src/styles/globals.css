@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* Layout */
-    --header-height: 97px;
+    --header-height: 64px; /* Mobile: compact header (56-64px range) */
 
     /* Light Mode */
     --background: 0 0% 96%;           /* Very light grey background */
@@ -98,7 +98,7 @@
 
 @layer utilities {
   .min-h-main {
-    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100vh - var(--header-height) - 1px);
   }
 }
 
@@ -168,16 +168,6 @@
 
 .locale-name {
   @apply text-sm;
-}
-
-@media (max-width: 640px) {
-  .locale-name {
-    @apply hidden;
-  }
-
-  .locale-link {
-    @apply min-w-12 px-2;
-  }
 }
 
 /* PWA Updater Styles */

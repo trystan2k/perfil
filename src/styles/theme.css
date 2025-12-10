@@ -1,6 +1,6 @@
 /* Theme Switcher Styles */
 .theme-switcher {
-  @apply flex justify-center p-4;
+  @apply flex justify-center;
 }
 
 .theme-list {
