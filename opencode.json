@@ -17,41 +17,17 @@
     "chrome-devtools": {
       "type": "local",
       "command": ["npx", "chrome-devtools-mcp@latest"],
-      "enabled": true
+      "enabled": false
     },
     "task-master-ai": {
       "type": "local",
       "command": ["npx", "-y", "--package=task-master-ai", "task-master-ai"],
       "enabled": false
     },
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "enabled": false
-    },
     "basic-memory": {
       "type": "local",
       "command": ["uvx", "basic-memory", "mcp", "--project", "perfil"],
       "enabled": false,
-    },
-    "github": {
-      "type": "remote",
-      "url": "https://api.githubcopilot.com/mcp/",
-      "enabled": false,
-      "headers": {
-        "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
-      }
-    },
-    "playwright": {
-      "enabled": false,
-      "type": "local",
-      "command": [
-        "npx",
-        "@playwright/mcp@latest",
-        "--browser=chrome",
-        "--isolated",
-        "--output-dir=./playwright"
-      ]
     },
     "serena": {
       "enabled": true,
@@ -67,14 +43,6 @@
         "--project",
         "perfil"
       ]
-    },
-    "shadcn-ui": {
-      "enabled": false,
-      "type": "local",
-      "command": [
-        "npx",
-        "@jpisnice/shadcn-ui-mcp-server"
-      ]
     }
   },
   "agent": {
@@ -86,11 +54,15 @@
         "write": true,
         "edit": true,
         "bash": true,
-        "shadcn-ui*": false,
-        "playwright*": false,
-        "github*": false,
-        "chrome-devtools*": false,
-        "task-master-ai*": false
+        "chrome-devtools": false,
+        "task-master-ai": false,
+        "context7": false,
+        "repomix": false,
+        "basic-memory": false,
+        "github": false,
+        "shadcn-ui": false,
+        "playwright": false,
+        "serena": false
     }
     }
   }
