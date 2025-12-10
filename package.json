@@ -26,7 +26,7 @@
       "biome format --write",
       "biome lint --write --error-on-warnings"
     ],
-    "e2e/**/*.{ts}": [
+    "e2e/**/*.ts": [
       "biome format --write",
       "biome lint --write --error-on-warnings"
     ],
