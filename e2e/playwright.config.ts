@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT_NUMBER = Number(process.env.PORT_NUMBER) || 4321;
+const PORT_NUMBER = Number(process.env.PORT_NUMBER) || 4500;
 
 export default defineConfig({
   testDir: './tests',
@@ -13,7 +13,7 @@ export default defineConfig({
     : [['list']],
   use: {
     actionTimeout: 10000,
-    baseURL: process.env.BASE_URL || `http://localhost:${PORT_NUMBER}`,
+    baseURL: `http://localhost:${PORT_NUMBER}`,
     trace: 'on-first-retry',
     headless: true,
   },
