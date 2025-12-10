@@ -107,11 +107,17 @@ if (theme) {
 if (!window.__themeListenerAdded) {
   window.__themeListenerAdded = true;
   const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  systemThemeQuery.addEventListener('change', () => {
+  const systemThemeChangeHandler = () => {
     const currentTheme = getThemeFromStorage();
     if (!currentTheme || currentTheme === THEMES.system) {
       updateSelectedTheme(currentTheme || THEMES.system);
     }
+  };
+  systemThemeQuery.addEventListener('change', systemThemeChangeHandler);
+  
+  // Cleanup listener on page unload
+  window.addEventListener('beforeunload', () => {
+    systemThemeQuery.removeEventListener('change', systemThemeChangeHandler);
   });
 }
 </script>
