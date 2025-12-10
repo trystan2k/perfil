@@ -11,8 +11,6 @@ on:
 
 env:
   CI: true
-  BASE_URL: 'http://localhost:4321'
-  PORT_NUMBER: '4321'
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 'false'
 
 jobs:
