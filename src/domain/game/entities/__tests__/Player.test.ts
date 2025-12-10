@@ -28,7 +28,7 @@ describe('Player Entity', () => {
       const player1 = createPlayer('Alice');
 
       // Add delay to ensure different timestamp
-      await new Promise((resolve) => setTimeout(resolve, 1));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       const player2 = createPlayer('Bob');
       expect(player1.id).not.toBe(player2.id);
     });
