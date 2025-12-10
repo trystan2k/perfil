@@ -1,8 +1,8 @@
 /**
  * Theme colors for PWA manifest and browser chrome
  * Primary colors are used for theme_color to provide visual branding consistency
- * - Light: hsl(48 94% 57%) ≈ #f7cf2e (bright yellow for light mode)
- * - Dark: hsl(45 85% 52%) ≈ #e6c200 (toned down yellow for dark mode)
+ * - Light: hsl(48 94% 57%) ≈ #f8cf2a (bright yellow for light mode)
+ * - Dark: hsl(45 85% 52%) ≈ #edb91d (toned down yellow for dark mode)
  *
  * Background colors for splash screens
  * - Light: hsl(0 0% 96%) ≈ #f5f5f5
@@ -14,8 +14,8 @@ export const THEME_COLORS = {
 } as const;
 
 export const PRIMARY_COLORS = {
-  light: '#f7cf2e',
-  dark: '#e6c200',
+  light: '#f8cf2a',
+  dark: '#edb91d',
 } as const;
 
 export type ThemeColor = (typeof THEME_COLORS)[keyof typeof THEME_COLORS];

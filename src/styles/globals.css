@@ -75,8 +75,8 @@
     --destructive: 0 72% 51%;         /* Red for destructive actions */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 38%;               /* Increased from 22% to 38% for WCAG AA 3:1 border contrast */
-    --input: 0 0% 20%;                /* Increased from 16% to 20% for better input visibility */
+    --border: 0 0% 40%;               /* Increased from 22% to 40% for WCAG AA 3:1 border contrast */
+    --input: 0 0% 22%;                /* Increased from 16% to 22% for better input visibility */
     --ring: 45 85% 52%;               /* Yellow focus ring */
 
     --chart-1: 45 85% 52%;
