@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import translations from '../../../public/locales/en/translation.json';
 import { customRender } from '../../__mocks__/test-utils';
 import { useTheme } from '../../hooks/useTheme';
@@ -17,12 +17,36 @@ vi.mock(import('../../hooks/useTheme'), async (importOriginal) => {
 
 describe('ThemeSwitcher', () => {
   let mockSetTheme: ReturnType<typeof vi.fn>;
+  const originalMatchMedia = window.matchMedia;
 
   beforeEach(() => {
     mockSetTheme = vi.fn();
     (useTheme as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
       theme: 'system',
       setTheme: mockSetTheme,
+    });
+
+    // Mock matchMedia
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    });
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: originalMatchMedia,
     });
   });
 

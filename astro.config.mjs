@@ -2,8 +2,9 @@ import cloudflare from '@astrojs/cloudflare';
 // import node from '@astrojs/node';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
-import { defineConfig } from 'astro/config';
 import AstroPWA from '@vite-pwa/astro';
+import { defineConfig } from 'astro/config';
+import { THEME_COLORS } from './src/lib/theme-colors.ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -42,10 +43,10 @@ export default defineConfig({
         name: 'Perfil - Trivia Game',
         short_name: 'Perfil',
         description: 'A multiplayer trivia game where players guess profiles through clues',
-        theme_color: '#0d1322',
-        background_color: '#ffffff',
+        theme_color: THEME_COLORS.light,
+        background_color: THEME_COLORS.light,
         display: 'standalone',
-        start_url: '/',
+        start_url: '/en/',
         icons: [
           {
             src: '/icons/icon-192x192.png',

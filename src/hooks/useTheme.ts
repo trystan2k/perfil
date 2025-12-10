@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { THEME_COLORS } from '@/lib/theme-colors';
 
 const STORAGE_KEY = 'perfil-theme';
 
@@ -32,6 +33,14 @@ export const setThemeInStorage = (theme: ThemeMode): void => {
   window.localStorage.setItem(STORAGE_KEY, theme);
 };
 
+const updateThemeColor = (isDark: boolean) => {
+  if (typeof window === 'undefined') return;
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  if (metaThemeColor) {
+    metaThemeColor.setAttribute('content', isDark ? THEME_COLORS.dark : THEME_COLORS.light);
+  }
+};
+
 export const updateSelectedTheme = (value: ThemeMode | null) => {
   if (typeof window === 'undefined') return;
 
@@ -49,6 +58,9 @@ export const updateSelectedTheme = (value: ThemeMode | null) => {
   } else {
     root.classList.remove(THEMES.dark);
   }
+
+  // Update theme-color meta tag for browser chrome
+  updateThemeColor(themeToSet === THEMES.dark);
 };
 
 export const useTheme = () => {

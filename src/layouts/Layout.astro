@@ -1,5 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import { pwaInfo } from 'virtual:pwa-info';
+import { THEME_COLORS } from '../lib/theme-colors';
 import { ErrorStateProviderWrapper } from '../components/ErrorStateProviderWrapper';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { PwaUpdater } from '../components/PwaUpdater';
@@ -32,8 +34,11 @@ const t = getTranslateFunction(translations, currentLocale);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="theme-color" content={THEME_COLORS.light} />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
     <meta name="generator" content={Astro.generator} />
     <title>Perfil - {t(title)}</title>
+    {pwaInfo && <link rel="manifest" href={pwaInfo.webManifest.href} />}
     <ClientRouter />
   </head>
   <body>
