@@ -96,6 +96,38 @@
         "difficulty": "medium",
         "source": "historical-figures"
       }
+    },
+    {
+      "id": "profile-0011",
+      "category": "Pessoas Famosas",
+      "name": "William Shakespeare",
+      "clues": [
+        "Nascido na Inglaterra em 1564",
+        "Escreveu peças de teatro e poesia",
+        "Chamado de 'O Bardo de Avon'",
+        "Escreveu Romeu e Julieta",
+        "Criou o personagem Hamlet",
+        "Escreveu Macbeth",
+        "Também escreveu comédias como Sonho de uma Noite de Verão",
+        "Introduziu centenas de palavras ao inglês",
+        "Escreveu 154 sonetos",
+        "Trabalhou no Globe Theatre em Londres",
+        "Muitas frases ainda usadas hoje",
+        "'Ser ou não ser' é sua linha famosa",
+        "Nascido em Stratford-upon-Avon",
+        "Casou-se com Anne Hathaway",
+        "Teve três filhos",
+        "Atuou em suas próprias peças",
+        "Morreu em seu aniversário em 1616",
+        "Dramaturgo mais encenado mundialmente",
+        "Escreveu cerca de 37 peças",
+        "Influenciou literatura por séculos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
     }
   ]
 }

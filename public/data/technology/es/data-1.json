@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "modern-tech"
       }
+    },
+    {
+      "id": "profile-0014",
+      "category": "Tecnología",
+      "name": "Internet",
+      "clues": [
+        "Red global de computadoras",
+        "Usa protocolo TCP/IP",
+        "World Wide Web funciona en ella",
+        "Creada por proyecto ARPANET",
+        "Tim Berners-Lee inventó WWW",
+        "Conecta miles de millones de dispositivos",
+        "Email es una de las primeras aplicaciones",
+        "Motores de búsqueda ayudan a encontrar información",
+        "Plataformas de redes sociales dependen de ella",
+        "Comercio electrónico revolucionó compras",
+        "Servicios de streaming entregan contenido",
+        "Computación en la nube la usa",
+        "Educación en línea se hizo posible",
+        "Trabajo remoto depende de ella",
+        "Cables de fibra óptica transportan datos",
+        "Satélites proporcionan cobertura global",
+        "DNS traduce nombres de dominio",
+        "Protocolos HTTP/HTTPS para web",
+        "WiFi proporciona acceso inalámbrico",
+        "Cambió cómo se comunican los humanos"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "modern-tech"
+      }
     }
   ]
 }

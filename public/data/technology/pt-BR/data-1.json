@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "modern-tech"
       }
+    },
+    {
+      "id": "profile-0014",
+      "category": "Tecnologia",
+      "name": "Internet",
+      "clues": [
+        "Rede global de computadores",
+        "Usa protocolo TCP/IP",
+        "World Wide Web roda nela",
+        "Criada por projeto ARPANET",
+        "Tim Berners-Lee inventou WWW",
+        "Conecta bilhões de dispositivos",
+        "Email é uma das primeiras aplicações",
+        "Motores de busca ajudam a encontrar informação",
+        "Plataformas de redes sociais dependem dela",
+        "Comércio eletrônico revolucionou compras",
+        "Serviços de streaming entregam conteúdo",
+        "Computação em nuvem a usa",
+        "Educação online se tornou possível",
+        "Trabalho remoto depende dela",
+        "Cabos de fibra óptica transportam dados",
+        "Satélites fornecem cobertura global",
+        "DNS traduz nomes de domínio",
+        "Protocolos HTTP/HTTPS para web",
+        "WiFi fornece acesso sem fio",
+        "Mudou como humanos se comunicam"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "modern-tech"
+      }
     }
   ]
 }

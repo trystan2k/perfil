@@ -32,6 +32,38 @@
         "difficulty": "medium",
         "source": "entertainment"
       }
+    },
+    {
+      "id": "profile-0012",
+      "category": "Películas",
+      "name": "Origen",
+      "clues": [
+        "Estrenada en 2010",
+        "Dirigida por Christopher Nolan",
+        "Thriller de ciencia ficción",
+        "Presenta sueños dentro de sueños",
+        "Protagonizada por Leonardo DiCaprio",
+        "Concepto de sueños compartidos",
+        "Equipo de extractores entra en mentes",
+        "Peonza giratoria es objeto clave",
+        "Arquitectura puede ser manipulada en sueños",
+        "El tiempo se mueve diferente en cada nivel",
+        "Empujón se usa para despertar",
+        "Limbo es el nivel más profundo de sueño",
+        "Presenta escenas de lucha sin gravedad",
+        "Ellen Page interpreta a la arquitecta",
+        "Tom Hardy interpreta al falsificador",
+        "Michael Caine interpreta al profesor",
+        "Ganó cuatro Premios de la Academia",
+        "Famosa por final ambiguo",
+        "Narrativa compleja no lineal",
+        "Explora la naturaleza de la realidad"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "entertainment"
+      }
     }
   ]
 }

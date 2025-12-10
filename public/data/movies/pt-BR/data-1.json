@@ -32,6 +32,38 @@
         "difficulty": "medium",
         "source": "entertainment"
       }
+    },
+    {
+      "id": "profile-0012",
+      "category": "Filmes",
+      "name": "A Origem",
+      "clues": [
+        "Lançado em 2010",
+        "Dirigido por Christopher Nolan",
+        "Thriller de ficção científica",
+        "Apresenta sonhos dentro de sonhos",
+        "Estrela Leonardo DiCaprio",
+        "Conceito de sonhos compartilhados",
+        "Equipe de extratores entra em mentes",
+        "Pião giratório é objeto chave",
+        "Arquitetura pode ser manipulada em sonhos",
+        "Tempo se move diferente em cada nível",
+        "Empurrão usado para acordar",
+        "Limbo é nível mais profundo de sonho",
+        "Apresenta cenas de luta sem gravidade",
+        "Ellen Page interpreta arquiteta",
+        "Tom Hardy interpreta falsificador",
+        "Michael Caine interpreta professor",
+        "Ganhou quatro Prêmios da Academia",
+        "Famoso por final ambíguo",
+        "Narrativa complexa não linear",
+        "Explora natureza da realidade"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "entertainment"
+      }
     }
   ]
 }

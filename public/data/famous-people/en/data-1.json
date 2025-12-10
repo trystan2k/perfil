@@ -96,6 +96,38 @@
         "difficulty": "medium",
         "source": "historical-figures"
       }
+    },
+    {
+      "id": "profile-0011",
+      "category": "Famous People",
+      "name": "William Shakespeare",
+      "clues": [
+        "Born in England in 1564",
+        "Wrote plays and poetry",
+        "Called 'The Bard of Avon'",
+        "Wrote Romeo and Juliet",
+        "Created Hamlet character",
+        "Wrote Macbeth",
+        "Also wrote comedies like A Midsummer Night's Dream",
+        "Introduced hundreds of words to English",
+        "Wrote 154 sonnets",
+        "Worked at Globe Theatre in London",
+        "Many phrases still used today",
+        "To be or not to be is famous line",
+        "Born in Stratford-upon-Avon",
+        "Married Anne Hathaway",
+        "Had three children",
+        "Acted in his own plays",
+        "Died on his birthday in 1616",
+        "Most performed playwright worldwide",
+        "Wrote about 37 plays",
+        "Influenced literature for centuries"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
     }
   ]
 }

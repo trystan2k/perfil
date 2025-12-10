@@ -2,7 +2,7 @@
   "models": {
     "main": {
       "provider": "openrouter",
-      "modelId": "qwen/qwen3-coder:free",
+      "modelId": "amazon/nova-2-lite-v1:free",
       "maxTokens": 524000,
       "temperature": 0.2
     },

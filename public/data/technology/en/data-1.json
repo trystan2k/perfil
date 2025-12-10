@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "modern-tech"
       }
+    },
+    {
+      "id": "profile-0014",
+      "category": "Technology",
+      "name": "Internet",
+      "clues": [
+        "Global network of computers",
+        "Uses TCP/IP protocol",
+        "World Wide Web runs on it",
+        "Created by ARPANET project",
+        "Tim Berners-Lee invented WWW",
+        "Connects billions of devices",
+        "Email is one of first applications",
+        "Search engines help find information",
+        "Social media platforms depend on it",
+        "E-commerce revolutionized shopping",
+        "Streaming services deliver content",
+        "Cloud computing uses it",
+        "Online education became possible",
+        "Remote work relies on it",
+        "Fiber optic cables carry data",
+        "Satellites provide global coverage",
+        "DNS translates domain names",
+        "HTTP/HTTPS protocols for web",
+        "WiFi provides wireless access",
+        "Changed how humans communicate"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "modern-tech"
+      }
     }
   ]
 }

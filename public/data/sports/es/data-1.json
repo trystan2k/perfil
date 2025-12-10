@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "sports"
       }
+    },
+    {
+      "id": "profile-0013",
+      "category": "Deportes",
+      "name": "Baloncesto",
+      "clues": [
+        "Deporte de cancha interior",
+        "Dos equipos de cinco jugadores",
+        "El objetivo es encestar el balón en el aro",
+        "Se requiere driblar para moverse con el balón",
+        "Línea de tres puntos para tiros largos",
+        "Tiros libres por faltas",
+        "Juego dividido en cuartos o mitades",
+        "Reloj de posesión limita el tiempo",
+        "Salto inicial comienza el juego",
+        "Mate es movimiento emocionante",
+        "Regla de tres segundos en la pintura",
+        "Pasos es violación por caminar con balón",
+        "Doble dribbling es ilegal",
+        "Canasta está a 10 pies de altura",
+        "Cancha tiene arco de tres puntos",
+        "Famoso por liga NBA",
+        "Michael Jordan es jugador legendario",
+        "March Madness es torneo universitario",
+        "Deporte olímpico desde 1936",
+        "Rápido y de alta anotación"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "sports"
+      }
     }
   ]
 }

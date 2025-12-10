@@ -32,6 +32,38 @@
         "difficulty": "hard",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0009",
+      "category": "Animais",
+      "name": "Leão",
+      "clues": [
+        "Conhecido como o rei da selva",
+        "Grande espécie de felino",
+        "Vive em grupos chamados de alcatéias",
+        "Machos têm juba distintiva",
+        "Nativo da África e pequenas partes da Ásia",
+        "Segundo maior felino depois do tigre",
+        "Fêmeas fazem a maior parte da caça",
+        "Rugido pode ser ouvido a 8 km de distância",
+        "Dorme 16-20 horas por dia",
+        "Filhotes têm manchas que desaparecem com a idade",
+        "Predador topo do ecossistema",
+        "Pode correr até 80 km/h por curtas distâncias",
+        "Machos defendem o território",
+        "Social ao contrário da maioria dos grandes felinos",
+        "Símbolo de coragem e força",
+        "Animal nacional de vários países",
+        "Vida útil de 10-14 anos na natureza",
+        "Caça ao amanhecer ou ao anoitecer",
+        "Maxilares poderosos e garras afiadas",
+        "Presente em muitos mitos e lendas"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "nature"
+      }
     }
   ]
 }

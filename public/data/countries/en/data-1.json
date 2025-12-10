@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "geography"
       }
+    },
+    {
+      "id": "profile-0010",
+      "category": "Countries",
+      "name": "Brazil",
+      "clues": [
+        "Largest country in South America",
+        "Portuguese is the official language",
+        "Amazon rainforest covers much of the country",
+        "Carnival is famous worldwide",
+        "Known for samba and bossa nova music",
+        "Football (soccer) is national passion",
+        "Christ the Redeemer statue overlooks Rio",
+        "Copacabana Beach is iconic",
+        "Home to diverse wildlife and ecosystems",
+        "Largest Portuguese-speaking nation",
+        "Brasília is the planned capital city",
+        "Coffee is major export",
+        "Five-time World Cup champions",
+        "Iguazu Falls on border with Argentina",
+        "Pantanal wetlands are world's largest",
+        "Cultural mix of indigenous, African, European",
+        "Feijoada is national dish",
+        "Yellow and green flag with blue globe",
+        "Largest Catholic population",
+        "Economic powerhouse of Latin America"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "geography"
+      }
     }
   ]
 }

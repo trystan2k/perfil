@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "geography"
       }
+    },
+    {
+      "id": "profile-0010",
+      "category": "Países",
+      "name": "Brasil",
+      "clues": [
+        "País más grande de Sudamérica",
+        "El portugués es el idioma oficial",
+        "La selva amazónica cubre gran parte del país",
+        "El Carnaval es famoso mundialmente",
+        "Conocido por la música samba y bossa nova",
+        "El fútbol es la pasión nacional",
+        "La estatua del Cristo Redentor domina Río",
+        "La playa de Copacabana es icónica",
+        "Hogar de vida silvestre y ecosistemas diversos",
+        "La nación más grande de habla portuguesa",
+        "Brasilia es la capital planificada",
+        "El café es una exportación principal",
+        "Campeones del Mundo cinco veces",
+        "Cataratas del Iguazú en frontera con Argentina",
+        "Pantanal son los humedales más grandes del mundo",
+        "Mezcla cultural de indígenas, africanos, europeos",
+        "La feijoada es el plato nacional",
+        "Bandera amarilla y verde con globo azul",
+        "Mayor población católica",
+        "Potencia económica de América Latina"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "geography"
+      }
     }
   ]
 }

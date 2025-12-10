@@ -32,6 +32,38 @@
         "difficulty": "medium",
         "source": "entertainment"
       }
+    },
+    {
+      "id": "profile-0012",
+      "category": "Movies",
+      "name": "Inception",
+      "clues": [
+        "Released in 2010",
+        "Directed by Christopher Nolan",
+        "Science fiction thriller",
+        "Features dreams within dreams",
+        "Stars Leonardo DiCaprio",
+        "Concept of shared dreaming",
+        "Team of extractors enters minds",
+        "Spinning top is key object",
+        "Architecture can be manipulated in dreams",
+        "Time moves differently at each level",
+        "Kick is used to wake up",
+        "Limbo is deepest dream level",
+        "Features zero gravity fight scenes",
+        "Ellen Page plays architect",
+        "Tom Hardy plays forger",
+        "Michael Caine plays professor",
+        "Won four Academy Awards",
+        "Famous for ambiguous ending",
+        "Complex nonlinear narrative",
+        "Explores nature of reality"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "entertainment"
+      }
     }
   ]
 }

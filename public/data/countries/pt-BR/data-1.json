@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "geography"
       }
+    },
+    {
+      "id": "profile-0010",
+      "category": "Países",
+      "name": "Brasil",
+      "clues": [
+        "Maior país da América do Sul",
+        "Português é o idioma oficial",
+        "Floresta Amazônica cobre grande parte do país",
+        "Carnaval é famoso mundialmente",
+        "Conhecido por música samba e bossa nova",
+        "Futebol é a paixão nacional",
+        "Estátua do Cristo Redentor domina o Rio",
+        "Praia de Copacabana é icônica",
+        "Lar de vida selvagem e ecossistemas diversos",
+        "Maior nação de língua portuguesa",
+        "Brasília é a capital planejada",
+        "Café é exportação principal",
+        "Pentacampeões mundiais",
+        "Cataratas do Iguaçu na fronteira com Argentina",
+        "Pantanal são os maiores pântanos do mundo",
+        "Mistura cultural de indígenas, africanos, europeus",
+        "Feijoada é prato nacional",
+        "Bandeira amarela e verde com globo azul",
+        "Maior população católica",
+        "Potência econômica da América Latina"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "geography"
+      }
     }
   ]
 }

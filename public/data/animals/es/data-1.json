@@ -32,6 +32,38 @@
         "difficulty": "hard",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0009",
+      "category": "Animales",
+      "name": "León",
+      "clues": [
+        "Conocido como el rey de la selva",
+        "Gran especie de felino",
+        "Vive en grupos llamadas manadas",
+        "Los machos tienen melenas distintivas",
+        "Nativo de África y pequeñas partes de Asia",
+        "Segundo felino más grande después del tigre",
+        "Las hembras hacen la mayor parte de la caza",
+        "Su rugido puede escucharse a 5 millas de distancia",
+        "Duerme 16-20 horas por día",
+        "Las crías tienen manchas que desaparecen con la edad",
+        "Depredador tope del ecosistema",
+        "Puede correr hasta 80 km/h por cortas distancias",
+        "Los machos defienden el territorio",
+        "Social a diferencia de la mayoría de los grandes felinos",
+        "Símbolo de coraje y fuerza",
+        "Animal nacional de varios países",
+        "Vida útil de 10-14 años en la naturaleza",
+        "Caza al amanecer o al atardecer",
+        "Mandíbulas poderosas y garras afiladas",
+        "Presente en muchos mitos y leyendas"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "nature"
+      }
     }
   ]
 }

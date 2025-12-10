@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "sports"
       }
+    },
+    {
+      "id": "profile-0013",
+      "category": "Esportes",
+      "name": "Basquetebol",
+      "clues": [
+        "Esporte de quadra interna",
+        "Duas equipes de cinco jogadores",
+        "Objetivo é arremessar a bola na cesta",
+        "Drible é necessário para mover com a bola",
+        "Linha de três pontos para arremessos longos",
+        "Lances livres por faltas",
+        "Jogo dividido em quartos ou tempos",
+        "Relógio de posse limita tempo de posse",
+        "Salto inicial começa o jogo",
+        "Enterrada é movimento emocionante",
+        "Regra de três segundos no garrafão",
+        "Passos é violação por andar com bola",
+        "Drible duplo é ilegal",
+        "Cesta está a 3 metros de altura",
+        "Quadra tem arco de três pontos",
+        "Famoso pela liga NBA",
+        "Michael Jordan é jogador lendário",
+        "March Madness é torneio universitário",
+        "Esporte olímpico desde 1936",
+        "Rápido e de alta pontuação"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "sports"
+      }
     }
   ]
 }

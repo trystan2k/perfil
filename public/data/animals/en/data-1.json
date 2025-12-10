@@ -32,6 +32,38 @@
         "difficulty": "hard",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0009",
+      "category": "Animals",
+      "name": "Lion",
+      "clues": [
+        "Known as the king of the jungle",
+        "Large cat species",
+        "Lives in groups called prides",
+        "Males have distinctive manes",
+        "Native to Africa and small parts of Asia",
+        "Second largest cat after tiger",
+        "Females do most hunting",
+        "Roar can be heard 5 miles away",
+        "Sleeps 16-20 hours per day",
+        "Cubs have spots that fade with age",
+        "Top predator in ecosystem",
+        "Can run up to 50 mph for short distances",
+        "Males defend territory",
+        "Social unlike most big cats",
+        "Symbol of courage and strength",
+        "National animal of several countries",
+        "Lifespan 10-14 years in wild",
+        "Hunted at dawn or dusk",
+        "Powerful jaws and sharp claws",
+        "Featured in many myths and legends"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "nature"
+      }
     }
   ]
 }

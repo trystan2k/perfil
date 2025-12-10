@@ -32,6 +32,38 @@
         "difficulty": "easy",
         "source": "sports"
       }
+    },
+    {
+      "id": "profile-0013",
+      "category": "Sports",
+      "name": "Basketball",
+      "clues": [
+        "Indoor court sport",
+        "Two teams of five players",
+        "Goal is to shoot ball through hoop",
+        "Dribbling required to move with ball",
+        "Three-point line for long shots",
+        "Free throws for fouls",
+        "Game divided into quarters or halves",
+        "Shot clock limits possession time",
+        "Jump ball starts the game",
+        "Slam dunk is exciting move",
+        "Three-second rule in the paint",
+        "Traveling violation for walking with ball",
+        "Double dribble is illegal",
+        "Basket is 10 feet high",
+        "Court has three-point arc",
+        "Famous for NBA league",
+        "Michael Jordan is legendary player",
+        "March Madness is college tournament",
+        "Olympic sport since 1936",
+        "Fast-paced and high scoring"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "sports"
+      }
     }
   ]
 }
