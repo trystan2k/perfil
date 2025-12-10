@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { THEME_COLORS } from '@/lib/theme-colors';
 
 const STORAGE_KEY = 'perfil-theme';
 
@@ -31,12 +32,6 @@ export const setThemeInStorage = (theme: ThemeMode): void => {
   if (typeof window === 'undefined') return;
   window.localStorage.setItem(STORAGE_KEY, theme);
 };
-
-// Theme colors for browser chrome (mobile address bar)
-const THEME_COLORS = {
-  light: '#f5f5f5', // Light mode background (hsl(0 0% 96%))
-  dark: '#141414', // Dark mode background (hsl(0 0% 8%))
-} as const;
 
 const updateThemeColor = (isDark: boolean) => {
   if (typeof window === 'undefined') return;
