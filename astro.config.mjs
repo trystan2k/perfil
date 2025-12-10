@@ -39,6 +39,10 @@ export default defineConfig({
     tailwind(),
     AstroPWA({
       registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+        type: 'module',
+      },
       manifest: {
         name: 'Perfil - Trivia Game',
         short_name: 'Perfil',
