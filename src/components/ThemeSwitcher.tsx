@@ -35,6 +35,8 @@ function ThemeSwitcherRaw() {
 
   // Listen for system theme changes when using system theme
   useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+
     const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     const systemThemeChangeHandler = () => {

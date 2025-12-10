@@ -42,8 +42,7 @@ export default defineConfig({
         name: 'Perfil - Trivia Game',
         short_name: 'Perfil',
         description: 'A multiplayer trivia game where players guess profiles through clues',
-        theme_color: '#141414',
-        background_color: '#f5f5f5',
+        theme_color: '#f5f5f5',
         display: 'standalone',
         start_url: '/en/',
         icons: [
