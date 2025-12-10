@@ -37,6 +37,7 @@ out/
 build
 dist
 playwright/
+dev-dist/
 
 
 # Debug
