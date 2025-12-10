@@ -2,6 +2,15 @@ name: Deploy
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - production
+          - preview
   workflow_run:
     workflows: ["CI"]
     types:
@@ -24,12 +33,18 @@ jobs:
       - name: Check if relevant files changed
         id: check
         run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+             echo "Manual trigger detected. Skipping file check."
+             echo "should-deploy=true" >> $GITHUB_OUTPUT
+             exit 0
+          fi
+
           # Get the commit SHA from the workflow run
           COMMIT_SHA="${{ github.event.workflow_run.head_commit.id }}"
-          
+
           # Try to get the parent commit
           PARENT_COMMIT=$(git rev-parse "$COMMIT_SHA^" 2>/dev/null || echo "")
-          
+
           # If we have a parent, use it; otherwise, get all files in the commit
           if [ -n "$PARENT_COMMIT" ]; then
             CHANGED_FILES=$(git diff --name-only "$PARENT_COMMIT" "$COMMIT_SHA")
@@ -37,7 +52,7 @@ jobs:
             # First commit - get all files
             CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r "$COMMIT_SHA")
           fi
-          
+
           echo "Changed files:"
           echo "$CHANGED_FILES"
 
@@ -94,7 +109,7 @@ jobs:
     name: Deploy to Cloudflare Pages
     needs: check-changes
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && needs.check-changes.outputs.should-deploy == 'true' }}
+    if: ${{ (github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')) && needs.check-changes.outputs.should-deploy == 'true' }}
 
     steps:
       - name: Checkout code
@@ -128,10 +143,23 @@ jobs:
       - name: Build production bundle
         run: pnpm build
 
+      - name: Determine branch
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            if [ "${{ inputs.environment }}" == "production" ]; then
+              echo "BRANCH_NAME=main" >> $GITHUB_ENV
+            else
+              echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
+            fi
+          else
+            echo "BRANCH_NAME=main" >> $GITHUB_ENV
+          fi
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME }}
+          command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME }} --branch=${{ env.BRANCH_NAME }}
           wranglerVersion: "4.46.0"
