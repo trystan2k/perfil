@@ -15,3 +15,14 @@ declare module 'virtual:pwa-register/react' {
 
   export function useRegisterSW(options?: RegisterSWOptions): RegisterSWReturn;
 }
+
+declare module 'virtual:pwa-info' {
+  export interface PwaInfo {
+    webManifest: {
+      linkTag: string;
+      href: string;
+    };
+  }
+
+  export const pwaInfo: PwaInfo | undefined;
+}
