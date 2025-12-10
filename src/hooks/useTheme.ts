@@ -32,6 +32,20 @@ export const setThemeInStorage = (theme: ThemeMode): void => {
   window.localStorage.setItem(STORAGE_KEY, theme);
 };
 
+// Theme colors for browser chrome (mobile address bar)
+const THEME_COLORS = {
+  light: '#f5f5f5', // Light mode background (hsl(0 0% 96%))
+  dark: '#141414', // Dark mode background (hsl(0 0% 8%))
+} as const;
+
+const updateThemeColor = (isDark: boolean) => {
+  if (typeof window === 'undefined') return;
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  if (metaThemeColor) {
+    metaThemeColor.setAttribute('content', isDark ? THEME_COLORS.dark : THEME_COLORS.light);
+  }
+};
+
 export const updateSelectedTheme = (value: ThemeMode | null) => {
   if (typeof window === 'undefined') return;
 
@@ -49,6 +63,9 @@ export const updateSelectedTheme = (value: ThemeMode | null) => {
   } else {
     root.classList.remove(THEMES.dark);
   }
+
+  // Update theme-color meta tag for browser chrome
+  updateThemeColor(themeToSet === THEMES.dark);
 };
 
 export const useTheme = () => {
