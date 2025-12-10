@@ -60,7 +60,6 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "~12.6.10",
-    "@astrojs/node": "~9.5.1",
     "@astrojs/react": "~4.4.2",
     "@astrojs/tailwind": "~6.0.2",
     "@radix-ui/react-dialog": "~1.1.15",
@@ -69,7 +68,6 @@
     "@radix-ui/react-progress": "~1.1.8",
     "@radix-ui/react-slot": "~1.2.4",
     "@tanstack/react-query": "~5.90.7",
-    "@vite-pwa/astro": "~1.2.0",
     "astro": "~5.15.9",
     "class-variance-authority": "~0.7.1",
     "clsx": "~2.1.1",
@@ -86,6 +84,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "~0.9.5",
+    "@astrojs/node": "~9.5.1",
     "@biomejs/biome": "~2.3.4",
     "@playwright/test": "~1.56.1",
     "@tailwindcss/container-queries": "~0.1.1",
@@ -94,6 +93,7 @@
     "@testing-library/user-event": "~14.6.1",
     "@types/react": "~19.2.2",
     "@types/react-dom": "~19.2.2",
+    "@vite-pwa/astro": "~1.2.0",
     "@vitejs/plugin-react": "~5.1.0",
     "@vitest/coverage-istanbul": "~4.0.8",
     "happy-dom": "~20.0.10",
@@ -103,7 +103,7 @@
     "playwright": "~1.56.1",
     "typescript": "~5.9.3",
     "vitest": "~4.0.8",
-    "workbox-window": "~7.3.0",
+    "workbox-window": "~7.4.0",
     "wrangler": "~4.46.0"
   }
 }
