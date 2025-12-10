@@ -3806,10 +3806,62 @@
         "description": "Consolidated FR PWA theme color mismatch and UI-UX dark mode contrast task: align manifest theme_color/background_color with design tokens and adjust dark mode token values to meet WCAG AA.",
         "details": "Update astro.config.mjs manifest theme_color to match --primary, adjust background for dark mode, update CSS variables for muted-foreground and border contrast to meet WCAG thresholds, and test splash screens and address bar color. Include automated contrast checks and WebAIM verification.",
         "testStrategy": "Contrast checks (automated), manual testing in dark mode across devices, Lighthouse accessibility audit, and verification of PWA install splash visuals.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update PWA Manifest Theme Colors",
+            "description": "Align manifest theme_color and background_color values in astro.config.mjs with design system primary color token.",
+            "dependencies": [],
+            "details": "Modify the manifest configuration in astro.config.mjs to set theme_color equal to the CSS variable --primary and background_color to match the dark mode background token. Verify values match design tokens exactly.",
+            "status": "pending",
+            "testStrategy": "Manual verification of manifest file and visual inspection of address bar/splash screen colors across browsers",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Adjust Dark Mode CSS Variables",
+            "description": "Update CSS variables for muted-foreground and border colors to meet WCAG AA contrast requirements in dark mode.",
+            "dependencies": [],
+            "details": "Modify dark mode CSS variables (e.g., --muted-foreground, --border) to increase contrast ratios above 4.5:1 against background. Use design tokens that pass WCAG AA guidelines for text and interactive elements.",
+            "status": "pending",
+            "testStrategy": "Automated contrast ratio checks using Lighthouse and manual verification with color contrast analyzers",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement WCAG AA Compliance Checks",
+            "description": "Conduct comprehensive contrast validation for all text and interactive elements in dark mode.",
+            "dependencies": [],
+            "details": "Perform systematic checks of all UI components in dark mode using automated tools and manual testing to ensure minimum 4.5:1 contrast ratio for normal text and 3:1 for large text. Document any failures and iterate until compliance.",
+            "status": "pending",
+            "testStrategy": "Lighthouse accessibility audits, WebAIM Contrast Checker, and manual testing with simulated vision deficiencies",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Verify Splash Screen and Address Bar Colors",
+            "description": "Test PWA installation splash screen and browser address bar color consistency across devices and browsers.",
+            "dependencies": [],
+            "details": "Validate that updated theme colors correctly propagate to iOS/Android splash screens and browser address bars. Test on minimum 3 device/browser combinations including mobile Safari, Chrome Android, and desktop browsers.",
+            "status": "pending",
+            "testStrategy": "Cross-device testing on physical devices and browser dev tools, screenshot comparisons against design specifications",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Implement Automated Contrast Verification",
+            "description": "Create and integrate automated contrast checks into CI pipeline with WebAIM verification.",
+            "dependencies": [],
+            "details": "Add automated contrast validation scripts using axe-core or similar tools. Configure WebAIM verification for regression testing. Integrate checks into GitHub Actions workflow to block deployments on failures.",
+            "status": "pending",
+            "testStrategy": "CI pipeline execution verification, test in pull request workflows, and quarterly WebAIM certification submission",
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-12-10T13:18:01.655Z"
       },
       {
         "id": "60",
@@ -4956,7 +5008,7 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-10T13:16:19.117Z",
+      "lastModified": "2025-12-10T13:18:01.656Z",
       "taskCount": 94,
       "completedCount": 60,
       "tags": [
