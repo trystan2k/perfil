@@ -175,6 +175,7 @@ test.describe('Language Persistence', () => {
       await expect(drawer).toBeVisible({ timeout: 3000 });
       await page.waitForTimeout(1000); // Wait for drawer content to render
       const languageNav = drawer.getByRole('navigation', { name: /language|idioma/i });
+      await expect(languageNav).toBeVisible({ timeout: 3000 });
       await expect(languageNav).toBeVisible({ timeout: 5000 });
       const spanishLinkBefore = languageNav.getByRole('link', { name: /español/i }).first();
       await expect(spanishLinkBefore).toHaveAttribute('aria-current', 'page', { timeout: 5000 });

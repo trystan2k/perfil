@@ -139,7 +139,7 @@ export function CompactHeaderWithProviders({
         <div className="flex flex-col items-center gap-3 w-full">
           <h3 className="text-sm font-semibold text-foreground">{themeLabel}</h3>
           <div className="flex justify-center w-full">
-            <ThemeSwitcher key={locale} locale={locale} translations={translations} />
+            <ThemeSwitcher locale={locale} translations={translations} />
           </div>
         </div>
 
@@ -147,7 +147,6 @@ export function CompactHeaderWithProviders({
           <h3 className="text-sm font-semibold text-foreground">{languageLabel}</h3>
           <div className="flex justify-center w-full">
             <LanguageSwitcher
-              key={locale}
               currentLocale={locale}
               currentPath={currentPath}
               locale={locale}
