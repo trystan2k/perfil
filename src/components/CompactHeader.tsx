@@ -35,6 +35,57 @@ export interface CompactHeaderProps extends HTMLAttributes<HTMLDivElement> {
    * CSS class for the settings button icon
    */
   settingsButtonClassName?: string;
+
+  /**
+   * Aria label for settings button
+   */
+  settingsAriaLabel?: string;
+
+  /**
+   * Title for settings button
+   */
+  settingsTitle?: string;
+}
+
+/**
+ * SettingsButton: Reusable settings icon button
+ *
+ * Renders a 48x48px touch target icon button for opening settings.
+ * Used in both mobile and desktop header layouts.
+ */
+function SettingsButton({
+  onClick,
+  ariaLabel = 'Open settings',
+  title = 'Settings',
+  className,
+}: {
+  onClick?: () => void;
+  ariaLabel?: string;
+  title?: string;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={ariaLabel}
+      aria-haspopup="dialog"
+      className={cn(
+        'flex items-center justify-center',
+        'w-12 h-12 min-w-12 min-h-12', // 48px touch target (WCAG AAA)
+        'rounded-md',
+        'text-foreground bg-background border border-border',
+        'hover:bg-accent hover:border-accent',
+        'transition-all duration-200',
+        'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+        'active:bg-primary/20',
+        className
+      )}
+      title={title}
+    >
+      <Menu className="w-6 h-6" strokeWidth={1.5} aria-hidden="true" />
+    </button>
+  );
 }
 
 /**
@@ -62,6 +113,8 @@ export function CompactHeader({
   isVisible = true,
   children,
   settingsButtonClassName,
+  settingsAriaLabel = 'Open settings',
+  settingsTitle = 'Settings',
   className,
   ...props
 }: CompactHeaderProps) {
@@ -94,27 +147,13 @@ export function CompactHeader({
           {/* Controls/children on left side */}
           <div className="flex items-center gap-2">{children}</div>
 
-          {/* Settings button on right (48x48px touch target) */}
-          <button
-            type="button"
+          {/* Settings button on right */}
+          <SettingsButton
             onClick={onSettingsClick}
-            aria-label="Open settings"
-            aria-haspopup="dialog"
-            className={cn(
-              'flex items-center justify-center',
-              'w-12 h-12 min-w-12 min-h-12', // 48px touch target (WCAG AAA)
-              'rounded-md',
-              'text-foreground bg-background border border-border',
-              'hover:bg-accent hover:border-accent',
-              'transition-all duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-              'active:bg-primary/20',
-              settingsButtonClassName
-            )}
-            title="Settings"
-          >
-            <Menu className="w-6 h-6" strokeWidth={1.5} aria-hidden="true" />
-          </button>
+            ariaLabel={settingsAriaLabel}
+            title={settingsTitle}
+            className={settingsButtonClassName}
+          />
         </div>
       ) : (
         // Desktop variant: inline controls layout with settings button
@@ -126,27 +165,13 @@ export function CompactHeader({
           <div className="flex items-center gap-4">
             {children}
 
-            {/* Settings button on right (48x48px touch target) */}
-            <button
-              type="button"
+            {/* Settings button on right */}
+            <SettingsButton
               onClick={onSettingsClick}
-              aria-label="Open settings"
-              aria-haspopup="dialog"
-              className={cn(
-                'flex items-center justify-center',
-                'w-12 h-12 min-w-12 min-h-12', // 48px touch target (WCAG AAA)
-                'rounded-md',
-                'text-foreground bg-background border border-border',
-                'hover:bg-accent hover:border-accent',
-                'transition-all duration-200',
-                'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                'active:bg-primary/20',
-                settingsButtonClassName
-              )}
-              title="Settings"
-            >
-              <Menu className="w-6 h-6" strokeWidth={1.5} aria-hidden="true" />
-            </button>
+              ariaLabel={settingsAriaLabel}
+              title={settingsTitle}
+              className={settingsButtonClassName}
+            />
           </div>
         </div>
       )}

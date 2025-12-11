@@ -58,7 +58,7 @@ export function useAutoHideHeader(options: UseAutoHideHeaderOptions = {}): UseAu
 
   const lastScrollY = useRef(0);
   const lastScrollDirectionTime = useRef(0);
-  const debounceTimer = useRef<NodeJS.Timeout | undefined>(undefined);
+  const debounceTimer = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (!enabled) {
@@ -85,7 +85,7 @@ export function useAutoHideHeader(options: UseAutoHideHeaderOptions = {}): UseAu
       }
 
       // Debounce the scroll handling
-      debounceTimer.current = setTimeout(() => {
+      debounceTimer.current = window.setTimeout(() => {
         const scrollDelta = currentScrollY - lastScrollY.current;
 
         // Determine scroll direction

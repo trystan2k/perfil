@@ -24,6 +24,36 @@ interface CompactHeaderWithProvidersProps {
   translations: TranslationValue;
 
   /**
+   * Aria label for settings button (from server-side translations)
+   */
+  settingsAriaLabel?: string;
+
+  /**
+   * Title for settings button (from server-side translations)
+   */
+  settingsTitle?: string;
+
+  /**
+   * Title for the settings drawer (from server-side translations)
+   */
+  drawerTitle?: string;
+
+  /**
+   * Close aria label for the settings drawer (from server-side translations)
+   */
+  drawerCloseAriaLabel?: string;
+
+  /**
+   * Theme label for the settings drawer (from server-side translations)
+   */
+  themeLabel?: string;
+
+  /**
+   * Language label for the settings drawer (from server-side translations)
+   */
+  languageLabel?: string;
+
+  /**
    * Enable auto-hide on scroll (mobile only)
    * Default: true
    */
@@ -48,12 +78,21 @@ interface CompactHeaderWithProvidersProps {
  *
  * The settings drawer is now used on all viewport sizes for a consistent UX
  *
+ * All text strings must be passed as props from the parent Astro component
+ * to avoid context hook issues during server-side rendering.
+ *
  * Usage:
  * ```tsx
  * <CompactHeaderWithProviders
  *   locale={currentLocale}
  *   currentPath={currentPath}
  *   translations={translations}
+ *   settingsAriaLabel="Open settings"
+ *   settingsTitle="Settings"
+ *   drawerTitle="Settings"
+ *   drawerCloseAriaLabel="Close settings"
+ *   themeLabel="Theme"
+ *   languageLabel="Language"
  *   enableAutoHide={true}
  * />
  * ```
@@ -62,6 +101,12 @@ export function CompactHeaderWithProviders({
   locale,
   currentPath,
   translations,
+  settingsAriaLabel = 'Open settings',
+  settingsTitle = 'Settings',
+  drawerTitle = 'Settings',
+  drawerCloseAriaLabel = 'Close settings',
+  themeLabel = 'Theme',
+  languageLabel = 'Language',
   enableAutoHide = true,
   autoHideThreshold = 50,
 }: CompactHeaderWithProvidersProps) {
@@ -85,6 +130,8 @@ export function CompactHeaderWithProviders({
         variant="auto"
         isVisible={isVisible}
         onSettingsClick={() => setIsSettingsOpen(true)}
+        settingsAriaLabel={settingsAriaLabel}
+        settingsTitle={settingsTitle}
       >
         {/* Settings button alone - all switchers are now in the drawer */}
       </CompactHeader>
@@ -92,19 +139,19 @@ export function CompactHeaderWithProviders({
       <SettingsSheet
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
-        title="Settings"
-        contentClassName="flex flex-col items-center justify-center gap-6"
+        title={drawerTitle}
+        closeAriaLabel={drawerCloseAriaLabel}
       >
         {/* Settings sheet content - centered layout for all viewports */}
         <div className="flex flex-col items-center gap-3 w-full">
-          <h3 className="text-sm font-semibold text-foreground">Theme</h3>
+          <h3 className="text-sm font-semibold text-foreground">{themeLabel}</h3>
           <div className="flex justify-center w-full">
             <ThemeSwitcher key={locale} locale={locale} translations={translations} />
           </div>
         </div>
 
         <div className="flex flex-col items-center gap-3 w-full">
-          <h3 className="text-sm font-semibold text-foreground">Language</h3>
+          <h3 className="text-sm font-semibold text-foreground">{languageLabel}</h3>
           <div className="flex justify-center w-full">
             <LanguageSwitcher
               key={locale}

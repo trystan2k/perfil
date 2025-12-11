@@ -97,7 +97,7 @@ describe('SettingsSheet', () => {
       );
 
       const closeButton = screen.getByRole('button', { name: /close settings/i });
-      expect(closeButton).toHaveAttribute('title', 'Close');
+      expect(closeButton).toHaveAttribute('title', 'Close settings');
     });
 
     it('should have proper button type', () => {

@@ -23,6 +23,11 @@ export interface SettingsSheetProps {
   title?: string;
 
   /**
+   * Aria label for the close button
+   */
+  closeAriaLabel?: string;
+
+  /**
    * Content to render inside the drawer
    */
   children: ReactNode;
@@ -58,6 +63,7 @@ export interface SettingsSheetProps {
  *   isOpen={isOpen}
  *   onClose={() => setIsOpen(false)}
  *   title="Settings"
+ *   closeAriaLabel="Close settings"
  * >
  *   <ThemeSwitcher />
  *   <LanguageSwitcher />
@@ -68,6 +74,7 @@ export function SettingsSheet({
   isOpen,
   onClose,
   title = 'Settings',
+  closeAriaLabel = 'Close settings',
   children,
   className,
   contentClassName,
@@ -168,7 +175,7 @@ export function SettingsSheet({
             <button
               type="button"
               onClick={onClose}
-              aria-label="Close settings"
+              aria-label={closeAriaLabel}
               className={cn(
                 'flex items-center justify-center',
                 'w-12 h-12 min-w-12 min-h-12', // 48px touch target (matches settings button)
@@ -179,7 +186,7 @@ export function SettingsSheet({
                 'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
                 'active:bg-primary/20'
               )}
-              title="Close"
+              title={closeAriaLabel}
             >
               <X className="w-6 h-6" strokeWidth={1.5} aria-hidden="true" />
             </button>
@@ -191,6 +198,7 @@ export function SettingsSheet({
           ref={contentRef}
           className={cn(
             'px-4 py-6',
+            'flex flex-col gap-8',
             // Safe-area inset for sides (edge-to-edge without notches)
             'pl-[max(1rem,env(safe-area-inset-left))]',
             'pr-[max(1rem,env(safe-area-inset-right))]',

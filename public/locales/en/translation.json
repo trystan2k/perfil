@@ -25,6 +25,18 @@
     "headerAriaLabel": "Site header",
     "skipToMain": "Skip to main content"
   },
+  "compactHeader": {
+    "settingsAriaLabel": "Open settings",
+    "settingsTitle": "Settings"
+  },
+  "settingsSheet": {
+    "title": "Settings",
+    "closeAriaLabel": "Close settings"
+  },
+  "compactHeaderWithProviders": {
+    "themeLabel": "Theme",
+    "languageLabel": "Language"
+  },
   "languageSwitcher": {
     "ariaLabel": "Language selector",
     "switchTo": "Switch to {{language}}",

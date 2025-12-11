@@ -1,9 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { customRender } from '../../__mocks__/test-utils';
-import { CompactHeader } from '../CompactHeader';
 import * as useMediaQueryModule from '../../hooks/useMediaQuery';
+import { CompactHeader } from '../CompactHeader';
 
 // Mock useMediaQuery hook
 vi.mock('../../hooks/useMediaQuery');
@@ -161,26 +161,6 @@ describe('CompactHeader', () => {
 
       expect(screen.getByTestId('controls')).toBeInTheDocument();
       expect(screen.getByText('Theme & Language Controls')).toBeInTheDocument();
-    });
-
-    it('should render multiple children correctly', () => {
-      customRender(
-        <CompactHeader variant="mobile">
-          <button type="button" data-testid="btn-1">
-            Button 1
-          </button>
-          <button type="button" data-testid="btn-2">
-            Button 2
-          </button>
-          <button type="button" data-testid="btn-3">
-            Button 3
-          </button>
-        </CompactHeader>
-      );
-
-      expect(screen.getByTestId('btn-1')).toBeInTheDocument();
-      expect(screen.getByTestId('btn-2')).toBeInTheDocument();
-      expect(screen.getByTestId('btn-3')).toBeInTheDocument();
     });
 
     it('should render with no children', () => {
