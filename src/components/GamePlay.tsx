@@ -1,5 +1,6 @@
 import { HelpCircle } from 'lucide-react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
+import { ProfileLoadingSkeleton } from '@/components/ProfileLoadingSkeleton';
 import { ReducedMotionProvider } from '@/components/ReducedMotionProvider';
 import { RemovePointsDialog } from '@/components/RemovePointsDialog';
 import { RoundSummary } from '@/components/RoundSummary';
@@ -21,18 +22,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
 
   // Show loading state
   if (logic.isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-main p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl">
-              {logic.t('gamePlay.loading.title')}
-            </CardTitle>
-            <CardDescription>{logic.t('gamePlay.loading.description')}</CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    );
+    return <ProfileLoadingSkeleton />;
   }
 
   // If status is completed and id exists, show loading while navigating to scoreboard

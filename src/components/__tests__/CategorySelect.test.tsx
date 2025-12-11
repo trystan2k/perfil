@@ -232,7 +232,11 @@ describe('CategorySelect', () => {
     it('should show loading state initially', async () => {
       renderWithProviders(<CategorySelect sessionId="test-session" />);
 
-      expect(screen.getByText(/loading categories/i)).toBeInTheDocument();
+      // Check for ProfileLoadingSkeleton with animate-pulse class indicating loading state
+      const skeletons = screen
+        .getAllByRole('generic')
+        .filter((el) => el.className.includes('animate-pulse'));
+      expect(skeletons.length).toBeGreaterThan(0);
 
       // Wait for async effects to settle
       await waitFor(() => {

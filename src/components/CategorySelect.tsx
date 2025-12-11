@@ -1,5 +1,6 @@
 import { type ChangeEvent, useActionState, useEffect, useState } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
+import { ProfileLoadingSkeleton } from '@/components/ProfileLoadingSkeleton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { usePrefetchProfiles } from '@/hooks/usePrefetchProfiles';
@@ -80,20 +81,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
   }, [sessionId, loadFromStorage]);
 
   if (isLoading || sessionLoading) {
-    return (
-      <div className="min-h-main py-6">
-        <AdaptiveContainer maxWidth="2xl" className="flex items-center justify-center min-h-[50vh]">
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle as="h3" className="text-2xl">
-                {t('categorySelect.loading.title')}
-              </CardTitle>
-              <CardDescription>{t('categorySelect.loading.description')}</CardDescription>
-            </CardHeader>
-          </Card>
-        </AdaptiveContainer>
-      </div>
-    );
+    return <ProfileLoadingSkeleton />;
   }
 
   // Session errors are now handled by global ErrorStateProvider

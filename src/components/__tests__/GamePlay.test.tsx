@@ -405,8 +405,15 @@ describe('GamePlay Component', () => {
 
       customRender(<GamePlay sessionId="test-session-123" />);
 
-      expect(screen.getByText('Loading Game')).toBeInTheDocument();
-      expect(screen.getByText('Loading game session...')).toBeInTheDocument();
+      // Check for ProfileLoadingSkeleton with animate-pulse class
+      const skeletons = screen
+        .getAllByRole('generic')
+        .filter((el) => el.className.includes('animate-pulse'));
+      expect(skeletons.length).toBeGreaterThan(0);
+
+      // Verify aria-busy attribute indicating loading state
+      const loadingContainer = screen.getByRole('status', { hidden: true });
+      expect(loadingContainer).toHaveAttribute('aria-busy', 'true');
     });
 
     it('should call setError when session not found', async () => {
