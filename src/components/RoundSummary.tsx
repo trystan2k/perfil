@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -7,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { useReducedMotionContext } from './ReducedMotionProvider';
 import { useTranslate } from './TranslateProvider';
 
 export interface RoundSummaryProps {
@@ -25,6 +27,7 @@ export function RoundSummary({
   onContinue,
 }: RoundSummaryProps) {
   const { t } = useTranslate();
+  const { prefersReducedMotion } = useReducedMotionContext();
 
   return (
     <Dialog open={open} modal>
@@ -42,15 +45,29 @@ export function RoundSummary({
 
         <div className="space-y-4">
           {/* Correct Answer Display */}
-          <div className="p-4 rounded-lg bg-primary/10 border border-primary/20">
+          <motion.div
+            className="p-4 rounded-lg bg-primary/10 border border-primary/20"
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, ease: 'easeOut' }}
+          >
             <p className="text-sm font-medium text-muted-foreground mb-1">
               {t('gamePlay.roundSummary.correctAnswer')}
             </p>
             <p className="text-2xl font-bold text-primary text-center">{profileName}</p>
-          </div>
+          </motion.div>
 
           {/* Winner/Points Display */}
-          <div className="py-4 text-center">
+          <motion.div
+            className="py-4 text-center"
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : { duration: 0.5, delay: 0.2, ease: 'easeOut' }
+            }
+          >
             {winnerName ? (
               <p className="text-xl font-semibold">
                 {t('gamePlay.roundSummary.playerScored', {
@@ -63,14 +80,22 @@ export function RoundSummary({
                 {t('gamePlay.roundSummary.noOneScored')}
               </p>
             )}
-          </div>
+          </motion.div>
         </div>
 
-        <DialogFooter>
-          <Button onClick={onContinue} className="w-full">
-            {t('gamePlay.roundSummary.nextProfileButton')}
-          </Button>
-        </DialogFooter>
+        <motion.div
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={
+            prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: 0.3, ease: 'easeOut' }
+          }
+        >
+          <DialogFooter>
+            <Button onClick={onContinue} className="w-full">
+              {t('gamePlay.roundSummary.nextProfileButton')}
+            </Button>
+          </DialogFooter>
+        </motion.div>
       </DialogContent>
     </Dialog>
   );
