@@ -269,9 +269,7 @@ test.describe('Language Persistence', () => {
       await expect(portugueseLinkActive).toHaveAttribute('aria-current', 'page', { timeout: 5000 });
 
       // Switch back to English
-      const englishLink = languageNav
-        .getByRole('link', { name: /english|english|inglês/i })
-        .first();
+      const englishLink = languageNav.getByRole('link', { name: /english|inglês/i }).first();
       await expect(englishLink).toBeVisible({ timeout: 3000 });
       await englishLink.click();
 
