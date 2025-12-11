@@ -58,6 +58,7 @@ export function GamePlayPlayerScoreboard({
                 <span className="font-medium text-base">{player.name}</span>
                 <motion.span
                   className="text-lg font-bold"
+                  key={`score-${player.id}-${player.score}`}
                   initial={prefersReducedMotion ? { scale: 1 } : { scale: 1.2, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={

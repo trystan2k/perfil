@@ -22,6 +22,7 @@ export function ClueProgress({ cluesRevealed, totalClues, pointsRemaining }: Clu
     <div className="space-y-3">
       {/* Points Remaining Display */}
       <motion.div
+        key={`points-remaining-${pointsRemaining}`}
         className="text-center"
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
