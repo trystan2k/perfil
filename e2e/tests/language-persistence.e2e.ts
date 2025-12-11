@@ -147,7 +147,10 @@ test.describe('Language Persistence', () => {
       await expect(page.locator('header').first()).toBeVisible({ timeout: 8000 });
 
       // Verify Spanish is now active - use selector that works for any language
-      settingsButton = page.locator('header').first().locator('button').first();
+      settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /settings|configuración|configurações/i });
       await expect(settingsButton).toBeVisible({ timeout: 8000 });
       await settingsButton.click();
 
