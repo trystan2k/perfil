@@ -37,13 +37,15 @@ export function GamePlayPlayerScoreboard({
       <CardContent className="pt-6 space-y-3">
         <h4 className="text-lg font-semibold text-center">{playersAwardPointsTitle}</h4>
         <div className="grid gap-2">
-          {players.map((player) => (
+          {players.map((player, index) => (
             <motion.div
               key={player.id}
               className="flex gap-2 items-center"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: 0.1 }}
+              transition={
+                prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: index * 0.05 }
+              }
             >
               <Button
                 onClick={() => onAwardPoints(player.id)}
@@ -56,7 +58,6 @@ export function GamePlayPlayerScoreboard({
                 <span className="font-medium text-base">{player.name}</span>
                 <motion.span
                   className="text-lg font-bold"
-                  key={`score-${player.id}-${player.score}`}
                   initial={prefersReducedMotion ? { scale: 1 } : { scale: 1.2, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={

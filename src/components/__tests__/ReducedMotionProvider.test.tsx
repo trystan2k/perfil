@@ -162,12 +162,17 @@ describe('ReducedMotionProvider & useReducedMotionContext', () => {
 
       vi.mocked(window.matchMedia).mockReturnValue(mockMediaQueryList as MediaQueryList);
 
+      // Use a single shared provider
+      const SharedWrapper = ({ children }: { children: React.ReactNode }) => (
+        <ReducedMotionProvider>{children}</ReducedMotionProvider>
+      );
+
       const { result: result1 } = renderHook(() => useReducedMotionContext(), {
-        wrapper: ({ children }) => <ReducedMotionProvider>{children}</ReducedMotionProvider>,
+        wrapper: SharedWrapper,
       });
 
       const { result: result2 } = renderHook(() => useReducedMotionContext(), {
-        wrapper: ({ children }) => <ReducedMotionProvider>{children}</ReducedMotionProvider>,
+        wrapper: SharedWrapper,
       });
 
       await waitFor(() => {

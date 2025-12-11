@@ -64,7 +64,6 @@ export function ProfileProgress({ currentProfileIndex, totalProfiles }: ProfileP
         </p>
         <motion.p
           className="text-sm text-muted-foreground"
-          key={`percentage-${displayPercentage}`}
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2, ease: 'easeOut' }}
@@ -72,19 +71,13 @@ export function ProfileProgress({ currentProfileIndex, totalProfiles }: ProfileP
           {displayPercentage}%
         </motion.p>
       </div>
-      <motion.div
-        initial={false}
-        animate={{ width: '100%' }}
-        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
-      >
-        <Progress
-          value={progressPercentage}
-          aria-label={t('gamePlay.profileProgress.ariaLabel', {
-            current: currentProfileIndex,
-            total: totalProfiles,
-          })}
-        />
-      </motion.div>
+      <Progress
+        value={progressPercentage}
+        aria-label={t('gamePlay.profileProgress.ariaLabel', {
+          current: currentProfileIndex,
+          total: totalProfiles,
+        })}
+      />
     </div>
   );
 }
