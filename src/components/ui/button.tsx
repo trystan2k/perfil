@@ -39,7 +39,6 @@ export interface ButtonProps
   asChild?: boolean;
   /**
    * If true, shows a loading spinner and disables the button.
-   * The button remains clickable in terms of styles but is functionally disabled.
    */
   isLoading?: boolean;
 }

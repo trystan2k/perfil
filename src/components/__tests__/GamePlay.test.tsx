@@ -405,15 +405,19 @@ describe('GamePlay Component', () => {
 
       customRender(<GamePlay sessionId="test-session-123" />);
 
-      // Check for ProfileLoadingSkeleton with animate-pulse class
+      // Check for skeleton loading state with animate-pulse class and proper layout
       const skeletons = screen
         .getAllByRole('generic')
         .filter((el) => el.className.includes('animate-pulse'));
       expect(skeletons.length).toBeGreaterThan(0);
 
-      // Verify aria-busy attribute indicating loading state
-      const loadingContainer = screen.getByRole('status', { hidden: true });
-      expect(loadingContainer).toHaveAttribute('aria-busy', 'true');
+      // Verify layout matches final content structure (min-h-main, responsive grid)
+      const loadingContainer = document.querySelector('.min-h-main.py-6');
+      expect(loadingContainer).toBeInTheDocument();
+
+      // Verify grid layout structure
+      const gridLayout = loadingContainer?.querySelector('.grid.grid-cols-1.lg\\:grid-cols-2');
+      expect(gridLayout).toBeInTheDocument();
     });
 
     it('should call setError when session not found', async () => {

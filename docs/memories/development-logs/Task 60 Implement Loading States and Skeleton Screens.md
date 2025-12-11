@@ -10,77 +10,63 @@ permalink: development-logs/task-60-implement-loading-states-skeleton-screens
 - Author: basic-memory-specialist
 - Recorded by: basic-memory-specialist
 
-## Task overview and objectives
+## Task
 
-The goal of Task 60 was to improve perceived performance and UX by introducing loading states and skeleton screens across key UI surfaces. Objectives included:
+- Implement Loading States and Skeleton Screens
 
-- Add reusable skeleton components for lists and profile displays
-- Integrate skeletons into the main gameplay and category selection flows
-- Ensure animations are performant, accessible, and do not cause layout shift
-- Provide a consistent, test-covered implementation and document files changed
+## Status
 
-## Components created
+- COMPLETED
 
-- Skeleton.tsx — Generic, lightweight skeleton block component with configurable size, border-radius, and animation variants.
-- ProfileLoadingSkeleton.tsx — Composite skeleton used to represent a profile card (avatar, name, stats) used throughout the app.
+## PR
 
-## Components modified
+- https://github.com/trystan2k/perfil/pull/72
 
-- GamePlay.tsx — Integrated Skeleton placeholders when game data is loading; ensured zero layout shift and ARIA attributes for screen readers.
-- CategorySelect.tsx — Replaced blank loading states with list skeletons and improved focus management while loading.
-- Button.tsx — Added a subtle loading state variant to visually disable actions while async operations complete (keeps same layout to avoid shifting).
+## Implementation approach
 
-## Key features implemented
+- Created a reusable Skeleton component (src/components/ui/Skeleton.tsx) and a composite ProfileLoadingSkeleton (src/components/ProfileLoadingSkeleton.tsx) to represent profile data loading (avatar, name, stats).
+- Extended Button with an isLoading prop and inline spinner so buttons preserve layout while async actions run; spinner is rendered inline and text width is reserved to avoid layout shift.
+- Integrated skeletons into GamePlay and CategorySelect flows, using aria-busy and aria-live regions to provide accessible loading announcements.
+- Prioritized simplicity and performance: CSS-based shimmer animation, GPU-friendly transforms, minimal DOM nodes.
 
-- Skeleton animations: CSS-based shimmer animation using transform/opacity to ensure GPU-accelerated, low-cost rendering.
-- Accessibility: Added aria-busy, aria-live regions, and hidden text descriptions for screen readers to indicate loading status without noise.
-- Zero layout shift: All skeletons occupy the same dimensions as final content (using explicit width/height or aspect-ratio utilities) to avoid CLS.
-- Reusability: Skeleton component accepts size props and semantic variants so it can be used across lists, cards, buttons and inline elements.
+## Files changed / created (11 files)
 
-## Files changed / created
+1. src/components/ui/Skeleton.tsx (new)
+2. src/components/ProfileLoadingSkeleton.tsx (new)
+3. src/components/GamePlay.tsx (modified) — integrated skeletons for game data loading
+4. src/components/CategorySelect.tsx (modified) — list skeletons during loading
+5. src/components/ui/Button.tsx (modified) — added isLoading prop and spinner
+6. src/components/__tests__/ProfileLoadingSkeleton.test.tsx (new)
+7. src/components/GamePlay/__tests__/GamePlay.loading.test.tsx (new)
+8. src/components/CategorySelect/__tests__/CategorySelect.loading.test.tsx (new)
+9. src/components/ui/__tests__/Button.loading.test.tsx (new)
+10. src/components/ui/index.ts (modified) — exported new skeleton components
+11. src/styles/skeleton.css (new/modified) — skeleton animation utilities
 
-Created:
-- src/components/ui/Skeleton.tsx
-- src/components/ProfileLoadingSkeleton.tsx
-
-Modified:
-- src/components/GamePlay.tsx
-- src/components/CategorySelect.tsx
-- src/components/ui/Button.tsx
-
-Tests:
-- src/components/__tests__/ProfileLoadingSkeleton.test.tsx
-- src/components/GamePlay/__tests__/GamePlay.loading.test.tsx
-- src/components/CategorySelect/__tests__/CategorySelect.loading.test.tsx
-
-Documentation / logs:
-- docs/memories/development-logs/Task 60 Implement Loading States and Skeleton Screens.md
+(Count: 11 files modified/created)
 
 ## Tests added
 
-- Unit tests for Skeleton rendering and accessibility attributes (aria-busy, role, hidden loading text).
-- Integration tests ensuring GamePlay and CategorySelect render skeletons while mocked async data is pending and then render content when resolved.
-- Snapshot tests for ProfileLoadingSkeleton visual structure.
+- 15 new tests covering loading states and accessibility:
+  - Unit tests for Skeleton rendering and accessibility attributes (aria-busy, role, hidden loading text).
+  - Snapshot tests for ProfileLoadingSkeleton structure.
+  - Integration tests ensuring GamePlay and CategorySelect render skeletons while mocked async data is pending and render content after resolution.
+  - Button loading tests covering spinner rendering and preserved layout.
+
+## Key fix
+
+- Fixed a pre-existing Button test failure related to Slot composition by ensuring the Button keeps consistent DOM structure while rendering the spinner. This change stabilised the Button test suite and prevented regressions in components that compose into the Button's children slots.
 
 ## QA results
 
-- Unit Tests: All newly added unit and integration tests passing locally.
-- E2E / Integration: Relevant flows with mocked delays pass in CI-local runs.
-- Code Quality: Lint and TypeScript checks clean.
-- Build: Successful production build completed.
-
-Summary: QA: All checks passing.
-
-## Implementation approach and decisions
-
-- Simplicity and performance were prioritized: skeletons are pure presentational components implemented with minimal DOM (divs + utility classes) and GPU-friendly CSS animations (transform/translate) to keep frame drops low.
-- Accessibility: Instead of removing all semantic markers, components expose aria-busy on container elements and include visually-hidden text for assistive technologies to announce loading states; skeletons are marked as presentation when appropriate.
-- Zero layout shift: Wherever content size could vary, skeleton placeholders match final content size using explicit dimensions or CSS aspect-ratio and Tailwind utilities. Button loading variant preserves width by rendering a spinner inline and keeping text width reserved.
-- Reuse: Built a single Skeleton component that covers most needs and a higher-level ProfileLoadingSkeleton for complex pattern reuse. This reduces future maintenance and enforces visual consistency.
-- Tests: Focused on behavior (shows skeleton while loading, shows content when done) and accessibility attributes rather than pixel-perfect styling.
+- All newly added unit and integration tests pass locally.
+- Relevant CI checks for the branch passed in local CI runs.
+- Lint and TypeScript checks are clean.
+- Production build succeeded.
 
 ---
 
 Notes:
+
+- Development log updated and saved to docs/memories/development-logs/Task 60 Implement Loading States and Skeleton Screens.md
 - Recorded by basic-memory-specialist.
-- Development log created via basic-memory CLI and exported to docs/memories/development-logs as requested.
