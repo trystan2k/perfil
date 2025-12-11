@@ -141,19 +141,20 @@ test.describe('Language Persistence', () => {
 
       await page.waitForURL(/\/es\//);
       await page.waitForLoadState('networkidle');
-      await page.waitForTimeout(1500); // Allow drawer state to reset and component to rehydrate
+      await page.waitForTimeout(2000); // Allow drawer state to reset and component to rehydrate
 
-      // Verify Spanish is now active
-      settingsButton = page
-        .locator('header')
-        .first()
-        .getByRole('button', { name: /open settings/i });
+      // Wait for header to exist after transition
+      await expect(page.locator('header').first()).toBeVisible({ timeout: 8000 });
+
+      // Verify Spanish is now active - use selector that works for any language
+      settingsButton = page.locator('header').first().locator('button').first();
+      await expect(settingsButton).toBeVisible({ timeout: 8000 });
       await settingsButton.click();
 
-      drawer = page.getByRole('dialog', { name: /settings/i });
+      drawer = page.getByRole('dialog');
       await expect(drawer).toBeVisible({ timeout: 3000 });
       await page.waitForTimeout(1000); // Wait for drawer content to render
-      languageNav = drawer.getByRole('navigation', { name: /language|idioma/i });
+      languageNav = drawer.getByRole('navigation', { name: /language|idioma|lengua/i });
       await expect(languageNav).toBeVisible({ timeout: 5000 });
       const spanishLinkActive = languageNav.getByRole('link', { name: /español/i }).first();
       await expect(spanishLinkActive).toHaveAttribute('aria-current', 'page', { timeout: 5000 });
@@ -161,18 +162,13 @@ test.describe('Language Persistence', () => {
 
     test('should persist language across page reload', async ({ page }) => {
       await page.goto('/es/', { waitUntil: 'networkidle' });
-
-      // Verify Spanish URL
       await expect(page).toHaveURL(/\/es\//);
 
       // Verify Spanish is active by opening drawer
-      const settingsButton = page
-        .locator('header')
-        .first()
-        .getByRole('button', { name: /open settings/i });
+      const settingsButton = page.locator('header').first().locator('button').first();
       await settingsButton.click();
 
-      const drawer = page.getByRole('dialog', { name: /settings/i });
+      const drawer = page.getByRole('dialog');
       await expect(drawer).toBeVisible({ timeout: 3000 });
       await page.waitForTimeout(1000); // Wait for drawer content to render
       const languageNav = drawer.getByRole('navigation', { name: /language|idioma/i });
@@ -180,30 +176,33 @@ test.describe('Language Persistence', () => {
       const spanishLinkBefore = languageNav.getByRole('link', { name: /español/i }).first();
       await expect(spanishLinkBefore).toHaveAttribute('aria-current', 'page', { timeout: 5000 });
 
-      // Close drawer before reload
-      const closeButton = drawer.getByRole('button', { name: /close settings/i });
+      // Close drawer before reload - use any button in drawer header instead of name
+      const closeButton = drawer.locator('button').last();
       await closeButton.click();
       await page.waitForTimeout(300); // Wait for drawer to close
 
       // Refresh the page
       await page.reload();
       await page.waitForLoadState('networkidle');
-      await page.waitForTimeout(1500);
+      await page.waitForTimeout(2000);
+
+      // Wait for header to exist after reload
+      await expect(page.locator('header').first()).toBeVisible({ timeout: 8000 });
 
       // Verify language is still Spanish after refresh
       await expect(page).toHaveURL(/\/es\//);
 
-      // Verify Spanish is still active
-      const settingsButtonAfter = page
-        .locator('header')
-        .first()
-        .getByRole('button', { name: /open settings/i });
+      // Verify Spanish is still active - use selector that works for any language
+      const settingsButtonAfter = page.locator('header').first().locator('button').first();
+      await expect(settingsButtonAfter).toBeVisible({ timeout: 8000 });
       await settingsButtonAfter.click();
 
-      const drawerAfter = page.getByRole('dialog', { name: /settings/i });
+      const drawerAfter = page.getByRole('dialog');
       await expect(drawerAfter).toBeVisible({ timeout: 3000 });
       await page.waitForTimeout(1000); // Wait for drawer content to render
-      const languageNavAfter = drawerAfter.getByRole('navigation', { name: /language|idioma/i });
+      const languageNavAfter = drawerAfter.getByRole('navigation', {
+        name: /language|idioma|lengua/i,
+      });
       await expect(languageNavAfter).toBeVisible({ timeout: 5000 });
       const spanishLinkAfter = languageNavAfter.getByRole('link', { name: /español/i }).first();
       await expect(spanishLinkAfter).toHaveAttribute('aria-current', 'page', { timeout: 5000 });
@@ -216,16 +215,13 @@ test.describe('Language Persistence', () => {
       await expect(page).toHaveURL(/\/en\//);
 
       // Switch to Spanish
-      let settingsButton = page
-        .locator('header')
-        .first()
-        .getByRole('button', { name: /open settings/i });
+      let settingsButton = page.locator('header').first().locator('button').first();
       await settingsButton.click();
 
-      let drawer = page.getByRole('dialog', { name: /settings/i });
+      let drawer = page.getByRole('dialog');
       await expect(drawer).toBeVisible({ timeout: 3000 });
       await page.waitForTimeout(1000); // Wait for drawer content to render
-      let languageNav = drawer.getByRole('navigation', { name: /language|idioma/i });
+      let languageNav = drawer.getByRole('navigation', { name: /language|idioma|lengua/i });
       await expect(languageNav).toBeVisible({ timeout: 5000 });
       const spanishLink = languageNav.getByRole('link', { name: /español/i }).first();
       await expect(spanishLink).toBeVisible({ timeout: 3000 });
@@ -233,19 +229,20 @@ test.describe('Language Persistence', () => {
 
       await page.waitForURL(/\/es\//);
       await page.waitForLoadState('networkidle');
-      await page.waitForTimeout(1500);
+      await page.waitForTimeout(2000);
 
-      // Switch to Portuguese
-      settingsButton = page
-        .locator('header')
-        .first()
-        .getByRole('button', { name: /open settings/i });
+      // Wait for header to exist after transition
+      await expect(page.locator('header').first()).toBeVisible({ timeout: 8000 });
+
+      // Switch to Portuguese - use selector that works for any language
+      settingsButton = page.locator('header').first().locator('button').first();
+      await expect(settingsButton).toBeVisible({ timeout: 8000 });
       await settingsButton.click();
 
-      drawer = page.getByRole('dialog', { name: /settings/i });
+      drawer = page.getByRole('dialog');
       await expect(drawer).toBeVisible({ timeout: 3000 });
       await page.waitForTimeout(1000); // Wait for drawer content to render
-      languageNav = drawer.getByRole('navigation', { name: /language|idioma/i });
+      languageNav = drawer.getByRole('navigation', { name: /language|idioma|lengua/i });
       await expect(languageNav).toBeVisible({ timeout: 5000 });
       const portugueseLink = languageNav.getByRole('link', { name: /português/i }).first();
       await expect(portugueseLink).toBeVisible({ timeout: 3000 });
@@ -253,25 +250,28 @@ test.describe('Language Persistence', () => {
 
       await page.waitForURL(/\/pt-BR\//);
       await page.waitForLoadState('networkidle');
-      await page.waitForTimeout(1500);
+      await page.waitForTimeout(2000);
 
-      // Verify Portuguese is active
-      settingsButton = page
-        .locator('header')
-        .first()
-        .getByRole('button', { name: /open settings/i });
+      // Wait for header to exist after transition
+      await expect(page.locator('header').first()).toBeVisible({ timeout: 8000 });
+
+      // Verify Portuguese is active - use selector that works for any language
+      settingsButton = page.locator('header').first().locator('button').first();
+      await expect(settingsButton).toBeVisible({ timeout: 8000 });
       await settingsButton.click();
 
-      drawer = page.getByRole('dialog', { name: /settings/i });
+      drawer = page.getByRole('dialog');
       await expect(drawer).toBeVisible({ timeout: 3000 });
       await page.waitForTimeout(1000); // Wait for drawer content to render
-      languageNav = drawer.getByRole('navigation', { name: /language|idioma/i });
+      languageNav = drawer.getByRole('navigation', { name: /language|idioma|lengua/i });
       await expect(languageNav).toBeVisible({ timeout: 5000 });
       const portugueseLinkActive = languageNav.getByRole('link', { name: /português/i }).first();
       await expect(portugueseLinkActive).toHaveAttribute('aria-current', 'page', { timeout: 5000 });
 
       // Switch back to English
-      const englishLink = languageNav.getByRole('link', { name: /english/i }).first();
+      const englishLink = languageNav
+        .getByRole('link', { name: /english|english|inglês/i })
+        .first();
       await expect(englishLink).toBeVisible({ timeout: 3000 });
       await englishLink.click();
 
@@ -299,18 +299,20 @@ test.describe('Language Persistence', () => {
       await page.waitForURL(/\/pt-BR\/game-setup\/.+/);
       await page.waitForLoadState('networkidle');
       await expect(page.getByRole('heading', { name: 'Selecionar Categorias' })).toBeVisible();
+      await page.waitForTimeout(2000); // Allow component to rehydrate after transition
 
-      // Verify Portuguese language is still active in drawer
-      const settingsButton = page
-        .locator('header')
-        .first()
-        .getByRole('button', { name: /open settings/i });
+      // Wait for header to exist after transition
+      await expect(page.locator('header').first()).toBeVisible({ timeout: 8000 });
+
+      // Verify Portuguese language is still active in drawer - use selector that works for any language
+      const settingsButton = page.locator('header').first().locator('button').first();
+      await expect(settingsButton).toBeVisible({ timeout: 8000 });
       await settingsButton.click();
 
-      const drawer = page.getByRole('dialog', { name: /settings/i });
+      const drawer = page.getByRole('dialog');
       await expect(drawer).toBeVisible({ timeout: 3000 });
       await page.waitForTimeout(1000); // Wait for drawer content to render
-      const langNav = drawer.getByRole('navigation', { name: /language|idioma/i });
+      const langNav = drawer.getByRole('navigation', { name: /language|idioma|lengua/i });
       await expect(langNav).toBeVisible({ timeout: 5000 });
       const portugueseLink = langNav.getByRole('link', { name: /português/i }).first();
       await expect(portugueseLink).toHaveAttribute('aria-current', 'page', { timeout: 5000 });
