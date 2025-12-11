@@ -420,15 +420,21 @@ test.describe('Middleware Functionality', () => {
     await page.goto('/', { waitUntil: 'networkidle' });
 
     // Change language (if language switcher exists)
-    const languageSwitcher = page.getByRole('navigation', { name: /Language selector/i });
-    if (await languageSwitcher.isVisible()) {
+    const header = page.locator('header').first();
+    const languageSwitcher = header.getByRole('navigation', { name: /language/i });
+
+    // Wait for language switcher to be visible (media query detection)
+    const isVisible = await languageSwitcher.isVisible().catch(() => false);
+    if (isVisible) {
+      await expect(languageSwitcher).toBeVisible({ timeout: 3000 });
+
       // Get current language and click different language
-      const langButtons = languageSwitcher.locator('button');
-      const count = await langButtons.count();
+      const langLinks = languageSwitcher.getByRole('link');
+      const count = await langLinks.count();
 
       if (count > 1) {
         // Click second language option
-        await langButtons.nth(1).click();
+        await langLinks.nth(1).click();
 
         // Wait for navigation
         await page.waitForLoadState('networkidle');

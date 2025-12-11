@@ -7,6 +7,21 @@ vi.mock('zustand');
 // Mock the idb module
 vi.mock('idb');
 
+// Mock window.matchMedia for useMediaQuery hook tests
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});
+
 // Suppress Radix UI accessibility warnings in tests
 // These warnings are about missing Description elements, but our components
 // properly implement aria-describedby for accessibility

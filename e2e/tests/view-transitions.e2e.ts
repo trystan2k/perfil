@@ -433,12 +433,9 @@ test.describe('View Transitions API and State Persistence', () => {
       // Verify header is still visible after transition
       await expect(header).toBeVisible();
 
-      // Verify theme and language switchers are still in header
-      const themeSwitcher = header.getByRole('navigation', { name: /theme switcher/i });
-      const languageSwitcher = header.getByRole('navigation', { name: /language/i });
-
-      await expect(themeSwitcher).toBeVisible();
-      await expect(languageSwitcher).toBeVisible();
+      // Verify settings button is still visible (switchers are now in drawer)
+      const settingsButton = header.getByRole('button', { name: /settings/i });
+      await expect(settingsButton).toBeVisible();
     });
 
     test('should show correct page content after transition animation', async ({ page }) => {
@@ -497,11 +494,13 @@ test.describe('View Transitions API and State Persistence', () => {
       // Navigate to category select
       await page.getByRole('button', { name: 'Start Game' }).click();
       await expect(page).toHaveURL(/\/en\/game-setup\/.+/);
+      await page.waitForLoadState('networkidle');
 
       // Select category and navigate
       const categoryButton = page.getByLabel('Famous People');
       await categoryButton.click();
       await page.getByRole('button', { name: 'Continue' }).click();
+      await page.waitForLoadState('networkidle');
 
       // Verify still on English locale
       await expect(page).toHaveURL(/\/en\//);
@@ -509,9 +508,22 @@ test.describe('View Transitions API and State Persistence', () => {
       // Navigate to game
       await page.getByRole('button', { name: 'Start Game' }).click();
       await expect(page).toHaveURL(/\/en\/game\/.+/);
+      await page.waitForLoadState('networkidle');
 
-      // Verify language switcher shows English as active
-      const englishLink = page.getByRole('link', { name: /english/i });
+      // Verify language switcher shows English as active (in drawer)
+      const settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /open settings|abrir configurações/i });
+      await expect(settingsButton).toBeVisible({ timeout: 5000 });
+      await settingsButton.click();
+
+      const drawer = page.getByRole('dialog', { name: /settings|configurações/i });
+      await expect(drawer).toBeVisible();
+
+      const englishLink = drawer
+        .getByRole('navigation', { name: /language|idioma/i })
+        .getByRole('link', { name: /english|inglês/i });
       await expect(englishLink).toHaveAttribute('aria-current', 'page');
     });
 
@@ -531,15 +543,38 @@ test.describe('View Transitions API and State Persistence', () => {
       // Navigate to category select
       await page.getByRole('button', { name: 'Iniciar Jogo' }).click();
       await expect(page).toHaveURL(/\/pt-BR\/game-setup\/.+/);
+      await page.waitForLoadState('networkidle');
 
-      // Verify Portuguese is still active
-      const portugueseLink = page.getByRole('link', { name: /português/i });
+      // Verify Portuguese is still active (in drawer)
+      // Use more flexible aria-label matching for Portuguese
+      const settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /abrir configurações|open settings/i });
+      await expect(settingsButton).toBeVisible({ timeout: 5000 });
+      await settingsButton.click();
+
+      const drawer = page.getByRole('dialog', { name: /configurações|settings/i });
+      await expect(drawer).toBeVisible();
+
+      const portugueseLink = drawer
+        .getByRole('navigation', { name: /idioma|language/i })
+        .getByRole('link', { name: /português/i });
       await expect(portugueseLink).toHaveAttribute('aria-current', 'page');
+
+      // Close drawer
+      const closeButton = drawer.getByRole('button', { name: /fechar|close|back/i }).first();
+      await closeButton.click();
+
+      // Wait briefly for close animation to complete
+      await page.waitForTimeout(500);
 
       // Select category
       const categoryButton = page.getByLabel('Pessoas Famosas');
+      await expect(categoryButton).toBeVisible({ timeout: 5000 });
       await categoryButton.click();
       await page.getByRole('button', { name: 'Continuar' }).click();
+      await page.waitForLoadState('networkidle');
 
       // Verify still on Portuguese locale
       await expect(page).toHaveURL(/\/pt-BR\//);
@@ -547,9 +582,23 @@ test.describe('View Transitions API and State Persistence', () => {
       // Navigate to game
       await page.getByRole('button', { name: 'Iniciar Jogo' }).click();
       await expect(page).toHaveURL(/\/pt-BR\/game\/.+/);
+      await page.waitForLoadState('networkidle');
 
-      // Verify Portuguese is still active on game page
-      await expect(portugueseLink).toHaveAttribute('aria-current', 'page');
+      // Verify Portuguese is still active on game page (in drawer)
+      const settingsButtonGame = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /abrir configurações|open settings/i });
+      await expect(settingsButtonGame).toBeVisible({ timeout: 5000 });
+      await settingsButtonGame.click();
+
+      const drawerGame = page.getByRole('dialog', { name: /configurações|settings/i });
+      await expect(drawerGame).toBeVisible();
+
+      const portugueseLinkGame = drawerGame
+        .getByRole('navigation', { name: /idioma|language/i })
+        .getByRole('link', { name: /português/i });
+      await expect(portugueseLinkGame).toHaveAttribute('aria-current', 'page');
     });
 
     test('should keep locale prefix consistent after view transition navigation', async ({

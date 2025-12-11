@@ -6,14 +6,22 @@ test.describe('Theme switching', () => {
   });
 
   test('theme switcher renders with all theme options', async ({ page }) => {
-    // Wait for theme switcher to be available
-    const themeNav = page.getByRole('navigation', { name: /theme switcher/i });
+    // Open settings drawer from header
+    const header = page.locator('header').first();
+    const settingsButton = header.getByRole('button', { name: /open settings/i });
+    await settingsButton.click();
+
+    // Wait for drawer to open and find theme switcher
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible({ timeout: 3000 });
+
+    const themeNav = drawer.getByRole('navigation', { name: /theme switcher/i });
     await expect(themeNav).toBeVisible();
 
     // Check all theme buttons are present
-    const lightButton = page.getByLabel(/switch to light theme/i);
-    const darkButton = page.getByLabel(/switch to dark theme/i);
-    const systemButton = page.getByLabel(/switch to system theme/i);
+    const lightButton = themeNav.getByLabel(/switch to light theme/i);
+    const darkButton = themeNav.getByLabel(/switch to dark theme/i);
+    const systemButton = themeNav.getByLabel(/switch to system theme/i);
 
     await expect(lightButton).toBeVisible();
     await expect(darkButton).toBeVisible();
@@ -21,7 +29,17 @@ test.describe('Theme switching', () => {
   });
 
   test('switching to dark theme applies dark class', async ({ page }) => {
-    const darkButton = page.getByLabel(/switch to dark theme/i);
+    // Open settings drawer
+    const header = page.locator('header').first();
+    const settingsButton = header.getByRole('button', { name: /open settings/i });
+    await settingsButton.click();
+
+    // Wait for drawer and find theme switcher
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible({ timeout: 3000 });
+
+    const themeNav = drawer.getByRole('navigation', { name: /theme switcher/i });
+    const darkButton = themeNav.getByLabel(/switch to dark theme/i);
 
     // Click dark theme
     await darkButton.click();
@@ -35,8 +53,18 @@ test.describe('Theme switching', () => {
   });
 
   test('switching to light theme removes dark class', async ({ page }) => {
-    const darkButton = page.getByLabel(/switch to dark theme/i);
-    const lightButton = page.getByLabel(/switch to light theme/i);
+    // Open settings drawer
+    const header = page.locator('header').first();
+    const settingsButton = header.getByRole('button', { name: /open settings/i });
+    await settingsButton.click();
+
+    // Wait for drawer and find theme switcher
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible({ timeout: 3000 });
+
+    const themeNav = drawer.getByRole('navigation', { name: /theme switcher/i });
+    const darkButton = themeNav.getByLabel(/switch to dark theme/i);
+    const lightButton = themeNav.getByLabel(/switch to light theme/i);
 
     // Start with dark theme
     await darkButton.click();
@@ -51,7 +79,17 @@ test.describe('Theme switching', () => {
   });
 
   test('theme persists across page reload', async ({ page }) => {
-    const darkButton = page.getByLabel(/switch to dark theme/i);
+    // Open settings drawer
+    const header = page.locator('header').first();
+    const settingsButton = header.getByRole('button', { name: /open settings/i });
+    await settingsButton.click();
+
+    // Wait for drawer and find theme switcher
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible({ timeout: 3000 });
+
+    const themeNav = drawer.getByRole('navigation', { name: /theme switcher/i });
+    const darkButton = themeNav.getByLabel(/switch to dark theme/i);
 
     // Set theme to dark
     await darkButton.click();
@@ -73,8 +111,18 @@ test.describe('Theme switching', () => {
   });
 
   test('theme button shows active state for current theme', async ({ page }) => {
-    const darkButton = page.getByLabel(/switch to dark theme/i);
-    const lightButton = page.getByLabel(/switch to light theme/i);
+    // Open settings drawer
+    const header = page.locator('header').first();
+    const settingsButton = header.getByRole('button', { name: /open settings/i });
+    await settingsButton.click();
+
+    // Wait for drawer and find theme switcher
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible({ timeout: 3000 });
+
+    const themeNav = drawer.getByRole('navigation', { name: /theme switcher/i });
+    const darkButton = themeNav.getByLabel(/switch to dark theme/i);
+    const lightButton = themeNav.getByLabel(/switch to light theme/i);
 
     // Initially should have system or light active
     let darkActive = await darkButton.getAttribute('aria-current');
@@ -95,8 +143,18 @@ test.describe('Theme switching', () => {
   });
 
   test('system theme respects prefers-color-scheme', async ({ page }) => {
-    const systemButton = page.getByLabel(/switch to system theme/i);
-    const darkButton = page.getByLabel(/switch to dark theme/i);
+    // Open settings drawer
+    const header = page.locator('header').first();
+    const settingsButton = header.getByRole('button', { name: /open settings/i });
+    await settingsButton.click();
+
+    // Wait for drawer and find theme switcher
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible({ timeout: 3000 });
+
+    const themeNav = drawer.getByRole('navigation', { name: /theme switcher/i });
+    const systemButton = themeNav.getByLabel(/switch to system theme/i);
+    const darkButton = themeNav.getByLabel(/switch to dark theme/i);
 
     // Set to dark first
     await darkButton.click();
@@ -124,8 +182,17 @@ test.describe('Theme switching', () => {
   });
 
   test('theme switcher is accessible via keyboard', async ({ page }) => {
-    // Tab to theme switcher
-    const darkButton = page.getByLabel(/switch to dark theme/i);
+    // Open settings drawer
+    const header = page.locator('header').first();
+    const settingsButton = header.getByRole('button', { name: /open settings/i });
+    await settingsButton.click();
+
+    // Wait for drawer and find theme switcher
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible({ timeout: 3000 });
+
+    const themeNav = drawer.getByRole('navigation', { name: /theme switcher/i });
+    const darkButton = themeNav.getByLabel(/switch to dark theme/i);
 
     // Focus the dark button
     await darkButton.focus();
@@ -140,19 +207,22 @@ test.describe('Theme switching', () => {
     await expect(htmlElement).toHaveClass(/dark/);
   });
 
-  test('theme switcher works with header controls', async ({ page }) => {
-    // Verify theme switcher is in the header
-    const header = page.locator('header');
-    const themeSwitcher = header.getByRole('navigation', { name: /theme switcher/i });
+  test('theme switcher works with drawer', async ({ page }) => {
+    // Open settings drawer
+    const header = page.locator('header').first();
+    const settingsButton = header.getByRole('button', { name: /open settings/i });
+    await expect(settingsButton).toBeVisible();
+    await settingsButton.click();
 
+    // Both switchers should be visible in the drawer
+    const drawer = page.getByRole('dialog', { name: /settings/i });
+    await expect(drawer).toBeVisible();
+
+    const themeSwitcher = drawer.getByRole('navigation', { name: /theme switcher/i });
+    const languageSwitcher = drawer.getByRole('navigation', { name: /language/i });
+
+    // Both should be visible in the drawer
     await expect(themeSwitcher).toBeVisible();
-
-    // Verify language switcher is also present
-    const languageSwitcher = header.getByRole('navigation', { name: /Language selector/i });
     await expect(languageSwitcher).toBeVisible();
-
-    // Both should be in the same header
-    const headerControls = header.locator('.header-controls');
-    await expect(headerControls).toBeVisible();
   });
 });
