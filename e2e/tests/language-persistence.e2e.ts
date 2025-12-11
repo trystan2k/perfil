@@ -180,7 +180,7 @@ test.describe('Language Persistence', () => {
       await expect(spanishLinkBefore).toHaveAttribute('aria-current', 'page', { timeout: 5000 });
 
       // Close drawer before reload - use any button in drawer header instead of name
-      const closeButton = drawer.locator('button').last();
+      const closeButton = drawer.getByRole('button', { name: /close|cerrar|fechar/i });
       await closeButton.click();
       await page.waitForTimeout(300); // Wait for drawer to close
 
