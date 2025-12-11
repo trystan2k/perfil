@@ -1,4 +1,7 @@
+import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { Progress } from '@/components/ui/progress';
+import { useReducedMotionContext } from './ReducedMotionProvider';
 import { useTranslate } from './TranslateProvider';
 
 export interface ProfileProgressProps {
@@ -8,9 +11,47 @@ export interface ProfileProgressProps {
 
 export function ProfileProgress({ currentProfileIndex, totalProfiles }: ProfileProgressProps) {
   const { t } = useTranslate();
+  const { prefersReducedMotion } = useReducedMotionContext();
+  const [displayPercentage, setDisplayPercentage] = useState(0);
+  const displayPercentageRef = useRef(0);
 
   // Calculate progress percentage
   const progressPercentage = (currentProfileIndex / totalProfiles) * 100;
+
+  // Animate the percentage counter
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      displayPercentageRef.current = Math.round(progressPercentage);
+      setDisplayPercentage(displayPercentageRef.current);
+      return;
+    }
+
+    let animationFrame: number;
+    const startValue = displayPercentageRef.current;
+    const endValue = Math.round(progressPercentage);
+    const duration = 600; // ms
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing function: easeOut
+      const easeProgress = 1 - (1 - progress) ** 3;
+      const currentValue = Math.round(startValue + (endValue - startValue) * easeProgress);
+
+      displayPercentageRef.current = currentValue;
+      setDisplayPercentage(currentValue);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [progressPercentage, prefersReducedMotion]);
 
   return (
     <div className="space-y-2">
@@ -21,15 +62,29 @@ export function ProfileProgress({ currentProfileIndex, totalProfiles }: ProfileP
             total: totalProfiles,
           })}
         </p>
-        <p className="text-sm text-muted-foreground">{Math.round(progressPercentage)}%</p>
+        <motion.p
+          className="text-sm text-muted-foreground"
+          key={`percentage-${displayPercentage}`}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2, ease: 'easeOut' }}
+        >
+          {displayPercentage}%
+        </motion.p>
       </div>
-      <Progress
-        value={progressPercentage}
-        aria-label={t('gamePlay.profileProgress.ariaLabel', {
-          current: currentProfileIndex,
-          total: totalProfiles,
-        })}
-      />
+      <motion.div
+        initial={false}
+        animate={{ width: '100%' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, ease: 'easeOut' }}
+      >
+        <Progress
+          value={progressPercentage}
+          aria-label={t('gamePlay.profileProgress.ariaLabel', {
+            current: currentProfileIndex,
+            total: totalProfiles,
+          })}
+        />
+      </motion.div>
     </div>
   );
 }

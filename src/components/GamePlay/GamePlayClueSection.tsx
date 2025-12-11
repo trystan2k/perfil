@@ -1,7 +1,9 @@
+import { motion } from 'framer-motion';
 import { ClueProgress } from '@/components/ClueProgress';
 import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useReducedMotionContext } from '@/components/ReducedMotionProvider';
 
 interface GamePlayClueSectionProps {
   isOnFinalClue: boolean;
@@ -38,6 +40,8 @@ export function GamePlayClueSection({
   onNextClue,
   onFinishGame,
 }: GamePlayClueSectionProps) {
+  const { prefersReducedMotion } = useReducedMotionContext();
+
   return (
     <Card>
       <CardContent className="pt-6 space-y-6">
@@ -61,8 +65,14 @@ export function GamePlayClueSection({
           pointsRemaining={pointsRemaining}
         />
 
-        {/* Clue Section */}
-        <div className="space-y-4 p-6 bg-secondary rounded-lg border-2 border-primary/30 shadow-md">
+        {/* Clue Section with Fade/Slide Animation */}
+        <motion.div
+          className="space-y-4 p-6 bg-secondary rounded-lg border-2 border-primary/30 shadow-md"
+          key={`clue-container-${cluesRead}`}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: 'easeOut' }}
+        >
           {cluesRead > 0 ? (
             <div className="text-center">
               <p className="text-sm text-muted-foreground mb-2">{clueCountText}</p>
@@ -71,7 +81,7 @@ export function GamePlayClueSection({
           ) : (
             <p className="text-center text-muted-foreground">{pressShowNextClueText}</p>
           )}
-        </div>
+        </motion.div>
 
         {/* Previous Clues Section */}
         <div className="px-4">

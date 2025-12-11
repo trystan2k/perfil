@@ -27,8 +27,10 @@ export function PreviousCluesDisplay({ clues }: PreviousCluesDisplayProps) {
         onToggle={handleToggle}
         className="group cursor-pointer"
       >
-        <summary className="flex items-center gap-2 font-semibold text-base select-none hover:opacity-80 transition-opacity">
-          <span className="inline-block w-4 h-4 text-xs leading-none">{isOpen ? '▼' : '▶'}</span>
+        <summary className="flex items-center gap-2 font-semibold text-base select-none hover:opacity-80 hover:text-primary transition-all duration-200">
+          <span className="inline-block w-4 h-4 text-xs leading-none transition-transform duration-200">
+            {isOpen ? '▼' : '▶'}
+          </span>
           <span>{t('gamePlay.previousClues.title', { count: clues.length })}</span>
         </summary>
 
@@ -36,10 +38,10 @@ export function PreviousCluesDisplay({ clues }: PreviousCluesDisplayProps) {
           {clues.map((clue, index) => (
             <div
               key={`${index}-${clue}`}
-              className={`p-3 rounded-md border ${
+              className={`p-3 rounded-md border transition-all duration-200 hover:shadow-md ${
                 index === 0
-                  ? 'border-primary bg-primary/5 font-medium text-foreground'
-                  : 'border-muted-foreground/20 bg-muted/30 text-muted-foreground'
+                  ? 'border-primary bg-primary/5 font-medium text-foreground hover:bg-primary/10'
+                  : 'border-muted-foreground/20 bg-muted/30 text-muted-foreground hover:bg-muted/50'
               }`}
             >
               {index === 0 && (

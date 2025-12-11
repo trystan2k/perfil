@@ -1,5 +1,6 @@
 import { HelpCircle } from 'lucide-react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
+import { ReducedMotionProvider } from '@/components/ReducedMotionProvider';
 import { RemovePointsDialog } from '@/components/RemovePointsDialog';
 import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
@@ -65,7 +66,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
   const currentTurn = logic.currentTurn;
 
   return (
-    <>
+    <ReducedMotionProvider>
       <div className="min-h-main py-6">
         <AdaptiveContainer maxWidth="6xl">
           {/* Header Section - Full Width */}
@@ -182,6 +183,6 @@ export function GamePlay({ sessionId }: GamePlayProps) {
         player={logic.selectedPlayerForRemoval}
         onConfirm={logic.handleConfirmRemovePoints}
       />
-    </>
+    </ReducedMotionProvider>
   );
 }

@@ -1,4 +1,6 @@
+import { motion } from 'framer-motion';
 import { Trash2 } from 'lucide-react';
+import { useReducedMotionContext } from '@/components/ReducedMotionProvider';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import type { Player } from '@/types/models';
@@ -28,13 +30,21 @@ export function GamePlayPlayerScoreboard({
   onAwardPoints,
   onOpenRemovePoints,
 }: GamePlayPlayerScoreboardProps) {
+  const { prefersReducedMotion } = useReducedMotionContext();
+
   return (
     <Card>
       <CardContent className="pt-6 space-y-3">
         <h4 className="text-lg font-semibold text-center">{playersAwardPointsTitle}</h4>
         <div className="grid gap-2">
           {players.map((player) => (
-            <div key={player.id} className="flex gap-2 items-center">
+            <motion.div
+              key={player.id}
+              className="flex gap-2 items-center"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: 0.1 }}
+            >
               <Button
                 onClick={() => onAwardPoints(player.id)}
                 disabled={!canAwardPoints}
@@ -44,7 +54,17 @@ export function GamePlayPlayerScoreboard({
                 aria-label={awardPointsButtonAriaLabel(player.name)}
               >
                 <span className="font-medium text-base">{player.name}</span>
-                <span className="text-lg font-bold">{getPointsText(player.score)}</span>
+                <motion.span
+                  className="text-lg font-bold"
+                  key={`score-${player.id}-${player.score}`}
+                  initial={prefersReducedMotion ? { scale: 1 } : { scale: 1.2, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={
+                    prefersReducedMotion ? { duration: 0 } : { duration: 0.4, ease: 'easeOut' }
+                  }
+                >
+                  {getPointsText(player.score)}
+                </motion.span>
               </Button>
               <Button
                 onClick={() => onOpenRemovePoints(player)}
@@ -57,7 +77,7 @@ export function GamePlayPlayerScoreboard({
               >
                 <Trash2 className="w-5 h-5 text-red-600" />
               </Button>
-            </div>
+            </motion.div>
           ))}
         </div>
         {!canAwardPoints && (
