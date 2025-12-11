@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { CompactHeader } from '@/components/CompactHeader';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { SettingsSheet } from '@/components/SettingsSheet';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { useAutoHideHeader } from '@/hooks/useAutoHideHeader';
 import type { SupportedLocale } from '@/i18n/locales';
 import type { TranslationValue } from '@/i18n/utils';
@@ -111,13 +111,6 @@ export function CompactHeaderWithProviders({
   autoHideThreshold = 50,
 }: CompactHeaderWithProvidersProps) {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-
-  // Close drawer when locale changes (after navigation)
-  // This ensures drawer state is reset and components receive updated props
-  // biome-ignore lint/correctness/useExhaustiveDependencies: locale is intentionally used to detect navigation
-  useEffect(() => {
-    setIsSettingsOpen(false);
-  }, [locale]);
 
   const { isVisible } = useAutoHideHeader({
     enabled: enableAutoHide,
