@@ -4173,10 +4173,11 @@
         "description": "UI-UX Medium: Add touch gestures for swipe-to-reveal answer, swipe between profiles, and swipe-to-dismiss dialogs using react-swipeable or framer-motion.",
         "details": "Implement AnswerReveal using useSwipeable with threshold and haptic feedback, provide fallback reveal button, ensure gestures don't conflict with scroll and provide discovery hints. Respect accessibility and provide setting to disable gestures.",
         "testStrategy": "Manual testing on iOS and Android, ensure gestures don't conflict with scrolling, automated gesture integration tests where possible.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-12T09:09:00.990Z"
       },
       {
         "id": "64",
@@ -5273,7 +5274,7 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-11T18:52:44.155Z",
+      "lastModified": "2025-12-12T09:09:00.991Z",
       "taskCount": 94,
       "completedCount": 64,
       "tags": [
