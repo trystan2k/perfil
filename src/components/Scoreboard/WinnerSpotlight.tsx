@@ -1,13 +1,14 @@
 import type { RankedPlayer } from '@/hooks/useScoreboard';
+import { useTranslate } from '@/components/TranslateProvider';
 import { Card } from '@/components/ui/card';
 import { useId } from 'react';
 
 interface WinnerSpotlightProps {
   winner: RankedPlayer;
-  useTranslation: (key: string) => string;
 }
 
-export function WinnerSpotlight({ winner, useTranslation: t }: WinnerSpotlightProps) {
+export function WinnerSpotlight({ winner }: WinnerSpotlightProps) {
+  const { t } = useTranslate();
   const trophyId = useId();
   const labelId = useId();
   const infoId = useId();

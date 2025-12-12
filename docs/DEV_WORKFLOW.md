@@ -99,8 +99,9 @@ Please follow these steps for each task, in the order they appear:
 For tasks with subtasks, follow this cycle for each subtask:
 
 1. **Implement all subtasks** following the deepthink plan
-2. **Quality check** - Run `pnpm run complete-check` after each subtask implementation
-3. **Repeat** for each subtask
+2. **Tests** add all necessary tests for the subtask (delegate the tests development to the @tester-specialist subagent), aim for 100% code coverage or close enough.
+3. **Quality check** - Run `pnpm run complete-check` after each subtask implementation
+4. **Repeat** for each subtask
 
 - **Principles during implementation**:
   - 🎯 Focus on the essential
@@ -136,6 +137,7 @@ Ask the specialist listed below to review not only the code but the subtask impl
 
 ### 8. 🔍 FINAL QUALITY VERIFICATION
 
+- **Action**: When all subtasks are complete, ask @tester-specialist subagent write a E2E test for the entire task implementation
 - **Action**: After ALL subtasks are complete and review is done and applied, run `pnpm run complete-check` one final time
 - **Action**: Ensure entire task implementation works as expected
 - **If problems are reported**:
@@ -173,6 +175,7 @@ Ask the specialist listed below to review not only the code but the subtask impl
 - **🚨 CRITICAL**: ALWAYS ask for explicit permission before committing - NEVER commit without user confirmation
 - **Action**: Commit with descriptive message following the pattern below (only after receiving permission)
 - **NEVER**: Never include in the commit message or description any reference to the task or subtask ID or any LLM model used. It should only be about the actual work done.
+- **NEVER**: When executing the PUSH, wait for the pre-hooks to complete, DO NOT abort it because 'it is taking too long'. You must wait it to finish and do nothing else until it is done.
 
 **Task commit message pattern**:
 

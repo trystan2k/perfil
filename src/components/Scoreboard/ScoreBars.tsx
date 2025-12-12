@@ -1,12 +1,13 @@
 import { Card } from '@/components/ui/card';
+import { useTranslate } from '@/components/TranslateProvider';
 import type { RankedPlayer } from '@/hooks/useScoreboard';
 
 interface ScoreBarsProps {
   players: RankedPlayer[];
-  useTranslation: (key: string) => string;
 }
 
-export function ScoreBars({ players, useTranslation: t }: ScoreBarsProps) {
+export function ScoreBars({ players }: ScoreBarsProps) {
+  const { t } = useTranslate();
   const maxScore = Math.max(...players.map((p) => p.score), 1);
   const getMedalEmoji = (rank: number) => {
     if (rank === 1) return '🥇';

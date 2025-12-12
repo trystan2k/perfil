@@ -1,14 +1,15 @@
 import { Card } from '@/components/ui/card';
+import { useTranslate } from '@/components/TranslateProvider';
 import type { RankedPlayer } from '@/hooks/useScoreboard';
 import { useId } from 'react';
 
 interface GameStatsCardProps {
   players: RankedPlayer[];
   totalPoints: number;
-  useTranslation: (key: string) => string;
 }
 
-export function GameStatsCard({ players, totalPoints, useTranslation: t }: GameStatsCardProps) {
+export function GameStatsCard({ players, totalPoints }: GameStatsCardProps) {
+  const { t } = useTranslate();
   const totalPlayers = players.length;
   const averageScore = totalPlayers > 0 ? Math.round(totalPoints / totalPlayers) : 0;
   const highestScore = Math.max(...players.map((p) => p.score), 0);

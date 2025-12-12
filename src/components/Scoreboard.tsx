@@ -116,13 +116,13 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-3">
-              <WinnerSpotlight winner={winner} useTranslation={t} />
+              <WinnerSpotlight winner={winner} />
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <ScoreBars players={rankedPlayers} useTranslation={t} />
-            <GameStatsCard players={rankedPlayers} totalPoints={totalPoints} useTranslation={t} />
+            <ScoreBars players={rankedPlayers} />
+            <GameStatsCard players={rankedPlayers} totalPoints={totalPoints} />
             <Card className="p-6 border-t-2 border-yellow-200 dark:border-yellow-800">
               <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
                 {t('scoreboard.actions.title')}

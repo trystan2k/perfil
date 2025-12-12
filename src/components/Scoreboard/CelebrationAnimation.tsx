@@ -5,12 +5,14 @@ interface CelebrationAnimationProps {
   onComplete?: () => void;
 }
 
-let styleInjected = false;
-
 function injectConfettiStyles() {
-  if (styleInjected) return;
+  // Check if style already exists in DOM
+  if (document.getElementById('confetti-keyframes')) {
+    return;
+  }
 
   const style = document.createElement('style');
+  style.id = 'confetti-keyframes';
   style.textContent = `
     @keyframes fall-confetti {
       to {
@@ -20,7 +22,6 @@ function injectConfettiStyles() {
     }
   `;
   document.head.appendChild(style);
-  styleInjected = true;
 }
 
 export function CelebrationAnimation({ trigger, onComplete }: CelebrationAnimationProps) {
@@ -61,12 +62,21 @@ export function CelebrationAnimation({ trigger, onComplete }: CelebrationAnimati
     container.appendChild(confetti);
 
     const timer = setTimeout(() => {
-      confetti.remove();
+      // Safely remove confetti if it still exists in DOM
+      if (confetti.parentNode === container) {
+        confetti.remove();
+      }
       // Use the ref to avoid re-running this effect
       onCompleteRef.current?.();
     }, 3000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      // Clean up confetti if component unmounts before timeout completes
+      if (confetti.parentNode === container) {
+        confetti.remove();
+      }
+    };
   }, [trigger, prefersReducedMotion]);
 
   if (prefersReducedMotion) {
