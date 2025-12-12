@@ -68,9 +68,12 @@ test.describe('Profile flow with multiple profiles', () => {
 
     // End: Scoreboard shown
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
-    await expect(page.getByText('Alice')).toBeVisible();
-    await expect(page.getByText('Bob')).toBeVisible();
-    await expect(page.getByText('Charlie')).toBeVisible();
+    // Verify player names are visible in ScoreBars component (strict mode safe)
+    // by checking for player rows within the scoreboard container
+    const scoreBars = page.getByTestId('score-bars');
+    await expect(scoreBars).toContainText('Alice');
+    await expect(scoreBars).toContainText('Bob');
+    await expect(scoreBars).toContainText('Charlie');
   });
 
   test('shuffle all + 2 rounds flow ends in scoreboard', async ({ page }) => {
@@ -123,7 +126,9 @@ test.describe('Profile flow with multiple profiles', () => {
 
     // End: Scoreboard shown
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
-    await expect(page.getByText('Alex')).toBeVisible();
-    await expect(page.getByText('Jordan')).toBeVisible();
+    // Verify player names in ScoreBars component (strict mode safe)
+    const scoreBars = page.getByTestId('score-bars');
+    await expect(scoreBars).toContainText('Alex');
+    await expect(scoreBars).toContainText('Jordan');
   });
 });

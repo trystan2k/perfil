@@ -205,6 +205,13 @@
       "title": "No Players",
       "description": "No players found in this game session."
     },
+    "stats": {
+      "title": "Game Statistics",
+      "totalPlayers": "Total Players",
+      "totalPoints": "Total Points",
+      "averageScore": "Avg Score",
+      "highestScore": "Highest Score"
+    },
     "actions": {
       "title": "What next?",
       "newGame": "New Game",

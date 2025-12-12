@@ -130,6 +130,8 @@ Ask the specialist listed below to review not only the code but the subtask impl
 - **Action**: Ask the @test-automator subagent to review the subtask implementation and provide feedbacks
 - **Action**: Ask the @code-reviewer subagent to review the code and provide feedbacks
 
+- If the specialists generate at documentation with the review or summary of their analysis, please review them, identify any improvements, issues, suggestions and check if they makes sense to be applied. Once you finish applying all suggestions, please delete the documentation (they should not be committed to the repository).
+
 ### 8. 🔍 FINAL QUALITY VERIFICATION
 
 - **Action**: After ALL subtasks are complete and review is done and applied, run `pnpm run complete-check` one final time

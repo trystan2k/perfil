@@ -1,9 +1,15 @@
+import { useState, useEffect } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { useScoreboard } from '@/hooks/useScoreboard';
 import { navigateWithLocale } from '@/i18n/locales';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
+import {
+  WinnerSpotlight,
+  ScoreBars,
+  GameStatsCard,
+  CelebrationAnimation,
+} from './Scoreboard/index';
 
 interface ScoreboardProps {
   sessionId?: string;
@@ -25,6 +31,14 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     t,
   } = useScoreboard(sessionId);
 
+  const [showCelebration, setShowCelebration] = useState(false);
+
+  useEffect(() => {
+    if (rankedPlayers.length > 0 && isHydrated && !isLoading) {
+      setShowCelebration(true);
+    }
+  }, [rankedPlayers.length, isHydrated, isLoading]);
+
   if (!isHydrated || isLoading) {
     return (
       <div className="flex items-center justify-center min-h-main p-4">
@@ -36,7 +50,6 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
   }
 
   if (error) {
-    // Error is already an i18n key from the hook
     const isUserError =
       error === 'scoreboard.error.noSessionId' || error === 'scoreboard.error.sessionNotFound';
 
@@ -72,7 +85,6 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     );
   }
 
-  // Handle edge case: empty players array
   if (rankedPlayers.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-main p-4">
@@ -86,39 +98,30 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
     );
   }
 
+  const winner = rankedPlayers[0];
+  const totalPoints = rankedPlayers.reduce((sum, player) => sum + player.score, 0);
+
   return (
-    <div className="min-h-main py-6">
-      <AdaptiveContainer maxWidth="4xl">
-        <h1 className="text-4xl font-bold text-center mb-10">{t('scoreboard.title')}</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <Card className="p-6 lg:col-span-2">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-20 text-center">{t('scoreboard.table.rank')}</TableHead>
-                  <TableHead>{t('scoreboard.table.player')}</TableHead>
-                  <TableHead className="w-24 text-right">{t('scoreboard.table.score')}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rankedPlayers.map((player) => (
-                  <TableRow key={player.id}>
-                    <TableCell className="text-center font-bold text-lg">
-                      {player.rank === 1 && '🥇'}
-                      {player.rank === 2 && '🥈'}
-                      {player.rank === 3 && '🥉'}
-                      {player.rank > 3 && player.rank}
-                    </TableCell>
-                    <TableCell className="font-medium">{player.name}</TableCell>
-                    <TableCell className="text-right font-semibold">{player.score}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
-          <div className="space-y-3 lg:self-start">
-            <Card className="p-6">
-              <h2 className="text-lg font-semibold mb-4 text-center lg:text-left">
+    <div className="min-h-main py-6 lg:py-8" data-testid="scoreboard-container">
+      <AdaptiveContainer maxWidth="6xl">
+        <h1 className="text-4xl font-bold text-center mb-8 lg:mb-12" data-testid="scoreboard-title">
+          {t('scoreboard.title')}
+        </h1>
+
+        <CelebrationAnimation trigger={showCelebration} />
+
+        <div className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="md:col-span-3">
+              <WinnerSpotlight winner={winner} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <ScoreBars players={rankedPlayers} />
+            <GameStatsCard players={rankedPlayers} totalPoints={totalPoints} useTranslation={t} />
+            <Card className="p-6 border-t-2 border-yellow-200 dark:border-yellow-800">
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
                 {t('scoreboard.actions.title')}
               </h2>
               <div className="space-y-3">

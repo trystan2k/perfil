@@ -199,6 +199,13 @@
       "title": "Sin Jugadores",
       "description": "No se encontraron jugadores en esta sesión de juego."
     },
+    "stats": {
+      "title": "Estadísticas del Juego",
+      "totalPlayers": "Total de Jugadores",
+      "totalPoints": "Puntos Totales",
+      "averageScore": "Puntuación Promedio",
+      "highestScore": "Puntuación Más Alta"
+    },
     "actions": {
       "title": "¿Qué quieres hacer?",
       "newGame": "Nuevo Juego",

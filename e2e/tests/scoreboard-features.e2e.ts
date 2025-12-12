@@ -69,14 +69,21 @@ test.describe('Scoreboard Features', () => {
     // Wait for scoreboard to load
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    // Verify scores are displayed correctly
+    // Verify scores are displayed correctly using ScoreBars component (strict mode safe)
     // Alice won round 1 (20 points), Bob won round 2 (9 points - 12 clues shown total)
-    const rows = page.getByRole('row');
+    const scoreBars = page.getByTestId('score-bars');
 
-    // Check that all three players are listed with correct scores
-    const aliceRow = rows.filter({ hasText: 'Alice' });
-    const bobRow = rows.filter({ hasText: 'Bob' });
-    const charlieRow = rows.filter({ hasText: 'Charlie' });
+    // Verify each player is listed with correct scores in ScoreBars
+    // Use locators within score-bars to find specific player rows
+    const aliceRow = scoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Alice' });
+    const bobRow = scoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Bob' });
+    const charlieRow = scoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Charlie' });
 
     await expect(aliceRow).toContainText('20');
     await expect(bobRow).toContainText('9');
@@ -129,11 +136,16 @@ test.describe('Scoreboard Features', () => {
     // Should navigate directly to scoreboard
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    const rows = page.getByRole('row');
+    // Use ScoreBars component for strict mode safe queries (strict mode safe)
+    const scoreBars = page.getByTestId('score-bars');
 
     // Verify both players are on scoreboard (exact scores may vary based on clues shown)
-    const aliceRow = rows.filter({ hasText: 'Alice' });
-    const bobRow = rows.filter({ hasText: 'Bob' });
+    const aliceRow = scoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Alice' });
+    const bobRow = scoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Bob' });
 
     await expect(aliceRow).toContainText('20');
     await expect(bobRow).toContainText('0');
@@ -188,11 +200,16 @@ test.describe('Scoreboard Features', () => {
     // Verify scoreboard shows NEW scores (not cumulative from previous game)
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    const newRows = page.getByRole('row');
+    // Use ScoreBars component for strict mode safe queries
+    const newScoreBars = page.getByTestId('score-bars');
 
     // Verify both players are on scoreboard (exact scores may vary based on clues shown)
-    const aliceRow2 = newRows.filter({ hasText: 'Alice' });
-    const bobRow2 = newRows.filter({ hasText: 'Bob' });
+    const aliceRow2 = newScoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Alice' });
+    const bobRow2 = newScoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Bob' });
 
     await expect(aliceRow2).toContainText('20');
     await expect(bobRow2).toContainText('19');
@@ -236,11 +253,16 @@ test.describe('Scoreboard Features', () => {
     // Should navigate directly to scoreboard
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    const rows = page.getByRole('row');
+    // Use ScoreBars component for strict mode safe queries
+    const restartScoreBars = page.getByTestId('score-bars');
 
     // Verify both players are on scoreboard (exact scores may vary based on clues shown)
-    const aliceRow = rows.filter({ hasText: 'Alice' });
-    const bobRow = rows.filter({ hasText: 'Bob' });
+    const aliceRow = restartScoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Alice' });
+    const bobRow = restartScoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Bob' });
 
     await expect(aliceRow).toContainText('20');
     await expect(bobRow).toContainText('18');
@@ -283,11 +305,16 @@ test.describe('Scoreboard Features', () => {
     // Verify final scoreboard shows correct scores from THIS game only
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    const finalRows = page.getByRole('row');
+    // Use ScoreBars component for strict mode safe queries
+    const finalScoreBars = page.getByTestId('score-bars');
 
     // Verify both players are shown with medals (exact scores may vary)
-    const finalAliceRow = finalRows.filter({ hasText: 'Alice' });
-    const finalBobRow = finalRows.filter({ hasText: 'Bob' });
+    const finalAliceRow = finalScoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Alice' });
+    const finalBobRow = finalScoreBars
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({ hasText: 'Bob' });
 
     await expect(finalAliceRow).toContainText('11');
     await expect(finalBobRow).toContainText('13');
