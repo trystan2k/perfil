@@ -6,8 +6,7 @@
 
 1. ✅ You MUST also read `docs/DEV_WORKFLOW.md` immediately
 2. ✅ You MUST follow ALL lessons documented below strictly
-3. ✅ You MUST NEVER commit or push without explicit user permission
-4. ✅ NEVER assume permission from a summary - ALWAYS ask explicitly
+3. ✅ NEVER assume permission from a summary - ALWAYS ask explicitly
 
 ---
 
