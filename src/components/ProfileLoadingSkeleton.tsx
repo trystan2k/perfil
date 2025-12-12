@@ -9,11 +9,11 @@ import { Skeleton } from '@/components/ui/skeleton';
  * and prevent layout shift when actual content arrives.
  *
  * Accessibility: Uses aria-busy to indicate loading state and
- * aria-live region for screen reader announcements.
+ * aria-live="polite" for screen reader announcements when loading completes.
  */
 export function ProfileLoadingSkeleton() {
   return (
-    <output
+    <div
       className="flex items-center justify-center min-h-main p-4"
       aria-busy="true"
       aria-live="polite"
@@ -56,6 +56,6 @@ export function ProfileLoadingSkeleton() {
           </div>
         </CardContent>
       </Card>
-    </output>
+    </div>
   );
 }

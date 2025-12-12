@@ -5,7 +5,7 @@ import { ProfileLoadingSkeleton } from '@/components/ProfileLoadingSkeleton';
 describe('ProfileLoadingSkeleton', () => {
   it('should render the skeleton container with correct aria attributes', () => {
     const { container } = render(<ProfileLoadingSkeleton />);
-    const loader = container.querySelector('output');
+    const loader = container.querySelector('[aria-busy="true"]');
 
     expect(loader).toBeInTheDocument();
     expect(loader).toHaveAttribute('aria-busy', 'true');
@@ -14,7 +14,7 @@ describe('ProfileLoadingSkeleton', () => {
 
   it('should have correct accessibility structure', () => {
     const { container } = render(<ProfileLoadingSkeleton />);
-    const statusRegion = container.querySelector('output');
+    const statusRegion = container.querySelector('[aria-busy="true"]');
 
     expect(statusRegion).toHaveAttribute('aria-busy', 'true');
     expect(statusRegion).toHaveAttribute('aria-live', 'polite');

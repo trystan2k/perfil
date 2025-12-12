@@ -164,7 +164,7 @@ Ask the specialist listed below to review not only the code but the subtask impl
 - **Action**: Before commit, ask me to review the changes and only continue after my ok
 - **Action**: Ask me if I did any code change during review. If so, review the changes and use this info for the commit
 - **Action**: Run `pnpm run complete-check` one final time before commit
-- **Action**: Include all files modified during the task implementation to the commit, even the task master file, development logs, etc. NEVER LEFT FILE without been commited.
+- **Action**: Include all files modified during the task implementation to the commit, even the task master file, development logs, etc. NEVER LEAVE FILE without been commited.
 - **🚨 CRITICAL**: ALWAYS ask for explicit permission before committing - NEVER commit without user confirmation
 - **Action**: Commit with descriptive message following the pattern below (only after receiving permission)
 - **NEVER**: Never include in the commit message or description any reference to the task or subtask ID or any LLM model used. It should only be about the actual work done.
