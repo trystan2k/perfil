@@ -7,25 +7,16 @@
 1. ✅ **IMMEDIATELY** read `docs/DEV_WORKFLOW.md` in full
 2. ✅ **IMMEDIATELY** read `docs/LESSONS_LEARNED.md` in full
 3. ✅ **STRICTLY** follow all rules in these files - no exceptions
+3. ✅ **STRICTLY** follow the steps in the order they appear
 4. ✅ **GO** proceed the pending task in the conversation following the dev workflow
 
-## ⛔ CRITICAL: AUTHORIZATION REQUIRED
+## ⛔ CRITICAL
 
-**🚨 NEVER START ANY TASK WITHOUT EXPLICIT USER AUTHORIZATION 🚨**
-
-You MUST:
-
-- ❌ **NEVER** checkout branches without authorization
-- ❌ **NEVER** expand tasks without authorization
-- ❌ **NEVER** create feature branches without authorization
-- ❌ **NEVER** begin implementation without authorization
-- ❌ **NEVER** run git commands (commit/push/etc.) without authorization
-- ❌ **NEVER** commit or push - ALWAYS ask for explicit permission first
 - ❌ **NEVER** EVER run multiple npm commands at the same time. If one command hangs or is taking too long,
 KILL IT before running the next one.
-- ✅ **ALWAYS** wait for the user to explicitly tell you: "Start task #X" or similar
+- ❌ **NEVER** Start a second task without explicit user authorization. Only do the task you were requested to do.
 
-## ⚠️ ### FUNDAMENTAL PRINCIPLES
+## ⚠️ FUNDAMENTAL PRINCIPLES
 
 THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout development. No item can be neglected. NEVER ASSUME ANYTHING - ALWAYS ASK IF IN DOUBT.
 
@@ -35,10 +26,12 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 
 ## 🔄 STANDARD WORKFLOW
 
+Please follow these steps for each task, in the order they appear:
+
 ### 1. 📋 TASK RECEPTION
 
-- **Attention**: Delegate the any action to the respective subagents, don't do it in the main agent.
-- **Action**: Await clear instructions on which task to implement
+**Attention**: Delegate any action to the respective subagent specialists; don’t do it in the main agent.
+
 - Receive the task or subtask to be developed
 - Identify the task ID in the Task Master system
 - **Action**: Check if task is already implemented, if so, ask for clarification
@@ -48,7 +41,7 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 - **Action**: Ask git subagent to create a feature branch based on `main` and do your work on this feature branch with this details:
   - Create one feature branch per task ID and commit all subtasks in this same branch (do not create branch for subtasks)
   - Feature branch should follow the pattern `feature/PER-[ID]-[title]`
-- **Attention**: If the task is not expanded, ask the @task-master-specialist subagent to expand it first.
+- **Attention**: If the task is not expanded, ask the @task-master-specialist subagent to expand before start and AFTER the branch is created.
 
 ### 2. 🔍 OBTAINING DETAILS
 
@@ -105,7 +98,7 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 
 For tasks with subtasks, follow this cycle for each subtask:
 
-1. **Implement subtask** following the deepthink plan
+1. **Implement all subtasks** following the deepthink plan
 2. **Quality check** - Run `pnpm run complete-check` after each subtask implementation
 3. **Repeat** for each subtask
 
@@ -124,11 +117,22 @@ For tasks with subtasks, follow this cycle for each subtask:
   - Run again until it passes completely
   - Do not comment/skip tests just because they fail, never
   - If you are still struggling to fix it (cannot fix in 5 interactions, for example), ask for help
+  - Do not ASSUME the problem is unrelated to the task. Check, confirm, and ask for help if needed—but regardless of whether it’s related, SOLVE IT.
 - **Action**: Ask the agent specialists (identify the ones that are more specialized in the task) to review the changes and apply any suggestion.
 
-### 7. 🔍 FINAL QUALITY VERIFICATION
+### 7. CODE REVIEW
 
-- **Action**: After ALL subtasks are complete, run `pnpm run complete-check` one final time
+Ask the specialist listed below to review not only the code but the subtask implementation as well. Once you get the feedbacks, generate a code review report with them and apply the suggestions.
+
+- **Action**: Ask the @astro-specialist subagent to review the subtask implementation and provide feedbacks
+- **Action**: Ask the @react-specialist subagent to review the subtask implementation and provide feedbacks
+- **Action**: Ask the @typescript-specialist subagent to review the subtask implementation and provide feedbacks
+- **Action**: Ask the @test-automator subagent to review the subtask implementation and provide feedbacks
+- **Action**: Ask the @code-reviewer subagent to review the code and provide feedbacks
+
+### 8. 🔍 FINAL QUALITY VERIFICATION
+
+- **Action**: After ALL subtasks are complete and review is done and applied, run `pnpm run complete-check` one final time
 - **Action**: Ensure entire task implementation works as expected
 - **If problems are reported**:
   - ⚠️ **MANDATORY** - resolve ALL problems
@@ -137,7 +141,7 @@ For tasks with subtasks, follow this cycle for each subtask:
   - Do not comment/skip tests just because they fail, **NEVER**
   - If you are still struggling to fix it (cannot fix in 5 interactions, for example), ask for help
 
-### 8. ✅ TASK STATUS UPDATE - COMPLETION
+### 9. ✅ TASK STATUS UPDATE - COMPLETION
 
 - **Attention**: Remember to delegate these actions to the @task-master-specialist subagent ONLY
 - **Action**: Update the task with complete implementation details covering all subtasks
@@ -146,7 +150,7 @@ For tasks with subtasks, follow this cycle for each subtask:
 - Confirm that the status has been updated correctly
 - Confirm that all subtasks are marked as complete
 
-### 9. 📝 DEVELOPMENT LOGGING
+### 10. 📝 DEVELOPMENT LOGGING
 
 - **Attention**: Remember to delegate this action to the @basic-memory-specialist subagent ONLY
 - **Action**: Ask the @basic-memory-specialist subagent to create a development log documenting the task implementation
@@ -155,19 +159,13 @@ For tasks with subtasks, follow this cycle for each subtask:
 - **Important**: Task Master specialist does NOT create development logs - only basic-memory-specialist does this
 - Confirm that the development log has been created successfully
 
-### 10. 📝 CODE REVIEW (Optional - if using coderabbit)
-
-- **Action**: Run coderabbit CLI to request a code review for this PR
-- **COMMAND**: To run coderabbit CLI, use the command `coderabbit --plain`
-- **Attention**: If the code review is not approved and/or generate any comment, review the suggestions and apply them, if they make sense to be done. If you are not sure, ask for help.
-
 ### 11. 📝 COMMIT CYCLE
 
 - **Attention**: Remember to delegate this action to the @git-specialist subagent
 - **Action**: Before commit, ask me to review the changes and only continue after my ok
 - **Action**: Ask me if I did any code change during review. If so, review the changes and use this info for the commit
 - **Action**: Run `pnpm run complete-check` one final time before commit
-- **Action**: Include all files modified during the task implementation to the commit, even the task master file, development logs, etc.
+- **Action**: Include all files modified during the task implementation to the commit, even the task master file, development logs, etc. NEVER LEAVE FILE without been commited.
 - **🚨 CRITICAL**: ALWAYS ask for explicit permission before committing - NEVER commit without user confirmation
 - **Action**: Commit with descriptive message following the pattern below (only after receiving permission)
 - **NEVER**: Never include in the commit message or description any reference to the task or subtask ID or any LLM model used. It should only be about the actual work done.

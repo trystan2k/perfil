@@ -364,18 +364,19 @@ test.describe('Language Persistence', () => {
       // Wait for category select URL
       await page.waitForURL(/\/pt-BR\/game-setup\/.+/);
 
-      // Wait for categories to load (this triggers profile fetch)
-      await page.waitForLoadState('networkidle');
-      await page.waitForTimeout(1000);
+      // Verify "Selecionar Categorias" heading is visible to ensure page content is loading
+      await expect(page.getByRole('heading', { name: 'Selecionar Categorias' })).toBeVisible();
 
-      // Verify that requests were made to manifest and pt-BR category data files
-      const manifestRequests = requests.filter((url) => url.includes('/data/manifest.json'));
-      const ptBRDataRequests = requests.filter(
-        (url) => url.includes('/pt-BR/') && url.includes('/data-')
-      );
+      // Use toPass to retry the assertion until the requests are captured
+      await expect(async () => {
+        const manifestRequests = requests.filter((url) => url.includes('/data/manifest.json'));
+        const ptBRDataRequests = requests.filter(
+          (url) => url.includes('/pt-BR/') && url.includes('/data-')
+        );
 
-      expect(manifestRequests.length).toBeGreaterThan(0);
-      expect(ptBRDataRequests.length).toBeGreaterThan(0);
+        expect(manifestRequests.length, 'Manifest request should be made').toBeGreaterThan(0);
+        expect(ptBRDataRequests.length, 'PT-BR data request should be made').toBeGreaterThan(0);
+      }).toPass({ timeout: 10000 });
     });
   });
 

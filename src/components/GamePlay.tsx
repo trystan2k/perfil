@@ -6,6 +6,7 @@ import { RoundSummary } from '@/components/RoundSummary';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Skeleton } from '@/components/ui/skeleton';
 import { GameStatus } from '@/domain/game/value-objects/GameStatus';
 import { useGamePlayLogic } from '@/hooks/useGamePlayLogic';
 import { GamePlayClueSection } from './GamePlay/GamePlayClueSection';
@@ -19,18 +20,32 @@ interface GamePlayProps {
 export function GamePlay({ sessionId }: GamePlayProps) {
   const logic = useGamePlayLogic(sessionId);
 
-  // Show loading state
+  // Show loading state - match final content layout to prevent layout shift
   if (logic.isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-main p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle as="h3" className="text-2xl">
-              {logic.t('gamePlay.loading.title')}
-            </CardTitle>
-            <CardDescription>{logic.t('gamePlay.loading.description')}</CardDescription>
-          </CardHeader>
-        </Card>
+      <div className="min-h-main py-6">
+        <AdaptiveContainer maxWidth="6xl">
+          {/* Header Skeleton */}
+          <div className="mb-6 space-y-2">
+            <Skeleton className="h-10 w-3/4" />
+            <Skeleton className="h-5 w-1/2" />
+          </div>
+
+          {/* Two-Column Grid Layout Skeleton */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Left Column Skeleton */}
+            <div className="space-y-6">
+              <Skeleton className="h-96 w-full" />
+              <Skeleton className="h-64 w-full" />
+            </div>
+
+            {/* Right Column Skeleton */}
+            <div className="space-y-6">
+              <Skeleton className="h-80 w-full" />
+              <Skeleton className="h-48 w-full" />
+            </div>
+          </div>
+        </AdaptiveContainer>
       </div>
     );
   }
