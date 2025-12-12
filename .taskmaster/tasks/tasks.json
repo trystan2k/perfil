@@ -4185,13 +4185,80 @@
         "description": "UI-UX Medium: Redesign scoreboard to highlight winner, show visual score comparisons, add game statistics, action hierarchy, and celebration animations.",
         "details": "Add winner spotlight, score bars, game stats card, action hierarchy, and subtle confetti animation. Ensure accessibility, responsive layout, and social sharing option.",
         "testStrategy": "Visual regression tests, accessibility checks for table and stats, user testing for perceived satisfaction and readability.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           "40",
           "61"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Winner Spotlight Feature",
+            "description": "Create a prominent visual element that highlights the winning player on the scoreboard, ensuring it stands out and draws user attention.",
+            "dependencies": [
+              40,
+              61
+            ],
+            "details": "Design and implement a winner spotlight using CSS animations or a component library. Ensure the spotlight is accessible with proper ARIA attributes and works on all screen sizes. Integrate with the current scoreboard data to dynamically highlight the winner.",
+            "status": "pending",
+            "testStrategy": "Visual regression testing to verify correct highlighting, accessibility audits for ARIA attributes.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Develop Score Comparison Visualizations",
+            "description": "Add visual score comparisons, such as bar charts or progress indicators, to clearly show the score distribution among players.",
+            "dependencies": [
+              40,
+              61
+            ],
+            "details": "Implement interactive score bars or charts using a charting library integrated into the scoreboard. Ensure the visualization updates in real-time and is accessible, providing text alternatives for screen readers. Test responsiveness across devices.",
+            "status": "pending",
+            "testStrategy": "Visual regression tests for score updates; accessibility checks for screen reader compatibility.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Create Game Statistics Display Card",
+            "description": "Design and integrate a card component that displays key game statistics alongside the scoreboard.",
+            "dependencies": [
+              40,
+              61
+            ],
+            "details": "Develop a stats card displaying metrics such as total points, rounds played, and other relevant data fetched from the game state. Use accessible table or grid structures, ensure proper contrast, and optimize layout for mobile and desktop.",
+            "status": "pending",
+            "testStrategy": "Accessibility checks for table structures, visual tests across breakpoints, user testing for clarity.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Design Action Hierarchy and Responsive Layout",
+            "description": "Restructure the scoreboard layout to establish a clear visual action hierarchy and ensure responsive design across all devices.",
+            "dependencies": [
+              40,
+              61
+            ],
+            "details": "Apply design principles to prioritize key information, using size, color, and spacing to guide user attention. Implement a flexible grid or flexbox layout that adapts to various screen sizes, testing on multiple viewports to ensure usability.",
+            "status": "pending",
+            "testStrategy": "Responsive testing across devices, visual hierarchy assessments with design team, usability testing.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Add Celebration Animations and Social Sharing Options",
+            "description": "Integrate subtle celebration animations (e.g., confetti) for winning moments and add social sharing options to the scoreboard.",
+            "dependencies": [
+              40,
+              61
+            ],
+            "details": "Implement a lightweight confetti animation triggered when a winner is determined, ensuring performance efficiency. Add social share buttons that allow users to post results, with proper accessibility labels and responsive placement.",
+            "status": "pending",
+            "testStrategy": "Performance testing for animations, functionality tests for share links, accessibility reviews for button labels.",
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-12-12T10:50:03.185Z"
       },
       {
         "id": "65",
@@ -5339,7 +5406,7 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-12T10:21:53.857Z",
+      "lastModified": "2025-12-12T10:50:03.186Z",
       "taskCount": 94,
       "completedCount": 65,
       "tags": [
