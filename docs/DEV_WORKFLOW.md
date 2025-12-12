@@ -7,7 +7,7 @@
 1. ✅ **IMMEDIATELY** read `docs/DEV_WORKFLOW.md` in full
 2. ✅ **IMMEDIATELY** read `docs/LESSONS_LEARNED.md` in full
 3. ✅ **STRICTLY** follow all rules in these files - no exceptions
-3. ✅ **STRICTLY** follow the steps in the other they appear
+3. ✅ **STRICTLY** follow the steps in the order they appear
 4. ✅ **GO** proceed the pending task in the conversation following the dev workflow
 
 ## ⛔ CRITICAL
