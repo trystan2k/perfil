@@ -205,12 +205,30 @@
       "title": "No Players",
       "description": "No players found in this game session."
     },
+    "scoreComparison": "Score Comparison",
+    "rankLabels": {
+      "gold": "Gold Medal - Rank 1",
+      "silver": "Silver Medal - Rank 2",
+      "bronze": "Bronze Medal - Rank 3",
+      "rank": "Rank {{rank}}"
+    },
+    "winner": {
+      "title": "Game Winner",
+      "finalScore": "Final Score",
+      "trophy": "Trophy - Winner Award"
+    },
     "stats": {
       "title": "Game Statistics",
       "totalPlayers": "Total Players",
       "totalPoints": "Total Points",
       "averageScore": "Avg Score",
-      "highestScore": "Highest Score"
+      "highestScore": "Highest Score",
+      "iconLabels": {
+        "players": "Total Players",
+        "points": "Total Points",
+        "average": "Average Score",
+        "highest": "Highest Score"
+      }
     },
     "actions": {
       "title": "What next?",

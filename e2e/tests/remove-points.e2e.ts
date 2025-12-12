@@ -106,8 +106,7 @@ test.describe('Remove points flow', () => {
     await expect(aliceRowLocator).toBeVisible({ timeout: 5000 });
 
     // Get all text content from the row and verify the score (15) is present
-    const rowContent = await aliceRowLocator.textContent();
-    expect(rowContent).toContain('15');
+    await expect(aliceRowLocator).toContainText('15');
 
     // Reload and verify persistence
     await page.reload();
@@ -126,7 +125,6 @@ test.describe('Remove points flow', () => {
       });
     await expect(aliceRowReloaded).toBeVisible({ timeout: 5000 });
 
-    const rowContentReloaded = await aliceRowReloaded.textContent();
-    expect(rowContentReloaded).toContain('15');
+    await expect(aliceRowReloaded).toContainText('15');
   });
 });

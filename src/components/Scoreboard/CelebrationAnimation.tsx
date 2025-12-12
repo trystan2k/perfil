@@ -1,12 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface CelebrationAnimationProps {
   trigger: boolean;
   onComplete?: () => void;
 }
 
+let styleInjected = false;
+
+function injectConfettiStyles() {
+  if (styleInjected) return;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fall-confetti {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  styleInjected = true;
+}
+
 export function CelebrationAnimation({ trigger, onComplete }: CelebrationAnimationProps) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+
+  // Update the ref whenever onComplete changes
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -18,6 +42,11 @@ export function CelebrationAnimation({ trigger, onComplete }: CelebrationAnimati
 
     mediaQuery.addEventListener('change', handler);
     return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  // Inject styles only once on mount
+  useEffect(() => {
+    injectConfettiStyles();
   }, []);
 
   useEffect(() => {
@@ -33,11 +62,12 @@ export function CelebrationAnimation({ trigger, onComplete }: CelebrationAnimati
 
     const timer = setTimeout(() => {
       confetti.remove();
-      onComplete?.();
+      // Use the ref to avoid re-running this effect
+      onCompleteRef.current?.();
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [trigger, prefersReducedMotion, onComplete]);
+  }, [trigger, prefersReducedMotion]);
 
   if (prefersReducedMotion) {
     return null;
@@ -81,17 +111,6 @@ function createConfetti() {
 
     container.appendChild(piece);
   }
-
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes fall-confetti {
-      to {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-  `;
-  document.head.appendChild(style);
 
   return container;
 }

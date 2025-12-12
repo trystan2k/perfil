@@ -3,9 +3,10 @@ import type { RankedPlayer } from '@/hooks/useScoreboard';
 
 interface ScoreBarsProps {
   players: RankedPlayer[];
+  useTranslation: (key: string) => string;
 }
 
-export function ScoreBars({ players }: ScoreBarsProps) {
+export function ScoreBars({ players, useTranslation: t }: ScoreBarsProps) {
   const maxScore = Math.max(...players.map((p) => p.score), 1);
   const getMedalEmoji = (rank: number) => {
     if (rank === 1) return '🥇';
@@ -15,15 +16,17 @@ export function ScoreBars({ players }: ScoreBarsProps) {
   };
 
   const getRankLabel = (rank: number) => {
-    if (rank === 1) return 'Gold Medal - Rank 1';
-    if (rank === 2) return 'Silver Medal - Rank 2';
-    if (rank === 3) return 'Bronze Medal - Rank 3';
-    return `Rank ${rank}`;
+    if (rank === 1) return t('scoreboard.rankLabels.gold');
+    if (rank === 2) return t('scoreboard.rankLabels.silver');
+    if (rank === 3) return t('scoreboard.rankLabels.bronze');
+    return t('scoreboard.rankLabels.rank').replace('{{rank}}', rank.toString());
   };
 
   return (
     <Card className="p-6" data-testid="score-bars">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Score Comparison</h3>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+        {t('scoreboard.scoreComparison')}
+      </h3>
       <div className="space-y-5">
         {players.map((player) => (
           <div key={player.id} className="space-y-2" data-testid={`player-score-row-${player.id}`}>
@@ -40,7 +43,10 @@ export function ScoreBars({ players }: ScoreBarsProps) {
                   {player.name}
                 </span>
               </div>
-              <span className="font-bold text-gray-900 dark:text-white ml-2 flex-shrink-0">
+              <span
+                className="font-bold text-gray-900 dark:text-white ml-2 flex-shrink-0"
+                data-testid="player-score"
+              >
                 {player.score}
               </span>
             </div>
