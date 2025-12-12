@@ -16,7 +16,7 @@
 KILL IT before running the next one.
 - ❌ **NEVER** Start a second task without explicit user authorization. Only do the task you were requested to do.
 
-## ⚠️ ### FUNDAMENTAL PRINCIPLES
+## ⚠️ FUNDAMENTAL PRINCIPLES
 
 THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout development. No item can be neglected. NEVER ASSUME ANYTHING - ALWAYS ASK IF IN DOUBT.
 
@@ -26,11 +26,12 @@ THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout develo
 
 ## 🔄 STANDARD WORKFLOW
 
-Please follow these steps for each task and in the order they appear:
+Please follow these steps for each task, in the order they appear:
 
 ### 1. 📋 TASK RECEPTION
 
-- **Attention**: Delegate any action to the respective subagents, don't do it in the main agent.
+**Attention**: Delegate any action to the respective subagent specialists; don’t do it in the main agent.
+
 - Receive the task or subtask to be developed
 - Identify the task ID in the Task Master system
 - **Action**: Check if task is already implemented, if so, ask for clarification
@@ -97,7 +98,7 @@ Please follow these steps for each task and in the order they appear:
 
 For tasks with subtasks, follow this cycle for each subtask:
 
-1. **Implement all subtask** following the deepthink plan
+1. **Implement all subtasks** following the deepthink plan
 2. **Quality check** - Run `pnpm run complete-check` after each subtask implementation
 3. **Repeat** for each subtask
 
@@ -116,7 +117,7 @@ For tasks with subtasks, follow this cycle for each subtask:
   - Run again until it passes completely
   - Do not comment/skip tests just because they fail, never
   - If you are still struggling to fix it (cannot fix in 5 interactions, for example), ask for help
-  - Do not ASSUME that the problem is not related to the task. Check it, confirm it, and ask for help if necessary, but it doesn't matter if the problem is related to the task or not, SOLVE IT.
+  - Do not ASSUME the problem is unrelated to the task. Check, confirm, and ask for help if needed—but regardless of whether it’s related, SOLVE IT.
 - **Action**: Ask the agent specialists (identify the ones that are more specialized in the task) to review the changes and apply any suggestion.
 
 ### 7. CODE REVIEW
