@@ -14,7 +14,7 @@ function createSeededRNG(seed: string): () => number {
   for (let i = 0; i < seed.length; i++) {
     const char = seed.charCodeAt(i);
     hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32bit integer
+    hash = hash | 0; // Convert to 32bit integer
   }
 
   let state = Math.abs(hash);
