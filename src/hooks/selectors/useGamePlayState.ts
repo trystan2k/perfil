@@ -23,6 +23,7 @@ export type GamePlayState = Pick<
   | 'numberOfRounds'
   | 'currentRound'
   | 'revealedClueHistory'
+  | 'clueShuffleMap'
 >;
 
 export const useGamePlayState = (): GamePlayState =>
@@ -41,5 +42,6 @@ export const useGamePlayState = (): GamePlayState =>
       numberOfRounds: state.numberOfRounds,
       currentRound: state.currentRound,
       revealedClueHistory: state.revealedClueHistory,
+      clueShuffleMap: state.clueShuffleMap,
     }))
   );

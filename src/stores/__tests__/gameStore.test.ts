@@ -1124,6 +1124,7 @@ describe('gameStore', () => {
     it('should immediately persist state without debounce', async () => {
       const { saveGameSession } = await import('../../lib/gameSessionDB');
       const { forcePersist } = await import('../gameStore');
+      const { serializeClueShuffleMap } = await import('../../lib/clueShuffling');
 
       // Create a game first
       await useGameStore.getState().createGame(['Player 1', 'Player 2']);
@@ -1155,6 +1156,7 @@ describe('gameStore', () => {
         selectedCategories: state.selectedCategories,
         revealedClueHistory: state.revealedClueHistory,
         revealedClueIndices: state.revealedClueIndices,
+        clueShuffleMap: serializeClueShuffleMap(state.clueShuffleMap),
       });
     });
 
