@@ -35,6 +35,11 @@ test.describe('Full game flow', () => {
     // Expect to be on the game page and have active player
     await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
 
+    // Verify logo is visible in the header
+    await expect(
+      page.getByTestId('app-header').getByRole('img', { name: 'Perfil Logo' })
+    ).toBeVisible();
+
     // Reveal next clue
     await page.getByRole('button', { name: 'Show Next Clue' }).click();
     await expect(page.getByText(/Clue \d+ of \d+/)).toBeVisible();

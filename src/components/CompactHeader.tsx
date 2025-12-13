@@ -1,5 +1,6 @@
 import { Menu } from 'lucide-react';
 import type { HTMLAttributes, ReactNode } from 'react';
+import { Logo } from '@/components/Logo';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { MEDIA_QUERIES } from '@/lib/breakpoints';
 import { cn } from '@/lib/utils';
@@ -129,6 +130,7 @@ export function CompactHeader({
 
   return (
     <header
+      data-testid="app-header"
       className={cn(
         // Base styles
         'sticky top-0 z-50 w-full bg-card border-b border-border shadow-sm',
@@ -145,24 +147,36 @@ export function CompactHeader({
         // Mobile variant: compact layout
         <div className="flex items-center justify-between h-16 px-4">
           {/* Controls/children on left side */}
-          <div className="flex items-center gap-2">{children}</div>
+          <div className="flex items-center gap-2 z-10">{children}</div>
+
+          {/* Center Logo */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Logo />
+          </div>
 
           {/* Settings button on right */}
           <SettingsButton
             onClick={onSettingsClick}
             ariaLabel={settingsAriaLabel}
             title={settingsTitle}
-            className={settingsButtonClassName}
+            className={cn('z-10', settingsButtonClassName)}
           />
         </div>
       ) : (
         // Desktop variant: inline controls layout with settings button
         <div className="flex items-center justify-between h-16 px-6">
-          {/* Left side: logo/branding (future use) */}
-          <div className="flex-1" />
+          {/* Left side: logo/branding */}
+          <div className="flex-1 flex items-center justify-start z-10">
+            {/* Left side content if needed */}
+          </div>
+
+          {/* Center Logo */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Logo />
+          </div>
 
           {/* Right side: inline controls + settings button */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 z-10">
             {children}
 
             {/* Settings button on right */}
