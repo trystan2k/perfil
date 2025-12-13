@@ -16,6 +16,7 @@ describe('CelebrationAnimation', () => {
 
     // Don't try to remove celebration-container as React will handle it
     vi.clearAllMocks();
+    vi.useRealTimers();
   });
 
   describe('Rendering', () => {
