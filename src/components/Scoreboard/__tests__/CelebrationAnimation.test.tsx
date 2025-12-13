@@ -3,6 +3,8 @@ import { customRender } from '../../../__mocks__/test-utils';
 import { CelebrationAnimation } from '../CelebrationAnimation';
 
 describe('CelebrationAnimation', () => {
+  const originalMatchMedia = window.matchMedia;
+
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -17,6 +19,12 @@ describe('CelebrationAnimation', () => {
     // Don't try to remove celebration-container as React will handle it
     vi.clearAllMocks();
     vi.useRealTimers();
+
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: originalMatchMedia,
+    });
   });
 
   describe('Rendering', () => {
@@ -106,13 +114,12 @@ describe('CelebrationAnimation', () => {
       const celebContainer = document.getElementById('celebration-container');
       const positions = new Set();
 
-      if (celebContainer && celebContainer.children.length > 0) {
-        const wrapper = celebContainer.children[0];
-        for (let i = 0; i < wrapper.children.length; i++) {
-          const piece = wrapper.children[i] as HTMLElement;
-          const xPos = piece.style.getPropertyValue('--confetti-x');
-          positions.add(xPos);
-        }
+      const wrapper = celebContainer?.children[0] as HTMLElement | undefined;
+      expect(wrapper).toBeTruthy();
+      expect(wrapper?.children.length).toBeGreaterThan(1);
+      for (let i = 0; i < (wrapper?.children.length ?? 0); i++) {
+        const piece = wrapper?.children[i] as HTMLElement;
+        positions.add(piece.style.getPropertyValue('--confetti-x'));
       }
 
       expect(positions.size).toBeGreaterThan(1);
