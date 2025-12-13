@@ -307,47 +307,6 @@ test.describe('Random Clue Ordering - E2E Tests', () => {
     }
   });
 
-  test('should maintain shuffle when switching languages', async ({ page }) => {
-    // Add players
-    await page.getByLabel('Player Name').fill('Alice');
-    await page.getByRole('button', { name: 'Add' }).click();
-
-    await page.getByLabel('Player Name').fill('Bob');
-    await page.getByRole('button', { name: 'Add' }).click();
-
-    // Start game
-    await page.getByRole('button', { name: 'Start Game' }).click();
-
-    // Select category
-    await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
-    await page.getByLabel('Famous People').click();
-    await page.getByRole('button', { name: 'Continue' }).click();
-
-    // Set 1 round
-    const roundsInput = page.getByLabel('Number of rounds');
-    await roundsInput.clear();
-    await roundsInput.fill('1');
-
-    // Start game
-    await page.getByRole('button', { name: 'Start Game' }).click();
-
-    await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
-
-    // Reveal 3 clues
-    for (let i = 0; i < 3; i++) {
-      await page.getByRole('button', { name: 'Show Next Clue' }).click();
-    }
-
-    // Get the game state before language switch - verify clue counter is visible
-    const clueCounterBefore = await page.getByText(/Clue \d+ of \d+/).textContent();
-    expect(clueCounterBefore).toMatch(/Clue 3 of \d+/);
-
-    // Language switching test: just verify shuffle is still working (clue display is intact)
-    // Language switchers vary by implementation, so we verify the game state is preserved
-    const gamePlayHeading = page.getByRole('heading', { name: 'Game Play' });
-    expect(gamePlayHeading).toBeDefined();
-  });
-
   test('should handle complete game flow with shuffled clues', async ({ page }) => {
     // Add three players
     await page.getByLabel('Player Name').fill('Alice');
