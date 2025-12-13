@@ -75,6 +75,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     numberOfRounds,
     currentRound,
     revealedClueHistory,
+    clueShuffleMap,
   } = useGamePlayState();
 
   // Game store actions - using grouped selectors for performance optimization
@@ -242,7 +243,17 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
   // Computed values
   const currentClueText =
     currentTurn && currentTurn.cluesRead > 0 && currentProfile
-      ? currentProfile.clues[currentTurn.cluesRead - 1]
+      ? (() => {
+          // Get shuffle indices for current profile, if they exist
+          const shuffleIndices = clueShuffleMap.get(currentProfile.id);
+          if (shuffleIndices) {
+            // Use shuffled access
+            const actualIndex = shuffleIndices[currentTurn.cluesRead - 1];
+            return currentProfile.clues[actualIndex] ?? null;
+          }
+          // Fallback to sequential access if no shuffle found
+          return currentProfile.clues[currentTurn.cluesRead - 1] ?? null;
+        })()
       : null;
 
   const isMaxCluesReached =

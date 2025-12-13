@@ -18,6 +18,11 @@ import {
   GameStatus as GameStatusConstants,
 } from '../domain/game/value-objects/GameStatus';
 import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
+import {
+  deserializeClueShuffleMap,
+  generateClueShuffleIndices,
+  serializeClueShuffleMap,
+} from '../lib/clueShuffling';
 import { type AppError, GameError, PersistenceError } from '../lib/errors';
 import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB';
 import {
@@ -45,6 +50,7 @@ export interface GameState extends GameSession {
   selectedCategories: string[];
   revealedClueHistory: string[];
   revealedClueIndices: number[];
+  clueShuffleMap: Map<string, number[]>;
   error: AppError | null;
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
@@ -97,6 +103,7 @@ const initialState: Omit<
   selectedCategories: [],
   revealedClueHistory: [],
   revealedClueIndices: [],
+  clueShuffleMap: new Map<string, number[]>(),
   error: null,
 };
 
@@ -136,6 +143,7 @@ function buildPersistedState(state: GameState): PersistedGameState {
     selectedCategories: state.selectedCategories,
     revealedClueHistory: state.revealedClueHistory,
     revealedClueIndices: state.revealedClueIndices,
+    clueShuffleMap: serializeClueShuffleMap(state.clueShuffleMap),
   };
 }
 
@@ -246,6 +254,11 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
   // Create new turn using domain entity
   const nextTurn = createTurn(nextProfile.id);
 
+  // Generate clue shuffle for next profile
+  const shuffleIndices = generateClueShuffleIndices(nextProfile.clues.length);
+  const clueShuffleMap = new Map(state.clueShuffleMap);
+  clueShuffleMap.set(nextProfile.id, shuffleIndices);
+
   return {
     selectedProfiles: remainingSelectedProfiles,
     currentProfile: nextProfile,
@@ -253,6 +266,7 @@ function advanceToNextProfile(state: GameState): Partial<GameState> {
     currentTurn: nextTurn,
     revealedClueHistory: [],
     revealedClueIndices: [],
+    clueShuffleMap,
   };
 }
 
@@ -351,6 +365,11 @@ export const useGameStore = create<GameState>()(
           // Create initial turn using domain entity
           const firstTurn = createTurn(firstProfile.id);
 
+          // Generate clue shuffle for first profile
+          const shuffleIndices = generateClueShuffleIndices(firstProfile.clues.length);
+          const clueShuffleMap = new Map(state.clueShuffleMap);
+          clueShuffleMap.set(firstProfile.id, shuffleIndices);
+
           const newState = {
             status: GameStatusConstants.active as GameStatus,
             category: firstProfile.category,
@@ -361,6 +380,7 @@ export const useGameStore = create<GameState>()(
             currentRound: 1,
             selectedCategories,
             currentTurn: firstTurn,
+            clueShuffleMap,
           };
 
           persistState({ ...state, ...newState });
@@ -583,6 +603,7 @@ export const useGameStore = create<GameState>()(
             selectedCategories: loadedState.selectedCategories ?? [],
             revealedClueHistory: loadedState.revealedClueHistory ?? [],
             revealedClueIndices: loadedState.revealedClueIndices ?? [],
+            clueShuffleMap: deserializeClueShuffleMap(loadedState.clueShuffleMap),
             error: null, // Clear any previous errors on successful load
           });
 

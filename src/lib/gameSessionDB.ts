@@ -18,6 +18,7 @@ export interface PersistedGameState extends GameSession {
   selectedCategories: string[];
   revealedClueHistory: string[];
   revealedClueIndices?: number[];
+  clueShuffleMap?: Record<string, number[]>;
 }
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
