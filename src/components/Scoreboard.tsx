@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { useScoreboard } from '@/hooks/useScoreboard';
 import { navigateWithLocale } from '@/i18n/locales';
+import {
+  CelebrationAnimation,
+  GameStatsCard,
+  ScoreBars,
+  WinnerSpotlight,
+} from './Scoreboard/index';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import {
-  WinnerSpotlight,
-  ScoreBars,
-  GameStatsCard,
-  CelebrationAnimation,
-} from './Scoreboard/index';
 
 interface ScoreboardProps {
   sessionId?: string;
@@ -114,12 +114,7 @@ export function Scoreboard({ sessionId }: ScoreboardProps) {
         <CelebrationAnimation trigger={showCelebration} />
 
         <div className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="md:col-span-3">
-              <WinnerSpotlight winner={winner} />
-            </div>
-          </div>
-
+          <WinnerSpotlight winner={winner} />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <ScoreBars players={rankedPlayers} />
             <GameStatsCard players={rankedPlayers} totalPoints={totalPoints} />

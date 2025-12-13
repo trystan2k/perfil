@@ -61,6 +61,7 @@ Please follow these steps for each task, in the order they appear:
   - ❌ **Avoid overengineering**: Do not overcomplicate unnecessarily
   - 🎯 **Elegance**: Clean and well-structured solutions
   - 📝 **Documentation**: Clear and executable plan
+  - 🔄 **Effective**: Analyze existing code to follow same patterns
 
 **Deepthink plan template**:
 
@@ -93,6 +94,10 @@ Please follow these steps for each task, in the order they appear:
 ### 5. ⚙️ IMPLEMENTATION
 
 - Follow the plan created in deepthink
+- When developing new components, review existing components and follow the same patterns (hooks usage, variable names, prop names, prop usage, etc.)
+- Apply the same repository conventions when writing tests
+- Ensure all code shares a consistent look & feel, as if authored by one person at the same time
+- Do not create code that will never be used; if something is created and ends up unused, remove it
 
 #### 🔄 Subtask Development Cycle
 

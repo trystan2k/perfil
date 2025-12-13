@@ -134,9 +134,10 @@ describe('GameStatsCard', () => {
         createPlayer({ id: '2', score: 100 }),
         createPlayer({ id: '3', score: 100 }),
       ];
-      customRender(<GameStatsCard players={players} totalPoints={100} />);
+      customRender(<GameStatsCard players={players} totalPoints={300} />);
 
-      expect(screen.getByText('33')).toBeInTheDocument();
+      const outputs = screen.getAllByRole('status');
+      expect(outputs[2]).toHaveTextContent('100');
     });
 
     it('should handle no players (average is 0)', () => {

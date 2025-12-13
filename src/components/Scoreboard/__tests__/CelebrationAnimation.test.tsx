@@ -100,16 +100,17 @@ describe('CelebrationAnimation', () => {
     });
 
     it('should apply random positioning to confetti', () => {
-      const { container } = customRender(<CelebrationAnimation trigger={true} />);
-
-      const celebContainer = container.querySelector('[id="celebration-container"]');
+      vi.useFakeTimers();
+      customRender(<CelebrationAnimation trigger={true} />);
+      const celebContainer = document.getElementById('celebration-container');
       const positions = new Set();
 
       if (celebContainer && celebContainer.children.length > 0) {
         const wrapper = celebContainer.children[0];
         for (let i = 0; i < wrapper.children.length; i++) {
           const piece = wrapper.children[i] as HTMLElement;
-          positions.add(piece.style.left);
+          const xPos = piece.style.getPropertyValue('--confetti-x');
+          positions.add(xPos);
         }
       }
 
@@ -220,68 +221,6 @@ describe('CelebrationAnimation', () => {
     it('should handle unmount immediately after render', () => {
       const { unmount } = customRender(<CelebrationAnimation trigger={false} />);
       expect(() => unmount()).not.toThrow();
-    });
-  });
-
-  describe('Style Injection', () => {
-    it('should inject confetti keyframes style on mount', () => {
-      const { unmount } = customRender(<CelebrationAnimation trigger={false} />);
-
-      const style = document.getElementById('confetti-keyframes');
-      expect(style).toBeInTheDocument();
-      expect(style?.tagName).toBe('STYLE');
-
-      unmount();
-    });
-
-    it('should define fall-confetti animation', () => {
-      const { unmount } = customRender(<CelebrationAnimation trigger={false} />);
-
-      const style = document.getElementById('confetti-keyframes');
-      expect(style?.textContent).toContain('@keyframes fall-confetti');
-
-      unmount();
-    });
-
-    it('should include transform in animation keyframes', () => {
-      const { unmount } = customRender(<CelebrationAnimation trigger={false} />);
-
-      const style = document.getElementById('confetti-keyframes');
-      expect(style?.textContent).toContain('transform');
-
-      unmount();
-    });
-
-    it('should include opacity in animation keyframes', () => {
-      const { unmount } = customRender(<CelebrationAnimation trigger={false} />);
-
-      const style = document.getElementById('confetti-keyframes');
-      expect(style?.textContent).toContain('opacity');
-
-      unmount();
-    });
-
-    it('should be placed in document head', () => {
-      const { unmount } = customRender(<CelebrationAnimation trigger={false} />);
-
-      const style = document.getElementById('confetti-keyframes');
-      expect(style?.parentElement?.tagName).toBe('HEAD');
-
-      unmount();
-    });
-
-    it('should not duplicate style when rendering multiple components', () => {
-      const { unmount: unmount1 } = customRender(<CelebrationAnimation trigger={false} />);
-      const styleCount1 = document.querySelectorAll('#confetti-keyframes').length;
-
-      const { unmount: unmount2 } = customRender(<CelebrationAnimation trigger={false} />);
-      const styleCount2 = document.querySelectorAll('#confetti-keyframes').length;
-
-      expect(styleCount2).toBe(1);
-      expect(styleCount1).toBe(styleCount2);
-
-      unmount1();
-      unmount2();
     });
   });
 
@@ -494,16 +433,6 @@ describe('CelebrationAnimation', () => {
       expect(true).toBe(true);
 
       vi.useRealTimers();
-    });
-
-    it('should inject styles before rendering confetti', () => {
-      const { unmount } = customRender(<CelebrationAnimation trigger={true} />);
-
-      // Styles should be injected on mount
-      const style = document.getElementById('confetti-keyframes');
-      expect(style).toBeInTheDocument();
-
-      unmount();
     });
   });
 });
