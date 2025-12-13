@@ -71,6 +71,7 @@ export default defineConfig({
         ],
       },
       workbox: {
+        importScripts: ['/sw-cleanup.js'],
         navigateFallback: null,
         // Explicitly define which files to precache (excludes SSR-generated content)
         globPatterns: ['**/*.{js,css,ico,png,svg,webp,woff,woff2,json}'],
@@ -116,12 +117,13 @@ export default defineConfig({
           {
             // Category-based profile data files: /data/{category}/{locale}/data-1.json
             urlPattern: /\/data\/[^/]+\/[^/]+\/data-\d+\.json$/i,
-            handler: 'CacheFirst',
+            handler: 'NetworkFirst',
             options: {
-              cacheName: 'category-profiles-cache',
+              cacheName: 'profile-data-v2',
+              networkTimeoutSeconds: 10,
               expiration: {
-                maxEntries: 50, // Allow caching many category files
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days (data rarely changes)
+                maxEntries: 100, // Increased to allow caching more category files
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
               },
               cacheableResponse: {
                 statuses: [0, 200],

@@ -5479,19 +5479,20 @@
         "description": "Modify the service worker to use a NetworkFirst caching strategy for profile data.json files, prioritizing network requests with cache fallback and proper cache management while maintaining offline functionality.",
         "details": "1. Review current PWA/service worker configuration (vite-plugin-pwa/Workbox/sw.js) and locate profile data caching setup. 2. Implement NetworkFirst runtime caching rule targeting **/data.json with 10s timeout, cache expiration (7 days), and max entries. 3. Create versioned cache names (e.g., 'profile-data-v2') and add migration/cleanup logic during SW activation. 4. Update profile-loading logic to handle stale responses and graceful cache fallback. 5. Add E2E tests verifying fresh data fetch online and cached fallback offline. 6. Run complete-check CI pipeline and manual offline verification. 7. Update SW documentation with strategy rationale and cache management details.",
         "testStrategy": "Automated E2E test using Playwright: 1) Online scenario - verify updated data.json loads fresh data. 2) Offline scenario - simulate network failure and confirm cached profile data loads with functional UI. Unit tests for profile data loader to validate network error handling and cache fallback logic. Manual verification steps: update server data.json, reload online to confirm changes, disable network, reload to confirm cached data displays with warning banner.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "11"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-13T18:36:10.824Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-13T17:58:22.909Z",
+      "lastModified": "2025-12-13T18:36:10.826Z",
       "taskCount": 96,
-      "completedCount": 67,
+      "completedCount": 68,
       "tags": [
         "master"
       ]
