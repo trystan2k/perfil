@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-12-13",
+  "description": "Central profile inventory - lists all existing profiles by name to prevent duplicates. Use this to check what profiles already exist before creating new ones.",
+  "supportedLanguages": ["en", "es", "pt-BR"],
+  "categories": [
+    {
+      "slug": "animals",
+      "displayNames": {
+        "en": "Animals",
+        "es": "Animales",
+        "pt-BR": "Animais"
+      },
+      "description": "Animals profiles can have clues about their characteristics, behavior, and interactions with humans. It could have all kind of animals, from small mammals to large predators. It does not necessarily need to be a real animal, but could be a fictional character in a movie, a mythical creature or a character from a book.",
+      "profiles": [
+        {
+          "name": "Octopus",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Lion",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        }
+      ]
+    },
+    {
+      "slug": "countries",
+      "displayNames": {
+        "en": "Countries",
+        "es": "Países",
+        "pt-BR": "Países"
+      },
+      "description": "Countries profiles can have clues about their history, culture, geography, and other important aspects. It could have all kind of countries, from small ones to large ones. It does not necessarily need to be a real country, but could be a fictional one in a movie, a historical one that could not even exist anymore or a character from a book.",
+      "profiles": [
+        {
+          "name": "Japan",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Brazil",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "famous-people",
+      "displayNames": {
+        "en": "Famous People",
+        "es": "Personas Famosas",
+        "pt-BR": "Pessoas Famosas"
+      },
+      "description": "Famous people profiles can have clues about their history, achievements, physical aspects and other important aspects. It could have all kind of famous people, from historical figures to modern ones. It does not necessarily need to be a real person, but could be a fictional character in a movie, a historical figure not necessarily live anymore or a character from a book.",
+      "profiles": [
+        {
+          "name": "Albert Einstein",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Leonardo da Vinci",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Marie Curie",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "William Shakespeare",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "slug": "movies",
+      "displayNames": {
+        "en": "Movies",
+        "es": "Películas",
+        "pt-BR": "Filmes"
+      },
+      "description": "Movies profiles can have clues about their plot, characters, actors, director, release date, genre, and other important aspects. It does not necessarily need to be a movie, but could be a character in a movie or a famous director.",
+      "profiles": [
+        {
+          "name": "The Matrix",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Inception",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        }
+      ]
+    },
+    {
+      "slug": "sports",
+      "displayNames": {
+        "en": "Sports",
+        "es": "Deportes",
+        "pt-BR": "Esportes"
+      },
+      "description": "Sports profiles can have clues about their history, rules, players, teams, and other important aspects. It not necessarily needs to be the name of the sport, but the profile could be about an player, a team, or a sport in general. It could have all kind of sports, from soccer to basketball. It does not necessarily need to be a real sport, but could be a fictional one in a movie.",
+      "profiles": [
+        {
+          "name": "Soccer",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Basketball",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        }
+      ]
+    },
+    {
+      "slug": "technology",
+      "displayNames": {
+        "en": "Technology",
+        "es": "Tecnología",
+        "pt-BR": "Tecnologia"
+      },
+      "description": "Technologylogy profiles can have clues about their history, features, and other important aspects. It could have all kind of technologies, from smartphones to computers. It does not necessarily need to be a real technology, but could be a fictional one in a movie or a character from a book.",
+      "profiles": [
+        {
+          "name": "Smartphone",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Internet",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        }
+      ]
+    }
+  ]
+}
