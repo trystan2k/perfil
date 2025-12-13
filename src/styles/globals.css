@@ -102,6 +102,31 @@
   }
 }
 
+@layer utilities {
+  @keyframes fall-confetti {
+    to {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-fall-confetti {
+    animation: fall-confetti linear forwards;
+  }
+
+  .confetti-piece {
+    @apply fixed pointer-events-none;
+    width: var(--confetti-size);
+    height: var(--confetti-size);
+    left: var(--confetti-x);
+    top: -10px;
+    background-color: var(--confetti-color);
+    border-radius: 2px;
+    transform: rotate(var(--confetti-rotation));
+    animation: fall-confetti var(--confetti-duration) linear forwards;
+  }
+}
+
 /* Skip Link for Accessibility */
 .skip-link {
   @apply absolute left-[-999px] top-0 z-[100];

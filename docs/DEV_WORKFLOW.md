@@ -61,6 +61,7 @@ Please follow these steps for each task, in the order they appear:
   - ❌ **Avoid overengineering**: Do not overcomplicate unnecessarily
   - 🎯 **Elegance**: Clean and well-structured solutions
   - 📝 **Documentation**: Clear and executable plan
+  - 🔄 **Effective**: Analyze existing code to follow same patterns
 
 **Deepthink plan template**:
 
@@ -93,14 +94,19 @@ Please follow these steps for each task, in the order they appear:
 ### 5. ⚙️ IMPLEMENTATION
 
 - Follow the plan created in deepthink
+- When developing new components, review existing components and follow the same patterns (hooks usage, variable names, prop names, prop usage, etc.)
+- Apply the same repository conventions when writing tests
+- Ensure all code shares a consistent look & feel, as if authored by one person at the same time
+- Do not create code that will never be used; if something is created and ends up unused, remove it
 
 #### 🔄 Subtask Development Cycle
 
 For tasks with subtasks, follow this cycle for each subtask:
 
 1. **Implement all subtasks** following the deepthink plan
-2. **Quality check** - Run `pnpm run complete-check` after each subtask implementation
-3. **Repeat** for each subtask
+2. **Tests** add all necessary tests for the subtask (delegate the tests development to the @tester-specialist subagent), aim for 100% code coverage or close enough.
+3. **Quality check** - Run `pnpm run complete-check` after each subtask implementation
+4. **Repeat** for each subtask
 
 - **Principles during implementation**:
   - 🎯 Focus on the essential
@@ -130,8 +136,13 @@ Ask the specialist listed below to review not only the code but the subtask impl
 - **Action**: Ask the @test-automator subagent to review the subtask implementation and provide feedbacks
 - **Action**: Ask the @code-reviewer subagent to review the code and provide feedbacks
 
+- **Important**: Check that no hardcoded strings are used. All strings to be displayed should use the i18n system.
+
+- If the specialists generate at documentation with the review or summary of their analysis, please review them, identify any improvements, issues, suggestions and check if they makes sense to be applied. Once you finish applying all suggestions, please delete the documentation (they should not be committed to the repository).
+
 ### 8. 🔍 FINAL QUALITY VERIFICATION
 
+- **Action**: When all subtasks are complete, ask @tester-specialist subagent write a E2E test for the entire task implementation
 - **Action**: After ALL subtasks are complete and review is done and applied, run `pnpm run complete-check` one final time
 - **Action**: Ensure entire task implementation works as expected
 - **If problems are reported**:
@@ -169,6 +180,7 @@ Ask the specialist listed below to review not only the code but the subtask impl
 - **🚨 CRITICAL**: ALWAYS ask for explicit permission before committing - NEVER commit without user confirmation
 - **Action**: Commit with descriptive message following the pattern below (only after receiving permission)
 - **NEVER**: Never include in the commit message or description any reference to the task or subtask ID or any LLM model used. It should only be about the actual work done.
+- **NEVER**: When executing the PUSH, wait for the pre-hooks to complete, DO NOT abort it because 'it is taking too long'. You must wait it to finish and do nothing else until it is done.
 
 **Task commit message pattern**:
 

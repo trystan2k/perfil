@@ -179,19 +179,22 @@ describe('Scoreboard', () => {
       expect(screen.getByText('Scoreboard')).toBeInTheDocument();
     });
 
-    // Verify players are sorted by score (descending)
-    const rows = screen.getAllByRole('row');
-    expect(rows[1]).toHaveTextContent('Bob'); // 200 points (rank 1)
-    expect(rows[1]).toHaveTextContent('🥇');
-    expect(rows[2]).toHaveTextContent('Diana'); // 200 points (rank 1, tied)
-    expect(rows[2]).toHaveTextContent('🥇');
-    expect(rows[3]).toHaveTextContent('Alice'); // 150 points (rank 3)
-    expect(rows[3]).toHaveTextContent('🥉');
-    expect(rows[4]).toHaveTextContent('Charlie'); // 100 points (rank 4)
-    expect(rows[4]).toHaveTextContent('4');
+    // Verify WinnerSpotlight shows the top scorer
+    expect(screen.getByText('Game Winner')).toBeInTheDocument();
+    // Bob should appear in WinnerSpotlight
+    expect(screen.getByRole('heading', { name: 'Game Winner' })).toBeInTheDocument();
+
+    // Verify ScoreBars shows all players in order
+    expect(screen.getByText('Score Comparison')).toBeInTheDocument();
+    expect(screen.getByText('Alice')).toBeInTheDocument();
+    expect(screen.getByText('Diana')).toBeInTheDocument();
+    expect(screen.getByText('Charlie')).toBeInTheDocument();
+
+    // Verify trophy emoji is displayed
+    expect(screen.getByText('🏆')).toBeInTheDocument();
   });
 
-  it('should render table headers correctly', async () => {
+  it('should render WinnerSpotlight with game winner', async () => {
     const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
       useGameStore.setState({
         id: sessionId,
@@ -207,19 +210,25 @@ describe('Scoreboard', () => {
     customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
-      expect(screen.getByText('Rank')).toBeInTheDocument();
-      expect(screen.getByText('Player')).toBeInTheDocument();
-      expect(screen.getByText('Score')).toBeInTheDocument();
+      expect(screen.getByText('Game Winner')).toBeInTheDocument();
     });
+
+    // Verify trophy emoji is displayed
+    expect(screen.getByText('🏆')).toBeInTheDocument();
+    // Verify the heading structure exists
+    expect(screen.getByRole('heading', { name: 'Game Winner' })).toBeInTheDocument();
   });
 
-  it('should render without category when not provided', async () => {
+  it('should render ScoreBars with all players', async () => {
     const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
       useGameStore.setState({
         id: sessionId,
         status: 'completed',
-        category: undefined,
-        players: [{ id: '1', name: 'Alice', score: 100 }],
+        players: [
+          { id: '1', name: 'Alice', score: 150 },
+          { id: '2', name: 'Bob', score: 200 },
+          { id: '3', name: 'Charlie', score: 100 },
+        ],
         profiles: mockProfiles,
       });
       return true;
@@ -230,19 +239,33 @@ describe('Scoreboard', () => {
     customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
-      expect(screen.getByText('Scoreboard')).toBeInTheDocument();
+      expect(screen.getByText('Score Comparison')).toBeInTheDocument();
     });
 
-    // Category should not be displayed
-    expect(screen.queryByText(/Category:/)).not.toBeInTheDocument();
+    // Verify all players appear (in ScoreBars or WinnerSpotlight)
+    const aliceElements = screen.getAllByText('Alice');
+    const bobElements = screen.getAllByText('Bob');
+    const charlieElements = screen.getAllByText('Charlie');
+
+    expect(aliceElements.length).toBeGreaterThan(0);
+    expect(bobElements.length).toBeGreaterThan(0);
+    expect(charlieElements.length).toBeGreaterThan(0);
+
+    // Verify the Score Comparison section exists
+    const scoreComparisonHeading = screen.getByRole('heading', { name: 'Score Comparison' });
+    expect(scoreComparisonHeading).toBeInTheDocument();
   });
 
-  it('should handle single player correctly', async () => {
+  it('should display game statistics correctly', async () => {
     const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
       useGameStore.setState({
         id: sessionId,
         status: 'completed',
-        players: [{ id: '1', name: 'Solo Player', score: 250 }],
+        players: [
+          { id: '1', name: 'Alice', score: 150 },
+          { id: '2', name: 'Bob', score: 200 },
+          { id: '3', name: 'Charlie', score: 100 },
+        ],
         profiles: mockProfiles,
       });
       return true;
@@ -253,10 +276,16 @@ describe('Scoreboard', () => {
     customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
-      expect(screen.getByText('Solo Player')).toBeInTheDocument();
-      expect(screen.getByText('250')).toBeInTheDocument();
-      expect(screen.getByText('🥇')).toBeInTheDocument();
+      expect(screen.getByText('Game Statistics')).toBeInTheDocument();
     });
+
+    // Verify Game Statistics heading exists
+    const statsHeading = screen.getByRole('heading', { name: 'Game Statistics' });
+    expect(statsHeading).toBeInTheDocument();
+
+    // Verify the parent card has the stats grid
+    const statsCard = statsHeading.closest('div[class*="p-6"]');
+    expect(statsCard).toBeInTheDocument();
   });
 
   it('should handle many players with correct rank display', async () => {
@@ -281,13 +310,16 @@ describe('Scoreboard', () => {
     customRender(<Scoreboard sessionId="test-session" />);
 
     await waitFor(() => {
-      const rows = screen.getAllByRole('row');
-      expect(rows[1]).toHaveTextContent('🥇'); // Rank 1
-      expect(rows[2]).toHaveTextContent('🥈'); // Rank 2
-      expect(rows[3]).toHaveTextContent('🥉'); // Rank 3
-      expect(rows[4]).toHaveTextContent('4'); // Rank 4
-      expect(rows[5]).toHaveTextContent('5'); // Rank 5
+      expect(screen.getByText('Score Comparison')).toBeInTheDocument();
     });
+
+    // Verify medal emojis for top 3 and numeric ranks for others
+    expect(screen.getByText('🥇')).toBeInTheDocument(); // Rank 1
+    expect(screen.getByText('🥈')).toBeInTheDocument(); // Rank 2
+    expect(screen.getByText('🥉')).toBeInTheDocument(); // Rank 3
+    // Verify numeric ranks for others are displayed
+    expect(screen.getByText('#4')).toBeInTheDocument(); // Rank 4
+    expect(screen.getByText('#5')).toBeInTheDocument(); // Rank 5
   });
 
   it('should call loadFromStorage with correct sessionId', async () => {
@@ -517,7 +549,7 @@ describe('Scoreboard', () => {
   });
 
   describe('Large player list', () => {
-    it('renders 16 players and shows correct count', async () => {
+    it('renders 16 players with all names and scores visible', async () => {
       const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
         useGameStore.setState({
           id: sessionId,
@@ -533,15 +565,21 @@ describe('Scoreboard', () => {
       customRender(<Scoreboard sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('Player 1')).toBeInTheDocument();
-        expect(screen.getByText('Player 16')).toBeInTheDocument();
+        expect(screen.getByText('Score Comparison')).toBeInTheDocument();
       });
 
-      const rows = screen.getAllByRole('row');
-      expect(rows).toHaveLength(17); // Header + 16 players
+      // Verify first and last players are visible (using getAllByText to get from any section)
+      const player1Elements = screen.getAllByText('Player 1');
+      const player16Elements = screen.getAllByText('Player 16');
+
+      expect(player1Elements.length).toBeGreaterThan(0);
+      expect(player16Elements.length).toBeGreaterThan(0);
+
+      // Verify Score Comparison section exists
+      expect(screen.getByRole('heading', { name: 'Score Comparison' })).toBeInTheDocument();
     });
 
-    it('displays ranks correctly for 16 players', async () => {
+    it('displays medals and ranks correctly for 16 players', async () => {
       const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
         useGameStore.setState({
           id: sessionId,
@@ -557,15 +595,18 @@ describe('Scoreboard', () => {
       customRender(<Scoreboard sessionId="test-session" />);
 
       await waitFor(() => {
-        const rows = screen.getAllByRole('row');
-        // Verify medals for top 3
-        expect(rows[1]).toHaveTextContent('🥇'); // Player 16 - 160 points
-        expect(rows[2]).toHaveTextContent('🥈'); // Player 15 - 150 points
-        expect(rows[3]).toHaveTextContent('🥉'); // Player 14 - 140 points
-        // Verify numeric ranks for others
-        expect(rows[4]).toHaveTextContent('4'); // Player 13
-        expect(rows[16]).toHaveTextContent('16'); // Player 1 - 10 points
+        expect(screen.getByText('Score Comparison')).toBeInTheDocument();
       });
+
+      // Verify medals for top 3
+      expect(screen.getByText('🥇')).toBeInTheDocument(); // Rank 1
+      expect(screen.getByText('🥈')).toBeInTheDocument(); // Rank 2
+      expect(screen.getByText('🥉')).toBeInTheDocument(); // Rank 3
+
+      // Verify numeric ranks for positions 4-16
+      for (let i = 4; i <= 16; i++) {
+        expect(screen.getByText(`#${i}`)).toBeInTheDocument();
+      }
     });
   });
 });

@@ -187,8 +187,10 @@ test.describe('View Transitions API and State Persistence', () => {
 
       // Verify state persisted to scoreboard
       await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
-      await expect(page.getByText('Alice')).toBeVisible();
-      await expect(page.getByText('Bob')).toBeVisible();
+      // Use ScoreBars component for strict mode safe queries
+      const scoreBars1 = page.getByTestId('score-bars');
+      await expect(scoreBars1).toContainText('Alice');
+      await expect(scoreBars1).toContainText('Bob');
     });
 
     test('should maintain Zustand store state across multiple navigations', async ({ page }) => {
@@ -719,15 +721,17 @@ test.describe('View Transitions API and State Persistence', () => {
       await page.getByRole('button', { name: 'Finish Game' }).click();
       await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-      // Verify final state
-      await expect(page.getByText('Alice')).toBeVisible();
-      await expect(page.getByText('Bob')).toBeVisible();
+      // Verify final state using ScoreBars component (strict mode safe)
+      const finalScoreBars = page.getByTestId('score-bars');
+      await expect(finalScoreBars).toContainText('Alice');
+      await expect(finalScoreBars).toContainText('Bob');
 
       // Verify players are still in storage by refreshing page
       await page.reload();
       await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
-      await expect(page.getByText('Alice')).toBeVisible();
-      await expect(page.getByText('Bob')).toBeVisible();
+      const refreshedScoreBars = page.getByTestId('score-bars');
+      await expect(refreshedScoreBars).toContainText('Alice');
+      await expect(refreshedScoreBars).toContainText('Bob');
     });
   });
 });

@@ -95,15 +95,36 @@ test.describe('Remove points flow', () => {
     // Now on scoreboard, verify scores
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible({ timeout: 5000 });
 
-    const aliceRow = page.getByRole('row', { name: /Alice/i });
-    await expect(aliceRow.getByRole('cell').nth(2)).toHaveText('15', { timeout: 5000 });
+    // Find Alice's score in the ScoreBars component
+    const scoreBars = page.locator('[data-testid="score-bars"]');
+    await expect(scoreBars).toBeVisible();
+
+    // Find the row containing Alice's name
+    const aliceRowLocator = scoreBars.locator('[data-testid*="player-score-row-"]').filter({
+      has: page.locator('[data-testid*="player-name-"]', { hasText: 'Alice' }),
+    });
+    await expect(aliceRowLocator).toBeVisible({ timeout: 5000 });
+
+    // Get all text content from the row and verify the score (15) is present
+    await expect(aliceRowLocator).toContainText('15');
 
     // Reload and verify persistence
     await page.reload();
     await page.waitForTimeout(1000);
 
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible({ timeout: 5000 });
-    const aliceRowReloaded = page.getByRole('row', { name: /Alice/i });
-    await expect(aliceRowReloaded.getByRole('cell').nth(2)).toHaveText('15', { timeout: 5000 });
+
+    // Verify the score persists after reload using ScoreBars component
+    const scoreBarsReloaded = page.locator('[data-testid="score-bars"]');
+    await expect(scoreBarsReloaded).toBeVisible();
+
+    const aliceRowReloaded = scoreBarsReloaded
+      .locator('[data-testid*="player-score-row-"]')
+      .filter({
+        has: page.locator('[data-testid*="player-name-"]', { hasText: 'Alice' }),
+      });
+    await expect(aliceRowReloaded).toBeVisible({ timeout: 5000 });
+
+    await expect(aliceRowReloaded).toContainText('15');
   });
 });

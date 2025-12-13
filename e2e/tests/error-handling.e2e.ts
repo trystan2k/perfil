@@ -3,13 +3,16 @@ import { expect, test } from '@playwright/test';
 test.describe('Error Handling', () => {
   test.beforeEach(async ({ page }) => {
     // Clear IndexedDB before each test
-    await page.goto('/', { waitUntil: 'networkidle' });
+    // Navigate to a static asset to ensure a clean JS context with same origin
+    await page.goto('/favicon.png');
     await page.evaluate(() => {
-      return new Promise<void>((resolve) => {
+      return new Promise<void>((resolve, reject) => {
         const request = indexedDB.deleteDatabase('perfil-game-sessions');
         request.onsuccess = () => resolve();
-        request.onerror = () => resolve();
-        request.onblocked = () => resolve();
+        request.onerror = () => reject(new Error('Failed to delete database'));
+        request.onblocked = () => {
+          console.warn('Database deletion blocked in beforeEach');
+        };
       });
     });
   });
@@ -47,20 +50,24 @@ test.describe('Error Handling', () => {
     const url = page.url();
     const sessionId = url.split('/game-setup/')[1];
 
-    // Navigate to home page to unload the game-setup page and ensure no pending saves interfere
-    await page.goto('/en/', { waitUntil: 'networkidle' });
+    // Navigate to a static asset to ensure a clean JS context with same origin
+    // This prevents the application from holding open IndexedDB connections
+    await page.goto('/favicon.png');
 
     // Clear IndexedDB to simulate missing session
     await page.evaluate(() => {
-      return new Promise<void>((resolve) => {
+      return new Promise<void>((resolve, reject) => {
         const request = indexedDB.deleteDatabase('perfil-game-sessions');
         request.onsuccess = () => resolve();
-        request.onerror = () => resolve();
-        request.onblocked = () => resolve();
+        request.onerror = () => reject(new Error('Failed to delete database'));
+        request.onblocked = () => {
+          // If blocked, it means there are still open connections.
+          // Since we are on a static asset, this shouldn't happen unless
+          // the browser is slow to close the previous page's connections.
+          console.warn('Database deletion blocked');
+        };
       });
     });
-
-    await page.waitForTimeout(1000);
 
     // Navigate to game page with the session ID (should trigger error)
     await page.goto(`/en/game/${sessionId}`, { waitUntil: 'networkidle' });

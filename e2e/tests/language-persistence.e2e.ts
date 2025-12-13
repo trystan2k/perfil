@@ -353,19 +353,39 @@ test.describe('Language Persistence', () => {
       await page.waitForLoadState('networkidle');
 
       // Fill in players and start game to trigger profile data fetch
+      // Wait for the player name input to be visible and ready
+      const playerNameInput = page.getByLabel('Nome do Jogador');
+      await expect(playerNameInput).toBeVisible({ timeout: 10000 });
+      await playerNameInput.first().waitFor({ state: 'visible' });
+
       for (let i = 1; i <= 2; i++) {
-        await page.getByLabel('Nome do Jogador').fill(`Test Player ${i}`);
-        await page.getByRole('button', { name: 'Adicionar' }).click();
-        await expect(page.getByText(`Test Player ${i}`)).toBeVisible();
+        // Clear the input first to ensure it's empty
+        await playerNameInput.first().clear();
+        // Type the player name with a small delay for stability
+        await playerNameInput.first().fill(`Test Player ${i}`);
+        // Wait for the input to have the correct value
+        await expect(playerNameInput.first()).toHaveValue(`Test Player ${i}`);
+
+        // Wait for the button to be enabled before clicking
+        const addButton = page.getByRole('button', { name: 'Adicionar' }).first();
+        await expect(addButton).toBeEnabled({ timeout: 5000 });
+        await addButton.click();
+
+        // Wait for the player to appear in the list
+        await expect(page.getByText(`Test Player ${i}`)).toBeVisible({ timeout: 5000 });
       }
 
-      await page.getByRole('button', { name: 'Iniciar Jogo' }).click();
+      const startButton = page.getByRole('button', { name: 'Iniciar Jogo' });
+      await expect(startButton).toBeEnabled({ timeout: 5000 });
+      await startButton.click();
 
       // Wait for category select URL
       await page.waitForURL(/\/pt-BR\/game-setup\/.+/);
 
       // Verify "Selecionar Categorias" heading is visible to ensure page content is loading
-      await expect(page.getByRole('heading', { name: 'Selecionar Categorias' })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Selecionar Categorias' })).toBeVisible({
+        timeout: 10000,
+      });
 
       // Use toPass to retry the assertion until the requests are captured
       await expect(async () => {

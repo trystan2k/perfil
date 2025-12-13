@@ -50,7 +50,13 @@ test.describe('Full game flow', () => {
 
     // Expect scoreboard
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
-    await expect(page.getByText('Alice')).toBeVisible();
+
+    // Verify Alice appears in the ScoreBars component (not just the winner spotlight)
+    const scoreBars = page.locator('[data-testid="score-bars"]');
+    const aliceNameInScoreBars = scoreBars.locator('[data-testid*="player-name-"]', {
+      hasText: 'Alice',
+    });
+    await expect(aliceNameInScoreBars).toBeVisible();
   });
 
   test('should complete exactly N rounds with proper category distribution', async ({ page }) => {
@@ -118,10 +124,23 @@ test.describe('Full game flow', () => {
     // After 3 rounds, game should end automatically and navigate to scoreboard
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    // Verify all three players are shown
-    await expect(page.getByText('Alice')).toBeVisible();
-    await expect(page.getByText('Bob')).toBeVisible();
-    await expect(page.getByText('Charlie')).toBeVisible();
+    // Verify all three players are shown in the ScoreBars component
+    const scoreBars = page.locator('[data-testid="score-bars"]');
+    await expect(scoreBars).toBeVisible();
+
+    const aliceNameInScoreBars = scoreBars.locator('[data-testid*="player-name-"]', {
+      hasText: 'Alice',
+    });
+    const bobNameInScoreBars = scoreBars.locator('[data-testid*="player-name-"]', {
+      hasText: 'Bob',
+    });
+    const charlieNameInScoreBars = scoreBars.locator('[data-testid*="player-name-"]', {
+      hasText: 'Charlie',
+    });
+
+    await expect(aliceNameInScoreBars).toBeVisible();
+    await expect(bobNameInScoreBars).toBeVisible();
+    await expect(charlieNameInScoreBars).toBeVisible();
   });
 
   test('should allow going back from rounds selection to categories', async ({ page }) => {
@@ -262,17 +281,25 @@ test.describe('Full game flow', () => {
 
     // This assertion verifies that the points awarded on the final round are persisted
     // If the bug exists, Alice would show 0 points on the scoreboard
-    // Extract and verify the score is greater than 0
-    const aliceRow = page.getByRole('row', { name: /Alice/i });
+    // Verify Alice appears in the ScoreBars component with non-zero score
+    const scoreBars = page.locator('[data-testid="score-bars"]');
+    await expect(scoreBars).toBeVisible();
+
+    // Find Alice's row in the score bars
+    const aliceRow = scoreBars.locator('[data-testid*="player-score-row-"]').filter({
+      has: page.locator('[data-testid*="player-name-"]', { hasText: 'Alice' }),
+    });
     await expect(aliceRow).toBeVisible();
 
-    const scoreText = await aliceRow.getByRole('cell').nth(2).innerText();
-    expect(scoreText).toMatch(/\d+/);
-    // Ensure it's not showing 0 points by checking the button contains a number > 0
-    const pointsMatch = scoreText.match(/(\d+)/i);
-    expect(pointsMatch).toBeTruthy();
-    const points = parseInt(pointsMatch?.[1] || '0', 10);
-    expect(points).toBeGreaterThan(0);
+    // Verify Alice's row contains text matching a score (any number > 0)
+    const rowText = await aliceRow.textContent();
+    expect(rowText).toMatch(/\d+/);
+
+    // Verify the score is not zero by looking for a number in the row
+    const numberMatch = rowText?.match(/\d+/);
+    expect(numberMatch).toBeTruthy();
+    const score = parseInt(numberMatch?.[0] || '0', 10);
+    expect(score).toBeGreaterThan(0);
   });
 
   test(`full setup -> category -> gameplay -> scoreboard with ${MAX_PLAYERS} players and measure render`, async ({
@@ -310,10 +337,16 @@ test.describe('Full game flow', () => {
 
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    // Verify all MAX_PLAYERS players appear on the scoreboard
+    // Verify all MAX_PLAYERS players appear on the scoreboard using ScoreBars component
+    const scoreBars = page.locator('[data-testid="score-bars"]');
+    await expect(scoreBars).toBeVisible();
+
+    // Verify each player appears as a player name element in the score bars
     for (let i = 1; i <= MAX_PLAYERS; i++) {
-      const playerCell = page.getByRole('cell', { name: `Player ${i}`, exact: true });
-      await expect(playerCell).toBeVisible();
+      // Get all player name elements and find the one with exact text match
+      const playerNameElements = scoreBars.locator('[data-testid*="player-name-"]');
+      const playerElement = playerNameElements.filter({ hasText: new RegExp(`^Player ${i}$`) });
+      await expect(playerElement).toBeVisible();
     }
   });
 });

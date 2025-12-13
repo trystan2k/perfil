@@ -199,6 +199,31 @@
       "title": "Sin Jugadores",
       "description": "No se encontraron jugadores en esta sesión de juego."
     },
+    "scoreComparison": "Comparación de Puntuaciones",
+    "rankLabels": {
+      "gold": "Medalla de Oro - Posición 1",
+      "silver": "Medalla de Plata - Posición 2",
+      "bronze": "Medalla de Bronce - Posición 3",
+      "rank": "Posición {{rank}}"
+    },
+    "winner": {
+      "title": "Ganador del Juego",
+      "finalScore": "Puntuación Final",
+      "trophy": "Trofeo - Premio al Ganador"
+    },
+    "stats": {
+      "title": "Estadísticas del Juego",
+      "totalPlayers": "Total de Jugadores",
+      "totalPoints": "Puntos Totales",
+      "averageScore": "Puntuación Promedio",
+      "highestScore": "Puntuación Más Alta",
+      "iconLabels": {
+        "players": "Total de Jugadores",
+        "points": "Puntos Totales",
+        "average": "Puntuación Promedio",
+        "highest": "Puntuación Más Alta"
+      }
+    },
     "actions": {
       "title": "¿Qué quieres hacer?",
       "newGame": "Nuevo Juego",
