@@ -34,7 +34,7 @@ export function CelebrationAnimation({ trigger, onComplete }: CelebrationAnimati
       }
       // Use the ref to avoid re-running this effect
       onCompleteRef.current?.();
-    }, 3000);
+    }, 5000);
 
     return () => {
       clearTimeout(timer);

@@ -1,7 +1,7 @@
-import type { RankedPlayer } from '@/hooks/useScoreboard';
+import { useId } from 'react';
 import { useTranslate } from '@/components/TranslateProvider';
 import { Card } from '@/components/ui/card';
-import { useId } from 'react';
+import type { RankedPlayer } from '@/hooks/useScoreboard';
 
 interface WinnerSpotlightProps {
   winner: RankedPlayer;
@@ -9,7 +9,6 @@ interface WinnerSpotlightProps {
 
 export function WinnerSpotlight({ winner }: WinnerSpotlightProps) {
   const { t } = useTranslate();
-  const trophyId = useId();
   const labelId = useId();
   const infoId = useId();
 
@@ -25,9 +24,7 @@ export function WinnerSpotlight({ winner }: WinnerSpotlightProps) {
         <div className="text-6xl" aria-hidden="true">
           🏆
         </div>
-        <span id={trophyId} className="sr-only">
-          {t('scoreboard.winner.trophy')}
-        </span>
+        <span className="sr-only">{t('scoreboard.winner.trophy')}</span>
         <div>
           <h2
             id={labelId}

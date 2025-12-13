@@ -231,7 +231,7 @@ describe('CelebrationAnimation', () => {
 
       customRender(<CelebrationAnimation trigger={true} onComplete={onComplete} />);
 
-      vi.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(6000);
 
       expect(onComplete).toHaveBeenCalled();
 
@@ -263,7 +263,7 @@ describe('CelebrationAnimation', () => {
 
       rerender(<CelebrationAnimation trigger={true} onComplete={onComplete} />);
 
-      vi.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(6000);
 
       expect(onComplete).toHaveBeenCalled();
 
@@ -281,7 +281,7 @@ describe('CelebrationAnimation', () => {
 
       rerender(<CelebrationAnimation trigger={true} onComplete={onComplete2} />);
 
-      vi.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(6000);
 
       expect(onComplete2).toHaveBeenCalled();
       expect(onComplete1).not.toHaveBeenCalled();
@@ -395,7 +395,7 @@ describe('CelebrationAnimation', () => {
 
       rerender(<CelebrationAnimation trigger={true} onComplete={onComplete} />);
 
-      vi.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(6000);
 
       expect(onComplete).toHaveBeenCalled();
 
@@ -428,7 +428,7 @@ describe('CelebrationAnimation', () => {
 
       customRender(<CelebrationAnimation trigger={true} />);
 
-      vi.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(6000);
 
       expect(true).toBe(true);
 
