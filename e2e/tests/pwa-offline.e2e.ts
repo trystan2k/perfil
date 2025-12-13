@@ -21,9 +21,13 @@ test.describe('PWA Offline Data Caching', () => {
     });
 
     await page.getByLabel('Player Name').fill('Tester 1');
-    await page.getByRole('button', { name: 'Add' }).click();
+    const addButton = page.getByRole('button', { name: 'Add' });
+    await expect(addButton).toBeEnabled();
+    await addButton.click();
+
     await page.getByLabel('Player Name').fill('Tester 2');
-    await page.getByRole('button', { name: 'Add' }).click();
+    await expect(addButton).toBeEnabled();
+    await addButton.click();
     await page.getByRole('button', { name: 'Start Game' }).click();
 
     // Wait for Category Select screen which triggers manifest and data loading
