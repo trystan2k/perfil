@@ -2,7 +2,7 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-0003",
+      "id": "profile-country-001",
       "category": "Countries",
       "name": "Japan",
       "clues": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "profile-0010",
+      "id": "profile-country-002",
       "category": "Countries",
       "name": "Brazil",
       "clues": [
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "profile-0016",
+      "id": "profile-country-003",
       "category": "Countries",
       "name": "Egypt",
       "clues": [
@@ -98,7 +98,7 @@
       }
     },
     {
-      "id": "profile-0030",
+      "id": "profile-country-004",
       "category": "Countries",
       "name": "United States",
       "clues": [
@@ -130,7 +130,7 @@
       }
     },
     {
-      "id": "profile-0031",
+      "id": "profile-country-005",
       "category": "Countries",
       "name": "France",
       "clues": [
@@ -162,7 +162,7 @@
       }
     },
     {
-      "id": "profile-0032",
+      "id": "profile-country-006",
       "category": "Countries",
       "name": "Australia",
       "clues": [
@@ -194,7 +194,7 @@
       }
     },
     {
-      "id": "profile-0033",
+      "id": "profile-country-007",
       "category": "Countries",
       "name": "India",
       "clues": [
@@ -226,7 +226,7 @@
       }
     },
     {
-      "id": "profile-0034",
+      "id": "profile-country-008",
       "category": "Countries",
       "name": "Canada",
       "clues": [
@@ -258,7 +258,7 @@
       }
     },
     {
-      "id": "profile-0035",
+      "id": "profile-country-009",
       "category": "Countries",
       "name": "Germany",
       "clues": [
@@ -290,7 +290,7 @@
       }
     },
     {
-      "id": "profile-0036",
+      "id": "profile-country-010",
       "category": "Countries",
       "name": "Mexico",
       "clues": [
@@ -322,7 +322,7 @@
       }
     },
     {
-      "id": "profile-0037",
+      "id": "profile-country-011",
       "category": "Countries",
       "name": "Italy",
       "clues": [
@@ -354,7 +354,7 @@
       }
     },
     {
-      "id": "profile-0038",
+      "id": "profile-country-012",
       "category": "Countries",
       "name": "South Korea",
       "clues": [
@@ -386,7 +386,7 @@
       }
     },
     {
-      "id": "profile-0039",
+      "id": "profile-country-013",
       "category": "Countries",
       "name": "Argentina",
       "clues": [
@@ -418,7 +418,7 @@
       }
     },
     {
-      "id": "profile-0014",
+      "id": "profile-country-014",
       "category": "Countries",
       "name": "China",
       "clues": [
@@ -450,7 +450,7 @@
       }
     },
     {
-      "id": "profile-0015",
+      "id": "profile-country-015",
       "category": "Countries",
       "name": "Russia",
       "clues": [
@@ -482,7 +482,7 @@
       }
     },
     {
-      "id": "profile-0016",
+      "id": "profile-country-016",
       "category": "Countries",
       "name": "United Kingdom",
       "clues": [
@@ -514,7 +514,7 @@
       }
     },
     {
-      "id": "profile-0017",
+      "id": "profile-country-017",
       "category": "Countries",
       "name": "Germany",
       "clues": [
@@ -547,7 +547,7 @@
       }
     },
     {
-      "id": "profile-0018",
+      "id": "profile-country-018",
       "category": "Countries",
       "name": "Spain",
       "clues": [
@@ -579,7 +579,7 @@
       }
     },
     {
-      "id": "profile-0019",
+      "id": "profile-country-019",
       "category": "Countries",
       "name": "India",
       "clues": [
@@ -612,7 +612,7 @@
       }
     },
     {
-      "id": "profile-0020",
+      "id": "profile-country-020",
       "category": "Countries",
       "name": "Mexico",
       "clues": [
@@ -644,7 +644,7 @@
       }
     },
     {
-      "id": "profile-0021",
+      "id": "profile-country-021",
       "category": "Countries",
       "name": "South Africa",
       "clues": [
@@ -676,7 +676,7 @@
       }
     },
     {
-      "id": "profile-0022",
+      "id": "profile-country-022",
       "category": "Countries",
       "name": "Netherlands",
       "clues": [
@@ -708,7 +708,7 @@
       }
     },
     {
-      "id": "profile-0023",
+      "id": "profile-country-023",
       "category": "Countries",
       "name": "Thailand",
       "clues": [
@@ -741,7 +741,7 @@
       }
     },
     {
-      "id": "profile-0024",
+      "id": "profile-country-024",
       "category": "Countries",
       "name": "Turkey",
       "clues": [
@@ -774,7 +774,7 @@
       }
     },
     {
-      "id": "profile-0025",
+      "id": "profile-country-025",
       "category": "Countries",
       "name": "Egypt",
       "clues": [
@@ -806,7 +806,7 @@
       }
     },
     {
-      "id": "profile-0026",
+      "id": "profile-country-026",
       "category": "Countries",
       "name": "Indonesia",
       "clues": [
@@ -838,7 +838,7 @@
       }
     },
     {
-      "id": "profile-0027",
+      "id": "profile-country-027",
       "category": "Countries",
       "name": "Saudi Arabia",
       "clues": [
@@ -870,7 +870,7 @@
       }
     },
     {
-      "id": "profile-0028",
+      "id": "profile-country-028",
       "category": "Countries",
       "name": "New Zealand",
       "clues": [
@@ -902,7 +902,7 @@
       }
     },
     {
-      "id": "profile-0029",
+      "id": "profile-country-029",
       "category": "Countries",
       "name": "Sweden",
       "clues": [
@@ -934,7 +934,7 @@
       }
     },
     {
-      "id": "profile-0030",
+      "id": "profile-country-030",
       "category": "Countries",
       "name": "Switzerland",
       "clues": [

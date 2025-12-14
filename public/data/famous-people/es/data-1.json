@@ -2,7 +2,7 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-0001",
+      "id": "profile-famous-001",
       "category": "Personas Famosas",
       "name": "Albert Einstein",
       "clues": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "profile-0002",
+      "id": "profile-famous-002",
       "category": "Personas Famosas",
       "name": "Leonardo da Vinci",
       "clues": [
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "profile-0008",
+      "id": "profile-famous-003",
       "category": "Personas Famosas",
       "name": "Marie Curie",
       "clues": [
@@ -98,7 +98,7 @@
       }
     },
     {
-      "id": "profile-0011",
+      "id": "profile-famous-004",
       "category": "Personas Famosas",
       "name": "William Shakespeare",
       "clues": [
@@ -130,7 +130,7 @@
       }
     },
     {
-      "id": "profile-0017",
+      "id": "profile-famous-005",
       "category": "Personas Famosas",
       "name": "Nelson Mandela",
       "clues": [
@@ -162,7 +162,7 @@
       }
     },
     {
-      "id": "profile-0040",
+      "id": "profile-famous-006",
       "category": "Famous People",
       "name": "Martin Luther King Jr.",
       "clues": [
@@ -194,7 +194,7 @@
       }
     },
     {
-      "id": "profile-0041",
+      "id": "profile-famous-007",
       "category": "Famous People",
       "name": "Reina Isabel II",
       "clues": [
@@ -226,7 +226,7 @@
       }
     },
     {
-      "id": "profile-0042",
+      "id": "profile-famous-008",
       "category": "Famous People",
       "name": "Steve Jobs",
       "clues": [
@@ -257,7 +257,7 @@
       }
     },
     {
-      "id": "profile-0043",
+      "id": "profile-famous-009",
       "category": "Famous People",
       "name": "Oprah Winfrey",
       "clues": [
@@ -289,7 +289,7 @@
       }
     },
     {
-      "id": "profile-0044",
+      "id": "profile-famous-010",
       "category": "Famous People",
       "name": "Michael Jordan",
       "clues": [
@@ -321,7 +321,7 @@
       }
     },
     {
-      "id": "profile-0045",
+      "id": "profile-famous-011",
       "category": "Famous People",
       "name": "J.K. Rowling",
       "clues": [
@@ -353,7 +353,7 @@
       }
     },
     {
-      "id": "profile-0046",
+      "id": "profile-famous-012",
       "category": "Famous People",
       "name": "Dwayne Johnson",
       "clues": [
@@ -381,7 +381,7 @@
       }
     },
     {
-      "id": "profile-0047",
+      "id": "profile-famous-013",
       "category": "Famous People",
       "name": "Beyoncé",
       "clues": [
@@ -413,7 +413,7 @@
       }
     },
     {
-      "id": "profile-0048",
+      "id": "profile-famous-014",
       "category": "Famous People",
       "name": "Stephen Hawking",
       "clues": [
@@ -445,7 +445,7 @@
       }
     },
     {
-      "id": "profile-0049",
+      "id": "profile-famous-015",
       "category": "Famous People",
       "name": "Malala Yousafzai",
       "clues": [
@@ -477,7 +477,7 @@
       }
     },
     {
-      "id": "profile-0016",
+      "id": "profile-famous-016",
       "category": "Personas Famosas",
       "name": "Winston Churchill",
       "clues": [
@@ -509,7 +509,7 @@
       }
     },
     {
-      "id": "profile-0017",
+      "id": "profile-famous-017",
       "category": "Personas Famosas",
       "name": "Cleopatra",
       "clues": [
@@ -541,7 +541,7 @@
       }
     },
     {
-      "id": "profile-0018",
+      "id": "profile-famous-018",
       "category": "Personas Famosas",
       "name": "Abraham Lincoln",
       "clues": [
@@ -573,7 +573,7 @@
       }
     },
     {
-      "id": "profile-0019",
+      "id": "profile-famous-019",
       "category": "Personas Famosas",
       "name": "Coco Chanel",
       "clues": [
@@ -605,7 +605,7 @@
       }
     },
     {
-      "id": "profile-0020",
+      "id": "profile-famous-020",
       "category": "Personas Famosas",
       "name": "Mozart",
       "clues": [
@@ -637,7 +637,7 @@
       }
     },
     {
-      "id": "profile-0021",
+      "id": "profile-famous-021",
       "category": "Personas Famosas",
       "name": "Frida Kahlo",
       "clues": [
@@ -669,7 +669,7 @@
       }
     },
     {
-      "id": "profile-0022",
+      "id": "profile-famous-022",
       "category": "Personas Famosas",
       "name": "Mahatma Gandhi",
       "clues": [
@@ -701,7 +701,7 @@
       }
     },
     {
-      "id": "profile-0023",
+      "id": "profile-famous-023",
       "category": "Personas Famosas",
       "name": "Reina Victoria",
       "clues": [
@@ -733,7 +733,7 @@
       }
     },
     {
-      "id": "profile-0024",
+      "id": "profile-famous-024",
       "category": "Personas Famosas",
       "name": "Pablo Picasso",
       "clues": [
@@ -765,7 +765,7 @@
       }
     },
     {
-      "id": "profile-0025",
+      "id": "profile-famous-025",
       "category": "Personas Famosas",
       "name": "Amelia Earhart",
       "clues": [
@@ -797,7 +797,7 @@
       }
     },
     {
-      "id": "profile-0026",
+      "id": "profile-famous-026",
       "category": "Personas Famosas",
       "name": "William Shakespeare",
       "clues": [
@@ -830,7 +830,7 @@
       }
     },
     {
-      "id": "profile-0027",
+      "id": "profile-famous-027",
       "category": "Personas Famosas",
       "name": "María Antonieta",
       "clues": [
@@ -862,7 +862,7 @@
       }
     },
     {
-      "id": "profile-0028",
+      "id": "profile-famous-028",
       "category": "Personas Famosas",
       "name": "Elvis Presley",
       "clues": [
@@ -894,7 +894,7 @@
       }
     },
     {
-      "id": "profile-0029",
+      "id": "profile-famous-029",
       "category": "Personas Famosas",
       "name": "Madre Teresa",
       "clues": [
@@ -927,7 +927,7 @@
       }
     },
     {
-      "id": "profile-0030",
+      "id": "profile-famous-030",
       "category": "Personas Famosas",
       "name": "Leonardo DiCaprio",
       "clues": [

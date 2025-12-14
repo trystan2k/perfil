@@ -2,7 +2,7 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-0005",
+      "id": "profile-animal-001",
       "category": "Animals",
       "name": "Octopus",
       "clues": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "profile-0009",
+      "id": "profile-animal-002",
       "category": "Animals",
       "name": "Lion",
       "clues": [
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "profile-0015",
+      "id": "profile-animal-003",
       "category": "Animals",
       "name": "Penguin",
       "clues": [
@@ -98,7 +98,7 @@
       }
     },
     {
-      "id": "profile-0020",
+      "id": "profile-animal-004",
       "category": "Animals",
       "name": "Elephant",
       "clues": [
@@ -130,7 +130,7 @@
       }
     },
     {
-      "id": "profile-0021",
+      "id": "profile-animal-005",
       "category": "Animals",
       "name": "Dolphin",
       "clues": [
@@ -162,7 +162,7 @@
       }
     },
     {
-      "id": "profile-0022",
+      "id": "profile-animal-006",
       "category": "Animals",
       "name": "Eagle",
       "clues": [
@@ -193,7 +193,7 @@
       }
     },
     {
-      "id": "profile-0023",
+      "id": "profile-animal-007",
       "category": "Animals",
       "name": "Tiger",
       "clues": [
@@ -225,7 +225,7 @@
       }
     },
     {
-      "id": "profile-0024",
+      "id": "profile-animal-008",
       "category": "Animals",
       "name": "Giraffe",
       "clues": [
@@ -257,7 +257,7 @@
       }
     },
     {
-      "id": "profile-0025",
+      "id": "profile-animal-009",
       "category": "Animals",
       "name": "Panda",
       "clues": [
@@ -289,7 +289,7 @@
       }
     },
     {
-      "id": "profile-0026",
+      "id": "profile-animal-010",
       "category": "Animals",
       "name": "Wolf",
       "clues": [
@@ -321,7 +321,7 @@
       }
     },
     {
-      "id": "profile-0027",
+      "id": "profile-animal-011",
       "category": "Animals",
       "name": "Koala",
       "clues": [
@@ -353,7 +353,7 @@
       }
     },
     {
-      "id": "profile-0028",
+      "id": "profile-animal-012",
       "category": "Animals",
       "name": "Shark",
       "clues": [
@@ -385,7 +385,7 @@
       }
     },
     {
-      "id": "profile-0029",
+      "id": "profile-animal-013",
       "category": "Animals",
       "name": "Chameleon",
       "clues": [
@@ -417,7 +417,7 @@
       }
     },
     {
-      "id": "profile-0030",
+      "id": "profile-animal-014",
       "category": "Animals",
       "name": "Zebra",
       "clues": [
@@ -449,7 +449,7 @@
       }
     },
     {
-      "id": "profile-0031",
+      "id": "profile-animal-015",
       "category": "Animals",
       "name": "Cheetah",
       "clues": [
@@ -481,7 +481,7 @@
       }
     },
     {
-      "id": "profile-0032",
+      "id": "profile-animal-016",
       "category": "Animals",
       "name": "Rhinoceros",
       "clues": [
@@ -513,7 +513,7 @@
       }
     },
     {
-      "id": "profile-0033",
+      "id": "profile-animal-017",
       "category": "Animals",
       "name": "Hippopotamus",
       "clues": [
@@ -545,7 +545,7 @@
       }
     },
     {
-      "id": "profile-0034",
+      "id": "profile-animal-018",
       "category": "Animals",
       "name": "Kangaroo",
       "clues": [
@@ -577,7 +577,7 @@
       }
     },
     {
-      "id": "profile-0035",
+      "id": "profile-animal-019",
       "category": "Animals",
       "name": "Platypus",
       "clues": [
@@ -609,7 +609,7 @@
       }
     },
     {
-      "id": "profile-0036",
+      "id": "profile-animal-020",
       "category": "Animals",
       "name": "Snow Leopard",
       "clues": [
@@ -641,7 +641,7 @@
       }
     },
     {
-      "id": "profile-0037",
+      "id": "profile-animal-021",
       "category": "Animals",
       "name": "Owl",
       "clues": [
@@ -673,7 +673,7 @@
       }
     },
     {
-      "id": "profile-0038",
+      "id": "profile-animal-022",
       "category": "Animals",
       "name": "Crocodile",
       "clues": [
@@ -705,7 +705,7 @@
       }
     },
     {
-      "id": "profile-0039",
+      "id": "profile-animal-023",
       "category": "Animals",
       "name": "Fox",
       "clues": [
@@ -737,7 +737,7 @@
       }
     },
     {
-      "id": "profile-0040",
+      "id": "profile-animal-024",
       "category": "Animals",
       "name": "Peacock",
       "clues": [
@@ -769,7 +769,7 @@
       }
     },
     {
-      "id": "profile-0041",
+      "id": "profile-animal-025",
       "category": "Animals",
       "name": "Otter",
       "clues": [
@@ -802,7 +802,7 @@
       }
     },
     {
-      "id": "profile-0042",
+      "id": "profile-animal-026",
       "category": "Animals",
       "name": "Camel",
       "clues": [
@@ -834,7 +834,7 @@
       }
     },
     {
-      "id": "profile-0043",
+      "id": "profile-animal-027",
       "category": "Animals",
       "name": "Toucan",
       "clues": [
@@ -867,7 +867,7 @@
       }
     },
     {
-      "id": "profile-0044",
+      "id": "profile-animal-028",
       "category": "Animals",
       "name": "Arctic Fox",
       "clues": [
@@ -900,7 +900,7 @@
       }
     },
     {
-      "id": "profile-0045",
+      "id": "profile-animal-029",
       "category": "Animals",
       "name": "Bald Eagle",
       "clues": [
@@ -932,7 +932,7 @@
       }
     },
     {
-      "id": "profile-0046",
+      "id": "profile-animal-030",
       "category": "Animals",
       "name": "Sea Turtle",
       "clues": [

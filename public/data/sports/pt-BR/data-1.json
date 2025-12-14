@@ -2,7 +2,7 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-0007",
+      "id": "profile-sport-001",
       "category": "Esportes",
       "name": "Futebol",
       "clues": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "profile-0013",
+      "id": "profile-sport-002",
       "category": "Esportes",
       "name": "Basquetebol",
       "clues": [
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "profile-0019",
+      "id": "profile-sport-003",
       "category": "Esportes",
       "name": "Tênis",
       "clues": [
@@ -98,7 +98,7 @@
       }
     },
     {
-      "id": "profile-0060",
+      "id": "profile-sport-004",
       "category": "Sports",
       "name": "Beisebol",
       "clues": [
@@ -130,7 +130,7 @@
       }
     },
     {
-      "id": "profile-0061",
+      "id": "profile-sport-005",
       "category": "Sports",
       "name": "Futebol Americano",
       "clues": [
@@ -162,7 +162,7 @@
       }
     },
     {
-      "id": "profile-0062",
+      "id": "profile-sport-006",
       "category": "Sports",
       "name": "Golfe",
       "clues": [
@@ -194,7 +194,7 @@
       }
     },
     {
-      "id": "profile-0063",
+      "id": "profile-sport-007",
       "category": "Sports",
       "name": "Natação",
       "clues": [
@@ -226,7 +226,7 @@
       }
     },
     {
-      "id": "profile-0064",
+      "id": "profile-sport-008",
       "category": "Sports",
       "name": "Boxe",
       "clues": [
@@ -258,7 +258,7 @@
       }
     },
     {
-      "id": "profile-0065",
+      "id": "profile-sport-009",
       "category": "Sports",
       "name": "Hóquei",
       "clues": [
@@ -290,7 +290,7 @@
       }
     },
     {
-      "id": "profile-0066",
+      "id": "profile-sport-010",
       "category": "Sports",
       "name": "Atletismo",
       "clues": [
@@ -322,7 +322,7 @@
       }
     },
     {
-      "id": "profile-0067",
+      "id": "profile-sport-011",
       "category": "Sports",
       "name": "Voleibol",
       "clues": [
@@ -354,7 +354,7 @@
       }
     },
     {
-      "id": "profile-0068",
+      "id": "profile-sport-012",
       "category": "Sports",
       "name": "Patinagem Artística",
       "clues": [
@@ -386,7 +386,7 @@
       }
     },
     {
-      "id": "profile-0069",
+      "id": "profile-sport-013",
       "category": "Sports",
       "name": "Ginástica",
       "clues": [
@@ -418,7 +418,7 @@
       }
     },
     {
-      "id": "profile-0070",
+      "id": "profile-sport-014",
       "category": "Esportes",
       "name": "Críquete",
       "clues": [
@@ -449,7 +449,7 @@
       }
     },
     {
-      "id": "profile-0071",
+      "id": "profile-sport-015",
       "category": "Esportes",
       "name": "Rugby",
       "clues": [
@@ -479,7 +479,7 @@
       }
     },
     {
-      "id": "profile-0072",
+      "id": "profile-sport-016",
       "category": "Esportes",
       "name": "Esqui",
       "clues": [
@@ -509,7 +509,7 @@
       }
     },
     {
-      "id": "profile-0073",
+      "id": "profile-sport-017",
       "category": "Esportes",
       "name": "Ciclismo",
       "clues": [
@@ -539,7 +539,7 @@
       }
     },
     {
-      "id": "profile-0074",
+      "id": "profile-sport-018",
       "category": "Esportes",
       "name": "Luta Livre",
       "clues": [
@@ -569,7 +569,7 @@
       }
     },
     {
-      "id": "profile-0075",
+      "id": "profile-sport-019",
       "category": "Esportes",
       "name": "Badminton",
       "clues": [
@@ -599,7 +599,7 @@
       }
     },
     {
-      "id": "profile-0076",
+      "id": "profile-sport-020",
       "category": "Esportes",
       "name": "Tênis de Mesa",
       "clues": [
@@ -632,7 +632,7 @@
       }
     },
     {
-      "id": "profile-0077",
+      "id": "profile-sport-021",
       "category": "Esportes",
       "name": "Artes Marciais",
       "clues": [
@@ -664,7 +664,7 @@
       }
     },
     {
-      "id": "profile-0078",
+      "id": "profile-sport-022",
       "category": "Esportes",
       "name": "Vela",
       "clues": [
@@ -697,7 +697,7 @@
       }
     },
     {
-      "id": "profile-0079",
+      "id": "profile-sport-023",
       "category": "Esportes",
       "name": "Tiro com Arco",
       "clues": [
@@ -730,7 +730,7 @@
       }
     },
     {
-      "id": "profile-0080",
+      "id": "profile-sport-024",
       "category": "Esportes",
       "name": "Esgrima",
       "clues": [
@@ -763,7 +763,7 @@
       }
     },
     {
-      "id": "profile-0081",
+      "id": "profile-sport-025",
       "category": "Esportes",
       "name": "Hipismo",
       "clues": [
@@ -797,7 +797,7 @@
       }
     },
     {
-      "id": "profile-0082",
+      "id": "profile-sport-026",
       "category": "Esportes",
       "name": "Escalada",
       "clues": [
@@ -831,7 +831,7 @@
       }
     },
     {
-      "id": "profile-0083",
+      "id": "profile-sport-027",
       "category": "Esportes",
       "name": "Boliche",
       "clues": [
@@ -864,7 +864,7 @@
       }
     },
     {
-      "id": "profile-0084",
+      "id": "profile-sport-028",
       "category": "Esportes",
       "name": "Surfe",
       "clues": [
@@ -899,7 +899,7 @@
       }
     },
     {
-      "id": "profile-0085",
+      "id": "profile-sport-029",
       "category": "Esportes",
       "name": "Dardos",
       "clues": [
@@ -933,7 +933,7 @@
       }
     },
     {
-      "id": "profile-0086",
+      "id": "profile-sport-030",
       "category": "Esportes",
       "name": "Cheerleading",
       "clues": [

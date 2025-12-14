@@ -2,7 +2,7 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-0006",
+      "id": "profile-tech-001",
       "category": "Tecnología",
       "name": "Teléfono Inteligente",
       "clues": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "profile-0014",
+      "id": "profile-tech-002",
       "category": "Tecnología",
       "name": "Internet",
       "clues": [
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "profile-0020",
+      "id": "profile-tech-003",
       "category": "Tecnología",
       "name": "Inteligencia Artificial",
       "clues": [
@@ -98,7 +98,7 @@
       }
     },
     {
-      "id": "profile-0070",
+      "id": "profile-tech-004",
       "category": "Technology",
       "name": "Computadora",
       "clues": [
@@ -130,7 +130,7 @@
       }
     },
     {
-      "id": "profile-0071",
+      "id": "profile-tech-005",
       "category": "Technology",
       "name": "Robot",
       "clues": [
@@ -162,7 +162,7 @@
       }
     },
     {
-      "id": "profile-0072",
+      "id": "profile-tech-006",
       "category": "Technology",
       "name": "Realidad Virtual",
       "clues": [
@@ -194,7 +194,7 @@
       }
     },
     {
-      "id": "profile-0073",
+      "id": "profile-tech-007",
       "category": "Technology",
       "name": "Blockchain",
       "clues": [
@@ -226,7 +226,7 @@
       }
     },
     {
-      "id": "profile-0074",
+      "id": "profile-tech-008",
       "category": "Technology",
       "name": "Dron",
       "clues": [
@@ -258,7 +258,7 @@
       }
     },
     {
-      "id": "profile-0075",
+      "id": "profile-tech-009",
       "category": "Technology",
       "name": "Impresión 3D",
       "clues": [
@@ -290,7 +290,7 @@
       }
     },
     {
-      "id": "profile-0076",
+      "id": "profile-tech-010",
       "category": "Technology",
       "name": "Computación Cuántica",
       "clues": [
@@ -322,7 +322,7 @@
       }
     },
     {
-      "id": "profile-0077",
+      "id": "profile-tech-011",
       "category": "Technology",
       "name": "Computación en la Nube",
       "clues": [
@@ -354,7 +354,7 @@
       }
     },
     {
-      "id": "profile-0078",
+      "id": "profile-tech-012",
       "category": "Technology",
       "name": "Biotecnología",
       "clues": [
@@ -386,7 +386,7 @@
       }
     },
     {
-      "id": "profile-0079",
+      "id": "profile-tech-013",
       "category": "Technology",
       "name": "Nanotecnología",
       "clues": [
@@ -418,7 +418,7 @@
       }
     },
     {
-      "id": "profile-0080",
+      "id": "profile-tech-014",
       "category": "Tecnología",
       "name": "Redes Sociales",
       "clues": [
@@ -450,7 +450,7 @@
       }
     },
     {
-      "id": "profile-0081",
+      "id": "profile-tech-015",
       "category": "Tecnología",
       "name": "Vehículo Eléctrico",
       "clues": [
@@ -480,7 +480,7 @@
       }
     },
     {
-      "id": "profile-0082",
+      "id": "profile-tech-016",
       "category": "Tecnología",
       "name": "Videojuegos",
       "clues": [
@@ -512,7 +512,7 @@
       }
     },
     {
-      "id": "profile-0083",
+      "id": "profile-tech-017",
       "category": "Tecnología",
       "name": "Ciberseguridad",
       "clues": [
@@ -543,7 +543,7 @@
       }
     },
     {
-      "id": "profile-0084",
+      "id": "profile-tech-018",
       "category": "Tecnología",
       "name": "Servicios de Streaming",
       "clues": [
@@ -575,7 +575,7 @@
       }
     },
     {
-      "id": "profile-0085",
+      "id": "profile-tech-019",
       "category": "Tecnología",
       "name": "Tecnología Vestible",
       "clues": [
@@ -607,7 +607,7 @@
       }
     },
     {
-      "id": "profile-0086",
+      "id": "profile-tech-020",
       "category": "Tecnología",
       "name": "Redes 5G",
       "clues": [
@@ -638,7 +638,7 @@
       }
     },
     {
-      "id": "profile-0087",
+      "id": "profile-tech-021",
       "category": "Tecnología",
       "name": "Criptomoneda",
       "clues": [
@@ -669,7 +669,7 @@
       }
     },
     {
-      "id": "profile-0088",
+      "id": "profile-tech-022",
       "category": "Tecnología",
       "name": "Hogar Inteligente",
       "clues": [
@@ -700,7 +700,7 @@
       }
     },
     {
-      "id": "profile-0089",
+      "id": "profile-tech-023",
       "category": "Tecnología",
       "name": "Realidad Aumentada",
       "clues": [
@@ -731,7 +731,7 @@
       }
     },
     {
-      "id": "profile-0090",
+      "id": "profile-tech-024",
       "category": "Tecnología",
       "name": "Energía Renovable",
       "clues": [
@@ -762,7 +762,7 @@
       }
     },
     {
-      "id": "profile-0091",
+      "id": "profile-tech-025",
       "category": "Tecnología",
       "name": "Tecnología Espacial",
       "clues": [
@@ -793,7 +793,7 @@
       }
     },
     {
-      "id": "profile-0092",
+      "id": "profile-tech-026",
       "category": "Tecnología",
       "name": "Edición Genética",
       "clues": [
@@ -823,7 +823,7 @@
       }
     },
     {
-      "id": "profile-0093",
+      "id": "profile-tech-027",
       "category": "Tecnología",
       "name": "Vehículos Autónomos",
       "clues": [
@@ -854,7 +854,7 @@
       }
     },
     {
-      "id": "profile-0094",
+      "id": "profile-tech-028",
       "category": "Tecnología",
       "name": "Comunicación Cuántica",
       "clues": [
@@ -885,7 +885,7 @@
       }
     },
     {
-      "id": "profile-0095",
+      "id": "profile-tech-029",
       "category": "Tecnología",
       "name": "Interfaz Cerebro-Computadora",
       "clues": [
@@ -916,7 +916,7 @@
       }
     },
     {
-      "id": "profile-0096",
+      "id": "profile-tech-030",
       "category": "Tecnología",
       "name": "Gemelos Digitales",
       "clues": [
