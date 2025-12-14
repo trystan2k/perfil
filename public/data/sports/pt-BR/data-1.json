@@ -99,7 +99,7 @@
     },
     {
       "id": "profile-sport-004",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Beisebol",
       "clues": [
         "Passatempo nacional americano",
@@ -131,7 +131,7 @@
     },
     {
       "id": "profile-sport-005",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Futebol Americano",
       "clues": [
         "Esporte de gramado",
@@ -163,7 +163,7 @@
     },
     {
       "id": "profile-sport-006",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Golfe",
       "clues": [
         "Esporte individual",
@@ -195,7 +195,7 @@
     },
     {
       "id": "profile-sport-007",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Natação",
       "clues": [
         "Esporte aquático",
@@ -227,7 +227,7 @@
     },
     {
       "id": "profile-sport-008",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Boxe",
       "clues": [
         "Esporte de combate",
@@ -259,7 +259,7 @@
     },
     {
       "id": "profile-sport-009",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Hóquei",
       "clues": [
         "Esporte no gelo",
@@ -291,7 +291,7 @@
     },
     {
       "id": "profile-sport-010",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Atletismo",
       "clues": [
         "Fundamento de atletismo",
@@ -323,7 +323,7 @@
     },
     {
       "id": "profile-sport-011",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Voleibol",
       "clues": [
         "Esporte de rede",
@@ -355,7 +355,7 @@
     },
     {
       "id": "profile-sport-012",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Patinagem Artística",
       "clues": [
         "Esporte artístico no gelo",
@@ -387,7 +387,7 @@
     },
     {
       "id": "profile-sport-013",
-      "category": "Sports",
+      "category": "Esportes",
       "name": "Ginástica",
       "clues": [
         "Fundamento de esporte artístico",

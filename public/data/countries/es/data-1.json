@@ -99,7 +99,7 @@
     },
     {
       "id": "profile-country-004",
-      "category": "Countries",
+      "category": "Países",
       "name": "Estados Unidos",
       "clues": [
         "República federal en América del Norte",
@@ -131,7 +131,7 @@
     },
     {
       "id": "profile-country-005",
-      "category": "Countries",
+      "category": "Países",
       "name": "Francia",
       "clues": [
         "República europea occidental",
@@ -163,7 +163,7 @@
     },
     {
       "id": "profile-country-006",
-      "category": "Countries",
+      "category": "Países",
       "name": "Australia",
       "clues": [
         "Continente isla",
@@ -195,7 +195,7 @@
     },
     {
       "id": "profile-country-007",
-      "category": "Countries",
+      "category": "Países",
       "name": "India",
       "clues": [
         "Subcontinente del sur de Asia",
@@ -227,7 +227,7 @@
     },
     {
       "id": "profile-country-008",
-      "category": "Countries",
+      "category": "Países",
       "name": "Canadá",
       "clues": [
         "Vecino norteño de América del Norte",
@@ -259,7 +259,7 @@
     },
     {
       "id": "profile-country-009",
-      "category": "Countries",
+      "category": "Países",
       "name": "Alemania",
       "clues": [
         "República centroeuropea",
@@ -291,7 +291,7 @@
     },
     {
       "id": "profile-country-010",
-      "category": "Countries",
+      "category": "Países",
       "name": "México",
       "clues": [
         "Vecino sur de América del Norte",
@@ -323,7 +323,7 @@
     },
     {
       "id": "profile-country-011",
-      "category": "Countries",
+      "category": "Países",
       "name": "Italia",
       "clues": [
         "Península del sur de Europa",
@@ -355,7 +355,7 @@
     },
     {
       "id": "profile-country-012",
-      "category": "Countries",
+      "category": "Países",
       "name": "Corea del Sur",
       "clues": [
         "Península del este de Asia",
@@ -387,7 +387,7 @@
     },
     {
       "id": "profile-country-013",
-      "category": "Countries",
+      "category": "Países",
       "name": "Argentina",
       "clues": [
         "Cono sur de América del Sur",
@@ -510,39 +510,6 @@
       "metadata": {
         "language": "es",
         "difficulty": "easy",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-country-017",
-      "category": "Países",
-      "name": "Alemania",
-      "clues": [
-        "Nación centroeuropea",
-        "Capital es Berlín",
-        "Economía más grande de Europa",
-        "Famosa por ingeniería y coches",
-        "Dividida durante Guerra Fría",
-        "Muro de Berlín cayó 1989",
-        "Reunificada 1990",
-        "Baviera conocida por festivales de cerveza",
-        "Sistema de autopistas Autobahn",
-        "Líder en energía verde",
-        "Economía orientada a exportaciones",
-        "Rica tradición filosófica",
-        "Compositores de música clásica",
-        "Tradición de mercados navideños",
-        "Moneda euro",
-        "Miembro fundador UE",
-        "Fuertes políticas ambientales",
-        "Ganadores Copa Mundial fútbol",
-        "Historia del Holocausto",
-        "República federal",
-        "Manufactura de alta calidad"
-      ],
-      "metadata": {
-        "language": "es",
-        "difficulty": "medium",
         "source": "geography"
       }
     },

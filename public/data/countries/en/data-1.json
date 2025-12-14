@@ -514,39 +514,6 @@
       }
     },
     {
-      "id": "profile-country-017",
-      "category": "Countries",
-      "name": "Germany",
-      "clues": [
-        "Central European nation",
-        "Capital is Berlin",
-        "Largest economy in Europe",
-        "Famous for engineering and cars",
-        "Divided during Cold War",
-        "Berlin Wall fell in 1989",
-        "Reunified in 1990",
-        "Bavaria known for beer festivals",
-        "Autobahn highway system",
-        "Green energy leader",
-        "Export-oriented economy",
-        "Rich philosophical tradition",
-        "Classical music composers",
-        "Christmas markets tradition",
-        "Euro currency",
-        "EU founding member",
-        "Strong environmental policies",
-        "World Cup winners in football",
-        "Holocaust history",
-        "Federal republic",
-        "High quality manufacturing"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
       "id": "profile-country-018",
       "category": "Countries",
       "name": "Spain",

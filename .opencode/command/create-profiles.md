@@ -51,6 +51,8 @@ If you have created new data files, please also update public/data/manifest.json
 **DO** try to balance the number of profiles for each difficulty level, if possible.
 **DO** the clues need to start from hard ones and then move to easier ones. The first 5 ones should be hard to the players to guess, and the last 5 ones should be easier.
 **DO** after all profiles are created, review if there is no Error in the JSON files. If there is, fix it.
-**DO NOT** create any other data file if the last one, in the order, does not have more than 100 profiles. So for example if the last one is data-3.json check if it has more than 100 profiles before create the data-4.
+**DO NOT** create any other data file if the last one, in the order, does not have more than 100 profiles. So for example if the last one is data-3.json check if it has more than 100 profiles before create the data-4.json.
+**IMPORTANT** Be sure to check if the profile you are creating is not already in the existing data files.
+**IMPORTANT** Be sure to use correct language in the profile name, category and clues.
 
 Once you have all the information, create the profiles as requested by the user.
