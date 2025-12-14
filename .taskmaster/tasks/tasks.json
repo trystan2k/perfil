@@ -3649,13 +3649,14 @@
         "description": "Consolidated FR lazy loading and REACT-008 Suspense: Lazy-load Scoreboard, RoundSummary, CategorySelect, Dialog, Popover; add Suspense boundaries with fallbacks.",
         "details": "Use React.lazy + Suspense and configure React Query for suspense where appropriate. Add 4-6 lazy-loaded components with loading fallbacks and ensure no waterfall loading issues. Measure TTI improvement target 30%+.",
         "testStrategy": "Lighthouse and TTI metrics, unit tests for Suspense fallbacks, and e2e tests ensuring components load correctly under lazy loading.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [
           "42",
           "53"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:17:14.757Z"
       },
       {
         "id": "55",
@@ -3768,12 +3769,13 @@
         "description": "Consolidated FR-003 memoization recommendations: apply useMemo and useCallback strategically to reduce re-renders in GamePlay, CategorySelect, ClueProgress and others.",
         "details": "Add 8-10 strategic useMemo usages, wrap event handlers with useCallback, and update heavy computations to memoized selectors. Verify no regressions and improved profiler metrics.",
         "testStrategy": "React DevTools Profiler benchmarks, unit tests for memoized functions, and e2e validation of UI behavior.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [
           "51"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:18:32.411Z"
       },
       {
         "id": "57",
@@ -3781,13 +3783,14 @@
         "description": "REACT-005: Wrap presentational components (ClueProgress, ProfileProgress, PreviousCluesDisplay, RoundSummary) with React.memo and add display names and custom prop comparisons where necessary.",
         "details": "Identify pure components and wrap with memo. Add tests and ensure displayName set for debugging. Verify Profiler reduction of re-renders.",
         "testStrategy": "Profiler before/after, unit tests ensuring behavior unchanged, snapshot tests for UI.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [
           "51",
           "56"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:18:50.976Z"
       },
       {
         "id": "58",
@@ -3795,10 +3798,11 @@
         "description": "TS-003: Ensure fetches and custom async operations support cancellation to avoid state updates on unmounted components.",
         "details": "Update useGameSession and useProfiles to pass signal to fetch; add AbortController in custom effects; configure TanStack Query usage to utilize signal. Add tests for aborted requests and ensure no warnings.",
         "testStrategy": "Unit tests simulating component unmount and verifying controller.abort called, and ensuring no console warnings about state updates on unmounted components.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:18:57.679Z"
       },
       {
         "id": "59",
@@ -4334,13 +4338,14 @@
         "description": "ARCH-007: Configure manual chunk splitting, generate bundle visualizer reports, and enforce budget limits for main/vendor/islands.",
         "details": "Update astro.config.mjs/Vite RollupOptions with manualChunks, set chunk size warnings, add visualizer plugin, document budget limits and fail CI on violations.",
         "testStrategy": "Generate build stats, run visualizer, CI check for budget violations, and adjust chunking until budgets met.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [
           "41",
           "54"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:19:34.931Z"
       },
       {
         "id": "67",
@@ -4348,13 +4353,14 @@
         "description": "REACT-002: Implement useOptimistic for immediate score updates with rollback on persistence error to improve perceived responsiveness.",
         "details": "Use useOptimistic in GamePlay for players array update when awarding points, ensure rollback on failure and tests for optimistic flow.",
         "testStrategy": "Unit and integration tests verifying optimistic update and rollback behavior, e2e scenario awarding points and simulating errors.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [
           "46",
           "55"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:20:00.369Z"
       },
       {
         "id": "68",
@@ -4362,10 +4368,11 @@
         "description": "REACT-003: Use useTransition for input-heavy components to keep UI responsive during non-urgent updates (typing in forms).",
         "details": "Apply in GameSetup and CategorySelect for typing and heavy updates, provide visual pending indicator for transitions.",
         "testStrategy": "Manual typing responsiveness tests, profiler checks, unit tests for pending state visuals.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:20:25.777Z"
       },
       {
         "id": "69",
@@ -4590,10 +4597,11 @@
         "description": "Consolidated ARCH-010 (SSR/SSG clarification) and ARCH-011 (config management): Audit actual requirements, document deployment strategy, and implement centralized build-time config with Zod validation.",
         "details": "Choose appropriate output mode (static, hybrid, server); update astro.config.mjs and document decision in ADR. Create src/config/index.ts with Zod-validated build-time config for pwa, indexedDB, features and environment-specific values. Use in astro.config.mjs and provide .env.example.",
         "testStrategy": "Build verification with different env configs, type-safe config usage validation, and documentation in ARCHITECTURE.md.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:22:31.986Z"
       },
       {
         "id": "76",
@@ -4601,13 +4609,14 @@
         "description": "ARCH-009: Add automated checks for architectural rules using eslint-plugin-boundaries and ts-morph-based tests to prevent architecture drift.",
         "details": "Configure eslint-plugin-boundaries for layer isolation rules, add tests/architecture.test.ts for circular dependency and layer boundary checks, document rules in ADRs, and enforce in CI.",
         "testStrategy": "Eslint-plugin-boundaries config verification, architectural test runs, CI integration to block violations, and documentation of rules.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [
           "46",
           "47"
         ],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:23:45.168Z"
       },
       {
         "id": "77",
@@ -4650,12 +4659,13 @@
         "description": "UI-UX Low: Implement Web Share API to allow sharing game results and invite messages with fallbacks for unsupported browsers.",
         "details": "Add Share button to scoreboard, use navigator.share when available, fallback to copy-to-clipboard. Compose formatted share text and include basic Open Graph metadata for share previews.",
         "testStrategy": "Manual testing on devices with Web Share API, unit tests for fallback logic, e2e flow test for sharing button.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [
           "64"
         ],
         "priority": "low",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:25:12.591Z"
       },
       {
         "id": "81",
@@ -4676,10 +4686,11 @@
         "description": "Low priority: Create component docs (Storybook/MDX) with usage, accessibility notes and responsive behavior. Document color/spacing tokens and guidelines.",
         "details": "Set up Storybook or MDX docs, document semantic color tokens, spacing system, and component usage. Include examples and do/don't guidelines.",
         "testStrategy": "Manual review of docs, automated snapshot validation for storybook, and inclusion in onboarding materials.",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "low",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:25:44.855Z"
       },
       {
         "id": "83",
@@ -5003,10 +5014,11 @@
         "description": "Coordination task for a cohesive architectural refactor spanning persistence layer, domain-driven design, and store optimization.\n\nRelated Tasks: #46, #45, #48, #49, #47, #74, #76, #67, #51\n\nPhase Breakdown:\n- Phase 1: Persistence service & repository (#46) + integration tests foundation (#49)\n- Phase 2: Fix memory leaks and rehydration race (#45, #48) using persistence API\n- Phase 3: Domain extraction & state machine (#47, #74) integrating persistence service\n- Phase 4: Selector optimization & optimistic updates (#51, #67)\n- Phase 5: Add architectural fitness checks (#76) to enforce boundaries post-refactor\n\nBenefits: Single cohesive architectural improvement vs. fragmented PRs. Avoids duplicated effort and coordinates dependent work.",
         "details": "",
         "testStrategy": "",
-        "status": "in-progress",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:14:28.590Z"
       },
       {
         "id": "88",
@@ -5014,10 +5026,11 @@
         "description": "Coordination task for client-side performance optimization through hydration strategy, lazy-loading, progressive data loading, and memoization.\n\nRelated Tasks: #42, #54, #53, #56, #57, #58, #55, #68, #66\n\nPhase Breakdown:\n- Phase 1: Audit client:only footprint and split data by category (#42, #53)\n- Phase 2: Introduce lazy-loading and Suspense for heavy components (#54)\n- Phase 3: Apply memoization and React.memo (#56, #57)\n- Phase 4: Introduce cancellation patterns and modern React hooks (#58, #55, #68)\n- Phase 5: Tune bundle splitting and CI budgets (#66)\n\nBenefits: Coherent performance strategy. Hydration changes affect lazy-loading which affects bundle splitting - coordinating prevents conflicts.",
         "details": "",
         "testStrategy": "",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:14:33.333Z"
       },
       {
         "id": "89",
@@ -5025,10 +5038,11 @@
         "description": "Coordination task for user-facing design and UX improvements including responsive layouts, animations, mobile optimizations, and PWA enhancements.\n\nRelated Tasks: #40, #61, #60, #62, #63, #64, #65, #59, #80, #81\n\nPhase Breakdown:\n- Phase 1: Design/ADR finalization and responsive breakpoints (#40, #64)\n- Phase 2: Implement skeletons & loading states (#60) alongside lazy-loading\n- Phase 3: Add animations & micro-interactions (#61) with reduced-motion support\n- Phase 4: Mobile tweaks and PWA theme/contrast fixes (#62, #63, #59)\n- Phase 5: Icon optimization and validation UX improvements (#65, #80, #81)\n\nBenefits: Cohesive user-facing release. Single design review cycle and visual regression testing.",
         "details": "",
         "testStrategy": "",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:14:37.644Z"
       },
       {
         "id": "90",
@@ -5036,10 +5050,11 @@
         "description": "Coordination task for implementing a complete error propagation and observability system including typed errors, centralized error handling, boundaries, and telemetry.\n\nRelated Tasks: #71, #72, #50, #73\n\nPhase Breakdown:\n- Phase 1: Define typed error classes and guards (#71)\n- Phase 2: Implement ErrorService and ErrorBoundary usage (#72, #50)\n- Phase 3: Hook telemetry and web-vitals (#73)\n\nBenefits: Complete system with pieces that depend on each other. Single coherent error/observability layer vs. piecemeal implementation.",
         "details": "",
         "testStrategy": "",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "medium",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:14:42.324Z"
       },
       {
         "id": "91",
@@ -5047,10 +5062,11 @@
         "description": "Coordination task for maintenance and standardization work including code hygiene, type improvements, build config tuning, and documentation.\n\nRelated Tasks: #41, #70, #77, #78, #79, #82\n\nPhase Breakdown:\n- Phase 1: Fix wildcard imports and ESM/tsconfig tuning (#41, #79)\n- Phase 2: Strengthen Zod schemas & error typing (#70)\n- Phase 3: Standardize null/undefined and move constants (#77, #78)\n- Phase 4: Create component documentation (#82)\n\nBenefits: Single maintenance pass. Low-risk changes grouped together for efficient review.",
         "details": "",
         "testStrategy": "",
-        "status": "pending",
+        "status": "cancelled",
         "dependencies": [],
         "priority": "low",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-14T07:14:46.202Z"
       },
       {
         "id": "92",
@@ -5490,7 +5506,7 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-13T18:36:10.826Z",
+      "lastModified": "2025-12-14T07:25:44.856Z",
       "taskCount": 96,
       "completedCount": 68,
       "tags": [
