@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test.describe('PWA Offline Data Caching', () => {
   test('should cache profile data and serve it offline', async ({ page, context }) => {
     // 1. Load the app
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'networkidle' });
 
     // 2. Wait for Service Worker to register and activate
     // Wait for the service worker to be ready and controlling the page
@@ -14,7 +14,7 @@ test.describe('PWA Offline Data Caching', () => {
 
     // 3. Trigger data loading (Start a game) to populate cache
     // We reload to ensure SW intercepts all requests from the start
-    await page.reload();
+    await page.reload({ waitUntil: 'networkidle' });
     await page.waitForFunction(async () => {
       const reg = await navigator.serviceWorker.ready;
       return reg.active && navigator.serviceWorker.controller;
