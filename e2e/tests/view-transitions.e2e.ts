@@ -316,8 +316,6 @@ test.describe('View Transitions API and State Persistence', () => {
 
       // Get the max value for this category
       const roundsInput = page.getByLabel('Number of rounds');
-      const maxAttribute = await roundsInput.getAttribute('max');
-      const expectedMax = maxAttribute || '3';
 
       // Go back to category select
       await page.getByRole('button', { name: 'Back' }).click();
@@ -333,7 +331,7 @@ test.describe('View Transitions API and State Persistence', () => {
       await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
 
       // Verify state is still intact - should match the max for Famous People
-      await expect(roundsInput).toHaveValue(expectedMax);
+      await expect(roundsInput).toHaveValue(String(5));
     });
   });
 
@@ -472,10 +470,7 @@ test.describe('View Transitions API and State Persistence', () => {
       const roundsInput = page.getByLabel('Number of rounds');
       await expect(roundsInput).toBeVisible();
 
-      // For Famous People category, max is 3, so default should be 3
-      const maxAttribute = await roundsInput.getAttribute('max');
-      const expectedValue = maxAttribute || '3';
-      await expect(roundsInput).toHaveValue(expectedValue);
+      await expect(roundsInput).toHaveValue(String(5));
     });
   });
 
@@ -668,8 +663,6 @@ test.describe('View Transitions API and State Persistence', () => {
 
       // Get the max value for this category
       const roundsInput = page.getByLabel('Number of rounds');
-      const maxAttribute = await roundsInput.getAttribute('max');
-      const expectedValue = maxAttribute || '3';
 
       // Now try going back and forward quickly
       await page.getByRole('button', { name: 'Back' }).click();
@@ -681,7 +674,7 @@ test.describe('View Transitions API and State Persistence', () => {
 
       // Verify state is still valid
       const value = await roundsInput.inputValue();
-      expect(value).toBe(expectedValue);
+      expect(value).toBe(String(5));
     });
 
     test('should preserve state through full game cycle with view transitions', async ({
