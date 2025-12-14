@@ -64,6 +64,38 @@
         "difficulty": "hard",
         "source": "entertainment"
       }
+    },
+    {
+      "id": "profile-0018",
+      "category": "Filmes",
+      "name": "Guerra nas Estrelas",
+      "clues": [
+        "Lançado em 1977",
+        "Filme de ópera espacial",
+        "Criado por George Lucas",
+        "Apresenta 'a Força'",
+        "Texto de abertura icônico",
+        "John Williams compôs a música",
+        "Ambientado em uma galáxia muito, muito distante",
+        "Apresenta sabres de luz",
+        "Personagem principal é Luke Skywalker",
+        "Darth Vader é o vilão principal",
+        "Princesa Leia é o personagem feminino principal",
+        "Han Solo é o herói contrabandista",
+        "Chewbacca é o copiloto wookiee",
+        "C-3PO e R2-D2 são droides",
+        "Estrela da Morte é a superarma",
+        "'Que a Força esteja com você' é a frase icônica",
+        "Efeitos especiais revolucionários para a época",
+        "Gerou uma franquia massiva",
+        "Estrutura da jornada do herói de Joseph Campbell",
+        "Originalmente apenas 'Guerra nas Estrelas', depois 'Uma Nova Esperança'"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "entertainment"
+      }
     }
   ]
 }

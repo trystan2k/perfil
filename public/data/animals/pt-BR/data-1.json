@@ -64,6 +64,38 @@
         "difficulty": "easy",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0015",
+      "category": "Animais",
+      "name": "Pinguim",
+      "clues": [
+        "Ave não voadora",
+        "Vive principalmente no Hemisfério Sul",
+        "Excelente nadador",
+        "Coloração branca e preta",
+        "Asas evoluíram em nadadeiras",
+        "Não pode voar mas 'voa' através da água",
+        "Encontrado na Antártida e regiões próximas",
+        "Se agrupa para manter aquecido",
+        "Acasala por vida em algumas espécies",
+        "Põe ovos no gelo ou terra",
+        "Pinguins-imperador machos incubam ovos nos pés",
+        "Pode prender a respiração por 20+ minutos",
+        "Penas impermeáveis",
+        "Desliza sobre a barriga para se mover eficientemente",
+        "Come peixes, krill e lula",
+        "Predadores naturais incluem focas e orcas",
+        "Popular em zoológicos de todo o mundo",
+        "Destacado em muitos documentários",
+        "Aves sociais que vivem em colônias",
+        "Adaptado ao frio extremo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "nature"
+      }
     }
   ]
 }

@@ -64,6 +64,38 @@
         "difficulty": "easy",
         "source": "sports"
       }
+    },
+    {
+      "id": "profile-0019",
+      "category": "Deportes",
+      "name": "Tenis",
+      "clues": [
+        "Deporte de raqueta",
+        "Jugado en cancha rectangular",
+        "Red divide la cancha",
+        "Los jugadores golpean la pelota sobre la red",
+        "Sistema de puntuación único",
+        "Love significa cero puntos",
+        "Estructura de juegos, sets y partidos",
+        "Torneos de Grand Slam",
+        "Wimbledon es el torneo más antiguo",
+        "Abierto de Francia jugado en tierra batida",
+        "Abierto de EE.UU. y Abierto de Australia completan majors",
+        "Formatos individuales y dobles",
+        "Tiebreaker decide sets cercanos",
+        "Saque inicia cada punto",
+        "Volea es golpear la pelota antes de que rebote",
+        "Golpes de revés y derecha",
+        "Tour profesional mundial",
+        "Jugadores famosos incluyen Federer, Serena Williams",
+        "Pelotas amarillas usadas en juego profesional",
+        "Jueces de línea determinan llamadas de pelota"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "sports"
+      }
     }
   ]
 }

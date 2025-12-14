@@ -64,6 +64,38 @@
         "difficulty": "hard",
         "source": "entertainment"
       }
+    },
+    {
+      "id": "profile-0018",
+      "category": "Películas",
+      "name": "La Guerra de las Galaxias",
+      "clues": [
+        "Estrenada en 1977",
+        "Película de ópera espacial",
+        "Creada por George Lucas",
+        "Presenta 'la Fuerza'",
+        "Texto de apertura icónico",
+        "John Williams compuso la música",
+        "Ambientada en una galaxia muy, muy lejana",
+        "Presenta sables de luz",
+        "El personaje principal es Luke Skywalker",
+        "Darth Vader es el villano principal",
+        "La Princesa Leia es el personaje femenino principal",
+        "Han Solo es el héroe contrabandista",
+        "Chewbacca es el copiloto wookiee",
+        "C-3PO y R2-D2 son droides",
+        "La Estrella de la Muerte es el superarma",
+        "'Que la Fuerza te acompañe' es la frase icónica",
+        "Efectos especiales revolucionarios para la época",
+        "Generó una franquicia masiva",
+        "Estructura del viaje del héroe de Joseph Campbell",
+        "Originalmente solo 'La Guerra de las Galaxias', luego 'Una Nueva Esperanza'"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "entertainment"
+      }
     }
   ]
 }

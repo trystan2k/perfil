@@ -64,6 +64,38 @@
         "difficulty": "hard",
         "source": "entertainment"
       }
+    },
+    {
+      "id": "profile-0018",
+      "category": "Movies",
+      "name": "Star Wars",
+      "clues": [
+        "Released in 1977",
+        "Space opera film",
+        "Created by George Lucas",
+        "Features 'the Force'",
+        "Iconic opening crawl text",
+        "John Williams composed music",
+        "Set in a galaxy far, far away",
+        "Features lightsabers",
+        "Main character is Luke Skywalker",
+        "Darth Vader is main villain",
+        "Princess Leia is female lead",
+        "Han Solo is smuggler hero",
+        "Chewbacca is Wookiee co-pilot",
+        "C-3PO and R2-D2 are droids",
+        "Death Star is superweapon",
+        "'May the Force be with you' is catchphrase",
+        "Special effects revolutionary for time",
+        "Spawned massive franchise",
+        "Joseph Campbell's hero's journey structure",
+        "Originally just 'Star Wars', later 'A New Hope'"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "entertainment"
+      }
     }
   ]
 }

@@ -64,6 +64,38 @@
         "difficulty": "easy",
         "source": "geography"
       }
+    },
+    {
+      "id": "profile-0016",
+      "category": "Países",
+      "name": "Egipto",
+      "clues": [
+        "Ubicado en el norte de África",
+        "Hogar de pirámides antiguas",
+        "El río Nilo fluye a través de él",
+        "Paisaje mayormente desértico",
+        "Civilización antigua con faraones",
+        "La estatua de la Esfinge guarda las pirámides",
+        "Sistema de escritura jeroglífica",
+        "El Cairo es la capital",
+        "Hogar del Canal de Suez",
+        "El árabe es el idioma oficial",
+        "Las momias eran cuerpos preservados",
+        "Dioses antiguos como Ra y Anubis",
+        "El papiro fue el primer papel",
+        "Valle de los Reyes sitio de entierro",
+        "Costa del Mar Rojo",
+        "Alejandría fue ciudad de la gran biblioteca",
+        "Minoría cristiana copta",
+        "El algodón es una exportación importante",
+        "El turismo es importante para la economía",
+        "Cruce de caminos entre África y Medio Oriente"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "geography"
+      }
     }
   ]
 }

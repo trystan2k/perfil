@@ -64,6 +64,38 @@
         "difficulty": "easy",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0015",
+      "category": "Animals",
+      "name": "Penguin",
+      "clues": [
+        "Flightless bird",
+        "Lives primarily in Southern Hemisphere",
+        "Excellent swimmer",
+        "Black and white coloring",
+        "Wings evolved into flippers",
+        "Cannot fly but 'flies' through water",
+        "Found in Antarctica and nearby regions",
+        "Huddles together for warmth",
+        "Mates for life in some species",
+        "Lays eggs on ice or land",
+        "Male Emperor penguins incubate eggs on feet",
+        "Can hold breath for 20+ minutes",
+        "Waterproof feathers",
+        "Slides on belly to move efficiently",
+        "Eats fish, krill, and squid",
+        "Natural predators include seals and orcas",
+        "Popular in zoos worldwide",
+        "Featured in many documentaries",
+        "Social birds living in colonies",
+        "Adapted to extreme cold"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "nature"
+      }
     }
   ]
 }

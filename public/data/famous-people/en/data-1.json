@@ -128,6 +128,38 @@
         "difficulty": "medium",
         "source": "historical-figures"
       }
+    },
+    {
+      "id": "profile-0017",
+      "category": "Famous People",
+      "name": "Nelson Mandela",
+      "clues": [
+        "Born in South Africa in 1918",
+        "Anti-apartheid revolutionary",
+        "Imprisoned for 27 years",
+        "First Black president of South Africa",
+        "Won Nobel Peace Prize in 1993",
+        "Lawyer by training",
+        "Leader of African National Congress",
+        "Robben Island prisoner",
+        "Released from prison in 1990",
+        "Negotiated end to apartheid",
+        "Known as 'Madiba' to his people",
+        "Advocated reconciliation not revenge",
+        "Became global symbol of peace",
+        "Died in 2013 at age 95",
+        "International statesman",
+        "Fought for racial equality",
+        "Wrote autobiography 'Long Walk to Freedom'",
+        "Studied law at University of Fort Hare",
+        "Married three times",
+        "Face appears on currency"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
     }
   ]
 }

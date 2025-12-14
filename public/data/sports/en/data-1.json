@@ -64,6 +64,38 @@
         "difficulty": "easy",
         "source": "sports"
       }
+    },
+    {
+      "id": "profile-0019",
+      "category": "Sports",
+      "name": "Tennis",
+      "clues": [
+        "Racket sport",
+        "Played on rectangular court",
+        "Net divides the court",
+        "Players hit ball over net",
+        "Scoring uses unique system",
+        "Love means zero points",
+        "Games, sets, and matches structure",
+        "Grand Slam tournaments",
+        "Wimbledon is oldest tournament",
+        "French Open played on clay",
+        "US Open and Australian Open complete majors",
+        "Singles and doubles formats",
+        "Tiebreaker decides close sets",
+        "Serve starts each point",
+        "Volley is hitting ball before it bounces",
+        "Backhand and forehand strokes",
+        "Professional tour worldwide",
+        "Famous players include Federer, Serena Williams",
+        "Yellow balls used in professional play",
+        "Line judges determine ball calls"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sports"
+      }
     }
   ]
 }

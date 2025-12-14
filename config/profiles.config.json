@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2025-12-13",
+  "lastUpdated": "2025-12-14",
   "description": "Central profile inventory - lists all existing profiles by name to prevent duplicates. Use this to check what profiles already exist before creating new ones.",
   "supportedLanguages": ["en", "es", "pt-BR"],
   "categories": [
@@ -22,6 +22,11 @@
           "name": "Lion",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "easy"
+        },
+        {
+          "name": "Penguin",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
         }
       ]
     },
@@ -41,6 +46,11 @@
         },
         {
           "name": "Brazil",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Egypt",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
         }
@@ -74,6 +84,11 @@
           "name": "William Shakespeare",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
+        },
+        {
+          "name": "Nelson Mandela",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
         }
       ]
     },
@@ -95,6 +110,11 @@
           "name": "Inception",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
+        },
+        {
+          "name": "Star Wars",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
         }
       ]
     },
@@ -116,6 +136,11 @@
           "name": "Basketball",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "easy"
+        },
+        {
+          "name": "Tennis",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
         }
       ]
     },
@@ -137,6 +162,11 @@
           "name": "Internet",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
+        },
+        {
+          "name": "Artificial Intelligence",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
         }
       ]
     }

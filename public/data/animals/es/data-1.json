@@ -64,6 +64,38 @@
         "difficulty": "easy",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0015",
+      "category": "Animales",
+      "name": "Pingüino",
+      "clues": [
+        "Ave no voladora",
+        "Vive principalmente en el Hemisferio Sur",
+        "Excelente nadador",
+        "Coloración blanca y negra",
+        "Alas evolucionaron en aletas",
+        "No puede volar pero 'vuela' a través del agua",
+        "Se encuentra en la Antártida y regiones cercanas",
+        "Se agrupa para mantenerse caliente",
+        "Se empareja de por vida en algunas especies",
+        "Pone huevos en hielo o tierra",
+        "Los pingüinos emperador machos incuban huevos en los pies",
+        "Puede contener la respiración durante 20+ minutos",
+        "Plumas impermeables",
+        "Se desliza sobre el vientre para moverse eficientemente",
+        "Come peces, krill y calamar",
+        "Depredadores naturales incluyen focas y orcas",
+        "Popular en zoológicos de todo el mundo",
+        "Presentado en muchos documentales",
+        "Aves sociales que viven en colonias",
+        "Adaptado al frío extremo"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "nature"
+      }
     }
   ]
 }

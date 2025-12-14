@@ -64,6 +64,38 @@
         "difficulty": "easy",
         "source": "geography"
       }
+    },
+    {
+      "id": "profile-0016",
+      "category": "Countries",
+      "name": "Egypt",
+      "clues": [
+        "Located in North Africa",
+        "Home to ancient pyramids",
+        "Nile River flows through it",
+        "Mostly desert landscape",
+        "Ancient civilization with pharaohs",
+        "Sphinx statue guards pyramids",
+        "Hieroglyphic writing system",
+        "Cairo is the capital city",
+        "Home to the Suez Canal",
+        "Arabic is official language",
+        "Mummies were preserved bodies",
+        "Ancient gods like Ra and Anubis",
+        "Papyrus was early paper",
+        "Valley of the Kings burial site",
+        "Red Sea coastline",
+        "Alexandria was great library city",
+        "Coptic Christian minority",
+        "Cotton is major export",
+        "Tourism important to economy",
+        "Crossroads between Africa and Middle East"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "geography"
+      }
     }
   ]
 }

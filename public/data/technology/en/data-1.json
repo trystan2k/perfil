@@ -64,6 +64,38 @@
         "difficulty": "medium",
         "source": "modern-tech"
       }
+    },
+    {
+      "id": "profile-0020",
+      "category": "Technology",
+      "name": "Artificial Intelligence",
+      "clues": [
+        "Computer systems that can learn",
+        "Mimics human intelligence",
+        "Uses algorithms and data",
+        "Machine learning is subset",
+        "Neural networks inspired by brain",
+        "Can recognize images and speech",
+        "Natural language processing",
+        "Plays games like chess and Go",
+        "Self-driving cars use it",
+        "Virtual assistants like Siri",
+        "Recommendation systems use it",
+        "Can generate text and images",
+        "Deep learning uses multiple layers",
+        "Reinforcement learning through rewards",
+        "Ethical concerns about bias",
+        "Transforming many industries",
+        "Chatbots and customer service",
+        "Medical diagnosis applications",
+        "Facial recognition technology",
+        "Rapidly advancing field"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "modern-tech"
+      }
     }
   ]
 }

@@ -48,5 +48,6 @@ Once the profiles are created, update the profiles.config.json file with the new
 **DO** try to balance the number of profiles for each category, if possible.
 **DO** try to balance the number of profiles for each difficulty level, if possible.
 **DO** the clues need to start from hard ones and then move to easier ones. The first 5 ones should be hard to the players to guess, and the last 5 ones should be easier.
+**DO** after all profiles are created, review if there is no Error in the JSON files. If there is, fix it.
 
 Once you have all the information, create the profiles as requested by the user.

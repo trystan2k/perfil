@@ -64,6 +64,38 @@
         "difficulty": "medium",
         "source": "modern-tech"
       }
+    },
+    {
+      "id": "profile-0020",
+      "category": "Tecnologia",
+      "name": "Inteligência Artificial",
+      "clues": [
+        "Sistemas de computador que podem aprender",
+        "Imita inteligência humana",
+        "Usa algoritmos e dados",
+        "Aprendizado de máquina é subconjunto",
+        "Redes neurais inspiradas no cérebro",
+        "Pode reconhecer imagens e voz",
+        "Processamento de linguagem natural",
+        "Joga jogos como xadrez e Go",
+        "Carros autônomos usam isso",
+        "Assistentes virtuais como Siri",
+        "Sistemas de recomendação usam isso",
+        "Pode gerar texto e imagens",
+        "Aprendizado profundo usa múltiplas camadas",
+        "Aprendizado por reforço através de recompensas",
+        "Preocupações éticas sobre viés",
+        "Transformando muitas indústrias",
+        "Chatbots e atendimento ao cliente",
+        "Aplicações de diagnóstico médico",
+        "Tecnologia de reconhecimento facial",
+        "Campo em rápido avanço"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "modern-tech"
+      }
     }
   ]
 }

@@ -64,6 +64,38 @@
         "difficulty": "easy",
         "source": "sports"
       }
+    },
+    {
+      "id": "profile-0019",
+      "category": "Esportes",
+      "name": "Tênis",
+      "clues": [
+        "Esporte de raquete",
+        "Jogado em quadra retangular",
+        "Rede divide a quadra",
+        "Jogadores acertam a bola sobre a rede",
+        "Sistema de pontuação único",
+        "Love significa zero pontos",
+        "Estrutura de games, sets e partidas",
+        "Torneios de Grand Slam",
+        "Wimbledon é o torneio mais antigo",
+        "Aberto da França jogado em saibro",
+        "Aberto dos EUA e Aberto da Austrália completam majors",
+        "Formatos simples e duplas",
+        "Tiebreak decide sets próximos",
+        "Saque inicia cada ponto",
+        "Voleio é acertar a bola antes de quicar",
+        "Golpes de esquerda e direita",
+        "Turnê profissional mundial",
+        "Jogadores famosos incluem Federer, Serena Williams",
+        "Bolas amarelas usadas no jogo profissional",
+        "Juízes de linha determinam chamadas de bola"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "sports"
+      }
     }
   ]
 }

@@ -128,6 +128,38 @@
         "difficulty": "medium",
         "source": "historical-figures"
       }
+    },
+    {
+      "id": "profile-0017",
+      "category": "Personas Famosas",
+      "name": "Nelson Mandela",
+      "clues": [
+        "Nacido en Sudáfrica en 1918",
+        "Revolucionario anti-apartheid",
+        "Encarcelado durante 27 años",
+        "Primer presidente negro de Sudáfrica",
+        "Ganó el Premio Nobel de la Paz en 1993",
+        "Abogado de formación",
+        "Líder del Congreso Nacional Africano",
+        "Prisionero de la Isla Robben",
+        "Liberado de prisión en 1990",
+        "Negoció el fin del apartheid",
+        "Conocido como 'Madiba' para su gente",
+        "Abogó por la reconciliación no venganza",
+        "Se convirtió en símbolo global de paz",
+        "Murió en 2013 a los 95 años",
+        "Estadista internacional",
+        "Luchó por la igualdad racial",
+        "Escribió autobiografía 'Larga caminata hacia la libertad'",
+        "Estudió derecho en la Universidad de Fort Hare",
+        "Se casó tres veces",
+        "Su cara aparece en la moneda"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "historical-figures"
+      }
     }
   ]
 }
