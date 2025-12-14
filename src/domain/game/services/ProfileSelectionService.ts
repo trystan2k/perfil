@@ -76,69 +76,73 @@ function selectAndShuffleProfiles(
   const profilesToPlay: string[] = [];
   const usedProfiles = new Set<string>(); // Track used profiles to avoid duplicates
 
-  // Calculate base profiles per category
+  // Calculate base distribution
   const profilesPerCategory = Math.floor(numberOfRounds / selectedCategories.length);
   const remainingSlots = numberOfRounds % selectedCategories.length;
 
   // Shuffle categories to randomize which get the extra slots
   const shuffledCategories = fisherYatesShuffle(selectedCategories);
 
-  // First pass: Try to take from each category fairly
-  const categoriesNeedingRedistribution: Array<{ category: string; needed: number }> = [];
+  // Allocate profiles to categories: some get profilesPerCategory, some get +1
+  const profilesAllocatedPerCategory = shuffledCategories.map((_, index) => {
+    return profilesPerCategory + (index < remainingSlots ? 1 : 0);
+  });
+
+  // First pass: Try to fulfill each category's allocation
+  const unfulfilledCategories: Array<{ category: string; needed: number; index: number }> = [];
 
   for (let i = 0; i < shuffledCategories.length; i++) {
     const category = shuffledCategories[i];
+    const allocated = profilesAllocatedPerCategory[i];
     const categoryProfiles = availableProfilesByCategory.get(category) || [];
 
-    // Calculate how many to take from this category
-    const needed = profilesPerCategory + (i < remainingSlots ? 1 : 0);
-    const available = categoryProfiles.filter((id) => !usedProfiles.has(id)).length;
+    // Shuffle and try to select the allocated amount
+    const shuffledProfiles = fisherYatesShuffle(categoryProfiles);
+    let selected = 0;
 
-    if (available < needed) {
-      // This category doesn't have enough profiles
-      // Take all available and mark for redistribution
-      const shuffledProfiles = fisherYatesShuffle(categoryProfiles);
-      for (const profileId of shuffledProfiles) {
-        if (!usedProfiles.has(profileId)) {
-          profilesToPlay.push(profileId);
-          usedProfiles.add(profileId);
-        }
+    for (const profileId of shuffledProfiles) {
+      if (!usedProfiles.has(profileId) && selected < allocated) {
+        profilesToPlay.push(profileId);
+        usedProfiles.add(profileId);
+        selected++;
       }
-      categoriesNeedingRedistribution.push({ category, needed: needed - available });
-    } else {
-      // This category has enough - take what we need
-      const shuffledProfiles = fisherYatesShuffle(categoryProfiles);
-      let taken = 0;
-      for (const profileId of shuffledProfiles) {
-        if (!usedProfiles.has(profileId) && taken < needed) {
-          profilesToPlay.push(profileId);
-          usedProfiles.add(profileId);
-          taken++;
-        }
-      }
+    }
+
+    // Track unfulfilled allocation
+    if (selected < allocated) {
+      unfulfilledCategories.push({
+        category,
+        needed: allocated - selected,
+        index: i,
+      });
     }
   }
 
-  // Second pass: Redistribute from categories that have extra profiles
-  if (categoriesNeedingRedistribution.length > 0) {
-    const totalNeeded = categoriesNeedingRedistribution.reduce((sum, item) => sum + item.needed, 0);
-
-    // Collect all available profiles from other categories
-    const redistributionPool: string[] = [];
-    for (const category of shuffledCategories) {
+  // Second pass: Fill unfulfilled allocations from remaining available profiles
+  if (unfulfilledCategories.length > 0) {
+    // Collect all remaining available profiles
+    const remainingAvailable: string[] = [];
+    for (const category of selectedCategories) {
       const categoryProfiles = availableProfilesByCategory.get(category) || [];
       for (const profileId of categoryProfiles) {
         if (!usedProfiles.has(profileId)) {
-          redistributionPool.push(profileId);
+          remainingAvailable.push(profileId);
         }
       }
     }
 
-    // Shuffle and take from redistribution pool
-    const shuffledPool = fisherYatesShuffle(redistributionPool);
-    for (let i = 0; i < Math.min(totalNeeded, shuffledPool.length); i++) {
-      profilesToPlay.push(shuffledPool[i]);
-      usedProfiles.add(shuffledPool[i]);
+    // Shuffle and distribute to unfulfilled categories
+    const shuffledRemaining = fisherYatesShuffle(remainingAvailable);
+    let remainingIndex = 0;
+
+    for (const unfulfilled of unfulfilledCategories) {
+      let needed = unfulfilled.needed;
+      while (needed > 0 && remainingIndex < shuffledRemaining.length) {
+        profilesToPlay.push(shuffledRemaining[remainingIndex]);
+        usedProfiles.add(shuffledRemaining[remainingIndex]);
+        remainingIndex++;
+        needed--;
+      }
     }
   }
 

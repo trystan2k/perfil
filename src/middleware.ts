@@ -32,10 +32,48 @@ const getCspHeader = (): string => {
   return baseDirectives.join('; ');
 };
 
-export const onRequest = defineMiddleware(async (_context, next) => {
+// Cache control headers for different content types
+const getCacheControlHeader = (url: URL): string => {
+  const pathname = url.pathname;
+
+  // Manifest: frequent updates (6 hours) - CHECK THIS FIRST
+  if (pathname === '/data/manifest.json') {
+    return 'public, max-age=21600, stale-while-revalidate=3600'; // 6 hours + 1 hour revalidate
+  }
+
+  // Data files: medium cache (7 days)
+  if (pathname.match(/\/data\/.*\/.*\.json$/i)) {
+    return 'public, max-age=604800, stale-while-revalidate=86400'; // 7 days + 1 day revalidate
+  }
+
+  // Static assets: long cache (30 days)
+  if (pathname.match(/\.(js|css|woff2?|png|svg|webp|ico)$/i)) {
+    return 'public, max-age=2592000, immutable'; // 30 days
+  }
+
+  // Translation files: long cache (30 days)
+  if (pathname.match(/\/locales\/.*\.json$/i)) {
+    return 'public, max-age=2592000, immutable'; // 30 days
+  }
+
+  // HTML/Dynamic content: no cache
+  return 'public, max-age=0, must-revalidate';
+};
+
+export const onRequest = defineMiddleware(async (context, next) => {
   try {
     // Get response from next middleware or route
     const response = await next();
+
+    // Apply cache headers for data files (manifest, profile data, translations)
+    const pathname = context.url.pathname;
+    if (pathname.match(/^\/data\//i) || pathname.match(/^\/locales\//i)) {
+      // Always set cache headers for data files
+      response.headers.set('Cache-Control', getCacheControlHeader(context.url));
+    } else if (!response.headers.has('Cache-Control')) {
+      // For other content, only set if not already present
+      response.headers.set('Cache-Control', getCacheControlHeader(context.url));
+    }
 
     // Apply security headers to response
     response.headers.set('Content-Security-Policy', getCspHeader());

@@ -37,7 +37,7 @@ export function usePrefetchProfiles({
           .prefetchQuery({
             queryKey,
             queryFn: () => fetchProfilesByCategory(currentLocale, category),
-            staleTime: 1000 * 60 * 5, // 5 minutes
+            // Inherit defaults from QueryProvider (staleTime: 10min, gcTime: 60min)
           })
           .catch((error) => {
             // Log prefetch failures but don't throw

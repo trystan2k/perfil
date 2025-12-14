@@ -438,9 +438,9 @@ test.describe('Random Clue Ordering - E2E Tests', () => {
       const clueText = await getCurrentClueText();
       revealedClues.push(clueText || '');
 
-      // Check clue counter
+      // Check clue counter (profiles have varying clue counts: 18-24)
       const counter = await page.getByText(/Clue \d+ of \d+/).textContent();
-      expect(counter).toMatch(`Clue ${i + 1} of 20`);
+      expect(counter).toMatch(new RegExp(`Clue ${i + 1} of \\d+`));
     }
 
     // Verify we have 4 unique clues
@@ -508,9 +508,9 @@ test.describe('Random Clue Ordering - E2E Tests', () => {
     // Verify all clues are unique
     expect(new Set(clues).size).toBe(10);
 
-    // Verify counter is at 10
+    // Verify counter is at 10 (profiles have varying clue counts: 18-24)
     const finalCounter = await page.getByText(/Clue \d+ of \d+/).textContent();
-    expect(finalCounter).toMatch('Clue 10 of 20');
+    expect(finalCounter).toMatch(/Clue 10 of (1[8-9]|2[0-4])/);
   });
 
   test('should handle no winner with shuffled clues', async ({ page }) => {
