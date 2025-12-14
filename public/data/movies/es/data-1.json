@@ -2,7 +2,7 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-0004",
+      "id": "profile-movie-001",
       "category": "Películas",
       "name": "Matrix",
       "clues": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "profile-0012",
+      "id": "profile-movie-002",
       "category": "Películas",
       "name": "Origen",
       "clues": [
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "profile-0018",
+      "id": "profile-movie-003",
       "category": "Películas",
       "name": "La Guerra de las Galaxias",
       "clues": [
@@ -98,7 +98,7 @@
       }
     },
     {
-      "id": "profile-0050",
+      "id": "profile-movie-004",
       "category": "Movies",
       "name": "Titanic",
       "clues": [
@@ -130,7 +130,7 @@
       }
     },
     {
-      "id": "profile-0051",
+      "id": "profile-movie-005",
       "category": "Movies",
       "name": "El Padrino",
       "clues": [
@@ -162,7 +162,7 @@
       }
     },
     {
-      "id": "profile-0052",
+      "id": "profile-movie-006",
       "category": "Movies",
       "name": "Avatar",
       "clues": [
@@ -194,7 +194,7 @@
       }
     },
     {
-      "id": "profile-0053",
+      "id": "profile-movie-007",
       "category": "Movies",
       "name": "Parque Jurásico",
       "clues": [
@@ -226,7 +226,7 @@
       }
     },
     {
-      "id": "profile-0054",
+      "id": "profile-movie-008",
       "category": "Movies",
       "name": "Frozen",
       "clues": [
@@ -258,7 +258,7 @@
       }
     },
     {
-      "id": "profile-0055",
+      "id": "profile-movie-009",
       "category": "Movies",
       "name": "El Caballero Oscuro",
       "clues": [
@@ -290,7 +290,7 @@
       }
     },
     {
-      "id": "profile-0056",
+      "id": "profile-movie-010",
       "category": "Movies",
       "name": "Los Vengadores",
       "clues": [
@@ -322,7 +322,7 @@
       }
     },
     {
-      "id": "profile-0057",
+      "id": "profile-movie-011",
       "category": "Movies",
       "name": "Buscando a Nemo",
       "clues": [
@@ -354,7 +354,7 @@
       }
     },
     {
-      "id": "profile-0058",
+      "id": "profile-movie-012",
       "category": "Movies",
       "name": "Parásitos",
       "clues": [
@@ -386,7 +386,7 @@
       }
     },
     {
-      "id": "profile-0059",
+      "id": "profile-movie-013",
       "category": "Movies",
       "name": "Redención de Shawshank",
       "clues": [
@@ -418,7 +418,7 @@
       }
     },
     {
-      "id": "profile-0060",
+      "id": "profile-movie-014",
       "category": "Películas",
       "name": "Pulp Fiction",
       "clues": [
@@ -450,7 +450,7 @@
       }
     },
     {
-      "id": "profile-0061",
+      "id": "profile-movie-015",
       "category": "Películas",
       "name": "El Señor de los Anillos: La Comunidad del Anillo",
       "clues": [
@@ -481,7 +481,7 @@
       }
     },
     {
-      "id": "profile-0062",
+      "id": "profile-movie-016",
       "category": "Películas",
       "name": "Forrest Gump",
       "clues": [
@@ -512,7 +512,7 @@
       }
     },
     {
-      "id": "profile-0063",
+      "id": "profile-movie-017",
       "category": "Películas",
       "name": "El Silencio de los Inocentes",
       "clues": [
@@ -543,7 +543,7 @@
       }
     },
     {
-      "id": "profile-0064",
+      "id": "profile-movie-018",
       "category": "Películas",
       "name": "Regreso al Futuro",
       "clues": [
@@ -574,7 +574,7 @@
       }
     },
     {
-      "id": "profile-0065",
+      "id": "profile-movie-019",
       "category": "Películas",
       "name": "El Rey León",
       "clues": [
@@ -605,7 +605,7 @@
       }
     },
     {
-      "id": "profile-0066",
+      "id": "profile-movie-020",
       "category": "Películas",
       "name": "Gladiador",
       "clues": [
@@ -637,7 +637,7 @@
       }
     },
     {
-      "id": "profile-0067",
+      "id": "profile-movie-021",
       "category": "Películas",
       "name": "El Exterminador",
       "clues": [
@@ -669,7 +669,7 @@
       }
     },
     {
-      "id": "profile-0068",
+      "id": "profile-movie-022",
       "category": "Películas",
       "name": "Casablanca",
       "clues": [
@@ -700,7 +700,7 @@
       }
     },
     {
-      "id": "profile-0069",
+      "id": "profile-movie-023",
       "category": "Películas",
       "name": "El Mago de Oz",
       "clues": [
@@ -731,7 +731,7 @@
       }
     },
     {
-      "id": "profile-0070",
+      "id": "profile-movie-024",
       "category": "Películas",
       "name": "Club de Lucha",
       "clues": [
@@ -763,7 +763,7 @@
       }
     },
     {
-      "id": "profile-0071",
+      "id": "profile-movie-025",
       "category": "Películas",
       "name": "E.T. el Extraterrestre",
       "clues": [
@@ -795,7 +795,7 @@
       }
     },
     {
-      "id": "profile-0072",
+      "id": "profile-movie-026",
       "category": "Películas",
       "name": "La Novicia Rebelde",
       "clues": [
@@ -826,7 +826,7 @@
       }
     },
     {
-      "id": "profile-0073",
+      "id": "profile-movie-027",
       "category": "Películas",
       "name": "Alien",
       "clues": [
@@ -858,7 +858,7 @@
       }
     },
     {
-      "id": "profile-0074",
+      "id": "profile-movie-028",
       "category": "Películas",
       "name": "El Viaje de Chihiro",
       "clues": [
@@ -890,7 +890,7 @@
       }
     },
     {
-      "id": "profile-0075",
+      "id": "profile-movie-029",
       "category": "Películas",
       "name": "Duro de Matar",
       "clues": [
@@ -921,7 +921,7 @@
       }
     },
     {
-      "id": "profile-0076",
+      "id": "profile-movie-030",
       "category": "Películas",
       "name": "El Gran Hotel Budapest",
       "clues": [

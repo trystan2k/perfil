@@ -28,20 +28,36 @@ export interface Manifest {
 
 // Cache for manifest to avoid multiple fetches
 let manifestCache: Manifest | null = null;
+let manifestCacheTime: number | null = null;
+
+// 6-hour TTL for manifest cache (in milliseconds)
+const MANIFEST_CACHE_TTL = 1000 * 60 * 60 * 6;
+
+/**
+ * Check if manifest cache is still valid
+ */
+function isManifestCacheValid(): boolean {
+  if (!manifestCache || !manifestCacheTime) {
+    return false;
+  }
+  const now = Date.now();
+  return now - manifestCacheTime < MANIFEST_CACHE_TTL;
+}
 
 /**
  * Clear manifest cache (useful for testing)
  */
 export function clearManifestCache(): void {
   manifestCache = null;
+  manifestCacheTime = null;
 }
 
 /**
  * Fetch global manifest file
  */
 export async function fetchManifest(): Promise<Manifest> {
-  if (manifestCache) {
-    return manifestCache;
+  if (isManifestCacheValid()) {
+    return manifestCache as Manifest;
   }
 
   const response = await fetch('/data/manifest.json');
@@ -51,6 +67,7 @@ export async function fetchManifest(): Promise<Manifest> {
   }
 
   manifestCache = await response.json();
+  manifestCacheTime = Date.now();
   return manifestCache as Manifest;
 }
 
@@ -125,7 +142,7 @@ export async function fetchProfilesByCategory(
     profiles: allProfiles,
   };
 
-  // Validate merged data
+  // Validate merged data with schema
   const validatedData = profilesDataSchema.parse(mergedData);
 
   return validatedData;

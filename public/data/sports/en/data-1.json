@@ -2,7 +2,7 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-0007",
+      "id": "profile-sports-001",
       "category": "Sports",
       "name": "Soccer",
       "clues": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "profile-0013",
+      "id": "profile-sports-002",
       "category": "Sports",
       "name": "Basketball",
       "clues": [
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "profile-0019",
+      "id": "profile-sports-003",
       "category": "Sports",
       "name": "Tennis",
       "clues": [
@@ -98,7 +98,7 @@
       }
     },
     {
-      "id": "profile-0060",
+      "id": "profile-sports-004",
       "category": "Sports",
       "name": "Baseball",
       "clues": [
@@ -130,7 +130,7 @@
       }
     },
     {
-      "id": "profile-0061",
+      "id": "profile-sports-005",
       "category": "Sports",
       "name": "American Football",
       "clues": [
@@ -162,7 +162,7 @@
       }
     },
     {
-      "id": "profile-0062",
+      "id": "profile-sports-006",
       "category": "Sports",
       "name": "Golf",
       "clues": [
@@ -194,7 +194,7 @@
       }
     },
     {
-      "id": "profile-0063",
+      "id": "profile-sports-007",
       "category": "Sports",
       "name": "Swimming",
       "clues": [
@@ -226,7 +226,7 @@
       }
     },
     {
-      "id": "profile-0064",
+      "id": "profile-sports-008",
       "category": "Sports",
       "name": "Boxing",
       "clues": [
@@ -258,7 +258,7 @@
       }
     },
     {
-      "id": "profile-0065",
+      "id": "profile-sports-009",
       "category": "Sports",
       "name": "Hockey",
       "clues": [
@@ -290,7 +290,7 @@
       }
     },
     {
-      "id": "profile-0066",
+      "id": "profile-sports-010",
       "category": "Sports",
       "name": "Track and Field",
       "clues": [
@@ -322,7 +322,7 @@
       }
     },
     {
-      "id": "profile-0067",
+      "id": "profile-sports-011",
       "category": "Sports",
       "name": "Volleyball",
       "clues": [
@@ -354,7 +354,7 @@
       }
     },
     {
-      "id": "profile-0068",
+      "id": "profile-sports-012",
       "category": "Sports",
       "name": "Figure Skating",
       "clues": [
@@ -386,7 +386,7 @@
       }
     },
     {
-      "id": "profile-0069",
+      "id": "profile-sports-013",
       "category": "Sports",
       "name": "Gymnastics",
       "clues": [
@@ -418,7 +418,7 @@
       }
     },
     {
-      "id": "profile-0070",
+      "id": "profile-sports-014",
       "category": "Sports",
       "name": "Cricket",
       "clues": [
@@ -449,7 +449,7 @@
       }
     },
     {
-      "id": "profile-0071",
+      "id": "profile-sports-015",
       "category": "Sports",
       "name": "Rugby",
       "clues": [
@@ -479,7 +479,7 @@
       }
     },
     {
-      "id": "profile-0072",
+      "id": "profile-sports-016",
       "category": "Sports",
       "name": "Skiing",
       "clues": [
@@ -509,7 +509,7 @@
       }
     },
     {
-      "id": "profile-0073",
+      "id": "profile-sports-017",
       "category": "Sports",
       "name": "Cycling",
       "clues": [
@@ -539,7 +539,7 @@
       }
     },
     {
-      "id": "profile-0074",
+      "id": "profile-sports-018",
       "category": "Sports",
       "name": "Wrestling",
       "clues": [
@@ -569,7 +569,7 @@
       }
     },
     {
-      "id": "profile-0075",
+      "id": "profile-sports-019",
       "category": "Sports",
       "name": "Badminton",
       "clues": [
@@ -599,7 +599,7 @@
       }
     },
     {
-      "id": "profile-0076",
+      "id": "profile-sports-020",
       "category": "Sports",
       "name": "Table Tennis",
       "clues": [
@@ -632,7 +632,7 @@
       }
     },
     {
-      "id": "profile-0077",
+      "id": "profile-sports-021",
       "category": "Sports",
       "name": "Martial Arts",
       "clues": [
@@ -664,7 +664,7 @@
       }
     },
     {
-      "id": "profile-0078",
+      "id": "profile-sports-022",
       "category": "Sports",
       "name": "Sailing",
       "clues": [
@@ -697,7 +697,7 @@
       }
     },
     {
-      "id": "profile-0079",
+      "id": "profile-sports-023",
       "category": "Sports",
       "name": "Archery",
       "clues": [
@@ -730,7 +730,7 @@
       }
     },
     {
-      "id": "profile-0080",
+      "id": "profile-sports-024",
       "category": "Sports",
       "name": "Fencing",
       "clues": [
@@ -763,7 +763,7 @@
       }
     },
     {
-      "id": "profile-0081",
+      "id": "profile-sports-025",
       "category": "Sports",
       "name": "Equestrian",
       "clues": [
@@ -797,7 +797,7 @@
       }
     },
     {
-      "id": "profile-0082",
+      "id": "profile-sports-026",
       "category": "Sports",
       "name": "Rock Climbing",
       "clues": [
@@ -831,7 +831,7 @@
       }
     },
     {
-      "id": "profile-0083",
+      "id": "profile-sports-027",
       "category": "Sports",
       "name": "Bowling",
       "clues": [
@@ -864,7 +864,7 @@
       }
     },
     {
-      "id": "profile-0084",
+      "id": "profile-sports-028",
       "category": "Sports",
       "name": "Surfing",
       "clues": [
@@ -900,7 +900,7 @@
       }
     },
     {
-      "id": "profile-0085",
+      "id": "profile-sports-029",
       "category": "Sports",
       "name": "Darts",
       "clues": [
@@ -934,7 +934,7 @@
       }
     },
     {
-      "id": "profile-0086",
+      "id": "profile-sports-030",
       "category": "Sports",
       "name": "Cheerleading",
       "clues": [

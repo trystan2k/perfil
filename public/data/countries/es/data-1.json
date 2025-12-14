@@ -2,7 +2,7 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-0003",
+      "id": "profile-country-001",
       "category": "Países",
       "name": "Japón",
       "clues": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "profile-0010",
+      "id": "profile-country-002",
       "category": "Países",
       "name": "Brasil",
       "clues": [
@@ -66,7 +66,7 @@
       }
     },
     {
-      "id": "profile-0016",
+      "id": "profile-country-003",
       "category": "Países",
       "name": "Egipto",
       "clues": [
@@ -98,8 +98,8 @@
       }
     },
     {
-      "id": "profile-0030",
-      "category": "Countries",
+      "id": "profile-country-004",
+      "category": "Países",
       "name": "Estados Unidos",
       "clues": [
         "República federal en América del Norte",
@@ -130,8 +130,8 @@
       }
     },
     {
-      "id": "profile-0031",
-      "category": "Countries",
+      "id": "profile-country-005",
+      "category": "Países",
       "name": "Francia",
       "clues": [
         "República europea occidental",
@@ -162,8 +162,8 @@
       }
     },
     {
-      "id": "profile-0032",
-      "category": "Countries",
+      "id": "profile-country-006",
+      "category": "Países",
       "name": "Australia",
       "clues": [
         "Continente isla",
@@ -194,8 +194,8 @@
       }
     },
     {
-      "id": "profile-0033",
-      "category": "Countries",
+      "id": "profile-country-007",
+      "category": "Países",
       "name": "India",
       "clues": [
         "Subcontinente del sur de Asia",
@@ -226,8 +226,8 @@
       }
     },
     {
-      "id": "profile-0034",
-      "category": "Countries",
+      "id": "profile-country-008",
+      "category": "Países",
       "name": "Canadá",
       "clues": [
         "Vecino norteño de América del Norte",
@@ -258,8 +258,8 @@
       }
     },
     {
-      "id": "profile-0035",
-      "category": "Countries",
+      "id": "profile-country-009",
+      "category": "Países",
       "name": "Alemania",
       "clues": [
         "República centroeuropea",
@@ -290,8 +290,8 @@
       }
     },
     {
-      "id": "profile-0036",
-      "category": "Countries",
+      "id": "profile-country-010",
+      "category": "Países",
       "name": "México",
       "clues": [
         "Vecino sur de América del Norte",
@@ -322,8 +322,8 @@
       }
     },
     {
-      "id": "profile-0037",
-      "category": "Countries",
+      "id": "profile-country-011",
+      "category": "Países",
       "name": "Italia",
       "clues": [
         "Península del sur de Europa",
@@ -354,8 +354,8 @@
       }
     },
     {
-      "id": "profile-0038",
-      "category": "Countries",
+      "id": "profile-country-012",
+      "category": "Países",
       "name": "Corea del Sur",
       "clues": [
         "Península del este de Asia",
@@ -386,8 +386,8 @@
       }
     },
     {
-      "id": "profile-0039",
-      "category": "Countries",
+      "id": "profile-country-013",
+      "category": "Países",
       "name": "Argentina",
       "clues": [
         "Cono sur de América del Sur",
@@ -418,7 +418,7 @@
       }
     },
     {
-      "id": "profile-0014",
+      "id": "profile-country-014",
       "category": "Países",
       "name": "China",
       "clues": [
@@ -450,7 +450,7 @@
       }
     },
     {
-      "id": "profile-0015",
+      "id": "profile-country-015",
       "category": "Países",
       "name": "Rusia",
       "clues": [
@@ -482,7 +482,7 @@
       }
     },
     {
-      "id": "profile-0016",
+      "id": "profile-country-016",
       "category": "Países",
       "name": "Reino Unido",
       "clues": [
@@ -514,40 +514,7 @@
       }
     },
     {
-      "id": "profile-0017",
-      "category": "Países",
-      "name": "Alemania",
-      "clues": [
-        "Nación centroeuropea",
-        "Capital es Berlín",
-        "Economía más grande de Europa",
-        "Famosa por ingeniería y coches",
-        "Dividida durante Guerra Fría",
-        "Muro de Berlín cayó 1989",
-        "Reunificada 1990",
-        "Baviera conocida por festivales de cerveza",
-        "Sistema de autopistas Autobahn",
-        "Líder en energía verde",
-        "Economía orientada a exportaciones",
-        "Rica tradición filosófica",
-        "Compositores de música clásica",
-        "Tradición de mercados navideños",
-        "Moneda euro",
-        "Miembro fundador UE",
-        "Fuertes políticas ambientales",
-        "Ganadores Copa Mundial fútbol",
-        "Historia del Holocausto",
-        "República federal",
-        "Manufactura de alta calidad"
-      ],
-      "metadata": {
-        "language": "es",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-0018",
+      "id": "profile-country-018",
       "category": "Países",
       "name": "España",
       "clues": [
@@ -579,7 +546,7 @@
       }
     },
     {
-      "id": "profile-0019",
+      "id": "profile-country-019",
       "category": "Países",
       "name": "India",
       "clues": [
@@ -612,7 +579,7 @@
       }
     },
     {
-      "id": "profile-0020",
+      "id": "profile-country-020",
       "category": "Países",
       "name": "México",
       "clues": [
@@ -644,7 +611,7 @@
       }
     },
     {
-      "id": "profile-0021",
+      "id": "profile-country-021",
       "category": "Países",
       "name": "Sudáfrica",
       "clues": [
@@ -676,7 +643,7 @@
       }
     },
     {
-      "id": "profile-0022",
+      "id": "profile-country-022",
       "category": "Países",
       "name": "Países Bajos",
       "clues": [
@@ -708,7 +675,7 @@
       }
     },
     {
-      "id": "profile-0023",
+      "id": "profile-country-023",
       "category": "Países",
       "name": "Tailandia",
       "clues": [
@@ -741,7 +708,7 @@
       }
     },
     {
-      "id": "profile-0024",
+      "id": "profile-country-024",
       "category": "Países",
       "name": "Turquía",
       "clues": [
@@ -774,7 +741,7 @@
       }
     },
     {
-      "id": "profile-0025",
+      "id": "profile-country-025",
       "category": "Países",
       "name": "Egipto",
       "clues": [
@@ -806,7 +773,7 @@
       }
     },
     {
-      "id": "profile-0026",
+      "id": "profile-country-026",
       "category": "Países",
       "name": "Indonesia",
       "clues": [
@@ -838,7 +805,7 @@
       }
     },
     {
-      "id": "profile-0027",
+      "id": "profile-country-027",
       "category": "Países",
       "name": "Arabia Saudita",
       "clues": [
@@ -870,7 +837,7 @@
       }
     },
     {
-      "id": "profile-0028",
+      "id": "profile-country-028",
       "category": "Países",
       "name": "Nueva Zelanda",
       "clues": [
@@ -902,7 +869,7 @@
       }
     },
     {
-      "id": "profile-0029",
+      "id": "profile-country-029",
       "category": "Países",
       "name": "Suecia",
       "clues": [
@@ -934,7 +901,7 @@
       }
     },
     {
-      "id": "profile-0030",
+      "id": "profile-country-030",
       "category": "Países",
       "name": "Suiza",
       "clues": [
