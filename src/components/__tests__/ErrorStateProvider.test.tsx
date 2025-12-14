@@ -60,9 +60,10 @@ describe('ErrorStateProvider', () => {
   describe('Rendering', () => {
     it('should render children when no error', () => {
       customRender(
-        <ErrorStateProvider>
+        <>
           <div data-testid="child-content">Test Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.getByTestId('child-content')).toBeInTheDocument();
@@ -75,9 +76,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div data-testid="child-content">Test Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.getByTestId('child-content')).toBeInTheDocument();
@@ -90,9 +92,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.getByText('Game session not found')).toBeInTheDocument();
@@ -104,9 +107,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       // i18n key 'errorHandler.defaultMessage' translates to 'An unexpected error occurred.'
@@ -119,9 +123,25 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
+      );
+
+      expect(screen.getByText(/Test error/i)).toBeInTheDocument();
+    });
+
+    it('should display translated Error as dialog title', () => {
+      useGameStore.setState({
+        error: new GameError('Test error', { informative: false }),
+      });
+
+      customRender(
+        <>
+          <div>Content</div>
+          <ErrorStateProvider />
+        </>
       );
 
       // i18n key 'errorHandler.title' translates to 'Error' in English
@@ -136,9 +156,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       // i18n key 'common.goHome' translates to 'Go Home'
@@ -151,9 +172,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       // i18n key 'common.back' translates to 'Back'
@@ -167,9 +189,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       const backButton = screen.getByRole('button', { name: /back/i });
@@ -189,9 +212,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       const homeButton = screen.getByRole('button', { name: /go home/i });
@@ -209,9 +233,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(useGameStore.getState().error).not.toBeNull();
@@ -230,9 +255,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       // Dialog should not have a close button (sr-only "Close" text)
@@ -245,9 +271,10 @@ describe('ErrorStateProvider', () => {
       });
 
       const { rerender } = customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.getByRole('dialog')).toBeInTheDocument();
@@ -258,9 +285,10 @@ describe('ErrorStateProvider', () => {
       });
 
       rerender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -272,9 +300,10 @@ describe('ErrorStateProvider', () => {
       });
 
       const { rerender } = customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.getByText('First error')).toBeInTheDocument();
@@ -287,9 +316,10 @@ describe('ErrorStateProvider', () => {
       });
 
       rerender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.queryByText('First error')).not.toBeInTheDocument();
@@ -304,9 +334,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(document.body.style.overflow).toBe('hidden');
@@ -318,9 +349,10 @@ describe('ErrorStateProvider', () => {
       });
 
       const { rerender } = customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(document.body.style.overflow).toBe('hidden');
@@ -331,9 +363,10 @@ describe('ErrorStateProvider', () => {
       });
 
       rerender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(document.body.style.overflow).toBe('');
@@ -345,9 +378,10 @@ describe('ErrorStateProvider', () => {
       });
 
       const { unmount } = customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(document.body.style.overflow).toBe('hidden');
@@ -361,9 +395,10 @@ describe('ErrorStateProvider', () => {
   describe('Integration scenarios', () => {
     it('should handle multiple error state changes', () => {
       const { rerender } = customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       // No error initially
@@ -376,9 +411,10 @@ describe('ErrorStateProvider', () => {
         });
       });
       rerender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
       expect(screen.getByText('Error 1')).toBeInTheDocument();
 
@@ -387,9 +423,10 @@ describe('ErrorStateProvider', () => {
         useGameStore.setState({ error: null });
       });
       rerender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
@@ -400,9 +437,10 @@ describe('ErrorStateProvider', () => {
         });
       });
       rerender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
       expect(screen.getByText('Error 2')).toBeInTheDocument();
     });
@@ -414,9 +452,10 @@ describe('ErrorStateProvider', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <div>Content</div>
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.getByText(longMessage)).toBeInTheDocument();

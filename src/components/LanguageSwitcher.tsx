@@ -1,10 +1,10 @@
 import { navigate } from 'astro:transitions/client';
-import { useState } from 'react';
+import { type MouseEvent, useActionState, useState } from 'react';
+import { useGameActions, useScoreboardState } from '../hooks/selectors';
 import type { SupportedLocale } from '../i18n/locales';
 import { removeLocalePrefix } from '../i18n/locales';
-import type { TranslationValue } from '../i18n/utils';
 import { useGameStore } from '../stores/gameStore';
-import { TranslateProvider, useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider';
 import { Button } from './ui/button';
 import {
   Dialog,
@@ -21,48 +21,43 @@ const locales = [
   { code: 'pt-BR', name: 'Português', flag: '🇧🇷' },
 ] as const;
 
-type LanguageSwitcherProps = {
-  currentLocale: SupportedLocale;
+export type LanguageSwitcherProps = {
   currentPath: string;
-  locale: SupportedLocale;
-  translations: TranslationValue;
 };
 
-/**
- * Language switcher with TranslateProvider wrapper (similar to ThemeSwitcher pattern)
- */
-export const LanguageSwitcher = ({
-  currentLocale,
-  currentPath,
-  locale,
-  translations,
-}: LanguageSwitcherProps) => {
-  return (
-    <TranslateProvider locale={locale} translations={translations}>
-      <LanguageSwitcherRaw currentLocale={currentLocale} currentPath={currentPath} />
-    </TranslateProvider>
-  );
-};
-
-type LanguageSwitcherRawProps = {
-  currentLocale: SupportedLocale;
-  currentPath: string;
+type ActionState = {
+  error: string | null;
 };
 
 /**
  * Language switcher component with game state awareness
  */
-function LanguageSwitcherRaw({ currentLocale, currentPath }: LanguageSwitcherRawProps) {
-  const { t } = useTranslate();
-  const gameStatus = useGameStore((state) => state.status);
-  const sessionId = useGameStore((state) => state.id);
-  const resetGame = useGameStore((state) => state.resetGame);
+export const LanguageSwitcher = ({ currentPath }: LanguageSwitcherProps) => {
+  const { t, locale: currentLocale } = useTranslate();
+  const { status: gameStatus } = useScoreboardState();
+  const { resetGame } = useGameActions();
+
+  const [_samePlayersState, samePlayersAction] = useActionState<ActionState, FormData>(
+    async (_prevState: ActionState, _formData: FormData): Promise<ActionState> => {
+      try {
+        const samePlayers = true;
+        await resetGame(samePlayers);
+        const newId = useGameStore.getState().id;
+        navigate(`/${pendingLocale}/game-setup/${newId}`);
+        return { error: null };
+      } catch (err) {
+        console.error('Failed to restart with same players:', err);
+        return { error: 'scoreboard.error.samePlayersFailed' };
+      }
+    },
+    { error: null }
+  );
 
   const [showWarning, setShowWarning] = useState(false);
   const [pendingLocale, setPendingLocale] = useState<SupportedLocale | null>(null);
 
   const handleLocaleClick = async (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: MouseEvent<HTMLAnchorElement>,
     localeCode: SupportedLocale
   ) => {
     // If game is active, show warning dialog
@@ -78,36 +73,7 @@ function LanguageSwitcherRaw({ currentLocale, currentPath }: LanguageSwitcherRaw
 
   const handleConfirmLanguageChange = async () => {
     if (!pendingLocale) return;
-
-    if (sessionId) {
-      try {
-        const dbName = 'perfil-game-db';
-        const storeName = 'game-sessions';
-
-        // Delete the old session from IndexedDB
-        await new Promise<void>((resolve, reject) => {
-          const dbRequest = indexedDB.open(dbName);
-          dbRequest.onerror = () => reject(dbRequest.error);
-          dbRequest.onsuccess = () => {
-            const db = dbRequest.result;
-            const transaction = db.transaction([storeName], 'readwrite');
-            const store = transaction.objectStore(storeName);
-            store.delete(sessionId);
-            transaction.oncomplete = () => resolve();
-            transaction.onerror = () => reject(transaction.error);
-          };
-        });
-
-        // Manually reset store to initial state WITHOUT calling resetGame()
-        // This avoids creating a new session that gets persisted
-        // Using empty id ensures no persistence will happen (persistState checks for empty id)
-        await resetGame();
-      } catch (error) {
-        console.error('Failed to clear game state:', error);
-      }
-    }
-
-    navigate(`/${pendingLocale}/`);
+    samePlayersAction(new FormData());
   };
 
   const handleCancelLanguageChange = () => {
@@ -169,4 +135,4 @@ function LanguageSwitcherRaw({ currentLocale, currentPath }: LanguageSwitcherRaw
       </Dialog>
     </>
   );
-}
+};

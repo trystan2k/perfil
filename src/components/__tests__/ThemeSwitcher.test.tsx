@@ -5,6 +5,7 @@ import translations from '../../../public/locales/en/translation.json';
 import { customRender } from '../../__mocks__/test-utils';
 import { useTheme } from '../../hooks/useTheme';
 import { ThemeSwitcher } from '../ThemeSwitcher';
+import { TranslateProvider } from '../TranslateProvider';
 
 // Mock the hook
 vi.mock(import('../../hooks/useTheme'), async (importOriginal) => {
@@ -14,6 +15,14 @@ vi.mock(import('../../hooks/useTheme'), async (importOriginal) => {
     useTheme: vi.fn(),
   };
 });
+
+const ThemeSwitcherTest = () => {
+  return (
+    <TranslateProvider locale="en" translations={translations}>
+      <ThemeSwitcher />
+    </TranslateProvider>
+  );
+};
 
 describe('ThemeSwitcher', () => {
   let mockSetTheme: ReturnType<typeof vi.fn>;
@@ -51,7 +60,7 @@ describe('ThemeSwitcher', () => {
   });
 
   it('renders theme switcher with all theme options', () => {
-    customRender(<ThemeSwitcher locale="en" translations={translations} />);
+    customRender(<ThemeSwitcherTest />);
 
     expect(screen.getByRole('navigation', { name: /theme switcher/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/switch to light theme/i)).toBeInTheDocument();
@@ -65,7 +74,7 @@ describe('ThemeSwitcher', () => {
       setTheme: mockSetTheme,
     });
 
-    customRender(<ThemeSwitcher locale="en" translations={translations} />);
+    customRender(<ThemeSwitcherTest />);
 
     const darkButton = screen.getByLabelText(/switch to dark theme/i);
     expect(darkButton).toHaveAttribute('aria-current', 'page');
@@ -73,7 +82,7 @@ describe('ThemeSwitcher', () => {
 
   it('calls setTheme when clicking a theme button', async () => {
     const user = userEvent.setup();
-    customRender(<ThemeSwitcher locale="en" translations={translations} />);
+    customRender(<ThemeSwitcherTest />);
 
     const darkButton = screen.getByLabelText(/switch to dark theme/i);
     await user.click(darkButton);
@@ -82,7 +91,7 @@ describe('ThemeSwitcher', () => {
   });
 
   it('updates active state when theme changes', () => {
-    const { rerender } = customRender(<ThemeSwitcher locale="en" translations={translations} />);
+    const { rerender } = customRender(<ThemeSwitcherTest />);
 
     let darkButton = screen.getByLabelText(/switch to dark theme/i);
     expect(darkButton).not.toHaveAttribute('aria-current', 'page');
@@ -92,14 +101,14 @@ describe('ThemeSwitcher', () => {
       setTheme: mockSetTheme,
     });
 
-    rerender(<ThemeSwitcher locale="en" translations={translations} />);
+    rerender(<ThemeSwitcher />);
 
     darkButton = screen.getByLabelText(/switch to dark theme/i);
     expect(darkButton).toHaveAttribute('aria-current', 'page');
   });
 
   it('renders with accessible labels and icons', () => {
-    customRender(<ThemeSwitcher locale="en" translations={translations} />);
+    customRender(<ThemeSwitcherTest />);
 
     const buttons = screen.getAllByRole('button');
     expect(buttons).toHaveLength(3);
@@ -112,7 +121,7 @@ describe('ThemeSwitcher', () => {
 
   describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
     it('should have minimum 48x48px touch targets for theme buttons (via theme-button CSS class)', () => {
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       const buttons = screen.getAllByRole('button');
       buttons.forEach((button) => {
@@ -123,7 +132,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should have 24px icon size inside theme buttons', () => {
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       // Get the first SVG icon (Sun for Light theme)
       const icons = screen.getAllByRole('button')[0].querySelectorAll('svg');
@@ -136,7 +145,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should have proper button styling for touch target accessibility', () => {
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       const buttons = screen.getAllByRole('button');
       buttons.forEach((button) => {
@@ -153,7 +162,7 @@ describe('ThemeSwitcher', () => {
         setTheme: mockSetTheme,
       });
 
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       const darkButton = screen.getByLabelText(/switch to dark theme/i);
 
@@ -162,7 +171,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should have all theme buttons with proper accessibility attributes', () => {
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       const buttons = screen.getAllByRole('button');
       expect(buttons).toHaveLength(3);
@@ -176,7 +185,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should render theme switcher nav with proper spacing between buttons', () => {
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       const themeList = screen.getByRole('navigation').querySelector('ul');
       expect(themeList).toHaveClass('theme-list');
@@ -184,7 +193,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should have icon inside button for proper touch target interaction', () => {
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       const buttons = screen.getAllByRole('button');
       buttons.forEach((button) => {
@@ -196,7 +205,7 @@ describe('ThemeSwitcher', () => {
 
     it('should support hover state without affecting touch target size', async () => {
       const user = userEvent.setup();
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       const lightButton = screen.getByLabelText(/switch to light theme/i);
 
@@ -211,7 +220,7 @@ describe('ThemeSwitcher', () => {
     });
 
     it('should maintain consistent touch target across all theme options', () => {
-      customRender(<ThemeSwitcher locale="en" translations={translations} />);
+      customRender(<ThemeSwitcherTest />);
 
       const buttons = screen.getAllByRole('button');
       // All three theme buttons should have consistent touch target sizing

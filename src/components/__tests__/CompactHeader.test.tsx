@@ -16,57 +16,37 @@ describe('CompactHeader', () => {
 
   describe('Variant Rendering', () => {
     it('should render mobile variant when variant="mobile"', () => {
-      customRender(
-        <CompactHeader variant="mobile">
-          <span data-testid="test-child">Test</span>
-        </CompactHeader>
-      );
+      customRender(<CompactHeader variant="mobile" />);
 
       // Mobile variant should have the settings button
       expect(screen.getByRole('button', { name: /open settings/i })).toBeInTheDocument();
-      expect(screen.getByTestId('test-child')).toBeInTheDocument();
     });
 
     it('should render desktop variant when variant="desktop"', () => {
-      customRender(
-        <CompactHeader variant="desktop">
-          <span data-testid="test-child">Test</span>
-        </CompactHeader>
-      );
+      customRender(<CompactHeader variant="desktop" />);
 
       // Desktop variant should have the settings button (drawer is now used on all viewports)
       expect(screen.getByRole('button', { name: /open settings/i })).toBeInTheDocument();
-      expect(screen.getByTestId('test-child')).toBeInTheDocument();
     });
 
     it('should render mobile variant when isMobile media query matches with auto variant', () => {
       // Mock useMediaQuery to return true (mobile)
       vi.mocked(useMediaQueryModule.useMediaQuery).mockReturnValue(true);
 
-      customRender(
-        <CompactHeader variant="auto">
-          <span data-testid="test-child">Test</span>
-        </CompactHeader>
-      );
+      customRender(<CompactHeader variant="auto" />);
 
       // Should have settings button when mobile
       expect(screen.getByRole('button', { name: /open settings/i })).toBeInTheDocument();
-      expect(screen.getByTestId('test-child')).toBeInTheDocument();
     });
 
     it('should render desktop variant when isMobile media query does not match with auto variant', () => {
       // Mock useMediaQuery to return false (desktop)
       vi.mocked(useMediaQueryModule.useMediaQuery).mockReturnValue(false);
 
-      customRender(
-        <CompactHeader variant="auto">
-          <span data-testid="test-child">Test</span>
-        </CompactHeader>
-      );
+      customRender(<CompactHeader variant="auto" />);
 
       // Should have settings button when desktop (drawer is now used on all viewports)
       expect(screen.getByRole('button', { name: /open settings/i })).toBeInTheDocument();
-      expect(screen.getByTestId('test-child')).toBeInTheDocument();
     });
   });
 
@@ -115,60 +95,6 @@ describe('CompactHeader', () => {
       expect(header).toHaveClass('sticky', 'top-0', 'z-50', 'w-full');
       expect(header).toHaveClass('bg-card', 'border-b', 'border-border');
       expect(header).toHaveClass('transition-transform', 'duration-300');
-    });
-  });
-
-  describe('Children Rendering', () => {
-    it('should render children in mobile variant', () => {
-      customRender(
-        <CompactHeader variant="mobile">
-          <button type="button" data-testid="custom-button">
-            Custom Button
-          </button>
-        </CompactHeader>
-      );
-
-      expect(screen.getByTestId('custom-button')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /custom button/i })).toBeInTheDocument();
-    });
-
-    it('should render multiple children correctly', () => {
-      customRender(
-        <CompactHeader variant="mobile">
-          <button type="button" data-testid="btn-1">
-            Button 1
-          </button>
-          <button type="button" data-testid="btn-2">
-            Button 2
-          </button>
-          <button type="button" data-testid="btn-3">
-            Button 3
-          </button>
-        </CompactHeader>
-      );
-
-      expect(screen.getByTestId('btn-1')).toBeInTheDocument();
-      expect(screen.getByTestId('btn-2')).toBeInTheDocument();
-      expect(screen.getByTestId('btn-3')).toBeInTheDocument();
-    });
-
-    it('should render children in desktop variant', () => {
-      customRender(
-        <CompactHeader variant="desktop">
-          <div data-testid="controls">Theme & Language Controls</div>
-        </CompactHeader>
-      );
-
-      expect(screen.getByTestId('controls')).toBeInTheDocument();
-      expect(screen.getByText('Theme & Language Controls')).toBeInTheDocument();
-    });
-
-    it('should render with no children', () => {
-      const { container } = customRender(<CompactHeader variant="mobile" />);
-
-      const header = container.querySelector('header');
-      expect(header).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /open settings/i })).toBeInTheDocument();
     });
   });
 
@@ -399,7 +325,7 @@ describe('CompactHeader', () => {
       );
 
       const headerContent = container.querySelector('div[class*="h-16"]');
-      expect(headerContent).toHaveClass('px-4');
+      expect(headerContent).toHaveClass('px-6');
     });
 
     it('desktop variant should have correct padding', () => {
@@ -449,17 +375,6 @@ describe('CompactHeader', () => {
 
       const header = container.querySelector('header');
       expect(header).toHaveClass('custom-class');
-    });
-
-    it('should accept custom settingsButtonClassName', () => {
-      customRender(
-        <CompactHeader variant="mobile" settingsButtonClassName="custom-button-class">
-          <span>Test</span>
-        </CompactHeader>
-      );
-
-      const settingsButton = screen.getByRole('button', { name: /open settings/i });
-      expect(settingsButton).toHaveClass('custom-button-class');
     });
 
     it('should forward data attributes', () => {

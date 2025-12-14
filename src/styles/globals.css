@@ -169,7 +169,7 @@
 }
 
 .locale-list {
-  @apply flex gap-2 list-none m-0 p-0;
+  @apply flex flex-col min-[500px]:flex-row gap-2 list-none m-0 p-0;
 }
 
 .locale-link {

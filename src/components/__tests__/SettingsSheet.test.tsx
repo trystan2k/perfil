@@ -1,16 +1,26 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+import translations from '../../../public/locales/en/translation.json';
 import { customRender } from '../../__mocks__/test-utils';
-import { SettingsSheet } from '../SettingsSheet';
+import { SettingsSheet, type SettingsSheetProps } from '../SettingsSheet';
+import { TranslateProvider } from '../TranslateProvider';
+
+const SettingsSheetTest = (props: SettingsSheetProps) => {
+  return (
+    <TranslateProvider locale="en" translations={translations}>
+      <SettingsSheet {...props}>{props.children}</SettingsSheet>
+    </TranslateProvider>
+  );
+};
 
 describe('SettingsSheet', () => {
   describe('Visibility', () => {
     it('should hide drawer when isOpen is false', () => {
       customRender(
-        <SettingsSheet isOpen={false} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={false} onClose={vi.fn()}>
           <div data-testid="sheet-content">Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       // Drawer should be in DOM but hidden with translate-x-full
@@ -21,9 +31,9 @@ describe('SettingsSheet', () => {
 
     it('should show drawer when isOpen is true', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div data-testid="sheet-content">Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(screen.getByRole('dialog')).toBeInTheDocument();
@@ -33,18 +43,18 @@ describe('SettingsSheet', () => {
 
     it('should toggle visibility based on isOpen prop', () => {
       const { rerender } = customRender(
-        <SettingsSheet isOpen={false} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={false} onClose={vi.fn()}>
           <div data-testid="sheet-content">Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const drawer = screen.getByRole('dialog');
       expect(drawer).toHaveClass('translate-x-full');
 
       rerender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div data-testid="sheet-content">Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(drawer).toHaveClass('translate-x-0');
@@ -54,9 +64,9 @@ describe('SettingsSheet', () => {
   describe('Close Button', () => {
     it('should render close button when sheet is open', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(screen.getByRole('button', { name: /close settings/i })).toBeInTheDocument();
@@ -67,9 +77,9 @@ describe('SettingsSheet', () => {
       const onClose = vi.fn();
 
       customRender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const closeButton = screen.getByRole('button', { name: /close settings/i });
@@ -80,9 +90,9 @@ describe('SettingsSheet', () => {
 
     it('should have aria-label on close button', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const closeButton = screen.getByRole('button', { name: /close settings/i });
@@ -91,9 +101,9 @@ describe('SettingsSheet', () => {
 
     it('should have title attribute on close button', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const closeButton = screen.getByRole('button', { name: /close settings/i });
@@ -102,9 +112,9 @@ describe('SettingsSheet', () => {
 
     it('should have proper button type', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const closeButton = screen.getByRole('button', { name: /close settings/i });
@@ -118,9 +128,9 @@ describe('SettingsSheet', () => {
       const onClose = vi.fn();
 
       const { container } = customRender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       // Find the backdrop (the overlay div before the dialog)
@@ -137,11 +147,11 @@ describe('SettingsSheet', () => {
       const onClose = vi.fn();
 
       customRender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <button type="button" data-testid="content-button">
             Click me
           </button>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const contentButton = screen.getByTestId('content-button');
@@ -152,9 +162,9 @@ describe('SettingsSheet', () => {
 
     it('should have backdrop with aria-hidden attribute', () => {
       const { container } = customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const backdrop = container.querySelector('div[aria-hidden="true"]');
@@ -168,9 +178,9 @@ describe('SettingsSheet', () => {
       const onClose = vi.fn();
 
       customRender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <div data-testid="sheet-content">Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       await user.keyboard('{Escape}');
@@ -183,9 +193,9 @@ describe('SettingsSheet', () => {
       const onClose = vi.fn();
 
       customRender(
-        <SettingsSheet isOpen={false} onClose={onClose}>
+        <SettingsSheetTest isOpen={false} onClose={onClose}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       await user.keyboard('{Escape}');
@@ -198,9 +208,9 @@ describe('SettingsSheet', () => {
       const onClose = vi.fn();
 
       const { rerender } = customRender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       await user.keyboard('{Escape}');
@@ -209,9 +219,9 @@ describe('SettingsSheet', () => {
       // Close and reopen
       onClose.mockClear();
       rerender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       await user.keyboard('{Escape}');
@@ -222,10 +232,10 @@ describe('SettingsSheet', () => {
   describe('Focus Management', () => {
     it('should focus first focusable element when sheet opens', async () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <input data-testid="first-input" type="text" placeholder="First" />
           <input data-testid="second-input" type="text" placeholder="Second" />
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const firstInput = screen.getByTestId('first-input') as HTMLInputElement;
@@ -236,9 +246,9 @@ describe('SettingsSheet', () => {
 
     it('should focus close button if no other focusable elements', async () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Static content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const closeButton = screen.getByRole('button', { name: /close settings/i });
@@ -248,14 +258,14 @@ describe('SettingsSheet', () => {
 
     it('should trap focus within sheet when open', async () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <button type="button" data-testid="sheet-button-1">
             Button 1
           </button>
           <button type="button" data-testid="sheet-button-2">
             Button 2
           </button>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const button1 = screen.getByTestId('sheet-button-1');
@@ -277,11 +287,11 @@ describe('SettingsSheet', () => {
           <button type="button" data-testid="trigger-button">
             Open Sheet
           </button>
-          <SettingsSheet isOpen={true} onClose={onClose}>
+          <SettingsSheetTest isOpen={true} onClose={onClose}>
             <button type="button" data-testid="sheet-button">
               Sheet Button
             </button>
-          </SettingsSheet>
+          </SettingsSheetTest>
         </>
       );
 
@@ -295,12 +305,12 @@ describe('SettingsSheet', () => {
 
     it('should find focusable elements by various selectors', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <button type="button">Sheet Button</button>
           <a href="/">Link</a>
           <input type="text" placeholder="Text input" />
           <textarea placeholder="Text area"></textarea>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(screen.getByText('Sheet Button')).toBeInTheDocument();
@@ -313,9 +323,9 @@ describe('SettingsSheet', () => {
   describe('Body Overflow', () => {
     it('should hide body overflow when sheet is open', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(document.body.style.overflow).toBe('hidden');
@@ -326,17 +336,17 @@ describe('SettingsSheet', () => {
       document.body.style.overflow = 'auto';
 
       const { rerender } = customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(document.body.style.overflow).toBe('hidden');
 
       rerender(
-        <SettingsSheet isOpen={false} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={false} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(document.body.style.overflow).toBe('auto');
@@ -349,9 +359,9 @@ describe('SettingsSheet', () => {
       document.body.style.overflow = 'auto';
 
       customRender(
-        <SettingsSheet isOpen={false} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={false} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(document.body.style.overflow).toBe('auto');
@@ -361,9 +371,9 @@ describe('SettingsSheet', () => {
   describe('ARIA Attributes', () => {
     it('should have role="dialog" on sheet container', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(screen.getByRole('dialog')).toBeInTheDocument();
@@ -371,9 +381,9 @@ describe('SettingsSheet', () => {
 
     it('should have aria-modal="true" on sheet container', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const dialog = screen.getByRole('dialog');
@@ -382,23 +392,23 @@ describe('SettingsSheet', () => {
 
     it('should have aria-labelledby pointing to title', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()} title="Sheet Title">
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const dialog = screen.getByRole('dialog');
       expect(dialog).toHaveAttribute('aria-labelledby', 'settings-drawer-title');
 
-      const title = screen.getByText('Sheet Title');
+      const title = screen.getByText('Settings');
       expect(title).toHaveAttribute('id', 'settings-drawer-title');
     });
 
     it('should have proper ARIA attributes when title is not provided', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const dialog = screen.getByRole('dialog');
@@ -410,21 +420,11 @@ describe('SettingsSheet', () => {
   });
 
   describe('Title Rendering', () => {
-    it('should render provided title', () => {
+    it('should render title', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()} title="Custom Title">
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
-      );
-
-      expect(screen.getByText('Custom Title')).toBeInTheDocument();
-    });
-
-    it('should render default title "Settings" when not provided', () => {
-      customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
-          <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(screen.getByText('Settings')).toBeInTheDocument();
@@ -432,12 +432,12 @@ describe('SettingsSheet', () => {
 
     it('should have proper styling on title', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()} title="Test Title">
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
-      const title = screen.getByText('Test Title');
+      const title = screen.getByText('Settings');
       expect(title).toHaveClass('text-lg', 'font-semibold', 'text-foreground');
     });
   });
@@ -445,9 +445,9 @@ describe('SettingsSheet', () => {
   describe('Content Rendering', () => {
     it('should render children content', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div data-testid="custom-content">Custom Content Here</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(screen.getByTestId('custom-content')).toBeInTheDocument();
@@ -456,11 +456,11 @@ describe('SettingsSheet', () => {
 
     it('should render multiple children', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div data-testid="child-1">Child 1</div>
           <div data-testid="child-2">Child 2</div>
           <div data-testid="child-3">Child 3</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(screen.getByTestId('child-1')).toBeInTheDocument();
@@ -470,7 +470,7 @@ describe('SettingsSheet', () => {
 
     it('should render complex nested content', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>
             <section>
               <h3>Section Title</h3>
@@ -479,7 +479,7 @@ describe('SettingsSheet', () => {
               </button>
             </section>
           </div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       expect(screen.getByText('Section Title')).toBeInTheDocument();
@@ -490,9 +490,9 @@ describe('SettingsSheet', () => {
   describe('CSS Safe Area Insets', () => {
     it('should apply safe-area-inset-bottom to sheet container', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const sheetContainer = screen.getByRole('dialog');
@@ -501,9 +501,9 @@ describe('SettingsSheet', () => {
 
     it('should apply safe-area insets to content area', () => {
       const { container } = customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       // Check that content div has safe-area classes
@@ -515,9 +515,9 @@ describe('SettingsSheet', () => {
   describe('Layout Styling', () => {
     it('should have proper backdrop styling', () => {
       const { container } = customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const backdrop = container.querySelector('div[class*="bg-black"]');
@@ -533,9 +533,9 @@ describe('SettingsSheet', () => {
 
     it('should have proper drawer container styling', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const drawerContainer = screen.getByRole('dialog');
@@ -551,9 +551,9 @@ describe('SettingsSheet', () => {
 
     it('should have border-l styling on drawer', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const drawerContainer = screen.getByRole('dialog');
@@ -562,9 +562,9 @@ describe('SettingsSheet', () => {
 
     it('should have shadow styling on drawer', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const drawerContainer = screen.getByRole('dialog');
@@ -573,9 +573,9 @@ describe('SettingsSheet', () => {
 
     it('should have width and animation styling', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const drawerContainer = screen.getByRole('dialog');
@@ -590,9 +590,9 @@ describe('SettingsSheet', () => {
   describe('Custom Styling Props', () => {
     it('should accept custom className', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()} className="custom-sheet-class">
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()} className="custom-sheet-class">
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const sheetContainer = screen.getByRole('dialog');
@@ -601,9 +601,9 @@ describe('SettingsSheet', () => {
 
     it('should accept custom contentClassName', () => {
       const { container } = customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()} contentClassName="custom-content-class">
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()} contentClassName="custom-content-class">
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       // Find the content div by looking for the one with custom class
@@ -615,9 +615,9 @@ describe('SettingsSheet', () => {
   describe('Header Structure', () => {
     it('should have sticky header that stays on top of scrollable content', () => {
       const { container } = customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const header = container.querySelector('div[class*="sticky"]');
@@ -627,12 +627,12 @@ describe('SettingsSheet', () => {
 
     it('should have header with title and close button in flex layout', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()} title="Test">
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
-      const title = screen.getByText('Test');
+      const title = screen.getByText('Settings');
       const closeButton = screen.getByRole('button', { name: /close settings/i });
 
       // Both should be present in the header
@@ -647,11 +647,11 @@ describe('SettingsSheet', () => {
       const onClose = vi.fn();
 
       const { rerender } = customRender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <button type="button" data-testid="action">
             Action
           </button>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       // Drawer should be open
@@ -665,11 +665,11 @@ describe('SettingsSheet', () => {
 
       // Rerender as closed
       rerender(
-        <SettingsSheet isOpen={false} onClose={onClose}>
+        <SettingsSheetTest isOpen={false} onClose={onClose}>
           <button type="button" data-testid="action">
             Action
           </button>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       // Drawer should be hidden (translate-x-full) but still in DOM
@@ -683,9 +683,9 @@ describe('SettingsSheet', () => {
       // Test close button
       const onClose1 = vi.fn();
       customRender(
-        <SettingsSheet isOpen={true} onClose={onClose1}>
+        <SettingsSheetTest isOpen={true} onClose={onClose1}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const closeButton = screen.getByRole('button', { name: /close settings/i });
@@ -700,14 +700,14 @@ describe('SettingsSheet', () => {
       const onClick2 = vi.fn();
 
       customRender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <button type="button" data-testid="btn1" onClick={onClick1}>
             Button 1
           </button>
           <button type="button" data-testid="btn2" onClick={onClick2}>
             Button 2
           </button>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       const btn1 = screen.getByTestId('btn1');
@@ -728,16 +728,16 @@ describe('SettingsSheet', () => {
       const onClose = vi.fn();
 
       const { rerender } = customRender(
-        <SettingsSheet isOpen={true} onClose={onClose}>
+        <SettingsSheetTest isOpen={true} onClose={onClose}>
           <div>Content</div>
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       for (let i = 0; i < 5; i++) {
         rerender(
-          <SettingsSheet isOpen={i % 2 === 0} onClose={onClose}>
+          <SettingsSheetTest isOpen={i % 2 === 0} onClose={onClose}>
             <div>Content</div>
-          </SettingsSheet>
+          </SettingsSheetTest>
         );
       }
 
@@ -747,24 +747,13 @@ describe('SettingsSheet', () => {
 
     it('should handle empty children', () => {
       customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()}>
+        <SettingsSheetTest isOpen={true} onClose={vi.fn()}>
           {null}
-        </SettingsSheet>
+        </SettingsSheetTest>
       );
 
       // Should still render the sheet structure
       expect(screen.getByRole('dialog')).toBeInTheDocument();
-    });
-
-    it('should handle undefined title', () => {
-      customRender(
-        <SettingsSheet isOpen={true} onClose={vi.fn()} title={undefined}>
-          <div>Content</div>
-        </SettingsSheet>
-      );
-
-      // Should use default title
-      expect(screen.getByText('Settings')).toBeInTheDocument();
     });
   });
 });

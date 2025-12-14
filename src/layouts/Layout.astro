@@ -1,8 +1,8 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import { pwaInfo } from 'virtual:pwa-info';
-import { CompactHeaderWithProviders } from '../components/CompactHeaderWithProviders';
 import { ErrorStateProviderWrapper } from '../components/ErrorStateProviderWrapper';
+import { Header } from '../components/Header';
 import { PwaUpdater } from '../components/PwaUpdater';
 import type { SupportedLocale } from '../i18n/locales';
 import { getTranslateFunction, type TranslationValue } from '../i18n/utils';
@@ -41,25 +41,18 @@ const t = getTranslateFunction(translations, currentLocale);
     <ClientRouter />
   </head>
   <body>
-    <ErrorStateProviderWrapper locale={currentLocale} translations={translations} client:load>
-      <a href="#main-content" class="skip-link">{t('layout.skipToMain')}</a>
-      <CompactHeaderWithProviders
-        client:load
-        locale={currentLocale}
-        currentPath={currentPath}
-        translations={translations}
-        settingsAriaLabel={t('compactHeader.settingsAriaLabel')}
-        settingsTitle={t('compactHeader.settingsTitle')}
-        drawerTitle={t('settingsSheet.title')}
-        drawerCloseAriaLabel={t('settingsSheet.closeAriaLabel')}
-        themeLabel={t('compactHeaderWithProviders.themeLabel')}
-        languageLabel={t('compactHeaderWithProviders.languageLabel')}
-        enableAutoHide={false}
-      />
-      <main id="main-content">
-        <slot />
-      </main>
-    </ErrorStateProviderWrapper>
+    <a href="#main-content" class="skip-link">{t('layout.skipToMain')}</a>
+    <Header
+      client:load
+      locale={currentLocale}
+      currentPath={currentPath}
+      translations={translations}
+      enableAutoHide={false}
+    />
+    <main id="main-content">
+      <slot />
+    </main>
+    <ErrorStateProviderWrapper locale={currentLocale} translations={translations} client:load />
     <PwaUpdater client:idle locale={currentLocale} translations={translations} />
   </body>
 </html>

@@ -1,9 +1,7 @@
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { useEffect } from 'react';
 import { THEMES, useTheme } from '@/hooks/useTheme';
-import type { SupportedLocale } from '../i18n/locales';
-import type { TranslationValue } from '../i18n/utils';
-import { TranslateProvider, useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider';
 
 const themes = [
   { code: THEMES.light, icon: Sun },
@@ -11,20 +9,7 @@ const themes = [
   { code: THEMES.system, icon: Monitor },
 ] as const;
 
-type ThemeSwitcherProps = {
-  locale: SupportedLocale;
-  translations: TranslationValue;
-};
-
-export const ThemeSwitcher = ({ locale, translations }: ThemeSwitcherProps) => {
-  return (
-    <TranslateProvider locale={locale} translations={translations}>
-      <ThemeSwitcherRaw />
-    </TranslateProvider>
-  );
-};
-
-function ThemeSwitcherRaw() {
+export const ThemeSwitcher = () => {
   const { t } = useTranslate();
   const { theme: currentTheme, setTheme } = useTheme();
   type ThemeCode = (typeof themes)[number]['code'];
@@ -82,4 +67,4 @@ function ThemeSwitcherRaw() {
       </ul>
     </nav>
   );
-}
+};

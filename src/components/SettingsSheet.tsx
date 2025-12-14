@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
 import { type ReactNode, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { useTranslate } from './TranslateProvider';
 
 export interface SettingsSheetProps {
   /**
@@ -16,16 +17,6 @@ export interface SettingsSheetProps {
    * - Backdrop click
    */
   onClose: () => void;
-
-  /**
-   * Title of the drawer (for accessibility)
-   */
-  title?: string;
-
-  /**
-   * Aria label for the close button
-   */
-  closeAriaLabel?: string;
 
   /**
    * Content to render inside the drawer
@@ -62,8 +53,6 @@ export interface SettingsSheetProps {
  * <SettingsSheet
  *   isOpen={isOpen}
  *   onClose={() => setIsOpen(false)}
- *   title="Settings"
- *   closeAriaLabel="Close settings"
  * >
  *   <ThemeSwitcher />
  *   <LanguageSwitcher />
@@ -73,8 +62,6 @@ export interface SettingsSheetProps {
 export function SettingsSheet({
   isOpen,
   onClose,
-  title = 'Settings',
-  closeAriaLabel = 'Close settings',
   children,
   className,
   contentClassName,
@@ -82,6 +69,8 @@ export function SettingsSheet({
   const drawerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
+
+  const { t } = useTranslate();
 
   // Handle focus trap and Escape key
   useEffect(() => {
@@ -164,19 +153,23 @@ export function SettingsSheet({
         aria-labelledby="settings-drawer-title"
       >
         {/* Drawer header - aligned with header height */}
-        <div className="sticky top-0 bg-card border-b border-border px-4 py-2">
-          <div className="flex items-center justify-between gap-4">
+        <div className="sticky top-0 bg-card border-b border-border px-4 pt-[env(safe-area-inset-top)]">
+          <div className="flex items-center justify-between gap-4 h-16 px-6">
             {/* Title */}
-            <h2 id="settings-drawer-title" className="text-lg font-semibold text-foreground">
-              {title}
+            <h2
+              id="settings-drawer-title"
+              className="text-lg font-semibold text-foreground flex-1 text-center"
+            >
+              {t('settingsSheet.title')}
             </h2>
 
             {/* Close button - positioned to align with settings button in header */}
             <button
               type="button"
               onClick={onClose}
-              aria-label={closeAriaLabel}
+              aria-label={t('settingsSheet.closeAriaLabel')}
               className={cn(
+                'absolute right-6 z-10',
                 'flex items-center justify-center',
                 'w-12 h-12 min-w-12 min-h-12', // 48px touch target (matches settings button)
                 'rounded-md',
@@ -186,7 +179,7 @@ export function SettingsSheet({
                 'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
                 'active:bg-primary/20'
               )}
-              title={closeAriaLabel}
+              title={t('settingsSheet.closeAriaLabel')}
             >
               <X className="w-6 h-6" strokeWidth={1.5} aria-hidden="true" />
             </button>

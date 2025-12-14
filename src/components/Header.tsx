@@ -6,8 +6,10 @@ import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { useAutoHideHeader } from '@/hooks/useAutoHideHeader';
 import type { SupportedLocale } from '@/i18n/locales';
 import type { TranslationValue } from '@/i18n/utils';
+import { ErrorBoundary } from './ErrorBoundary';
+import { TranslateProvider, useTranslate } from './TranslateProvider';
 
-interface CompactHeaderWithProvidersProps {
+interface HeaderProps {
   /**
    * Current locale for language switcher
    */
@@ -24,36 +26,6 @@ interface CompactHeaderWithProvidersProps {
   translations: TranslationValue;
 
   /**
-   * Aria label for settings button (from server-side translations)
-   */
-  settingsAriaLabel?: string;
-
-  /**
-   * Title for settings button (from server-side translations)
-   */
-  settingsTitle?: string;
-
-  /**
-   * Title for the settings drawer (from server-side translations)
-   */
-  drawerTitle?: string;
-
-  /**
-   * Close aria label for the settings drawer (from server-side translations)
-   */
-  drawerCloseAriaLabel?: string;
-
-  /**
-   * Theme label for the settings drawer (from server-side translations)
-   */
-  themeLabel?: string;
-
-  /**
-   * Language label for the settings drawer (from server-side translations)
-   */
-  languageLabel?: string;
-
-  /**
    * Enable auto-hide on scroll (mobile only)
    * Default: true
    */
@@ -66,8 +38,19 @@ interface CompactHeaderWithProvidersProps {
   autoHideThreshold?: number;
 }
 
+export const Header = (props: HeaderProps) => {
+  const { locale, translations, ...rest } = props;
+  return (
+    <TranslateProvider locale={locale} translations={translations}>
+      <ErrorBoundary loggingContext="Header">
+        <HeaderRaw {...rest} />
+      </ErrorBoundary>
+    </TranslateProvider>
+  );
+};
+
 /**
- * CompactHeaderWithProviders: Complete header solution
+ * Header: Complete header solution
  *
  * Combines:
  * - CompactHeader component (responsive header with settings button)
@@ -83,33 +66,19 @@ interface CompactHeaderWithProvidersProps {
  *
  * Usage:
  * ```tsx
- * <CompactHeaderWithProviders
- *   locale={currentLocale}
+ * <Header
  *   currentPath={currentPath}
- *   translations={translations}
- *   settingsAriaLabel="Open settings"
- *   settingsTitle="Settings"
- *   drawerTitle="Settings"
- *   drawerCloseAriaLabel="Close settings"
- *   themeLabel="Theme"
- *   languageLabel="Language"
  *   enableAutoHide={true}
+ *   autoHideThreshold={50}
  * />
  * ```
  */
-export function CompactHeaderWithProviders({
-  locale,
+const HeaderRaw = ({
   currentPath,
-  translations,
-  settingsAriaLabel = 'Open settings',
-  settingsTitle = 'Settings',
-  drawerTitle = 'Settings',
-  drawerCloseAriaLabel = 'Close settings',
-  themeLabel = 'Theme',
-  languageLabel = 'Language',
   enableAutoHide = true,
   autoHideThreshold = 50,
-}: CompactHeaderWithProvidersProps) {
+}: Omit<HeaderProps, 'locale' | 'translations'>) => {
+  const { t } = useTranslate();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const { isVisible } = useAutoHideHeader({
@@ -123,38 +92,23 @@ export function CompactHeaderWithProviders({
         variant="auto"
         isVisible={isVisible}
         onSettingsClick={() => setIsSettingsOpen(true)}
-        settingsAriaLabel={settingsAriaLabel}
-        settingsTitle={settingsTitle}
-      >
-        {/* Settings button alone - all switchers are now in the drawer */}
-      </CompactHeader>
-
-      <SettingsSheet
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        title={drawerTitle}
-        closeAriaLabel={drawerCloseAriaLabel}
-      >
+      />
+      <SettingsSheet isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)}>
         {/* Settings sheet content - centered layout for all viewports */}
         <div className="flex flex-col items-center gap-3 w-full">
-          <h3 className="text-sm font-semibold text-foreground">{themeLabel}</h3>
+          <h3 className="text-sm font-semibold text-foreground">{t('header.themeLabel')}</h3>
           <div className="flex justify-center w-full">
-            <ThemeSwitcher locale={locale} translations={translations} />
+            <ThemeSwitcher />
           </div>
         </div>
 
         <div className="flex flex-col items-center gap-3 w-full">
-          <h3 className="text-sm font-semibold text-foreground">{languageLabel}</h3>
+          <h3 className="text-sm font-semibold text-foreground">{t('header.languageLabel')}</h3>
           <div className="flex justify-center w-full">
-            <LanguageSwitcher
-              currentLocale={locale}
-              currentPath={currentPath}
-              locale={locale}
-              translations={translations}
-            />
+            <LanguageSwitcher currentPath={currentPath} />
           </div>
         </div>
       </SettingsSheet>
     </>
   );
-}
+};

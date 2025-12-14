@@ -79,9 +79,10 @@ describe('GamePlay Component', () => {
     it('should show "gamePlay.errors.loadFailed" message when status is pending', () => {
       // Store starts in pending state by default
       customRender(
-        <ErrorStateProvider>
+        <>
           <GamePlay />
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(
@@ -109,9 +110,10 @@ describe('GamePlay Component', () => {
       });
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <GamePlay />
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(
@@ -125,9 +127,10 @@ describe('GamePlay Component', () => {
       store.startGame(['Movies']);
 
       customRender(
-        <ErrorStateProvider>
+        <>
           <GamePlay />
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       expect(screen.getByText('Game Play')).toBeInTheDocument();
@@ -385,9 +388,10 @@ describe('GamePlay Component', () => {
 
     it('should render without loading when no sessionId provided and no game in store', () => {
       customRender(
-        <ErrorStateProvider>
+        <>
           <GamePlay />
-        </ErrorStateProvider>
+          <ErrorStateProvider />
+        </>
       );
 
       // Should show "Failed to load game session. Please try again." immediately without loading

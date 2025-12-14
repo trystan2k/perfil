@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import { navigateWithLocale } from '@/i18n/locales';
 import { useGameStore } from '../stores/gameStore';
 import { useTranslate } from './TranslateProvider';
@@ -12,15 +12,11 @@ import {
   DialogTitle,
 } from './ui/dialog';
 
-interface ErrorStateProviderProps {
-  children: ReactNode;
-}
-
 /**
  * Global error state provider that displays error overlays when errors occur
  * Subscribes to the gameStore error state and shows a modal with recovery options
  */
-export function ErrorStateProvider({ children }: ErrorStateProviderProps) {
+export function ErrorStateProvider() {
   const { t } = useTranslate();
   const error = useGameStore((state) => state.error);
   const clearError = useGameStore((state) => state.clearError);
@@ -48,7 +44,6 @@ export function ErrorStateProvider({ children }: ErrorStateProviderProps) {
 
   return (
     <>
-      {children}
       {error && (
         <Dialog
           open={true}

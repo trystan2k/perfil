@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { getErrorService } from '@/services/ErrorService';
+import { CompactHeader } from '../CompactHeader';
 import FallbackUI from './FallbackUI';
 
 interface ErrorBoundaryProps {
@@ -52,6 +53,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       hasError: false,
       error: undefined,
     });
+    window.location.reload();
   };
 
   render(): ReactNode {
@@ -68,7 +70,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       }
 
       return (
-        <FallbackUI error={error} onRetry={this.handleRetry} loggingContext={loggingContext} />
+        <>
+          <CompactHeader variant="auto" isVisible={true} onSettingsClick={() => {}} />
+          <FallbackUI error={error} onRetry={this.handleRetry} loggingContext={loggingContext} />
+        </>
       );
     }
 

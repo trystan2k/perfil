@@ -33,7 +33,7 @@
     "title": "Configuración",
     "closeAriaLabel": "Cerrar configuración"
   },
-  "compactHeaderWithProviders": {
+  "header": {
     "themeLabel": "Tema",
     "languageLabel": "Idioma"
   },
@@ -42,7 +42,7 @@
     "switchTo": "Cambiar a {{language}}",
     "warning": {
       "title": "¿Cambiar Idioma?",
-      "description": "Cambiar el idioma finalizará tu juego actual y perderás todo el progreso. Serás redirigido a la página de inicio para comenzar un nuevo juego.",
+      "description": "Cambiar el idioma reiniciará tu juego actual y perderás todo el progreso.",
       "confirm": "Cambiar Idioma",
       "cancel": "Cancelar"
     }

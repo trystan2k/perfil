@@ -33,7 +33,7 @@
     "title": "Settings",
     "closeAriaLabel": "Close settings"
   },
-  "compactHeaderWithProviders": {
+  "header": {
     "themeLabel": "Theme",
     "languageLabel": "Language"
   },
@@ -42,7 +42,7 @@
     "switchTo": "Switch to {{language}}",
     "warning": {
       "title": "Change Language?",
-      "description": "Changing the language will end your current game and you'll lose all progress. You'll be redirected to the home page to start a new game.",
+      "description": "Changing the language will restart your current game and you'll lose all progress.",
       "confirm": "Change Language",
       "cancel": "Cancel"
     }

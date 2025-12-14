@@ -2,18 +2,28 @@ import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import translations from '../../../public/locales/en/translation.json';
 import { customRender } from '../../__mocks__/test-utils';
-import { LanguageSwitcher } from '../LanguageSwitcher';
+import type { SupportedLocale } from '../../i18n/locales';
+import { LanguageSwitcher, type LanguageSwitcherProps } from '../LanguageSwitcher';
+import { TranslateProvider } from '../TranslateProvider';
 
 const defaultProps = {
-  currentLocale: 'en' as const,
   currentPath: '/game',
-  locale: 'en' as const,
-  translations,
+};
+
+const LanguageSwitcherTest = (
+  props: LanguageSwitcherProps & { currentLocale?: SupportedLocale }
+) => {
+  const { currentLocale, ...restProps } = props;
+  return (
+    <TranslateProvider locale={currentLocale || 'en'} translations={translations}>
+      <LanguageSwitcher {...restProps} />
+    </TranslateProvider>
+  );
 };
 
 describe('LanguageSwitcher', () => {
   it('renders language switcher with all language options', () => {
-    customRender(<LanguageSwitcher {...defaultProps} />);
+    customRender(<LanguageSwitcherTest {...defaultProps} />);
 
     expect(screen.getByRole('navigation', { name: /language selector/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /switch to english/i })).toBeInTheDocument();
@@ -22,14 +32,14 @@ describe('LanguageSwitcher', () => {
   });
 
   it('marks current language as active', () => {
-    customRender(<LanguageSwitcher {...defaultProps} currentLocale="es" />);
+    customRender(<LanguageSwitcherTest {...defaultProps} currentLocale="es" />);
 
     const spanishLink = screen.getByRole('link', { name: /switch to español/i });
     expect(spanishLink).toHaveAttribute('aria-current', 'page');
   });
 
   it('navigates to correct URL when clicking a language link', () => {
-    customRender(<LanguageSwitcher {...defaultProps} />);
+    customRender(<LanguageSwitcherTest {...defaultProps} />);
 
     const spanishLink = screen.getByRole('link', { name: /switch to español/i });
     // For English path /game, Spanish should be /es/game
@@ -37,7 +47,7 @@ describe('LanguageSwitcher', () => {
   });
 
   it('generates correct URLs for default locale (English)', () => {
-    customRender(<LanguageSwitcher {...defaultProps} currentPath="/en/game" />);
+    customRender(<LanguageSwitcherTest {...defaultProps} currentPath="/en/game" />);
 
     const englishLink = screen.getByRole('link', { name: /switch to english/i });
     // English should have /en prefix
@@ -45,7 +55,7 @@ describe('LanguageSwitcher', () => {
   });
 
   it('renders language names and flags', () => {
-    customRender(<LanguageSwitcher {...defaultProps} />);
+    customRender(<LanguageSwitcherTest {...defaultProps} />);
 
     expect(screen.getByText('English')).toBeInTheDocument();
     expect(screen.getByText('Español')).toBeInTheDocument();
@@ -58,7 +68,7 @@ describe('LanguageSwitcher', () => {
 
   it('generates correct URLs for Portuguese locale', () => {
     customRender(
-      <LanguageSwitcher {...defaultProps} currentLocale="pt-BR" currentPath="/pt-BR/game" />
+      <LanguageSwitcherTest {...defaultProps} currentLocale="pt-BR" currentPath="/pt-BR/game" />
     );
 
     const portugueseLink = screen.getByRole('link', { name: /switch to português/i });
@@ -66,11 +76,9 @@ describe('LanguageSwitcher', () => {
   });
 
   it('handles root path correctly', () => {
-    customRender(<LanguageSwitcher {...defaultProps} currentPath="/" />);
+    customRender(<LanguageSwitcherTest {...defaultProps} currentPath="/" />);
 
     const spanishLink = screen.getByRole('link', { name: /switch to español/i });
     expect(spanishLink).toHaveAttribute('href', '/es/');
   });
-
-  // TODO: Re-add accessibility tests after refactoring
 });

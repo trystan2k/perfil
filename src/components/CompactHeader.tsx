@@ -1,9 +1,8 @@
 import { Menu } from 'lucide-react';
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { HTMLAttributes } from 'react';
 import { Logo } from '@/components/Logo';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { MEDIA_QUERIES } from '@/lib/breakpoints';
 import { cn } from '@/lib/utils';
+import { useTranslate } from './TranslateProvider';
 
 export interface CompactHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -24,28 +23,6 @@ export interface CompactHeaderProps extends HTMLAttributes<HTMLDivElement> {
    * When false, header is hidden (slides up off-screen)
    */
   isVisible?: boolean;
-
-  /**
-   * Children to render in the header
-   * - Mobile: settings button + children (controls)
-   * - Desktop: children inline
-   */
-  children?: ReactNode;
-
-  /**
-   * CSS class for the settings button icon
-   */
-  settingsButtonClassName?: string;
-
-  /**
-   * Aria label for settings button
-   */
-  settingsAriaLabel?: string;
-
-  /**
-   * Title for settings button
-   */
-  settingsTitle?: string;
 }
 
 /**
@@ -54,22 +31,13 @@ export interface CompactHeaderProps extends HTMLAttributes<HTMLDivElement> {
  * Renders a 48x48px touch target icon button for opening settings.
  * Used in both mobile and desktop header layouts.
  */
-function SettingsButton({
-  onClick,
-  ariaLabel = 'Open settings',
-  title = 'Settings',
-  className,
-}: {
-  onClick?: () => void;
-  ariaLabel?: string;
-  title?: string;
-  className?: string;
-}) {
+function SettingsButton({ onClick, className }: { onClick?: () => void; className?: string }) {
+  const { t } = useTranslate();
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={ariaLabel}
+      aria-label={t('compactHeader.settingsAriaLabel')}
       aria-haspopup="dialog"
       className={cn(
         'flex items-center justify-center',
@@ -82,7 +50,7 @@ function SettingsButton({
         'active:bg-primary/20',
         className
       )}
-      title={title}
+      title={t('compactHeader.settingsTitle')}
     >
       <Menu className="w-6 h-6" strokeWidth={1.5} aria-hidden="true" />
     </button>
@@ -112,22 +80,9 @@ export function CompactHeader({
   variant = 'auto',
   onSettingsClick,
   isVisible = true,
-  children,
-  settingsButtonClassName,
-  settingsAriaLabel = 'Open settings',
-  settingsTitle = 'Settings',
   className,
   ...props
 }: CompactHeaderProps) {
-  // Use media query for responsive variant selection
-  // Uses MEDIA_QUERIES.mobile from breakpoints.ts (derived from Tailwind config)
-  const isMobile = useMediaQuery(MEDIA_QUERIES.mobile);
-
-  // Determine actual variant to use
-  const actualVariant = variant === 'auto' ? (isMobile ? 'mobile' : 'desktop') : variant;
-
-  const isMobileVariant = actualVariant === 'mobile';
-
   return (
     <header
       data-testid="app-header"
@@ -143,52 +98,15 @@ export function CompactHeader({
       )}
       {...props}
     >
-      {isMobileVariant ? (
-        // Mobile variant: compact layout
-        <div className="flex items-center justify-between h-16 px-4">
-          {/* Controls/children on left side */}
-          <div className="flex items-center gap-2 z-10">{children}</div>
-
-          {/* Center Logo */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Logo />
-          </div>
-
-          {/* Settings button on right */}
-          <SettingsButton
-            onClick={onSettingsClick}
-            ariaLabel={settingsAriaLabel}
-            title={settingsTitle}
-            className={cn('z-10', settingsButtonClassName)}
-          />
+      <div className="flex items-center justify-between h-16 px-6">
+        {/* Center Logo */}
+        <div className="flex-1 flex items-center justify-center z-10">
+          <Logo />
         </div>
-      ) : (
-        // Desktop variant: inline controls layout with settings button
-        <div className="flex items-center justify-between h-16 px-6">
-          {/* Left side: logo/branding */}
-          <div className="flex-1 flex items-center justify-start z-10">
-            {/* Left side content if needed */}
-          </div>
 
-          {/* Center Logo */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Logo />
-          </div>
-
-          {/* Right side: inline controls + settings button */}
-          <div className="flex items-center gap-4 z-10">
-            {children}
-
-            {/* Settings button on right */}
-            <SettingsButton
-              onClick={onSettingsClick}
-              ariaLabel={settingsAriaLabel}
-              title={settingsTitle}
-              className={settingsButtonClassName}
-            />
-          </div>
-        </div>
-      )}
+        {/* Settings button on right */}
+        <SettingsButton onClick={onSettingsClick} className="absolute right-6 z-10" />
+      </div>
     </header>
   );
 }
