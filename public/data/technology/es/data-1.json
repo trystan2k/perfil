@@ -416,6 +416,535 @@
         "difficulty": "hard",
         "source": "technology"
       }
+    },
+    {
+      "id": "profile-0080",
+      "category": "Tecnología",
+      "name": "Redes Sociales",
+      "clues": [
+        "Plataformas de comunicación en línea",
+        "Facebook fundado por Mark Zuckerberg",
+        "Límite de caracteres de Twitter 280",
+        "Instagram compartir fotos",
+        "TikTok plataforma de videos cortos",
+        "LinkedIn redes profesionales",
+        "Snapchat mensajes desapareciendo",
+        "YouTube compartir videos",
+        "Reddit foros de discusión",
+        "Pinterest descubrimiento visual",
+        "WhatsApp aplicación de mensajería",
+        "Marketing de influencers",
+        "Difusión de contenido viral",
+        "Contenido generado por usuarios",
+        "Curación de contenido algorítmica",
+        "Plataforma de publicidad digital",
+        "Revolución de redes sociales",
+        "Diseño móvil primero",
+        "Comunicación en tiempo real",
+        "Conectividad global"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "modern-tech"
+      }
+    },
+    {
+      "id": "profile-0081",
+      "category": "Tecnología",
+      "name": "Vehículo Eléctrico",
+      "clues": [
+        "Transporte alimentado por batería",
+        "Tesla Model S pionero",
+        "Cero emisiones de escape",
+        "Sistema de frenado regenerativo",
+        "Propulsión de motor eléctrico",
+        "Paquete de baterías de iones de litio",
+        "Infraestructura de carga",
+        "Red de cargadores rápidos",
+        "Preocupación de ansiedad de rango",
+        "Capacidad de conducción autónoma",
+        "Incentivos gubernamentales disponibles",
+        "Costos de mantenimiento reducidos",
+        "Entrega de torque instantáneo",
+        "Operación silenciosa",
+        "Soluciones de carga en casa",
+        "Dependencia de red eléctrica",
+        "Futuro del transporte",
+        "Reducción de impacto ambiental"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "modern-tech"
+      }
+    },
+    {
+      "id": "profile-0082",
+      "category": "Tecnología",
+      "name": "Videojuegos",
+      "clues": [
+        "Software de entretenimiento interactivo",
+        "Sistemas de juegos de consola",
+        "Plataformas de juegos de PC",
+        "Aplicaciones de juegos móviles",
+        "Juegos de realidad virtual",
+        "Juegos de realidad aumentada",
+        "Servicios de juegos en la nube",
+        "Competiciones deportivas electrónicas",
+        "Industria de desarrollo de juegos",
+        "Unidades de procesamiento gráfico",
+        "Motores de juego como Unity",
+        "Juegos multijugador en línea",
+        "Modelo de ingresos de microtransacciones",
+        "Plataformas de streaming Twitch",
+        "Comunidades de juegos",
+        "Juegos de rol RPG",
+        "Shooters en primera persona FPS",
+        "Revolución de juegos móviles",
+        "Auge de juegos casuales",
+        "Carreras profesionales de juegos"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-0083",
+      "category": "Tecnología",
+      "name": "Ciberseguridad",
+      "clues": [
+        "Sistemas de protección digital",
+        "Seguridad de red de firewall",
+        "Protección de software antivirus",
+        "Protección de datos de cifrado",
+        "Autenticación de dos factores",
+        "Prevención de ataques de phishing",
+        "Sistemas de detección de malware",
+        "Protección de privacidad VPN",
+        "Gestión de seguridad de contraseñas",
+        "Monitoreo de web oscura",
+        "Defensa de ataques de ransomware",
+        "Prevención de violaciones de datos",
+        "Centros de operaciones de seguridad",
+        "Pruebas de penetración",
+        "Equipos de respuesta a incidentes",
+        "Análisis de inteligencia de amenazas",
+        "Arquitectura de confianza cero",
+        "Investigación forense digital",
+        "Capacidades de guerra cibernética"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "security"
+      }
+    },
+    {
+      "id": "profile-0084",
+      "category": "Tecnología",
+      "name": "Servicios de Streaming",
+      "clues": [
+        "Entrega de contenido bajo demanda",
+        "Netflix pionero de streaming",
+        "Servicios de video bajo demanda",
+        "Modelo basado en suscripción",
+        "Algoritmos de recomendación de contenido",
+        "Producción de programación original",
+        "Calidad Ultra HD 4K",
+        "Streaming en múltiples dispositivos",
+        "Capacidad de descarga sin conexión",
+        "Cultura de ver series seguidas",
+        "Acuerdos de licencia de contenido",
+        "Requisitos de ancho de banda",
+        "Infraestructura basada en la nube",
+        "Plataformas competidoras Disney+",
+        "Amazon Prime Video",
+        "HBO Max streaming",
+        "Biblioteca de contenido Hulu",
+        "Streaming de deportes en vivo",
+        "Distribución global de contenido",
+        "Disrupción de la industria del entretenimiento"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-0085",
+      "category": "Tecnología",
+      "name": "Tecnología Vestible",
+      "clues": [
+        "Dispositivos electrónicos usados en el cuerpo",
+        "Seguimiento de fitness de smartwatch",
+        "Monitoreo de frecuencia cardíaca",
+        "Análisis de patrones de sueño",
+        "Funcionalidad de conteo de pasos",
+        "Seguimiento de ubicación GPS",
+        "Capacidad de pago móvil",
+        "Alertas de notificación",
+        "Monitoreo de métricas de salud",
+        "Líder del mercado Apple Watch",
+        "Rastreadores de fitness Fitbit",
+        "Tecnología de anillo inteligente",
+        "Gafas de realidad aumentada",
+        "Dispositivos de mejora auditiva",
+        "Autenticación biométrica",
+        "Limitaciones de vida útil de la batería",
+        "Fusión de tecnología de moda",
+        "Aplicaciones de atención médica",
+        "Recolección de datos personales",
+        "Integración de ecosistema conectado"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "modern-tech"
+      }
+    },
+    {
+      "id": "profile-0086",
+      "category": "Tecnología",
+      "name": "Redes 5G",
+      "clues": [
+        "Red inalámbrica de quinta generación",
+        "Internet móvil de alta velocidad",
+        "Conectividad de baja latencia",
+        "Soporte masivo de dispositivos IoT",
+        "Capacidad de división de red",
+        "Frecuencias de ondas milimétricas",
+        "Despliegue de celdas pequeñas",
+        "Banda ancha móvil mejorada",
+        "Comunicación de vehículos autónomos",
+        "Infraestructura de ciudad inteligente",
+        "Posibilidades de cirugía remota",
+        "Streaming de realidad aumentada",
+        "Habilitación de juegos en la nube",
+        "Soporte de automatización industrial",
+        "Acceso inalámbrico fijo",
+        "Computación de borde móvil",
+        "Virtualización de red",
+        "Despliegue global de 5G",
+        "Fundamento de tecnología futura"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "telecommunications"
+      }
+    },
+    {
+      "id": "profile-0087",
+      "category": "Tecnología",
+      "name": "Criptomoneda",
+      "clues": [
+        "Sistema de moneda digital",
+        "Bitcoin primera criptomoneda",
+        "Libro mayor de transacciones blockchain",
+        "Finanzas descentralizadas DeFi",
+        "Seguridad criptográfica",
+        "Proceso de validación de minería",
+        "Almacenamiento digital de billetera",
+        "Plataformas de intercambio comercial",
+        "Volatilidad de precios oscilantes",
+        "Funcionalidad de contratos inteligentes",
+        "Blockchain programable Ethereum",
+        "Propiedad digital NFT",
+        "Monedas digitales de bancos centrales",
+        "Desafíos regulatorios",
+        "Preocupaciones de energía ambiental",
+        "Capacidad de transacción anónima",
+        "Pagos transfronterizos",
+        "Disrupción de tecnología financiera",
+        "Futuro del dinero"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "fintech"
+      }
+    },
+    {
+      "id": "profile-0088",
+      "category": "Tecnología",
+      "name": "Hogar Inteligente",
+      "clues": [
+        "Automatización del hogar conectado",
+        "Internet de las Cosas IoT",
+        "Asistentes de control por voz",
+        "Control de termostato inteligente",
+        "Sistemas de iluminación automatizada",
+        "Monitoreo de cámaras de seguridad",
+        "Cerraduras de puerta inteligentes",
+        "Electrodomésticos conectados",
+        "Optimización de gestión de energía",
+        "Integración de entretenimiento del hogar",
+        "Control de aplicación móvil",
+        "Reconocimiento de comandos de voz",
+        "Programación automatizada",
+        "Monitoreo de eficiencia energética",
+        "Acceso remoto al hogar",
+        "Concentradores de altavoz inteligentes",
+        "Sistemas de seguridad del hogar",
+        "Mejora de conveniencia de estilo de vida",
+        "Estándares de vida futuros"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "iot"
+      }
+    },
+    {
+      "id": "profile-0089",
+      "category": "Tecnología",
+      "name": "Realidad Aumentada",
+      "clues": [
+        "Tecnología de superposición digital",
+        "Mejora del mundo real",
+        "Aplicaciones de RA móviles",
+        "Integración de cámara de smartphone",
+        "Fenómeno de juegos Pokémon Go",
+        "Aplicaciones de entrenamiento industrial",
+        "Asistencia de compras minoristas",
+        "Superposiciones de navegación",
+        "Aprendizaje interactivo educativo",
+        "Desarrollo de gafas de RA",
+        "Tecnología de reconocimiento de objetos",
+        "Concepto de computación espacial",
+        "Filtros de redes sociales",
+        "Herramientas de visualización médica",
+        "Asistencia de diseño arquitectónico",
+        "Experiencias interactivas de marketing",
+        "Herramientas de colaboración remota",
+        "Convergencia de realidad mixta",
+        "Interfaz de computación futura"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "emerging-tech"
+      }
+    },
+    {
+      "id": "profile-0090",
+      "category": "Tecnología",
+      "name": "Energía Renovable",
+      "clues": [
+        "Generación de energía sostenible",
+        "Paneles fotovoltaicos solares",
+        "Granjas de turbinas eólicas",
+        "Plantas de energía hidroeléctrica",
+        "Almacenamiento de energía de baterías",
+        "Tecnología de red inteligente",
+        "Extracción de energía geotérmica",
+        "Generación de energía mareomotriz",
+        "Conversión de biomasa combustible",
+        "Reducción de huella de carbono",
+        "Desafíos de integración de red",
+        "Soluciones de almacenamiento de energía",
+        "Sistemas de energía fuera de red",
+        "Transición de energía limpia",
+        "Programas de incentivos gubernamentales",
+        "Mitigación del cambio climático",
+        "Objetivos de independencia energética",
+        "Infraestructura de energía futura",
+        "Desarrollo sostenible"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "green-tech"
+      }
+    },
+    {
+      "id": "profile-0091",
+      "category": "Tecnología",
+      "name": "Tecnología Espacial",
+      "clues": [
+        "Sistemas de exploración espacial",
+        "Tecnología de propulsión de cohetes",
+        "Redes de comunicación por satélite",
+        "Estación Espacial Internacional",
+        "Misiones de exploración de Marte",
+        "Diseños de cohetes reutilizables",
+        "Telescopios de observación espacial",
+        "Navegación por satélite GPS",
+        "Vuelo espacial comercial",
+        "Desarrollo de turismo espacial",
+        "Planes de minería de asteroides",
+        "Establecimiento de base lunar",
+        "Gestión de escombros espaciales",
+        "Fabricación en gravedad cero",
+        "Energía solar espacial",
+        "Comunicación interplanetaria",
+        "Futuro de colonización espacial",
+        "Plataformas de investigación científica",
+        "Exploración de la frontera final"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "aerospace"
+      }
+    },
+    {
+      "id": "profile-0092",
+      "category": "Tecnología",
+      "name": "Edición Genética",
+      "clues": [
+        "Tecnología de modificación de ADN",
+        "Sistema CRISPR-Cas9",
+        "Cambios genéticos de precisión",
+        "Potencial de tratamiento médico",
+        "Capacidad de prevención de enfermedades",
+        "Mejora de cultivos agrícolas",
+        "Preocupaciones de controversia ética",
+        "Supervisión regulatoria necesaria",
+        "Futuro de medicina personalizada",
+        "Aplicaciones de tratamiento de cáncer",
+        "Eliminación de enfermedades genéticas",
+        "Desarrollo de ras mejorados",
+        "Riesgos de bioseguridad",
+        "Cuestiones de propiedad intelectual",
+        "Requisitos de ensayos clínicos",
+        "Colaboración de investigación internacional",
+        "Futuro de la evolución humana",
+        "Revolución de biotecnología"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "biotech"
+      }
+    },
+    {
+      "id": "profile-0093",
+      "category": "Tecnología",
+      "name": "Vehículos Autónomos",
+      "clues": [
+        "Transporte autónomo",
+        "Capacidad de automatización nivel 5",
+        "Tecnología de fusión de sensores",
+        "Sistemas de visión por computadora",
+        "Sensores de mapeo Lidar",
+        "Sistemas de detección de radar",
+        "Algoritmos de aprendizaje automático",
+        "Planificación de navegación de ruta",
+        "Toma de decisiones en tiempo real",
+        "Sistemas de redundancia de seguridad",
+        "Proceso de aprobación regulatoria",
+        "Transformación del transporte urbano",
+        "Potencial de accidentes reducido",
+        "Mejora de accesibilidad de movilidad",
+        "Optimización del flujo de tráfico",
+        "Automatización de estacionamiento",
+        "Sistemas de gestión de flotas",
+        "Requisitos de supervisión humana",
+        "Paradigma de movilidad futura"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "automotive"
+      }
+    },
+    {
+      "id": "profile-0094",
+      "category": "Tecnología",
+      "name": "Comunicación Cuántica",
+      "clues": [
+        "Transferencia de información cuántica",
+        "Canales de comunicación irrompibles",
+        "Principio de entrelazamiento cuántico",
+        "Seguridad criptográfica cuántica",
+        "Desarrollo de internet cuántica",
+        "Concepto de teletransportación cuántica",
+        "Distribución de claves cuánticas",
+        "Integración de computación cuántica",
+        "Aplicaciones de sensado cuántico",
+        "Tecnología de radar cuántico",
+        "Mejora de GPS cuántico",
+        "Sincronización de relojes cuánticos",
+        "Corrección de errores cuánticos",
+        "Almacenamiento de memoria cuántica",
+        "Infraestructura de red cuántica",
+        "Comunicaciones militares cuánticas",
+        "Comunicaciones gubernamentales seguras",
+        "Futuro de la seguridad de la información",
+        "Revolución de tecnología cuántica"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "quantum-tech"
+      }
+    },
+    {
+      "id": "profile-0095",
+      "category": "Tecnología",
+      "name": "Interfaz Cerebro-Computadora",
+      "clues": [
+        "Procesamiento de señales neuronales",
+        "Comunicación cerebral directa",
+        "Computación controlada por pensamiento",
+        "Señales de electroencefalograma EEG",
+        "Tecnología de implante cerebral",
+        "Concepto de encaje neuronal",
+        "Restauración de función motora",
+        "Mejora de entrada sensorial",
+        "Posibilidades de aumento de memoria",
+        "Aceleración del aprendizaje",
+        "Aplicaciones de tratamiento de discapacidad",
+        "Teorías de carga de conciencia",
+        "Preocupaciones de privacidad mental ética",
+        "Debate de mejora humana",
+        "Usos de rehabilitación médica",
+        "Interfaces de control de juegos",
+        "Integración de inteligencia artificial",
+        "Futuro de la evolución humana",
+        "Revolución mente-máquina"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "neurotech"
+      }
+    },
+    {
+      "id": "profile-0096",
+      "category": "Tecnología",
+      "name": "Gemelos Digitales",
+      "clues": [
+        "Replicas físicas virtuales",
+        "Sincronización en tiempo real",
+        "Reflejo de dispositivos IoT",
+        "Mantenimiento predictivo",
+        "Modelado de simulación",
+        "Sistemas de representación digital",
+        "Optimización de fabricación",
+        "Gestión de ciudades inteligentes",
+        "Monitoreo de pacientes de atención médica",
+        "Seguimiento de cadena de suministro",
+        "Gestión de edificios",
+        "Gestión del ciclo de vida del producto",
+        "Optimización del rendimiento",
+        "Capacidades de monitoreo remoto",
+        "Integración de análisis de datos",
+        "Aplicaciones de IoT industriales",
+        "Gestión de activos eficiente",
+        "Transformación digital futura",
+        "Convergencia virtual-física"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "digital-tech"
+      }
     }
   ]
 }

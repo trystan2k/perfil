@@ -416,6 +416,540 @@
         "difficulty": "hard",
         "source": "cinema"
       }
+    },
+    {
+      "id": "profile-0060",
+      "category": "Filmes",
+      "name": "Pulp Fiction",
+      "clues": [
+        "Filme de crime de 1994 dirigido por Quentin Tarantino",
+        "Estrutura narrativa não linear",
+        "Múltiplas histórias interconectadas",
+        "Estrelado por John Travolta e Samuel L. Jackson",
+        "Personagem Uma Thurman Mia Wallace",
+        "Bruce Willis Butch Coolidge pugilista",
+        "Conversação Royale com queijo",
+        "Citação bíblica Ezequiel 25:17",
+        "Cena de agulha de adrenalina",
+        "Relógio de ouro herança familiar",
+        "Concurso de dança no Jack Rabbit Slims",
+        "Cena do porão gimp",
+        "Mistério do conteúdo da maleta",
+        "Assalto à lanchonete de abertura",
+        "Discussão de hambúrgueres",
+        "Debate de massagem nos pés",
+        "Revolverolver pistola",
+        "Cena Zed's dead baby",
+        "Prêmio da Academia de Melhor Roteiro Original",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0061",
+      "category": "Filmes",
+      "name": "O Senhor dos Anéis: A Sociedade do Anel",
+      "clues": [
+        "Filme épico de fantasia de 2001",
+        "Dirigido por Peter Jackson",
+        "Adaptação de romance de J.R.R. Tolkien",
+        "Cenário Terra Média",
+        "Protagonista hobbit Frodo Bolseiro",
+        "Um Anel para governar a todos",
+        "Mago Gandalf o Cinzento",
+        "Herdeiro ranger Aragorn",
+        "Arqueiro elfo Legolas",
+        "Guerreiro anão Gimli",
+        "Humano filho de Gondor Boromir",
+        "Amigos hobbits Merry e Pippin",
+        "Jardineiro leal Samwise Gamgi",
+        "Destino Montanha da Perdição",
+        "Santuário élfico Valfenda",
+        "Jornada minas de Moria",
+        "Demônio antigo Balrog",
+        "Linha Não passarás",
+        "Formação da Sociedade"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "fantasy"
+      }
+    },
+    {
+      "id": "profile-0062",
+      "category": "Filmes",
+      "name": "Forrest Gump",
+      "clues": [
+        "Filme de comédia dramática de 1994",
+        "Tom Hanks personagem principal",
+        "Dirigido por Robert Zemeckis",
+        "Citação A vida é como uma caixa de chocolates",
+        "Linha Corra Forrest Corra",
+        "Protagonista homem simples do Alabama",
+        "Interesse amoroso amiga de infância Jenny",
+        "Comandante do Vietnã Tenente Dan",
+        "Sócio de negócios de camarão Bubba",
+        "Inspiração de dança Elvis Presley",
+        "Diplomacia de ping pong na China",
+        "Testemunha do escândalo Watergate",
+        "Investidor inicial da Apple Computers",
+        "Jornada correndo através do país",
+        "Narrativa de banco contando histórias",
+        "Motivo de pena abertura e fechamento",
+        "Pano de fundo de eventos históricos",
+        "Vencedor do Prêmio da Academia de Melhor Filme",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "drama"
+      }
+    },
+    {
+      "id": "profile-0063",
+      "category": "Filmes",
+      "name": "O Silêncio dos Inocentes",
+      "clues": [
+        "Thriller psicológico de 1991",
+        "Agente do FBI Jodie Foster Clarice Starling",
+        "Canibal Anthony Hopkins Hannibal Lecter",
+        "Dirigido por Jonathan Demme",
+        "Adaptação de romance de Thomas Harris",
+        "Assassino em série Buffalo Bill antagonista",
+        "Conversação quid pro quo",
+        "Linha favas e Chianti",
+        "Comi seu fígado com algumas favas",
+        "Simbolismo casulo de mariposa",
+        "Poço do porão prisão",
+        "Trauma infantil gritos de cordeiros",
+        "Academia de treinamento do FBI",
+        "Cenário Virgínia Ocidental",
+        "Vítima Catherine Martin",
+        "Nome real Jame Gumb",
+        "Vencedor dos Cinco Grandes da Academia",
+        "Elementos de horror psicológico",
+        "Impacto cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "thriller"
+      }
+    },
+    {
+      "id": "profile-0064",
+      "category": "Filmes",
+      "name": "De Volta para o Futuro",
+      "clues": [
+        "Comédia de ficção científica de 1985",
+        "Adolescente Michael J. Fox Marty McFly",
+        "Inventor Christopher Lloyd Doc Brown",
+        "Máquina do tempo DeLorean",
+        "Requisito de energia 1.21 gigawatts",
+        "Velocidade de viagem no tempo 88 milhas por hora",
+        "Cenário passado 1955",
+        "Interferência romance adolescente dos pais",
+        "Baile Encanto sob o mar",
+        "Performance de guitarra Johnny B. Goode",
+        "Localização shopping Twin Pines Mall",
+        "Cidade Hill Valley Califórnia",
+        "Antagonista valentão Biff Tannen",
+        "Pai nerd George McFly",
+        "Mãe Lorraine Baines",
+        "Expressão Great Scott",
+        "Produtor Steven Spielberg",
+        "Fenômeno cultural",
+        "Sequências seguidas"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "sci-fi"
+      }
+    },
+    {
+      "id": "profile-0065",
+      "category": "Filmes",
+      "name": "O Rei Leão",
+      "clues": [
+        "Filme animado da Disney de 1994",
+        "Cenário savana africana",
+        "Protagonista leão Simba",
+        "Inspiração Hamlet de Shakespeare",
+        "Pai rei Mufasa",
+        "Tio vilão Scar",
+        "Canção do tema Círculo da Vida",
+        "Música Elton John e Tim Rice",
+        "Filosofia Hakuna Matata",
+        "Auxiliar suricato Timon",
+        "Amigo javali Pumbaa",
+        "Xamã mandril Rafiki",
+        "Localização Rocha do Rei",
+        "Perigo cemitério de elefantes",
+        "Tragédia estampilha de gnus",
+        "Jornada de exílio e retorno",
+        "Canção Você sente amor esta noite",
+        "Adaptação musical da Broadway",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "animation"
+      }
+    },
+    {
+      "id": "profile-0066",
+      "category": "Filmes",
+      "name": "Gladiador",
+      "clues": [
+        "Filme épico histórico de 2000",
+        "General Russell Crowe Maximus",
+        "Dirigido por Ridley Scott",
+        "Cenário Roma antiga",
+        "Imperador Marco Aurélio",
+        "Filho vilão Cômodo",
+        "Discurso Meu nome é Maximus Decimus Meridius",
+        "Linha Terei minha vingança",
+        "Antecedentes gladiador espanhol",
+        "Linha Não está entretido",
+        "Batalhas de arena Coliseu",
+        "Lema Força e honra",
+        "Irmã imperial Lucilla",
+        "Treinador de gladiadores Próximo",
+        "Amigo gladiador africano Juba",
+        "Gladiador alemão Hagen",
+        "Crença no além Campos Elísios",
+        "Vencedor do Prêmio da Academia de Melhor Filme",
+        "Renascimento espada e sandália",
+        "Impacto cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "historical"
+      }
+    },
+    {
+      "id": "profile-0067",
+      "category": "Filmes",
+      "name": "O Exterminador do Futuro",
+      "clues": [
+        "Filme de ação de ficção científica de 1984",
+        "Assassino ciborg Arnold Schwarzenegger",
+        "Dirigido por James Cameron",
+        "Protagonista alvo Sarah Connor",
+        "Soldado protetor Kyle Reese",
+        "Inteligência artificial Skynet",
+        "Evento futuro Dia do Julgamento",
+        "Expressão Estarei de volta",
+        "Cenário Los Angeles 1984",
+        "Cena boate Tech Noir",
+        "Massacre na delegacia",
+        "Premissa de viagem no tempo",
+        "Cyberdyne Systems Modelo 101",
+        "Esqueleto metálico endoesqueleto",
+        "Personagem garçonete Sarah Connor",
+        "Colega de quarto Ginger de Sarah",
+        "Namorado de Sarah Matt Buchanan",
+        "Filme independente de baixo orçamento",
+        "Fenômeno cultural",
+        "Iniciador de franquia"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "sci-fi"
+      }
+    },
+    {
+      "id": "profile-0068",
+      "category": "Filmes",
+      "name": "Casablanca",
+      "clues": [
+        "Filme de drama romântico de 1942",
+        "Proprietário Humphrey Bogart Rick Blaine",
+        "Amor anterior Ingrid Bergman Ilsa Lund",
+        "Cenário Marrocos Segunda Guerra Mundial",
+        "Linha Aqui olho para você criança",
+        "Pedido Toque Sam",
+        "Canção Como o tempo passa",
+        "Boate noturna Rick's Café Américain",
+        "Líder da resistência Victor Laszlo",
+        "Chefe de polícia Capitão Renault",
+        "Dispositivo de trama cartas de trânsito",
+        "Contexto político França de Vichy",
+        "Tema fuga de refugiados",
+        "Linha Reúna os suspeitos habituais",
+        "Linha Sempre teremos Paris",
+        "Este é o começo de uma linda amizade",
+        "Vencedor do Prêmio da Academia de Melhor Filme",
+        "Cinema clássico de Hollywood",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "classic"
+      }
+    },
+    {
+      "id": "profile-0069",
+      "category": "Filmes",
+      "name": "O Mágico de Oz",
+      "clues": [
+        "Filme de fantasia musical de 1939",
+        "Protagonista Judy Garland Dorothy Gale",
+        "Menina da fazenda do Kansas transportada",
+        "Cenário mágico Terra de Oz",
+        "Jornada Siga o caminho de tijolos amarelos",
+        "Companheiros Espantalho Homem de Lata Leão Covarde",
+        "Antagonista Bruxa Má do Oeste",
+        "Ajudante Bruxa Boa Glinda",
+        "Destino Cidade Esmeralda",
+        "Governante misterioso Mágico de Oz",
+        "Linha Não há lugar como o lar",
+        "Sapatos de rubi de Dorothy",
+        "Companheiro cão Toto",
+        "Transporte tornado",
+        "Pequeno povo Munchkinland",
+        "Capangas macacos voadores",
+        "Canção Sobre o arco-íris",
+        "Inovação Technicolor",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "classic"
+      }
+    },
+    {
+      "id": "profile-0070",
+      "category": "Filmes",
+      "name": "Clube da Luta",
+      "clues": [
+        "Filme de drama psicológico de 1999",
+        "Dirigido por David Fincher",
+        "Narrador sem nome Edward Norton",
+        "Alter ego Brad Pitt Tyler Durden",
+        "Marla Singer Helena Bonham Carter",
+        "Personagem Robert Paulson Meat Loaf",
+        "Primeira regra do Clube da Luta",
+        "Não fala do Clube da Luta",
+        "Negócio de fabricação de sabão",
+        "Grupo anarquista Projeto Caos",
+        "Crítica da cultura consumista",
+        "Tema crise de masculinidade",
+        "Revelação personalidade dividida",
+        "Móveis do catálogo Ikea",
+        "Casa de rua de papel",
+        "Grupos de apoio para liberação emocional",
+        "Filosofia colisão de carro",
+        "Condição de insônia do narrador",
+        "Status de clássico cult",
+        "Impacto cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "drama"
+      }
+    },
+    {
+      "id": "profile-0071",
+      "category": "Filmes",
+      "name": "E.T. o Extraterrestre",
+      "clues": [
+        "Filme de ficção científica de 1982",
+        "Dirigido por Steven Spielberg",
+        "Protagonista Henry Thomas Elliott",
+        "Irmã Drew Barrymore Gertie",
+        "Extraterrestre abandonado na Terra",
+        "Desejo de comunicação Telefone para casa",
+        "Cena bicicleta voando",
+        "Colocação de produto balas Reese's Pieces",
+        "Perseguição agentes governamentais",
+        "Estudo científico e quarentena",
+        "Habilidade toque curativo",
+        "Milagre ressurreição de flores",
+        "Disfarce de Halloween",
+        "Comunização floresta lunar",
+        "Missão de resgate nave espacial",
+        "Despedida Adeus Elliott",
+        "Pontuação musical John Williams",
+        "Indicador de luz do coração",
+        "Reconhecimento Prêmio da Academia",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "sci-fi"
+      }
+    },
+    {
+      "id": "profile-0072",
+      "category": "Filmes",
+      "name": "A Noviça Rebelde",
+      "clues": [
+        "Filme de drama musical de 1965",
+        "Protagonista Julie Andrews Maria",
+        "Capitão von Trapp Christopher Plummer",
+        "Cenário Áustria antes da Segunda Guerra Mundial",
+        "Cantores Família von Trapp",
+        "Canção educação musical Do-Re-Mi",
+        "Canção Minhas coisas favoritas",
+        "Canção flor austríaca Edelweiss",
+        "Canção inspiradora Suba cada montanha",
+        "Localização Abadia de Salzburgo",
+        "Comunidade religiosa freiras",
+        "Sete filhos von Trapp",
+        "Filha mais velha Liesl",
+        "Nomes Friedrich Louisa Kurt Brigitta Marta Gretl",
+        "Tomada política nazista Anschluss",
+        "Fuga fronteira suíça",
+        "Performance festival musical",
+        "Vencedor do Prêmio da Academia de Melhor Filme",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "musical"
+      }
+    },
+    {
+      "id": "profile-0073",
+      "category": "Filmes",
+      "name": "Alien",
+      "clues": [
+        "Filme de terror de ficção científica de 1979",
+        "Dirigido por Ridley Scott",
+        "Protagonista Sigourney Weaver Ellen Ripley",
+        "Nave espacial comercial Nostromo",
+        "Investigação planeta LV-426",
+        "Criatura extraterrestre Xenomorph",
+        "Estágio reprodutivo Facehugger",
+        "Cena nascimento Chestburster",
+        "Slogan No espaço ninguém pode ouvir você gritar",
+        "Oficial de ciência androide Ash",
+        "Capitão da nave Dallas",
+        "Membro da tripulação Kane primeira vítima",
+        "Navegador Lambert",
+        "Engenheiro Parker",
+        "Técnico Brett",
+        "Corporação Weyland-Yutani Company",
+        "Efeitos especiais por H.R. Giger",
+        "Elementos de horror de sobrevivência",
+        "Impacto cultural",
+        "Iniciador de franquia"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "horror"
+      }
+    },
+    {
+      "id": "profile-0074",
+      "category": "Filmes",
+      "name": "A Viagem de Chihiro",
+      "clues": [
+        "Filme animado japonês de 2001",
+        "Dirigido por Hayao Miyazaki",
+        "Produção Studio Ghibli",
+        "Protagonista jovem Chihiro Ogino",
+        "Auxiliar menino misterioso Haku",
+        "Proprietária bruxa casa de banhos Yubaba",
+        "Irmã gêmea bruxa Zeniba",
+        "Espírito misterioso Sem-Rosto",
+        "Operador sala de caldeiras Kamaji",
+        "Trabalhadora casa de banhos Lin",
+        "Cenário mundo espiritual",
+        "Pais convertidos em porcos",
+        "Nome Sen dado por Yubaba",
+        "Nome real Chihiro esquecido",
+        "Jornada de trem através da água",
+        "Transformação dragão Haku",
+        "Tema contaminação espírito do rio",
+        "Prêmio da Academia Melhor Filme Animado",
+        "Sucesso internacional",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "animation"
+      }
+    },
+    {
+      "id": "profile-0075",
+      "category": "Filmes",
+      "name": "Duro de Matar",
+      "clues": [
+        "Filme de ação de 1988",
+        "Oficial de polícia Bruce Willis John McClane",
+        "Terrorista Alan Rickman Hans Gruber",
+        "Cenário Véspera de Natal Praça Nakatomi",
+        "Localização Los Angeles",
+        "Linha Yippee-ki-yay",
+        "Situação de reféns festa de Natal",
+        "Esposa Holly Gennaro McClane",
+        "Motorista de limusine Argyle",
+        "Aliado sargento LAPD Al Powell",
+        "Especialista em explosivos Theo",
+        "Terrorista alemão Karl",
+        "Hacker informático Eddie",
+        "Terrorista Fritz",
+        "Executivo Alexander Ellis",
+        "Assistente Johnson Ellis",
+        "Cena cristais descalços",
+        "Modelo filme de ação moderno",
+        "Impacto cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "action"
+      }
+    },
+    {
+      "id": "profile-0076",
+      "category": "Filmes",
+      "name": "O Grande Hotel Budapeste",
+      "clues": [
+        "Filme de comédia dramática de 2014",
+        "Dirigido por Wes Anderson",
+        "Concierge Ralph Fiennes M. Gustave",
+        "Pajem Tony Revolori Zero Moustafa",
+        "País fictício República de Zubrowka",
+        "Períodos de tempo 1960s 1930s 1980s",
+        "Pintura propriedade T.S. Garp",
+        "Cliente idosa rica Madame D.",
+        "Vilão Dmitri Desgoffe-und-Taxis",
+        "Assassino J.G. Jopling",
+        "Sargento militar Henckels",
+        "Inspetor de polícia Serge X.",
+        "Hóspede Cecil A.",
+        "Guarda da prisão Clavius",
+        "Doces Mendl's",
+        "Conto curto O menino com a maçã",
+        "Mistério roubo de arte",
+        "Estilo visual simétrico",
+        "Fenômeno cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "comedy"
+      }
     }
   ]
 }

@@ -77,6 +77,91 @@
           "name": "Chameleon",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
+        },
+        {
+          "name": "Zebra",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Cheetah",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Rhinoceros",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Hippopotamus",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Kangaroo",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Platypus",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Snow Leopard",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Owl",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Crocodile",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Fox",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Peacock",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Otter",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Camel",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Toucan",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Arctic Fox",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Bald Eagle",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Sea Turtle",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
         }
       ]
     },
@@ -153,6 +238,91 @@
           "name": "Argentina",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
+        },
+        {
+          "name": "China",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Russia",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "United Kingdom",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Germany",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Spain",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "India",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Mexico",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "South Africa",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Netherlands",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Thailand",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Turkey",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Egypt",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Indonesia",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Saudi Arabia",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "New Zealand",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Sweden",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Switzerland",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
         }
       ]
     },
@@ -239,6 +409,81 @@
           "name": "Malala Yousafzai",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
+        },
+        {
+          "name": "Winston Churchill",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Cleopatra",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Abraham Lincoln",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Coco Chanel",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Mozart",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Frida Kahlo",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Mahatma Gandhi",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Queen Victoria",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Pablo Picasso",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Amelia Earhart",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "William Shakespeare",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Marie Antoinette",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Elvis Presley",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Mother Teresa",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Leonardo DiCaprio",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
         }
       ]
     },
@@ -313,6 +558,86 @@
         },
         {
           "name": "The Shawshank Redemption",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Pulp Fiction",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Forrest Gump",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Lord of the Rings",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Harry Potter",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Lion King",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Back to the Future",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Jurassic World",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Avengers: Endgame",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Toy Story",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Grand Budapest Hotel",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Interstellar",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Social Network",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Mad Max: Fury Road",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "La La Land",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Blade Runner 2049",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Shape of Water",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
         }
@@ -391,6 +716,86 @@
           "name": "Gymnastics",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
+        },
+        {
+          "name": "Cricket",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Cycling",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Skiing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Surfing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Wrestling",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Martial Arts",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Badminton",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Table Tennis",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Archery",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Fencing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Equestrian",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Rowing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Sailing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Rock Climbing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Esports",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Parkour",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
         }
       ]
     },
@@ -465,6 +870,86 @@
         },
         {
           "name": "Nanotechnology",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "5G Networks",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Machine Learning",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Augmented Reality",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Quantum Computing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Internet of Things",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Cryptocurrency",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Electric Vehicles",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Renewable Energy",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Gene Editing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Space Exploration",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Robotics",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Big Data",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Cybersecurity",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Smart Home",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Wearable Technology",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Autonomous Vehicles",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
         }

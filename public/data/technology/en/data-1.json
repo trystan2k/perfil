@@ -416,6 +416,536 @@
         "difficulty": "hard",
         "source": "technology"
       }
+    },
+    {
+      "id": "profile-0080",
+      "category": "Technology",
+      "name": "Social Media",
+      "clues": [
+        "Online communication platforms",
+        "Facebook founded by Mark Zuckerberg",
+        "Twitter character limit 280",
+        "Instagram photo sharing",
+        "TikTok short video platform",
+        "LinkedIn professional networking",
+        "Snapchat disappearing messages",
+        "YouTube video sharing",
+        "Reddit discussion forums",
+        "Pinterest visual discovery",
+        "WhatsApp messaging app",
+        "Influencer marketing",
+        "Viral content spread",
+        "User-generated content",
+        "Algorithmic content curation",
+        "Digital advertising platform",
+        "Social networking revolution",
+        "Mobile-first design",
+        "Real-time communication",
+        "Global connectivity"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "modern-tech"
+      }
+    },
+    {
+      "id": "profile-0081",
+      "category": "Technology",
+      "name": "Electric Vehicle",
+      "clues": [
+        "Battery-powered transportation",
+        "Tesla Model S pioneer",
+        "Zero tailpipe emissions",
+        "Regenerative braking system",
+        "Electric motor propulsion",
+        "Lithium-ion battery pack",
+        "Charging infrastructure",
+        "Supercharger network",
+        "Range anxiety concern",
+        "Autonomous driving capability",
+        "Government incentives available",
+        "Reduced maintenance costs",
+        "Instant torque delivery",
+        "Silent operation",
+        "Home charging solutions",
+        "Battery degradation over time",
+        "Grid electricity dependency",
+        "Future of transportation",
+        "Environmental impact reduction"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "modern-tech"
+      }
+    },
+    {
+      "id": "profile-0082",
+      "category": "Technology",
+      "name": "Video Games",
+      "clues": [
+        "Interactive entertainment software",
+        "Console gaming systems",
+        "PC gaming platforms",
+        "Mobile gaming apps",
+        "Virtual reality gaming",
+        "Augmented reality games",
+        "Cloud gaming services",
+        "Esports professional competitions",
+        "Game development industry",
+        "Graphics processing units",
+        "Game engines like Unity",
+        "Multiplayer online gaming",
+        "Microtransaction revenue model",
+        "Streaming platforms Twitch",
+        "Gaming communities",
+        "RPG role-playing games",
+        "FPS first-person shooters",
+        "Mobile gaming revolution",
+        "Casual gaming boom",
+        "Professional gaming careers"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-0083",
+      "category": "Technology",
+      "name": "Cybersecurity",
+      "clues": [
+        "Digital protection systems",
+        "Firewall network security",
+        "Antivirus software protection",
+        "Encryption data protection",
+        "Two-factor authentication",
+        "Phishing attack prevention",
+        "Malware detection systems",
+        "VPN privacy protection",
+        "Password security management",
+        "Dark web monitoring",
+        "Ransomware attack defense",
+        "Data breach prevention",
+        "Security operations centers",
+        "Penetration testing",
+        "Incident response teams",
+        "Threat intelligence analysis",
+        "Zero-trust architecture",
+        "Digital forensics investigation",
+        "Cyber warfare capabilities"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "security"
+      }
+    },
+    {
+      "id": "profile-0084",
+      "category": "Technology",
+      "name": "Streaming Services",
+      "clues": [
+        "On-demand content delivery",
+        "Netflix streaming pioneer",
+        "Video-on-demand services",
+        "Subscription-based model",
+        "Content recommendation algorithms",
+        "Original programming production",
+        "4K Ultra HD quality",
+        "Multi-device streaming",
+        "Offline download capability",
+        "Binge-watching culture",
+        "Content licensing agreements",
+        "Bandwidth requirements",
+        "Cloud-based infrastructure",
+        "Competing platforms Disney+",
+        "Amazon Prime Video",
+        "HBO Max streaming",
+        "Hulu content library",
+        "Live sports streaming",
+        "Global content distribution",
+        "Entertainment industry disruption"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-0085",
+      "category": "Technology",
+      "name": "Wearable Technology",
+      "clues": [
+        "Body-worn electronic devices",
+        "Smartwatch fitness tracking",
+        "Heart rate monitoring",
+        "Sleep pattern analysis",
+        "Step counting functionality",
+        "GPS location tracking",
+        "Mobile payment capability",
+        "Notification alerts",
+        "Health metric monitoring",
+        "Apple Watch market leader",
+        "Fitbit fitness trackers",
+        "Smart ring technology",
+        "Augmented reality glasses",
+        "Hearing enhancement devices",
+        "Biometric authentication",
+        "Battery life limitations",
+        "Fashion technology fusion",
+        "Healthcare applications",
+        "Personal data collection",
+        "Connected ecosystem integration"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "modern-tech"
+      }
+    },
+    {
+      "id": "profile-0086",
+      "category": "Technology",
+      "name": "5G Networks",
+      "clues": [
+        "Fifth generation wireless",
+        "High-speed mobile internet",
+        "Low latency connectivity",
+        "Massive IoT device support",
+        "Network slicing capability",
+        "Millimeter wave frequencies",
+        "Small cell deployment",
+        "Enhanced mobile broadband",
+        "Autonomous vehicle communication",
+        "Smart city infrastructure",
+        "Remote surgery possibilities",
+        "Augmented reality streaming",
+        "Cloud gaming enablement",
+        "Industrial automation support",
+        "Fixed wireless access",
+        "Mobile edge computing",
+        "Network virtualization",
+        "Global 5G rollout",
+        "Future technology foundation"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "telecommunications"
+      }
+    },
+    {
+      "id": "profile-0087",
+      "category": "Technology",
+      "name": "Cryptocurrency",
+      "clues": [
+        "Digital currency system",
+        "Bitcoin first cryptocurrency",
+        "Blockchain transaction ledger",
+        "Decentralized finance DeFi",
+        "Cryptographic security",
+        "Mining process validation",
+        "Wallet digital storage",
+        "Exchange trading platforms",
+        "Volatility price swings",
+        "Smart contract functionality",
+        "Ethereum programmable blockchain",
+        "NFT digital ownership",
+        "Central bank digital currencies",
+        "Regulatory challenges",
+        "Environmental energy concerns",
+        "Anonymous transaction capability",
+        "Cross-border payments",
+        "Financial technology disruption",
+        "Future of money"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "fintech"
+      }
+    },
+    {
+      "id": "profile-0088",
+      "category": "Technology",
+      "name": "Smart Home",
+      "clues": [
+        "Connected home automation",
+        "IoT Internet of Things",
+        "Voice control assistants",
+        "Smart thermostat control",
+        "Automated lighting systems",
+        "Security camera monitoring",
+        "Smart door locks",
+        "Connected appliances",
+        "Energy management optimization",
+        "Home entertainment integration",
+        "Mobile app control",
+        "Voice command recognition",
+        "Automated scheduling",
+        "Energy efficiency monitoring",
+        "Remote home access",
+        "Smart speaker hubs",
+        "Home security systems",
+        "Lifestyle convenience enhancement",
+        "Future living standards"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "iot"
+      }
+    },
+    {
+      "id": "profile-0089",
+      "category": "Technology",
+      "name": "Augmented Reality",
+      "clues": [
+        "Digital overlay technology",
+        "Real-world enhancement",
+        "Mobile AR applications",
+        "Smartphone camera integration",
+        "Pokémon Go gaming phenomenon",
+        "Industrial training applications",
+        "Retail shopping assistance",
+        "Navigation direction overlays",
+        "Educational interactive learning",
+        "AR glasses development",
+        "Object recognition technology",
+        "Spatial computing concept",
+        "Social media filters",
+        "Medical visualization tools",
+        "Architecture design assistance",
+        "Marketing interactive experiences",
+        "Remote collaboration tools",
+        "Mixed reality convergence",
+        "Future computing interface"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "emerging-tech"
+      }
+    },
+    {
+      "id": "profile-0090",
+      "category": "Technology",
+      "name": "Renewable Energy",
+      "clues": [
+        "Sustainable power generation",
+        "Solar photovoltaic panels",
+        "Wind turbine farms",
+        "Hydroelectric power plants",
+        "Battery energy storage",
+        "Smart grid technology",
+        "Geothermal energy extraction",
+        "Tidal power generation",
+        "Biomass fuel conversion",
+        "Carbon footprint reduction",
+        "Grid integration challenges",
+        "Energy storage solutions",
+        "Off-grid power systems",
+        "Clean energy transition",
+        "Government incentives programs",
+        "Climate change mitigation",
+        "Energy independence goals",
+        "Future power infrastructure",
+        "Sustainable development"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "green-tech"
+      }
+    },
+    {
+      "id": "profile-0091",
+      "category": "Technology",
+      "name": "Space Technology",
+      "clues": [
+        "Space exploration systems",
+        "Rocket propulsion technology",
+        "Satellite communication networks",
+        "International Space Station",
+        "Mars exploration missions",
+        "Reusable rocket designs",
+        "Space telescopes observation",
+        "GPS satellite navigation",
+        "Commercial spaceflight",
+        "Space tourism development",
+        "Asteroid mining plans",
+        "Lunar base establishment",
+        "Space debris management",
+        "Zero-gravity manufacturing",
+        "Space solar power",
+        "Interplanetary communication",
+        "Space colonization future",
+        "Scientific research platforms",
+        "Final frontier exploration"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "aerospace"
+      }
+    },
+    {
+      "id": "profile-0092",
+      "category": "Technology",
+      "name": "Gene Editing",
+      "clues": [
+        "DNA modification technology",
+        "CRISPR-Cas9 system",
+        "Precision genetic changes",
+        "Medical treatment potential",
+        "Disease prevention capability",
+        "Agricultural crop improvement",
+        "Ethical controversy concerns",
+        "Regulatory oversight needed",
+        "Personalized medicine future",
+        "Cancer treatment applications",
+        "Genetic disease elimination",
+        "Enhanced trait development",
+        "Biosecurity risks",
+        "Patent ownership questions",
+        "Clinical trial requirements",
+        "International research collaboration",
+        "Future human evolution",
+        "Biotechnology revolution"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "biotech"
+      }
+    },
+    {
+      "id": "profile-0093",
+      "category": "Technology",
+      "name": "Autonomous Vehicles",
+      "clues": [
+        "Self-driving transportation",
+        "Level 5 automation capability",
+        "Sensor fusion technology",
+        "Computer vision systems",
+        "Lidar mapping sensors",
+        "Radar detection systems",
+        "Machine learning algorithms",
+        "Path planning navigation",
+        "Real-time decision making",
+        "Safety redundancy systems",
+        "Regulatory approval process",
+        "Urban transportation transformation",
+        "Reduced accident potential",
+        "Mobility accessibility improvement",
+        "Traffic flow optimization",
+        "Parking automation",
+        "Fleet management systems",
+        "Human oversight requirements",
+        "Future mobility paradigm"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "automotive"
+      }
+    },
+    {
+      "id": "profile-0094",
+      "category": "Technology",
+      "name": "Quantum Communication",
+      "clues": [
+        "Quantum information transfer",
+        "Unhackable communication channels",
+        "Quantum entanglement principle",
+        "Quantum cryptography security",
+        "Quantum internet development",
+        "Quantum teleportation concept",
+        "Quantum key distribution",
+        "Quantum computing integration",
+        "Quantum sensing applications",
+        "Quantum radar technology",
+        "Quantum GPS enhancement",
+        "Quantum clock synchronization",
+        "Quantum error correction",
+        "Quantum memory storage",
+        "Quantum network infrastructure",
+        "Military quantum communications",
+        "Secure government communications",
+        "Future information security",
+        "Quantum technology revolution"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "quantum-tech"
+      }
+    },
+    {
+      "id": "profile-0095",
+      "category": "Technology",
+      "name": "Brain-Computer Interface",
+      "clues": [
+        "Neural signal processing",
+        "Direct brain communication",
+        "Thought-controlled computing",
+        "Electroencephalogram EEG signals",
+        "Brain implant technology",
+        "Neural lace concept",
+        "Motor function restoration",
+        "Sensory input enhancement",
+        "Memory augmentation possibilities",
+        "Learning acceleration",
+        "Disability treatment applications",
+        "Consciousness uploading theories",
+        "Ethical mind privacy concerns",
+        "Human enhancement debate",
+        "Medical rehabilitation uses",
+        "Gaming control interfaces",
+        "Artificial intelligence integration",
+        "Future human evolution",
+        "Mind-machine revolution"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "neurotech"
+      }
+    },
+    {
+      "id": "profile-0096",
+      "category": "Technology",
+      "name": "Digital Twins",
+      "clues": [
+        "Virtual physical replicas",
+        "Real-time synchronization",
+        "IoT device mirroring",
+        "Predictive maintenance",
+        "Simulation modeling",
+        "Digital representation systems",
+        "Manufacturing optimization",
+        "Smart city management",
+        "Healthcare patient monitoring",
+        "Supply chain tracking",
+        "Building management systems",
+        "Product lifecycle management",
+        "Performance optimization",
+        "Remote monitoring capabilities",
+        "Data analytics integration",
+        "Industrial IoT applications",
+        "Asset management efficiency",
+        "Future digital transformation",
+        "Virtual-physical convergence"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "digital-tech"
+      }
     }
   ]
 }

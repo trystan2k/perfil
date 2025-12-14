@@ -416,6 +416,540 @@
         "difficulty": "hard",
         "source": "cinema"
       }
+    },
+    {
+      "id": "profile-0060",
+      "category": "Movies",
+      "name": "Pulp Fiction",
+      "clues": [
+        "1994 crime film directed by Quentin Tarantino",
+        "Nonlinear narrative structure",
+        "Multiple interconnected storylines",
+        "John Travolta and Samuel L. Jackson stars",
+        "Uma Thurman Mia Wallace character",
+        "Bruce Willis Butch Coolidge boxer",
+        "Royale with Cheese conversation",
+        "Ezekiel 25:17 biblical quote",
+        "Adrenaline needle scene",
+        "Gold watch family heirloom",
+        "Dance contest at Jack Rabbit Slims",
+        "Gimp basement scene",
+        "Briefcase mystery contents",
+        "Coffee shop robbery opening",
+        "Hamburgers discussion",
+        "Foot massage debate",
+        "Revolverolver handgun",
+        "Zed's dead baby scene",
+        "Academy Award for Best Original Screenplay",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0061",
+      "category": "Movies",
+      "name": "The Lord of the Rings: The Fellowship of the Ring",
+      "clues": [
+        "2001 fantasy epic film",
+        "Directed by Peter Jackson",
+        "J.R.R. Tolkien novel adaptation",
+        "Middle Earth setting",
+        "Frodo Baggins hobbit protagonist",
+        "One Ring to rule them all",
+        "Gandalf the Grey wizard",
+        "Aragorn ranger heir",
+        "Legolas elf archer",
+        "Gimli dwarf warrior",
+        "Boromir human son of Gondor",
+        "Merry and Pippin hobbit friends",
+        "Samwise Gamgee loyal gardener",
+        "Mount Doom destination",
+        "Rivendell elf sanctuary",
+        "Moria mines journey",
+        "Balrog ancient demon",
+        "You shall not pass line",
+        "Fellowship formation"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "fantasy"
+      }
+    },
+    {
+      "id": "profile-0062",
+      "category": "Movies",
+      "name": "Forrest Gump",
+      "clues": [
+        "1994 comedy-drama film",
+        "Tom Hanks title character",
+        "Directed by Robert Zemeckis",
+        "Life is like a box of chocolates quote",
+        "Run Forrest Run line",
+        "Alabama simple man protagonist",
+        "Jenny childhood friend love interest",
+        "Lieutenant Dan Vietnam commander",
+        "Bubba shrimp business partner",
+        "Elvis Presley dance inspiration",
+        "Ping pong diplomacy in China",
+        "Watergate scandal witness",
+        "Apple Computers early investor",
+        "Cross-country running journey",
+        "Bench storytelling framing",
+        "Feather opening and closing motif",
+        "Historical events backdrop",
+        "Academy Award Best Picture winner",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "drama"
+      }
+    },
+    {
+      "id": "profile-0063",
+      "category": "Movies",
+      "name": "The Silence of the Lambs",
+      "clues": [
+        "1991 psychological thriller",
+        "Jodie Foster Clarice Starling FBI agent",
+        "Anthony Hopkins Hannibal Lecter cannibal",
+        "Directed by Jonathan Demme",
+        "Thomas Harris novel adaptation",
+        "Buffalo Bill serial killer antagonist",
+        "Quid pro quo conversation",
+        "Fava beans and Chianti line",
+        "I ate his liver with some fava beans",
+        "Moth cocoon symbolism",
+        "Basement prison pit",
+        "Lambs screaming childhood trauma",
+        "FBI training academy",
+        "West Virginia setting",
+        "Catherine Martin victim",
+        "Jame Gumb real name",
+        "Academy Award Big Five winner",
+        "Psychological horror elements",
+        "Cultural impact"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "thriller"
+      }
+    },
+    {
+      "id": "profile-0064",
+      "category": "Movies",
+      "name": "Back to the Future",
+      "clues": [
+        "1985 science fiction comedy",
+        "Michael J. Fox Marty McFly teenager",
+        "Christopher Lloyd Doc Brown inventor",
+        "DeLorean time machine",
+        "1.21 gigawatts power requirement",
+        "88 miles per hour time travel speed",
+        "1955 past setting",
+        "Parents teenage romance interference",
+        "Enchantment Under the Sea dance",
+        "Johnny B. Goode guitar performance",
+        "Twin Pines Mall mall location",
+        "Hill Valley California town",
+        "Biff Tannen bully antagonist",
+        "George McFly nerdy father",
+        "Lorraine Baines mother",
+        "Great Scott catchphrase",
+        "Steven Spielberg producer",
+        "Cultural phenomenon",
+        "Sequels followed"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sci-fi"
+      }
+    },
+    {
+      "id": "profile-0065",
+      "category": "Movies",
+      "name": "The Lion King",
+      "clues": [
+        "1994 Disney animated film",
+        "African savanna setting",
+        "Simba lion protagonist",
+        "Hamlet Shakespeare inspiration",
+        "Mufasa father king",
+        "Scar villain uncle",
+        "Circle of Life theme song",
+        "Elton John and Tim Rice music",
+        "Hakuna Matata philosophy",
+        "Timon meerkat sidekick",
+        "Pumbaa warthog friend",
+        "Rafiki mandrill shaman",
+        "Pride Rock location",
+        "Elephant graveyard danger",
+        "Wildebeest stampede tragedy",
+        "Exile and return journey",
+        "Can you feel the love tonight song",
+        "Broadway musical adaptation",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "animation"
+      }
+    },
+    {
+      "id": "profile-0066",
+      "category": "Movies",
+      "name": "Gladiator",
+      "clues": [
+        "2000 historical epic film",
+        "Russell Crowe Maximus general",
+        "Directed by Ridley Scott",
+        "Ancient Rome setting",
+        "Marcus Aurelius emperor",
+        "Commodus villain son",
+        "My name is Maximus Decimus Meridius speech",
+        "I will have my vengeance line",
+        "Spanish gladiator background",
+        "Are you not entertained line",
+        "Colosseum arena battles",
+        "Strength and honor motto",
+        "Lucilla imperial sister",
+        "Proximo gladiator trainer",
+        "Juba African gladiator friend",
+        "Hagen German gladiator",
+        "Elysium Fields afterlife belief",
+        "Academy Award Best Picture winner",
+        "Sword and sandal revival",
+        "Cultural impact"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "historical"
+      }
+    },
+    {
+      "id": "profile-0067",
+      "category": "Movies",
+      "name": "The Terminator",
+      "clues": [
+        "1984 science fiction action film",
+        "Arnold Schwarzenegger cyborg assassin",
+        "Directed by James Cameron",
+        "Sarah Connor target protagonist",
+        "Kyle Reese protector soldier",
+        "Skynet artificial intelligence",
+        "Judgment Day future event",
+        "I'll be back catchphrase",
+        "1984 Los Angeles setting",
+        "Tech Noir nightclub scene",
+        "Police station massacre",
+        "Time travel premise",
+        "Cyberdyne Systems Model 101",
+        "Endoskeleton metal skeleton",
+        "Sarah Connor waitress character",
+        "Ginger Sarah's roommate",
+        "Matt Buchanan Sarah's boyfriend",
+        "Low budget independent film",
+        "Cultural phenomenon",
+        "Franchise starter"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sci-fi"
+      }
+    },
+    {
+      "id": "profile-0068",
+      "category": "Movies",
+      "name": "Casablanca",
+      "clues": [
+        "1942 romantic drama film",
+        "Humphrey Bogart Rick Blaine owner",
+        "Ingrid Bergman Ilsa Lund former love",
+        "World War II Morocco setting",
+        "Here's looking at you kid line",
+        "Play it Sam request",
+        "As Time Goes By song",
+        "Rick's Café Américain nightclub",
+        "Victor Laszlo resistance leader",
+        "Captain Renault police chief",
+        "Letters of transit plot device",
+        "Vichy France political context",
+        "Refugee escape theme",
+        "Round up the usual suspects line",
+        "We'll always have Paris line",
+        "This is the beginning of a beautiful friendship",
+        "Academy Award Best Picture winner",
+        "Classic Hollywood cinema",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "classic"
+      }
+    },
+    {
+      "id": "profile-0069",
+      "category": "Movies",
+      "name": "The Wizard of Oz",
+      "clues": [
+        "1939 musical fantasy film",
+        "Judy Garland Dorothy Gale protagonist",
+        "Kansas farm girl transported",
+        "Land of Oz magical setting",
+        "Follow the Yellow Brick Road journey",
+        "Scarecrow Tin Man Cowardly Lion companions",
+        "Wicked Witch of the West antagonist",
+        "Glinda the Good Witch helper",
+        "Emerald City destination",
+        "Wizard of Oz mysterious ruler",
+        "There's no place like home line",
+        "Dorothy's ruby slippers",
+        "Toto dog companion",
+        "Tornado transportation",
+        "Munchkinland small people",
+        "Flying monkeys minions",
+        "Over the Rainbow song",
+        "Technicolor innovation",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "classic"
+      }
+    },
+    {
+      "id": "profile-0070",
+      "category": "Movies",
+      "name": "Fight Club",
+      "clues": [
+        "1999 psychological drama film",
+        "Directed by David Fincher",
+        "Edward Norton unnamed narrator",
+        "Brad Pitt Tyler Durden alter ego",
+        "Helena Bonham Carter Marla Singer",
+        "Meat Loaf Robert Paulson character",
+        "First rule of Fight Club",
+        "You do not talk about Fight Club",
+        "Soap making business",
+        "Project Mayhem anarchist group",
+        "Consumer culture critique",
+        "Masculinity crisis theme",
+        "Split personality revelation",
+        "Ikea catalog furniture",
+        "Paper street house",
+        "Support groups for emotional release",
+        "Car crash philosophy",
+        "Narrator's insomnia condition",
+        "Cult classic status",
+        "Cultural impact"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "drama"
+      }
+    },
+    {
+      "id": "profile-0071",
+      "category": "Movies",
+      "name": "E.T. the Extra-Terrestrial",
+      "clues": [
+        "1982 science fiction film",
+        "Directed by Steven Spielberg",
+        "Henry Thomas Elliott protagonist",
+        "Drew Barrymore Gertie sister",
+        "Alien stranded on Earth",
+        "Phone home communication desire",
+        "Bicycle flying scene",
+        "Reese's Pieces candy product placement",
+        "Government agents pursuit",
+        "Scientific study and quarantine",
+        "Healing touch ability",
+        "Flower resurrection miracle",
+        "Halloween disguise",
+        "Forest moon communication",
+        "Spaceship rescue mission",
+        "Goodbye Elliott farewell",
+        "John Williams musical score",
+        "Heart light indicator",
+        "Academy Award recognition",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "sci-fi"
+      }
+    },
+    {
+      "id": "profile-0072",
+      "category": "Movies",
+      "name": "The Sound of Music",
+      "clues": [
+        "1965 musical drama film",
+        "Julie Andrews Maria protagonist",
+        "Christopher Plummer Captain von Trapp",
+        "Austria pre-World War II setting",
+        "Von Trapp Family singers",
+        "Do-Re-Mi musical education song",
+        "My Favorite Things song",
+        "Edelweiss Austrian flower song",
+        "Climb Ev'ry Mountain inspirational song",
+        "Salzburg Abbey location",
+        "Nuns religious community",
+        "Seven von Trapp children",
+        "Liesl oldest child",
+        "Friedrich Louisa Kurt Brigitta Marta Gretl names",
+        "Nazi Anschluss political takeover",
+        "Swiss border escape",
+        "Musical festival performance",
+        "Academy Award Best Picture winner",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "musical"
+      }
+    },
+    {
+      "id": "profile-0073",
+      "category": "Movies",
+      "name": "Alien",
+      "clues": [
+        "1979 science fiction horror film",
+        "Directed by Ridley Scott",
+        "Sigourney Weaver Ellen Ripley protagonist",
+        "Nostromo commercial spaceship",
+        "LV-426 planet investigation",
+        "Xenomorph alien creature",
+        "Facehugger reproductive stage",
+        "Chestburster birth scene",
+        "In space no one can hear you scream tagline",
+        "Ash android science officer",
+        "Dallas ship captain",
+        "Kane crew member first victim",
+        "Lambert navigator",
+        "Parker engineer",
+        "Brett technician",
+        "Company Weyland-Yutani corporation",
+        "Special effects by H.R. Giger",
+        "Survival horror elements",
+        "Cultural impact",
+        "Franchise starter"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "horror"
+      }
+    },
+    {
+      "id": "profile-0074",
+      "category": "Movies",
+      "name": "Spirited Away",
+      "clues": [
+        "2001 Japanese animated film",
+        "Directed by Hayao Miyazaki",
+        "Studio Ghibli production",
+        "Chihiro Ogino young protagonist",
+        "Haku mysterious boy helper",
+        "Yubaba witch bathhouse owner",
+        "Zeniba twin sister witch",
+        "No-Face mysterious spirit",
+        "Kamaji boiler room operator",
+        "Lin bathhouse worker",
+        "Spirit world setting",
+        "Parents turned into pigs",
+        "Sen name given by Yubaba",
+        "Chihiro real name forgotten",
+        "Train journey across water",
+        "Haku dragon transformation",
+        "River spirit pollution theme",
+        "Academy Award Best Animated Feature",
+        "International success",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "animation"
+      }
+    },
+    {
+      "id": "profile-0075",
+      "category": "Movies",
+      "name": "Die Hard",
+      "clues": [
+        "1988 action film",
+        "Bruce Willis John McClane police officer",
+        "Alan Rickman Hans Gruber terrorist",
+        "Nakatomi Plaza Christmas Eve setting",
+        "Los Angeles location",
+        "Yippee-ki-yay line",
+        "Christmas party hostage situation",
+        "Holly Gennaro McClane wife",
+        "Argyle limousine driver",
+        "Al Powell LAPD sergeant ally",
+        "Theo explosives expert",
+        "Karl German terrorist",
+        "Eddie computer hacker",
+        "Fritz terrorist",
+        "Alexander Ellis executive",
+        "Johnson Ellis assistant",
+        "Barefoot glass scene",
+        "Modern action film template",
+        "Cultural impact"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "action"
+      }
+    },
+    {
+      "id": "profile-0076",
+      "category": "Movies",
+      "name": "The Grand Budapest Hotel",
+      "clues": [
+        "2014 comedy-drama film",
+        "Directed by Wes Anderson",
+        "Ralph Fiennes M. Gustave concierge",
+        "Tony Revolori Zero Moustafa lobby boy",
+        "Republic of Zubrowka fictional country",
+        "1960s 1930s 1980s time periods",
+        "T. S. Garp estate painting",
+        "Madame D. wealthy elderly client",
+        "Dmitri Desgoffe-und-Taxis villain",
+        "J.G. Jopling assassin",
+        "Henckels military sergeant",
+        "Serge X. police inspector",
+        "Cecil A. guest",
+        "Clavius prison guard",
+        "Mendl's pastries",
+        "Boy with Apple short story",
+        "Art theft mystery",
+        "Visual style symmetrical",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "comedy"
+      }
     }
   ]
 }
