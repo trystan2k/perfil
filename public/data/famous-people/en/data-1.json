@@ -160,6 +160,325 @@
         "difficulty": "medium",
         "source": "historical-figures"
       }
+    },
+    {
+      "id": "profile-0040",
+      "category": "Famous People",
+      "name": "Martin Luther King Jr.",
+      "clues": [
+        "American civil rights leader",
+        "Born in Atlanta, Georgia",
+        "Baptist minister",
+        "Nobel Peace Prize winner",
+        "I Have a Dream speech",
+        "Assassinated in 1968",
+        "Nonviolent resistance advocate",
+        "Montgomery Bus Boycott leader",
+        "Southern Christian Leadership Conference founder",
+        "March on Washington organizer",
+        "Civil Rights Movement figure",
+        "Federal holiday named after him",
+        "Influenced by Gandhi",
+        "Letter from Birmingham Jail",
+        "Time Magazine Person of the Year",
+        "Posthumous Presidential Medal of Freedom",
+        "Morehouse College graduate",
+        "Boston University PhD",
+        "Coretta Scott King wife",
+        "American icon of equality"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "history"
+      }
+    },
+    {
+      "id": "profile-0041",
+      "category": "Famous People",
+      "name": "Queen Elizabeth II",
+      "clues": [
+        "British monarch",
+        "Longest-reigning British monarch",
+        "Born in London, 1926",
+        "House of Windsor",
+        "Head of Commonwealth",
+        "World War II service",
+        "Coronation in 1953",
+        "Mother of Prince Charles",
+        "Grandmother of Prince William",
+        "Windsor Castle resident",
+        "Buckingham Palace official residence",
+        "Royal Family head",
+        "United Kingdom queen",
+        "Canada, Australia, New Zealand queen",
+        "Diamond Jubilee celebrated",
+        "Platinum Jubilee celebrated",
+        "Corgi dogs lover",
+        "Horse racing enthusiast",
+        "Traditionalist",
+        "Global symbol of stability"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "history"
+      }
+    },
+    {
+      "id": "profile-0042",
+      "category": "Famous People",
+      "name": "Steve Jobs",
+      "clues": [
+        "Apple co-founder",
+        "Technology entrepreneur",
+        "Born in San Francisco",
+        "College dropout",
+        "NeXT Computer founder",
+        "Pixar Animation Studios CEO",
+        "iPhone creator",
+        "iPad visionary",
+        "Macintosh developer",
+        "Reality distortion field",
+        "Zen Buddhist practitioner",
+        "Adopted child",
+        "Reed College attendee",
+        "Calligraphy influence on design",
+        "Perfectionist leader",
+        "Marketing genius",
+        "Design philosophy advocate",
+        "Think Different campaign",
+        "Silicon Valley icon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0043",
+      "category": "Famous People",
+      "name": "Oprah Winfrey",
+      "clues": [
+        "American talk show host",
+        "Born in Mississippi",
+        "Poverty-stricken childhood",
+        "Media mogul",
+        "The Oprah Winfrey Show",
+        "Harpo Productions founder",
+        "Book Club creator",
+        "Philanthropist",
+        "Billionaire entrepreneur",
+        "Academy Award nominated actress",
+        "Weight loss journey public",
+        "Leadership Academy founder",
+        "Magazine publisher",
+        "Network television pioneer",
+        "Influential voice",
+        "Chicago-based career",
+        "Baltimore early career",
+        "Sexual abuse survivor advocate",
+        "Spiritual teacher",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "media"
+      }
+    },
+    {
+      "id": "profile-0044",
+      "category": "Famous People",
+      "name": "Michael Jordan",
+      "clues": [
+        "Basketball legend",
+        "Chicago Bulls star",
+        "Six NBA championships",
+        "Five NBA MVP awards",
+        "Air Jordan brand",
+        "Space Jam movie star",
+        "North Carolina Tar Heels",
+        "Baseball career attempt",
+        "Washington Wizards player",
+        "Charlotte Hornets owner",
+        "Hall of Fame inductee",
+        "Olympic gold medalist",
+        "Dream Team member",
+        "Flu game performance",
+        "Last shot champion",
+        "Competitive drive legendary",
+        "Nike endorsement pioneer",
+        "Global icon",
+        "Retirement multiple times",
+        "Greatest basketball player debate"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0045",
+      "category": "Famous People",
+      "name": "J.K. Rowling",
+      "clues": [
+        "Harry Potter author",
+        "British writer",
+        "Born in Yate, Gloucestershire",
+        "Single mother on welfare",
+        "Edinburgh coffee shop writer",
+        "Philosopher's Stone rejection",
+        "Seven-book series",
+        "Billionaire author",
+        "Screenwriter",
+        "Children's literature champion",
+        "Charity founder",
+        "Twitter presence",
+        "Robert Galbraith pseudonym",
+        "Edinburgh University graduate",
+        "French and classics degree",
+        "Amnesty International former employee",
+        "Literary phenomenon creator",
+        "Film adaptations producer",
+        "Wizarding World creator",
+        "British cultural export"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "literature"
+      }
+    },
+    {
+      "id": "profile-0046",
+      "category": "Famous People",
+      "name": "Dwayne Johnson",
+      "clues": [
+        "Professional wrestler turned actor",
+        "The Rock ring name",
+        "WWE wrestling champion",
+        "Hollywood action star",
+        "Fast and Furious franchise",
+        "Jumanji movie series",
+        "Moana voice actor",
+        "Black Adam superhero role",
+        "Hobbs & Dwayne Johnson character",
+        "Central Intelligence comedy",
+        "San Andreas disaster film",
+        "Skyscraper action movie",
+        "Rampage monster film",
+        "Gridiron Gang drama",
+        "Walking Tall remake",
+        "The Scorpion King debut",
+        "University of Miami football",
+        "Canadian Football League",
+        "Social media influencer",
+        "Teremana tequila brand"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-0047",
+      "category": "Famous People",
+      "name": "Beyoncé",
+      "clues": [
+        "American singer",
+        "Destiny's Child member",
+        "Solo career superstar",
+        "Houston, Texas born",
+        "Grammy Awards winner",
+        "Lemonade visual album",
+        "Coachella performance",
+        "Jay-Z married",
+        "Blue Ivy mother",
+        "Formation anthem",
+        "Single Ladies hit",
+        "Crazy in Love duet",
+        "Destiny Fulfilled album",
+        "Survivor feminist anthem",
+        "Bootylicious term creator",
+        "Parkwood Entertainment founder",
+        "Ivy Park clothing line",
+        "Black culture advocate",
+        "Feminist icon",
+        "Entertainment powerhouse"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "music"
+      }
+    },
+    {
+      "id": "profile-0048",
+      "category": "Famous People",
+      "name": "Stephen Hawking",
+      "clues": [
+        "Theoretical physicist",
+        "Cambridge University professor",
+        "ALS disease survivor",
+        "A Brief History of Time author",
+        "Black hole researcher",
+        "Hawking radiation theory",
+        "Motorized wheelchair user",
+        "Speech synthesizer user",
+        "Oxford University graduate",
+        "Lucasian Professor of Mathematics",
+        "Big Bang theory contributor",
+        "Cosmology pioneer",
+        "Popular science writer",
+        "Science communicator",
+        "Disability advocate",
+        "Zero gravity flight",
+        "The Simpsons appearance",
+        "Grand Design co-author",
+        "Universe in a Nutshell author",
+        "Scientific genius"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "science"
+      }
+    },
+    {
+      "id": "profile-0049",
+      "category": "Famous People",
+      "name": "Malala Yousafzai",
+      "clues": [
+        "Pakistani activist",
+        "Nobel Peace Prize youngest winner",
+        "Education advocate",
+        "Taliban attack survivor",
+        "Swat Valley native",
+        "BBC blogger",
+        "Girls' education champion",
+        "United Nations speaker",
+        "Oxford University student",
+        "Malala Fund founder",
+        "I Am Malala memoir",
+        "Hejri family",
+        "Ziauddin Yousafzai father",
+        "Birmingham resident",
+        "Global education symbol",
+        "Women's rights advocate",
+        "Peace prize recipient",
+        "Youth voice",
+        "Inspiration worldwide",
+        "Courage icon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "activism"
+      }
     }
   ]
 }

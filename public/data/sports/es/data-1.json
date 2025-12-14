@@ -96,6 +96,326 @@
         "difficulty": "medium",
         "source": "sports"
       }
+    },
+    {
+      "id": "profile-0060",
+      "category": "Sports",
+      "name": "Béisbol",
+      "clues": [
+        "Pasatiempo nacional americano",
+        "Juego de bate y pelota",
+        "Nueve jugadores por equipo",
+        "Estructura de entradas",
+        "Anotación de jonrón",
+        "Campo en forma de diamante",
+        "Lanzador vs bateador",
+        "Tres strikes fuera",
+        "Cuatro bolas base por bolas",
+        "Campeonato Serie Mundial",
+        "Béisbol de Grandes Ligas",
+        "Yankees más exitosos",
+        "Salón de la Fama Cooperstown",
+        "Tradición de entrenamiento primaveral",
+        "Juego de Estrellas mediados de temporada",
+        "Regla de bateador designado",
+        "Logro de no-hitter",
+        "Rareza de juego perfecto",
+        "Leyenda Babe Ruth",
+        "Integración Jackie Robinson"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0061",
+      "category": "Sports",
+      "name": "Fútbol Americano",
+      "clues": [
+        "Deporte de cuadrícula",
+        "Once jugadores por equipo",
+        "Cuatro tiempos de juego",
+        "Anotación de touchdown",
+        "Gol de campo patada",
+        "Campeonato Super Bowl",
+        "Liga profesional NFL",
+        "Innovación de pase hacia adelante",
+        "Línea de scrimmage",
+        "Logro de primer down",
+        "Liderazgo de quarterback",
+        "Pelota de piel de cerdo",
+        "Protección de casco y almohadillas",
+        "Drill de dos minutos",
+        "Pase Hail Mary",
+        "Revisión de repetición instantánea",
+        "Tradición de fútbol universitario",
+        "Cultura de tailgating",
+        "Fútbol de la Noche del Lunes",
+        "Tradición de Acción de Gracias"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0062",
+      "category": "Sports",
+      "name": "Golf",
+      "clues": [
+        "Deporte individual",
+        "Juego de palo y pelota",
+        "Dieciocho hoyos estándar",
+        "Sistema de anotación par",
+        "Birdie bajo par",
+        "Logro de águila",
+        "Rareza de hoyo en uno",
+        "Superficie de putting green",
+        "Área objetivo fairway",
+        "Área de penalización rough",
+        "Búnker de arena obstáculo",
+        "Obstáculo de agua",
+        "Asistencia de caddie",
+        "Torneo de los Maestros",
+        "Campeonato PGA",
+        "Abierto de EE.UU.",
+        "Abierto Británico",
+        "Eventos de Grand Slam",
+        "Cultura de campo de país",
+        "Ejercicio de caminata"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0063",
+      "category": "Sports",
+      "name": "Natación",
+      "clues": [
+        "Deporte acuático",
+        "Fundamento olímpico",
+        "Cuatro estilos competitivos",
+        "Estilo libre más rápido",
+        "Técnica de espalda",
+        "Estilo de braza",
+        "Poder de mariposa",
+        "Combinación de medley individual",
+        "Eventos de equipo de relevo",
+        "Técnica de giro flip",
+        "Salida de bloque de inicio",
+        "Separación de cuerdas de carril",
+        "Conteo de vueltas",
+        "Mediciones de piscina",
+        "Resistencia de aguas abiertas",
+        "Dominio de Michael Phelps",
+        "Récords de Mark Spitz",
+        "Excelencia de Katie Ledecky",
+        "Natación sincronizada",
+        "Relacionado con clavados"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0064",
+      "category": "Sports",
+      "name": "Boxeo",
+      "clues": [
+        "Deporte de combate",
+        "Solo lucha con puños",
+        "Protección de guantes requerida",
+        "Área de competencia ring",
+        "Doce asaltos campeonato",
+        "Victoria por nocaut",
+        "Decisión técnica",
+        "Supervisión de árbitro",
+        "Apoyo de equipo de esquina",
+        "Seguridad de protector bucal",
+        "Divisiones de clase de peso",
+        "Glamour de peso pesado",
+        "Leyenda Muhammad Ali",
+        "Poder de Mike Tyson",
+        "Ficción Rocky Balboa",
+        "Evolución de guantes de boxeo",
+        "Entrenamiento de bolsa de velocidad",
+        "Entrenamiento de bolsa pesada",
+        "Acondicionamiento de saltar la cuerda",
+        "Apodo de ciencia dulce"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0065",
+      "category": "Sports",
+      "name": "Hockey",
+      "clues": [
+        "Deporte sobre hielo",
+        "Seis jugadores por equipo",
+        "Tres períodos de juego",
+        "Disco en lugar de pelota",
+        "Habilidad de manejo de palo",
+        "Fundamento de patinaje",
+        "Protección de portero",
+        "Ventaja de power play",
+        "Defensa de penalty kill",
+        "Regla de fuera de juego",
+        "Violación de icing",
+        "Poder de slap shot",
+        "Precisión de wrist shot",
+        "Liga profesional NHL",
+        "Trofeo Copa Stanley",
+        "Deporte nacional canadiense",
+        "Tradición de pelea",
+        "Resurfacer de hielo Zamboni",
+        "Logro de hat trick",
+        "Muerte súbita de tiempo extra"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0066",
+      "category": "Sports",
+      "name": "Atletismo",
+      "clues": [
+        "Fundamento de atletismo",
+        "Carrera salto lanzamiento",
+        "Centro de los Juegos Olímpicos",
+        "Eventos de sprint cortos",
+        "Resistencia de distancia",
+        "Obstáculos de vallas",
+        "Pase de testigo de relevo",
+        "Distancia de salto largo",
+        "Elevación de salto alto",
+        "Técnica de salto con pértiga",
+        "Poder de lanzamiento de bala",
+        "Lanzamiento de disco",
+        "Distancia de jabalina",
+        "Rotación de lanzamiento de martillo",
+        "Decatlón multi-evento",
+        "Heptatlón femenino",
+        "Prueba definitiva de maratón",
+        "Bloques de inicio de sprints",
+        "Foto de línea de meta",
+        "Tecnología de superficie de pista"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0067",
+      "category": "Sports",
+      "name": "Voleibol",
+      "clues": [
+        "Deporte de red",
+        "Seis jugadores por equipo",
+        "Máximo tres toques",
+        "Secuencia de set bump spike",
+        "Poder de saque de salto",
+        "Defensa de bloqueo",
+        "Técnica de salvamento de dig",
+        "Sistema de rotación",
+        "Especialista defensivo líbero",
+        "Variación de playa dos jugadores",
+        "Deporte olímpico desde 1964",
+        "Dominio brasileño",
+        "Leyenda Karch Kiraly",
+        "Playa de Misty May-Treanor",
+        "Playa de Kerri Walsh",
+        "Deporte de pista cubierta",
+        "Corte de arena de playa",
+        "Protección de rodilleras",
+        "Soporte de tobilleras",
+        "Importancia de salto vertical"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0068",
+      "category": "Sports",
+      "name": "Patinaje Artístico",
+      "clues": [
+        "Deporte artístico sobre hielo",
+        "Técnica de patinaje con cuchilla",
+        "Rotaciones de saltos",
+        "Equilibrio de giros",
+        "Secuencias de trabajo de pies",
+        "Programas coreografiados",
+        "Programa corto técnico",
+        "Patinaje libre artístico",
+        "Historia de figuras obligatorias",
+        "Dificultad de salto triple",
+        "Revolución cuádruple",
+        "Tipo de salto Salchow",
+        "Técnica de toe loop",
+        "Salto de borde Lutz",
+        "Combinación de salto flip",
+        "Dificultad de despegue Axel",
+        "Pareja de patinaje sobre hielo",
+        "Elementos de patinaje en parejas",
+        "Arte de vestuario",
+        "Interpretación musical"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0069",
+      "category": "Sports",
+      "name": "Gimnasia",
+      "clues": [
+        "Fundamento de deporte artístico",
+        "Especialización de aparatos",
+        "Ejercicio de suelo tumbling",
+        "Precisión de barra de equilibrio",
+        "Asimetría de barras asimétricas",
+        "Fuerza de barras paralelas",
+        "Balanceo de barra horizontal",
+        "Quietud de anillos",
+        "Poder explosivo de bóveda",
+        "Círculos de caballo con arzones",
+        "Sistema de anotación dificultad",
+        "Deducciones de ejecución",
+        "Tradición de diez perfecto",
+        "Logro de Nadia Comaneci",
+        "Dominio de Simone Biles",
+        "Tradición de escuela rusa",
+        "Precisión china",
+        "Poder americano",
+        "Requisito de flexibilidad",
+        "Acondicionamiento de fuerza"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "sports"
+      }
     }
   ]
 }

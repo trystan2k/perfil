@@ -96,6 +96,326 @@
         "difficulty": "medium",
         "source": "geography"
       }
+    },
+    {
+      "id": "profile-0030",
+      "category": "Countries",
+      "name": "United States",
+      "clues": [
+        "Federal republic in North America",
+        "50 states",
+        "Capital is Washington D.C.",
+        "Dollar currency",
+        "English primary language",
+        "Third largest country by land area",
+        "Most populous Western democracy",
+        "Constitution written in 1787",
+        "Two major political parties",
+        "Melting pot of cultures",
+        "Hollywood entertainment industry",
+        "Silicon Valley technology hub",
+        "NASA space program",
+        "Mississippi River system",
+        "Rocky Mountains and Appalachians",
+        "Diverse climates from Arctic to tropical",
+        "Superpower status",
+        "Cultural influence worldwide",
+        "Immigration nation",
+        "American Dream concept"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0031",
+      "category": "Countries",
+      "name": "France",
+      "clues": [
+        "Western European republic",
+        "Paris capital city",
+        "Euro currency",
+        "French official language",
+        "Eiffel Tower landmark",
+        "Louvre Museum",
+        "Revolutionary history 1789",
+        "Wine and cheese famous",
+        "Fashion capital of world",
+        "Culinary excellence",
+        "Nuclear power nation",
+        "UN Security Council permanent member",
+        "Cultural influence globally",
+        "Romance language origin",
+        "Gaul historical roots",
+        "Overseas territories",
+        "Tourism destination",
+        "Artistic heritage",
+        "Secular state",
+        "Liberté motto"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0032",
+      "category": "Countries",
+      "name": "Australia",
+      "clues": [
+        "Island continent",
+        "Canberra capital",
+        "Sydney largest city",
+        "English official language",
+        "Australian dollar currency",
+        "Commonwealth realm",
+        "Unique wildlife",
+        "Great Barrier Reef",
+        "Outback desert regions",
+        "Aboriginal heritage",
+        "British colonial history",
+        "Multicultural society",
+        "Mining economy",
+        "Beach culture",
+        "Sporting nation",
+        "Tasmania island state",
+        "Sydney Opera House",
+        "Ayers Rock landmark",
+        "Sheep farming",
+        "Isolated geography"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0033",
+      "category": "Countries",
+      "name": "India",
+      "clues": [
+        "South Asian subcontinent",
+        "New Delhi capital",
+        "Mumbai financial center",
+        "Hindi and English official languages",
+        "Rupee currency",
+        "World's largest democracy",
+        "Ancient civilization",
+        "Hinduism majority religion",
+        "Taj Mahal monument",
+        "Bollywood film industry",
+        "IT services powerhouse",
+        "Diverse cultures and languages",
+        "British colonial past",
+        "Agricultural economy",
+        "Space program",
+        "Cricket passion",
+        "Yoga origin",
+        "Spice exports",
+        "Population over 1 billion",
+        "Nuclear weapons state"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0034",
+      "category": "Countries",
+      "name": "Canada",
+      "clues": [
+        "North American northern neighbor",
+        "Ottawa capital",
+        "Toronto largest city",
+        "English and French official languages",
+        "Canadian dollar currency",
+        "Second largest country by area",
+        "Constitutional monarchy",
+        "Multicultural policy",
+        "Universal healthcare",
+        "Natural resources rich",
+        "Cold climate regions",
+        "Maple leaf symbol",
+        "Hockey national sport",
+        "British Commonwealth member",
+        "Bilingual nation",
+        "Immigration destination",
+        "Arctic territories",
+        "Peacekeeping reputation",
+        "Vast wilderness",
+        "Resource-based economy"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0035",
+      "category": "Countries",
+      "name": "Germany",
+      "clues": [
+        "Central European republic",
+        "Berlin capital",
+        "Euro currency",
+        "German official language",
+        "Federal parliamentary system",
+        "Economic powerhouse",
+        "Industrial manufacturing leader",
+        "Automotive industry",
+        "Beer brewing tradition",
+        "Reunified in 1990",
+        "World War history",
+        "European Union key member",
+        "Rhine River",
+        "Black Forest region",
+        "Bavarian culture",
+        "Engineering excellence",
+        "Green energy leader",
+        "Cultural contributions",
+        "Philosophy and science",
+        "Export-oriented economy"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0036",
+      "category": "Countries",
+      "name": "Mexico",
+      "clues": [
+        "North American southern neighbor",
+        "Mexico City capital",
+        "Spanish official language",
+        "Peso currency",
+        "Federal republic",
+        "Ancient Aztec and Maya civilizations",
+        "Spanish colonial history",
+        "Cultural heritage",
+        "Cuisine famous worldwide",
+        "Tourism destination",
+        "Oil resources",
+        "Agricultural products",
+        "Migration patterns",
+        "Biodiversity rich",
+        "Beach resorts",
+        "Day of the Dead tradition",
+        "Mariachi music",
+        "Pyramid ruins",
+        "Gulf and Pacific coasts",
+        "Central American bridge"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0037",
+      "category": "Countries",
+      "name": "Italy",
+      "clues": [
+        "Southern European peninsula",
+        "Rome capital",
+        "Euro currency",
+        "Italian official language",
+        "Republic government",
+        "Roman Empire heritage",
+        "Vatican City enclave",
+        "Mediterranean coastline",
+        "Alps northern border",
+        "Cuisine globally famous",
+        "Renaissance birthplace",
+        "Art and architecture",
+        "Fashion industry",
+        "Wine production",
+        "Tourism economy",
+        "Regional diversity",
+        "Island territories",
+        "Ancient ruins",
+        "Catholic influence",
+        "Mediterranean culture"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0038",
+      "category": "Countries",
+      "name": "South Korea",
+      "clues": [
+        "East Asian peninsula",
+        "Seoul capital",
+        "Korean official language",
+        "Won currency",
+        "Republic government",
+        "Korean War division",
+        "Technology leader",
+        "K-pop cultural phenomenon",
+        "Samsung and Hyundai corporations",
+        "Rapid economic development",
+        "Education emphasis",
+        "Confucian traditions",
+        "Mountainous terrain",
+        "Island territories",
+        "Military presence",
+        "Export economy",
+        "Internet connectivity",
+        "Gaming culture",
+        "Food culture",
+        "Demographic challenges"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0039",
+      "category": "Countries",
+      "name": "Argentina",
+      "clues": [
+        "South American southern cone",
+        "Buenos Aires capital",
+        "Spanish official language",
+        "Peso currency",
+        "Federal republic",
+        "European immigration heritage",
+        "Tango dance origin",
+        "Beef production leader",
+        "Wine regions",
+        "Patagonia wilderness",
+        "Andes mountains",
+        "Pampas grasslands",
+        "Falkland Islands dispute",
+        "Economic volatility",
+        "Football passion",
+        "Literary tradition",
+        "Glacier national parks",
+        "Whale watching",
+        "Cultural sophistication",
+        "Southern hemisphere position"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "geography"
+      }
     }
   ]
 }

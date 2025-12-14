@@ -96,6 +96,326 @@
         "difficulty": "medium",
         "source": "geography"
       }
+    },
+    {
+      "id": "profile-0030",
+      "category": "Countries",
+      "name": "Estados Unidos",
+      "clues": [
+        "República federal na América do Norte",
+        "50 estados",
+        "Capital é Washington D.C.",
+        "Moeda dólar",
+        "Idioma principal inglês",
+        "Terceiro maior país por área terrestre",
+        "Democracia ocidental mais populosa",
+        "Constituição escrita em 1787",
+        "Dois partidos políticos principais",
+        "Caldeia de culturas",
+        "Indústria de entretenimento Hollywood",
+        "Centro tecnológico Silicon Valley",
+        "Programa espacial NASA",
+        "Sistema do rio Mississippi",
+        "Montanhas Rochosas e Apalaches",
+        "Climas diversos de ártico a tropical",
+        "Status de superpotência",
+        "Influência cultural mundial",
+        "Nação de imigração",
+        "Conceito do Sonho Americano"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0031",
+      "category": "Countries",
+      "name": "França",
+      "clues": [
+        "República europeia ocidental",
+        "Paris cidade capital",
+        "Moeda euro",
+        "Idioma oficial francês",
+        "Monumento Torre Eiffel",
+        "Museu Louvre",
+        "História revolucionária 1789",
+        "Famosa por vinho e queijo",
+        "Capital da moda mundial",
+        "Excelência culinária",
+        "Nação com energia nuclear",
+        "Membro permanente do Conselho de Segurança da ONU",
+        "Influência cultural global",
+        "Origem das línguas românicas",
+        "Raízes históricas gaulesas",
+        "Territórios ultramarinos",
+        "Destino turístico",
+        "Patrimônio artístico",
+        "Estado secular",
+        "Lema Liberdade"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0032",
+      "category": "Countries",
+      "name": "Austrália",
+      "clues": [
+        "Continente ilha",
+        "Canberra capital",
+        "Sydney maior cidade",
+        "Idioma oficial inglês",
+        "Moeda dólar australiano",
+        "Reino da Commonwealth",
+        "Vida selvagem única",
+        "Grande Barreira de Coral",
+        "Regiões desérticas do Outback",
+        "Herança aborígene",
+        "História colonial britânica",
+        "Sociedade multicultural",
+        "Economia mineradora",
+        "Cultura de praia",
+        "Nação esportiva",
+        "Estado ilha Tasmânia",
+        "Ópera de Sydney",
+        "Monumento Ayers Rock",
+        "Pecuária ovina",
+        "Geografia isolada"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0033",
+      "category": "Countries",
+      "name": "Índia",
+      "clues": [
+        "Subcontinente do sul da Ásia",
+        "Nova Delhi capital",
+        "Mumbai centro financeiro",
+        "Idiomas oficiais hindi e inglês",
+        "Moeda rupia",
+        "Maior democracia do mundo",
+        "Civilização antiga",
+        "Religião majoritária hinduísmo",
+        "Monumento Taj Mahal",
+        "Indústria cinematográfica Bollywood",
+        "Potência de serviços de TI",
+        "Culturas e idiomas diversos",
+        "Passado colonial britânico",
+        "Economia agrícola",
+        "Programa espacial",
+        "Paixão por críquete",
+        "Origem do ioga",
+        "Exportações de especiarias",
+        "População acima de 1 bilhão",
+        "Estado com armas nucleares"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0034",
+      "category": "Countries",
+      "name": "Canadá",
+      "clues": [
+        "Vizinho norte da América do Norte",
+        "Ottawa capital",
+        "Toronto maior cidade",
+        "Idiomas oficiais inglês e francês",
+        "Moeda dólar canadense",
+        "Segundo maior país por área",
+        "Monarquia constitucional",
+        "Política multicultural",
+        "Saúde universal",
+        "Rico em recursos naturais",
+        "Regiões de clima frio",
+        "Símbolo folha de bordo",
+        "Esporte nacional hóquei",
+        "Membro da Commonwealth britânica",
+        "Nação bilíngue",
+        "Destino de imigração",
+        "Territórios árticos",
+        "Reputação de manutenção da paz",
+        "Vasta natureza selvagem",
+        "Economia baseada em recursos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0035",
+      "category": "Countries",
+      "name": "Alemanha",
+      "clues": [
+        "República centro-europeia",
+        "Berlim capital",
+        "Moeda euro",
+        "Idioma oficial alemão",
+        "Sistema parlamentar federal",
+        "Potência econômica",
+        "Líder em manufatura industrial",
+        "Indústria automotiva",
+        "Tradição cervejeira",
+        "Reunificada em 1990",
+        "História da Segunda Guerra Mundial",
+        "Membro chave da União Europeia",
+        "Rio Reno",
+        "Região da Floresta Negra",
+        "Cultura bávara",
+        "Excelência em engenharia",
+        "Líder em energia verde",
+        "Contribuições culturais",
+        "Filosofia e ciência",
+        "Economia orientada a exportações"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0036",
+      "category": "Countries",
+      "name": "México",
+      "clues": [
+        "Vizinho sul da América do Norte",
+        "Cidade do México capital",
+        "Idioma oficial espanhol",
+        "Moeda peso",
+        "República federal",
+        "Civilizações antigas astecas e maias",
+        "História colonial espanhola",
+        "Patrimônio cultural",
+        "Culinária famosa mundialmente",
+        "Destino turístico",
+        "Recursos petrolíferos",
+        "Produtos agrícolas",
+        "Padrões de migração",
+        "Rica biodiversidade",
+        "Resorts de praia",
+        "Tradição Dia dos Mortos",
+        "Música mariachi",
+        "Ruínas de pirâmides",
+        "Costas do Golfo e Pacífico",
+        "Ponte centro-americana"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0037",
+      "category": "Countries",
+      "name": "Itália",
+      "clues": [
+        "Península sul da Europa",
+        "Roma capital",
+        "Moeda euro",
+        "Idioma oficial italiano",
+        "Governo republicano",
+        "Herança do Império Romano",
+        "Enclave Cidade do Vaticano",
+        "Costa mediterrânea",
+        "Fronteira norte dos Alpes",
+        "Culinária globalmente famosa",
+        "Berço do Renascimento",
+        "Arte e arquitetura",
+        "Indústria da moda",
+        "Produção de vinho",
+        "Economia turística",
+        "Diversidade regional",
+        "Territórios insulares",
+        "Ruínas antigas",
+        "Influência católica",
+        "Cultura mediterrânea"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0038",
+      "category": "Countries",
+      "name": "Coreia do Sul",
+      "clues": [
+        "Península leste da Ásia",
+        "Seul capital",
+        "Idioma oficial coreano",
+        "Moeda won",
+        "Governo republicano",
+        "Divisão da Guerra da Coreia",
+        "Líder tecnológico",
+        "Fenômeno cultural K-pop",
+        "Corporações Samsung e Hyundai",
+        "Desenvolvimento econômico rápido",
+        "Ênfase em educação",
+        "Tradições confucionistas",
+        "Terreno montanhoso",
+        "Territórios insulares",
+        "Presença militar",
+        "Economia de exportação",
+        "Conectividade à internet",
+        "Cultura de jogos",
+        "Cultura alimentar",
+        "Desafios demográficos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "geography"
+      }
+    },
+    {
+      "id": "profile-0039",
+      "category": "Countries",
+      "name": "Argentina",
+      "clues": [
+        "Cone sul da América do Sul",
+        "Buenos Aires capital",
+        "Idioma oficial espanhol",
+        "Moeda peso",
+        "República federal",
+        "Herança de imigração europeia",
+        "Origem da dança tango",
+        "Líder em produção de carne",
+        "Regiões vinícolas",
+        "Natureza selvagem da Patagônia",
+        "Montanhas dos Andes",
+        "Pastagens das Pampas",
+        "Disputa das Ilhas Malvinas",
+        "Volatilidade econômica",
+        "Paixão por futebol",
+        "Tradição literária",
+        "Parques nacionais de geleiras",
+        "Observação de baleias",
+        "Sophisticação cultural",
+        "Posição no hemisfério sul"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "geography"
+      }
     }
   ]
 }

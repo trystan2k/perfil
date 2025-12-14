@@ -96,6 +96,326 @@
         "difficulty": "easy",
         "source": "entertainment"
       }
+    },
+    {
+      "id": "profile-0050",
+      "category": "Movies",
+      "name": "Titanic",
+      "clues": [
+        "1997 epic romance disaster film",
+        "Directed by James Cameron",
+        "Leonardo DiCaprio and Kate Winslet stars",
+        "Historical sinking of 1912",
+        "Rose and Jack love story",
+        "I'm flying scene",
+        "King of the world line",
+        "Iceberg collision",
+        "Ship split in half",
+        "11 Academy Awards won",
+        "Box office record breaker",
+        "Celine Dion theme song",
+        "My Heart Will Go On",
+        "First class vs third class",
+        "Diamond necklace plot device",
+        "Old Rose narrator",
+        "Research vessel framing",
+        "Historical accuracy debate",
+        "3D re-release",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0051",
+      "category": "Movies",
+      "name": "The Godfather",
+      "clues": [
+        "1972 crime drama film",
+        "Directed by Francis Ford Coppola",
+        "Marlon Brando and Al Pacino stars",
+        "Mafia family saga",
+        "Italian-American organized crime",
+        "Offer he cannot refuse line",
+        "Horse head scene",
+        "Orange juice symbolism",
+        "Family business theme",
+        "Michael Corleone transformation",
+        "Vito Corleone patriarch",
+        "Sicily setting",
+        "Restaurant bathroom scene",
+        "Baptism massacre",
+        "Leave the gun take the cannoli",
+        "Sleeping with the fishes",
+        "Nino Rota score",
+        "Best Picture Oscar winner",
+        "Sequels followed",
+        "Cultural impact"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0052",
+      "category": "Movies",
+      "name": "Avatar",
+      "clues": [
+        "2009 science fiction film",
+        "Directed by James Cameron",
+        "3D technology pioneer",
+        "Pandora alien world",
+        "Blue humanoid Na'vi species",
+        "Jake Sully protagonist",
+        "Avatar body technology",
+        "Unobtanium mineral",
+        "Military vs indigenous conflict",
+        "Environmental themes",
+        "Visual effects breakthrough",
+        "Highest grossing film",
+        "Sequels planned",
+        "Sam Worthington star",
+        "Zoe Saldana performance capture",
+        "Sigourney Weaver scientist",
+        "Stephen Lang military villain",
+        "James Cameron decade project",
+        "Motion capture innovation",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0053",
+      "category": "Movies",
+      "name": "Jurassic Park",
+      "clues": [
+        "1993 science fiction adventure",
+        "Directed by Steven Spielberg",
+        "Michael Crichton novel adaptation",
+        "Dinosaur theme park",
+        "DNA cloning technology",
+        "John Hammond billionaire creator",
+        "Dr. Alan Grant paleontologist",
+        "Dr. Ellie Sattler paleobotanist",
+        "Ian Malcolm chaos theory",
+        "Life finds a way quote",
+        "T-Rex attack scene",
+        "Velociraptor intelligence",
+        "Island setting Isla Nublar",
+        "Genetic engineering ethics",
+        "Jeff Goldblum mathematician",
+        "Laura Dern botanist",
+        "Sam Neill archaeologist",
+        "Richard Attenborough park owner",
+        "John Williams score",
+        "Cultural impact"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0054",
+      "category": "Movies",
+      "name": "Frozen",
+      "clues": [
+        "2013 Disney animated film",
+        "Based on Hans Christian Andersen",
+        "The Snow Queen inspiration",
+        "Elsa ice queen character",
+        "Anna princess sister",
+        "Let It Go song phenomenon",
+        "Idina Menzel voice",
+        "Kristen Bell voice",
+        "Olaf snowman sidekick",
+        "Sven reindeer companion",
+        "Kristoff ice harvester",
+        "Hans villain twist",
+        "True love theme",
+        "Sisterhood central",
+        "Norwegian setting",
+        "Disney Renaissance revival",
+        "Broadway musical adaptation",
+        "Merchandise empire",
+        "Cultural phenomenon",
+        "Sequel released"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0055",
+      "category": "Movies",
+      "name": "The Dark Knight",
+      "clues": [
+        "2008 superhero film",
+        "Directed by Christopher Nolan",
+        "Christian Bale Batman",
+        "Heath Ledger Joker",
+        "Aaron Eckhart Two-Face",
+        "Gary Oldman Gordon",
+        "Michael Caine Alfred",
+        "Maggie Gyllenhaal Rachel",
+        "Morgan Freeman Lucius",
+        "Gotham City setting",
+        "Post-9/11 themes",
+        "Heath Ledger posthumous Oscar",
+        "Why so serious line",
+        "Pencil trick scene",
+        "Hospital explosion",
+        "Ferry moral dilemma",
+        "IMAX camera usage",
+        "Practical effects emphasis",
+        "Comic book adaptation",
+        "Cultural impact"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0056",
+      "category": "Movies",
+      "name": "The Avengers",
+      "clues": [
+        "2012 Marvel superhero film",
+        "Directed by Joss Whedon",
+        "Iron Man Captain America Thor Hulk",
+        "Black Widow Hawkeye team",
+        "Nick Fury assembler",
+        "Loki villain",
+        "S.H.I.E.L.D. organization",
+        "Tesseract MacGuffin",
+        "New York battle",
+        "Chitauri alien invasion",
+        "Team dynamics focus",
+        "Robert Downey Jr. Tony Stark",
+        "Chris Evans Steve Rogers",
+        "Chris Hemsworth Thor",
+        "Mark Ruffalo Bruce Banner",
+        "Scarlett Johansson Natasha",
+        "Jeremy Renner Clint",
+        "Samuel L. Jackson Fury",
+        "Marvel Cinematic Universe",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0057",
+      "category": "Movies",
+      "name": "Finding Nemo",
+      "clues": [
+        "2003 Pixar animated film",
+        "Directed by Andrew Stanton",
+        "Ocean setting",
+        "Clownfish protagonist",
+        "Marlin overprotective father",
+        "Nemo captured son",
+        "Great Barrier Reef",
+        "Sydney Harbor destination",
+        "Dory forgetful sidekick",
+        "Ellen DeGeneres voice",
+        "Albert Brooks voice",
+        "Shark support group",
+        "Bruce vegetarian shark",
+        "Crush sea turtle",
+        "Nigel pelican friend",
+        "Darla dentist niece",
+        "Fish tank escape",
+        "Ocean current highway",
+        "Parent-child relationship",
+        "Environmental themes"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0058",
+      "category": "Movies",
+      "name": "Parasite",
+      "clues": [
+        "2019 South Korean film",
+        "Directed by Bong Joon-ho",
+        "Palme d'Or winner",
+        "Best Picture Oscar winner",
+        "Class struggle satire",
+        "Kim family poor",
+        "Park family wealthy",
+        "House invasion scheme",
+        "Basement secret",
+        "Rainstorm climax",
+        "Social commentary",
+        "Song Kang-ho father",
+        "Lee Sun-kyun wealthy father",
+        "Cho Yeo-jeong mother",
+        "Choi Woo-shik son",
+        "Park So-dam daughter",
+        "Bong Joon-ho screenplay",
+        "International success",
+        "Non-English language breakthrough",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0059",
+      "category": "Movies",
+      "name": "The Shawshank Redemption",
+      "clues": [
+        "1994 prison drama film",
+        "Directed by Frank Darabont",
+        "Stephen King novella adaptation",
+        "Andy Dufresne protagonist",
+        "Red Ellis Redding narrator",
+        "Tim Robbins Andy",
+        "Morgan Freeman Red",
+        "Wrongful imprisonment theme",
+        "Shawshank State Penitentiary",
+        "Brooks Hatlen tragedy",
+        "Rita Hayworth poster",
+        "Rock hammer tool",
+        "Get busy living quote",
+        "Hope central theme",
+        "Zihuatanejo beach dream",
+        "Warden Norton corruption",
+        "Captain Hadley brutality",
+        "Opera rooftop scene",
+        "Redemption arc",
+        "Cultural phenomenon"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "cinema"
+      }
     }
   ]
 }

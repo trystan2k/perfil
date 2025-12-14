@@ -96,6 +96,326 @@
         "difficulty": "medium",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0020",
+      "category": "Animals",
+      "name": "Elefante",
+      "clues": [
+        "Animal terrestre más grande",
+        "Trompa usada para respirar y agarrar",
+        "Colmillos de marfil",
+        "Excelente memoria",
+        "Vive en manadas lideradas por hembras",
+        "Nativo de África y Asia",
+        "Piel gruesa y gris",
+        "Orejas grandes ayudan a regular temperatura",
+        "Herbívoro que come plantas y pasto",
+        "Puede pesar hasta 6 toneladas",
+        "Vive 60-70 años",
+        "Muy inteligente y social",
+        "Rituales de duelo por los muertos",
+        "Puede comunicarse mediante infrasonido",
+        "Tasa de reproducción lenta",
+        "En peligro por la caza furtiva",
+        "Usa la trompa como una mano",
+        "Buenos nadadores",
+        "Baños de polvo para proteger la piel",
+        "Símbolo de sabiduría en muchas culturas"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0021",
+      "category": "Animals",
+      "name": "Delfín",
+      "clues": [
+        "Mamífero marino",
+        "Altamente inteligente",
+        "Usa ecolocalización",
+        "Respira aire a través de espiráculo",
+        "Vive en grupos",
+        "Cuerpo aerodinámico",
+        "Piel gris con vientre blanco",
+        "Puede saltar alto del agua",
+        "Se comunica mediante clics y silbidos",
+        "Se encuentra en océanos de todo el mundo",
+        "Carnívoro que come peces y calamares",
+        "Puede nadar hasta 20 mph",
+        "Duerme con un ojo abierto",
+        "Social y juguetón",
+        "Ayuda a miembros heridos del grupo",
+        "Vive 20-45 años",
+        "Sin sentido del olfato",
+        "Constantemente en movimiento",
+        "Popular en parques marinos",
+        "Símbolo de libertad y alegría"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0022",
+      "category": "Animals",
+      "name": "Águila",
+      "clues": [
+        "Ave rapaz",
+        "Excelente vista",
+        "Pico ganchudo poderoso",
+        "Garras afiladas",
+        "Gran envergadura de alas",
+        "Símbolo de muchas naciones",
+        "Carnívoro que caza desde arriba",
+        "Construye nidos grandes en lugares altos",
+        "Puede detectar presas a millas de distancia",
+        "Habilidades de vuelo potentes",
+        "Se encuentra en todos los continentes excepto la Antártida",
+        "Se aparea de por vida",
+        "Vive 20-30 años",
+        "El águila calva es símbolo nacional de EE.UU.",
+        "El águila dorada es la más extendida",
+        "Planea en corrientes térmicas",
+        "Cazador poderoso",
+        "En la cima de la cadena alimenticia",
+        "Recuperación de la casi extinción",
+        "Representa fuerza y libertad"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0023",
+      "category": "Animals",
+      "name": "Tigre",
+      "clues": [
+        "Especie de felino más grande",
+        "Pelaje anaranjado con rayas negras",
+        "Cazador solitario",
+        "Nativo de Asia",
+        "Excelente nadador",
+        "Mandíbulas y dientes poderosos",
+        "Visión nocturna",
+        "Cada tigre tiene patrón de rayas único",
+        "Especie en peligro",
+        "Puede saltar 30 pies horizontalmente",
+        "Vive en bosques y praderas",
+        "Carnívoro",
+        "Los machos tienen territorios más grandes",
+        "Las crías permanecen con la madre 2 años",
+        "Puede pesar hasta 660 libras",
+        "Rugido se puede escuchar a 2 millas",
+        "Animal nacional de la India",
+        "Símbolo de poder y coraje",
+        "Menos de 4,000 en la naturaleza",
+        "Depredador ápice"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0024",
+      "category": "Animals",
+      "name": "Jirafa",
+      "clues": [
+        "Animal terrestre más alto",
+        "Cuello muy largo",
+        "Pelaje con manchas",
+        "Nativa de África",
+        "Herbívoro que come hojas de árboles altos",
+        "Puede correr hasta 35 mph",
+        "Lengua larga (18-20 pulgadas)",
+        "Corazón grande para bombear sangre al cuello",
+        "Duerme de pie",
+        "Vive en manadas",
+        "Puede pasar semanas sin agua",
+        "Crías recién nacidas de 6 pies de alto",
+        "Patea depredadores con patas poderosas",
+        "Patrón único como huellas dactilares",
+        "Silenciosa la mayor parte del tiempo",
+        "Puede vivir 25 años en la naturaleza",
+        "El cuello tiene el mismo número de vértebras que los humanos",
+        "Válvulas especiales en arterias del cuello",
+        "Jerarquía social",
+        "Vulnerable a la pérdida de hábitat"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0025",
+      "category": "Animals",
+      "name": "Panda",
+      "clues": [
+        "Oso blanco y negro",
+        "Nativo de China",
+        "Come principalmente bambú",
+        "Especie en peligro",
+        "Apéndice similar a pulgar para agarrar bambú",
+        "Solitario la mayor parte del año",
+        "Crías diminutas al nacer",
+        "Buen trepador",
+        "Símbolo de conservación de vida silvestre",
+        "Vive en bosques de montaña",
+        "Pasa 12-16 horas comiendo diariamente",
+        "Puede pesar hasta 300 libras",
+        "Mala vista pero buen olfato",
+        "Se comunica mediante marcado de olor",
+        "Vive 20 años en la naturaleza",
+        "Rara vez se reproduce en cautiverio",
+        "Tesoro nacional de China",
+        "Usado en diplomacia",
+        "Baja tasa reproductiva",
+        "El cambio climático amenaza el hábitat"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0026",
+      "category": "Animals",
+      "name": "Lobo",
+      "clues": [
+        "Miembro salvaje más grande de la familia de los perros",
+        "Vive en manadas",
+        "Jerarquía social compleja",
+        "Par alfa lidera la manada",
+        "Excelente sentido del olfato",
+        "Puede correr 40 mph",
+        "Se comunica a través de aullidos",
+        "Se encuentra en América del Norte, Europa, Asia",
+        "Carnívoro que caza presas grandes",
+        "Pelaje grueso",
+        "Resuelve problemas inteligentemente",
+        "Se aparea de por vida",
+        "Cachorros nacen en madrigueras",
+        "Caza cooperativa",
+        "Marcado territorial",
+        "En peligro en muchas áreas",
+        "Historias de éxito de reintroducción",
+        "Especie clave",
+        "Asociaciones con mitología lunar",
+        "Lazos familiares fuertes"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0027",
+      "category": "Animals",
+      "name": "Koala",
+      "clues": [
+        "Marsupial nativo de Australia",
+        "Especialista en hojas de eucalipto",
+        "Duerme 18-22 horas diariamente",
+        "Bolsa para crías",
+        "Pelaje grueso y gris",
+        "Orejas grandes y redondas",
+        "Garras fuertes para trepar",
+        "Dieta baja en energía",
+        "Mastica alimentos completamente",
+        "Animales solitarios",
+        "Fuerte sentido del olfato",
+        "Patrones en patas como huellas dactilares",
+        "Las crías se llaman joeys",
+        "Vulnerable a la pérdida de hábitat",
+        "No son osos a pesar de su apariencia",
+        "Sistema digestivo especializado",
+        "Puede almacenar hojas en bolsas de mejillas",
+        "El cambio climático amenaza la fuente de alimento",
+        "Atracción turística",
+        "Símbolo de conservación"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0028",
+      "category": "Animals",
+      "name": "Tiburón",
+      "clues": [
+        "Pez cartilaginoso",
+        "Múltiples filas de dientes reemplazables",
+        "Especie antigua",
+        "Sentidos de electrorecepción",
+        "Cuerpo aerodinámico",
+        "Branquias para respirar",
+        "Se encuentra en todos los océanos",
+        "Depredador ápice en muchos ecosistemas",
+        "Puede detectar sangre a millas de distancia",
+        "Algunas especies pueden vivir 100+ años",
+        "El tiburón blanco es el más famoso",
+        "Natación constante para respirar",
+        "Dentículos dérmicos en la piel",
+        "Fertilización interna",
+        "Algunos dan a luz vivos",
+        "Vulnerable a la sobrepesca",
+        "Importante para la salud oceánica",
+        "Malentendido por los humanos",
+        "Preocupaciones de conservación",
+        "Éxito evolutivo antiguo"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0029",
+      "category": "Animals",
+      "name": "Camaleón",
+      "clues": [
+        "Reptil que cambia de color",
+        "Movimiento ocular independiente",
+        "Lengua proyectil larga",
+        "Cola prensil",
+        "Pies zigodáctilos",
+        "Nativo de África, Madagascar, Asia",
+        "Criaturas solitarias",
+        "Excelentes trepadores",
+        "Movimiento lento",
+        "Cambios de color para estado de ánimo y temperatura",
+        "Visión de 360 grados",
+        "Lengua más larga que el cuerpo",
+        "Pies que agarran como pulgares oponibles",
+        "Tamaño pequeño a mediano",
+        "Dieta insectívora",
+        "Huevos puestos en suelo",
+        "Determinación del sexo dependiente de temperatura",
+        "Mascotas exóticas populares",
+        "Células de piel especializadas",
+        "Linaje antiguo"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "nature"
+      }
     }
   ]
 }

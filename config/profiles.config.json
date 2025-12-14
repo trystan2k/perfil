@@ -27,6 +27,56 @@
           "name": "Penguin",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
+        },
+        {
+          "name": "Elephant",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Dolphin",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Eagle",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Tiger",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Giraffe",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Panda",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Wolf",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Koala",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Shark",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Chameleon",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
         }
       ]
     },
@@ -53,6 +103,56 @@
           "name": "Egypt",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
+        },
+        {
+          "name": "United States",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "France",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Australia",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "India",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Canada",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Germany",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Mexico",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Italy",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "South Korea",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Argentina",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
         }
       ]
     },
@@ -89,6 +189,56 @@
           "name": "Nelson Mandela",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
+        },
+        {
+          "name": "Martin Luther King Jr.",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Queen Elizabeth II",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Steve Jobs",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Oprah Winfrey",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Michael Jordan",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "J.K. Rowling",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Dwayne Johnson",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Beyoncé",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Stephen Hawking",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Malala Yousafzai",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
         }
       ]
     },
@@ -115,6 +265,56 @@
           "name": "Star Wars",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "easy"
+        },
+        {
+          "name": "Titanic",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Godfather",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Avatar",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Jurassic Park",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Frozen",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Dark Knight",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Avengers",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Finding Nemo",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Parasite",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Shawshank Redemption",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
         }
       ]
     },
@@ -141,6 +341,56 @@
           "name": "Tennis",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
+        },
+        {
+          "name": "Baseball",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "American Football",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Golf",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Swimming",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Boxing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Hockey",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Track and Field",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Volleyball",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Figure Skating",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Gymnastics",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
         }
       ]
     },
@@ -165,6 +415,56 @@
         },
         {
           "name": "Artificial Intelligence",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Computer",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Robot",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Virtual Reality",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Blockchain",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Drone",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "3D Printing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Quantum Computing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Cloud Computing",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Biotechnology",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Nanotechnology",
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
         }

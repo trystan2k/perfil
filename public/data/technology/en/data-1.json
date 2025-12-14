@@ -96,6 +96,326 @@
         "difficulty": "hard",
         "source": "modern-tech"
       }
+    },
+    {
+      "id": "profile-0070",
+      "category": "Technology",
+      "name": "Computer",
+      "clues": [
+        "Electronic device",
+        "Processes information",
+        "Hardware and software components",
+        "CPU brain",
+        "Memory storage",
+        "Input output devices",
+        "Operating system foundation",
+        "Digital revolution catalyst",
+        "Personal computing era",
+        "Desktop laptop tablet forms",
+        "Binary code foundation",
+        "Programming languages",
+        "Internet connectivity",
+        "File management system",
+        "Application software",
+        "Gaming platform",
+        "Work productivity tool",
+        "Communication device",
+        "Entertainment hub",
+        "Educational resource"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0071",
+      "category": "Technology",
+      "name": "Robot",
+      "clues": [
+        "Automated machine",
+        "Programmed tasks",
+        "Artificial intelligence",
+        "Sensors perception",
+        "Actuators movement",
+        "Manufacturing automation",
+        "Assembly line worker",
+        "Surgical assistance",
+        "Space exploration",
+        "Military applications",
+        "Household helpers",
+        "Educational tools",
+        "Entertainment performers",
+        "Research assistants",
+        "Autonomous vehicles",
+        "Humanoid forms",
+        "Industrial efficiency",
+        "Precision operations",
+        "24/7 operation capability",
+        "Future integration"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0072",
+      "category": "Technology",
+      "name": "Virtual Reality",
+      "clues": [
+        "Immersive technology",
+        "Computer-generated environment",
+        "Head-mounted display",
+        "Motion tracking sensors",
+        "360-degree experience",
+        "Gaming applications",
+        "Training simulations",
+        "Medical therapy",
+        "Architectural visualization",
+        "Educational experiences",
+        "Social interaction platforms",
+        "Entertainment industry",
+        "Oculus Rift pioneer",
+        "HTC Vive competitor",
+        "PlayStation VR console",
+        "Haptic feedback technology",
+        "Motion sickness challenge",
+        "Metaverse foundation",
+        "Future communication",
+        "Digital transformation"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0073",
+      "category": "Technology",
+      "name": "Blockchain",
+      "clues": [
+        "Distributed ledger technology",
+        "Cryptocurrency foundation",
+        "Decentralized system",
+        "Immutable records",
+        "Cryptographic security",
+        "Bitcoin implementation",
+        "Smart contracts capability",
+        "Supply chain tracking",
+        "Financial transactions",
+        "Digital identity verification",
+        "Voting systems",
+        "Healthcare records",
+        "Intellectual property protection",
+        "Ethereum platform",
+        "Mining process",
+        "Consensus mechanisms",
+        "Transparency feature",
+        "Trustless transactions",
+        "Financial revolution",
+        "Web3 foundation"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0074",
+      "category": "Technology",
+      "name": "Drone",
+      "clues": [
+        "Unmanned aerial vehicle",
+        "Remote controlled",
+        "Autonomous flight capability",
+        "Camera mounting platform",
+        "Aerial photography",
+        "Package delivery",
+        "Agricultural monitoring",
+        "Search and rescue",
+        "Military reconnaissance",
+        "Weather monitoring",
+        "Infrastructure inspection",
+        "Entertainment filming",
+        "Racing competitions",
+        "Hobbyist flying",
+        "GPS navigation",
+        "Obstacle avoidance",
+        "Battery powered",
+        "Quadcopter design",
+        "Regulation challenges",
+        "Future transportation"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0075",
+      "category": "Technology",
+      "name": "3D Printing",
+      "clues": [
+        "Additive manufacturing",
+        "Layer-by-layer construction",
+        "Digital design input",
+        "Rapid prototyping",
+        "Custom production",
+        "Medical applications",
+        "Automotive parts",
+        "Architecture models",
+        "Food printing",
+        "Jewelry creation",
+        "Space station tools",
+        "Educational tools",
+        "Home manufacturing",
+        "Sustainable production",
+        "Complex geometry capability",
+        "Material variety",
+        "Cost reduction",
+        "Innovation catalyst",
+        "Future manufacturing",
+        "Democratized production"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0076",
+      "category": "Technology",
+      "name": "Quantum Computing",
+      "clues": [
+        "Quantum mechanics application",
+        "Qubit processing unit",
+        "Superposition principle",
+        "Entanglement phenomenon",
+        "Exponential speed increase",
+        "Cryptography breaking",
+        "Drug discovery acceleration",
+        "Financial modeling",
+        "Weather prediction",
+        "Artificial intelligence enhancement",
+        "Complex problem solving",
+        "Google quantum supremacy",
+        "IBM quantum computer",
+        "Microsoft quantum development",
+        "Error correction challenges",
+        "Cryogenic cooling",
+        "Quantum algorithms",
+        "Future computing paradigm",
+        "Scientific research tool",
+        "Technological revolution"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0077",
+      "category": "Technology",
+      "name": "Cloud Computing",
+      "clues": [
+        "Internet-based computing",
+        "Remote data storage",
+        "On-demand resources",
+        "Scalable infrastructure",
+        "Amazon Web Services leader",
+        "Microsoft Azure competitor",
+        "Google Cloud Platform",
+        "Software as a Service",
+        "Platform as a Service",
+        "Infrastructure as a Service",
+        "Data backup solutions",
+        "Collaboration tools",
+        "Cost efficiency",
+        "Accessibility anywhere",
+        "Automatic updates",
+        "Security concerns",
+        "Business transformation",
+        "Remote work enablement",
+        "Digital transformation",
+        "Future of IT"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0078",
+      "category": "Technology",
+      "name": "Biotechnology",
+      "clues": [
+        "Biological system manipulation",
+        "Genetic engineering",
+        "DNA modification",
+        "Medical breakthroughs",
+        "Agricultural improvement",
+        "Pharmaceutical development",
+        "CRISPR technology",
+        "Gene therapy",
+        "Stem cell research",
+        "Vaccine development",
+        "Biofuel production",
+        "Environmental remediation",
+        "Food enhancement",
+        "Disease treatment",
+        "Personalized medicine",
+        "Synthetic biology",
+        "Ethical considerations",
+        "Regulatory oversight",
+        "Future healthcare",
+        "Sustainable solutions"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0079",
+      "category": "Technology",
+      "name": "Nanotechnology",
+      "clues": [
+        "Molecular scale engineering",
+        "Nanometer dimensions",
+        "Material property manipulation",
+        "Enhanced strength materials",
+        "Medical applications",
+        "Electronics miniaturization",
+        "Energy efficiency",
+        "Water purification",
+        "Cosmetic enhancements",
+        "Textile improvements",
+        "Coating technologies",
+        "Drug delivery systems",
+        "Cancer treatment",
+        "Environmental cleanup",
+        "Solar cell efficiency",
+        "Computer processor advancement",
+        "Self-cleaning surfaces",
+        "Future manufacturing",
+        "Scientific frontier",
+        "Technological revolution"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "technology"
+      }
     }
   ]
 }

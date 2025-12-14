@@ -96,6 +96,326 @@
         "difficulty": "medium",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0020",
+      "category": "Animals",
+      "name": "Elefante",
+      "clues": [
+        "Maior animal terrestre",
+        "Tronco usado para respirar e segurar",
+        "Presas de marfim",
+        "Excelente memória",
+        "Vive em manadas lideradas por fêmeas",
+        "Nativo da África e Ásia",
+        "Pele espessa e cinza",
+        "Orelhas grandes ajudam a regular temperatura",
+        "Herbívoro comendo plantas e grama",
+        "Pode pesar até 6 toneladas",
+        "Vive 60-70 anos",
+        "Muito inteligente e social",
+        "Rituais de luto pelos mortos",
+        "Pode se comunicar através de infrassom",
+        "Taxa de reprodução lenta",
+        "Ameaçado pela caça ilegal",
+        "Usa o tronco como uma mão",
+        "Bons nadadores",
+        "Banhos de poeira para proteger a pele",
+        "Símbolo de sabedoria em muitas culturas"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0021",
+      "category": "Animals",
+      "name": "Golfinho",
+      "clues": [
+        "Mamífero marinho",
+        "Altamente inteligente",
+        "Usa ecolocalização",
+        "Respira ar através de espiráculo",
+        "Vive em grupos",
+        "Corpo aerodinâmico",
+        "Pele cinza com barriga branca",
+        "Pode saltar alto da água",
+        "Comunica através de cliques e assobios",
+        "Encontrado em oceanos worldwide",
+        "Carnívoro comendo peixes e lulas",
+        "Pode nadar até 20 mph",
+        "Dorme com um olho aberto",
+        "Social e brincalhão",
+        "Ajuda membros feridos do grupo",
+        "Vive 20-45 anos",
+        "Sem sentido de olfato",
+        "Constantemente em movimento",
+        "Popular em parques marinhos",
+        "Símbolo de liberdade e alegria"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0022",
+      "category": "Animals",
+      "name": "Águia",
+      "clues": [
+        "Ave de rapina",
+        "Visão excelente",
+        "Bico em gancho poderoso",
+        "Garras afiadas",
+        "Grande envergadura de asas",
+        "Símbolo de muitas nações",
+        "Carnívoro caçando de cima",
+        "Constrói ninhos grandes em lugares altos",
+        "Pode detectar presas a milhas de distância",
+        "Habilidades de voo poderosas",
+        "Encontrada em todos os continentes exceto Antártida",
+        "Acasala para vida toda",
+        "Vive 20-30 anos",
+        "Águia careca é símbolo nacional dos EUA",
+        "Águia dourada mais difundida",
+        "Plana em correntes térmicas",
+        "Caçador poderoso",
+        "No topo da cadeia alimentar",
+        "Recuperação da quase extinção",
+        "Representa força e liberdade"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0023",
+      "category": "Animals",
+      "name": "Tigre",
+      "clues": [
+        "Maior espécie de felino",
+        "Pelagem laranja com listras pretas",
+        "Caçador solitário",
+        "Nativo da Ásia",
+        "Excelente nadador",
+        "Maxilares e dentes poderosos",
+        "Visão noturna",
+        "Cada tigre tem padrão de listras único",
+        "Espécie ameaçada",
+        "Pode saltar 30 pés horizontalmente",
+        "Vive em florestas e gramados",
+        "Carnívoro",
+        "Machos têm territórios maiores",
+        "Filhotes ficam com mãe por 2 anos",
+        "Pode pesar até 660 libras",
+        "Rugido pode ser ouvido a 2 milhas",
+        "Animal nacional da Índia",
+        "Símbolo de poder e coragem",
+        "Menos de 4.000 na natureza",
+        "Predador ápice"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0024",
+      "category": "Animals",
+      "name": "Girafa",
+      "clues": [
+        "Animal terrestre mais alto",
+        "Pescoço muito longo",
+        "Pelagem com manchas",
+        "Nativa da África",
+        "Herbívoro comendo folhas de árvores altas",
+        "Pode correr até 35 mph",
+        "Língua longa (18-20 polegadas)",
+        "Coração grande para bombear sangue ao pescoço",
+        "Dorme em pé",
+        "Vive em manadas",
+        "Pode passar semanas sem água",
+        "Filhotes recém-nascidos de 6 pés de altura",
+        "Chuta predadores com pernas poderosas",
+        "Padrão único como impressões digitais",
+        "Silenciosa a maior parte do tempo",
+        "Pode viver 25 anos na natureza",
+        "Pescoço tem mesmo número de vértebras que humanos",
+        "Válvulas especiais em artérias do pescoço",
+        "Hierarquia social",
+        "Vulnerável à perda de habitat"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0025",
+      "category": "Animals",
+      "name": "Panda",
+      "clues": [
+        "Urso preto e branco",
+        "Nativo da China",
+        "Come principalmente bambu",
+        "Espécie ameaçada",
+        "Apêndice semelhante a polegar para segurar bambú",
+        "Solitário maior parte do ano",
+        "Filhotes minúsculos ao nascer",
+        "Bom escalador",
+        "Símbolo de conservação da vida selvagem",
+        "Vive em florestas montanhosas",
+        "Passa 12-16 horas comendo diariamente",
+        "Pode pesar até 300 libras",
+        "Má visão mas bom olfato",
+        "Comunica através de marcação de odor",
+        "Vive 20 anos na natureza",
+        "Raramente se reproduz em cativeiro",
+        "Tesouro nacional da China",
+        "Usado em diplomacia",
+        "Baixa taxa reprodutiva",
+        "Mudança climática ameaça habitat"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0026",
+      "category": "Animals",
+      "name": "Lobo",
+      "clues": [
+        "Membro selvagem mais grande da família dos cães",
+        "Vive em matilhas",
+        "Hierarquia social complexa",
+        "Par alfa lidera a matilha",
+        "Excelente sentido de olfato",
+        "Pode correr 40 mph",
+        "Comunica através de uivos",
+        "Encontrado na América do Norte, Europa, Ásia",
+        "Carnívoro caçando presas grandes",
+        "Pelagem espessa",
+        "Resolve problemas inteligentemente",
+        "Acasala para vida toda",
+        "Filhotes nascem em tocas",
+        "Caça cooperativa",
+        "Marcação territorial",
+        "Ameaçado em muitas áreas",
+        "Histórias de sucesso de reintrodução",
+        "Espécie-chave",
+        "Associações com mitologia lunar",
+        "Laços familiares fortes"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0027",
+      "category": "Animals",
+      "name": "Coala",
+      "clues": [
+        "Marsupial nativo da Austrália",
+        "Especialista em folhas de eucalipto",
+        "Dorme 18-22 horas diariamente",
+        "Bolsa para filhotes",
+        "Pelagem espessa e cinza",
+        "Orelhas grandes e redondas",
+        "Garras fortes para escalar",
+        "Dieta baixa em energia",
+        "Mastica alimentos completamente",
+        "Animais solitários",
+        "Forte sentido de olfato",
+        "Padrões nas patas como impressões digitais",
+        "Filhotes chamados joeys",
+        "Vulnerável à perda de habitat",
+        "Não são ursos apesar da aparência",
+        "Sistema digestivo especializado",
+        "Pode armazenar folhas em bochechas",
+        "Mudança climática ameaça fonte de alimento",
+        "Atração turística",
+        "Símbolo de conservação"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0028",
+      "category": "Animals",
+      "name": "Tubarão",
+      "clues": [
+        "Peixe cartilaginoso",
+        "Múltiplas fileiras de dentes substituíveis",
+        "Espécie antiga",
+        "Sentidos de eletrorecepção",
+        "Corpo aerodinâmico",
+        "Brânquias para respirar",
+        "Encontrado em todos os oceanos",
+        "Predador ápice em muitos ecossistemas",
+        "Pode detectar sangue a milhas de distância",
+        "Algumas espécies podem viver 100+ anos",
+        "Tubarão branco mais famoso",
+        "Natação constante para respirar",
+        "Dentículos dérmicos na pele",
+        "Fertilização interna",
+        "Alguns dão à luz vivos",
+        "Vulnerável à sobrepesca",
+        "Importante para saúde oceânica",
+        "Mal compreendido pelos humanos",
+        "Preocupações de conservação",
+        "Sucesso evolutivo antigo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0029",
+      "category": "Animals",
+      "name": "Camaleão",
+      "clues": [
+        "Réptil que muda de cor",
+        "Movimento ocular independente",
+        "Língua projetil longa",
+        "Cauda preênsil",
+        "Pés zigodáctilos",
+        "Nativo da África, Madagascar, Ásia",
+        "Criaturas solitárias",
+        "Excelentes escaladores",
+        "Movimento lento",
+        "Mudanças de cor para humor e temperatura",
+        "Visão de 360 graus",
+        "Língua mais longa que o corpo",
+        "Pés que agarram como polegares oponíveis",
+        "Tamanho pequeno a médio",
+        "Dieta insetívora",
+        "Ovos postos no solo",
+        "Determinação do sexo dependente de temperatura",
+        "Animais de estimação exóticos populares",
+        "Células de pele especializadas",
+        "Linhagem antiga"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "nature"
+      }
     }
   ]
 }

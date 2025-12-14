@@ -96,6 +96,325 @@
         "difficulty": "medium",
         "source": "nature"
       }
+    },
+    {
+      "id": "profile-0020",
+      "category": "Animals",
+      "name": "Elephant",
+      "clues": [
+        "Largest land animal",
+        "Trunk used for breathing and grasping",
+        "Ivory tusks",
+        "Excellent memory",
+        "Lives in herds led by females",
+        "Native to Africa and Asia",
+        "Thick gray skin",
+        "Large ears help regulate temperature",
+        "Herbivore eating plants and grass",
+        "Can weigh up to 6 tons",
+        "Lifespan 60-70 years",
+        "Highly intelligent and social",
+        "Mourning rituals for dead",
+        "Can communicate through infrasound",
+        "Slow reproduction rate",
+        "Endangered due to poaching",
+        "Uses trunk like a hand",
+        "Good swimmers",
+        "Dust baths to protect skin",
+        "Symbol of wisdom in many cultures"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0021",
+      "category": "Animals",
+      "name": "Dolphin",
+      "clues": [
+        "Marine mammal",
+        "Highly intelligent",
+        "Uses echolocation",
+        "Breathes air through blowhole",
+        "Lives in pods",
+        "Streamlined body",
+        "Gray skin with white belly",
+        "Can leap high out of water",
+        "Communicates through clicks and whistles",
+        "Found in oceans worldwide",
+        "Carnivore eating fish and squid",
+        "Can swim up to 20 mph",
+        "Sleeps with one eye open",
+        "Social and playful",
+        "Helps injured pod members",
+        "Lifespan 20-45 years",
+        "No sense of smell",
+        "Constantly moving",
+        "Popular in marine parks",
+        "Symbol of freedom and joy"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0022",
+      "category": "Animals",
+      "name": "Eagle",
+      "clues": [
+        "Bird of prey",
+        "Excellent eyesight",
+        "Powerful hooked beak",
+        "Sharp talons",
+        "Large wingspan",
+        "Symbol of many nations",
+        "Carnivore hunting from above",
+        "Builds large nests in high places",
+        "Can spot prey from miles away",
+        "Strong flying abilities",
+        "Found on every continent except Antarctica",
+        "Mates for life",
+        "Lifespan 20-30 years",
+        "Bald eagle is US national symbol",
+        "Golden eagle most widespread",
+        "Soars on thermal currents",
+        "Powerful hunter",
+        "At top of food chain",
+        "Represents strength and freedom"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0023",
+      "category": "Animals",
+      "name": "Tiger",
+      "clues": [
+        "Largest cat species",
+        "Orange fur with black stripes",
+        "Solitary hunter",
+        "Native to Asia",
+        "Excellent swimmer",
+        "Powerful jaws and teeth",
+        "Night vision",
+        "Each tiger has unique stripe pattern",
+        "Endangered species",
+        "Can leap 30 feet horizontally",
+        "Lives in forests and grasslands",
+        "Carnivore",
+        "Males have larger territories",
+        "Cubs stay with mother for 2 years",
+        "Can weigh up to 660 pounds",
+        "Roar can be heard 2 miles away",
+        "National animal of India",
+        "Symbol of power and courage",
+        "Less than 4,000 left in wild",
+        "Apex predator"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0024",
+      "category": "Animals",
+      "name": "Giraffe",
+      "clues": [
+        "Tallest land animal",
+        "Very long neck",
+        "Spotted coat pattern",
+        "Native to Africa",
+        "Herbivore eating leaves from tall trees",
+        "Can run up to 35 mph",
+        "Long tongue (18-20 inches)",
+        "Large heart to pump blood up neck",
+        "Sleeps standing up",
+        "Lives in herds",
+        "Can go weeks without water",
+        "Newborn calves 6 feet tall",
+        "Kicks predators with powerful legs",
+        "Unique pattern like fingerprints",
+        "Silent most of the time",
+        "Can live 25 years in wild",
+        "Neck has same number of vertebrae as humans",
+        "Special valves in neck arteries",
+        "Social hierarchy",
+        "Vulnerable to habitat loss"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0025",
+      "category": "Animals",
+      "name": "Panda",
+      "clues": [
+        "Black and white bear",
+        "Native to China",
+        "Primarily eats bamboo",
+        "Endangered species",
+        "Thumb-like appendage for gripping bamboo",
+        "Solitary most of year",
+        "Cubs tiny at birth",
+        "Good climbers",
+        "Symbol of wildlife conservation",
+        "Lives in mountain forests",
+        "Spends 12-16 hours eating daily",
+        "Can weigh up to 300 pounds",
+        "Poor eyesight but good smell",
+        "Communicates through scent marking",
+        "Lifespan 20 years in wild",
+        "Rarely reproduces in captivity",
+        "National treasure of China",
+        "Used in diplomacy",
+        "Low reproductive rate",
+        "Climate change threatens habitat"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0026",
+      "category": "Animals",
+      "name": "Wolf",
+      "clues": [
+        "Largest wild member of dog family",
+        "Lives in packs",
+        "Complex social hierarchy",
+        "Alpha pair leads pack",
+        "Excellent sense of smell",
+        "Can run 40 mph",
+        "Communicates through howling",
+        "Found in North America, Europe, Asia",
+        "Carnivore hunting large prey",
+        "Thick fur coat",
+        "Intelligent problem solvers",
+        "Mate for life",
+        "Pups born in dens",
+        "Cooperative hunting",
+        "Territorial marking",
+        "Endangered in many areas",
+        "Reintroduction success stories",
+        "Keystone species",
+        "Lunar mythology associations",
+        "Family bonds strong"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0027",
+      "category": "Animals",
+      "name": "Koala",
+      "clues": [
+        "Marsupial native to Australia",
+        "Eucalyptus leaf specialist",
+        "Sleeps 18-22 hours daily",
+        "Pouch for young",
+        "Thick gray fur",
+        "Large round ears",
+        "Strong claws for climbing",
+        "Low energy diet",
+        "Chews food thoroughly",
+        "Solitary animals",
+        "Strong sense of smell",
+        "Fingerprint-like patterns on paws",
+        "Cubs called joeys",
+        "Vulnerable to habitat loss",
+        "Not bears despite appearance",
+        "Specialized digestive system",
+        "Can store leaves in cheek pouches",
+        "Climate change threatens food source",
+        "Tourism attraction",
+        "Conservation symbol"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0028",
+      "category": "Animals",
+      "name": "Shark",
+      "clues": [
+        "Cartilaginous fish",
+        "Multiple rows of replaceable teeth",
+        "Ancient species",
+        "Electroreception senses",
+        "Streamlined body",
+        "Gills for breathing",
+        "Found in all oceans",
+        "Apex predator in many ecosystems",
+        "Can detect blood from miles away",
+        "Some species can live 100+ years",
+        "Great white most famous species",
+        "Constant swimming to breathe",
+        "Dermal denticles for skin",
+        "Internal fertilization",
+        "Some give live birth",
+        "Vulnerable to overfishing",
+        "Important for ocean health",
+        "Misunderstood by humans",
+        "Conservation concerns",
+        "Ancient evolutionary success"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "nature"
+      }
+    },
+    {
+      "id": "profile-0029",
+      "category": "Animals",
+      "name": "Chameleon",
+      "clues": [
+        "Color-changing reptile",
+        "Independent eye movement",
+        "Long projectile tongue",
+        "Prehensile tail",
+        "Zygodactylous feet",
+        "Native to Africa, Madagascar, Asia",
+        "Solitary creatures",
+        "Excellent climbers",
+        "Slow movement",
+        "Color changes for mood and temperature",
+        "360-degree vision",
+        "Tongue longer than body",
+        "Grasping feet like opposable thumbs",
+        "Small to medium size",
+        "Insectivore diet",
+        "Eggs laid in soil",
+        "Temperature-dependent sex determination",
+        "Popular exotic pets",
+        "Specialized skin cells",
+        "Ancient lineage"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "nature"
+      }
     }
   ]
 }

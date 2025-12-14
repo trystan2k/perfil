@@ -160,6 +160,321 @@
         "difficulty": "medium",
         "source": "historical-figures"
       }
+    },
+    {
+      "id": "profile-0040",
+      "category": "Famous People",
+      "name": "Martin Luther King Jr.",
+      "clues": [
+        "Líder de derechos civiles estadounidense",
+        "Nacido en Atlanta, Georgia",
+        "Ministro bautista",
+        "Ganador del Premio Nobel de la Paz",
+        "Discurso Tengo un Sueño",
+        "Asesinado en 1968",
+        "Defensor de la resistencia no violenta",
+        "Líder del boicot de autobuses de Montgomery",
+        "Fundador de la Conferencia de Liderazgo Cristiano del Sur",
+        "Organizador de la Marcha en Washington",
+        "Figura del Movimiento de Derechos Civiles",
+        "Día festivo federal nombrado en su honor",
+        "Influenciado por Gandhi",
+        "Carta desde la cárcel de Birmingham",
+        "Persona del Año de la Revista Time",
+        "Medalla Presidencial de la Libertad póstuma",
+        "Graduado de Morehouse College",
+        "PhD de la Universidad de Boston",
+        "Esposa Coretta Scott King",
+        "Icono estadounidense de igualdad"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "history"
+      }
+    },
+    {
+      "id": "profile-0041",
+      "category": "Famous People",
+      "name": "Reina Isabel II",
+      "clues": [
+        "Monarca británica",
+        "Monarca británica con reinado más largo",
+        "Nacida en Londres, 1926",
+        "Casa de Windsor",
+        "Jefa de la Commonwealth",
+        "Servicio en la Segunda Guerra Mundial",
+        "Coronación en 1953",
+        "Madre del Príncipe Carlos",
+        "Abuela del Príncipe William",
+        "Residente del Castillo de Windsor",
+        "Residencia oficial Palacio de Buckingham",
+        "Jefa de la Familia Real",
+        "Reina del Reino Unido",
+        "Reina de Canadá, Australia, Nueva Zelanda",
+        "Celebración del Jubileo de Diamante",
+        "Celebración del Jubileo de Platina",
+        "Amante de perros corgi",
+        "Entusiasta de las carreras de caballos",
+        "Tradicionalista",
+        "Símbolo global de estabilidad"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "history"
+      }
+    },
+    {
+      "id": "profile-0042",
+      "category": "Famous People",
+      "name": "Steve Jobs",
+      "clues": [
+        "Cofundador de Apple",
+        "Emprendedor tecnológico",
+        "Nacido en San Francisco",
+        "Abandonó la universidad",
+        "Fundador de NeXT Computer",
+        "CEO de Pixar Animation Studios",
+        "Creador del iPhone",
+        "Visionario del iPad",
+        "Desarrollador del Macintosh",
+        "Campo de distorsión de la realidad",
+        "Practicante budista zen",
+        "Hijo adoptado",
+        "Asistente a Reed College",
+        "Influencia de la caligrafía en el diseño",
+        "Líder perfeccionista",
+        "Genio del marketing",
+        "Defensor de la filosofía del diseño",
+        "Campaña Piensa Diferente",
+        "Icono de Silicon Valley"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0043",
+      "category": "Famous People",
+      "name": "Oprah Winfrey",
+      "clues": [
+        "Presentadora de talk show estadounidense",
+        "Nacida en Mississippi",
+        "Infancia en la pobreza",
+        "Magnate de los medios",
+        "The Oprah Winfrey Show",
+        "Fundadora de Harpo Productions",
+        "Creadora del Club del Libro",
+        "Filántropa",
+        "Emprendedora multimillonaria",
+        "Actriz nominada al Oscar",
+        "Viaje de pérdida de peso pública",
+        "Fundadora de Academia de Liderazgo",
+        "Editora de revista",
+        "Pionera de la televisión de red",
+        "Voz influyente",
+        "Carrera basada en Chicago",
+        "Carrera temprana en Baltimore",
+        "Defensora de sobrevivientes de abuso sexual",
+        "Maestra espiritual",
+        "Fenómeno cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "media"
+      }
+    },
+    {
+      "id": "profile-0044",
+      "category": "Famous People",
+      "name": "Michael Jordan",
+      "clues": [
+        "Leyenda del baloncesto",
+        "Estrella de Chicago Bulls",
+        "Seis campeonatos de la NBA",
+        "Cinco premios MVP de la NBA",
+        "Marca Air Jordan",
+        "Estrella de película Space Jam",
+        "North Carolina Tar Heels",
+        "Intento de carrera de béisbol",
+        "Jugador de Washington Wizards",
+        "Propietario de Charlotte Hornets",
+        "Miembro del Salón de la Fama",
+        "Medallista olímpico de oro",
+        "Miembro del Dream Team",
+        "Actuación del partido de la gripe",
+        "Campeón del tiro final",
+        "Impulso competitivo legendario",
+        "Pionero de patrocinio de Nike",
+        "Icono global",
+        "Múltiples jubilaciones",
+        "Debate del mejor jugador de baloncesto"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0045",
+      "category": "Famous People",
+      "name": "J.K. Rowling",
+      "clues": [
+        "Autora de Harry Potter",
+        "Escritora británica",
+        "Nacida en Yate, Gloucestershire",
+        "Madre soltera en asistencia social",
+        "Escritora de cafetería de Edimburgo",
+        "Rechazo de la Piedra Filosofal",
+        "Serie de siete libros",
+        "Autora multimillonaria",
+        "Guionista",
+        "Campeona de literatura infantil",
+        "Fundadora de caridad",
+        "Presencia en Twitter",
+        "Seudónimo Robert Galbraith",
+        "Graduada de la Universidad de Edimburgo",
+        "Título en francés y clásicos",
+        "Ex empleada de Amnistía Internacional",
+        "Creadora de fenómeno literario",
+        "Productora de adaptaciones cinematográficas",
+        "Creadora del Mundo Mágico",
+        "Exportación cultural británica"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "literature"
+      }
+    },
+    {
+      "id": "profile-0046",
+      "category": "Famous People",
+      "name": "Dwayne Johnson",
+      "clues": [
+        "Luchador profesional convertido en actor",
+        "Nombre del ring The Rock",
+        "Campeón de lucha WWE",
+        "Estrella de acción de Hollywood",
+        "Franquicia Rápidos y Furiosos",
+        "Serie de películas Jumanji",
+        "Actor de voz de Moana",
+        "Villano Hans",
+        "Tema del amor verdadero",
+        "Hermanadad central",
+        "Escenario noruego",
+        "Renacimiento de Disney",
+        "Adaptación musical de Broadway",
+        "Imperio de mercancías",
+        "Fenómeno cultural",
+        "Secuela lanzada"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-0047",
+      "category": "Famous People",
+      "name": "Beyoncé",
+      "clues": [
+        "Cantante estadounidense",
+        "Miembro de Destiny's Child",
+        "Súper estrella de carrera solista",
+        "Nacida en Houston, Texas",
+        "Ganadora de premios Grammy",
+        "Álbum visual Lemonade",
+        "Actuación en Coachella",
+        "Casada con Jay-Z",
+        "Madre de Blue Ivy",
+        "Himno Formation",
+        "Hit Single Ladies",
+        "Dúo Crazy in Love",
+        "Álbum Destiny Fulfilled",
+        "Himno feminista Survivor",
+        "Creadora del término Bootylicious",
+        "Fundadora de Parkwood Entertainment",
+        "Línea de ropa Ivy Park",
+        "Defensora de la cultura negra",
+        "Icono feminista",
+        "Potencia del entretenimiento"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "music"
+      }
+    },
+    {
+      "id": "profile-0048",
+      "category": "Famous People",
+      "name": "Stephen Hawking",
+      "clues": [
+        "Físico teórico",
+        "Profesor de la Universidad de Cambridge",
+        "Sobreviviente de enfermedad ELA",
+        "Autor de Breve Historia del Tiempo",
+        "Investigador de agujeros negros",
+        "Teoría de la radiación de Hawking",
+        "Usuario de silla de ruedas motorizada",
+        "Usuario de sintetizador de voz",
+        "Graduado de la Universidad de Oxford",
+        "Profesor Lucasiano de Matemáticas",
+        "Contribuyente de la teoría del Big Bang",
+        "Pionero de la cosmología",
+        "Escritor de ciencia popular",
+        "Comunicador científico",
+        "Defensor de discapacidades",
+        "Vuelo de gravedad cero",
+        "Aparición en Los Simpsons",
+        "Coautor de Gran Diseño",
+        "Autor del Universo en una Cáscara de Nuez",
+        "Genio científico"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "science"
+      }
+    },
+    {
+      "id": "profile-0049",
+      "category": "Famous People",
+      "name": "Malala Yousafzai",
+      "clues": [
+        "Activista paquistaní",
+        "Ganadora más joven del Premio Nobel de la Paz",
+        "Defensora de la educación",
+        "Sobreviviente de ataque talibán",
+        "Nativa del Valle de Swat",
+        "Bloguera de la BBC",
+        "Campeona de la educación de niñas",
+        "Oradora de las Naciones Unidas",
+        "Estudiante de la Universidad de Oxford",
+        "Fundadora del Fondo Malala",
+        "Memoria Yo Soy Malala",
+        "Familia Hejri",
+        "Padre Ziauddin Yousafzai",
+        "Residente de Birmingham",
+        "Símbolo global de educación",
+        "Defensora de derechos de mujeres",
+        "Receptora de premio de paz",
+        "Voz juvenil",
+        "Inspiración mundial",
+        "Icono de coraje"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "activism"
+      }
     }
   ]
 }

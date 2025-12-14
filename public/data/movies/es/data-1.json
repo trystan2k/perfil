@@ -96,6 +96,326 @@
         "difficulty": "easy",
         "source": "entertainment"
       }
+    },
+    {
+      "id": "profile-0050",
+      "category": "Movies",
+      "name": "Titanic",
+      "clues": [
+        "Película de romance y desastre épica de 1997",
+        "Dirigida por James Cameron",
+        "Protagonistas Leonardo DiCaprio y Kate Winslet",
+        "Hundimiento histórico de 1912",
+        "Historia de amor de Rose y Jack",
+        "Escena estoy volando",
+        "Línea rey del mundo",
+        "Colisión con iceberg",
+        "Barco partido en dos",
+        "Ganó 11 Premios de la Academia",
+        "Récord de taquilla",
+        "Tema de Celine Dion",
+        "My Heart Will Go On",
+        "Primera clase vs tercera clase",
+        "Collar de diamante como dispositivo",
+        "Anciana Rose narradora",
+        "Marco de barco de investigación",
+        "Debate de precisión histórica",
+        "Relanzamiento en 3D",
+        "Fenómeno cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0051",
+      "category": "Movies",
+      "name": "El Padrino",
+      "clues": [
+        "Película de drama criminal de 1972",
+        "Dirigida por Francis Ford Coppola",
+        "Protagonistas Marlon Brando y Al Pacino",
+        "Saga familiar mafiosa",
+        "Crimen organizado ítalo-americano",
+        "Línea oferta que no puede rechazar",
+        "Escena cabeza de caballo",
+        "Simbolismo del jugo de naranja",
+        "Tema del negocio familiar",
+        "Transformación de Michael Corleone",
+        "Patriarca Vito Corleone",
+        "Escenario en Sicilia",
+        "Escena baño de restaurante",
+        "Masacre del bautismo",
+        "Deja el arma toma el cannoli",
+        "Durmiendo con los peces",
+        "Banda sonora de Nino Rota",
+        "Ganador del Oscar a Mejor Película",
+        "Secuelas siguientes",
+        "Impacto cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0052",
+      "category": "Movies",
+      "name": "Avatar",
+      "clues": [
+        "Película de ciencia ficción de 2009",
+        "Dirigida por James Cameron",
+        "Pionero de tecnología 3D",
+        "Mundo alienígena Pandora",
+        "Especie humanoide azul Na'vi",
+        "Protagonista Jake Sully",
+        "Tecnología de cuerpo avatar",
+        "Mineral unobtanium",
+        "Conflicto militar vs indígena",
+        "Temas ambientales",
+        "Avance en efectos visuales",
+        "Película más taquillera",
+        "Secuelas planeadas",
+        "Estrella Sam Worthington",
+        "Captura de rendimiento de Zoe Saldana",
+        "Científica Sigourney Weaver",
+        "Villano militar Stephen Lang",
+        "Proyecto de década de James Cameron",
+        "Innovación de captura de movimiento",
+        "Fenómeno cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0053",
+      "category": "Movies",
+      "name": "Parque Jurásico",
+      "clues": [
+        "Aventura de ciencia ficción de 1993",
+        "Dirigida por Steven Spielberg",
+        "Adaptación de novela de Michael Crichton",
+        "Parque temático de dinosaurios",
+        "Tecnología de clonación de ADN",
+        "Creador multimillonario John Hammond",
+        "Paleontólogo Dr. Alan Grant",
+        "Paleobotánica Dra. Ellie Sattler",
+        "Teoría del caos Ian Malcolm",
+        "Cita la vida encuentra el camino",
+        "Escena de ataque T-Rex",
+        "Inteligencia de velociraptor",
+        "Escenario isla Isla Nublar",
+        "Ética de ingeniería genética",
+        "Matemático Jeff Goldblum",
+        "Botánica Laura Dern",
+        "Arqueólogo Sam Neill",
+        "Propietario del parque Richard Attenborough",
+        "Banda sonora de John Williams",
+        "Impacto cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0054",
+      "category": "Movies",
+      "name": "Frozen",
+      "clues": [
+        "Película animada de Disney de 2013",
+        "Basada en Hans Christian Andersen",
+        "Inspiración La Reina de las Nieves",
+        "Personaje reina del hielo Elsa",
+        "Hermana princesa Anna",
+        "Fenómeno de la canción Let It Go",
+        "Voz de Idina Menzel",
+        "Voz de Kristen Bell",
+        "Compañero muñeco de nieve Olaf",
+        "Compañero reno Sven",
+        "Cosechador de hielo Kristoff",
+        "Villano Hans",
+        "Tema del amor verdadero",
+        "Hermanidad central",
+        "Escenario noruego",
+        "Renacimiento de Disney",
+        "Adaptación musical de Broadway",
+        "Imperio de mercancías",
+        "Fenómeno cultural",
+        "Secuela lanzada"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0055",
+      "category": "Movies",
+      "name": "El Caballero Oscuro",
+      "clues": [
+        "Película de superhéroes de 2008",
+        "Dirigida por Christopher Nolan",
+        "Batman de Christian Bale",
+        "Joker de Heath Ledger",
+        "Dos Caras de Aaron Eckhart",
+        "Gordon de Gary Oldman",
+        "Alfred de Michael Caine",
+        "Rachel de Maggie Gyllenhaal",
+        "Lucius de Morgan Freeman",
+        "Escenario Ciudad Gótica",
+        "Temas posteriores al 11 de septiembre",
+        "Oscar póstumo de Heath Ledger",
+        "Línea por qué tan serio",
+        "Escena truco de lápiz",
+        "Explosión de hospital",
+        "Dilema moral del ferry",
+        "Uso de cámara IMAX",
+        "Énfasis en efectos prácticos",
+        "Adaptación de cómic",
+        "Impacto cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0056",
+      "category": "Movies",
+      "name": "Los Vengadores",
+      "clues": [
+        "Película de superhéroes de Marvel de 2012",
+        "Dirigida por Joss Whedon",
+        "Iron Man Captain America Thor Hulk",
+        "Equipo Black Widow Hawkeye",
+        "Ensamblador Nick Fury",
+        "Villano Loki",
+        "Organización S.H.I.E.L.D.",
+        "MacGuffin Tesseract",
+        "Batalla de Nueva York",
+        "Invasión alienígena Chitauri",
+        "Enfoque en dinámica de equipo",
+        "Tony Stark de Robert Downey Jr.",
+        "Steve Rogers de Chris Evans",
+        "Thor de Chris Hemsworth",
+        "Bruce Banner de Mark Ruffalo",
+        "Natasha de Scarlett Johansson",
+        "Clint de Jeremy Renner",
+        "Fury de Samuel L. Jackson",
+        "Universo Cinematográfico Marvel",
+        "Fenómeno cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0057",
+      "category": "Movies",
+      "name": "Buscando a Nemo",
+      "clues": [
+        "Película animada de Pixar de 2003",
+        "Dirigida por Andrew Stanton",
+        "Escenario oceánico",
+        "Protagonista pez payaso",
+        "Padre sobreprotector Marlin",
+        "Hijo capturado Nemo",
+        "Gran Barrera de Coral",
+        "Destino Puerto de Sídney",
+        "Compañera olvidadiza Dory",
+        "Voz de Ellen DeGeneres",
+        "Voz de Albert Brooks",
+        "Grupo de apoyo de tiburones",
+        "Tiburón vegetariano Bruce",
+        "Tortuga marina Crush",
+        "Amigo pelícano Nigel",
+        "Sobrina dentista Darla",
+        "Escape de tanque de peces",
+        "Autopista de corriente oceánica",
+        "Relación padre-hijo",
+        "Temas ambientales"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0058",
+      "category": "Movies",
+      "name": "Parásitos",
+      "clues": [
+        "Película surcoreana de 2019",
+        "Dirigida por Bong Joon-ho",
+        "Ganadora de la Palma de Oro",
+        "Ganadora del Oscar a Mejor Película",
+        "Sátira de lucha de clases",
+        "Familia Kim pobre",
+        "Familia Park rica",
+        "Esquema de invasión de casa",
+        "Secreto del sótano",
+        "Clímax de tormenta de lluvia",
+        "Comentario social",
+        "Padre Song Kang-ho",
+        "Padre rico Lee Sun-kyun",
+        "Madre Cho Yeo-jeong",
+        "Hijo Choi Woo-shik",
+        "Hija Park So-dam",
+        "Guion de Bong Joon-ho",
+        "Éxito internacional",
+        "Avance en idioma no inglés",
+        "Fenómeno cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "cinema"
+      }
+    },
+    {
+      "id": "profile-0059",
+      "category": "Movies",
+      "name": "Redención de Shawshank",
+      "clues": [
+        "Película de drama carcelario de 1994",
+        "Dirigida por Frank Darabont",
+        "Adaptación de novela de Stephen King",
+        "Protagonista Andy Dufresne",
+        "Narrador Red Ellis Redding",
+        "Andy de Tim Robbins",
+        "Red de Morgan Freeman",
+        "Tema de encarcelamiento injusto",
+        "Penitenciaría Estatal Shawshank",
+        "Tragedia de Brooks Hatlen",
+        "Póster de Rita Hayworth",
+        "Herramienta martillo de roca",
+        "Cita ocúpate viviendo",
+        "Tema central de esperanza",
+        "Sueño de playa Zihuatanejo",
+        "Corrupción del Alcaide Norton",
+        "Brutalidad del Capitán Hadley",
+        "Escena de ópera en el techo",
+        "Arco de redención",
+        "Fenómeno cultural"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "cinema"
+      }
     }
   ]
 }

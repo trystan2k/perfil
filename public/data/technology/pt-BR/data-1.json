@@ -96,6 +96,326 @@
         "difficulty": "hard",
         "source": "modern-tech"
       }
+    },
+    {
+      "id": "profile-0070",
+      "category": "Technology",
+      "name": "Computador",
+      "clues": [
+        "Dispositivo eletrônico",
+        "Processa informações",
+        "Componentes de hardware e software",
+        "CPU cérebro",
+        "Armazenamento de memória",
+        "Dispositivos de entrada saída",
+        "Fundamento do sistema operacional",
+        "Catalisador de revolução digital",
+        "Era de computação pessoal",
+        "Formas de desktop laptop tablet",
+        "Fundamento de código binário",
+        "Linguagens de programação",
+        "Conectividade à internet",
+        "Sistema de gerenciamento de arquivos",
+        "Software de aplicação",
+        "Plataforma de jogos",
+        "Ferramenta de produtividade de trabalho",
+        "Dispositivo de comunicação",
+        "Centro de entretenimento",
+        "Recurso educacional"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0071",
+      "category": "Technology",
+      "name": "Robô",
+      "clues": [
+        "Máquina automatizada",
+        "Tarefas programadas",
+        "Inteligência artificial",
+        "Sensores de percepção",
+        "Atuadores de movimento",
+        "Automação manufatureira",
+        "Trabalhador de linha de montagem",
+        "Assistência cirúrgica",
+        "Exploração espacial",
+        "Aplicações militares",
+        "Ajudantes domésticos",
+        "Ferramentas educacionais",
+        "Artistas de entretenimento",
+        "Assistentes de pesquisa",
+        "Veículos autônomos",
+        "Formas humanoides",
+        "Eficiência industrial",
+        "Operações de precisão",
+        "Capacidade de operação 24/7",
+        "Integração futura"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0072",
+      "category": "Technology",
+      "name": "Realidade Virtual",
+      "clues": [
+        "Tecnologia imersiva",
+        "Ambiente gerado por computador",
+        "Display montado na cabeça",
+        "Sensores de rastreamento de movimento",
+        "Experiência de 360 graus",
+        "Aplicações de jogos",
+        "Simulações de treinamento",
+        "Terapia médica",
+        "Visualização arquitetônica",
+        "Experiências educacionais",
+        "Plataformas de interação social",
+        "Indústria de entretenimento",
+        "Pioneiro Oculus Rift",
+        "Concorrente HTC Vive",
+        "Console PlayStation VR",
+        "Tecnologia de feedback tátil",
+        "Desafio de enjoo por movimento",
+        "Fundamento do metaverso",
+        "Comunicação futura",
+        "Transformação digital"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0073",
+      "category": "Technology",
+      "name": "Blockchain",
+      "clues": [
+        "Tecnologia de livro distribuído",
+        "Fundamento de criptomoeda",
+        "Sistema descentralizado",
+        "Registros imutáveis",
+        "Segurança criptográfica",
+        "Implementação de Bitcoin",
+        "Capacidade de contratos inteligentes",
+        "Rastreamento de cadeia de suprimentos",
+        "Transações financeiras",
+        "Verificação de identidade digital",
+        "Sistemas de votação",
+        "Registros de saúde",
+        "Proteção de propriedade intelectual",
+        "Plataforma Ethereum",
+        "Processo de mineração",
+        "Mecanismos de consenso",
+        "Característica de transparência",
+        "Transações sem confiança",
+        "Revolução financeira",
+        "Fundamento de Web3"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0074",
+      "category": "Technology",
+      "name": "Drone",
+      "clues": [
+        "Veículo aéreo não tripulado",
+        "Controlado remotamente",
+        "Capacidade de voo autônomo",
+        "Plataforma de montagem de câmera",
+        "Fotografia aérea",
+        "Entrega de pacotes",
+        "Monitoramento agrícola",
+        "Busca e resgate",
+        "Reconhecimento militar",
+        "Monitoramento climático",
+        "Inspeção de infraestrutura",
+        "Filmagem de entretenimento",
+        "Competições de corrida",
+        "Voo de hobbyistas",
+        "Navegação GPS",
+        "Evitação de obstáculos",
+        "Alimentado por bateria",
+        "Design de quadricóptero",
+        "Desafios regulatórios",
+        "Transporte futuro"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0075",
+      "category": "Technology",
+      "name": "Impressão 3D",
+      "clues": [
+        "Manufatura aditiva",
+        "Construção camada por camada",
+        "Entrada de design digital",
+        "Prototipagem rápida",
+        "Produção personalizada",
+        "Aplicações médicas",
+        "Peças automotivas",
+        "Modelos arquitetônicos",
+        "Impressão de alimentos",
+        "Criação de joias",
+        "Ferramentas de estação espacial",
+        "Ferramentas educacionais",
+        "Manufatura doméstica",
+        "Produção sustentável",
+        "Capacidade de geometria complexa",
+        "Variedade de materiais",
+        "Redução de custos",
+        "Catalisador de inovação",
+        "Manufatura futura",
+        "Produção democratizada"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0076",
+      "category": "Technology",
+      "name": "Computação Quântica",
+      "clues": [
+        "Aplicação de mecânica quântica",
+        "Unidade de processamento qubit",
+        "Princípio de superposição",
+        "Fenômeno de emaranhamento",
+        "Aumento exponencial de velocidade",
+        "Quebrar criptografia",
+        "Aceleração de descoberta de fármacos",
+        "Modelagem financeira",
+        "Predição do clima",
+        "Melhoria de inteligência artificial",
+        "Resolução de problemas complexos",
+        "Supremacia quântica do Google",
+        "Computador quântico da IBM",
+        "Desenvolvimento quântico da Microsoft",
+        "Desafios de correção de erros",
+        "Resfriamento criogênico",
+        "Algoritmos quânticos",
+        "Paradigma de computação futura",
+        "Ferramenta de pesquisa científica",
+        "Revolução tecnológica"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0077",
+      "category": "Technology",
+      "name": "Computação em Nuvem",
+      "clues": [
+        "Computação baseada em internet",
+        "Armazenamento de dados remoto",
+        "Recursos sob demanda",
+        "Infraestrutura escalável",
+        "Líder Amazon Web Services",
+        "Concorrente Microsoft Azure",
+        "Plataforma Google Cloud",
+        "Software como Serviço",
+        "Plataforma como Serviço",
+        "Infraestrutura como Serviço",
+        "Soluções de backup de dados",
+        "Ferramentas de colaboração",
+        "Eficiência de custos",
+        "Acessibilidade em qualquer lugar",
+        "Atualizações automáticas",
+        "Preocupações de segurança",
+        "Transformação empresarial",
+        "Habilitação de trabalho remoto",
+        "Transformação digital",
+        "Futuro de TI"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0078",
+      "category": "Technology",
+      "name": "Biotecnologia",
+      "clues": [
+        "Manipulação de sistemas biológicos",
+        "Engenharia genética",
+        "Modificação de DNA",
+        "Avanços médicos",
+        "Melhoria agrícola",
+        "Desenvolvimento farmacêutico",
+        "Tecnologia CRISPR",
+        "Terapia gênica",
+        "Pesquisa de células-tronco",
+        "Desenvolvimento de vacinas",
+        "Produção de biocombustíveis",
+        "Remediação ambiental",
+        "Melhoria de alimentos",
+        "Tratamento de doenças",
+        "Medicina personalizada",
+        "Biologia sintética",
+        "Considerações éticas",
+        "Supervisão regulatória",
+        "Atenção médica futura",
+        "Soluções sustentáveis"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "technology"
+      }
+    },
+    {
+      "id": "profile-0079",
+      "category": "Technology",
+      "name": "Nanotecnologia",
+      "clues": [
+        "Engenharia em escala molecular",
+        "Dimensões de nanômetro",
+        "Manipulação de propriedades de materiais",
+        "Materiais de resistência aprimorada",
+        "Aplicações médicas",
+        "Miniaturização de eletrônicos",
+        "Eficiência energética",
+        "Purificação de água",
+        "Melhorias cosméticas",
+        "Melhorias têxteis",
+        "Tecnologias de revestimento",
+        "Sistemas de entrega de fármacos",
+        "Tratamento do câncer",
+        "Limpeza ambiental",
+        "Eficiência de células solares",
+        "Avanço de processadores de computador",
+        "Superfícies autolimpantes",
+        "Manufatura futura",
+        "Fronteira científica",
+        "Revolução tecnológica"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "technology"
+      }
     }
   ]
 }

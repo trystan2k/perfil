@@ -96,6 +96,326 @@
         "difficulty": "medium",
         "source": "sports"
       }
+    },
+    {
+      "id": "profile-0060",
+      "category": "Sports",
+      "name": "Baseball",
+      "clues": [
+        "American national pastime",
+        "Bat and ball game",
+        "Nine players per team",
+        "Innings structure",
+        "Home run scoring",
+        "Diamond-shaped field",
+        "Pitcher vs batter",
+        "Three strikes out",
+        "Four balls walk",
+        "World Series championship",
+        "Major League Baseball",
+        "Yankees most successful",
+        "Cooperstown Hall of Fame",
+        "Spring training tradition",
+        "All-Star Game midseason",
+        "Designated hitter rule",
+        "No-hitter achievement",
+        "Perfect game rarity",
+        "Babe Ruth legend",
+        "Jackie Robinson integration"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0061",
+      "category": "Sports",
+      "name": "American Football",
+      "clues": [
+        "Gridiron sport",
+        "Eleven players per team",
+        "Four quarters play",
+        "Touchdown scoring",
+        "Field goal kicking",
+        "Super Bowl championship",
+        "NFL professional league",
+        "Forward pass innovation",
+        "Line of scrimmage",
+        "First down achievement",
+        "Quarterback leadership",
+        "Pigskin ball",
+        "Helmet and pads protection",
+        "Two-minute drill",
+        "Hail Mary pass",
+        "Instant replay review",
+        "College football tradition",
+        "Tailgating culture",
+        "Monday Night Football",
+        "Thanksgiving tradition"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0062",
+      "category": "Sports",
+      "name": "Golf",
+      "clues": [
+        "Individual sport",
+        "Club and ball game",
+        "Eighteen holes standard",
+        "Par scoring system",
+        "Birdie under par",
+        "Eagle achievement",
+        "Hole in one rarity",
+        "Green putting surface",
+        "Fairway target area",
+        "Rough penalty area",
+        "Sand bunker hazard",
+        "Water obstacle",
+        "Caddie assistance",
+        "Masters Tournament",
+        "PGA Championship",
+        "U.S. Open",
+        "British Open",
+        "Grand Slam events",
+        "Country club culture",
+        "Walking exercise"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0063",
+      "category": "Sports",
+      "name": "Swimming",
+      "clues": [
+        "Water sport",
+        "Olympic foundation",
+        "Four strokes competitive",
+        "Freestyle fastest",
+        "Backstroke technique",
+        "Breaststroke style",
+        "Butterfly power",
+        "Individual medley combination",
+        "Relay team events",
+        "Flip turn technique",
+        "Starting block dive",
+        "Lane ropes separation",
+        "Lap counting",
+        "Pool measurements",
+        "Open water endurance",
+        "Michael Phelps dominance",
+        "Mark Spitz records",
+        "Katie Ledecky excellence",
+        "Synchronized swimming",
+        "Diving related"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0064",
+      "category": "Sports",
+      "name": "Boxing",
+      "clues": [
+        "Combat sport",
+        "Fist fighting only",
+        "Glove protection required",
+        "Ring competition area",
+        "Twelve rounds championship",
+        "Knockout victory",
+        "Technical decision",
+        "Referee supervision",
+        "Corner team support",
+        "Mouthguard safety",
+        "Weight class divisions",
+        "Heavyweight glamour",
+        "Muhammad Ali legend",
+        "Mike Tyson power",
+        "Rocky Balboa fiction",
+        "Boxing gloves evolution",
+        "Speed bag training",
+        "Heavy bag workout",
+        "Jump rope conditioning",
+        "Sweet science nickname"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0065",
+      "category": "Sports",
+      "name": "Hockey",
+      "clues": [
+        "Ice sport",
+        "Six players per team",
+        "Three periods play",
+        "Puck instead of ball",
+        "Stick handling skill",
+        "Skating foundation",
+        "Goalie protection",
+        "Power play advantage",
+        "Penalty kill defense",
+        "Offside rule",
+        "Icing violation",
+        "Slap shot power",
+        "Wrist shot accuracy",
+        "NHL professional league",
+        "Stanley Cup trophy",
+        "Canadian national sport",
+        "Fighting tradition",
+        "Zamboni ice resurfacer",
+        "Hat trick achievement",
+        "Overtime sudden death"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0066",
+      "category": "Sports",
+      "name": "Track and Field",
+      "clues": [
+        "Athletics foundation",
+        "Running jumping throwing",
+        "Olympic centerpiece",
+        "Sprint events short",
+        "Distance endurance",
+        "Hurdles obstacles",
+        "Relay baton passing",
+        "Long jump distance",
+        "High jump elevation",
+        "Pole vault technique",
+        "Shot put power",
+        "Discus throwing",
+        "Javelin distance",
+        "Hammer throw rotation",
+        "Decathlon multi-event",
+        "Heptathlon women's",
+        "Marathon ultimate test",
+        "Starting blocks sprints",
+        "Finish line photo",
+        "Track surface technology"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0067",
+      "category": "Sports",
+      "name": "Volleyball",
+      "clues": [
+        "Net sport",
+        "Six players per team",
+        "Three touches maximum",
+        "Set bump spike sequence",
+        "Jump serve power",
+        "Block defense",
+        "Dig save technique",
+        "Rotation system",
+        "Libero defensive specialist",
+        "Beach variation two players",
+        "Olympic sport since 1964",
+        "Brazil dominance",
+        "Karch Kiraly legend",
+        "Misty May-Treanor beach",
+        "Kerri Walsh beach",
+        "Indoor court sport",
+        "Sand court beach",
+        "Knee pads protection",
+        "Ankle braces support",
+        "Vertical jump importance"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0068",
+      "category": "Sports",
+      "name": "Figure Skating",
+      "clues": [
+        "Ice art sport",
+        "Blade skating technique",
+        "Jumps rotations",
+        "Spins balance",
+        "Footwork sequences",
+        "Choreographed programs",
+        "Short program technical",
+        "Free skate artistic",
+        "Compulsory figures history",
+        "Triple jump difficulty",
+        "Quad revolution",
+        "Salchow jump type",
+        "Toe loop technique",
+        "Lutz edge jump",
+        "Flip jump combination",
+        "Axel takeoff difficulty",
+        "Ice dancing partnership",
+        "Pairs skating elements",
+        "Costume artistry",
+        "Music interpretation"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "sports"
+      }
+    },
+    {
+      "id": "profile-0069",
+      "category": "Sports",
+      "name": "Gymnastics",
+      "clues": [
+        "Artistic sport foundation",
+        "Apparatus specialization",
+        "Floor exercise tumbling",
+        "Balance beam precision",
+        "Uneven bars asymmetry",
+        "Parallel bars strength",
+        "Horizontal bar swing",
+        "Rings stillness",
+        "Vault explosive power",
+        "Pommel horse circles",
+        "Scoring system difficulty",
+        "Execution deductions",
+        "Perfect ten tradition",
+        "Nadia Comaneci achievement",
+        "Simone Biles dominance",
+        "Russian school tradition",
+        "Chinese precision",
+        "American power",
+        "Flexibility requirement",
+        "Strength conditioning"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "sports"
+      }
     }
   ]
 }
