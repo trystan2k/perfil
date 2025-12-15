@@ -99,7 +99,7 @@
     },
     {
       "id": "profile-animal-004",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Elefante",
       "clues": [
         "Maior animal terrestre",
@@ -131,7 +131,7 @@
     },
     {
       "id": "profile-animal-005",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Golfinho",
       "clues": [
         "Mamífero marinho",
@@ -163,7 +163,7 @@
     },
     {
       "id": "profile-animal-006",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Águia",
       "clues": [
         "Ave de rapina",
@@ -195,7 +195,7 @@
     },
     {
       "id": "profile-animal-007",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Tigre",
       "clues": [
         "Maior espécie de felino",
@@ -227,7 +227,7 @@
     },
     {
       "id": "profile-animal-008",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Girafa",
       "clues": [
         "Animal terrestre mais alto",
@@ -259,7 +259,7 @@
     },
     {
       "id": "profile-animal-009",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Panda",
       "clues": [
         "Urso preto e branco",
@@ -291,7 +291,7 @@
     },
     {
       "id": "profile-animal-010",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Lobo",
       "clues": [
         "Membro selvagem mais grande da família dos cães",
@@ -323,7 +323,7 @@
     },
     {
       "id": "profile-animal-011",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Coala",
       "clues": [
         "Marsupial nativo da Austrália",
@@ -355,7 +355,7 @@
     },
     {
       "id": "profile-animal-012",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Tubarão",
       "clues": [
         "Peixe cartilaginoso",
@@ -387,7 +387,7 @@
     },
     {
       "id": "profile-animal-013",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Camaleão",
       "clues": [
         "Réptil que muda de cor",

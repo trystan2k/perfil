@@ -99,7 +99,7 @@
     },
     {
       "id": "profile-tech-004",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Computadora",
       "clues": [
         "Dispositivo electrónico",
@@ -131,7 +131,7 @@
     },
     {
       "id": "profile-tech-005",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Robot",
       "clues": [
         "Máquina automatizada",
@@ -163,7 +163,7 @@
     },
     {
       "id": "profile-tech-006",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Realidad Virtual",
       "clues": [
         "Tecnología inmersiva",
@@ -195,7 +195,7 @@
     },
     {
       "id": "profile-tech-007",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Blockchain",
       "clues": [
         "Tecnología de libro distribuido",
@@ -227,7 +227,7 @@
     },
     {
       "id": "profile-tech-008",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Dron",
       "clues": [
         "Vehículo aéreo no tripulado",
@@ -259,7 +259,7 @@
     },
     {
       "id": "profile-tech-009",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Impresión 3D",
       "clues": [
         "Fabricación aditiva",
@@ -291,7 +291,7 @@
     },
     {
       "id": "profile-tech-010",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Computación Cuántica",
       "clues": [
         "Aplicación de mecánica cuántica",
@@ -323,7 +323,7 @@
     },
     {
       "id": "profile-tech-011",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Computación en la Nube",
       "clues": [
         "Computación basada en internet",
@@ -355,7 +355,7 @@
     },
     {
       "id": "profile-tech-012",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Biotecnología",
       "clues": [
         "Manipulación de sistemas biológicos",
@@ -387,7 +387,7 @@
     },
     {
       "id": "profile-tech-013",
-      "category": "Technology",
+      "category": "Tecnología",
       "name": "Nanotecnología",
       "clues": [
         "Ingeniería a escala molecular",

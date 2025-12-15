@@ -99,7 +99,7 @@
     },
     {
       "id": "profile-movie-004",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "Titanic",
       "clues": [
         "Filme de romance e desastre épico de 1997",
@@ -131,7 +131,7 @@
     },
     {
       "id": "profile-movie-005",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "O Poderoso Chefão",
       "clues": [
         "Filme de drama criminal de 1972",
@@ -163,7 +163,7 @@
     },
     {
       "id": "profile-movie-006",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "Avatar",
       "clues": [
         "Filme de ficção científica de 2009",
@@ -195,7 +195,7 @@
     },
     {
       "id": "profile-movie-007",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "Parque Jurássico",
       "clues": [
         "Aventura de ficção científica de 1993",
@@ -227,7 +227,7 @@
     },
     {
       "id": "profile-movie-008",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "Frozen",
       "clues": [
         "Filme animado da Disney de 2013",
@@ -259,7 +259,7 @@
     },
     {
       "id": "profile-movie-009",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "O Cavaleiro das Trevas",
       "clues": [
         "Filme de super-heróis de 2008",
@@ -291,7 +291,7 @@
     },
     {
       "id": "profile-movie-010",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "Os Vingadores",
       "clues": [
         "Filme de super-heróis da Marvel de 2012",
@@ -323,7 +323,7 @@
     },
     {
       "id": "profile-movie-011",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "Procurando Nemo",
       "clues": [
         "Filme animado da Pixar de 2003",
@@ -355,7 +355,7 @@
     },
     {
       "id": "profile-movie-012",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "Parasita",
       "clues": [
         "Filme sul-coreano de 2019",
@@ -387,7 +387,7 @@
     },
     {
       "id": "profile-movie-013",
-      "category": "Movies",
+      "category": "Filmes",
       "name": "Um Sonho Possível",
       "clues": [
         "Filme de drama prisional de 1994",
