@@ -8,13 +8,12 @@ export default defineConfig({
   timeout: 120_000,
   expect: { timeout: 10000 },
   fullyParallel: false,
-  reporter: process.env.PW_HTML
-    ? [['list'], ['html', { outputFolder: 'e2e-report', open: 'never' }]]
-    : [['list']],
+  reporter: [['list'], ['html', { outputFolder: 'e2e-report', open: 'never' }]],
   use: {
     actionTimeout: 10000,
     baseURL: `http://localhost:${PORT_NUMBER}`,
     trace: 'on-first-retry',
+    video: 'retain-on-failure',
     headless: true,
   },
   webServer: {
