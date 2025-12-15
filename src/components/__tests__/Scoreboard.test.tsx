@@ -1,10 +1,27 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { fetchManifest } from '@/lib/manifest';
+import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
+import { loadProfilesByIds } from '@/lib/profileLoading';
 import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile } from '@/types/models';
 import { customRender } from '../../__mocks__/test-utils';
 import { Scoreboard } from '../Scoreboard';
+
+// Mock the profile loading functions
+vi.mock('@/lib/profileLoading', () => ({
+  loadProfilesByIds: vi.fn(),
+}));
+
+vi.mock('@/lib/manifestProfileSelection', () => ({
+  selectProfileIdsByManifest: vi.fn(),
+}));
+
+// Mock the manifest module
+vi.mock('@/lib/manifest', () => ({
+  fetchManifest: vi.fn(),
+}));
 
 const createMockProfile = (id: string): Profile => ({
   id,
@@ -496,6 +513,23 @@ describe('Scoreboard', () => {
       it('should create new session and navigate to game', async () => {
         const user = userEvent.setup();
 
+        // Mock the profile loading functions for startGame
+        vi.mocked(fetchManifest).mockResolvedValue({
+          version: '1',
+          generatedAt: new Date().toISOString(),
+          categories: [
+            {
+              slug: 'historical-figures',
+              locales: {
+                en: { name: 'Historical Figures', profileAmount: 2, files: [] },
+              },
+            },
+          ],
+        });
+
+        vi.mocked(selectProfileIdsByManifest).mockResolvedValue(['1', '2']);
+        vi.mocked(loadProfilesByIds).mockResolvedValue(mockProfiles);
+
         const mockLoadFromStorage = vi.fn(async (sessionId: string) => {
           useGameStore.setState({
             id: sessionId,
@@ -524,7 +558,7 @@ describe('Scoreboard', () => {
         const restartButton = screen.getByTestId('scoreboard-restart-game-button');
         await user.click(restartButton);
 
-        // Wait for state updates
+        // Wait for startGame to complete and state to update
         await waitFor(() => {
           const state = useGameStore.getState();
           expect(state.status).toBe('active');

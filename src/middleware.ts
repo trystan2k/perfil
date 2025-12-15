@@ -36,6 +36,12 @@ const getCspHeader = (): string => {
 const getCacheControlHeader = (url: URL): string => {
   const pathname = url.pathname;
 
+  // Favicon and apple-touch-icon: very long cache (1 year) - browser special handling
+  // These are requested frequently but rarely change, so aggressive caching is safe
+  if (pathname === '/favicon.png' || pathname.match(/^\/icons\/icon-.*\.png$/i)) {
+    return 'public, max-age=31536000, immutable'; // 1 year
+  }
+
   // Manifest: frequent updates (6 hours) - CHECK THIS FIRST
   if (pathname === '/data/manifest.json') {
     return 'public, max-age=21600, stale-while-revalidate=3600'; // 6 hours + 1 hour revalidate

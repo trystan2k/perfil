@@ -1,5 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import type { Manifest } from '../../lib/manifest';
+import { fetchManifest } from '../../lib/manifest';
+import { selectProfileIdsByManifest } from '../../lib/manifestProfileSelection';
+import { loadProfilesByIds } from '../../lib/profileLoading';
 import type { Profile } from '../../types/models';
 import { useGameStore } from '../gameStore';
 
@@ -10,6 +14,20 @@ vi.mock('../../lib/gameSessionDB', () => ({
   deleteGameSession: vi.fn().mockResolvedValue(undefined),
   getAllGameSessions: vi.fn().mockResolvedValue([]),
   clearAllGameSessions: vi.fn().mockResolvedValue(undefined),
+}));
+
+// Mock the profile loading functions
+vi.mock('../../lib/profileLoading', () => ({
+  loadProfilesByIds: vi.fn(),
+}));
+
+vi.mock('../../lib/manifestProfileSelection', () => ({
+  selectProfileIdsByManifest: vi.fn(),
+}));
+
+// Mock the manifest module
+vi.mock('../../lib/manifest', () => ({
+  fetchManifest: vi.fn(),
 }));
 
 // Helper to create mock profiles for testing
@@ -27,6 +45,55 @@ const defaultMockProfiles: Profile[] = [
   createMockProfile('2', 'Sports', 'Michael Jordan'),
   createMockProfile('3', 'Music', 'The Beatles'),
 ];
+
+// Helper to setup standard mocks for startGame
+function setupStartGameMocks(profiles: Profile[] = defaultMockProfiles) {
+  // Configure the mocked functions using the imported references
+  const mockFetchManifest = vi.mocked(fetchManifest);
+  const mockSelectProfileIds = vi.mocked(selectProfileIdsByManifest);
+  const mockLoadProfiles = vi.mocked(loadProfilesByIds);
+
+  // Count profiles per category for manifest
+  const profileCountByCategory = new Map<string, { displayName: string; count: number }>();
+  profiles.forEach((p) => {
+    const slug = p.category.toLowerCase();
+    const existing = profileCountByCategory.get(slug);
+    profileCountByCategory.set(slug, {
+      displayName: p.category,
+      count: (existing?.count || 0) + 1,
+    });
+  });
+
+  const manifest: Manifest = {
+    version: '1',
+    generatedAt: new Date().toISOString(),
+    categories: Array.from(profileCountByCategory.entries()).map(
+      ([slug, { displayName, count }]) => ({
+        slug,
+        locales: { en: { name: displayName, profileAmount: count, files: [] } },
+      })
+    ),
+  };
+
+  mockFetchManifest.mockResolvedValue(manifest);
+  // Mock to return profile IDs that match the available profiles
+  mockSelectProfileIds.mockImplementation(async (categories, numberOfRounds) => {
+    const selectedIds: string[] = [];
+    // For each requested category, find matching profiles
+    categories.forEach((cat) => {
+      const catLower = typeof cat === 'string' ? cat.toLowerCase() : cat;
+      profiles.forEach((profile) => {
+        const profileCatLower = profile.category.toLowerCase();
+        if (profileCatLower === catLower && selectedIds.length < numberOfRounds) {
+          selectedIds.push(profile.id);
+        }
+      });
+    });
+    // If not enough profiles found, return what we have
+    return Promise.resolve(selectedIds.slice(0, numberOfRounds));
+  });
+  mockLoadProfiles.mockResolvedValue(profiles);
+}
 
 describe('gameStore - Clue Shuffle Integration', () => {
   beforeEach(() => {
@@ -52,19 +119,18 @@ describe('gameStore - Clue Shuffle Integration', () => {
   describe('Shuffle Creation on startGame', () => {
     beforeEach(async () => {
       await useGameStore.getState().createGame(['Alice', 'Bob']);
+      setupStartGameMocks();
     });
 
-    it('should create shuffle when startGame is called', () => {
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['Movies']);
+    it('should create shuffle when startGame is called', async () => {
+      await useGameStore.getState().startGame(['movies'], 1, 'en');
 
       const state = useGameStore.getState();
       expect(state.clueShuffleMap.size).toBe(1);
     });
 
-    it('should create shuffle for the first profile with correct length', () => {
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['Movies']);
+    it('should create shuffle for the first profile with correct length', async () => {
+      await useGameStore.getState().startGame(['movies'], 1, 'en');
 
       const state = useGameStore.getState();
       const firstProfileId = state.selectedProfiles[0];
@@ -75,9 +141,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
       expect(shuffle).toHaveLength(DEFAULT_CLUES_PER_PROFILE);
     });
 
-    it('should create shuffle with valid indices (0 to length-1)', () => {
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['Movies']);
+    it('should create shuffle with valid indices (0 to length-1)', async () => {
+      await useGameStore.getState().startGame(['movies'], 1, 'en');
 
       const state = useGameStore.getState();
       const firstProfileId = state.selectedProfiles[0];
@@ -103,9 +168,9 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
       for (let i = 0; i < 10; i++) {
         useGameStore.getState().resetGame();
+        setupStartGameMocks();
         await useGameStore.getState().createGame(['Alice', 'Bob']);
-        useGameStore.getState().loadProfiles(defaultMockProfiles);
-        useGameStore.getState().startGame(['Movies']);
+        await useGameStore.getState().startGame(['movies'], 1, 'en');
 
         const state = useGameStore.getState();
         const firstProfileId = state.selectedProfiles[0];
@@ -121,7 +186,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
       expect(differenceFound).toBe(true);
     });
 
-    it('should handle single clue profile (edge case)', () => {
+    it('should handle single clue profile (edge case)', async () => {
       const singleClueProfile: Profile = {
         id: 'single',
         category: 'Single',
@@ -130,8 +195,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
         metadata: { difficulty: 'easy' },
       };
 
-      useGameStore.getState().loadProfiles([singleClueProfile]);
-      useGameStore.getState().startGame(['Single']);
+      setupStartGameMocks([singleClueProfile]);
+      await useGameStore.getState().startGame(['single'], 1, 'en');
 
       const state = useGameStore.getState();
       const shuffle = state.clueShuffleMap.get('single');
@@ -158,11 +223,11 @@ describe('gameStore - Clue Shuffle Integration', () => {
   describe('Shuffle Creation on advanceToNextProfile', () => {
     beforeEach(async () => {
       await useGameStore.getState().createGame(['Alice', 'Bob']);
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      setupStartGameMocks();
     });
 
     it('should create new shuffle for each profile when advancing', async () => {
-      useGameStore.getState().startGame(['Movies', 'Sports', 'Music'], 3);
+      await useGameStore.getState().startGame(['movies', 'sports', 'music'], 3, 'en');
 
       const state = useGameStore.getState();
       expect(state.clueShuffleMap.size).toBe(1); // First profile only
@@ -182,8 +247,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
       expect(state3.clueShuffleMap.size).toBe(3); // All three profiles
     });
 
-    it('should assign unique shuffles to different profiles', () => {
-      useGameStore.getState().startGame(['Movies', 'Sports', 'Music'], 3);
+    it('should assign unique shuffles to different profiles', async () => {
+      await useGameStore.getState().startGame(['movies', 'sports', 'music'], 3, 'en');
 
       const state = useGameStore.getState();
       const firstProfileId = state.selectedProfiles[0];
@@ -191,7 +256,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
       // Advance to next profile
       useGameStore.getState().nextClue();
-      useGameStore.getState().awardPoints(state.players[0].id);
+      await useGameStore.getState().awardPoints(state.players[0].id);
 
       const state2 = useGameStore.getState();
       const secondProfileId = state2.selectedProfiles[0];
@@ -202,7 +267,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
     });
 
     it('should not overwrite existing shuffle when advancing', async () => {
-      useGameStore.getState().startGame(['Movies', 'Sports', 'Music'], 3);
+      await useGameStore.getState().startGame(['movies', 'sports', 'music'], 3, 'en');
 
       const state = useGameStore.getState();
       const firstProfileId = state.selectedProfiles[0];
@@ -223,11 +288,11 @@ describe('gameStore - Clue Shuffle Integration', () => {
   describe('Independent Profiles Shuffles', () => {
     beforeEach(async () => {
       await useGameStore.getState().createGame(['Alice', 'Bob']);
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      setupStartGameMocks();
     });
 
     it('each profile should have its own independent shuffle', async () => {
-      useGameStore.getState().startGame(['Movies', 'Sports', 'Music'], 3);
+      await useGameStore.getState().startGame(['movies', 'sports', 'music'], 3, 'en');
 
       const state = useGameStore.getState();
       const profile1Id = state.selectedProfiles[0];
@@ -264,14 +329,14 @@ describe('gameStore - Clue Shuffle Integration', () => {
       const { saveGameSession } = await import('../../lib/gameSessionDB');
       vi.mocked(saveGameSession).mockClear();
       await useGameStore.getState().createGame(['Alice', 'Bob']);
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      setupStartGameMocks();
     });
 
     it('should persist clueShuffleMap when saving game state', async () => {
       const { saveGameSession } = await import('../../lib/gameSessionDB');
       vi.mocked(saveGameSession).mockClear();
 
-      useGameStore.getState().startGame(['Movies']);
+      await useGameStore.getState().startGame(['movies'], 1, 'en');
 
       // Wait for debounced save to complete
       await new Promise((resolve) => setTimeout(resolve, 350));
@@ -299,7 +364,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
       const { saveGameSession } = await import('../../lib/gameSessionDB');
       vi.mocked(saveGameSession).mockClear();
 
-      useGameStore.getState().startGame(['Movies']);
+      await useGameStore.getState().startGame(['movies'], 1, 'en');
 
       await new Promise((resolve) => setTimeout(resolve, 350));
 
@@ -323,13 +388,13 @@ describe('gameStore - Clue Shuffle Integration', () => {
     it('should persist shuffles for all profiles when advancing', async () => {
       const { saveGameSession } = await import('../../lib/gameSessionDB');
 
-      useGameStore.getState().startGame(['Movies', 'Sports'], 2);
+      await useGameStore.getState().startGame(['movies', 'sports'], 2, 'en');
 
       const profileId1 = useGameStore.getState().selectedProfiles[0];
 
       // Advance to next profile
       useGameStore.getState().nextClue();
-      useGameStore.getState().awardPoints(useGameStore.getState().players[0].id);
+      await useGameStore.getState().awardPoints(useGameStore.getState().players[0].id);
 
       await new Promise((resolve) => setTimeout(resolve, 350));
 
@@ -474,16 +539,18 @@ describe('gameStore - Clue Shuffle Integration', () => {
   describe('Language Changes and Shuffle Persistence', () => {
     beforeEach(async () => {
       await useGameStore.getState().createGame(['Alice', 'Bob']);
+      setupStartGameMocks();
     });
 
-    it('should preserve shuffle maps when language is changed', () => {
+    it('should preserve shuffle maps when language is changed', async () => {
       const profiles = [
         createMockProfile('pt-1', 'Movies', 'Filme Clássico'),
         createMockProfile('pt-2', 'Sports', 'Futebol'),
       ];
 
+      setupStartGameMocks(profiles);
       useGameStore.getState().loadProfiles(profiles);
-      useGameStore.getState().startGame(['Movies', 'Sports'], 2);
+      await useGameStore.getState().startGame(['movies', 'sports'], 2, 'en');
 
       const state1 = useGameStore.getState();
       const firstProfileId = state1.selectedProfiles[0];
@@ -491,7 +558,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
       // Advance to next profile
       useGameStore.getState().nextClue();
-      useGameStore.getState().awardPoints(state1.players[0].id);
+      await useGameStore.getState().awardPoints(state1.players[0].id);
 
       const state2 = useGameStore.getState();
       const allShuffles = new Map(state2.clueShuffleMap);
@@ -518,10 +585,10 @@ describe('gameStore - Clue Shuffle Integration', () => {
   describe('Backward Compatibility - Games Without Shuffle Data', () => {
     beforeEach(async () => {
       await useGameStore.getState().createGame(['Alice', 'Bob']);
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      setupStartGameMocks();
     });
 
-    it('should work correctly when clueShuffleMap is empty', () => {
+    it('should work correctly when clueShuffleMap is empty', async () => {
       // Create game but don't populate shuffle map manually
       // This simulates loading an old game or manually resetting
       useGameStore.setState({
@@ -533,7 +600,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
       expect(state.clueShuffleMap.size).toBe(0);
 
       // Game should still be functional (TurnManager will handle fallback)
-      useGameStore.getState().startGame(['Movies']);
+      await useGameStore.getState().startGame(['movies'], 1, 'en');
 
       const state2 = useGameStore.getState();
       expect(state2.status).toBe('active');
@@ -542,8 +609,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
     it('should create new shuffle when advancing profile without existing shuffle', async () => {
       await useGameStore.getState().createGame(['Player1', 'Player2']);
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['Movies', 'Sports'], 2);
+      setupStartGameMocks();
+      await useGameStore.getState().startGame(['movies', 'sports'], 2, 'en');
 
       const state1 = useGameStore.getState();
       const firstProfileId = state1.selectedProfiles[0];
@@ -560,7 +627,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
       // Advance to next profile
       useGameStore.getState().nextClue();
-      useGameStore.getState().awardPoints(state1.players[0].id);
+      await useGameStore.getState().awardPoints(state1.players[0].id);
 
       const state2 = useGameStore.getState();
 
@@ -573,18 +640,18 @@ describe('gameStore - Clue Shuffle Integration', () => {
   describe('Edge Cases', () => {
     beforeEach(async () => {
       await useGameStore.getState().createGame(['Alice', 'Bob']);
+      setupStartGameMocks();
     });
 
-    it('should handle skipping a profile without affecting shuffle map', () => {
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['Movies', 'Sports', 'Music'], 3);
+    it('should handle skipping a profile without affecting shuffle map', async () => {
+      await useGameStore.getState().startGame(['movies', 'sports', 'music'], 3, 'en');
 
       const state1 = useGameStore.getState();
       const firstProfileId = state1.selectedProfiles[0];
       const firstShuffle = state1.clueShuffleMap.get(firstProfileId);
 
       // Skip the first profile
-      useGameStore.getState().skipProfile();
+      await useGameStore.getState().skipProfile();
 
       const state2 = useGameStore.getState();
 
@@ -597,16 +664,15 @@ describe('gameStore - Clue Shuffle Integration', () => {
     });
 
     it('should maintain shuffle maps across multiple sequential games', async () => {
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['Movies']);
+      await useGameStore.getState().startGame(['movies'], 1, 'en');
 
       const game1Shuffle = useGameStore.getState().clueShuffleMap.get('1');
 
       // Reset and start new game
       useGameStore.getState().resetGame();
+      setupStartGameMocks();
       await useGameStore.getState().createGame(['Player1', 'Player2']);
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
-      useGameStore.getState().startGame(['Sports']);
+      await useGameStore.getState().startGame(['sports'], 1, 'en');
 
       const game2Shuffle = useGameStore.getState().clueShuffleMap.get('2');
 
@@ -616,7 +682,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
       expect(game1Shuffle?.join(',') !== game2Shuffle?.join(',')).toBe(true);
     });
 
-    it('should handle very small profile (1 clue)', () => {
+    it('should handle very small profile (1 clue)', async () => {
       const smallProfile: Profile = {
         id: 'small',
         category: 'Test',
@@ -625,8 +691,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
         metadata: { difficulty: 'easy' },
       };
 
-      useGameStore.getState().loadProfiles([smallProfile]);
-      useGameStore.getState().startGame(['Test']);
+      setupStartGameMocks([smallProfile]);
+      await useGameStore.getState().startGame(['test'], 1, 'en');
 
       const state = useGameStore.getState();
       const shuffle = state.clueShuffleMap.get('small');
@@ -634,7 +700,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
       expect(shuffle).toEqual([0]);
     });
 
-    it('should handle profile with exactly DEFAULT_CLUES_PER_PROFILE clues', () => {
+    it('should handle profile with exactly DEFAULT_CLUES_PER_PROFILE clues', async () => {
       const profile: Profile = {
         id: 'exact',
         category: 'Test',
@@ -643,8 +709,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
         metadata: { difficulty: 'medium' },
       };
 
-      useGameStore.getState().loadProfiles([profile]);
-      useGameStore.getState().startGame(['Test']);
+      setupStartGameMocks([profile]);
+      await useGameStore.getState().startGame(['test'], 1, 'en');
 
       const state = useGameStore.getState();
       const shuffle = state.clueShuffleMap.get('exact');
@@ -656,11 +722,11 @@ describe('gameStore - Clue Shuffle Integration', () => {
   describe('Shuffle Map Integrity', () => {
     beforeEach(async () => {
       await useGameStore.getState().createGame(['Alice', 'Bob']);
-      useGameStore.getState().loadProfiles(defaultMockProfiles);
+      setupStartGameMocks();
     });
 
-    it('should maintain no duplicate indices within a shuffle', () => {
-      useGameStore.getState().startGame(['Movies', 'Sports'], 2);
+    it('should maintain no duplicate indices within a shuffle', async () => {
+      await useGameStore.getState().startGame(['movies', 'sports'], 2, 'en');
 
       const state = useGameStore.getState();
 
@@ -670,8 +736,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
       }
     });
 
-    it('should maintain all indices present in the original range', () => {
-      useGameStore.getState().startGame(['Movies', 'Sports'], 2);
+    it('should maintain all indices present in the original range', async () => {
+      await useGameStore.getState().startGame(['movies', 'sports'], 2, 'en');
 
       const state = useGameStore.getState();
 
@@ -683,8 +749,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
       }
     });
 
-    it('should not modify shuffle map when calling nextClue', () => {
-      useGameStore.getState().startGame(['Movies']);
+    it('should not modify shuffle map when calling nextClue', async () => {
+      await useGameStore.getState().startGame(['movies'], 1, 'en');
 
       const state1 = useGameStore.getState();
       const originalShuffle = Array.from(state1.clueShuffleMap.entries());

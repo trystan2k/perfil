@@ -3,10 +3,8 @@ import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { ProfileLoadingSkeleton } from '@/components/ProfileLoadingSkeleton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { usePrefetchProfiles } from '@/hooks/usePrefetchProfiles';
-import { useProfiles } from '@/hooks/useProfiles';
+import { useCategoriesFromManifest } from '@/hooks/useCategoriesFromManifest';
 import { navigateWithLocale } from '@/i18n/locales';
-import { getPopularCategoriesForLocale, PREFETCH_CONFIG } from '@/lib/prefetch-config';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import { useTranslate } from './TranslateProvider';
 
@@ -20,13 +18,17 @@ type StartGameState = {
 
 export function CategorySelect({ sessionId }: CategorySelectProps) {
   const { t } = useTranslate();
-  const { data: profilesData, isLoading, error } = useProfiles();
+
+  // Get current locale
+  const currentLocale =
+    (typeof window !== 'undefined' && window.location?.pathname?.split('/')[1]) || 'en';
+
+  const { data: categoriesData, isLoading, error } = useCategoriesFromManifest(currentLocale);
   const [sessionLoading, setSessionLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [numberOfRounds, setNumberOfRounds] = useState<string>('5');
   const [roundsInputError, setRoundsInputError] = useState<string | null>(null);
   const [showRoundsScreen, setShowRoundsScreen] = useState(false);
-  const loadProfiles = useGameStore((state) => state.loadProfiles);
   const startGame = useGameStore((state) => state.startGame);
   const loadFromStorage = useGameStore((state) => state.loadFromStorage);
   const setGlobalError = useGameStore((state) => state.setError);
@@ -36,17 +38,17 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     async (_prevState: StartGameState, formData: FormData): Promise<StartGameState> => {
       // Extract values from FormData to avoid stale closures
       const categoriesStr = formData.get('categories') as string;
-      const categories = JSON.parse(categoriesStr) as string[];
+      const selectedCategorySlugs = JSON.parse(categoriesStr) as string[];
       const roundsStr = formData.get('rounds') as string;
 
-      if (categories.length === 0) {
+      if (selectedCategorySlugs.length === 0) {
         return { error: 'categorySelect.error.noCategories' };
       }
 
       try {
-        loadProfiles(profiles);
         const numRounds = Number.parseInt(roundsStr, 10);
-        startGame(categories, numRounds);
+        // startGame will now handle loading profiles internally (async)
+        await startGame(selectedCategorySlugs, numRounds, currentLocale);
         await forcePersist();
         navigateWithLocale(`/game/${sessionId}`);
         return { error: null };
@@ -58,17 +60,6 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     },
     { error: null }
   );
-
-  // Get current locale for prefetch configuration
-  // Use getCurrentLocale utility which is test-safe
-  const currentLocale =
-    (typeof window !== 'undefined' && window.location?.pathname?.split('/')[1]) || 'en';
-
-  // Prefetch popular categories in the background
-  usePrefetchProfiles({
-    categories: getPopularCategoriesForLocale(currentLocale),
-    enabled: PREFETCH_CONFIG.enabled && !isLoading && !error,
-  });
 
   useEffect(() => {
     const loadSession = async () => {
@@ -86,7 +77,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
   // Session errors are now handled by global ErrorStateProvider
 
-  if (error || !profilesData) {
+  if (error || !categoriesData) {
     return (
       <div className="min-h-main py-6">
         <AdaptiveContainer maxWidth="2xl" className="flex items-center justify-center min-h-[50vh]">
@@ -105,28 +96,27 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     );
   }
 
-  const profiles = profilesData.profiles;
-  const categories = Array.from(new Set(profiles.map((profile) => profile.category))).sort();
-
   // Calculate max available profiles for selected categories
-  const maxAvailableProfiles = profiles.filter((p) =>
-    Array.from(selectedCategories).includes(p.category)
-  ).length;
+  const selectedCategoryObjects = categoriesData.filter((cat) => selectedCategories.has(cat.slug));
+  const maxAvailableProfiles = selectedCategoryObjects.reduce(
+    (sum, cat) => sum + cat.profileAmount,
+    0
+  );
 
-  const handleCategoryToggle = (category: string) => {
+  const handleCategoryToggle = (categorySlug: string) => {
     setSelectedCategories((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(category)) {
-        newSet.delete(category);
+      if (newSet.has(categorySlug)) {
+        newSet.delete(categorySlug);
       } else {
-        newSet.add(category);
+        newSet.add(categorySlug);
       }
       return newSet;
     });
   };
 
   const handleSelectAll = () => {
-    setSelectedCategories(new Set(categories));
+    setSelectedCategories(new Set(categoriesData.map((cat) => cat.slug)));
   };
 
   const handleDeselectAll = () => {
@@ -137,9 +127,9 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     if (selectedCategories.size === 0) return;
 
     // Calculate max available profiles for selected categories
-    const maxProfiles = profiles.filter((p) =>
-      Array.from(selectedCategories).includes(p.category)
-    ).length;
+    const maxProfiles = categoriesData
+      .filter((cat) => selectedCategories.has(cat.slug))
+      .reduce((sum, cat) => sum + cat.profileAmount, 0);
 
     // Set initial value to min(5, maxProfiles)
     const initialRounds = Math.min(5, maxProfiles);
@@ -179,6 +169,12 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
     }
   };
 
+  // Get selected category names for display
+  const selectedCategoryNames = categoriesData
+    .filter((cat) => selectedCategories.has(cat.slug))
+    .map((cat) => cat.name)
+    .join(', ');
+
   // Show rounds configuration screen if categories are selected and Continue was clicked
   if (showRoundsScreen) {
     return (
@@ -191,7 +187,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
               </CardTitle>
               <CardDescription>
                 {t('categorySelect.rounds.descriptionCategory', {
-                  category: Array.from(selectedCategories).join(', '),
+                  category: selectedCategoryNames,
                 })}
               </CardDescription>
             </CardHeader>
@@ -268,7 +264,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
             <div className="flex gap-2">
               <Button
                 onClick={handleSelectAll}
-                disabled={isPending || selectedCategories.size === categories.length}
+                disabled={isPending || selectedCategories.size === categoriesData.length}
                 variant="outline"
                 size="sm"
                 className="flex-1"
@@ -288,21 +284,21 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
 
             {/* Category Checkboxes - Responsive Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {categories.map((category) => (
-                <div key={category}>
+              {categoriesData.map((category) => (
+                <div key={category.slug}>
                   <label
-                    htmlFor={`category-${category}`}
+                    htmlFor={`category-${category.slug}`}
                     className="flex items-center gap-3 cursor-pointer hover:bg-accent p-2 rounded-md transition-colors"
                   >
                     <input
-                      id={`category-${category}`}
+                      id={`category-${category.slug}`}
                       type="checkbox"
-                      checked={selectedCategories.has(category)}
-                      onChange={() => handleCategoryToggle(category)}
+                      checked={selectedCategories.has(category.slug)}
+                      onChange={() => handleCategoryToggle(category.slug)}
                       disabled={isPending}
                       className="w-5 h-5 rounded border-2 border-input cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
                     />
-                    <span className="text-sm font-medium">{category}</span>
+                    <span className="text-sm font-medium">{category.name}</span>
                   </label>
                 </div>
               ))}

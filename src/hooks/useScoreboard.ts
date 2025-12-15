@@ -101,7 +101,7 @@ export function useScoreboard(sessionId?: string): UseScoreboardReturn {
         const resetPlayers: string[] = state.players.map((player) => player.name);
         await createGame(resetPlayers);
         loadProfiles(state.profiles);
-        startGame(state.selectedCategories, state.numberOfRounds);
+        await startGame(state.selectedCategories, state.numberOfRounds);
         await forcePersist();
         const newSessionId = useGameStore.getState().id;
         navigateWithLocale(`/game/${newSessionId}`);

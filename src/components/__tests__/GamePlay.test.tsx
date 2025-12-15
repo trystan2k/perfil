@@ -1,7 +1,11 @@
-import { act, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import type { Manifest } from '@/lib/manifest';
+import { fetchManifest } from '@/lib/manifest';
+import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
+import { loadProfilesByIds } from '@/lib/profileLoading';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
 import { customRender } from '../../__mocks__/test-utils';
@@ -48,6 +52,20 @@ vi.mock('@/hooks/useProfiles', () => ({
   })),
 }));
 
+// Mock the profile loading functions
+vi.mock('@/lib/profileLoading', () => ({
+  loadProfilesByIds: vi.fn(),
+}));
+
+vi.mock('@/lib/manifestProfileSelection', () => ({
+  selectProfileIdsByManifest: vi.fn(),
+}));
+
+// Mock the manifest module
+vi.mock('@/lib/manifest', () => ({
+  fetchManifest: vi.fn(),
+}));
+
 // Helper to generate mock profiles
 function createMockProfile(id: string, category: string, name = `Profile ${id}`): Profile {
   return {
@@ -65,18 +83,69 @@ describe('GamePlay Component', () => {
     createMockProfile('3', 'Music', 'Profile 3'),
   ];
 
-  beforeEach(() => {
+  // Helper to setup startGame mocks
+  function setupStartGameMocks(profiles: Profile[] = mockProfiles) {
+    // Configure the mocked functions using the imported references
+    const mockFetchManifest = vi.mocked(fetchManifest);
+    const mockSelectProfileIds = vi.mocked(selectProfileIdsByManifest);
+    const mockLoadProfiles = vi.mocked(loadProfilesByIds);
+
+    // Count profiles per category for manifest
+    const profileCountByCategory = new Map<string, { displayName: string; count: number }>();
+    profiles.forEach((p) => {
+      const slug = p.category.toLowerCase();
+      const existing = profileCountByCategory.get(slug);
+      profileCountByCategory.set(slug, {
+        displayName: p.category,
+        count: (existing?.count || 0) + 1,
+      });
+    });
+
+    const manifest: Manifest = {
+      version: '1',
+      generatedAt: new Date().toISOString(),
+      categories: Array.from(profileCountByCategory.entries()).map(
+        ([slug, { displayName, count }]) => ({
+          slug,
+          locales: { en: { name: displayName, profileAmount: count, files: [] } },
+        })
+      ),
+    };
+
+    mockFetchManifest.mockResolvedValue(manifest);
+    // Mock to return profile IDs that match the available profiles
+    mockSelectProfileIds.mockImplementation(async (categories, numberOfRounds) => {
+      const selectedIds: string[] = [];
+      // For each requested category, find matching profiles
+      categories.forEach((cat) => {
+        const catLower = typeof cat === 'string' ? cat.toLowerCase() : cat;
+        profiles.forEach((profile) => {
+          const profileCatLower = profile.category.toLowerCase();
+          if (profileCatLower === catLower && selectedIds.length < numberOfRounds) {
+            selectedIds.push(profile.id);
+          }
+        });
+      });
+      // If not enough profiles found, return what we have
+      return Promise.resolve(selectedIds.slice(0, numberOfRounds));
+    });
+    mockLoadProfiles.mockResolvedValue(profiles);
+  }
+
+  beforeEach(async () => {
     // Reset mocks
     vi.clearAllMocks();
 
+    // Setup mocks for startGame
+    setupStartGameMocks(mockProfiles);
+
     // Reset store before each test
     const store = useGameStore.getState();
-    store.createGame(['Alice', 'Bob', 'Charlie']);
-    store.loadProfiles(mockProfiles); // Load profiles AFTER createGame
+    await store.createGame(['Alice', 'Bob', 'Charlie']);
   });
 
   describe('Initial Rendering', () => {
-    it('should show "gamePlay.errors.loadFailed" message when status is pending', () => {
+    it('should show "gamePlay.errors.loadFailed" message when status is pending', async () => {
       // Store starts in pending state by default
       customRender(
         <>
@@ -90,10 +159,10 @@ describe('GamePlay Component', () => {
       ).toBeInTheDocument();
     });
 
-    it('should show redirecting message when status is completed', () => {
+    it('should show redirecting message when status is completed', async () => {
       // Start and end the game
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.endGame();
 
       customRender(<GamePlay />);
@@ -102,7 +171,7 @@ describe('GamePlay Component', () => {
       expect(screen.getByText('Redirecting to scoreboard...')).toBeInTheDocument();
     });
 
-    it('should show "Failed to load game session. Please try again." message when currentTurn is null', () => {
+    it('should show "Failed to load game session. Please try again." message when currentTurn is null', async () => {
       // Manually set status to active but no current turn (shouldn't happen normally)
       useGameStore.setState({
         status: 'active',
@@ -121,10 +190,15 @@ describe('GamePlay Component', () => {
       ).toBeInTheDocument();
     });
 
-    it('should render game play UI when game is active', () => {
-      // Start the game
+    it('should render game play UI when game is active', async () => {
+      // Start the game and wait for it to complete
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for state to reach active status
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(
         <>
@@ -137,10 +211,15 @@ describe('GamePlay Component', () => {
       expect(screen.getByText(/Category: Movies/)).toBeInTheDocument();
     });
 
-    it('should subscribe to store state correctly', () => {
-      // Start the game
+    it('should subscribe to store state correctly', async () => {
+      // Start the game and wait for it to complete
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for state to reach active status
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(<GamePlay />);
 
@@ -153,10 +232,15 @@ describe('GamePlay Component', () => {
   });
 
   describe('Clue Display', () => {
-    it('should show "Press Show Next Clue" message when no clues have been read', () => {
+    it('should show "Press Show Next Clue" message when no clues have been read', async () => {
       // Start the game (cluesRead starts at 0)
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(<GamePlay />);
 
@@ -166,10 +250,16 @@ describe('GamePlay Component', () => {
       expect(screen.queryByText(/Clue \d+ of \d+/)).not.toBeInTheDocument();
     });
 
-    it('should display clue number and text after reading first clue', () => {
+    it('should display clue number and text after reading first clue', async () => {
       // Start the game and show first clue
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
+
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -179,10 +269,16 @@ describe('GamePlay Component', () => {
       expect(screen.getAllByText('Clue 1 text...').length).toBeGreaterThan(0);
     });
 
-    it('should update clue number and text when advancing to next clue', () => {
+    it('should update clue number and text when advancing to next clue', async () => {
       // Start the game and show first clue
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
+
       store.nextClue();
 
       const { rerender } = customRender(<GamePlay />);
@@ -192,9 +288,7 @@ describe('GamePlay Component', () => {
       expect(screen.getAllByText('Clue 1 text...').length).toBeGreaterThan(0);
 
       // Advance to second clue
-      act(() => {
-        store.nextClue();
-      });
+      store.nextClue();
 
       rerender(<GamePlay />);
 
@@ -203,10 +297,15 @@ describe('GamePlay Component', () => {
       expect(screen.getAllByText('Clue 2 text...').length).toBeGreaterThan(0);
     });
 
-    it('should display correct clue progress (e.g., 5 of 20)', () => {
+    it('should display correct clue progress (e.g., 5 of 20)', async () => {
       // Start the game and advance to clue 5
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       // Show 5 clues
       for (let i = 0; i < 5; i++) {
@@ -223,9 +322,14 @@ describe('GamePlay Component', () => {
   });
 
   describe('Show Next Clue Button', () => {
-    it('should render "Show Next Clue" button', () => {
+    it('should render "Show Next Clue" button', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(<GamePlay />);
 
@@ -235,7 +339,12 @@ describe('GamePlay Component', () => {
     it('should call nextClue action when button is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(<GamePlay />);
 
@@ -254,7 +363,12 @@ describe('GamePlay Component', () => {
     it('should advance through multiple clues when button clicked multiple times', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       const { rerender } = customRender(<GamePlay />);
 
@@ -275,9 +389,14 @@ describe('GamePlay Component', () => {
       expect(screen.getByText(`Clue 3 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
     });
 
-    it('should display "No Winner" button when max clues reached', () => {
+    it('should display "No Winner" button when max clues reached', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       // Advance to max clues (DEFAULT_CLUES_PER_PROFILE)
       for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
@@ -297,7 +416,12 @@ describe('GamePlay Component', () => {
     it('should show "No Winner" button clickable when on final clue', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       // Advance to max clues (DEFAULT_CLUES_PER_PROFILE)
       for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
@@ -329,9 +453,9 @@ describe('GamePlay Component', () => {
       store.loadProfiles(mockProfiles);
     });
 
-    it('should not render Skip Profile button when no clues have been read', () => {
+    it('should not render Skip Profile button when no clues have been read', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 2);
+      await store.startGame(['Movies', 'Sports'], 2);
 
       customRender(<GamePlay />);
 
@@ -341,9 +465,9 @@ describe('GamePlay Component', () => {
       expect(skipButton).toBeUndefined();
     });
 
-    it('should not render Skip Profile button after first clue is revealed', () => {
+    it('should not render Skip Profile button after first clue is revealed', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 2);
+      await store.startGame(['Movies', 'Sports'], 2);
       store.nextClue(); // Show first clue
 
       customRender(<GamePlay />);
@@ -355,9 +479,9 @@ describe('GamePlay Component', () => {
       expect(skipButton).toBeUndefined();
     });
 
-    it('should not skip profile when confirmation is cancelled', () => {
+    it('should not skip profile when confirmation is cancelled', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 2);
+      await store.startGame(['Movies', 'Sports'], 2);
       store.nextClue();
 
       const initialProfileId = useGameStore.getState().currentProfile?.id;
@@ -386,7 +510,7 @@ describe('GamePlay Component', () => {
       });
     });
 
-    it('should render without loading when no sessionId provided and no game in store', () => {
+    it('should render without loading when no sessionId provided and no game in store', async () => {
       customRender(
         <>
           <GamePlay />
@@ -453,12 +577,12 @@ describe('GamePlay Component', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should skip loading when game already exists in store', () => {
+    it('should skip loading when game already exists in store', async () => {
       // Set up store with players and an active game
       const store = useGameStore.getState();
       store.createGame(['Alice', 'Bob', 'Charlie']);
       store.loadProfiles(mockProfiles);
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       // Even with sessionId, should not load from storage because game already exists
       customRender(<GamePlay sessionId="some-session" />);
@@ -598,7 +722,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
       store.createGame(['Alice', 'Bob', 'Charlie']);
       store.loadProfiles(mockProfiles);
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       const { unmount } = customRender(<GamePlay sessionId="some-session" />);
 
@@ -666,18 +790,28 @@ describe('GamePlay Component', () => {
   });
 
   describe('Player Scoreboard and Scoring Interaction', () => {
-    it('should render player scoreboard with header', () => {
+    it('should render player scoreboard with header', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(<GamePlay />);
 
       expect(screen.getByText('Award Points')).toBeInTheDocument();
     });
 
-    it('should display all players with their names and scores', () => {
+    it('should display all players with their names and scores', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(<GamePlay />);
 
@@ -694,9 +828,14 @@ describe('GamePlay Component', () => {
       expect(scoreElements).toHaveLength(3);
     });
 
-    it('should disable all player buttons when no clues have been read', () => {
+    it('should disable all player buttons when no clues have been read', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(<GamePlay />);
 
@@ -708,18 +847,29 @@ describe('GamePlay Component', () => {
       }
     });
 
-    it('should show helper text when points cannot be awarded', () => {
+    it('should show helper text when points cannot be awarded', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
 
       customRender(<GamePlay />);
 
       expect(screen.getByText('Show at least one clue to award points')).toBeInTheDocument();
     });
 
-    it('should enable player buttons after showing first clue', () => {
+    it('should enable player buttons after showing first clue', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
+
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -732,9 +882,15 @@ describe('GamePlay Component', () => {
       }
     });
 
-    it('should hide helper text when points can be awarded', () => {
+    it('should hide helper text when points can be awarded', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
+
+      // Wait for game state to become active
+      await waitFor(() => {
+        expect(useGameStore.getState().status).toBe('active');
+      });
+
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -747,7 +903,7 @@ describe('GamePlay Component', () => {
     it('should call awardPoints with correct player ID when player button is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -775,9 +931,9 @@ describe('GamePlay Component', () => {
 
     // Insert Remove Points tests
     describe('Remove Points Button (GamePlay)', () => {
-      it('should render a remove button next to each player in the award points section', () => {
+      it('should render a remove button next to each player in the award points section', async () => {
         const store = useGameStore.getState();
-        store.startGame(['Movies']);
+        await store.startGame(['Movies']);
 
         // Set explicit scores for determinism
         const players = useGameStore
@@ -795,9 +951,9 @@ describe('GamePlay Component', () => {
         }
       });
 
-      it('should disable remove button when player score is 0', () => {
+      it('should disable remove button when player score is 0', async () => {
         const store = useGameStore.getState();
-        store.startGame(['Movies']);
+        await store.startGame(['Movies']);
 
         const players = useGameStore.getState().players;
         // Set first player to have 0 score
@@ -822,7 +978,7 @@ describe('GamePlay Component', () => {
       it('clicking remove opens RemovePointsDialog', async () => {
         const user = userEvent.setup();
         const store = useGameStore.getState();
-        store.startGame(['Movies']);
+        await store.startGame(['Movies']);
 
         const players = useGameStore.getState().players.map((p, _i) => ({ ...p, score: 10 }));
         useGameStore.setState({ players });
@@ -844,7 +1000,7 @@ describe('GamePlay Component', () => {
       it('removing points calls store and updates game state', async () => {
         const user = userEvent.setup();
         const store = useGameStore.getState();
-        store.startGame(['Movies']);
+        await store.startGame(['Movies']);
 
         // Set deterministic scores
         const players = useGameStore.getState().players.map((p, _i) => ({ ...p, score: 30 }));
@@ -895,7 +1051,7 @@ describe('GamePlay Component', () => {
     it('should update displayed score after awarding points', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles to avoid auto-completion
+      await store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles to avoid auto-completion
       store.nextClue();
 
       const { rerender } = customRender(<GamePlay />);
@@ -926,9 +1082,9 @@ describe('GamePlay Component', () => {
       expect(screen.getByText('20 pts')).toBeInTheDocument();
     });
 
-    it('should display all players with their names and scores', () => {
+    it('should display all players with their names and scores', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
@@ -945,9 +1101,9 @@ describe('GamePlay Component', () => {
       expect(scoreElements).toHaveLength(3);
     });
 
-    it('should disable all player buttons when no clues have been read', () => {
+    it('should disable all player buttons when no clues have been read', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
@@ -959,18 +1115,18 @@ describe('GamePlay Component', () => {
       }
     });
 
-    it('should show helper text when points cannot be awarded', () => {
+    it('should show helper text when points cannot be awarded', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
       expect(screen.getByText('Show at least one clue to award points')).toBeInTheDocument();
     });
 
-    it('should enable player buttons after showing first clue', () => {
+    it('should enable player buttons after showing first clue', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -983,9 +1139,9 @@ describe('GamePlay Component', () => {
       }
     });
 
-    it('should hide helper text when points can be awarded', () => {
+    it('should hide helper text when points can be awarded', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -996,7 +1152,7 @@ describe('GamePlay Component', () => {
     it('should call awardPoints with correct player ID when player button is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -1025,7 +1181,7 @@ describe('GamePlay Component', () => {
     it('should update displayed score after awarding points', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles to avoid auto-completion
+      await store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles to avoid auto-completion
       store.nextClue();
 
       const { rerender } = customRender(<GamePlay />);
@@ -1059,7 +1215,7 @@ describe('GamePlay Component', () => {
     it('should award correct points based on cluesRead (first clue = 20 pts)', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue(); // cluesRead = 1
 
       customRender(<GamePlay />);
@@ -1087,7 +1243,7 @@ describe('GamePlay Component', () => {
     it('should award correct points based on cluesRead (fifth clue = 16 pts)', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       // Show 5 clues
       for (let i = 0; i < 5; i++) {
@@ -1119,7 +1275,7 @@ describe('GamePlay Component', () => {
     it('should accumulate points for multiple correct answers by same player', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports', 'Music'], 3); // Use multiple profiles
+      await store.startGame(['Movies', 'Sports', 'Music'], 3); // Use multiple profiles
       store.nextClue(); // First round
 
       const { rerender } = customRender(<GamePlay />);
@@ -1146,11 +1302,9 @@ describe('GamePlay Component', () => {
       expect(updatedPlayer?.score).toBe(20);
 
       // Second round - show 3 clues
-      act(() => {
-        for (let i = 0; i < 3; i++) {
-          store.nextClue();
-        }
-      });
+      for (let i = 0; i < 3; i++) {
+        store.nextClue();
+      }
 
       rerender(<GamePlay />);
 
@@ -1172,9 +1326,9 @@ describe('GamePlay Component', () => {
       expect(updatedPlayer?.score).toBe(38);
     });
 
-    it('should display all players with outline variant (no turn highlighting)', () => {
+    it('should display all players with outline variant (no turn highlighting)', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -1192,7 +1346,7 @@ describe('GamePlay Component', () => {
     it('should allow awarding points to any player', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -1222,16 +1376,14 @@ describe('GamePlay Component', () => {
     it('should allow MC to tap different players across multiple profiles', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports', 'Music'], 3); // Start with 3 profiles
+      await store.startGame(['Movies', 'Sports', 'Music'], 3); // Start with 3 profiles
 
       const { rerender } = customRender(<GamePlay />);
 
       const players = useGameStore.getState().players;
 
       // Profile 1: Award to Player 0
-      act(() => {
-        store.nextClue();
-      });
+      store.nextClue();
       rerender(<GamePlay />);
       let button = screen.getAllByRole('button', { name: new RegExp(players[0].name) })[0];
       await user.click(button);
@@ -1240,9 +1392,7 @@ describe('GamePlay Component', () => {
 
       // Profile 2: Award to Player 1 (different player)
       rerender(<GamePlay />);
-      act(() => {
-        store.nextClue();
-      });
+      store.nextClue();
       rerender(<GamePlay />);
       button = screen.getAllByRole('button', { name: new RegExp(players[1].name) })[0];
       await user.click(button);
@@ -1251,9 +1401,7 @@ describe('GamePlay Component', () => {
 
       // Profile 3: Award to Player 2 (another different player)
       rerender(<GamePlay />);
-      act(() => {
-        store.nextClue();
-      });
+      store.nextClue();
       rerender(<GamePlay />);
       button = screen.getAllByRole('button', { name: new RegExp(players[2].name) })[0];
       await user.click(button);
@@ -1270,7 +1418,7 @@ describe('GamePlay Component', () => {
     it('should start new turn after awarding points', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles
+      await store.startGame(['Movies', 'Sports'], 2); // Use multiple profiles
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -1296,9 +1444,9 @@ describe('GamePlay Component', () => {
   });
 
   describe('Finish Game Button', () => {
-    it('should display "Finish Game" button when game is active', () => {
+    it('should display "Finish Game" button when game is active', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
@@ -1308,7 +1456,7 @@ describe('GamePlay Component', () => {
     it('should call endGame when Finish Game button is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
@@ -1325,7 +1473,7 @@ describe('GamePlay Component', () => {
     it('should update game status to completed after clicking Finish Game', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
@@ -1337,9 +1485,9 @@ describe('GamePlay Component', () => {
       expect(useGameStore.getState().status).toBe('completed');
     });
 
-    it('should have destructive variant styling for Finish Game button', () => {
+    it('should have destructive variant styling for Finish Game button', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
@@ -1352,7 +1500,7 @@ describe('GamePlay Component', () => {
     it('should navigate to scoreboard page when Finish Game is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       // Store original location and mock it
       const originalLocation = window.location;
@@ -1390,7 +1538,7 @@ describe('GamePlay Component', () => {
       const store = useGameStore.getState();
 
       // 1. Start game with 3 profiles
-      store.startGame(['Movies', 'Sports', 'Music'], 3);
+      await store.startGame(['Movies', 'Sports', 'Music'], 3);
 
       const { rerender } = customRender(<GamePlay />);
 
@@ -1402,9 +1550,7 @@ describe('GamePlay Component', () => {
 
       // Profile 1: MC reads clues and awards to Player A
       // 3. MC reads first clue
-      act(() => {
-        store.nextClue();
-      });
+      store.nextClue();
       rerender(<GamePlay />);
 
       // Verify clue is shown
@@ -1430,10 +1576,8 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       // 6. Advance to next clue (for profile 2)
-      act(() => {
-        store.nextClue();
-        store.nextClue(); // Read 2 clues
-      });
+      store.nextClue();
+      store.nextClue(); // Read 2 clues
       rerender(<GamePlay />);
 
       // 5. MC taps Player B, verify score update
@@ -1454,11 +1598,9 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       // 7. Repeat scoring for profile 3
-      act(() => {
-        store.nextClue();
-        store.nextClue();
-        store.nextClue(); // Read 3 clues
-      });
+      store.nextClue();
+      store.nextClue();
+      store.nextClue(); // Read 3 clues
       rerender(<GamePlay />);
 
       playerButton = screen.getAllByRole('button', { name: new RegExp(players[2].name) })[0];
@@ -1489,7 +1631,7 @@ describe('GamePlay Component', () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
 
-      store.startGame(['Movies', 'Sports'], 2);
+      await store.startGame(['Movies', 'Sports'], 2);
 
       const { rerender } = customRender(<GamePlay />);
 
@@ -1497,9 +1639,7 @@ describe('GamePlay Component', () => {
       const favoritePlayer = players[1]; // Pick player 1 to win both rounds
 
       // Profile 1: Award to Player 1
-      act(() => {
-        store.nextClue();
-      });
+      store.nextClue();
       rerender(<GamePlay />);
 
       let playerButton = screen.getAllByRole('button', {
@@ -1513,9 +1653,7 @@ describe('GamePlay Component', () => {
 
       // Profile 2: Award to same Player 1 again
       rerender(<GamePlay />);
-      act(() => {
-        store.nextClue();
-      });
+      store.nextClue();
       rerender(<GamePlay />);
 
       playerButton = screen.getAllByRole('button', { name: new RegExp(favoritePlayer.name) })[0];
@@ -1535,16 +1673,14 @@ describe('GamePlay Component', () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
 
-      store.startGame(['Movies', 'Sports'], 2); // Use 2 profiles to keep game active
+      await store.startGame(['Movies', 'Sports'], 2); // Use 2 profiles to keep game active
 
       const { rerender } = customRender(<GamePlay />);
 
       // Initially all players should have 0 pts
       expect(screen.getAllByText('0 pts')).toHaveLength(3);
 
-      act(() => {
-        store.nextClue();
-      });
+      store.nextClue();
       rerender(<GamePlay />);
 
       const players = store.players;
@@ -1562,9 +1698,9 @@ describe('GamePlay Component', () => {
       expect(screen.getAllByText('0 pts')).toHaveLength(2); // Other 2 players still at 0
     });
 
-    it('should render floating action button with correct accessibility attributes', () => {
+    it('should render floating action button with correct accessibility attributes', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1575,7 +1711,7 @@ describe('GamePlay Component', () => {
     it('should open answer dialog when FAB is clicked', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1588,7 +1724,7 @@ describe('GamePlay Component', () => {
     it('should display correct profile name in answer dialog', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1602,7 +1738,7 @@ describe('GamePlay Component', () => {
     it('should have proper accessibility attributes on popover', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1617,7 +1753,7 @@ describe('GamePlay Component', () => {
     it('should close popover when pressing Escape', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       // Open popover
@@ -1635,9 +1771,9 @@ describe('GamePlay Component', () => {
       expect(closedPopover).not.toBeInTheDocument();
     });
 
-    it('should have correct z-index class for FAB positioning', () => {
+    it('should have correct z-index class for FAB positioning', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1646,9 +1782,9 @@ describe('GamePlay Component', () => {
   });
 
   describe('Accessibility: Touch Target Sizes (WCAG 2.5.5 AAA)', () => {
-    it('should maintain 56x56px size for reveal answer FAB', () => {
+    it('should maintain 56x56px size for reveal answer FAB', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1657,9 +1793,9 @@ describe('GamePlay Component', () => {
       expect(fab).toHaveClass('w-14', 'h-14');
     });
 
-    it('should have proper touch target sizing for player award buttons', () => {
+    it('should have proper touch target sizing for player award buttons', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -1673,9 +1809,9 @@ describe('GamePlay Component', () => {
       });
     });
 
-    it('should maintain flexbox alignment for player award button touch targets', () => {
+    it('should maintain flexbox alignment for player award button touch targets', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -1689,9 +1825,9 @@ describe('GamePlay Component', () => {
       });
     });
 
-    it('should have proper spacing and shadows for player award buttons', () => {
+    it('should have proper spacing and shadows for player award buttons', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
       store.nextClue();
 
       customRender(<GamePlay />);
@@ -1705,9 +1841,9 @@ describe('GamePlay Component', () => {
       });
     });
 
-    it('should have Show Next Clue button with adequate touch target size', () => {
+    it('should have Show Next Clue button with adequate touch target size', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
@@ -1717,9 +1853,9 @@ describe('GamePlay Component', () => {
       expect(button).toHaveClass('h-14');
     });
 
-    it('should have Finish Game button with adequate touch target size', () => {
+    it('should have Finish Game button with adequate touch target size', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       customRender(<GamePlay />);
 
@@ -1729,9 +1865,9 @@ describe('GamePlay Component', () => {
       expect(button).toHaveClass('h-14');
     });
 
-    it('should have No Winner button with adequate touch target size', () => {
+    it('should have No Winner button with adequate touch target size', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies']);
+      await store.startGame(['Movies']);
 
       // Advance to max clues
       for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
@@ -1746,9 +1882,9 @@ describe('GamePlay Component', () => {
       expect(button).toHaveClass('h-14');
     });
 
-    it('should have FAB with proper accessibility attributes for touch targets', () => {
+    it('should have FAB with proper accessibility attributes for touch targets', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1762,7 +1898,7 @@ describe('GamePlay Component', () => {
     it('should provide adequate hover state feedback on FAB without size change', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1777,9 +1913,9 @@ describe('GamePlay Component', () => {
       expect(fab).toHaveClass('w-14', 'h-14');
     });
 
-    it('should have rounded corners on FAB for touch accessibility', () => {
+    it('should have rounded corners on FAB for touch accessibility', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1788,9 +1924,9 @@ describe('GamePlay Component', () => {
       expect(fab).toHaveClass('rounded-full');
     });
 
-    it('should maintain z-index for FAB above other elements', () => {
+    it('should maintain z-index for FAB above other elements', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1799,9 +1935,9 @@ describe('GamePlay Component', () => {
       expect(fab).toHaveClass('z-40');
     });
 
-    it('should position FAB for easy access on bottom right', () => {
+    it('should position FAB for easy access on bottom right', async () => {
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 1);
+      await store.startGame(['Movies', 'Sports'], 1);
       customRender(<GamePlay />);
 
       const fab = screen.getByTestId('answer-fab');
@@ -1813,7 +1949,7 @@ describe('GamePlay Component', () => {
     it('should have all interactive buttons with adequate spacing and sizing', async () => {
       const user = userEvent.setup();
       const store = useGameStore.getState();
-      store.startGame(['Movies', 'Sports'], 2);
+      await store.startGame(['Movies', 'Sports'], 2);
       store.nextClue();
 
       customRender(<GamePlay />);

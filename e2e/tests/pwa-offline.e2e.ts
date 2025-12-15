@@ -30,19 +30,33 @@ test.describe('PWA Offline Data Caching', () => {
     await addButton.click();
     await page.getByRole('button', { name: 'Start Game' }).click();
 
-    // Wait for Category Select screen which triggers manifest and data loading
+    // Wait for Category Select screen
     await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
 
-    // Select a category to force data fetch
-    // Use "Famous People" (from previous tests) or just wait a bit as manifest is fetched
-    // The useProfiles hook fetches manifest immediately on mount if no category passed?
-    // Actually useProfiles() fetches all profiles if no category.
-    // But CategorySelect component uses useProfiles?
-    // Let's check CategorySelect. It probably uses useProfiles() to get categories.
-    // So data should be fetching.
+    // Select all categories and continue to rounds screen
+    // This prepares for game start which will trigger profile data loading
+    await page.getByRole('button', { name: /Select All/ }).click();
+    await page.getByRole('button', { name: 'Continue' }).click();
 
-    // Wait a bit for network requests to finish and cache to populate
-    await page.waitForTimeout(3000);
+    // Wait for Number of Rounds screen
+    await expect(page.getByRole('heading', { name: 'Number of Rounds' })).toBeVisible();
+
+    // Start the game - this is when profiles are actually loaded and cached
+    // With lazy loading, profile data is fetched when startGame is called
+    await page.getByRole('button', { name: 'Start Game' }).click();
+
+    // Wait for game page to load after profile loading
+    // With lazy loading, profiles are loaded asynchronously when the game starts
+    await page.waitForURL(/\/game\//, { timeout: 15000 });
+    await page.waitForLoadState('domcontentloaded');
+
+    // Wait for game page to load (Show Next Clue button appears)
+    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible({
+      timeout: 10000,
+    });
+
+    // Wait a bit more for cache to populate after game data is fetched
+    await page.waitForTimeout(2000);
 
     // Verify cache has entries
     const cacheName = 'profile-data-v2';
@@ -55,17 +69,6 @@ test.describe('PWA Offline Data Caching', () => {
     }, cacheName);
 
     console.log(`Cache "${cacheName}" size:`, cacheSize);
-
-    // If cache is empty, it might be because requests haven't finished or SW didn't cache.
-    // We expect at least manifest.json and maybe some data files.
-    // Actually manifest.json has its own cache 'manifest-cache'.
-    // 'profile-data-v2' is for data-*.json.
-    // If we haven't selected a category, we might not have fetched data-*.json yet?
-    // Let's check useProfiles.
-    // If we call useProfiles(), it fetches ALL if no category specified?
-    // "fetchProfilesByCategory" fetches data files.
-    // "fetchAllProfiles" fetches manifest then ALL categories.
-    // So yes, it should fetch data files.
 
     expect(cacheSize).toBeGreaterThan(0);
 

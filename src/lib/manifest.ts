@@ -7,6 +7,7 @@ import { profilesDataSchema } from '../types/models';
 export interface CategoryLocaleInfo {
   name: string;
   files: string[];
+  profileAmount: number;
 }
 
 /**
