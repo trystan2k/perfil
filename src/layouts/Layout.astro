@@ -30,6 +30,42 @@ const t = getTranslateFunction(translations, currentLocale);
 <!doctype html>
 <html lang={currentLocale}>
   <head>
+    <script is:inline>
+      // CRITICAL: Prevent theme flash - must run BEFORE any CSS loads
+      // This is the highest priority script in the document
+      (function() {
+        try {
+          const STORAGE_KEY = 'perfil-theme';
+          const DARK_THEME = 'dark';
+          const LIGHT_THEME = 'light';
+          const SYSTEM_THEME = 'system';
+
+          // Get stored theme or detect system preference
+          const storedTheme = localStorage.getItem(STORAGE_KEY);
+          const systemPrefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+
+          // Determine actual theme to apply
+          let themeToApply = LIGHT_THEME;
+          if (storedTheme === DARK_THEME) {
+            themeToApply = DARK_THEME;
+          } else if (storedTheme === SYSTEM_THEME || !storedTheme) {
+            themeToApply = systemPrefersDark ? DARK_THEME : LIGHT_THEME;
+          }
+
+          // Apply theme IMMEDIATELY to document root
+          const html = document.documentElement;
+          html.setAttribute('data-theme', themeToApply);
+
+          if (themeToApply === DARK_THEME) {
+            html.classList.add(DARK_THEME);
+          } else {
+            html.classList.remove(DARK_THEME);
+          }
+        } catch (e) {
+          // Fail silently
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -65,15 +101,3 @@ const t = getTranslateFunction(translations, currentLocale);
 		height: 100%;
 	}
 </style>
-
-<script>
-import { getThemeFromStorage, THEMES, updateSelectedTheme } from "../hooks/useTheme";
-
-
-const theme = getThemeFromStorage();
-if (theme) {
-  updateSelectedTheme(theme);
-} else {
-  updateSelectedTheme(THEMES.system);
-}
-</script>
