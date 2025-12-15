@@ -472,7 +472,8 @@
         "Battery degradation over time",
         "Grid electricity dependency",
         "Future of transportation",
-        "Environmental impact reduction"
+        "Environmental impact reduction",
+        "Electric propulsion replacing combustion"
       ],
       "metadata": {
         "language": "en",
@@ -535,7 +536,8 @@
         "Threat intelligence analysis",
         "Zero-trust architecture",
         "Digital forensics investigation",
-        "Cyber warfare capabilities"
+        "Cyber warfare capabilities",
+        "Protects systems from cyber attacks"
       ],
       "metadata": {
         "language": "en",
@@ -630,7 +632,8 @@
         "Mobile edge computing",
         "Network virtualization",
         "Global 5G rollout",
-        "Future technology foundation"
+        "Future technology foundation",
+        "Backbone for faster mobile data"
       ],
       "metadata": {
         "language": "en",
@@ -661,7 +664,8 @@
         "Anonymous transaction capability",
         "Cross-border payments",
         "Financial technology disruption",
-        "Future of money"
+        "Future of money",
+        "Digital asset technology using blockchains"
       ],
       "metadata": {
         "language": "en",
@@ -692,7 +696,8 @@
         "Smart speaker hubs",
         "Home security systems",
         "Lifestyle convenience enhancement",
-        "Future living standards"
+        "Future living standards",
+        "Automates home devices and routines"
       ],
       "metadata": {
         "language": "en",
@@ -723,7 +728,8 @@
         "Marketing interactive experiences",
         "Remote collaboration tools",
         "Mixed reality convergence",
-        "Future computing interface"
+        "Future computing interface",
+        "Overlays digital info on the real world"
       ],
       "metadata": {
         "language": "en",
@@ -754,7 +760,8 @@
         "Climate change mitigation",
         "Energy independence goals",
         "Future power infrastructure",
-        "Sustainable development"
+        "Sustainable development",
+        "Harnessing solar and wind for power"
       ],
       "metadata": {
         "language": "en",
@@ -785,7 +792,8 @@
         "Interplanetary communication",
         "Space colonization future",
         "Scientific research platforms",
-        "Final frontier exploration"
+        "Final frontier exploration",
+        "Rockets, satellites and exploration tech"
       ],
       "metadata": {
         "language": "en",
@@ -815,7 +823,9 @@
         "Clinical trial requirements",
         "International research collaboration",
         "Future human evolution",
-        "Biotechnology revolution"
+        "Biotechnology revolution",
+        "Used in medicine and agriculture",
+        "Raises ethical and safety debates"
       ],
       "metadata": {
         "language": "en",
@@ -846,7 +856,8 @@
         "Parking automation",
         "Fleet management systems",
         "Human oversight requirements",
-        "Future mobility paradigm"
+        "Future mobility paradigm",
+        "Combines sensors and AI to drive vehicles"
       ],
       "metadata": {
         "language": "en",
@@ -877,7 +888,8 @@
         "Military quantum communications",
         "Secure government communications",
         "Future information security",
-        "Quantum technology revolution"
+        "Quantum technology revolution",
+        "Quantum-secure methods of sending info"
       ],
       "metadata": {
         "language": "en",
@@ -908,7 +920,8 @@
         "Gaming control interfaces",
         "Artificial intelligence integration",
         "Future human evolution",
-        "Mind-machine revolution"
+        "Mind-machine revolution",
+        "Enables direct neural control of devices"
       ],
       "metadata": {
         "language": "en",
@@ -939,7 +952,8 @@
         "Industrial IoT applications",
         "Asset management efficiency",
         "Future digital transformation",
-        "Virtual-physical convergence"
+        "Virtual-physical convergence",
+        "Digital replicas of physical systems"
       ],
       "metadata": {
         "language": "en",
