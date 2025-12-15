@@ -5591,78 +5591,78 @@
       {
         "id": "98",
         "title": "Optimize Profile Loading and Category Discovery",
-        "description": "Refactor how categories and profiles are obtained to improve performance. Instead of loading all profiles upfront to discover categories, use manifest.json to get categories and localized names. For profile selection, use manifest metadata with profile ID patterns to select randomly balanced profile IDs before loading actual profile data, enabling lazy loading of profiles only when game starts.",
-        "details": "Refactor how categories and profiles are obtained to improve performance. Instead of loading all profiles upfront to discover categories, use manifest.json to get categories and localized names. For profile selection, use manifest metadata with profile ID patterns to select randomly balanced profile IDs before loading actual profile data, enabling lazy loading of profiles only when game starts.",
-        "testStrategy": "The optimization requires maintaining existing game logic while changing the loading pattern. Tests should verify: (1) categories load from manifest without profiles, (2) profile ID selection distributes evenly across categories, (3) only selected profiles are loaded from files, (4) game flow works identically to before, (5) all E2E flows pass.",
-        "status": "in-progress",
+        "description": "Refactor how categories and profiles are obtained to improve performance. Instead of loading all profiles upfront to discover categories, use manifest.json to get categories and localized names. For profile selection, use manifest metadata with profile ID patterns to select randomly balanced profile IDs before loading actual profile data, enabling lazy loading of profiles only when game starts. \n\nImplementation Summary:\n- Successfully implemented all 8 subtasks\n- Integrated TanStack Query for profile data caching\n- Optimized favicon caching (1-year immutable)\n- Added 204+ new unit tests and 24 new E2E tests for profile caching\n- Fixed 11 gameStore unit tests and 3 E2E test failures\n- All QA checks passing (2270 unit + 120 E2E tests)\n- 0 TypeScript errors, 0 linting errors\n\nPR Information:\n- Branch: feature/PER-98-lazy-profile-loading-manifest\n- Commit: 893d4bc\n- PR: https://github.com/trystan2k/perfil/pull/77\n\nCode Reviews:\n- Code Reviewer: A+ (100/100)\n- React Specialist: A+ (100/100)\n- TypeScript Specialist: B+ (7.2/10)\n- Test Automator: 9.5/10",
+        "details": "Refactor how categories and profiles are obtained to improve performance. Instead of loading all profiles upfront to discover categories, use manifest.json to get categories and localized names. For profile selection, use manifest metadata with profile ID patterns to select randomly balanced profile IDs before loading actual profile data, enabling lazy loading of profiles only when game starts. \n\nImplementation completed with full integration of manifest-based category discovery and profile selection. TanStack Query implemented for efficient profile data caching. Favicon assets optimized with 1-year immutable caching. All tests pass with no TypeScript or linting errors.",
+        "testStrategy": "The optimization requires maintaining existing game logic while changing the loading pattern. Tests verify: (1) categories load from manifest without profiles, (2) profile ID selection distributes evenly across categories, (3) only selected profiles are loaded from files, (4) game flow works identically to before, (5) all E2E flows pass. \n\nAdditionally validated: 204+ new unit tests, 24 new E2E tests for profile caching, 11 fixed gameStore unit tests, 3 fixed E2E test failures. All 2270 unit and 120 E2E tests pass.",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "subtasks": [
           {
             "id": 1,
             "title": "Update manifest.json with profileAmount metadata - Add profileAmount field to each category/locale combination",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentId": "undefined"
           },
           {
             "id": 2,
             "title": "Create ManifestProfileSelectionService - Implement profile ID selection based on manifest data and category patterns (profile-{category}-{number})",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentId": "undefined"
           },
           {
             "id": 3,
             "title": "Create loadProfilesByIds utility - Implement function to load specific profiles by ID from data files",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentId": "undefined"
           },
           {
             "id": 4,
             "title": "Create useCategoriesFromManifest hook - Implement hook to fetch categories and display names from manifest only",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentId": "undefined"
           },
           {
             "id": 5,
             "title": "Update CategorySelect component - Replace useProfiles with useCategoriesFromManifest, remove usePrefetchProfiles",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentId": "undefined"
           },
           {
             "id": 6,
             "title": "Integrate manifest-based selection in startGame - Update game store to use manifest-based profile selection and loading",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentId": "undefined"
           },
           {
             "id": 7,
             "title": "Write comprehensive tests - Unit tests for new services, integration tests for full game flow, E2E tests",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentId": "undefined"
           },
           {
             "id": 8,
             "title": "Cleanup deprecated code - Remove usePrefetchProfiles hook and related prefetch configuration",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentId": "undefined"
           }
         ],
-        "updatedAt": "2025-12-14T18:31:46.445Z"
+        "updatedAt": "2025-12-15T19:12:47.439Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-14T18:31:46.447Z",
+      "lastModified": "2025-12-15T19:12:47.440Z",
       "taskCount": 98,
-      "completedCount": 68,
+      "completedCount": 69,
       "tags": [
         "master"
       ]
