@@ -71,6 +71,7 @@ test.describe('Error Handling', () => {
 
     // Navigate to game page with the session ID (should trigger error)
     await page.goto(`/en/game/${sessionId}`, { waitUntil: 'networkidle' });
+    await page.waitForTimeout(1000); // Wait for error to be triggered
 
     // Wait for error overlay
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();
