@@ -10,20 +10,17 @@ import { useTranslate } from './TranslateProvider';
 
 interface CategorySelectProps {
   sessionId: string;
+  locale: string;
 }
 
 type StartGameState = {
   error: string | null;
 };
 
-export function CategorySelect({ sessionId }: CategorySelectProps) {
+export function CategorySelect({ sessionId, locale }: CategorySelectProps) {
   const { t } = useTranslate();
 
-  // Get current locale
-  const currentLocale =
-    (typeof window !== 'undefined' && window.location?.pathname?.split('/')[1]) || 'en';
-
-  const { data: categoriesData, isLoading, error } = useCategoriesFromManifest(currentLocale);
+  const { data: categoriesData, isLoading, error } = useCategoriesFromManifest(locale);
   const [sessionLoading, setSessionLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [numberOfRounds, setNumberOfRounds] = useState<string>('5');
@@ -48,7 +45,7 @@ export function CategorySelect({ sessionId }: CategorySelectProps) {
       try {
         const numRounds = Number.parseInt(roundsStr, 10);
         // startGame will now handle loading profiles internally (async)
-        await startGame(selectedCategorySlugs, numRounds, currentLocale);
+        await startGame(selectedCategorySlugs, numRounds, locale);
         await forcePersist();
         navigateWithLocale(`/game/${sessionId}`);
         return { error: null };

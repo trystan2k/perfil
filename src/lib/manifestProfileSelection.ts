@@ -1,5 +1,5 @@
-import { getActualProfileIdsQuery } from './profileDataQuery';
 import type { Manifest } from './manifest';
+import { getActualProfileIdsQuery } from './profileDataQuery';
 
 /**
  * Select profile IDs from manifest based on categories and number of rounds
@@ -56,8 +56,12 @@ export async function selectProfileIdsByManifest(
       );
     }
 
-    // Randomly select from actual available IDs
-    const shuffled = [...actualIds].sort(() => Math.random() - 0.5);
+    // Randomly select from actual available IDs using Fisher-Yates
+    const shuffled = [...actualIds];
+    for (let j = shuffled.length - 1; j > 0; j--) {
+      const k = Math.floor(Math.random() * (j + 1));
+      [shuffled[j], shuffled[k]] = [shuffled[k], shuffled[j]];
+    }
     const categoryIds = shuffled.slice(0, count);
 
     selectedIds.push(...categoryIds);

@@ -340,14 +340,8 @@ describe('useGameActions', () => {
       const categories = ['Movies'];
 
       // Call with rounds number - need 3 profiles for 3 rounds, startGame is now async
-      try {
-        await startGameAction(categories, 3);
-        // If we get here, no error was thrown
-        expect(true).toBe(true);
-      } catch {
-        // Errors are acceptable in this test since we're just testing the function exists
-        expect(true).toBe(true);
-      }
+      // Verify the action completes without throwing
+      await expect(startGameAction(categories, 3)).resolves.not.toThrow();
     });
 
     it('should handle multiple consecutive action calls', async () => {
@@ -622,15 +616,9 @@ describe('useGameActions', () => {
         })),
       });
 
+      // Verify the action completes without throwing
       // startGame is now async, so await the call
-      try {
-        await result.current.startGame(manyCategories);
-        // If we get here, no error was thrown
-        expect(true).toBe(true);
-      } catch {
-        // Errors are acceptable in this test since we're just testing the function exists
-        expect(true).toBe(true);
-      }
+      await expect(result.current.startGame(manyCategories)).resolves.not.toThrow();
     });
 
     it('should handle resetGame with samePlayers true', async () => {

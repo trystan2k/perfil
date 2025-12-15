@@ -3,6 +3,22 @@ import type { Profile, ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 import type { Manifest } from './manifest';
 
+const getLocaleInfo = (
+  manifest: Manifest,
+  categorySlug: string,
+  locale: string
+): { name: string; profileAmount: number; files: string[] } => {
+  const category = manifest.categories.find((c) => c.slug === categorySlug);
+  if (!category) {
+    throw new Error(`Category "${categorySlug}" not found in manifest`);
+  }
+  const localeInfo = category.locales[locale];
+  if (!localeInfo) {
+    throw new Error(`Locale "${locale}" not found for category "${categorySlug}"`);
+  }
+  return localeInfo;
+};
+
 /**
  * Fetch a single profile data file using TanStack Query caching
  *
@@ -83,30 +99,13 @@ export async function getActualProfileIdsQuery(
   locale: string,
   manifest: Manifest
 ): Promise<string[]> {
-  const category = manifest.categories.find((c) => c.slug === categorySlug);
-
-  if (!category) {
-    throw new Error(`Category "${categorySlug}" not found in manifest`);
-  }
-
-  const localeInfo = category.locales[locale];
-
-  if (!localeInfo) {
-    throw new Error(`Locale "${locale}" not found for category "${categorySlug}"`);
-  }
+  const localeInfo = getLocaleInfo(manifest, categorySlug, locale);
 
   // Fetch all data files (benefits from individual file caching)
   const dataFiles = await fetchAllProfileDataFiles(categorySlug, locale, localeInfo.files);
 
   // Extract all profile IDs from the data files
-  const profileIds: string[] = [];
-  for (const dataFile of dataFiles) {
-    for (const profile of dataFile.profiles) {
-      profileIds.push(profile.id);
-    }
-  }
-
-  return profileIds;
+  return dataFiles.flatMap((dataFile) => dataFile.profiles.map((profile) => profile.id));
 }
 
 /**
@@ -137,32 +136,16 @@ export async function loadProfilesByIdsQuery(
     return [];
   }
 
-  const category = manifest.categories.find((c) => c.slug === categorySlug);
-
-  if (!category) {
-    throw new Error(`Category "${categorySlug}" not found in manifest`);
-  }
-
-  const localeInfo = category.locales[locale];
-
-  if (!localeInfo) {
-    throw new Error(`Locale "${locale}" not found for category "${categorySlug}"`);
-  }
+  const localeInfo = getLocaleInfo(manifest, categorySlug, locale);
 
   // Fetch all data files for this category/locale (benefits from caching)
   const dataFiles = await fetchAllProfileDataFiles(categorySlug, locale, localeInfo.files);
 
   // Merge all profiles from all data files
-  const allProfiles: Profile[] = [];
-  for (const dataFile of dataFiles) {
-    allProfiles.push(...dataFile.profiles);
-  }
+  const allProfiles = dataFiles.flatMap((dataFile) => dataFile.profiles);
 
   // Create a map of all available profiles by ID for quick lookup
-  const allProfilesMap = new Map<string, Profile>();
-  for (const profile of allProfiles) {
-    allProfilesMap.set(profile.id, profile);
-  }
+  const allProfilesMap = new Map(allProfiles.map((profile) => [profile.id, profile]));
 
   // Filter to requested IDs, replacing missing ones with available alternatives
   const requestedProfiles: Profile[] = [];

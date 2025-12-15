@@ -126,7 +126,7 @@ describe('CategorySelect', () => {
         error: null,
       });
 
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       // Check for ProfileLoadingSkeleton with animate-pulse class indicating loading state
       const skeletons = screen
@@ -136,7 +136,7 @@ describe('CategorySelect', () => {
     });
 
     it('should render category checkboxes after loading', async () => {
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -147,7 +147,7 @@ describe('CategorySelect', () => {
     });
 
     it('should render Select All and Deselect All buttons', async () => {
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Select All')).toBeInTheDocument();
@@ -157,7 +157,7 @@ describe('CategorySelect', () => {
     });
 
     it('should render Continue button disabled initially', async () => {
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -171,7 +171,7 @@ describe('CategorySelect', () => {
   describe('Multi-Category Selection', () => {
     it('should allow selecting single category', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -187,7 +187,7 @@ describe('CategorySelect', () => {
 
     it('should allow selecting multiple categories', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -210,7 +210,7 @@ describe('CategorySelect', () => {
 
     it('should enable Continue button when categories are selected', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -226,7 +226,7 @@ describe('CategorySelect', () => {
 
     it('should transition to rounds screen when Continue is clicked', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -246,7 +246,7 @@ describe('CategorySelect', () => {
 
     it('should pass all selected categories to startGame', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -287,7 +287,7 @@ describe('CategorySelect', () => {
   describe('Select All / Deselect All', () => {
     it('should select all categories when Select All is clicked', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -312,7 +312,7 @@ describe('CategorySelect', () => {
 
     it('should deselect all categories when Deselect All is clicked', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -350,7 +350,7 @@ describe('CategorySelect', () => {
 
     it('should disable Select All when all are selected', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -370,7 +370,7 @@ describe('CategorySelect', () => {
 
     it('should enable Deselect All when categories are selected', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -389,7 +389,7 @@ describe('CategorySelect', () => {
   describe('Rounds Selection', () => {
     it('should show rounds input after Continue is clicked', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -409,7 +409,7 @@ describe('CategorySelect', () => {
 
     it('should have default value based on selected categories', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -435,7 +435,7 @@ describe('CategorySelect', () => {
 
     it('should allow going back to category selection', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Movies')).toBeInTheDocument();
@@ -465,7 +465,7 @@ describe('CategorySelect', () => {
 
     it('should start game with selected categories and rounds', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -500,7 +500,7 @@ describe('CategorySelect', () => {
       const { navigateWithLocale } = await import('@/i18n/locales');
 
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Countries')).toBeInTheDocument();
@@ -527,7 +527,7 @@ describe('CategorySelect', () => {
 
     it('should allow deleting the last digit in rounds input (empty string)', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -558,7 +558,7 @@ describe('CategorySelect', () => {
 
     it('should allow typing a new number after deleting all digits', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -597,7 +597,7 @@ describe('CategorySelect', () => {
 
     it('should show error when rounds input has invalid value', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -631,7 +631,7 @@ describe('CategorySelect', () => {
 
     it('should disable Start button with invalid rounds value', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -665,7 +665,7 @@ describe('CategorySelect', () => {
 
     it('should enable Start button with valid rounds value', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -709,7 +709,7 @@ describe('CategorySelect', () => {
         error: new Error('Failed to load categories'),
       });
 
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByRole('heading', { name: /Error/i })).toBeInTheDocument();
