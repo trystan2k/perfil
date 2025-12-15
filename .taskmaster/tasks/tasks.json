@@ -5509,7 +5509,7 @@
         "description": "Resolve UI hanging and slow profile loading on category selection screen caused by redundant data fetches, lack of caching, and synchronous validation blocking the main thread",
         "details": "Implement performance optimizations including: 1) Add proper HTTP cache headers (Cache-Control: public, max-age=3600) to enable browser caching of data files, 2) Optimize React Query configuration by increasing staleTime to 1 hour/Infinity, adding gcTime, and disabling unnecessary refetches, 3) Implement lazy loading of category data using React Query's enabled option to fetch only selected categories on-demand, 4) Move Zod validation off the main thread using Web Workers or implement lazy validation, 5) Enable server-side compression (gzip/brotli) for JSON data files. Prioritize quick wins like HTTP caching and React Query optimization first. Update useProfiles hook in src/hooks/useProfiles.ts and manifest validation in src/lib/manifest.ts.",
         "testStrategy": "1) Measure and compare profile loading times before/after optimizations using Lighthouse performance audits, 2) Verify skeleton loader never hangs for more than 1 second, 3) Confirm all profile data loads successfully without errors across all categories, 4) Test cache behavior using browser dev tools network tab, 5) Validate React Query configuration changes via unit tests, 6) Ensure Zod validation no longer blocks main thread using profile timing API, 7) Verify compression reduces payload size by ~70-80% using network inspection",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           "2",
           "22",
@@ -5525,10 +5525,11 @@
             "description": "Add proper cache headers to data files to enable browser caching.",
             "dependencies": [],
             "details": "- Set Cache-Control: public, max-age=3600, immutable for data files\n- Add ETags for validation\n- Note: profiles rarely change; browsers can cache them for 1 hour\nExpected impact: Immediate improvement on subsequent loads",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Use browser dev tools to confirm Cache-Control headers (public, max-age=3600, immutable) and ETags are present. Verify that subsequent loads use cached data within the 1-hour period.",
             "assignee": "backend",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-15T19:52:42.401Z"
           },
           {
             "id": 2,
@@ -5536,10 +5537,11 @@
             "description": "Optimize React Query configuration for profile data.",
             "dependencies": [],
             "details": "- Increase staleTime to 1 hour or Infinity\n- Add gcTime to keep data in memory longer\n- Set refetchOnMount: false and refetchOnWindowFocus: false\nLocation: src/hooks/useProfiles.ts\nExpected impact: Prevent unnecessary re-fetching of stable data",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Confirm React Query configuration changes via unit tests. Verify no unnecessary network requests on mount and window focus. Ensure data remains fresh according to staleTime.",
             "assignee": "frontend",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-15T19:52:46.120Z"
           },
           {
             "id": 3,
@@ -5547,10 +5549,11 @@
             "description": "Implement lazy loading to fetch categories on-demand instead of all at once.",
             "dependencies": [],
             "details": "- Only fetch manifest initially (lightweight)\n- Load category data on-demand when user selects it\n- Use React Query's enabled option to control when to fetch\n- Update useProfiles hook to support lazy category loading\nExpected impact: Reduce initial data load and improve perceived performance",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify that only the manifest is fetched initially. Check that category data is loaded only when selected. Ensure UI shows appropriate loading states.",
             "assignee": "frontend",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-15T19:52:49.896Z"
           },
           {
             "id": 4,
@@ -5558,10 +5561,11 @@
             "description": "Enhance PWA with service worker caching for data files.",
             "dependencies": [],
             "details": "- Cache all data files in service worker during install\n- Implement cache-first strategy with background updates\n- Provide offline support and faster loads from cache\nExpected impact: Offline support and faster cached loads",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test offline functionality by disabling network and verifying data loads from cache. Check that service worker caches data files during install and serves them with cache-first strategy.",
             "assignee": "pwa",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-15T19:52:54.961Z"
           },
           {
             "id": 5,
@@ -5569,10 +5573,11 @@
             "description": "Prevent Zod validation from blocking the main thread.",
             "dependencies": [],
             "details": "- Move validation to a Web Worker or implement lazy validation (only on write)\n- Consider lightweight validation alternative for trusted data\nLocation: src/lib/manifest.ts (around line 129)\nExpected impact: Prevent UI freezing during dataset validation",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Use performance profiling to confirm validation no longer blocks the main thread. Verify validation errors are displayed correctly without UI hangs.",
             "assignee": "frontend",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-15T19:52:59.535Z"
           },
           {
             "id": 6,
@@ -5580,13 +5585,14 @@
             "description": "Enable HTTP compression for JSON data files.",
             "dependencies": [],
             "details": "- Configure gzip/brotli compression on server (Astro/hosting level)\n- Target compression ratio ~70-80%\nExpected impact: Reduce payload sizes significantly",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Inspect network responses for Content-Encoding (gzip/br) and verify compressed size reduction of ~70-80%. Compare load times with and without compression.",
             "assignee": "backend",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-15T19:53:03.651Z"
           }
         ],
-        "updatedAt": "2025-12-14T13:59:23.596Z"
+        "updatedAt": "2025-12-15T19:53:03.651Z"
       },
       {
         "id": "98",
@@ -5660,9 +5666,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-15T19:12:47.440Z",
+      "lastModified": "2025-12-15T19:53:03.654Z",
       "taskCount": 98,
-      "completedCount": 69,
+      "completedCount": 70,
       "tags": [
         "master"
       ]
