@@ -1,5 +1,7 @@
+import { queryClient } from '../components/QueryProvider';
 import type { Profile, ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
+import { fetchProfileDataFile } from './profileDataQuery';
 
 /**
  * Locale-specific category information
@@ -27,49 +29,38 @@ export interface Manifest {
   categories: ManifestCategory[];
 }
 
-// Cache for manifest to avoid multiple fetches
-let manifestCache: Manifest | null = null;
-let manifestCacheTime: number | null = null;
-
-// 6-hour TTL for manifest cache (in milliseconds)
-const MANIFEST_CACHE_TTL = 1000 * 60 * 60 * 6;
-
 /**
- * Check if manifest cache is still valid
- */
-function isManifestCacheValid(): boolean {
-  if (!manifestCache || !manifestCacheTime) {
-    return false;
-  }
-  const now = Date.now();
-  return now - manifestCacheTime < MANIFEST_CACHE_TTL;
-}
-
-/**
- * Clear manifest cache (useful for testing)
+ * Clear manifest cache and all related profile data queries (useful for testing)
  */
 export function clearManifestCache(): void {
-  manifestCache = null;
-  manifestCacheTime = null;
+  queryClient.removeQueries({ queryKey: ['manifest'] });
+  queryClient.removeQueries({ queryKey: ['profile-data-file'] });
 }
 
 /**
- * Fetch global manifest file
+ * Fetch global manifest file using TanStack Query
+ *
+ * Benefits:
+ * - HTTP cache integration
+ * - Automatic request deduplication
+ * - Automatic retry with exponential backoff
+ * - Centralized cache management
  */
 export async function fetchManifest(): Promise<Manifest> {
-  if (isManifestCacheValid()) {
-    return manifestCache as Manifest;
-  }
+  return queryClient.fetchQuery({
+    queryKey: ['manifest'],
+    queryFn: async () => {
+      const response = await fetch('/data/manifest.json');
 
-  const response = await fetch('/data/manifest.json');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch manifest: ${response.statusText}`);
+      }
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch manifest: ${response.statusText}`);
-  }
-
-  manifestCache = await response.json();
-  manifestCacheTime = Date.now();
-  return manifestCache as Manifest;
+      return response.json() as Promise<Manifest>;
+    },
+    staleTime: 1000 * 60 * 60 * 6, // 6 hours - manifest is static
+    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours
+  });
 }
 
 /**
@@ -95,6 +86,11 @@ export async function getCategoryDisplayName(
  * Merges all data files (data-1.json, data-2.json, etc.) for the category/locale
  *
  * New path structure: /data/{categorySlug}/{locale}/{file}
+ *
+ * Benefits:
+ * - Individual file caching via TanStack Query
+ * - Request deduplication across files
+ * - Automatic retry with exponential backoff
  */
 export async function fetchProfilesByCategory(
   locale: string,
@@ -114,20 +110,10 @@ export async function fetchProfilesByCategory(
     throw new Error(`Locale "${locale}" not found for category "${categorySlug}"`);
   }
 
-  // Fetch all data files for this category/locale using manifest's files array
-  const dataPromises = localeInfo.files.map(async (file) => {
-    const response = await fetch(`/data/${categorySlug}/${locale}/${file}`);
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch ${file} for category ${categorySlug} (${locale}): ${response.statusText}`
-      );
-    }
-
-    return response.json();
-  });
-
-  const dataFiles = await Promise.all(dataPromises);
+  // Fetch all data files for this category/locale using TanStack Query
+  const dataFiles = await Promise.all(
+    localeInfo.files.map((file) => fetchProfileDataFile(categorySlug, locale, file))
+  );
 
   // Merge all profiles from all data files
   const allProfiles: Profile[] = [];

@@ -1,7 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { queryClient as globalQueryClient } from '../../components/QueryProvider';
 import { clearManifestCache } from '../../lib/manifest';
 import { useCategoriesFromManifest } from '../useCategoriesFromManifest';
 
@@ -53,6 +54,27 @@ const mockManifest = {
     },
   ],
 };
+
+/**
+ * Temporarily disable retries on the global queryClient for error tests.
+ * This is necessary because manifest.ts uses the global queryClient internally.
+ */
+function disableGlobalQueryClientRetries(): () => void {
+  const originalRetry = globalQueryClient.getDefaultOptions().queries?.retry;
+  globalQueryClient.setDefaultOptions({
+    queries: {
+      retry: false,
+    },
+  });
+  // Return a cleanup function to restore original settings
+  return () => {
+    globalQueryClient.setDefaultOptions({
+      queries: {
+        retry: originalRetry,
+      },
+    });
+  };
+}
 
 function createWrapper() {
   const queryClient = new QueryClient({
@@ -299,53 +321,80 @@ describe('useCategoriesFromManifest', () => {
 
   describe('Error Handling', () => {
     it('should handle fetch errors', async () => {
-      const mockFetch = vi.mocked(fetch);
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        statusText: 'Not Found',
-      } as Response);
+      // Disable retries on global queryClient for this test
+      const restoreRetries = disableGlobalQueryClientRetries();
 
-      const { result } = renderHook(() => useCategoriesFromManifest('en'), {
-        wrapper: createWrapper(),
-      });
+      try {
+        const mockFetch = vi.mocked(fetch);
+        mockFetch.mockImplementation(() =>
+          Promise.resolve({
+            ok: false,
+            statusText: 'Not Found',
+          } as Response)
+        );
 
-      await waitFor(() => expect(result.current.isError).toBe(true));
+        const { result } = renderHook(() => useCategoriesFromManifest('en'), {
+          wrapper: createWrapper(),
+        });
 
-      expect(result.current.error).toBeDefined();
-      expect(result.current.data).toBeUndefined();
+        await waitFor(() => expect(result.current.isError).toBe(true));
+
+        expect(result.current.error).toBeDefined();
+        expect(result.current.data).toBeUndefined();
+      } finally {
+        restoreRetries();
+      }
     });
 
     it('should handle network errors', async () => {
-      const mockFetch = vi.mocked(fetch);
-      const networkError = new Error('Network error');
-      mockFetch.mockRejectedValueOnce(networkError);
+      // Disable retries on global queryClient for this test
+      const restoreRetries = disableGlobalQueryClientRetries();
 
-      const { result } = renderHook(() => useCategoriesFromManifest('en'), {
-        wrapper: createWrapper(),
-      });
+      try {
+        const mockFetch = vi.mocked(fetch);
+        const networkError = new Error('Network error');
+        // Use implementation to ensure consistent error on all retries
+        mockFetch.mockImplementation(() => Promise.reject(networkError));
 
-      await waitFor(() => expect(result.current.isError).toBe(true));
+        const { result } = renderHook(() => useCategoriesFromManifest('en'), {
+          wrapper: createWrapper(),
+        });
 
-      expect(result.current.error).toBeDefined();
-      expect(result.current.data).toBeUndefined();
+        await waitFor(() => expect(result.current.isError).toBe(true));
+
+        expect(result.current.error).toBeDefined();
+        expect(result.current.data).toBeUndefined();
+      } finally {
+        restoreRetries();
+      }
     });
 
     it('should handle invalid JSON response', async () => {
-      const mockFetch = vi.mocked(fetch);
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => {
-          throw new Error('Invalid JSON');
-        },
-      } as unknown as Response);
+      // Disable retries on global queryClient for this test
+      const restoreRetries = disableGlobalQueryClientRetries();
 
-      const { result } = renderHook(() => useCategoriesFromManifest('en'), {
-        wrapper: createWrapper(),
-      });
+      try {
+        const mockFetch = vi.mocked(fetch);
+        // Use implementation to ensure consistent error on all retries
+        mockFetch.mockImplementation(() =>
+          Promise.resolve({
+            ok: true,
+            json: async () => {
+              throw new Error('Invalid JSON');
+            },
+          } as unknown as Response)
+        );
 
-      await waitFor(() => expect(result.current.isError).toBe(true));
+        const { result } = renderHook(() => useCategoriesFromManifest('en'), {
+          wrapper: createWrapper(),
+        });
 
-      expect(result.current.error).toBeDefined();
+        await waitFor(() => expect(result.current.isError).toBe(true));
+
+        expect(result.current.error).toBeDefined();
+      } finally {
+        restoreRetries();
+      }
     });
   });
 
