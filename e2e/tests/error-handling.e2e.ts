@@ -52,7 +52,7 @@ test.describe('Error Handling', () => {
 
     // Navigate to a static asset to ensure a clean JS context with same origin
     // This prevents the application from holding open IndexedDB connections
-    await page.goto('/favicon.png');
+    await page.goto('/favicon.png', { waitUntil: 'networkidle' });
 
     // Clear IndexedDB to simulate missing session
     await page.evaluate(() => {
