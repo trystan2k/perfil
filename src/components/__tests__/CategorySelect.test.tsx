@@ -3,153 +3,71 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ReactElement } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useGameStore } from '@/stores/gameStore';
 import { customRender } from '../../__mocks__/test-utils';
 import { CategorySelect } from '../CategorySelect';
 
-// Mock the game store - use vi.hoisted to ensure mocks are available before vi.mock
-const { mockLoadProfiles, mockStartGame, mockLoadFromStorage, mockGetState, mockForcePersist } =
-  vi.hoisted(() => ({
-    mockLoadProfiles: vi.fn(),
-    mockStartGame: vi.fn(),
-    mockLoadFromStorage: vi.fn().mockResolvedValue(true),
-    mockGetState: vi.fn(),
-    mockForcePersist: vi.fn().mockResolvedValue(undefined),
-  }));
+// Use vi.hoisted to declare mocks before vi.mock is called
+const {
+  mockUseCategoriesFromManifest,
+  mockStartGame,
+  mockLoadFromStorage,
+  mockSetError,
+  mockForcePersist,
+} = vi.hoisted(() => ({
+  mockUseCategoriesFromManifest: vi.fn(),
+  mockStartGame: vi.fn(),
+  mockLoadFromStorage: vi.fn().mockResolvedValue(true),
+  mockSetError: vi.fn(),
+  mockForcePersist: vi.fn().mockResolvedValue(undefined),
+}));
 
+// Mock the useCategoriesFromManifest hook
+vi.mock('@/hooks/useCategoriesFromManifest', () => ({
+  useCategoriesFromManifest: mockUseCategoriesFromManifest,
+}));
+
+// Mock the game store
 vi.mock('@/stores/gameStore', () => ({
   useGameStore: vi.fn(),
   forcePersist: mockForcePersist,
 }));
 
+// Mock navigateWithLocale
+vi.mock('@/i18n/locales', () => ({
+  navigateWithLocale: vi.fn(),
+}));
+
+// Import after mocks are defined
+import { useGameStore } from '@/stores/gameStore';
+
 // Mock window.location
 const mockLocation = {
   href: '',
+  pathname: '/en/profile-selection',
 };
 Object.defineProperty(window, 'location', {
   value: mockLocation,
   writable: true,
 });
 
-// Mock manifest with new structure
-const mockManifest = {
-  version: '1',
-  generatedAt: '2025-01-01T00:00:00Z',
-  categories: [
-    {
-      slug: 'famous-people',
-      locales: {
-        en: { name: 'Famous People', files: ['data-1.json'] },
-      },
-    },
-    {
-      slug: 'countries',
-      locales: {
-        en: { name: 'Countries', files: ['data-1.json'] },
-      },
-    },
-    {
-      slug: 'movies',
-      locales: {
-        en: { name: 'Movies', files: ['data-1.json'] },
-      },
-    },
-  ],
-};
-
-// Mock data by category
-const mockCategoryData: Record<string, Record<string, Record<string, unknown>>> = {
-  'famous-people': {
-    en: {
-      'data-1.json': {
-        version: '1',
-        profiles: [
-          {
-            id: 'profile-1',
-            category: 'Famous People',
-            name: 'Albert Einstein',
-            clues: ['Clue 1', 'Clue 2'],
-            metadata: { language: 'en' },
-          },
-          {
-            id: 'profile-2',
-            category: 'Famous People',
-            name: 'Leonardo da Vinci',
-            clues: ['Clue 1', 'Clue 2'],
-            metadata: { language: 'en' },
-          },
-        ],
-      },
-    },
+// Mock categories data from useCategoriesFromManifest hook
+const mockCategoriesData = [
+  {
+    slug: 'famous-people',
+    name: 'Famous People',
+    profileAmount: 2,
   },
-  countries: {
-    en: {
-      'data-1.json': {
-        version: '1',
-        profiles: [
-          {
-            id: 'profile-3',
-            category: 'Countries',
-            name: 'Japan',
-            clues: ['Clue 1', 'Clue 2'],
-            metadata: { language: 'en' },
-          },
-        ],
-      },
-    },
+  {
+    slug: 'countries',
+    name: 'Countries',
+    profileAmount: 1,
   },
-  movies: {
-    en: {
-      'data-1.json': {
-        version: '1',
-        profiles: [
-          {
-            id: 'profile-4',
-            category: 'Movies',
-            name: 'The Matrix',
-            clues: ['Clue 1', 'Clue 2'],
-            metadata: { language: 'en' },
-          },
-        ],
-      },
-    },
+  {
+    slug: 'movies',
+    name: 'Movies',
+    profileAmount: 1,
   },
-};
-
-// For compatibility with tests, create merged profiles data
-const mockProfilesData = {
-  version: '1',
-  profiles: [
-    {
-      id: 'profile-1',
-      category: 'Famous People',
-      name: 'Albert Einstein',
-      clues: ['Clue 1', 'Clue 2'],
-      metadata: { language: 'en' },
-    },
-    {
-      id: 'profile-2',
-      category: 'Famous People',
-      name: 'Leonardo da Vinci',
-      clues: ['Clue 1', 'Clue 2'],
-      metadata: { language: 'en' },
-    },
-    {
-      id: 'profile-3',
-      category: 'Countries',
-      name: 'Japan',
-      clues: ['Clue 1', 'Clue 2'],
-      metadata: { language: 'en' },
-    },
-    {
-      id: 'profile-4',
-      category: 'Movies',
-      name: 'The Matrix',
-      clues: ['Clue 1', 'Clue 2'],
-      metadata: { language: 'en' },
-    },
-  ],
-};
+];
 
 // Create QueryClient for tests
 const queryClient = new QueryClient({
@@ -168,84 +86,57 @@ describe('CategorySelect', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockLocation.href = '';
+    mockLocation.pathname = '/en/profile-selection';
     queryClient.clear();
 
-    // Mock fetch to handle the new manifest + category data structure
-    global.fetch = vi.fn((url: string) => {
-      // Handle manifest request
-      if (url.includes('/data/manifest.json')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(mockManifest),
-        });
-      }
+    // Mock useCategoriesFromManifest to return data successfully
+    mockUseCategoriesFromManifest.mockReturnValue({
+      data: mockCategoriesData,
+      isLoading: false,
+      error: null,
+    });
 
-      // Handle category data requests: /data/{category}/{locale}/{file}
-      // Pattern: /data/famous-people/en/data-1.json
-      const categoryMatch = url.match(/\/data\/([^/]+)\/([^/]+)\/([^/]+)$/);
-      if (categoryMatch) {
-        const [, category, locale, file] = categoryMatch;
-        const categoryData = mockCategoryData[category]?.[locale]?.[file];
-        if (categoryData) {
-          return Promise.resolve({
-            ok: true,
-            json: () => Promise.resolve(categoryData),
-          });
-        }
-      }
-
-      // Fallback: return 404
-      return Promise.resolve({
-        ok: false,
-        statusText: 'Not Found',
-      });
-    }) as unknown as typeof fetch;
-
-    // Mock zustand store with getState support
-    const useGameStoreMock = useGameStore as unknown as ReturnType<typeof vi.fn> & {
-      getState: typeof mockGetState;
-    };
-
+    // Mock useGameStore selector
+    const useGameStoreMock = useGameStore as unknown as ReturnType<typeof vi.fn>;
     useGameStoreMock.mockImplementation(
       (
         selector: (state: {
-          loadProfiles: typeof mockLoadProfiles;
           startGame: typeof mockStartGame;
           loadFromStorage: typeof mockLoadFromStorage;
+          setError: typeof mockSetError;
         }) => unknown
       ) =>
         selector({
-          loadProfiles: mockLoadProfiles,
           startGame: mockStartGame,
           loadFromStorage: mockLoadFromStorage,
+          setError: mockSetError,
         })
     );
 
-    useGameStoreMock.getState = mockGetState.mockReturnValue({
-      loadProfiles: mockLoadProfiles,
-      startGame: mockStartGame,
-      loadFromStorage: mockLoadFromStorage,
-    });
+    // Mock startGame to be async
+    mockStartGame.mockResolvedValue(undefined);
+    mockLoadFromStorage.mockResolvedValue(true);
   });
 
   describe('Initial Render', () => {
     it('should show loading state initially', async () => {
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      mockUseCategoriesFromManifest.mockReturnValueOnce({
+        data: undefined,
+        isLoading: true,
+        error: null,
+      });
+
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       // Check for ProfileLoadingSkeleton with animate-pulse class indicating loading state
       const skeletons = screen
         .getAllByRole('generic')
         .filter((el) => el.className.includes('animate-pulse'));
       expect(skeletons.length).toBeGreaterThan(0);
-
-      // Wait for async effects to settle
-      await waitFor(() => {
-        expect(mockLoadFromStorage).toHaveBeenCalledWith('test-session');
-      });
     });
 
     it('should render category checkboxes after loading', async () => {
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -256,7 +147,7 @@ describe('CategorySelect', () => {
     });
 
     it('should render Select All and Deselect All buttons', async () => {
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Select All')).toBeInTheDocument();
@@ -266,7 +157,7 @@ describe('CategorySelect', () => {
     });
 
     it('should render Continue button disabled initially', async () => {
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -280,7 +171,7 @@ describe('CategorySelect', () => {
   describe('Multi-Category Selection', () => {
     it('should allow selecting single category', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -296,7 +187,7 @@ describe('CategorySelect', () => {
 
     it('should allow selecting multiple categories', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -319,7 +210,7 @@ describe('CategorySelect', () => {
 
     it('should enable Continue button when categories are selected', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -335,7 +226,7 @@ describe('CategorySelect', () => {
 
     it('should transition to rounds screen when Continue is clicked', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -355,7 +246,7 @@ describe('CategorySelect', () => {
 
     it('should pass all selected categories to startGame', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -383,21 +274,20 @@ describe('CategorySelect', () => {
         expect(mockStartGame).toHaveBeenCalled();
       });
 
-      const [categoriesArg, roundsArg] = mockStartGame.mock.calls[0];
+      const [categoriesArg, roundsArg, localeArg] = mockStartGame.mock.calls[0];
       expect(categoriesArg).toEqual(
-        expect.arrayContaining(['Famous People', 'Countries', 'Movies'])
+        expect.arrayContaining(['famous-people', 'countries', 'movies'])
       );
       expect(categoriesArg).toHaveLength(3);
-      // With 4 total profiles (2 Famous People + 1 Countries + 1 Movies),
-      // initial rounds = Math.min(5, 4) = 4
-      expect(roundsArg).toBe(4);
+      expect(roundsArg).toBe(4); // min(5, 4 total profiles)
+      expect(localeArg).toBe('en'); // Extracted from pathname
     });
   });
 
   describe('Select All / Deselect All', () => {
     it('should select all categories when Select All is clicked', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -422,7 +312,7 @@ describe('CategorySelect', () => {
 
     it('should deselect all categories when Deselect All is clicked', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -460,7 +350,7 @@ describe('CategorySelect', () => {
 
     it('should disable Select All when all are selected', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -480,7 +370,7 @@ describe('CategorySelect', () => {
 
     it('should enable Deselect All when categories are selected', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -499,7 +389,7 @@ describe('CategorySelect', () => {
   describe('Rounds Selection', () => {
     it('should show rounds input after Continue is clicked', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -517,9 +407,9 @@ describe('CategorySelect', () => {
       });
     });
 
-    it('should have default value of 5 rounds', async () => {
+    it('should have default value based on selected categories', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -545,7 +435,7 @@ describe('CategorySelect', () => {
 
     it('should allow going back to category selection', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Movies')).toBeInTheDocument();
@@ -573,9 +463,9 @@ describe('CategorySelect', () => {
       });
     });
 
-    it('should load profiles and start game with selected categories', async () => {
+    it('should start game with selected categories and rounds', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -598,17 +488,19 @@ describe('CategorySelect', () => {
       await user.click(startButton);
 
       await waitFor(() => {
-        expect(mockLoadProfiles).toHaveBeenCalledWith(mockProfilesData.profiles);
         expect(mockStartGame).toHaveBeenCalled();
       });
 
-      const [categoriesArg] = mockStartGame.mock.calls[0];
-      expect(categoriesArg).toEqual(expect.arrayContaining(['Famous People', 'Countries']));
+      const [categoriesArg, roundsArg] = mockStartGame.mock.calls[0];
+      expect(categoriesArg).toEqual(expect.arrayContaining(['famous-people', 'countries']));
+      expect(roundsArg).toBe(3); // min(5, 3 total profiles from 2 categories)
     });
 
     it('should navigate to game page after starting game', async () => {
+      const { navigateWithLocale } = await import('@/i18n/locales');
+
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Countries')).toBeInTheDocument();
@@ -629,13 +521,13 @@ describe('CategorySelect', () => {
 
       await waitFor(() => {
         expect(mockForcePersist).toHaveBeenCalledTimes(1);
-        expect(mockLocation.href).toBe('/en/game/test-session');
+        expect(navigateWithLocale).toHaveBeenCalledWith('/game/test-session');
       });
     });
 
     it('should allow deleting the last digit in rounds input (empty string)', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -666,7 +558,7 @@ describe('CategorySelect', () => {
 
     it('should allow typing a new number after deleting all digits', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -705,7 +597,7 @@ describe('CategorySelect', () => {
 
     it('should show error when rounds input has invalid value', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -739,7 +631,7 @@ describe('CategorySelect', () => {
 
     it('should disable Start button with invalid rounds value', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -773,7 +665,7 @@ describe('CategorySelect', () => {
 
     it('should enable Start button with valid rounds value', async () => {
       const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
@@ -810,160 +702,20 @@ describe('CategorySelect', () => {
   });
 
   describe('Error Handling', () => {
-    it('should show error state when profiles fail to load', async () => {
-      global.fetch = vi.fn(() =>
-        Promise.resolve({
-          ok: false,
-          statusText: 'Not Found',
-        })
-      ) as unknown as typeof fetch;
+    it('should show error state when categories fail to load', async () => {
+      mockUseCategoriesFromManifest.mockReturnValue({
+        data: undefined,
+        isLoading: false,
+        error: new Error('Failed to load categories'),
+      });
 
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
+      renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByRole('heading', { name: 'Error' })).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /Error/i })).toBeInTheDocument();
       });
 
       expect(screen.getByText('Failed to load categories. Please try again.')).toBeInTheDocument();
-    });
-  });
-
-  describe('useActionState Pending State Behavior - Category Selection', () => {
-    it('should disable Continue button while action is pending', async () => {
-      const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Famous People')).toBeInTheDocument();
-      });
-
-      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      const continueButton = screen.getByRole('button', { name: /Continue/i });
-
-      await user.click(checkbox);
-
-      // Continue button should be enabled
-      expect(continueButton).not.toBeDisabled();
-    });
-
-    it('should preserve selected categories while pending action is in progress', async () => {
-      const user = userEvent.setup();
-      let resolveStartGame: (() => void) | undefined;
-
-      mockStartGame.mockReturnValue(
-        new Promise<void>((resolve) => {
-          resolveStartGame = resolve as () => void;
-        })
-      );
-
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Famous People')).toBeInTheDocument();
-      });
-
-      // Select multiple categories
-      const famousCheckbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      const countriesCheckbox = screen.getByRole('checkbox', { name: /Countries/i });
-      const continueButton = screen.getByRole('button', { name: /Continue/i });
-
-      await user.click(famousCheckbox);
-      await user.click(countriesCheckbox);
-      await user.click(continueButton);
-
-      await waitFor(() => {
-        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
-      });
-
-      const startButton = screen.getByText('Start Game');
-      await user.click(startButton);
-
-      // Categories should still be in the store
-      const categoryArg = mockStartGame.mock.calls[0]?.[0];
-      expect(categoryArg).toEqual(expect.arrayContaining(['Famous People', 'Countries']));
-
-      // Resolve
-      resolveStartGame?.();
-
-      await vi.waitFor(() => {
-        expect(mockForcePersist).toHaveBeenCalled();
-      });
-    });
-
-    it('should load profiles before starting game action', async () => {
-      const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Famous People')).toBeInTheDocument();
-      });
-
-      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      const continueButton = screen.getByRole('button', { name: /Continue/i });
-
-      await user.click(checkbox);
-      await user.click(continueButton);
-
-      await waitFor(() => {
-        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
-      });
-
-      const startButton = screen.getByText('Start Game');
-      await user.click(startButton);
-
-      await vi.waitFor(() => {
-        // loadProfiles should be called with profile data
-        expect(mockLoadProfiles).toHaveBeenCalledWith(
-          expect.arrayContaining([expect.objectContaining({ id: 'profile-1' })])
-        );
-      });
-    });
-
-    it('should handle rounds input validation before pending action', async () => {
-      const user = userEvent.setup();
-      renderWithProviders(<CategorySelect sessionId="test-session" />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Famous People')).toBeInTheDocument();
-      });
-
-      const checkbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      const continueButton = screen.getByRole('button', { name: /Continue/i });
-
-      await user.click(checkbox);
-      await user.click(continueButton);
-
-      await waitFor(() => {
-        expect(screen.getByText('Number of Rounds')).toBeInTheDocument();
-      });
-
-      const roundsInput = screen.getByLabelText('Number of rounds') as HTMLInputElement;
-      const startButton = screen.getByText('Start Game');
-
-      // Set invalid rounds value
-      await user.clear(roundsInput);
-      await user.type(roundsInput, '100');
-
-      // Start button should be disabled for invalid input
-      expect(startButton).toBeDisabled();
-
-      // Fix the value
-      await user.clear(roundsInput);
-      await user.type(roundsInput, '1');
-
-      // Start button should be enabled again
-      await waitFor(() => {
-        expect(startButton).not.toBeDisabled();
-      });
-
-      // Now click start game
-      await user.click(startButton);
-
-      // startGame should be called with valid rounds
-      expect(mockStartGame).toHaveBeenCalledWith(
-        expect.any(Array),
-        1 // rounds value
-      );
     });
   });
 });

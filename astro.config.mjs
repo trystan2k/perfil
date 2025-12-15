@@ -157,6 +157,22 @@ export default defineConfig({
             },
           },
           {
+            // Favicon and app icons: very aggressive caching
+            // These are requested on almost every navigation but rarely change
+            urlPattern: /\/(favicon\.png|icons\/icon-.*\.(?:png|webp))$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'app-icons-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/i,
             handler: 'CacheFirst',
             options: {

@@ -1,8 +1,26 @@
 import { renderHook } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Manifest } from '@/lib/manifest';
+import { fetchManifest } from '@/lib/manifest';
+import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
+import { loadProfilesByIds } from '@/lib/profileLoading';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
 import { useGameActions } from '../useGameActions';
+
+// Mock the profile loading functions
+vi.mock('@/lib/profileLoading', () => ({
+  loadProfilesByIds: vi.fn(),
+}));
+
+vi.mock('@/lib/manifestProfileSelection', () => ({
+  selectProfileIdsByManifest: vi.fn(),
+}));
+
+// Mock the manifest module
+vi.mock('@/lib/manifest', () => ({
+  fetchManifest: vi.fn(),
+}));
 
 /**
  * Unit tests for useGameActions selector hook
@@ -20,6 +38,19 @@ describe('useGameActions', () => {
     clues: ['Clue 1', 'Clue 2', 'Clue 3'],
     metadata: { difficulty: 'medium' as const },
   });
+
+  const mockManifest: Manifest = {
+    version: '1',
+    generatedAt: new Date().toISOString(),
+    categories: [
+      {
+        slug: 'movies',
+        locales: {
+          en: { name: 'Movies', profileAmount: 2, files: [] },
+        },
+      },
+    ],
+  };
 
   beforeEach(() => {
     // Reset the game store before each test
@@ -41,6 +72,14 @@ describe('useGameActions', () => {
       totalCluesPerProfile: 5,
       error: null,
     });
+
+    // Reset mocks
+    vi.mocked(fetchManifest).mockResolvedValue(mockManifest);
+    vi.mocked(selectProfileIdsByManifest).mockResolvedValue(['1', '2']);
+    vi.mocked(loadProfilesByIds).mockResolvedValue([
+      createMockProfile('1'),
+      createMockProfile('2'),
+    ]);
   });
 
   describe('Returns All Expected Action Methods', () => {
@@ -230,7 +269,7 @@ describe('useGameActions', () => {
       expect(response).toBeUndefined();
     });
 
-    it('should call startGame action with categories', () => {
+    it('should call startGame action with categories', async () => {
       const { result } = renderHook(() => useGameActions());
 
       // Set up required state first
@@ -256,13 +295,13 @@ describe('useGameActions', () => {
 
       const categories = ['Movies'];
 
-      // Call action - should not throw with proper setup
-      expect(() => {
-        startGameAction(categories);
-      }).not.toThrow();
+      // Call action - startGame is now async
+      await startGameAction(categories);
+      // If we get here, no error was thrown
+      expect(true).toBe(true);
     });
 
-    it('should call startGame action with categories and rounds', () => {
+    it('should call startGame action with categories and rounds', async () => {
       const { result } = renderHook(() => useGameActions());
 
       // Set up required state first with enough profiles for rounds requested
@@ -300,10 +339,9 @@ describe('useGameActions', () => {
 
       const categories = ['Movies'];
 
-      // Call with rounds number - need 3 profiles for 3 rounds
-      expect(() => {
-        startGameAction(categories, 3);
-      }).not.toThrow();
+      // Call with rounds number - need 3 profiles for 3 rounds, startGame is now async
+      // Verify the action completes without throwing
+      await expect(startGameAction(categories, 3)).resolves.not.toThrow();
     });
 
     it('should handle multiple consecutive action calls', async () => {
@@ -371,7 +409,7 @@ describe('useGameActions', () => {
       expect(storeState.status).toBe('pending');
     });
 
-    it('should apply startGame action to store state', () => {
+    it('should apply startGame action to store state', async () => {
       const { result } = renderHook(() => useGameActions());
 
       // First set up profiles and create game
@@ -385,7 +423,7 @@ describe('useGameActions', () => {
         ],
       });
 
-      result.current.startGame(['Movies'], 1);
+      await result.current.startGame(['Movies'], 1);
 
       const storeState = useGameStore.getState();
 
@@ -538,7 +576,7 @@ describe('useGameActions', () => {
       expect(response).toBeUndefined();
     });
 
-    it('should handle startGame with single category', () => {
+    it('should handle startGame with single category', async () => {
       const { result } = renderHook(() => useGameActions());
 
       // Set up required state
@@ -555,12 +593,13 @@ describe('useGameActions', () => {
         ],
       });
 
-      expect(() => {
-        result.current.startGame(['Movies']);
-      }).not.toThrow();
+      // startGame is now async, so await the call
+      await result.current.startGame(['Movies']);
+      // If we get here, no error was thrown
+      expect(true).toBe(true);
     });
 
-    it('should handle startGame with many categories', () => {
+    it('should handle startGame with many categories', async () => {
       const { result } = renderHook(() => useGameActions());
 
       const manyCategories = Array.from({ length: 5 }, (_, i) => `Category ${i}`);
@@ -577,9 +616,9 @@ describe('useGameActions', () => {
         })),
       });
 
-      expect(() => {
-        result.current.startGame(manyCategories);
-      }).not.toThrow();
+      // Verify the action completes without throwing
+      // startGame is now async, so await the call
+      await expect(result.current.startGame(manyCategories)).resolves.not.toThrow();
     });
 
     it('should handle resetGame with samePlayers true', async () => {
@@ -680,8 +719,8 @@ describe('useGameActions', () => {
       ];
       result.current.loadProfiles(profiles);
 
-      // Then start game with 1 round
-      result.current.startGame(['Movies'], 1);
+      // Then start game with 1 round - startGame is now async
+      await result.current.startGame(['Movies'], 1);
 
       const stateAfterStart = useGameStore.getState();
       expect(stateAfterStart.players).toHaveLength(2);

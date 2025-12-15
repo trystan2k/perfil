@@ -7,15 +7,18 @@
       "locales": {
         "en": {
           "name": "Famous People",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "es": {
           "name": "Personas Famosas",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "pt-BR": {
           "name": "Pessoas Famosas",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         }
       }
     },
@@ -24,15 +27,18 @@
       "locales": {
         "en": {
           "name": "Countries",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 29
         },
         "es": {
           "name": "Países",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 29
         },
         "pt-BR": {
           "name": "Países",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 29
         }
       }
     },
@@ -41,15 +47,18 @@
       "locales": {
         "en": {
           "name": "Movies",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "es": {
           "name": "Películas",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "pt-BR": {
           "name": "Filmes",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         }
       }
     },
@@ -58,15 +67,18 @@
       "locales": {
         "en": {
           "name": "Animals",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "es": {
           "name": "Animales",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "pt-BR": {
           "name": "Animais",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         }
       }
     },
@@ -75,15 +87,18 @@
       "locales": {
         "en": {
           "name": "Technology",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "es": {
           "name": "Tecnología",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "pt-BR": {
           "name": "Tecnologia",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         }
       }
     },
@@ -92,15 +107,18 @@
       "locales": {
         "en": {
           "name": "Sports",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "es": {
           "name": "Deportes",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         },
         "pt-BR": {
           "name": "Esportes",
-          "files": ["data-1.json"]
+          "files": ["data-1.json"],
+          "profileAmount": 30
         }
       }
     }

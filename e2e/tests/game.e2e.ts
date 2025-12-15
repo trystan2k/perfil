@@ -203,6 +203,11 @@ test.describe('Full game flow', () => {
     // Start game
     await page.getByRole('button', { name: 'Start Game' }).click();
 
+    // Wait for game page to load after profile loading
+    // With lazy loading, profiles are loaded asynchronously when the game starts
+    await page.waitForURL(/\/game\//, { timeout: 15000 });
+    await page.waitForLoadState('domcontentloaded');
+
     // Verify game started
     await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
     await expect(page.getByText('Round 1 of 2')).toBeVisible();

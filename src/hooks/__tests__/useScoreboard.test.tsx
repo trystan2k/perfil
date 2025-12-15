@@ -22,6 +22,20 @@ vi.mock('@/i18n/locales', () => ({
   navigateWithLocale: vi.fn(),
 }));
 
+// Mock the profile loading functions
+vi.mock('@/lib/profileLoading', () => ({
+  loadProfilesByIds: vi.fn(),
+}));
+
+vi.mock('@/lib/manifestProfileSelection', () => ({
+  selectProfileIdsByManifest: vi.fn(),
+}));
+
+// Mock the manifest module
+vi.mock('@/lib/manifest', () => ({
+  fetchManifest: vi.fn(),
+}));
+
 describe('useScoreboard', () => {
   const createWrapper = () => {
     const queryClient = new QueryClient({
@@ -557,6 +571,24 @@ describe('useScoreboard', () => {
       const players = createMockPlayers();
       const profile = createMockProfile('1');
 
+      // Mock the profile loading functions for startGame
+      const { fetchManifest } = await import('@/lib/manifest');
+      const { selectProfileIdsByManifest } = await import('@/lib/manifestProfileSelection');
+      const { loadProfilesByIds } = await import('@/lib/profileLoading');
+
+      vi.mocked(fetchManifest).mockResolvedValue({
+        version: '1',
+        generatedAt: new Date().toISOString(),
+        categories: [
+          {
+            slug: 'movies',
+            locales: { en: { name: 'Movies', profileAmount: 1, files: [] } },
+          },
+        ],
+      });
+      vi.mocked(selectProfileIdsByManifest).mockResolvedValue(['1']);
+      vi.mocked(loadProfilesByIds).mockResolvedValue([profile]);
+
       useGameStore.setState({
         loadFromStorage: vi.fn(async () => true),
         id: originalSessionId,
@@ -584,13 +616,18 @@ describe('useScoreboard', () => {
         result.current.handleRestartGame();
       });
 
+      // Wait for startGame to complete
+      await waitFor(() => {
+        const state = useGameStore.getState();
+        expect(state.status).toBe('active');
+      });
+
       const state = useGameStore.getState();
       expect(state.id).not.toBe(originalSessionId);
       expect(state.id).toMatch(/^game-\d+$/);
       expect(state.players).toHaveLength(3);
       expect(state.players[0].score).toBe(0); // All scores reset to 0
       expect(state.players[0].name).toBe('Alice'); // Names preserved
-      expect(state.status).toBe('active');
       expect(state.currentRound).toBe(1);
       expect(navigateWithLocale).toHaveBeenCalledWith(expect.stringMatching(/^\/game\/game-\d+$/));
     });
@@ -603,6 +640,32 @@ describe('useScoreboard', () => {
         createMockProfile('2', 'Movies'),
         createMockProfile('3', 'Music'),
       ];
+
+      // Mock the profile loading functions for startGame
+      const { fetchManifest } = await import('@/lib/manifest');
+      const { selectProfileIdsByManifest } = await import('@/lib/manifestProfileSelection');
+      const { loadProfilesByIds } = await import('@/lib/profileLoading');
+
+      vi.mocked(fetchManifest).mockResolvedValue({
+        version: '1',
+        generatedAt: new Date().toISOString(),
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', profileAmount: 2, files: [] },
+            },
+          },
+          {
+            slug: 'music',
+            locales: {
+              en: { name: 'Music', profileAmount: 1, files: [] },
+            },
+          },
+        ],
+      });
+      vi.mocked(selectProfileIdsByManifest).mockResolvedValue(['1', '2']);
+      vi.mocked(loadProfilesByIds).mockResolvedValue(profiles);
 
       useGameStore.setState({
         loadFromStorage: vi.fn(async () => true),
@@ -629,6 +692,12 @@ describe('useScoreboard', () => {
         result.current.handleRestartGame();
       });
 
+      // Wait for startGame to complete
+      await waitFor(() => {
+        const state = useGameStore.getState();
+        expect(state.status).toBe('active');
+      });
+
       const state = useGameStore.getState();
       expect(state.selectedProfiles).toHaveLength(2);
     });
@@ -641,6 +710,32 @@ describe('useScoreboard', () => {
         createMockProfile('2', 'Movies'),
         createMockProfile('3', 'Music'),
       ];
+
+      // Mock the profile loading functions for startGame
+      const { fetchManifest } = await import('@/lib/manifest');
+      const { selectProfileIdsByManifest } = await import('@/lib/manifestProfileSelection');
+      const { loadProfilesByIds } = await import('@/lib/profileLoading');
+
+      vi.mocked(fetchManifest).mockResolvedValue({
+        version: '1',
+        generatedAt: new Date().toISOString(),
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', profileAmount: 2, files: [] },
+            },
+          },
+          {
+            slug: 'music',
+            locales: {
+              en: { name: 'Music', profileAmount: 1, files: [] },
+            },
+          },
+        ],
+      });
+      vi.mocked(selectProfileIdsByManifest).mockResolvedValue(['1', '3']);
+      vi.mocked(loadProfilesByIds).mockResolvedValue(profiles);
 
       useGameStore.setState({
         loadFromStorage: vi.fn(async () => true),
@@ -665,6 +760,12 @@ describe('useScoreboard', () => {
 
       await act(async () => {
         result.current.handleRestartGame();
+      });
+
+      // Wait for startGame to complete
+      await waitFor(() => {
+        const state = useGameStore.getState();
+        expect(state.status).toBe('active');
       });
 
       const state = useGameStore.getState();

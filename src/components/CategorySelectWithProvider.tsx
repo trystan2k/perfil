@@ -18,7 +18,7 @@ export function CategorySelectWithProvider({
   return (
     <TranslateProvider locale={locale} translations={translations}>
       <QueryProvider>
-        <CategorySelect sessionId={sessionId} />
+        <CategorySelect locale={locale} sessionId={sessionId} />
       </QueryProvider>
     </TranslateProvider>
   );

@@ -387,7 +387,28 @@ test.describe('Language Persistence', () => {
         timeout: 10000,
       });
 
+      // Now select categories and start the game to trigger profile data loading
+      // With lazy loading, profiles are only fetched when game starts
+      // Use more specific selector to avoid matching multiple buttons
+      const selectAllBtn = page
+        .locator('button')
+        .filter({ hasText: /Selecionar Tudo|Select All/ })
+        .first();
+      await selectAllBtn.click();
+      await page.getByRole('button', { name: /Continue|Continuar/i }).click();
+
+      // Wait for rounds screen
+      await expect(
+        page.getByRole('heading', { name: /Number of Rounds|Número de Rodadas/i })
+      ).toBeVisible({
+        timeout: 10000,
+      });
+
+      // Start the game - this triggers profile data loading
+      await page.getByRole('button', { name: /Start Game|Iniciar Jogo/i }).click();
+
       // Use toPass to retry the assertion until the requests are captured
+      // Profile data requests happen after game start
       await expect(async () => {
         const manifestRequests = requests.filter((url) => url.includes('/data/manifest.json'));
         const ptBRDataRequests = requests.filter(

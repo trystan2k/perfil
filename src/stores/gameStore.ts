@@ -5,7 +5,9 @@ import {
   removePoints as removePlayerPoints,
 } from '../domain/game/entities/Player';
 import { createTurn } from '../domain/game/entities/Turn';
-import { selectProfilesForGame } from '../domain/game/services/ProfileSelectionService';
+import { fetchManifest } from '../lib/manifest';
+import { selectProfileIdsByManifest } from '../lib/manifestProfileSelection';
+import { loadProfilesByIds } from '../lib/profileLoading';
 // Import domain services
 import { calculatePoints } from '../domain/game/services/ScoringService';
 import {
@@ -54,7 +56,11 @@ export interface GameState extends GameSession {
   error: AppError | null;
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;
-  startGame: (selectedCategories: string[], numberOfRounds?: number) => void;
+  startGame: (
+    selectedCategories: string[],
+    numberOfRounds?: number,
+    locale?: string
+  ) => Promise<void>;
   nextClue: () => void;
   awardPoints: (playerId: string) => Promise<void>;
   removePoints: (playerId: string, amount: number) => Promise<void>;
@@ -337,40 +343,56 @@ export const useGameStore = create<GameState>()(
         });
         persistState(get());
       },
-      startGame: (selectedCategories: string[], numberOfRounds = 1) => {
-        set((state) => {
-          if (state.players.length === 0) {
-            throw new Error('Cannot start game without players');
-          }
+      startGame: async (selectedCategories: string[], numberOfRounds = 1, locale = 'en') => {
+        const state = get();
 
-          if (selectedCategories.length === 0) {
-            throw new Error('Cannot start game without selected categories');
-          }
+        if (state.players.length === 0) {
+          throw new Error('Cannot start game without players');
+        }
 
-          // Use domain service to select profiles
-          const profilesToPlay = selectProfilesForGame(
-            state.profiles,
-            selectedCategories,
-            numberOfRounds
-          );
+        if (selectedCategories.length === 0) {
+          throw new Error('Cannot start game without selected categories');
+        }
 
-          // Find the first profile
-          const firstProfileId = profilesToPlay[0];
-          const firstProfile = state.profiles.find((p) => p.id === firstProfileId);
+        // Fetch manifest
+        const manifest = await fetchManifest();
 
-          if (!firstProfile) {
-            throw new Error('Selected profile not found');
-          }
+        // Select profile IDs using manifest-based selection
+        // This validates against actual available profiles in the data files
+        const selectedProfileIds = await selectProfileIdsByManifest(
+          selectedCategories,
+          numberOfRounds,
+          manifest,
+          locale
+        );
 
-          // Create initial turn using domain entity
-          const firstTurn = createTurn(firstProfile.id);
+        // Load only the selected profiles
+        const loadedProfiles = await loadProfilesByIds(selectedProfileIds, locale, manifest);
 
-          // Generate clue shuffle for first profile
-          const shuffleIndices = generateClueShuffleIndices(firstProfile.clues.length);
-          const clueShuffleMap = new Map(state.clueShuffleMap);
-          clueShuffleMap.set(firstProfile.id, shuffleIndices);
+        // The profile IDs were already selected and randomized by selectProfileIdsByManifest,
+        // so we can use them directly as the game profiles (in the same order)
+        const profilesToPlay = selectedProfileIds;
 
+        // Find the first profile
+        const firstProfileId = profilesToPlay[0];
+        const firstProfile = loadedProfiles.find((p) => p.id === firstProfileId);
+
+        if (!firstProfile) {
+          throw new Error('Selected profile not found');
+        }
+
+        // Create initial turn using domain entity
+        const firstTurn = createTurn(firstProfile.id);
+
+        // Generate clue shuffle for first profile
+        const shuffleIndices = generateClueShuffleIndices(firstProfile.clues.length);
+        const clueShuffleMap = new Map(state.clueShuffleMap);
+        clueShuffleMap.set(firstProfile.id, shuffleIndices);
+
+        // Update state with loaded profiles and game initialization
+        set((currentState) => {
           const newState = {
+            profiles: loadedProfiles,
             status: GameStatusConstants.active as GameStatus,
             category: firstProfile.category,
             selectedProfiles: profilesToPlay,
@@ -383,7 +405,7 @@ export const useGameStore = create<GameState>()(
             clueShuffleMap,
           };
 
-          persistState({ ...state, ...newState });
+          persistState({ ...currentState, ...newState });
           return newState;
         });
       },

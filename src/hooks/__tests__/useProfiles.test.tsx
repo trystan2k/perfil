@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { queryClient as globalQueryClient } from '../../components/QueryProvider';
 import { clearManifestCache } from '../../lib/manifest';
 import type { ProfilesData } from '../../types/models';
 import { useProfiles } from '../useProfiles';
@@ -21,6 +22,27 @@ const mockProfilesData: ProfilesData = {
     },
   ],
 };
+
+/**
+ * Temporarily disable retries on the global queryClient for error tests.
+ * This is necessary because manifest.ts uses the global queryClient internally.
+ */
+function disableGlobalQueryClientRetries(): () => void {
+  const originalRetry = globalQueryClient.getDefaultOptions().queries?.retry;
+  globalQueryClient.setDefaultOptions({
+    queries: {
+      retry: false,
+    },
+  });
+  // Return a cleanup function to restore original settings
+  return () => {
+    globalQueryClient.setDefaultOptions({
+      queries: {
+        retry: originalRetry,
+      },
+    });
+  };
+}
 
 function createWrapper() {
   const queryClient = new QueryClient({
@@ -88,35 +110,51 @@ describe('useProfiles', () => {
   });
 
   it('should handle fetch errors', async () => {
-    // Mock manifest fetch to fail
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: false,
-      statusText: 'Not Found',
-    } as Response);
+    // Disable retries on global queryClient for this test
+    const restoreRetries = disableGlobalQueryClientRetries();
 
-    const { result } = renderHook(() => useProfiles(), {
-      wrapper: createWrapper(),
-    });
+    try {
+      // Mock manifest fetch to fail - use implementation to ensure consistent error on all retries
+      vi.mocked(fetch).mockImplementation(() =>
+        Promise.resolve({
+          ok: false,
+          statusText: 'Not Found',
+        } as Response)
+      );
 
-    await waitFor(() => expect(result.current.isError).toBe(true));
+      const { result } = renderHook(() => useProfiles(), {
+        wrapper: createWrapper(),
+      });
 
-    expect(result.current.data).toBeUndefined();
-    expect(result.current.error).toBeDefined();
+      await waitFor(() => expect(result.current.isError).toBe(true));
+
+      expect(result.current.data).toBeUndefined();
+      expect(result.current.error).toBeDefined();
+    } finally {
+      restoreRetries();
+    }
   });
 
   it('should handle network errors', async () => {
-    const networkError = new Error('Network error');
-    // Mock manifest fetch to fail with network error
-    vi.mocked(fetch).mockRejectedValueOnce(networkError);
+    // Disable retries on global queryClient for this test
+    const restoreRetries = disableGlobalQueryClientRetries();
 
-    const { result } = renderHook(() => useProfiles(), {
-      wrapper: createWrapper(),
-    });
+    try {
+      const networkError = new Error('Network error');
+      // Mock manifest fetch to fail with network error - use implementation to ensure consistent error on all retries
+      vi.mocked(fetch).mockImplementation(() => Promise.reject(networkError));
 
-    await waitFor(() => expect(result.current.isError).toBe(true));
+      const { result } = renderHook(() => useProfiles(), {
+        wrapper: createWrapper(),
+      });
 
-    expect(result.current.data).toBeUndefined();
-    expect(result.current.error).toBeDefined();
+      await waitFor(() => expect(result.current.isError).toBe(true));
+
+      expect(result.current.data).toBeUndefined();
+      expect(result.current.error).toBeDefined();
+    } finally {
+      restoreRetries();
+    }
   });
 
   it('should return loading state initially', () => {
@@ -135,50 +173,73 @@ describe('useProfiles', () => {
   });
 
   it('should handle invalid JSON schema', async () => {
-    const mockManifest = {
-      version: '1',
-      generatedAt: '2025-12-07T10:00:00.000Z',
-      categories: [
-        {
-          slug: 'movies',
-          locales: {
-            en: { name: 'Movies', files: ['data-1.json'] },
+    // Disable retries on global queryClient for this test
+    const restoreRetries = disableGlobalQueryClientRetries();
+
+    try {
+      const mockManifest = {
+        version: '1',
+        generatedAt: '2025-12-07T10:00:00.000Z',
+        categories: [
+          {
+            slug: 'movies',
+            locales: {
+              en: { name: 'Movies', files: ['data-1.json'] },
+            },
           },
-        },
-      ],
-    };
+        ],
+      };
 
-    const invalidData = {
-      version: '1',
-      profiles: [
-        {
-          id: 'test-001',
-          category: 'Test',
-          name: 'Test',
-          clues: [], // Invalid: empty clues array
-        },
-      ],
-    };
+      const invalidData = {
+        version: '1',
+        profiles: [
+          {
+            id: 'test-001',
+            category: 'Test',
+            name: 'Test',
+            clues: [], // Invalid: empty clues array
+          },
+        ],
+      };
 
-    // Mock manifest success, then invalid data for category
-    vi.mocked(fetch)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockManifest,
-      } as Response)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => invalidData,
-      } as Response);
+      // Use implementation to handle multiple calls consistently
+      vi.mocked(fetch).mockImplementation(async (url: string | URL | Request) => {
+        const urlStr = url.toString();
 
-    const { result } = renderHook(() => useProfiles(), {
-      wrapper: createWrapper(),
-    });
+        // Manifest succeeds (called first, retried if data fails)
+        if (urlStr.includes('manifest.json')) {
+          return {
+            ok: true,
+            json: async () => mockManifest,
+          } as Response;
+        }
 
-    await waitFor(() => expect(result.current.isError).toBe(true));
+        // Category data fails (called after manifest)
+        if (urlStr.includes('data-1.json')) {
+          return {
+            ok: true,
+            json: async () => invalidData,
+          } as Response;
+        }
 
-    expect(result.current.data).toBeUndefined();
-    expect(result.current.error).toBeDefined();
+        // Default fail
+        return {
+          ok: false,
+          statusText: 'Not Found',
+        } as Response;
+      });
+
+      const { result } = renderHook(() => useProfiles(), {
+        wrapper: createWrapper(),
+      });
+
+      await waitFor(() => expect(result.current.isError).toBe(true));
+
+      expect(result.current.data).toBeUndefined();
+      expect(result.current.error).toBeDefined();
+    } finally {
+      restoreRetries();
+    }
   });
 
   it('should fetch profiles for Spanish locale using manifest', async () => {
@@ -695,77 +756,104 @@ describe('useProfiles', () => {
     });
 
     it('should handle errors when reloading profiles for new locale', async () => {
-      // Create a fresh queryClient for this test
-      const queryClient = new QueryClient({
-        defaultOptions: {
-          queries: {
-            retry: false,
-          },
-        },
-      });
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      );
+      // Disable retries on global queryClient for this test
+      const restoreRetries = disableGlobalQueryClientRetries();
 
-      const mockManifest = {
-        version: '1',
-        generatedAt: '2025-12-07T10:00:00.000Z',
-        categories: [
-          {
-            slug: 'movies',
-            locales: {
-              en: { name: 'Movies', files: ['data-1.json'] },
-              es: { name: 'Películas', files: ['data-1.json'] },
+      try {
+        // Create a fresh queryClient for this test
+        const queryClient = new QueryClient({
+          defaultOptions: {
+            queries: {
+              retry: false,
             },
           },
-        ],
-      };
+        });
+        const wrapper = ({ children }: { children: ReactNode }) => (
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        );
 
-      const enProfilesData: ProfilesData = {
-        version: '1',
-        profiles: [
-          {
-            id: 'en-001',
-            category: 'Movies',
-            name: 'English Profile',
-            clues: ['Clue 1', 'Clue 2', 'Clue 3'],
-          },
-        ],
-      };
+        const mockManifest = {
+          version: '1',
+          generatedAt: '2025-12-07T10:00:00.000Z',
+          categories: [
+            {
+              slug: 'movies',
+              locales: {
+                en: { name: 'Movies', files: ['data-1.json'] },
+                es: { name: 'Películas', files: ['data-1.json'] },
+              },
+            },
+          ],
+        };
 
-      vi.mocked(fetch)
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => mockManifest,
-        } as Response)
-        .mockResolvedValueOnce({
-          ok: true,
-          json: async () => enProfilesData,
-        } as Response)
-        // Mock Spanish fetch to fail (using cached manifest + trying to fetch category data)
-        .mockResolvedValueOnce({
-          ok: false,
-          statusText: 'Not Found',
-        } as Response);
+        const enProfilesData: ProfilesData = {
+          version: '1',
+          profiles: [
+            {
+              id: 'en-001',
+              category: 'Movies',
+              name: 'English Profile',
+              clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+            },
+          ],
+        };
 
-      const { result, rerender } = renderHook(({ locale }) => useProfiles(locale), {
-        wrapper,
-        initialProps: { locale: 'en' },
-      });
+        // Use implementation to handle multiple calls consistently
+        vi.mocked(fetch).mockImplementation(async (url: string | URL | Request) => {
+          const urlStr = url.toString();
 
-      // Load English profiles successfully
-      await waitFor(() => expect(result.current.isSuccess).toBe(true));
-      expect(result.current.data).toEqual(enProfilesData);
+          // Manifest always succeeds
+          if (urlStr.includes('manifest.json')) {
+            return {
+              ok: true,
+              json: async () => mockManifest,
+            } as Response;
+          }
 
-      // Try to switch to Spanish but get error when fetching category data
-      rerender({ locale: 'es' });
+          // English category data succeeds
+          if (urlStr.includes('movies/en')) {
+            return {
+              ok: true,
+              json: async () => enProfilesData,
+            } as Response;
+          }
 
-      await waitFor(() => expect(result.current.isError).toBe(true));
+          // Spanish category data fails (consistently on all retries)
+          if (urlStr.includes('movies/es')) {
+            return {
+              ok: false,
+              statusText: 'Not Found',
+            } as Response;
+          }
 
-      expect(result.current.error).toBeDefined();
-      // Note: TanStack Query clears data on new query, so data will be undefined on error
-      // This is expected behavior - previous data is only kept when using keepPreviousData option
-      expect(result.current.data).toBeUndefined();
+          // Default fail
+          return {
+            ok: false,
+            statusText: 'Not Found',
+          } as Response;
+        });
+
+        const { result, rerender } = renderHook(({ locale }) => useProfiles(locale), {
+          wrapper,
+          initialProps: { locale: 'en' },
+        });
+
+        // Load English profiles successfully
+        await waitFor(() => expect(result.current.isSuccess).toBe(true));
+        expect(result.current.data).toEqual(enProfilesData);
+
+        // Try to switch to Spanish but get error when fetching category data
+        rerender({ locale: 'es' });
+
+        await waitFor(() => expect(result.current.isError).toBe(true));
+
+        expect(result.current.error).toBeDefined();
+        // Note: TanStack Query clears data on new query, so data will be undefined on error
+        // This is expected behavior - previous data is only kept when using keepPreviousData option
+        expect(result.current.data).toBeUndefined();
+      } finally {
+        restoreRetries();
+      }
     });
   });
 });

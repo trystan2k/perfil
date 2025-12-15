@@ -158,7 +158,7 @@ test.describe('Scoreboard Features', () => {
     await page.getByTestId('scoreboard-same-players-button').click();
 
     // Wait for navigation to complete
-    await page.waitForTimeout(300);
+    await page.waitForURL(/\/game-setup\//, { timeout: 15000 });
 
     // Players should be preserved but we should be able to select categories again
     await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
@@ -171,8 +171,15 @@ test.describe('Scoreboard Features', () => {
     await page.getByLabel('Number of rounds').fill('4');
     await page.getByRole('button', { name: 'Start Game' }).click();
 
+    // Wait for game page to load after profile loading
+    // With lazy loading, profiles are loaded asynchronously when the game starts
+    await page.waitForURL(/\/game\//, { timeout: 15000 });
+    await page.waitForLoadState('domcontentloaded');
+
     // Play the game - award different points
-    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible({
+      timeout: 10000,
+    });
     await showClues(page, 2);
 
     // Award to Bob this time (19 points)
@@ -232,8 +239,15 @@ test.describe('Scoreboard Features', () => {
     await page.getByLabel('Number of rounds').fill('2');
     await page.getByRole('button', { name: 'Start Game' }).click();
 
+    // Wait for game page to load after profile loading
+    // With lazy loading, profiles are loaded asynchronously when the game starts
+    await page.waitForURL(/\/game\//, { timeout: 15000 });
+    await page.waitForLoadState('domcontentloaded');
+
     // Play one round
-    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible({
+      timeout: 10000,
+    });
     await showClues(page, 1);
     const aliceBtn = page.getByRole('button', { name: /award points to alice/i });
     await aliceBtn.click();
@@ -274,11 +288,16 @@ test.describe('Scoreboard Features', () => {
     // Step 8: Test "Restart Game" feature
     await page.getByTestId('scoreboard-restart-game-button').click();
 
-    // Wait for game state to reinitialize properly
-    await page.waitForTimeout(500);
+    // Wait for game state to reinitialize and profiles to load
+    // With lazy loading, startGame is async and loads profiles, so we need a longer wait
+    await page.waitForURL(/\/game\//, { timeout: 15000 });
+    await page.waitForLoadState('domcontentloaded');
 
     // Should navigate directly to game with same settings
-    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible();
+    // Wait longer for the game page and UI to load with profiles
+    await expect(page.getByRole('button', { name: 'Show Next Clue' })).toBeVisible({
+      timeout: 10000,
+    });
 
     // Play the game - award points differently
     await showClues(page, 8);
