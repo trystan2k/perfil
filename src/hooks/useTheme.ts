@@ -49,7 +49,10 @@ export const updateSelectedTheme = (value: ThemeMode | null) => {
     // Check system preference
     themeToSet = calculateThemeFromSystem();
   }
-  setThemeInStorage(value || THEMES.system);
+  // Only store a valid theme value or 'system', never null/undefined
+  // This prevents corruption of localStorage during view transitions
+  const themeToStore = isValidTheme(value) ? value : THEMES.system;
+  setThemeInStorage(themeToStore);
 
   const root = document.documentElement;
   root.setAttribute('data-theme', themeToSet);

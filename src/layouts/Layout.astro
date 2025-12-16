@@ -66,6 +66,48 @@ const t = getTranslateFunction(translations, currentLocale);
         }
       })();
     </script>
+    <script is:inline>
+      const setTheme = () => {
+                try {
+          const STORAGE_KEY = 'perfil-theme';
+          const DARK_THEME = 'dark';
+          const LIGHT_THEME = 'light';
+          const SYSTEM_THEME = 'system';
+
+          // Get stored theme or detect system preference
+          const storedTheme = localStorage.getItem(STORAGE_KEY);
+          const systemPrefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+
+          // Determine actual theme to apply
+          let themeToApply = LIGHT_THEME;
+          if (storedTheme === DARK_THEME) {
+            themeToApply = DARK_THEME;
+          } else if (storedTheme === SYSTEM_THEME || !storedTheme) {
+            localStorage.setItem(STORAGE_KEY, SYSTEM_THEME);
+            themeToApply = systemPrefersDark ? DARK_THEME : LIGHT_THEME;
+          }
+
+          // Apply theme IMMEDIATELY to document root
+          const html = document.documentElement;
+          html.setAttribute('data-theme', themeToApply);
+
+          if (themeToApply === DARK_THEME) {
+            html.classList.add(DARK_THEME);
+          } else {
+            html.classList.remove(DARK_THEME);
+          }
+        } catch (e) {
+          // Fail silently
+        }
+      }
+      // CRITICAL: Restore theme after view transitions
+      // Astro's view transitions can clear HTML attributes, so we need to restore them
+      // document.addEventListener('astro:after-swap', () => {
+      //   setTheme();
+      // });
+
+      setTheme();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -98,6 +140,5 @@ const t = getTranslateFunction(translations, currentLocale);
 	body {
 		margin: 0;
 		width: 100%;
-		height: 100%;
 	}
 </style>
