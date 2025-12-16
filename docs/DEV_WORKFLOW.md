@@ -16,6 +16,14 @@
 KILL IT before running the next one.
 - ❌ **NEVER** Start a second task without explicit user authorization. Only do the task you were requested to do.
 
+## 🚨 CRITICAL REMINDER: DO NOT SKIP ANY STEPS AND EXECUTE THEM IN ORDER THEY APPEAR IN THIS DOCUMENT
+
+**THE COMMIT/PUSH/PR STEPS ARE THE LAST STEPS IN THE DEVELOPMENT WORKFLOW.**
+
+**No steps is optional. They are ALL MANDATORY IN THE ORDER THEY APPEAR IN THIS DOCUMENT.**
+
+If you skip any steps or execute in the wrong order, your commit will be incomplete and violate the development workflow.
+
 ## ⚠️ FUNDAMENTAL PRINCIPLES
 
 THESE INSTRUCTIONS ARE MANDATORY and must be strictly followed throughout development. No item can be neglected. NEVER ASSUME ANYTHING - ALWAYS ASK IF IN DOUBT.
@@ -140,19 +148,24 @@ Ask the specialist listed below to review not only the code but the subtask impl
 
 - If the specialists generate at documentation with the review or summary of their analysis, please review them, identify any improvements, issues, suggestions and check if they makes sense to be applied. Once you finish applying all suggestions, please delete the documentation (they should not be committed to the repository).
 
-### 8. 🔍 FINAL QUALITY VERIFICATION
+### 8. 🔍 FINAL QUALITY VERIFICATION (🚨 CRITICAL - BEFORE ANY COMMIT)
 
-- **Action**: When all subtasks are complete, ask @tester-specialist subagent write a E2E test for the entire task implementation
-- **Action**: After ALL subtasks are complete and review is done and applied, run `pnpm run complete-check` one final time
-- **Action**: Ensure entire task implementation works as expected
+**🚨 THIS STEP MUST BE COMPLETED BEFORE MOVING TO COMMIT/PUSH/PR**
+
+- **Action**: When all subtasks are complete, ask @tester-specialist subagent to write an E2E test for the entire task implementation
+- **Action**: After ALL subtasks are complete and code review is done and applied, run `pnpm run complete-check` one final time
+- **Action**: Ensure entire task implementation works as expected end-to-end
 - **If problems are reported**:
-  - ⚠️ **MANDATORY** - resolve ALL problems
+  - ⚠️ **MANDATORY** - resolve ALL problems before proceeding
   - This is the final quality gate before task completion
   - If there are problems (even if not related to the subtasks), resolve them, **NEVER** commit code with problems
   - Do not comment/skip tests just because they fail, **NEVER**
   - If you are still struggling to fix it (cannot fix in 5 interactions, for example), ask for help
+- **Confirm**: QA check passes 100% clean before proceeding to next step
 
-### 9. ✅ TASK STATUS UPDATE - COMPLETION
+### 9. ✅ TASK STATUS UPDATE - COMPLETION (🚨 CRITICAL - BEFORE COMMIT)
+
+**🚨 THIS STEP MUST BE COMPLETED BEFORE MOVING TO COMMIT/PUSH/PR**
 
 - **Attention**: Remember to delegate these actions to the @task-master-specialist subagent ONLY
 - **Action**: Update the task with complete implementation details covering all subtasks
@@ -160,15 +173,19 @@ Ask the specialist listed below to review not only the code but the subtask impl
 - **Important**: Task Master specialist ONLY updates task status and details. DO NOT ask them to create development logs.
 - Confirm that the status has been updated correctly
 - Confirm that all subtasks are marked as complete
+- **Wait**: Do NOT proceed to next step until Task Master confirms completion
 
-### 10. 📝 DEVELOPMENT LOGGING
+### 10. 📝 DEVELOPMENT LOGGING (🚨 CRITICAL - BEFORE COMMIT)
+
+**🚨 THIS STEP MUST BE COMPLETED BEFORE MOVING TO COMMIT/PUSH/PR**
 
 - **Attention**: Remember to delegate this action to the @basic-memory-specialist subagent ONLY
 - **Action**: Ask the @basic-memory-specialist subagent to create a development log documenting the task implementation
-- **Action**: The development log should be saved in `docs/memories/development-logs` as a markdown file
-- **Content**: Include task title, implementation approach, files changed/created, tests added, and PR link
+- **Action**: The development log should be saved in `docs/memories/development-logs` as a markdown file with filename format: `task-[ID]-[title].md`
+- **Content**: Include task title, implementation approach, files changed/created, tests added, and PR link (placeholder for PR link at this stage)
 - **Important**: Task Master specialist does NOT create development logs - only basic-memory-specialist does this
 - Confirm that the development log has been created successfully
+- **Wait**: Do NOT proceed to next step until development log is confirmed created
 
 ### 11. 📝 COMMIT CYCLE
 
