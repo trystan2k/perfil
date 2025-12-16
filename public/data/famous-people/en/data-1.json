@@ -802,38 +802,6 @@
       }
     },
     {
-      "id": "profile-famous-026",
-      "category": "Famous People",
-      "name": "William Shakespeare",
-      "clues": [
-        "English playwright and poet",
-        "Wrote Romeo and Juliet",
-        "Hamlet famous tragedy",
-        "Born in Stratford-upon-Avon",
-        "Globe Theatre in London",
-        "37 plays attributed",
-        "154 sonnets written",
-        "King Lear tragedy",
-        "Macbeth Scottish play",
-        "A Midsummer Night's Dream comedy",
-        "Married Anne Hathaway",
-        "Three children",
-        "Actor as well as writer",
-        "Lord Chamberlain's Men company",
-        "King's Men later",
-        "English language enriched",
-        "Invented many words",
-        "Universal themes",
-        "Most performed playwright",
-        "Literary genius"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "historical-figures"
-      }
-    },
-    {
       "id": "profile-famous-027",
       "category": "Famous People",
       "name": "Marie Antoinette",

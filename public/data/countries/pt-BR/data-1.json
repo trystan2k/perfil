@@ -546,70 +546,6 @@
       }
     },
     {
-      "id": "profile-country-019",
-      "category": "Países",
-      "name": "Índia",
-      "clues": [
-        "Segundo país mais populoso",
-        "Sétimo maior por área",
-        "Capital é Nova Delhi",
-        "Maior democracia do mundo",
-        "Independência da Grã-Bretanha 1947",
-        "Híndi e inglês idiomas oficiais",
-        "Hinduísmo religião majoritária",
-        "Taj Mahal monumento icônico",
-        "Indústria cinematográfica Bollywood",
-        "Especiarias e culinária curry",
-        "Rio Ganges sagrado",
-        "Montanhas Himalaia no norte",
-        "Hub de terceirização serviços TI",
-        "Críquete esporte nacional",
-        "Culturas e idiomas diversos",
-        "Sistema de castas historicamente",
-        "Potência nuclear",
-        "Programa espacial em desenvolvimento",
-        "Ioga originado aqui",
-        "História colonial britânica"
-      ],
-      "metadata": {
-        "language": "pt-BR",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-country-020",
-      "category": "Países",
-      "name": "México",
-      "clues": [
-        "Vizinho sul dos Estados Unidos",
-        "Capital é Cidade do México",
-        "Nação de língua espanhola",
-        "Antigas civilizações asteca e maia",
-        "Celebração Dia dos Mortos",
-        "Tacos e burritos culinária",
-        "Tequila originado aqui",
-        "Costas Golfo do México e Pacífico",
-        "Montanhas Sierra Madre",
-        "Destino turístico Cancún",
-        "Acordo comercial NAFTA",
-        "Problemas violência cartéis",
-        "Produção de petróleo significativa",
-        "Migração para EUA tema principal",
-        "Revolução início século XX",
-        "Ruínas maias Chichén Itzá",
-        "Tradição música mariachi",
-        "Luta livre wrestling",
-        "Maioria católica",
-        "Rico patrimônio cultural"
-      ],
-      "metadata": {
-        "language": "pt-BR",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
       "id": "profile-country-021",
       "category": "Países",
       "name": "África do Sul",
@@ -734,38 +670,6 @@
       "metadata": {
         "language": "pt-BR",
         "difficulty": "hard",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-country-025",
-      "category": "Países",
-      "name": "Egito",
-      "clues": [
-        "Nação nordeste africana",
-        "Berço da civilização antiga",
-        "Cairo é capital",
-        "Rio Nilo linha vital",
-        "Pirâmides de Giza",
-        "Monumento Esfinge",
-        "Faraós governaram tempos antigos",
-        "Escrita hieroglífica",
-        "Canal de Suez via navegável estratégica",
-        "Paisagem desértica domina",
-        "Idioma árabe",
-        "Maioria muçulmana",
-        "Turismo indústria principal",
-        "Porto mediterrâneo Alexandria",
-        "Vale dos Reis",
-        "Práticas de mumificação",
-        "Minoria cristã copta",
-        "Primavera Árabe 2011",
-        "Represa Alta Assuã",
-        "Maravilhas antigas"
-      ],
-      "metadata": {
-        "language": "pt-BR",
-        "difficulty": "medium",
         "source": "geography"
       }
     },

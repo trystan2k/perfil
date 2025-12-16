@@ -546,70 +546,6 @@
       }
     },
     {
-      "id": "profile-country-019",
-      "category": "Countries",
-      "name": "India",
-      "clues": [
-        "Second most populous country",
-        "Seventh largest by area",
-        "Capital is New Delhi",
-        "Largest democracy in world",
-        "Independence from Britain in 1947",
-        "Hindi and English official languages",
-        "Hinduism majority religion",
-        "Taj Mahal iconic monument",
-        "Bollywood film industry",
-        "Spices and curry cuisine",
-        "Ganges River sacred",
-        "Himalayan mountains in north",
-        "IT services outsourcing hub",
-        "Cricket national sport",
-        "Diverse cultures and languages",
-        "Caste system historically",
-        "Nuclear power",
-        "Space program developing",
-        "Yoga originated here",
-        "British colonial history"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-country-020",
-      "category": "Countries",
-      "name": "Mexico",
-      "clues": [
-        "Southern neighbor of United States",
-        "Capital is Mexico City",
-        "Spanish speaking nation",
-        "Ancient Aztec and Maya civilizations",
-        "Day of the Dead celebration",
-        "Tacos and burritos cuisine",
-        "Tequila originated here",
-        "Gulf of Mexico and Pacific coasts",
-        "Sierra Madre mountains",
-        "Cancun tourist destination",
-        "NAFTA trade agreement",
-        "Drug cartel violence issues",
-        "Oil production significant",
-        "Migration to US major issue",
-        "Revolution in early 20th century",
-        "Mayan ruins at Chichen Itza",
-        "Mariachi music tradition",
-        "Lucha libre wrestling",
-        "Catholic majority",
-        "Rich cultural heritage"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
       "id": "profile-country-021",
       "category": "Countries",
       "name": "South Africa",
@@ -734,38 +670,6 @@
       "metadata": {
         "language": "en",
         "difficulty": "hard",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-country-025",
-      "category": "Countries",
-      "name": "Egypt",
-      "clues": [
-        "Northeast African nation",
-        "Ancient civilization cradle",
-        "Cairo is capital",
-        "Nile River lifeline",
-        "Pyramids of Giza",
-        "Sphinx monument",
-        "Pharaohs ruled ancient times",
-        "Hieroglyphic writing",
-        "Suez Canal strategic waterway",
-        "Desert landscape dominates",
-        "Arabic language",
-        "Muslim majority",
-        "Tourism major industry",
-        "Alexandria Mediterranean port",
-        "Valley of the Kings",
-        "Mummification practices",
-        "Coptic Christian minority",
-        "Arab Spring 2011",
-        "Aswan High Dam",
-        "Ancient wonders"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
         "source": "geography"
       }
     },

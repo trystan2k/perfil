@@ -266,7 +266,7 @@
         "Nacida en Mississippi",
         "Infancia en la pobreza",
         "Magnate de los medios",
-        "The Oprah Winfrey Show",
+        "Su famoso programa de entrevistas de larga trayectoria",
         "Fundadora de Harpo Productions",
         "Creadora del Club del Libro",
         "Filántropa",
@@ -375,7 +375,9 @@
         "Fenómeno cultural",
         "Secuela lanzada",
         "Actuó en películas de éxito internacional",
-        "Es conocido por su carisma en pantalla"
+        "Es conocido por su carisma en pantalla",
+        "Jugó fútbol americano universitario en la Universidad de Miami",
+        "Fue la voz del personaje Maui en la película animada Moana"
       ],
       "metadata": {
         "language": "es",
@@ -792,38 +794,6 @@
         "Modelo a seguir para mujeres",
         "Desapareció 1937",
         "Leyenda de la aviación"
-      ],
-      "metadata": {
-        "language": "es",
-        "difficulty": "medium",
-        "source": "historical-figures"
-      }
-    },
-    {
-      "id": "profile-famous-026",
-      "category": "Personas Famosas",
-      "name": "William Shakespeare",
-      "clues": [
-        "Dramaturgo y poeta inglés",
-        "Escribió Romeo y Julieta",
-        "Hamlet tragedia famosa",
-        "Nacido en Stratford-upon-Avon",
-        "Globe Theatre en Londres",
-        "37 obras atribuidas",
-        "154 sonetos escritos",
-        "El Rey Lear tragedia",
-        "Macbeth obra escocesa",
-        "Sueño de una noche de verano comedia",
-        "Casado con Anne Hathaway",
-        "Tres hijos",
-        "Actor además de escritor",
-        "Compañía Lord Chamberlain's Men",
-        "King's Men después",
-        "Idioma inglés enriquecido",
-        "Inventó muchas palabras",
-        "Temas universales",
-        "Dramaturgo más representado",
-        "Genio literario"
       ],
       "metadata": {
         "language": "es",
