@@ -3,21 +3,20 @@ import type { Profile } from '../types/models';
 import type { Manifest } from './manifest';
 
 /**
- * Map category ID prefixes back to category slugs
+ * Build a map of ID prefixes to category slugs from the manifest
  */
-const ID_PREFIX_TO_CATEGORY_MAP: Record<string, string> = {
-  famous: 'famous-people',
-  country: 'countries',
-  movie: 'movies',
-  animal: 'animals',
-  tech: 'technology',
-  sports: 'sports',
-};
+function buildPrefixToCategoryMap(manifest: Manifest): Record<string, string> {
+  const map: Record<string, string> = {};
+  for (const category of manifest.categories) {
+    map[category.idPrefix] = category.slug;
+  }
+  return map;
+}
 
 /**
- * Extract category slug from a profile ID
+ * Extract category slug from a profile ID using manifest data
  */
-function extractCategoryFromProfileId(profileId: string): string {
+function extractCategoryFromProfileId(profileId: string, manifest: Manifest): string {
   // Expected format: profile-{prefix}-{number}
   const parts = profileId.split('-');
 
@@ -26,7 +25,8 @@ function extractCategoryFromProfileId(profileId: string): string {
   }
 
   const prefix = parts[1];
-  const categorySlug = ID_PREFIX_TO_CATEGORY_MAP[prefix];
+  const prefixMap = buildPrefixToCategoryMap(manifest);
+  const categorySlug = prefixMap[prefix];
 
   if (!categorySlug) {
     throw new Error(`Unknown category prefix in profile ID: ${profileId}`);
@@ -38,11 +38,14 @@ function extractCategoryFromProfileId(profileId: string): string {
 /**
  * Group profile IDs by category slug
  */
-function groupProfileIdsByCategory(profileIds: string[]): Map<string, string[]> {
+function groupProfileIdsByCategory(
+  profileIds: string[],
+  manifest: Manifest
+): Map<string, string[]> {
   const grouped = new Map<string, string[]>();
 
   for (const profileId of profileIds) {
-    const categorySlug = extractCategoryFromProfileId(profileId);
+    const categorySlug = extractCategoryFromProfileId(profileId, manifest);
 
     if (!grouped.has(categorySlug)) {
       grouped.set(categorySlug, []);
@@ -81,7 +84,7 @@ export async function loadProfilesByIds(
   }
 
   // Group profile IDs by category to minimize file fetches
-  const idsByCategory = groupProfileIdsByCategory(profileIds);
+  const idsByCategory = groupProfileIdsByCategory(profileIds, manifest);
 
   // Fetch profiles for each category using query-based function
   const categoryPromises = Array.from(idsByCategory.entries()).map(async ([categorySlug, ids]) => {
@@ -110,9 +113,9 @@ export async function loadProfilesByIds(
 
     if (!profile) {
       // Find an unused profile from any category that matches the original ID's category
-      const categorySlug = extractCategoryFromProfileId(id);
+      const categorySlug = extractCategoryFromProfileId(id, manifest);
       const categoryProfiles = allLoadedProfiles.filter(
-        (p) => extractCategoryFromProfileId(p.id) === categorySlug && !usedIds.has(p.id)
+        (p) => extractCategoryFromProfileId(p.id, manifest) === categorySlug && !usedIds.has(p.id)
       );
 
       if (categoryProfiles.length === 0) {

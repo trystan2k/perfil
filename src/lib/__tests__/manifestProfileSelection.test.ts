@@ -10,6 +10,7 @@ const mockManifest: Manifest = {
   categories: [
     {
       slug: 'famous-people',
+      idPrefix: 'famous',
       locales: {
         en: { name: 'Famous People', files: ['data-1.json'], profileAmount: 30 },
         es: { name: 'Personas Famosas', files: ['data-1.json'], profileAmount: 30 },
@@ -17,6 +18,7 @@ const mockManifest: Manifest = {
     },
     {
       slug: 'countries',
+      idPrefix: 'country',
       locales: {
         en: { name: 'Countries', files: ['data-1.json'], profileAmount: 29 },
         es: { name: 'Países', files: ['data-1.json'], profileAmount: 29 },
@@ -24,6 +26,7 @@ const mockManifest: Manifest = {
     },
     {
       slug: 'movies',
+      idPrefix: 'movie',
       locales: {
         en: { name: 'Movies', files: ['data-1.json'], profileAmount: 30 },
         es: { name: 'Películas', files: ['data-1.json'], profileAmount: 30 },
@@ -31,18 +34,21 @@ const mockManifest: Manifest = {
     },
     {
       slug: 'animals',
+      idPrefix: 'animal',
       locales: {
         en: { name: 'Animals', files: ['data-1.json'], profileAmount: 30 },
       },
     },
     {
       slug: 'technology',
+      idPrefix: 'tech',
       locales: {
         en: { name: 'Technology', files: ['data-1.json'], profileAmount: 30 },
       },
     },
     {
       slug: 'sports',
+      idPrefix: 'sports',
       locales: {
         en: { name: 'Sports', files: ['data-1.json'], profileAmount: 30 },
       },

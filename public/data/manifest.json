@@ -4,6 +4,7 @@
   "categories": [
     {
       "slug": "famous-people",
+      "idPrefix": "famous",
       "locales": {
         "en": {
           "name": "Famous People",
@@ -24,6 +25,7 @@
     },
     {
       "slug": "countries",
+      "idPrefix": "country",
       "locales": {
         "en": {
           "name": "Countries",
@@ -44,6 +46,7 @@
     },
     {
       "slug": "movies",
+      "idPrefix": "movie",
       "locales": {
         "en": {
           "name": "Movies",
@@ -64,6 +67,7 @@
     },
     {
       "slug": "animals",
+      "idPrefix": "animal",
       "locales": {
         "en": {
           "name": "Animals",
@@ -84,6 +88,7 @@
     },
     {
       "slug": "technology",
+      "idPrefix": "tech",
       "locales": {
         "en": {
           "name": "Technology",
@@ -104,6 +109,7 @@
     },
     {
       "slug": "sports",
+      "idPrefix": "sports",
       "locales": {
         "en": {
           "name": "Sports",

@@ -582,6 +582,7 @@ describe('useScoreboard', () => {
         categories: [
           {
             slug: 'movies',
+            idPrefix: 'movie',
             locales: { en: { name: 'Movies', profileAmount: 1, files: [] } },
           },
         ],
@@ -652,12 +653,14 @@ describe('useScoreboard', () => {
         categories: [
           {
             slug: 'movies',
+            idPrefix: 'movie',
             locales: {
               en: { name: 'Movies', profileAmount: 2, files: [] },
             },
           },
           {
             slug: 'music',
+            idPrefix: 'music',
             locales: {
               en: { name: 'Music', profileAmount: 1, files: [] },
             },
@@ -722,12 +725,14 @@ describe('useScoreboard', () => {
         categories: [
           {
             slug: 'movies',
+            idPrefix: 'movie',
             locales: {
               en: { name: 'Movies', profileAmount: 2, files: [] },
             },
           },
           {
             slug: 'music',
+            idPrefix: 'music',
             locales: {
               en: { name: 'Music', profileAmount: 1, files: [] },
             },

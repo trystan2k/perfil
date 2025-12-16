@@ -64,12 +64,27 @@ function setupStartGameMocks(profiles: Profile[] = defaultMockProfiles) {
     });
   });
 
+  const getIdPrefix = (slug: string): string => {
+    const prefixMap: Record<string, string> = {
+      'famous-people': 'famous',
+      countries: 'country',
+      movies: 'movie',
+      animals: 'animal',
+      technology: 'tech',
+      sports: 'sports',
+      brands: 'brand',
+      music: 'music',
+    };
+    return prefixMap[slug] || slug.split('-')[0];
+  };
+
   const manifest: Manifest = {
     version: '1',
     generatedAt: new Date().toISOString(),
     categories: Array.from(profileCountByCategory.entries()).map(
       ([slug, { displayName, count }]) => ({
         slug,
+        idPrefix: getIdPrefix(slug),
         locales: { en: { name: displayName, profileAmount: count, files: [] } },
       })
     ),

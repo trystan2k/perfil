@@ -49,7 +49,7 @@ The profile clues **MUST NOT** have the name of the profile in them and should b
 
 - Movies: Try to create profiles not only about movies, but also about the actors, characters from a movie, directors, and other relevant people.
 - Animals: Try to create profiles not only about real animals, but also about fictional animals, and the different habitats they live in.
-- Famous People: Try to create profiles not only about real people, but also about fictional people from Books, for example.
+- Famous People: Try to create profiles not only about real people (live or already dead), but also about fictional people from Books, for example.
 - Sports: Try to create profiles not only about sports, but also about the different teams, players, and events in that sport (like the soccer world cup).
 - Countries: Try to create profiles not only about countries, but also about cities, languages, and other relevant things, like the capital city, currency,  population, tourism, and other things.
 - Technology: Try to create profiles not only about technologies, but also about the different companies, products, and events in that technology (like the iPhone 14) and also about fictional technologies, like the Star Trek enterprise, etc.

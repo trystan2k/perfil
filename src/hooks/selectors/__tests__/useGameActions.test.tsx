@@ -45,6 +45,7 @@ describe('useGameActions', () => {
     categories: [
       {
         slug: 'movies',
+        idPrefix: 'movie',
         locales: {
           en: { name: 'Movies', profileAmount: 2, files: [] },
         },

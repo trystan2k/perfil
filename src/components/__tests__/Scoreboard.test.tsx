@@ -520,6 +520,7 @@ describe('Scoreboard', () => {
           categories: [
             {
               slug: 'historical-figures',
+              idPrefix: 'historical',
               locales: {
                 en: { name: 'Historical Figures', profileAmount: 2, files: [] },
               },

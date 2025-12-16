@@ -17,6 +17,7 @@ export interface CategoryLocaleInfo {
  */
 export interface ManifestCategory {
   slug: string;
+  idPrefix: string;
   locales: Record<string, CategoryLocaleInfo>;
 }
 
