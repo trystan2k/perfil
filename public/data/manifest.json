@@ -8,17 +8,17 @@
         "en": {
           "name": "Famous People",
           "files": ["data-1.json"],
-          "profileAmount": 30
+          "profileAmount": 29
         },
         "es": {
           "name": "Personas Famosas",
           "files": ["data-1.json"],
-          "profileAmount": 30
+          "profileAmount": 29
         },
         "pt-BR": {
           "name": "Pessoas Famosas",
           "files": ["data-1.json"],
-          "profileAmount": 30
+          "profileAmount": 29
         }
       }
     },
@@ -28,17 +28,17 @@
         "en": {
           "name": "Countries",
           "files": ["data-1.json"],
-          "profileAmount": 29
+          "profileAmount": 26
         },
         "es": {
           "name": "Países",
           "files": ["data-1.json"],
-          "profileAmount": 29
+          "profileAmount": 26
         },
         "pt-BR": {
           "name": "Países",
           "files": ["data-1.json"],
-          "profileAmount": 29
+          "profileAmount": 26
         }
       }
     },

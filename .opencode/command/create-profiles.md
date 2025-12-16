@@ -39,6 +39,8 @@ Once the profiles are created, update the profiles.config.json file with the new
 
 If you have created new data files, please also update public/data/manifest.json file with the new data files.
 
+**VERY IMPORTANT** After creating new profiles, you MUST update the `profileAmount` field in `public/data/manifest.json` for each category and language to reflect the actual count of profiles in the data files.
+
 The profiles clues **MUST** be written in the language of the file.
 
 The profile clues **MUST NOT** have the name of the profile in them and should be meaninful.
