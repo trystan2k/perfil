@@ -6,26 +6,26 @@
 
 ```bash
 # Project Management
-basic-memory project list                                   # List all configured projects with status
-basic-memory project add <name> <path>                      # Create/register a new project
-basic-memory project default <name>                         # Set the default project
-basic-memory project remove <name>                          # Remove a project (doesn't delete files)
-basic-memory project info                                   # Show detailed project statistics
+bm-wrapper project list                                   # List all configured projects with status
+bm-wrapper project add <name> <path>                      # Create/register a new project
+bm-wrapper project default <name>                         # Set the default project
+bm-wrapper project remove <name>                          # Remove a project (doesn't delete files)
+bm-wrapper project info                                   # Show detailed project statistics
 
 # Note Operations
-basic-memory tool write-note --title "Title" --content "Content" --project perfil --folder "folder/path" # Create/update a note
-basic-memory tool write-note --title "Title" --project perfil --folder "folder/path"                     # Create note in specific folder
-basic-memory tool write-note --title "Title" --tags "tag1" --tags "tag2" --project perfil --folder "folder/path" # Create note with tags
-basic-memory tool search-notes "search term"  --project perfil                        # Search notes
+bm-wrapper tool write-note --title "Title" --content "Content" --project perfil --folder "folder/path" # Create/update a note
+bm-wrapper tool write-note --title "Title" --project perfil --folder "folder/path"                     # Create note in specific folder
+bm-wrapper tool write-note --title "Title" --tags "tag1" --tags "tag2" --project perfil --folder "folder/path" # Create note with tags
+bm-wrapper tool search-notes "search term"  --project perfil                        # Search notes
 
-basic-memory import memory-json /path/to/memory.json        # Import Memory JSON format
-basic-memory --project=work import claude conversations     # Import to specific project
+bm-wrapper import memory-json /path/to/memory.json        # Import Memory JSON format
+bm-wrapper --project=work import claude conversations     # Import to specific project
 
 # System Status
-basic-memory status                                         # Basic status check
-basic-memory status --verbose                               # Detailed status with diagnostics
-basic-memory status --json                                  # JSON output format
-basic-memory --version                                      # Check installed version
+bm-wrapper status                                         # Basic status check
+bm-wrapper status --verbose                               # Detailed status with diagnostics
+bm-wrapper status --json                                  # JSON output format
+bm-wrapper --version                                      # Check installed version
 ```
 
 ### Using stdin with write-note
@@ -34,13 +34,13 @@ Basic Memory supports piping content directly to notes:
 
 ```bash
 # Pipe command output to note
-echo "Content here" | basic-memory tool write-note --title "Title" --folder "development-logs" --project perfil
+echo "Content here" | bm-wrapper tool write-note --title "Title" --folder "development-logs" --project perfil
 
 # Pipe file content to note
-cat README.md | basic-memory tool write-note --title "Project README" --folder "development-logs" --project perfil
+cat README.md | bm-wrapper tool write-note --title "Project README" --folder "development-logs" --project perfil
 
 # Using heredoc for multi-line content
-cat << EOF | basic-memory tool write-note --title "Meeting Notes" --folder "development-logs" --project perfil
+cat << EOF | bm-wrapper tool write-note --title "Meeting Notes" --folder "development-logs" --project perfil
 # Meeting Notes
 
 ## Action Items
@@ -49,7 +49,7 @@ cat << EOF | basic-memory tool write-note --title "Meeting Notes" --folder "deve
 EOF
 
 # Input redirection from file
-basic-memory tool write-note --title "Notes" --folder "development-logs" --project perfil < input.md
+bm-wrapper tool write-note --title "Notes" --folder "development-logs" --project perfil < input.md
 ```
 
 ## OpenCode Workflow Integration
@@ -58,13 +58,13 @@ basic-memory tool write-note --title "Notes" --folder "development-logs" --proje
 
 #### Creating Development Logs After Task Completion
 
-The basic-memory specialist is responsible for creating development logs **AFTER** task implementation is complete and **BEFORE** committing code.
+The bm-wrapper specialist is responsible for creating development logs **AFTER** task implementation is complete and **BEFORE** committing code.
 
 **Standard Development Log Creation Pattern:**
 
 ```bash
 # Create development log for completed task
-basic-memory tool write-note \
+bm-wrapper tool write-note \
   --title "Task [ID]: [Task Title]" \
   --folder "docs/memories/development-logs" \
   --project "perfil" \
@@ -160,7 +160,7 @@ It always must contain the info about all changes made to the codebase, includin
 For cleaner command execution and better multi-line content handling:
 
 ```bash
-cat << EOF | basic-memory tool write-note --title "Task 1: User Authentication" \
+cat << EOF | bm-wrapper tool write-note --title "Task 1: User Authentication" \
   --folder "docs/memories/development-logs" \
   --project "perfil" \
   --tags "development-log" --tags "task-1"
@@ -299,11 +299,11 @@ Main Agent:
 
 ```bash
 # Check Basic Memory status
-basic-memory status --verbose
+bm-wrapper status --verbose
 
 # Verify project configuration
-basic-memory project list
-basic-memory project info
+bm-wrapper project list
+bm-wrapper project info
 
 # Check permissions on target directory
 ls -la docs/memories/development-logs/
@@ -366,4 +366,4 @@ ls -la docs/memories/development-logs/
 
 ---
 
-_This guide ensures the basic-memory specialist has immediate access to Basic Memory's essential functionality for development logging workflows in the perfil project._
+_This guide ensures the bm-wrapper specialist has immediate access to Basic Memory's essential functionality for development logging workflows in the perfil project._
