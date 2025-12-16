@@ -4,10 +4,10 @@ test.describe('Error Handling', () => {
   test.beforeEach(async ({ page }) => {
     // Clear IndexedDB before each test
     // Navigate to a static asset to ensure a clean JS context with same origin
-    await page.goto('/favicon.png');
+    await page.goto('/favicon.png', { waitUntil: 'networkidle' });
     await page.evaluate(() => {
       return new Promise<void>((resolve, reject) => {
-        const request = indexedDB.deleteDatabase('perfil-game-sessions');
+        const request = indexedDB.deleteDatabase('perfil-game-db');
         request.onsuccess = () => resolve();
         request.onerror = () => reject(new Error('Failed to delete database'));
         request.onblocked = () => {
@@ -57,9 +57,15 @@ test.describe('Error Handling', () => {
     // Clear IndexedDB to simulate missing session
     await page.evaluate(() => {
       return new Promise<void>((resolve, reject) => {
-        const request = indexedDB.deleteDatabase('perfil-game-sessions');
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(new Error('Failed to delete database'));
+        const request = indexedDB.deleteDatabase('perfil-game-db');
+        request.onsuccess = () => {
+          console.log('Database deleted successfully');
+          resolve();
+        };
+        request.onerror = () => {
+          console.error('Failed to delete database');
+          reject(new Error('Failed to delete database'));
+        };
         request.onblocked = () => {
           // If blocked, it means there are still open connections.
           // Since we are on a static asset, this shouldn't happen unless
@@ -71,7 +77,6 @@ test.describe('Error Handling', () => {
 
     // Navigate to game page with the session ID (should trigger error)
     await page.goto(`/en/game/${sessionId}`, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1000); // Wait for error to be triggered
 
     // Wait for error overlay
     await expect(page.getByRole('heading', { name: 'Error' })).toBeVisible();

@@ -11,7 +11,7 @@ test.describe('Profile Loading and Randomness', () => {
     await page.goto('/', { waitUntil: 'networkidle' });
     await page.evaluate(() => {
       return new Promise<void>((resolve) => {
-        const request = indexedDB.deleteDatabase('perfil-game-sessions');
+        const request = indexedDB.deleteDatabase('perfil-game-db');
         request.onsuccess = () => resolve();
         request.onerror = () => resolve();
         request.onblocked = () => resolve();
