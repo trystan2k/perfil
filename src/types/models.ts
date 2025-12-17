@@ -11,8 +11,11 @@ export const profileMetadataSchema = z
     language: z.string().optional(),
     difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
     source: z.string().optional(),
+    author: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    description: z.string().optional(),
   })
-  .catchall(z.unknown())
+  .strict()
   .optional();
 
 export const profileSchema = z.object({

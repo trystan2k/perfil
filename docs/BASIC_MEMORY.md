@@ -6,26 +6,26 @@
 
 ```bash
 # Project Management
-bm-wrapper project list                                   # List all configured projects with status
-bm-wrapper project add <name> <path>                      # Create/register a new project
-bm-wrapper project default <name>                         # Set the default project
-bm-wrapper project remove <name>                          # Remove a project (doesn't delete files)
-bm-wrapper project info                                   # Show detailed project statistics
+basic-memory project list                                   # List all configured projects with status
+basic-memory project add <name> <path>                      # Create/register a new project
+basic-memory project default <name>                         # Set the default project
+basic-memory project remove <name>                          # Remove a project (doesn't delete files)
+basic-memory project info                                   # Show detailed project statistics
 
 # Note Operations
-bm-wrapper tool write-note --title "Title" --content "Content" --project perfil --folder "folder/path" # Create/update a note
-bm-wrapper tool write-note --title "Title" --project perfil --folder "folder/path"                     # Create note in specific folder
-bm-wrapper tool write-note --title "Title" --tags "tag1" --tags "tag2" --project perfil --folder "folder/path" # Create note with tags
-bm-wrapper tool search-notes "search term"  --project perfil                        # Search notes
+basic-memory tool write-note --title "Title" --content "Content" --project perfil --folder "folder/path" # Create/update a note
+basic-memory tool write-note --title "Title" --project perfil --folder "folder/path"                     # Create note in specific folder
+basic-memory tool write-note --title "Title" --tags "tag1" --tags "tag2" --project perfil --folder "folder/path" # Create note with tags
+basic-memory tool search-notes "search term"  --project perfil                        # Search notes
 
-bm-wrapper import memory-json /path/to/memory.json        # Import Memory JSON format
-bm-wrapper --project=work import claude conversations     # Import to specific project
+basic-memory import memory-json /path/to/memory.json        # Import Memory JSON format
+basic-memory --project=work import claude conversations     # Import to specific project
 
 # System Status
-bm-wrapper status                                         # Basic status check
-bm-wrapper status --verbose                               # Detailed status with diagnostics
-bm-wrapper status --json                                  # JSON output format
-bm-wrapper --version                                      # Check installed version
+basic-memory status                                         # Basic status check
+basic-memory status --verbose                               # Detailed status with diagnostics
+basic-memory status --json                                  # JSON output format
+basic-memory --version                                      # Check installed version
 ```
 
 ### Using stdin with write-note
@@ -34,13 +34,13 @@ Basic Memory supports piping content directly to notes:
 
 ```bash
 # Pipe command output to note
-echo "Content here" | bm-wrapper tool write-note --title "Title" --folder "development-logs" --project perfil
+echo "Content here" | basic-memory tool write-note --title "Title" --folder "development-logs" --project perfil
 
 # Pipe file content to note
-cat README.md | bm-wrapper tool write-note --title "Project README" --folder "development-logs" --project perfil
+cat README.md | basic-memory tool write-note --title "Project README" --folder "development-logs" --project perfil
 
 # Using heredoc for multi-line content
-cat << EOF | bm-wrapper tool write-note --title "Meeting Notes" --folder "development-logs" --project perfil
+cat << EOF | basic-memory tool write-note --title "Meeting Notes" --folder "development-logs" --project perfil
 # Meeting Notes
 
 ## Action Items
@@ -49,7 +49,7 @@ cat << EOF | bm-wrapper tool write-note --title "Meeting Notes" --folder "develo
 EOF
 
 # Input redirection from file
-bm-wrapper tool write-note --title "Notes" --folder "development-logs" --project perfil < input.md
+basic-memory tool write-note --title "Notes" --folder "development-logs" --project perfil < input.md
 ```
 
 ## OpenCode Workflow Integration
@@ -58,15 +58,15 @@ bm-wrapper tool write-note --title "Notes" --folder "development-logs" --project
 
 #### Creating Development Logs After Task Completion
 
-The bm-wrapper specialist is responsible for creating development logs **AFTER** task implementation is complete and **BEFORE** committing code.
+The basic-memory specialist is responsible for creating development logs **AFTER** task implementation is complete and **BEFORE** committing code.
 
 **Standard Development Log Creation Pattern:**
 
 ```bash
 # Create development log for completed task
-bm-wrapper tool write-note \
+basic-memory tool write-note \
   --title "Task [ID]: [Task Title]" \
-  --folder "docs/memories/development-logs" \
+  --folder "development-logs" \
   --project "perfil" \
   --tags "development-log" --tags "task-[ID]" \
   --content "$(cat << EOF
@@ -107,14 +107,30 @@ EOF
 **MANDATORY**: Development logs **MUST** be saved with this exact filename format:
 
 ```
-Task [ID] [title].md
+Task [ID] [Full Task Title From Task Master].md
 ```
 
-**Examples:**
+**CRITICAL REQUIREMENTS:**
+1. Start with capital **T**: `Task` (NOT `task`)
+2. Space after ID number: `Task [ID] ` (NOT `Task[ID]` or `task-[ID]`)
+3. Use the **EXACT full title** from Task Master (NOT shortened or modified)
+4. Use **spaces** to separate words (NOT hyphens or underscores)
+5. End with `.md` extension
+6. File must be saved in `development-logs` folder
 
-- `Task 1 Implement User Authentication.md`
-- `Task 2 Add Validation Logic.md`
-- `Task 3 Setup Database Schema.md`
+**CORRECT Examples:**
+
+- ✅ `Task 1 Implement User Authentication.md`
+- ✅ `Task 2 Add Validation Logic.md`
+- ✅ `Task 3 Setup Database Schema.md`
+- ✅ `Task 70 Strengthen Zod Schema Type Definitions and Export Validation Helpers.md`
+
+**WRONG Examples (DO NOT USE):**
+
+- ❌ `task-1-implement-user-authentication.md` (lowercase, hyphens)
+- ❌ `Task1ImplementUserAuthentication.md` (no space after ID, no spaces)
+- ❌ `Task 1 user auth.md` (shortened title, not exact)
+- ❌ `task-70-zod-schema-type-definitions.md` (hyphens, shortened title)
 
 ### Development Log Content Requirements
 
@@ -160,8 +176,8 @@ It always must contain the info about all changes made to the codebase, includin
 For cleaner command execution and better multi-line content handling:
 
 ```bash
-cat << EOF | bm-wrapper tool write-note --title "Task 1: User Authentication" \
-  --folder "docs/memories/development-logs" \
+cat << EOF | basic-memory tool write-note --title "Task 1: User Authentication" \
+  --folder "development-logs" \
   --project "perfil" \
   --tags "development-log" --tags "task-1"
 # Task 1: User Authentication
@@ -208,7 +224,7 @@ EOF
 ### Note Creation Rules
 
 1. **Always use specific folder paths**
-   - Development logs: `docs/memories/development-logs`
+   - Development logs: `development-logs`
    - Never create notes in root; always specify folder
 
 2. **Use descriptive titles**
@@ -277,7 +293,7 @@ Basic Memory Specialist:
   1. Gather all relevant information
   2. Format as structured markdown
   3. Create note using write_note tool with stdin
-  4. Save to docs/memories/development-logs
+  4. Save to development-logs
   5. Use filename: task-1.2-user-authentication.md
   6. Confirm successful creation to main agent
 
@@ -289,7 +305,7 @@ Main Agent:
 
 ### Core Files
 
-- `docs/memories/development-logs/*.md` - Individual development log files
+- `development-logs/*.md` - Individual development log files
 - `.basic-memory/` - Basic Memory data directory (auto-managed)
 - Project-specific memory folder as configured
 
@@ -299,11 +315,11 @@ Main Agent:
 
 ```bash
 # Check Basic Memory status
-bm-wrapper status --verbose
+basic-memory status --verbose
 
 # Verify project configuration
-bm-wrapper project list
-bm-wrapper project info
+basic-memory project list
+basic-memory project info
 
 # Check permissions on target directory
 ls -la docs/memories/development-logs/
@@ -346,16 +362,21 @@ ls -la docs/memories/development-logs/
 - **NEVER** create development logs before implementation is complete
 - **NEVER** create development logs without proper folder structure
 - **NEVER** skip required fields in development logs
-- **NEVER** use incorrect filename format for development logs
+- **NEVER** use incorrect filename format for development logs - **MUST BE**: `Task [ID] [Full Title].md` with spaces (NOT hyphens/underscores/lowercase)
+- **NEVER** use shortened or modified titles - use the **EXACT** title from Task Master
 - **NEVER** create logs for tasks that haven't passed QA
 - **NEVER** manually edit Basic Memory database files
 - **NEVER** create notes without proper tags
 - **NEVER** reference task/subtask IDs in commit messages (only in development logs)
+- **NEVER** save development logs with hyphens, underscores, or lowercase "task" prefix
 
 ### ALWAYS Actions
 
-- **ALWAYS** create development logs in `docs/memories/development-logs` folder
-- **ALWAYS** use filename format: `Task [ID] [Title].md`
+- **ALWAYS** create development logs in `development-logs` folder
+- **ALWAYS** use filename format: `Task [ID] [Full Task Title From Task Master].md`
+- **ALWAYS** use spaces between words (NOT hyphens or underscores): `Task 70 Strengthen Zod Schema...` ✅ (NOT `task-70-strengthen-zod-schema...` ❌)
+- **ALWAYS** use the exact, complete title from Task Master (verify in Task Master CLI before creating)
+- **ALWAYS** start filename with capital "T" in "Task"
 - **ALWAYS** include all required fields in development logs
 - **ALWAYS** add `development-log` tag to all dev logs
 - **ALWAYS** use stdin method for multi-line content
@@ -366,4 +387,4 @@ ls -la docs/memories/development-logs/
 
 ---
 
-_This guide ensures the bm-wrapper specialist has immediate access to Basic Memory's essential functionality for development logging workflows in the perfil project._
+_This guide ensures the basic-memory specialist has immediate access to Basic Memory's essential functionality for development logging workflows in the perfil project._

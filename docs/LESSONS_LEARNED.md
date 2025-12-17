@@ -215,24 +215,58 @@
 
 - Mistake: During task #95 (Random Clue Ordering), I removed E2E tests that were failing due to UI selector issues and called them "a bonus" to the implementation. I intended to skip fixing them and move forward with the rest of the workflow.
 - Critical realization: Tests are NEVER a bonus, optional add-on, or nice-to-have. They are:
-   1. ESSENTIAL to the implementation - not separate from it
-   2. REQUIRED for all acceptance criteria and success metrics
-   3. MANDATORY components of any task, not optional enhancements
-   4. PART OF the definition of "done" for any feature
+    1. ESSENTIAL to the implementation - not separate from it
+    2. REQUIRED for all acceptance criteria and success metrics
+    3. MANDATORY components of any task, not optional enhancements
+    4. PART OF the definition of "done" for any feature
 - Correct procedure: When tests fail:
-   1. NEVER remove or skip failing tests - this is code quality regression
-   2. ALWAYS fix failing tests by identifying root cause and fixing either code or test
-   3. DELEGATE to @tester-specialist if test failures are beyond expertise
-   4. COMMIT ALL TESTS - they must be part of the feature branch
-   5. ALL TESTS MUST PASS before task can be marked as done
+    1. NEVER remove or skip failing tests - this is code quality regression
+    2. ALWAYS fix failing tests by identifying root cause and fixing either code or test
+    3. DELEGATE to @tester-specialist if test failures are beyond expertise
+    4. COMMIT ALL TESTS - they must be part of the feature branch
+    5. ALL TESTS MUST PASS before task can be marked as done
 - Why this matters:
-   1. Tests verify that the implementation actually works
-   2. Tests prevent regressions and catch future bugs
-   3. Tests are the safety net for refactoring and maintenance
-   4. Skipping tests means the feature isn't truly validated
-   5. Failing tests in codebase create technical debt
-   6. Project quality depends on comprehensive, passing test coverage
+    1. Tests verify that the implementation actually works
+    2. Tests prevent regressions and catch future bugs
+    3. Tests are the safety net for refactoring and maintenance
+    4. Skipping tests means the feature isn't truly validated
+    5. Failing tests in codebase create technical debt
+    6. Project quality depends on comprehensive, passing test coverage
 - This ensures: Complete feature validation, long-term code quality, prevention of hidden bugs, proper acceptance criteria fulfillment, and professional, production-ready code
+
+2025-12-17 — ALWAYS ASK FOR USER APPROVAL BEFORE COMMIT/PUSH/PR - NEVER ASSUME PERMISSION
+
+- Mistake: During task #70, I proceeded directly to prepare the commit and present changes to the user WITHOUT first asking for explicit approval. I assumed that because all QA checks passed and code review was approved, I could proceed with commit preparation.
+- Critical realization: NO AMOUNT of preparation or approval justifies proceeding without explicit user permission. The user MUST explicitly approve BEFORE any commit/push/PR.
+- Correct procedure: At every gate (commit, push, PR), ALWAYS:
+    1. BEFORE any action, ask the user to review the changes
+    2. Present clear summary of:
+       - Files changed/created
+       - Brief description of changes
+       - Proposed commit message
+    3. EXPLICITLY WAIT for user response - do not assume approval
+    4. If user requests changes:
+       - Make the requested changes
+       - THEN ask for approval AGAIN (previous approval does NOT carry forward)
+       - NEVER assume "ok" from before still applies after making changes
+    5. ONLY proceed to commit when user explicitly says "yes", "approved", "ok", or similar explicit confirmation
+- Why this is CRITICAL:
+    1. User may see issues you didn't catch (scope, impact, better approach, etc.)
+    2. User may request changes that affect code/documentation
+    3. Changes requested after initial review invalidate previous approval
+    4. You are accountable to the user, not just to yourself
+    5. This is THE mandatory quality gate between work and publication
+- Special case - When User Requests Changes After Review:
+    1. User says: "Fix this..." or "Update that..." or "Change X to Y"
+    2. You make the changes
+    3. You MUST re-request approval - don't assume the "ok I'll commit" still applies
+    4. Example: User says "Update the documentation before committing" → you update docs → you MUST ask again for approval
+- This ensures:
+    1. User maintains full control over what gets committed
+    2. User consent is explicit at every critical point
+    3. No commits happen without user knowledge/approval
+    4. Full accountability and transparency in the workflow
+    5. Prevention of publishing unwanted or incomplete work
 
 
 
