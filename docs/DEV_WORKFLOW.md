@@ -181,16 +181,39 @@ Ask the specialist listed below to review not only the code but the subtask impl
 
 - **Attention**: Remember to delegate this action to the @basic-memory-specialist subagent ONLY
 - **Action**: Ask the @basic-memory-specialist subagent to create a development log documenting the task implementation
-- **Action**: The development log should be saved in `docs/memories/development-logs` as a markdown file with filename format: `task-[ID]-[title].md`
+- **Action**: The development log should be saved in `docs/memories/development-logs` as a markdown file with filename format: `Task [ID] [Full Task Title From Task Master].md` (NOT `task-[ID]-...` or shortened titles)
 - **Content**: Include task title, implementation approach, files changed/created, tests added, and PR link (placeholder for PR link at this stage)
 - **Important**: Task Master specialist does NOT create development logs - only basic-memory-specialist does this
 - Confirm that the development log has been created successfully
 - **Wait**: Do NOT proceed to next step until development log is confirmed created
 
+### 10.5 🚨 REQUEST USER APPROVAL BEFORE COMMIT (🚨 CRITICAL - MANDATORY)
+
+**🚨 THIS STEP IS MANDATORY AND CANNOT BE SKIPPED**
+
+- **Action**: BEFORE proceeding to commit, ALWAYS ask the user to review all changes
+- **Action**: Present a clear summary of:
+  - Files changed/created
+  - Brief description of changes
+  - Proposed commit message
+- **Action**: WAIT for explicit user approval/confirmation
+- **Action**: If user requests ANY changes:
+  - Make the requested changes
+  - THEN ask for approval AGAIN before proceeding
+  - NEVER assume previous approval still applies after making changes
+- **🚨 CRITICAL**: You can ONLY proceed to commit when user explicitly approves
+- **NEVER** assume it's ok to commit just because previous steps passed
+- **NEVER** commit without explicit user permission
+
 ### 11. 📝 COMMIT CYCLE
 
 - **Attention**: Remember to delegate this action to the @git-specialist subagent
-- **Action**: Before commit, ask me to review the changes and only continue after my ok
+- **🚨 CRITICAL - MANDATORY**: BEFORE ANYTHING ELSE - Ask the user to review all changes and wait for explicit approval
+  - Present clear summary of files changed/created
+  - Show proposed commit message
+  - WAIT for user response
+  - If user requests changes: make them, THEN ask for approval AGAIN (NEVER assume previous approval still applies)
+  - ONLY proceed to commit step when user explicitly approves
 - **Action**: Ask me if I did any code change during review. If so, review the changes and use this info for the commit
 - **Action**: Run `pnpm run complete-check` one final time before commit
 - **Action**: Include all files modified during the task implementation to the commit, even the task master file, development logs, etc. NEVER LEAVE FILE without been commited.
@@ -215,14 +238,16 @@ type(scope): brief description of actual work done
 - **🚨 CRITICAL**: ALWAYS ask for explicit permission before pushing - NEVER push without user confirmation
 - **Action**: Ask permission for final push of all task commits to feature branch (only after receiving permission)
 - Only push when all subtasks and task are complete and documented
+- **WAIT for explicit user confirmation** before executing the push command
 
 ### 13. ⛄ OPENING THE PULL REQUEST
 
 - **Attention**: Remember to delegate this action to the @git-specialist subagent
-- **Action**: Before create the PR, ask for my approval.
+- **🚨 CRITICAL**: Before create the PR, ask for my approval.
 - **Action**: Ask @git-specialist subagent to create a Pull Request with a comprehensive and accurate description of the implementation.
 - **Action**: Ask @git-specialist subagent to request review from Copilot
 - **NEVER** Add any comment related to the Agent doing the Pull request (for example, avoid any reference to opencode, claude code, gemini, etc) and to the task or subtasks IDs.
+- **WAIT for explicit user confirmation** before creating the PR
 
 ### 14. 📢 COMPLETION NOTIFICATION
 
@@ -325,7 +350,9 @@ Based on your development guidelines, here are the **NO NO actions**:
 - **NEVER** reference task or subtask IDs in commit messages - focus purely on the work done
 - **NEVER** bypass git hooks with `--no-verify` or similar flags - git hooks are mandatory quality gates
 - **🚨 NEVER EVER commit or push without explicit user confirmation** - ALWAYS ask first, no exceptions
+- **🚨 NEVER assume user approval carries forward after making requested changes** - If user requests ANY changes, ask for approval AGAIN before proceeding
 - **🚨 NEVER run multiple npm/pnpm scripts concurrently** - ALWAYS wait for scripts to finish before running other commands
+- **🚨 NEVER proceed with commit/push/PR without asking user first** - At EVERY gate (commit, push, PR), ALWAYS ask "Do you approve?" and WAIT for explicit response
 - Under **NO** circumstance commit code when there are issues from QA scripts (even warnings)  
 
 ---
