@@ -2,7 +2,7 @@ import {
   type Profile,
   filterProfilesByCategory,
   groupProfilesByCategory,
-} from '../entities/Profile';
+} from '../../../types/models';
 
 /**
  * ProfileSelectionService handles profile selection and shuffling for game rounds

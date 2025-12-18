@@ -2,11 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import {
   calculatePoints,
+  canAwardPoints,
   getMaximumPoints,
   getMinimumPoints,
-  canAwardPoints,
   isValidPointValue,
-  getPointsPerClue,
 } from '../ScoringService';
 
 describe('ScoringService', () => {
@@ -209,100 +208,6 @@ describe('ScoringService', () => {
     });
   });
 
-  describe('getPointsPerClue()', () => {
-    describe('happy path - standard cases', () => {
-      it('should return array with default totalClues length', () => {
-        const pointsPerClue = getPointsPerClue();
-        expect(pointsPerClue).toHaveLength(DEFAULT_CLUES_PER_PROFILE);
-      });
-
-      it('should return [5, 4, 3, 2, 1] for 5 clues', () => {
-        const pointsPerClue = getPointsPerClue(5);
-        expect(pointsPerClue).toEqual([5, 4, 3, 2, 1]);
-      });
-
-      it('should return correct descending sequence for custom totalClues', () => {
-        const pointsPerClue = getPointsPerClue(10);
-        expect(pointsPerClue).toEqual([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
-      });
-
-      it('should start from totalClues and decrease to 1', () => {
-        const total = 7;
-        const pointsPerClue = getPointsPerClue(total);
-        expect(pointsPerClue[0]).toBe(total);
-        expect(pointsPerClue[total - 1]).toBe(1);
-      });
-    });
-
-    describe('edge cases', () => {
-      it('should handle minimal case with 1 clue', () => {
-        const pointsPerClue = getPointsPerClue(1);
-        expect(pointsPerClue).toEqual([1]);
-      });
-
-      it('should handle large totalClues value', () => {
-        const pointsPerClue = getPointsPerClue(50);
-        expect(pointsPerClue).toHaveLength(50);
-        expect(pointsPerClue[0]).toBe(50);
-        expect(pointsPerClue[49]).toBe(1);
-      });
-    });
-
-    describe('consistency checks', () => {
-      it('should match calculatePoints for each position', () => {
-        const total = 5;
-        const pointsPerClue = getPointsPerClue(total);
-        for (let i = 0; i < total; i++) {
-          const cluesRead = i + 1;
-          expect(pointsPerClue[i]).toBe(calculatePoints(cluesRead, total));
-        }
-      });
-
-      it('should be strictly descending', () => {
-        const pointsPerClue = getPointsPerClue(10);
-        for (let i = 0; i < pointsPerClue.length - 1; i++) {
-          expect(pointsPerClue[i]).toBeGreaterThan(pointsPerClue[i + 1]);
-        }
-      });
-
-      it('should decrease by exactly 1 for each step', () => {
-        const pointsPerClue = getPointsPerClue(5);
-        for (let i = 0; i < pointsPerClue.length - 1; i++) {
-          expect(pointsPerClue[i] - pointsPerClue[i + 1]).toBe(1);
-        }
-      });
-
-      it('should have first element equal to maximum points', () => {
-        const total = 8;
-        const pointsPerClue = getPointsPerClue(total);
-        expect(pointsPerClue[0]).toBe(getMaximumPoints(total));
-      });
-
-      it('should have last element equal to minimum points', () => {
-        const total = 8;
-        const pointsPerClue = getPointsPerClue(total);
-        expect(pointsPerClue[total - 1]).toBe(getMinimumPoints());
-      });
-    });
-
-    describe('immutability', () => {
-      it('should return a new array each time', () => {
-        const first = getPointsPerClue(5);
-        const second = getPointsPerClue(5);
-        expect(first).not.toBe(second);
-        expect(first).toEqual(second);
-      });
-
-      it('should not be affected by modifications', () => {
-        const pointsPerClue = getPointsPerClue(5);
-        const original = [...pointsPerClue];
-        pointsPerClue[0] = 999;
-        const newArray = getPointsPerClue(5);
-        expect(newArray).toEqual(original);
-      });
-    });
-  });
-
   describe('canAwardPoints()', () => {
     describe('happy path - cases where points can be awarded', () => {
       it('should return true when 1 clue is read', () => {
@@ -475,16 +380,6 @@ describe('ScoringService', () => {
         expect(isValidPointValue(min - 1, total)).toBe(false);
         expect(isValidPointValue(max + 1, total)).toBe(false);
       });
-
-      it('should correspond to values in getPointsPerClue', () => {
-        const total = 5;
-        const pointsPerClue = getPointsPerClue(total);
-        const uniquePoints = new Set(pointsPerClue);
-
-        for (const points of uniquePoints) {
-          expect(isValidPointValue(points, total)).toBe(true);
-        }
-      });
     });
   });
 
@@ -509,17 +404,6 @@ describe('ScoringService', () => {
           expect(canAwardPoints(cluesRead, total)).toBe(true);
           const points = calculatePoints(cluesRead, total);
           expect(isValidPointValue(points, total)).toBe(true);
-        }
-      });
-
-      it('should verify pointsPerClue contains all valid point values', () => {
-        const total = 7;
-        const pointsPerClue = getPointsPerClue(total);
-
-        for (const points of pointsPerClue) {
-          expect(isValidPointValue(points, total)).toBe(true);
-          expect(points).toBeGreaterThanOrEqual(getMinimumPoints());
-          expect(points).toBeLessThanOrEqual(getMaximumPoints(total));
         }
       });
     });

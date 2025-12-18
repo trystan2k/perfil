@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { TranslateProvider } from '@/components/TranslateProvider';
 import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
@@ -17,14 +18,14 @@ vi.mock('../useProfiles', () => ({
           id: '1',
           name: 'Test Profile 1',
           category: 'Movies',
-          clues: ['Clue 1', 'Clue 2', 'Clue 3', 'Clue 4', 'Clue 5'],
+          clues: generateClues(),
           metadata: { difficulty: 'easy' },
         },
         {
           id: '2',
           name: 'Test Profile 2',
           category: 'Music',
-          clues: ['Clue A', 'Clue B', 'Clue C'],
+          clues: generateClues(),
           metadata: { difficulty: 'medium' },
         },
       ],
@@ -284,10 +285,11 @@ describe('useGamePlayLogic', () => {
     });
 
     it('should compute isMaxCluesReached correctly', () => {
-      const profile = createMockProfile('1', 5);
+      const profile = createMockProfile('1', 20);
       useGameStore.setState({
-        currentTurn: createMockTurn(5),
+        currentTurn: createMockTurn(20),
         currentProfile: profile,
+        profiles: [profile],
       });
 
       const { result } = renderHook(() => useGamePlayLogic(), {
@@ -298,10 +300,11 @@ describe('useGamePlayLogic', () => {
     });
 
     it('should compute isOnFinalClue correctly', () => {
-      const profile = createMockProfile('1', 5);
+      const profile = createMockProfile('1', 20);
       useGameStore.setState({
-        currentTurn: createMockTurn(5),
+        currentTurn: createMockTurn(20),
         currentProfile: profile,
+        profiles: [profile],
       });
 
       const { result } = renderHook(() => useGamePlayLogic(), {
@@ -354,31 +357,34 @@ describe('useGamePlayLogic', () => {
     });
 
     it('should compute pointsRemaining correctly', () => {
-      const profile = createMockProfile('1', 5);
+      const profile = createMockProfile('1', 20);
       useGameStore.setState({
         currentTurn: createMockTurn(2),
         currentProfile: profile,
+        profiles: [profile],
       });
 
       const { result } = renderHook(() => useGamePlayLogic(), {
         wrapper: createWrapper(),
       });
 
-      // totalClues (5) - (cluesRead - 1) = 5 - 1 = 4
-      expect(result.current.pointsRemaining).toBe(4);
+      // totalClues (20) - (cluesRead - 1) = 20 - 1 = 19
+      expect(result.current.pointsRemaining).toBe(19);
     });
   });
 
   describe('Handlers', () => {
     beforeEach(() => {
+      const profile = createMockProfile('1', 20);
       useGameStore.setState({
         id: 'game-1',
         status: 'active',
         currentTurn: createMockTurn(2),
-        currentProfile: createMockProfile('1', 5),
+        currentProfile: profile,
         players: createMockPlayers(),
         selectedProfiles: ['Movies'],
         totalProfilesCount: 3,
+        profiles: [profile],
       });
     });
 
@@ -394,7 +400,7 @@ describe('useGamePlayLogic', () => {
       expect(result.current.showRoundSummary).toBe(true);
       expect(result.current.roundSummaryData).toEqual({
         winnerId: 'player-1',
-        pointsAwarded: 4, // 5 clues (from mock profile) - (2 cluesRead - 1) = 4
+        pointsAwarded: 19, // 20 clues (from mocked useProfiles) - (2 cluesRead - 1) = 19
         profileName: 'Test Profile 1',
       });
     });

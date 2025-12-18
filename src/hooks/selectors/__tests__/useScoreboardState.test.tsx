@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
 import { useScoreboardState } from '../useScoreboardState';
@@ -17,7 +18,7 @@ describe('useScoreboardState', () => {
     id,
     name: `Profile ${id}`,
     category: 'Movies',
-    clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+    clues: generateClues(),
     metadata: { difficulty: 'medium' as const },
   });
 

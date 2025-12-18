@@ -1,7 +1,8 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
-import { selectProfileIdsByManifest } from '../manifestProfileSelection';
-import type { Manifest } from '../manifest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { queryClient } from '../../components/QueryProvider';
+import type { Manifest } from '../manifest';
+import { selectProfileIdsByManifest } from '../manifestProfileSelection';
 
 // Mock manifest data
 const mockManifest: Manifest = {
@@ -72,7 +73,7 @@ function generateMockProfiles(categorySlug: string, count: number) {
       id: `profile-${prefix}-${String(i + 1).padStart(3, '0')}`,
       category: categorySlug,
       name: `${categorySlug} ${i + 1}`,
-      clues: Array.from({ length: 5 }, (_, j) => `clue ${j + 1}`),
+      clues: generateClues(),
       metadata: { difficulty: 'medium' },
     })),
   };

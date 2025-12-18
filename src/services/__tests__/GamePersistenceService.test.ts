@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import type { PersistedGameState } from '@/lib/gameSessionDB';
 import type { IGameSessionRepository } from '@/repositories/GameSessionRepository';
@@ -29,7 +30,7 @@ describe('GamePersistenceService', () => {
         id: 'profile-1',
         name: 'Example Profile',
         category: 'Movies',
-        clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+        clues: generateClues(),
         metadata: { difficulty: 'medium' },
       },
     ],
@@ -38,7 +39,7 @@ describe('GamePersistenceService', () => {
       id: 'profile-1',
       name: 'Example Profile',
       category: 'Movies',
-      clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+      clues: generateClues(),
       metadata: { difficulty: 'medium' },
     },
     totalProfilesCount: 5,

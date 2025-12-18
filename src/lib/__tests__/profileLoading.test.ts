@@ -1,7 +1,8 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
-import { loadProfilesByIds } from '../profileLoading';
-import type { Manifest } from '../manifest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { queryClient } from '../../components/QueryProvider';
+import type { Manifest } from '../manifest';
+import { loadProfilesByIds } from '../profileLoading';
 
 // Mock manifest data
 const mockManifest: Manifest = {
@@ -43,21 +44,21 @@ const mockFamousData = {
       id: 'profile-famous-001',
       category: 'Famous People',
       name: 'Albert Einstein',
-      clues: ['A', 'B', 'C'],
+      clues: generateClues(),
       metadata: {},
     },
     {
       id: 'profile-famous-002',
       category: 'Famous People',
       name: 'Marie Curie',
-      clues: ['A', 'B', 'C'],
+      clues: generateClues(),
       metadata: {},
     },
     {
       id: 'profile-famous-003',
       category: 'Famous People',
       name: 'Isaac Newton',
-      clues: ['A', 'B', 'C'],
+      clues: generateClues(),
       metadata: {},
     },
   ],
@@ -70,14 +71,14 @@ const mockCountryData = {
       id: 'profile-country-001',
       category: 'Countries',
       name: 'Japan',
-      clues: ['A', 'B', 'C'],
+      clues: generateClues(),
       metadata: {},
     },
     {
       id: 'profile-country-002',
       category: 'Countries',
       name: 'Brazil',
-      clues: ['A', 'B', 'C'],
+      clues: generateClues(),
       metadata: {},
     },
   ],
@@ -90,14 +91,14 @@ const mockMovieData1 = {
       id: 'profile-movie-001',
       category: 'Movies',
       name: 'The Matrix',
-      clues: ['A', 'B', 'C'],
+      clues: generateClues(),
       metadata: {},
     },
     {
       id: 'profile-movie-002',
       category: 'Movies',
       name: 'Inception',
-      clues: ['A', 'B', 'C'],
+      clues: generateClues(),
       metadata: {},
     },
   ],
@@ -110,7 +111,7 @@ const mockMovieData2 = {
       id: 'profile-movie-003',
       category: 'Movies',
       name: 'Interstellar',
-      clues: ['A', 'B', 'C'],
+      clues: generateClues(),
       metadata: {},
     },
   ],
@@ -514,7 +515,7 @@ describe('loadProfilesByIds', () => {
                 id: `profile-famous-${String(i + 1).padStart(3, '0')}`,
                 category: 'Famous People',
                 name: `Person ${i + 1}`,
-                clues: ['A', 'B', 'C'],
+                clues: generateClues(),
                 metadata: {},
               })),
             }),
@@ -568,7 +569,7 @@ describe('loadProfilesByIds', () => {
                   id: 'profile-famous-001',
                   category: 'Famous People',
                   name: 'Test',
-                  clues: ['A', 'B', 'C'],
+                  clues: generateClues(),
                   metadata: {},
                 },
               ],

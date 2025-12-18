@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import { createTurn, advanceClue as advanceClueInTurn } from '@/domain/game/entities/Turn';
-import type { Profile } from '@/domain/game/entities/Profile';
+import type { Profile } from '@/types/models';
 import {
   advanceToNextClue,
   getCurrentClue,

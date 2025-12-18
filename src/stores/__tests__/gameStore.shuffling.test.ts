@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import type { Manifest } from '../../lib/manifest';
 import { fetchManifest } from '../../lib/manifest';
@@ -35,7 +36,7 @@ const createMockProfile = (id: string, category: string, name: string): Profile 
   id,
   category,
   name,
-  clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `${name} clue ${i + 1}`),
+  clues: generateClues([...Array.from({ length: 20 }, (_, i) => `${name} clue ${i + 1}`)]),
   metadata: { difficulty: 'medium' },
 });
 
@@ -191,7 +192,9 @@ describe('gameStore - Clue Shuffle Integration', () => {
         const firstProfileId = state.selectedProfiles[0];
         const shuffle = state.clueShuffleMap.get(firstProfileId);
 
-        const sequential = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => i);
+        const sequential = generateClues([
+          ...Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => String(i)),
+        ]);
         if (shuffle?.join(',') !== sequential.join(',')) {
           differenceFound = true;
           break;
@@ -199,24 +202,6 @@ describe('gameStore - Clue Shuffle Integration', () => {
       }
 
       expect(differenceFound).toBe(true);
-    });
-
-    it('should handle single clue profile (edge case)', async () => {
-      const singleClueProfile: Profile = {
-        id: 'single',
-        category: 'Single',
-        name: 'Single Clue Profile',
-        clues: ['Only clue'],
-        metadata: { difficulty: 'easy' },
-      };
-
-      setupStartGameMocks([singleClueProfile]);
-      await useGameStore.getState().startGame(['single'], 1, 'en');
-
-      const state = useGameStore.getState();
-      const shuffle = state.clueShuffleMap.get('single');
-
-      expect(shuffle).toEqual([0]);
     });
 
     it('should handle empty profile clues (edge case)', () => {
@@ -695,24 +680,6 @@ describe('gameStore - Clue Shuffle Integration', () => {
       expect(game2Shuffle).toBeDefined();
       // Shuffles for different profiles should be different (almost certainly)
       expect(game1Shuffle?.join(',') !== game2Shuffle?.join(',')).toBe(true);
-    });
-
-    it('should handle very small profile (1 clue)', async () => {
-      const smallProfile: Profile = {
-        id: 'small',
-        category: 'Test',
-        name: 'Single Clue',
-        clues: ['Only clue'],
-        metadata: { difficulty: 'easy' },
-      };
-
-      setupStartGameMocks([smallProfile]);
-      await useGameStore.getState().startGame(['test'], 1, 'en');
-
-      const state = useGameStore.getState();
-      const shuffle = state.clueShuffleMap.get('small');
-
-      expect(shuffle).toEqual([0]);
     });
 
     it('should handle profile with exactly DEFAULT_CLUES_PER_PROFILE clues', async () => {

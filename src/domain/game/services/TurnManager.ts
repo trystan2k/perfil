@@ -1,5 +1,5 @@
 import { getShuffledClue } from '../../../lib/clueShuffling';
-import { type Profile, getClue } from '../entities/Profile';
+import { type Profile, getClue } from '../../../types/models';
 import { type Turn, advanceClue as advanceClueInTurn, getCurrentClueIndex } from '../entities/Turn';
 
 /**
