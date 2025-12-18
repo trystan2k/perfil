@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
+import { generateClues } from '@/__tests__/test-utils';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { queryClient as globalQueryClient } from '../../components/QueryProvider';
@@ -14,7 +15,7 @@ const mockProfilesData: ProfilesData = {
       id: 'test-001',
       category: 'Test Category',
       name: 'Test Profile',
-      clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+      clues: generateClues(),
       metadata: {
         language: 'en',
         difficulty: 'easy',
@@ -197,7 +198,7 @@ describe('useProfiles', () => {
             id: 'test-001',
             category: 'Test',
             name: 'Test',
-            clues: [], // Invalid: empty clues array
+            clues: [], // Invalid: empty clues array (must have exactly 20 clues)
           },
         ],
       };
@@ -365,13 +366,13 @@ describe('useProfiles', () => {
           id: 'movie-001',
           category: 'Movies',
           name: 'Movie Profile 1',
-          clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+          clues: generateClues(),
         },
         {
           id: 'movie-002',
           category: 'Movies',
           name: 'Movie Profile 2',
-          clues: ['Clue A', 'Clue B', 'Clue C'],
+          clues: generateClues(),
         },
       ],
     };
@@ -439,7 +440,7 @@ describe('useProfiles', () => {
             id: 'movie-001',
             category: 'Movies',
             name: 'Movie 1',
-            clues: ['C1', 'C2', 'C3'],
+            clues: generateClues(),
           },
         ],
       };
@@ -451,13 +452,13 @@ describe('useProfiles', () => {
             id: 'movie-002',
             category: 'Movies',
             name: 'Movie 2',
-            clues: ['C1', 'C2', 'C3'],
+            clues: generateClues(),
           },
           {
             id: 'movie-003',
             category: 'Movies',
             name: 'Movie 3',
-            clues: ['C1', 'C2', 'C3'],
+            clues: generateClues(),
           },
         ],
       };
@@ -519,7 +520,7 @@ describe('useProfiles', () => {
             id: 'sport-001',
             category: 'Sports',
             name: 'Sport 1',
-            clues: ['C1', 'C2', 'C3'],
+            clues: generateClues(),
           },
         ],
       };
@@ -607,7 +608,7 @@ describe('useProfiles', () => {
             id: 'en-001',
             category: 'Movies',
             name: 'English Profile',
-            clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+            clues: generateClues(),
             metadata: { language: 'en' },
           },
         ],
@@ -620,7 +621,7 @@ describe('useProfiles', () => {
             id: 'es-001',
             category: 'Películas',
             name: 'Spanish Profile',
-            clues: ['Pista 1', 'Pista 2', 'Pista 3'],
+            clues: generateClues(),
             metadata: { language: 'es' },
           },
         ],
@@ -698,7 +699,7 @@ describe('useProfiles', () => {
             id: 'en-001',
             category: 'Movies',
             name: 'English Profile',
-            clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+            clues: generateClues(),
           },
         ],
       };
@@ -710,7 +711,7 @@ describe('useProfiles', () => {
             id: 'es-001',
             category: 'Películas',
             name: 'Spanish Profile',
-            clues: ['Pista 1', 'Pista 2', 'Pista 3'],
+            clues: generateClues(),
           },
         ],
       };
@@ -793,7 +794,7 @@ describe('useProfiles', () => {
               id: 'en-001',
               category: 'Movies',
               name: 'English Profile',
-              clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+              clues: generateClues(),
             },
           ],
         };

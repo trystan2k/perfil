@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { generateClues } from '@/__tests__/test-utils';
 import * as gameSessionDB from '@/lib/gameSessionDB';
 import type { Profile } from '@/types/models';
 import {
@@ -23,7 +24,7 @@ describe('IndexedDBGameSessionRepository', () => {
     id,
     name: `Profile ${id}`,
     category: 'Movies',
-    clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+    clues: generateClues(),
     metadata: { difficulty: 'medium' },
   });
 

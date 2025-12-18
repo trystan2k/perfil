@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
-import type { Profile } from '@/domain/game/entities/Profile';
+import { generateClues } from '@/__tests__/test-utils';
+import type { Profile } from '@/types/models';
 import {
   advanceToNextClue,
   getCurrentClueWithShuffle,
@@ -98,7 +99,7 @@ describe('TurnManager - Clue Shuffling', () => {
         id: 'single',
         category: 'Test',
         name: 'Single Clue',
-        clues: ['Only clue'],
+        clues: generateClues(['Only clue']),
         metadata: { difficulty: 'easy' },
       };
       const turn = createTurn(profile.id);
@@ -218,7 +219,7 @@ describe('TurnManager - Clue Shuffling', () => {
         id: 'single',
         category: 'Test',
         name: 'Single Clue',
-        clues: ['Only clue'],
+        clues: generateClues(['Only clue']),
         metadata: { difficulty: 'easy' },
       };
       const turn = createTurn(profile.id);
@@ -315,7 +316,7 @@ describe('TurnManager - Clue Shuffling', () => {
         id: 'single',
         category: 'Test',
         name: 'Single Clue',
-        clues: ['Only clue'],
+        clues: generateClues(['Only clue']),
         metadata: { difficulty: 'easy' },
       };
       const turn = createTurn(profile.id);

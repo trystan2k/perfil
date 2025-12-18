@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { Profile } from '@/domain/game/entities/Profile';
+import type { Profile } from '@/types/models';
 import {
   getAvailableProfileCount,
   hasEnoughProfiles,

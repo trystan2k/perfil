@@ -2,6 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { generateClues } from '@/__tests__/test-utils';
 import type { Manifest } from '@/lib/manifest';
 import { fetchManifest } from '@/lib/manifest';
 import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
@@ -31,19 +32,25 @@ vi.mock('@/hooks/useProfiles', () => ({
           id: '1',
           name: 'Profile 1',
           category: 'Movies',
-          clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1} text...`),
+          clues: generateClues(
+            Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`)
+          ),
         },
         {
           id: '2',
           name: 'Profile 2',
           category: 'Sports',
-          clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1} text...`),
+          clues: generateClues(
+            Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`)
+          ),
         },
         {
           id: '3',
           name: 'Profile 3',
           category: 'Music',
-          clues: Array.from({ length: 20 }, (_, i) => `Clue ${i + 1} text...`),
+          clues: generateClues(
+            Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`)
+          ),
         },
       ],
     },
@@ -72,7 +79,9 @@ function createMockProfile(id: string, category: string, name = `Profile ${id}`)
     id,
     name,
     category,
-    clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`),
+    clues: generateClues(
+      Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`)
+    ),
   };
 }
 

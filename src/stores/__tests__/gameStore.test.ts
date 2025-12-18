@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import { generateClues } from '@/__tests__/test-utils';
 import { GameError } from '../../lib/errors';
 import type { Manifest } from '../../lib/manifest';
 import { fetchManifest } from '../../lib/manifest';
@@ -37,7 +38,7 @@ const createMockProfile = (id: string, category: string, name: string): Profile 
   id,
   category,
   name,
-  clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `${name} clue ${i + 1}`),
+  clues: generateClues([...Array.from({ length: 20 }, (_, i) => `${name} clue ${i + 1}`)]),
   metadata: { difficulty: 'medium' },
 });
 
@@ -168,19 +169,19 @@ describe('Category Randomization', () => {
         id: 'movie-1',
         category: 'Movies',
         name: 'Movie Profile',
-        clues: ['C1', 'C2', 'C3'],
+        clues: generateClues(),
       },
       {
         id: 'sport-1',
         category: 'Sports',
         name: 'Sport Profile',
-        clues: ['C1', 'C2', 'C3'],
+        clues: generateClues(),
       },
       {
         id: 'animal-1',
         category: 'Animals',
         name: 'Animal Profile',
-        clues: ['C1', 'C2', 'C3'],
+        clues: generateClues(),
       },
     ];
 
@@ -207,19 +208,19 @@ describe('Category Randomization', () => {
         id: 'movie-1',
         category: 'Movies',
         name: 'Movie Profile',
-        clues: ['C1', 'C2', 'C3'],
+        clues: generateClues(),
       },
       {
         id: 'sport-1',
         category: 'Sports',
         name: 'Sport Profile',
-        clues: ['C1', 'C2', 'C3'],
+        clues: generateClues(),
       },
       {
         id: 'animal-1',
         category: 'Animals',
         name: 'Animal Profile',
-        clues: ['C1', 'C2', 'C3'],
+        clues: generateClues(),
       },
     ];
 
@@ -245,13 +246,13 @@ describe('Category Randomization', () => {
         id: 'movie-1',
         category: 'Movies',
         name: 'Movie 1',
-        clues: ['C1', 'C2', 'C3'],
+        clues: generateClues(),
       },
       {
         id: 'movie-2',
         category: 'Movies',
         name: 'Movie 2',
-        clues: ['C1', 'C2', 'C3'],
+        clues: generateClues(),
       },
     ];
 
@@ -271,8 +272,18 @@ describe('Category Randomization', () => {
     await useGameStore.getState().createGame(['Player 1', 'Player 2']);
 
     const mockProfiles = [
-      { id: 'm1', category: 'Movies', name: 'M1', clues: ['C1', 'C2', 'C3'] },
-      { id: 's1', category: 'Sports', name: 'S1', clues: ['C1', 'C2', 'C3'] },
+      {
+        id: 'm1',
+        category: 'Movies',
+        name: 'M1',
+        clues: generateClues(),
+      },
+      {
+        id: 's1',
+        category: 'Sports',
+        name: 'S1',
+        clues: generateClues(),
+      },
     ];
 
     useGameStore.getState().loadProfiles(mockProfiles);
@@ -288,9 +299,24 @@ describe('Category Randomization', () => {
 
   it('should randomize first profile across multiple runs', async () => {
     const mockProfiles = [
-      { id: 'm1', category: 'Movies', name: 'M1', clues: ['C1', 'C2', 'C3'] },
-      { id: 's1', category: 'Sports', name: 'S1', clues: ['C1', 'C2', 'C3'] },
-      { id: 'a1', category: 'Animals', name: 'A1', clues: ['C1', 'C2', 'C3'] },
+      {
+        id: 'm1',
+        category: 'Movies',
+        name: 'M1',
+        clues: generateClues(),
+      },
+      {
+        id: 's1',
+        category: 'Sports',
+        name: 'S1',
+        clues: generateClues(),
+      },
+      {
+        id: 'a1',
+        category: 'Animals',
+        name: 'A1',
+        clues: generateClues(),
+      },
     ];
 
     // Setup mocks for these custom profiles

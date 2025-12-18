@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
+import { generateClues } from '@/__tests__/test-utils';
 import { selectProfileIdsByManifest } from '../manifestProfileSelection';
 import type { Manifest } from '../manifest';
 import { queryClient } from '../../components/QueryProvider';
@@ -72,7 +73,7 @@ function generateMockProfiles(categorySlug: string, count: number) {
       id: `profile-${prefix}-${String(i + 1).padStart(3, '0')}`,
       category: categorySlug,
       name: `${categorySlug} ${i + 1}`,
-      clues: Array.from({ length: 5 }, (_, j) => `clue ${j + 1}`),
+      clues: generateClues(),
       metadata: { difficulty: 'medium' },
     })),
   };

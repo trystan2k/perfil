@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__tests__/test-utils';
 import type { Manifest } from '@/lib/manifest';
 import { fetchManifest } from '@/lib/manifest';
 import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
@@ -35,7 +36,7 @@ describe('useGameActions', () => {
     id,
     name: `Profile ${id}`,
     category: 'Movies',
-    clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+    clues: generateClues(),
     metadata: { difficulty: 'medium' as const },
   });
 
@@ -284,7 +285,7 @@ describe('useGameActions', () => {
             id: 'prof-1',
             name: 'Movie 1',
             category: 'Movies',
-            clues: ['Clue 1', 'Clue 2'],
+            clues: generateClues(),
             metadata: { difficulty: 'easy' as const },
           },
         ],
@@ -316,21 +317,21 @@ describe('useGameActions', () => {
             id: 'prof-1',
             name: 'Movie 1',
             category: 'Movies',
-            clues: ['Clue 1', 'Clue 2'],
+            clues: generateClues(),
             metadata: { difficulty: 'easy' as const },
           },
           {
             id: 'prof-2',
             name: 'Movie 2',
             category: 'Movies',
-            clues: ['Clue 1', 'Clue 2'],
+            clues: generateClues(),
             metadata: { difficulty: 'easy' as const },
           },
           {
             id: 'prof-3',
             name: 'Movie 3',
             category: 'Movies',
-            clues: ['Clue 1', 'Clue 2'],
+            clues: generateClues(),
             metadata: { difficulty: 'easy' as const },
           },
         ],
@@ -354,7 +355,7 @@ describe('useGameActions', () => {
           id: 'prof-1',
           name: 'Movie 1',
           category: 'Movies',
-          clues: ['Clue 1', 'Clue 2'],
+          clues: generateClues(),
           metadata: { difficulty: 'easy' as const },
         },
       ];
@@ -588,7 +589,7 @@ describe('useGameActions', () => {
             id: 'prof-1',
             name: 'Movie 1',
             category: 'Movies',
-            clues: ['Clue 1', 'Clue 2'],
+            clues: generateClues(),
             metadata: { difficulty: 'easy' as const },
           },
         ],
@@ -612,7 +613,7 @@ describe('useGameActions', () => {
           id: `prof-${i}`,
           name: `Profile ${i}`,
           category: cat,
-          clues: ['Clue 1', 'Clue 2'],
+          clues: generateClues(),
           metadata: { difficulty: 'easy' as const },
         })),
       });
@@ -714,7 +715,7 @@ describe('useGameActions', () => {
           id: 'prof-1',
           name: 'Movie 1',
           category: 'Movies',
-          clues: ['Clue 1', 'Clue 2'],
+          clues: generateClues(),
           metadata: { difficulty: 'easy' as const },
         },
       ];

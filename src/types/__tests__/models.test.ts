@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import { generateClues } from '@/__tests__/test-utils';
 import {
   gameSessionSchema,
+  MAX_CLUES_PER_PROFILE,
   playerSchema,
   profileMetadataSchema,
   profileSchema,
@@ -295,7 +297,7 @@ describe('Profile Schema', () => {
     id: 'profile-1',
     category: 'Movies',
     name: 'The Godfather',
-    clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+    clues: generateClues(),
     metadata: { difficulty: 'easy' },
     ...overrides,
   });
@@ -307,16 +309,16 @@ describe('Profile Schema', () => {
       expect(result.success).toBe(true);
     });
 
-    it('should validate profile with minimum clues (1)', () => {
+    it('should reject profile with fewer clues than required', () => {
       const profile = createValidProfile({
-        clues: ['Single clue'],
+        clues: generateClues(['C1']).slice(0, 19),
       });
       const result = profileSchema.safeParse(profile);
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
     });
 
-    it('should validate profile with maximum clues (100)', () => {
-      const clues = Array.from({ length: 100 }, (_, i) => `Clue ${i + 1}`);
+    it('should validate profile with maximum clues', () => {
+      const clues = Array.from({ length: MAX_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1}`);
       const profile = createValidProfile({ clues });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(true);
@@ -355,7 +357,7 @@ describe('Profile Schema', () => {
 
     it('should validate profile with numeric clue count', () => {
       const profile = createValidProfile({
-        clues: Array.from({ length: 50 }, (_, i) => `Clue ${i + 1}`),
+        clues: generateClues(),
       });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(true);
@@ -365,7 +367,7 @@ describe('Profile Schema', () => {
       const profile = createValidProfile({
         name: "It's a Bird! It's a Plane! (v2.0)",
         category: 'Movies & TV',
-        clues: ['Clue #1', 'Clue @ 2', 'Clue $ 3'],
+        clues: generateClues(['Clue #1', 'Clue @2', 'Clue $ 3']),
       });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(true);
@@ -375,7 +377,7 @@ describe('Profile Schema', () => {
       const profile = createValidProfile({
         name: '漢字テスト',
         category: 'International',
-        clues: ['Índice 1', 'Pista 2', 'Κόσμε 3'],
+        clues: generateClues(),
       });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(true);
@@ -387,7 +389,7 @@ describe('Profile Schema', () => {
       const profile = {
         category: 'Movies',
         name: 'The Godfather',
-        clues: ['Clue 1'],
+        clues: generateClues(),
       };
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
@@ -397,7 +399,7 @@ describe('Profile Schema', () => {
       const profile = {
         id: 'profile-1',
         name: 'The Godfather',
-        clues: ['Clue 1'],
+        clues: generateClues(),
       };
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
@@ -407,7 +409,7 @@ describe('Profile Schema', () => {
       const profile = {
         id: 'profile-1',
         category: 'Movies',
-        clues: ['Clue 1'],
+        clues: generateClues(),
       };
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
@@ -459,7 +461,9 @@ describe('Profile Schema', () => {
 
     it('should reject profile with non-string clue items', () => {
       const profile = createValidProfile({
-        clues: ['Clue 1', 123, 'Clue 3'],
+        clues: Array.from({ length: MAX_CLUES_PER_PROFILE }, (_, i) =>
+          i === 5 ? (123 as unknown as string) : `Clue ${i + 1}`
+        ),
       });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
@@ -475,9 +479,9 @@ describe('Profile Schema', () => {
   });
 
   describe('boundary tests - array sizes', () => {
-    it('should reject profile with empty clues array', () => {
+    it('should reject profile with fewer clues than required', () => {
       const profile = createValidProfile({
-        clues: [],
+        clues: generateClues(['Clue 1', 'Clue 2', 'Clue 3', 'Clue 4', 'Clue 5']).slice(0, 19),
       });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
@@ -486,8 +490,30 @@ describe('Profile Schema', () => {
       }
     });
 
-    it('should reject profile with more than 100 clues', () => {
-      const clues = Array.from({ length: 101 }, (_, i) => `Clue ${i + 1}`);
+    it('should reject profile with more clues than required', () => {
+      const clues = [
+        'Clue 1',
+        'Clue 2',
+        'Clue 3',
+        'Clue 4',
+        'Clue 5',
+        'Clue 6',
+        'Clue 7',
+        'Clue 8',
+        'Clue 9',
+        'Clue 10',
+        'Clue 11',
+        'Clue 12',
+        'Clue 13',
+        'Clue 14',
+        'Clue 15',
+        'Clue 16',
+        'Clue 17',
+        'Clue 18',
+        'Clue 19',
+        'Clue 20',
+        'Extra Clue',
+      ];
       const profile = createValidProfile({ clues });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
@@ -518,8 +544,11 @@ describe('Profile Schema', () => {
     });
 
     it('should reject profile with empty clue strings', () => {
+      const clues = Array.from({ length: MAX_CLUES_PER_PROFILE }, (_, i) =>
+        i === 5 ? '' : `Clue ${i + 1}`
+      );
       const profile = createValidProfile({
-        clues: ['Clue 1', '', 'Clue 3'],
+        clues,
       });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
@@ -545,8 +574,11 @@ describe('Profile Schema', () => {
 
     it('should validate profile with very long clue strings', () => {
       const longClue = 'C'.repeat(5000);
+      const clues = Array.from({ length: MAX_CLUES_PER_PROFILE }, (_, i) =>
+        i === 0 ? longClue : `Clue ${i + 1}`
+      );
       const profile = createValidProfile({
-        clues: [longClue],
+        clues,
       });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(true);
@@ -584,7 +616,7 @@ describe('ProfilesData Schema', () => {
         id: 'profile-1',
         category: 'Movies',
         name: 'The Godfather',
-        clues: ['Clue 1', 'Clue 2'],
+        clues: generateClues(),
         metadata: { difficulty: 'easy' },
       },
     ],
@@ -611,14 +643,14 @@ describe('ProfilesData Schema', () => {
           id: 'profile-1',
           category: 'Movies',
           name: 'The Godfather',
-          clues: ['Clue 1', 'Clue 2'],
+          clues: generateClues(),
           metadata: undefined,
         },
         {
           id: 'profile-2',
           category: 'Sports',
           name: 'Michael Jordan',
-          clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+          clues: generateClues(),
           metadata: { difficulty: 'medium' },
         },
       ],
@@ -642,7 +674,7 @@ describe('ProfilesData Schema', () => {
           id: 'profile-1',
           category: 'Movies',
           // missing name
-          clues: ['Clue 1'],
+          clues: generateClues(),
         },
       ],
     });

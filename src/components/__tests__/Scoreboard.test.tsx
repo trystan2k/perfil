@@ -1,6 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__tests__/test-utils';
 import { fetchManifest } from '@/lib/manifest';
 import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
 import { loadProfilesByIds } from '@/lib/profileLoading';
@@ -27,7 +28,7 @@ const createMockProfile = (id: string): Profile => ({
   id,
   name: `Profile ${id}`,
   category: 'Historical Figures',
-  clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+  clues: generateClues(),
   metadata: { difficulty: 'medium' },
 });
 

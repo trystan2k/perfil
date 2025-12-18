@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, type Mock, type Mocked, vi } from 'vitest';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { generateClues } from '@/__tests__/test-utils';
 import type { Profile } from '@/types/models';
 import type * as MockIDB from '../../__mocks__/idb';
 
@@ -12,7 +13,7 @@ describe('gameSessionDB', () => {
     id,
     name: `Profile ${id}`,
     category: 'Movies',
-    clues: ['Clue 1', 'Clue 2', 'Clue 3'],
+    clues: generateClues(),
     metadata: { difficulty: 'medium' },
   });
 
