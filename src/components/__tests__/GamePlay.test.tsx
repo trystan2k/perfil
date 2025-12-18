@@ -1,8 +1,8 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import { generateClues } from '@/__tests__/test-utils';
+import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import type { Manifest } from '@/lib/manifest';
 import { fetchManifest } from '@/lib/manifest';
 import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
@@ -32,25 +32,19 @@ vi.mock('@/hooks/useProfiles', () => ({
           id: '1',
           name: 'Profile 1',
           category: 'Movies',
-          clues: generateClues(
-            Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`)
-          ),
+          clues: generateClues([], 'Clue 1 text...'),
         },
         {
           id: '2',
           name: 'Profile 2',
           category: 'Sports',
-          clues: generateClues(
-            Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`)
-          ),
+          clues: generateClues([], 'Clue 2 text...'),
         },
         {
           id: '3',
           name: 'Profile 3',
           category: 'Music',
-          clues: generateClues(
-            Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`)
-          ),
+          clues: generateClues([], 'Clue 3 text...'),
         },
       ],
     },
@@ -79,9 +73,7 @@ function createMockProfile(id: string, category: string, name = `Profile ${id}`)
     id,
     name,
     category,
-    clues: generateClues(
-      Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1} text...`)
-    ),
+    clues: generateClues(),
   };
 }
 
@@ -291,7 +283,7 @@ describe('GamePlay Component', () => {
 
       expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places: current clue + history)
-      expect(screen.getAllByText('Clue 1 text...').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Clue 1 text... 1').length).toBeGreaterThan(0);
     });
 
     it('should update clue number and text when advancing to next clue', async () => {
@@ -310,7 +302,7 @@ describe('GamePlay Component', () => {
 
       expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places: current clue + history)
-      expect(screen.getAllByText('Clue 1 text...').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Clue 1 text... 1').length).toBeGreaterThan(0);
 
       // Advance to second clue
       store.nextClue();
@@ -319,7 +311,7 @@ describe('GamePlay Component', () => {
 
       expect(screen.getByText(`Clue 2 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places: current clue + history)
-      expect(screen.getAllByText('Clue 2 text...').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Clue 1 text... 2').length).toBeGreaterThan(0);
     });
 
     it('should display correct clue progress (e.g., 5 of 20)', async () => {
@@ -341,7 +333,7 @@ describe('GamePlay Component', () => {
 
       expect(screen.getByText(`Clue 5 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
       // Use getAllByText and check the first one in the main clue display area
-      const clueElements = screen.getAllByText('Clue 5 text...');
+      const clueElements = screen.getAllByText('Clue 1 text... 5');
       expect(clueElements.length).toBeGreaterThanOrEqual(1);
     });
   });

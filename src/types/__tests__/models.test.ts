@@ -318,7 +318,7 @@ describe('Profile Schema', () => {
     });
 
     it('should validate profile with maximum clues', () => {
-      const clues = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1}`);
+      const clues = generateClues();
       const profile = createValidProfile({ clues });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(true);

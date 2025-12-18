@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import { generateClues } from '@/__tests__/test-utils';
+import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import type { Manifest } from '../../lib/manifest';
 import { fetchManifest } from '../../lib/manifest';
 import { selectProfileIdsByManifest } from '../../lib/manifestProfileSelection';
@@ -192,7 +192,9 @@ describe('gameStore - Clue Shuffle Integration', () => {
         const firstProfileId = state.selectedProfiles[0];
         const shuffle = state.clueShuffleMap.get(firstProfileId);
 
-        const sequential = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => i);
+        const sequential = generateClues([
+          ...Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => String(i)),
+        ]);
         if (shuffle?.join(',') !== sequential.join(',')) {
           differenceFound = true;
           break;
@@ -685,7 +687,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
         id: 'exact',
         category: 'Test',
         name: 'Exact Size',
-        clues: generateClues(),
+        clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1}`),
         metadata: { difficulty: 'medium' },
       };
 
@@ -722,8 +724,13 @@ describe('gameStore - Clue Shuffle Integration', () => {
       const state = useGameStore.getState();
 
       for (const [_profileId, shuffle] of state.clueShuffleMap.entries()) {
-        const sorted = shuffle.slice().sort((a, b) => a - b);
-        const expected = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => i);
+        const sorted = shuffle
+          .slice()
+          .sort((a, b) => a - b)
+          .map((index) => String(index));
+        const expected = generateClues([
+          ...Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => String(i)),
+        ]);
 
         expect(sorted).toEqual(expected);
       }

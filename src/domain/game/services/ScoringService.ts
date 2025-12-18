@@ -55,15 +55,6 @@ export function getMinimumPoints(): number {
 }
 
 /**
- * Get the point value for each clue position
- * @param totalClues - Total number of clues available (default: DEFAULT_CLUES_PER_PROFILE)
- * @returns Array of point values [DEFAULT_CLUES_PER_PROFILE, DEFAULT_CLUES_PER_PROFILE - 1, ..., 1] for each clue position
- */
-export function getPointsPerClue(totalClues: number = DEFAULT_CLUES_PER_PROFILE): number[] {
-  return Array.from({ length: totalClues }, (_, i) => totalClues - i);
-}
-
-/**
  * Check if points can be awarded (at least one clue must be read)
  * @param cluesRead - Number of clues that have been read
  * @param totalClues - Total number of clues available (default: DEFAULT_CLUES_PER_PROFILE)

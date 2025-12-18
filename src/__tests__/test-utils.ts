@@ -19,10 +19,13 @@ import { DEFAULT_CLUES_PER_PROFILE } from '../lib/constants';
  * // Use custom clues with auto-trim
  * const clues = generateClues(['Clue 1', 'Clue 2', ..., 'Clue 30']);
  */
-export function generateClues(customClues?: string[]): string[] {
+export function generateClues(customClues?: string[], label?: string): string[] {
   if (!customClues || customClues.length === 0) {
     // Generate default clues
-    return Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1}`);
+    return Array.from(
+      { length: DEFAULT_CLUES_PER_PROFILE },
+      (_, i) => `${label || 'Clue'} ${i + 1}`
+    );
   }
 
   if (customClues.length >= DEFAULT_CLUES_PER_PROFILE) {
