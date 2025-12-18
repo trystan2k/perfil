@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
-import { generateClues } from '@/__tests__/test-utils';
 import * as gameSessionDB from '@/lib/gameSessionDB';
 import type { Profile } from '@/types/models';
 import {

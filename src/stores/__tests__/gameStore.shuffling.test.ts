@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { generateClues } from '@/__tests__/test-utils';
+import { generateClues } from '@/__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import type { Manifest } from '../../lib/manifest';
 import { fetchManifest } from '../../lib/manifest';
@@ -209,7 +209,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
         id: 'empty',
         category: 'Empty',
         name: 'Empty Profile',
-        clues: generateClues(),
+        clues: [],
         metadata: { difficulty: 'easy' },
       };
 
@@ -724,13 +724,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
       const state = useGameStore.getState();
 
       for (const [_profileId, shuffle] of state.clueShuffleMap.entries()) {
-        const sorted = shuffle
-          .slice()
-          .sort((a, b) => a - b)
-          .map((index) => String(index));
-        const expected = generateClues([
-          ...Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => String(i)),
-        ]);
+        const sorted = shuffle.slice().sort((a, b) => a - b);
+        const expected = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => i);
 
         expect(sorted).toEqual(expected);
       }

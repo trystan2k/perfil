@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
-import { generateClues } from '@/__tests__/test-utils';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { queryClient as globalQueryClient } from '../../components/QueryProvider';
 import { clearManifestCache } from '../../lib/manifest';
 import type { ProfilesData } from '../../types/models';

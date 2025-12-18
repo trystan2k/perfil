@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { generateClues } from '@/__tests__/test-utils';
 import type { ReactNode } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { TranslateProvider } from '@/components/TranslateProvider';
 import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';

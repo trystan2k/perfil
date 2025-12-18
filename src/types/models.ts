@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { DEFAULT_CLUES_PER_PROFILE } from '../lib/constants';
+import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 
 // Zod Schemas
 export const playerSchema = z.object({

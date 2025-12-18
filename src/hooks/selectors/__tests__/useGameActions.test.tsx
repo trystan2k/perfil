@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { generateClues } from '@/__tests__/test-utils';
+import { generateClues } from '@/__mocks__/test-utils';
 import type { Manifest } from '@/lib/manifest';
 import { fetchManifest } from '@/lib/manifest';
 import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';

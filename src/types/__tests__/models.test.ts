@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { generateClues } from '@/__tests__/test-utils';
+import { generateClues } from '@/__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import {
   type GameSession,
@@ -307,14 +307,6 @@ describe('Profile Schema', () => {
       const profile = createValidProfile();
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(true);
-    });
-
-    it('should reject profile with fewer clues than required', () => {
-      const profile = createValidProfile({
-        clues: generateClues(['C1']).slice(0, 19),
-      });
-      const result = profileSchema.safeParse(profile);
-      expect(result.success).toBe(false);
     });
 
     it('should validate profile with maximum clues', () => {

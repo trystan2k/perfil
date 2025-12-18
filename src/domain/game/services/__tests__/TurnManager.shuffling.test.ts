@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
+import { createTurn } from '@/domain/game/entities/Turn';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
-import { generateClues } from '@/__tests__/test-utils';
 import type { Profile } from '@/types/models';
 import {
   advanceToNextClue,
@@ -8,7 +9,6 @@ import {
   getRevealedClueIndices,
   getRevealedClues,
 } from '../TurnManager';
-import { createTurn } from '@/domain/game/entities/Turn';
 
 /**
  * Helper to create a test profile with specified number of clues

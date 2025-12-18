@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { generateClues } from '@/__tests__/test-utils';
+import { generateClues } from '@/__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
 import type { Manifest } from '@/lib/manifest';
 import { fetchManifest } from '@/lib/manifest';

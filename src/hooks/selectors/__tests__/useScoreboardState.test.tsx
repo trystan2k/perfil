@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { generateClues } from '@/__tests__/test-utils';
+import { generateClues } from '@/__mocks__/test-utils';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
 import { useScoreboardState } from '../useScoreboardState';

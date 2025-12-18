@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, type Mock, type Mocked, vi } from 'vitest';
+import { generateClues } from '@/__mocks__/test-utils';
 import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
-import { generateClues } from '@/__tests__/test-utils';
 import type { Profile } from '@/types/models';
 import type * as MockIDB from '../../__mocks__/idb';
 
