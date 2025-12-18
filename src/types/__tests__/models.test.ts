@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { generateClues } from '@/__mocks__/test-utils';
-import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import { GAME_CONFIG } from '../../config/gameConfig';
 import {
   type GameSession,
   gameSessionSchema,
@@ -453,7 +453,7 @@ describe('Profile Schema', () => {
 
     it('should reject profile with non-string clue items', () => {
       const profile = createValidProfile({
-        clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) =>
+        clues: Array.from({ length: GAME_CONFIG.game.maxCluesPerProfile }, (_, i) =>
           i === 5 ? (123 as unknown as string) : `Clue ${i + 1}`
         ),
       });
@@ -536,7 +536,7 @@ describe('Profile Schema', () => {
     });
 
     it('should reject profile with empty clue strings', () => {
-      const clues = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) =>
+      const clues = Array.from({ length: GAME_CONFIG.game.maxCluesPerProfile }, (_, i) =>
         i === 5 ? '' : `Clue ${i + 1}`
       );
       const profile = createValidProfile({
@@ -566,7 +566,7 @@ describe('Profile Schema', () => {
 
     it('should validate profile with very long clue strings', () => {
       const longClue = 'C'.repeat(5000);
-      const clues = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) =>
+      const clues = Array.from({ length: GAME_CONFIG.game.maxCluesPerProfile }, (_, i) =>
         i === 0 ? longClue : `Clue ${i + 1}`
       );
       const profile = createValidProfile({

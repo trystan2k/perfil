@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, type Mock, type Mocked, vi } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import type { Profile } from '@/types/models';
 import type * as MockIDB from '../../__mocks__/idb';
 
@@ -33,7 +33,7 @@ describe('gameSessionDB', () => {
       passedPlayerIds: [],
     },
     remainingProfiles: ['profile-2', 'profile-3'],
-    totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+    totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
     status: 'active' as const,
     category: 'Movies',
     profiles: mockProfiles,

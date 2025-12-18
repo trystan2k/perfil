@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Trash2 } from 'lucide-react';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { useReducedMotionContext } from '@/components/ReducedMotionProvider';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -44,7 +45,12 @@ export function GamePlayPlayerScoreboard({
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={
-                prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: index * 0.05 }
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : {
+                      duration: GAME_CONFIG.animation.normal,
+                      delay: index * GAME_CONFIG.stagger.itemDelay,
+                    }
               }
             >
               <Button
@@ -62,7 +68,9 @@ export function GamePlayPlayerScoreboard({
                   initial={prefersReducedMotion ? { scale: 1 } : { scale: 1.2, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={
-                    prefersReducedMotion ? { duration: 0 } : { duration: 0.4, ease: 'easeOut' }
+                    prefersReducedMotion
+                      ? { duration: 0 }
+                      : { duration: GAME_CONFIG.animation.medium, ease: 'easeOut' }
                   }
                 >
                   {getPointsText(player.score)}

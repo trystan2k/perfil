@@ -350,6 +350,7 @@ describe('CompactHeader', () => {
 
       const settingsButton = screen.getByRole('button', { name: /open settings/i });
       expect(settingsButton).toHaveClass('w-12', 'h-12', 'min-w-12', 'min-h-12');
+      // w-12 h-12 = GAME_CONFIG.ui.touchTargetSize (48px)
     });
 
     it('should maintain minimum touch target size', () => {
@@ -360,7 +361,7 @@ describe('CompactHeader', () => {
       );
 
       const settingsButton = screen.getByRole('button', { name: /open settings/i });
-      // Verify the button meets WCAG AAA touch target size (48px minimum)
+      // Verify the button meets WCAG AAA touch target size (GAME_CONFIG.ui.touchTargetSize)
       expect(settingsButton).toHaveClass('flex', 'items-center', 'justify-center');
     });
   });

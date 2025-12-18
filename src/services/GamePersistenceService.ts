@@ -1,5 +1,6 @@
 import type { PersistedGameState } from '../lib/gameSessionDB';
 import { isRehydrating } from '../lib/rehydrationMachine';
+import { GAME_CONFIG } from '../config/gameConfig';
 import type { IGameSessionRepository } from '../repositories/GameSessionRepository';
 
 /**
@@ -17,9 +18,12 @@ export class GamePersistenceService {
   /**
    * Create a new GamePersistenceService
    * @param repository - Repository instance for actual persistence operations
-   * @param debounceDelay - Debounce delay in milliseconds (default: 300ms)
+   * @param debounceDelay - Debounce delay in milliseconds (default: from GAME_CONFIG.debounce.stateSave)
    */
-  constructor(repository: IGameSessionRepository, debounceDelay = 300) {
+  constructor(
+    repository: IGameSessionRepository,
+    debounceDelay: number = GAME_CONFIG.debounce.stateSave
+  ) {
     this.repository = repository;
     this.debounceDelay = debounceDelay;
     this.timers = new Map();

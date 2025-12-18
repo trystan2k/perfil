@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import {
   advanceClue,
   canAdvanceClue,
@@ -89,21 +89,21 @@ describe('Turn Entity', () => {
     it('should advance to maximum clues', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
 
-      expect(turn.cluesRead).toBe(DEFAULT_CLUES_PER_PROFILE);
+      expect(turn.cluesRead).toBe(GAME_CONFIG.game.maxCluesPerProfile);
     });
 
     it('should throw when already at maximum clues', () => {
-      const turn = createMockTurn({ cluesRead: DEFAULT_CLUES_PER_PROFILE });
+      const turn = createMockTurn({ cluesRead: GAME_CONFIG.game.maxCluesPerProfile });
 
       expect(() => advanceClue(turn)).toThrow('Maximum clues reached');
     });
 
     it('should throw when exceeding maximum clues', () => {
-      let turn = createMockTurn({ cluesRead: DEFAULT_CLUES_PER_PROFILE - 1 });
+      let turn = createMockTurn({ cluesRead: GAME_CONFIG.game.maxCluesPerProfile - 1 });
 
       turn = advanceClue(turn);
       expect(() => advanceClue(turn)).toThrow('Maximum clues reached');
@@ -166,14 +166,14 @@ describe('Turn Entity', () => {
     it('should reveal turn at maximum clues', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
 
       const revealed = revealTurn(turn);
 
       expect(revealed.revealed).toBe(true);
-      expect(revealed.cluesRead).toBe(DEFAULT_CLUES_PER_PROFILE);
+      expect(revealed.cluesRead).toBe(GAME_CONFIG.game.maxCluesPerProfile);
     });
 
     it('should not modify original turn', () => {
@@ -246,7 +246,7 @@ describe('Turn Entity', () => {
     it('should return true at maximum clues', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
 
@@ -273,7 +273,7 @@ describe('Turn Entity', () => {
     it('should return false with partial clues', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE - 1; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile - 1; i++) {
         turn = advanceClue(turn);
       }
 
@@ -283,7 +283,7 @@ describe('Turn Entity', () => {
     it('should return true when all clues read', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
 
@@ -293,7 +293,7 @@ describe('Turn Entity', () => {
     it('should not modify turn', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
 
@@ -314,7 +314,7 @@ describe('Turn Entity', () => {
     it('should return true with partial clues', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE - 1; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile - 1; i++) {
         turn = advanceClue(turn);
       }
 
@@ -324,7 +324,7 @@ describe('Turn Entity', () => {
     it('should return false at maximum clues', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
 
@@ -332,7 +332,7 @@ describe('Turn Entity', () => {
     });
 
     it('should return false when all clues read', () => {
-      const turn = createMockTurn({ cluesRead: DEFAULT_CLUES_PER_PROFILE });
+      const turn = createMockTurn({ cluesRead: GAME_CONFIG.game.maxCluesPerProfile });
 
       expect(canAdvanceClue(turn)).toBe(false);
     });
@@ -349,7 +349,7 @@ describe('Turn Entity', () => {
     it('should sync with advanceClue behavior', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         expect(canAdvanceClue(turn)).toBe(true);
         turn = advanceClue(turn);
       }
@@ -385,11 +385,11 @@ describe('Turn Entity', () => {
     it('should return last valid index at maximum clues', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
 
-      expect(getCurrentClueIndex(turn)).toBe(DEFAULT_CLUES_PER_PROFILE - 1);
+      expect(getCurrentClueIndex(turn)).toBe(GAME_CONFIG.game.maxCluesPerProfile - 1);
     });
 
     it('should return index equal to clues read minus 1', () => {
@@ -432,7 +432,7 @@ describe('Turn Entity', () => {
     it('should validate turn with all clues read', () => {
       let turn = createTurn('profile-1');
 
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
 
@@ -453,7 +453,7 @@ describe('Turn Entity', () => {
     });
 
     it('should return false for turn with clues exceeding maximum', () => {
-      const turn = createMockTurn({ cluesRead: DEFAULT_CLUES_PER_PROFILE + 1 });
+      const turn = createMockTurn({ cluesRead: GAME_CONFIG.game.maxCluesPerProfile + 1 });
 
       expect(validateTurn(turn)).toBe(false);
     });
@@ -474,7 +474,7 @@ describe('Turn Entity', () => {
     });
 
     it('should accept turn with exact maximum clues', () => {
-      const turn = createMockTurn({ cluesRead: DEFAULT_CLUES_PER_PROFILE });
+      const turn = createMockTurn({ cluesRead: GAME_CONFIG.game.maxCluesPerProfile });
 
       expect(validateTurn(turn)).toBe(true);
     });
@@ -525,7 +525,7 @@ describe('Turn Entity', () => {
       expect(getCurrentClueIndex(turn)).toBe(0);
 
       // Middle clue
-      for (let i = 1; i < DEFAULT_CLUES_PER_PROFILE - 1; i++) {
+      for (let i = 1; i < GAME_CONFIG.game.maxCluesPerProfile - 1; i++) {
         turn = advanceClue(turn);
       }
       expect(hasReadClues(turn)).toBe(true);
@@ -535,7 +535,7 @@ describe('Turn Entity', () => {
       turn = advanceClue(turn);
       expect(hasReadClues(turn)).toBe(true);
       expect(hasReadAllClues(turn)).toBe(true);
-      expect(getCurrentClueIndex(turn)).toBe(DEFAULT_CLUES_PER_PROFILE - 1);
+      expect(getCurrentClueIndex(turn)).toBe(GAME_CONFIG.game.maxCluesPerProfile - 1);
 
       // Cannot advance further
       expect(canAdvanceClue(turn)).toBe(false);
@@ -559,12 +559,12 @@ describe('Turn Entity', () => {
 
       // Reveal after all clues
       turn = createTurn('profile-1');
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceClue(turn);
       }
       revealed = revealTurn(turn);
       expect(revealed.revealed).toBe(true);
-      expect(revealed.cluesRead).toBe(DEFAULT_CLUES_PER_PROFILE);
+      expect(revealed.cluesRead).toBe(GAME_CONFIG.game.maxCluesPerProfile);
     });
   });
 
@@ -579,7 +579,7 @@ describe('Turn Entity', () => {
       }
 
       expect(hasReadAllClues(turn)).toBe(true);
-      expect(getCurrentClueIndex(turn)).toBe(DEFAULT_CLUES_PER_PROFILE - 1);
+      expect(getCurrentClueIndex(turn)).toBe(GAME_CONFIG.game.maxCluesPerProfile - 1);
 
       // Reveal answer
       turn = revealTurn(turn);

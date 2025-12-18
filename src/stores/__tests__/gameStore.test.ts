@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
-import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import { GAME_CONFIG } from '../../config/gameConfig';
 import { GameError } from '../../lib/errors';
 import type { Manifest } from '../../lib/manifest';
 import { fetchManifest } from '../../lib/manifest';
@@ -355,7 +355,7 @@ describe('gameStore', () => {
       players: [],
       currentTurn: null,
       remainingProfiles: [],
-      totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+      totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
       status: 'pending',
       category: undefined,
       profiles: [],
@@ -376,7 +376,7 @@ describe('gameStore', () => {
       expect(state.players).toEqual([]);
       expect(state.currentTurn).toBeNull();
       expect(state.remainingProfiles).toEqual([]);
-      expect(state.totalCluesPerProfile).toBe(DEFAULT_CLUES_PER_PROFILE);
+      expect(state.totalCluesPerProfile).toBe(GAME_CONFIG.game.maxCluesPerProfile);
       expect(state.status).toBe('pending');
       expect(state.category).toBeUndefined();
       expect(state.profiles).toEqual([]);
@@ -566,8 +566,8 @@ describe('gameStore', () => {
     });
 
     it('should throw error when exceeding max clues', () => {
-      // Read all DEFAULT_CLUES_PER_PROFILE clues
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      // Read all GAME_CONFIG.game.maxCluesPerProfile clues
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         useGameStore.getState().nextClue();
       }
 
@@ -586,13 +586,13 @@ describe('gameStore', () => {
       );
     });
 
-    it('should allow reading exactly DEFAULT_CLUES_PER_PROFILE clues', () => {
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+    it('should allow reading exactly GAME_CONFIG.game.maxCluesPerProfile clues', () => {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         useGameStore.getState().nextClue();
       }
 
       const state = useGameStore.getState();
-      expect(state.currentTurn?.cluesRead).toBe(DEFAULT_CLUES_PER_PROFILE);
+      expect(state.currentTurn?.cluesRead).toBe(GAME_CONFIG.game.maxCluesPerProfile);
     });
   });
 
@@ -604,7 +604,7 @@ describe('gameStore', () => {
       await useGameStore.getState().startGame(['movies'], 1, 'en');
     });
 
-    it('should award correct points based on clues read (formula: DEFAULT_CLUES_PER_PROFILE - (cluesRead - 1))', () => {
+    it('should award correct points based on clues read (formula: GAME_CONFIG.game.maxCluesPerProfile - (cluesRead - 1))', () => {
       // Read 1 clue
       useGameStore.getState().nextClue();
 
@@ -637,9 +637,9 @@ describe('gameStore', () => {
       expect(player?.score).toBe(11);
     });
 
-    it('should award 1 point when all DEFAULT_CLUES_PER_PROFILE clues have been read', () => {
-      // Read all DEFAULT_CLUES_PER_PROFILE clues
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+    it('should award 1 point when all GAME_CONFIG.game.maxCluesPerProfile clues have been read', () => {
+      // Read all GAME_CONFIG.game.maxCluesPerProfile clues
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         useGameStore.getState().nextClue();
       }
 
@@ -1251,7 +1251,7 @@ describe('gameStore', () => {
           revealed: false,
         },
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'active' as const,
         category: 'Sports',
         profiles: defaultMockProfiles,
@@ -1293,7 +1293,7 @@ describe('gameStore', () => {
           revealed: false,
         },
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'active' as const,
         category: 'Movies',
         profiles: defaultMockProfiles,
@@ -1386,7 +1386,7 @@ describe('gameStore', () => {
         players: [{ id: '1', name: 'Test', score: 0 }],
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'pending' as const,
         category: undefined,
         profiles: [],
@@ -1497,7 +1497,7 @@ describe('gameStore', () => {
         players: [],
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'pending',
         category: undefined,
         profiles: [],
@@ -1518,13 +1518,13 @@ describe('gameStore', () => {
           id: '1',
           name: 'Profile 1',
           category: 'Movies',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '2',
           name: 'Profile 2',
           category: 'Movies',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
       ];
 
@@ -1543,25 +1543,25 @@ describe('gameStore', () => {
           id: '1',
           name: 'Profile 1',
           category: 'Movies',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '2',
           name: 'Profile 2',
           category: 'Sports',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '3',
           name: 'Profile 3',
           category: 'History',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '4',
           name: 'Profile 4',
           category: 'Science',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
       ];
 
@@ -1597,19 +1597,19 @@ describe('gameStore', () => {
           id: '1',
           name: 'Profile 1',
           category: 'Movies',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '2',
           name: 'Profile 2',
           category: 'Sports',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '3',
           name: 'Profile 3',
           category: 'History',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
       ];
 
@@ -1642,19 +1642,19 @@ describe('gameStore', () => {
           id: '1',
           name: 'Profile 1',
           category: 'Movies',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '2',
           name: 'Profile 2',
           category: 'Sports',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '3',
           name: 'Profile 3',
           category: 'History',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
       ];
 
@@ -1672,7 +1672,7 @@ describe('gameStore', () => {
           id: '1',
           name: 'Profile 1',
           category: 'Movies',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
       ];
 
@@ -1691,13 +1691,13 @@ describe('gameStore', () => {
           id: '1',
           name: 'Profile 1',
           category: 'Sports',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '2',
           name: 'Profile 2',
           category: 'Sports',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
       ];
 
@@ -1716,7 +1716,7 @@ describe('gameStore', () => {
           id: '1',
           name: 'Profile 1',
           category: 'Movies',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
       ];
 
@@ -1735,19 +1735,19 @@ describe('gameStore', () => {
           id: '1',
           name: 'Profile 1',
           category: 'A',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '2',
           name: 'Profile 2',
           category: 'B',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
         {
           id: '3',
           name: 'Profile 3',
           category: 'C',
-          clues: Array(DEFAULT_CLUES_PER_PROFILE).fill('clue'),
+          clues: Array(GAME_CONFIG.game.maxCluesPerProfile).fill('clue'),
         },
       ];
 
@@ -1769,7 +1769,7 @@ describe('gameStore', () => {
         players: [],
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'pending',
         category: undefined,
         profiles: [],

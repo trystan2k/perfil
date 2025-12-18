@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { DEFAULT_CLUES_PER_PROFILE } from '../../../lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 
 /**
  * Turn entity schema representing the current state of a turn
@@ -9,7 +9,10 @@ export const TurnSchema = z.object({
   cluesRead: z
     .number()
     .min(0, 'Clues read cannot be negative')
-    .max(DEFAULT_CLUES_PER_PROFILE, `Cannot read more than ${DEFAULT_CLUES_PER_PROFILE} clues`),
+    .max(
+      GAME_CONFIG.game.maxCluesPerProfile,
+      `Cannot read more than ${GAME_CONFIG.game.maxCluesPerProfile} clues`
+    ),
   revealed: z.boolean(),
 });
 
@@ -35,7 +38,7 @@ export function createTurn(profileId: string): Turn {
  * @throws Error if maximum clues have been reached
  */
 export function advanceClue(turn: Turn): Turn {
-  if (turn.cluesRead >= DEFAULT_CLUES_PER_PROFILE) {
+  if (turn.cluesRead >= GAME_CONFIG.game.maxCluesPerProfile) {
     throw new Error('Maximum clues reached');
   }
 
@@ -72,7 +75,7 @@ export function hasReadClues(turn: Turn): boolean {
  * @returns true if all clues have been read
  */
 export function hasReadAllClues(turn: Turn): boolean {
-  return turn.cluesRead >= DEFAULT_CLUES_PER_PROFILE;
+  return turn.cluesRead >= GAME_CONFIG.game.maxCluesPerProfile;
 }
 
 /**
@@ -81,7 +84,7 @@ export function hasReadAllClues(turn: Turn): boolean {
  * @returns true if another clue can be read
  */
 export function canAdvanceClue(turn: Turn): boolean {
-  return turn.cluesRead < DEFAULT_CLUES_PER_PROFILE;
+  return turn.cluesRead < GAME_CONFIG.game.maxCluesPerProfile;
 }
 
 /**

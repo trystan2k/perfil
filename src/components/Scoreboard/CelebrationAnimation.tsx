@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { createConfettiContainer } from '@/lib/confetti';
 
@@ -34,7 +35,7 @@ export function CelebrationAnimation({ trigger, onComplete }: CelebrationAnimati
       }
       // Use the ref to avoid re-running this effect
       onCompleteRef.current?.();
-    }, 5000);
+    }, GAME_CONFIG.effects.celebrationTimeout);
 
     return () => {
       clearTimeout(timer);

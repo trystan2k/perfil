@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { GAME_CONFIG } from '../../config/gameConfig';
 import * as gameSessionDB from '../../lib/gameSessionDB';
 import type { IGameSessionRepository } from '../../repositories/GameSessionRepository';
 import { GamePersistenceService } from '../../services/GamePersistenceService';
@@ -63,7 +64,7 @@ describe('GameStore Rehydration Race Condition Tests', () => {
       };
       const persistenceService = new GamePersistenceService(
         mockRepository,
-        50 // Short debounce for testing
+        GAME_CONFIG.debounce.stateSave / 6 // Short debounce for testing (50ms)
       );
 
       // Manually call debouncedSave during rehydration (simulating the condition)
@@ -114,7 +115,7 @@ describe('GameStore Rehydration Race Condition Tests', () => {
       await useGameStore.getState().loadFromStorage(sessionId);
 
       // Give debounce time to pass (without rehydration protection, this would save)
-      await new Promise((resolve) => setTimeout(resolve, 150));
+      await new Promise((resolve) => setTimeout(resolve, GAME_CONFIG.debounce.headerAutoHide));
 
       // With proper rehydration protection, save should not be called
       // because debouncedSave checks isRehydrating

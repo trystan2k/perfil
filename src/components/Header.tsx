@@ -4,6 +4,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { SettingsSheet } from '@/components/SettingsSheet';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { useAutoHideHeader } from '@/hooks/useAutoHideHeader';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import type { SupportedLocale } from '@/i18n/locales';
 import type { TranslationValue } from '@/i18n/utils';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -33,7 +34,7 @@ interface HeaderProps {
 
   /**
    * Scroll threshold for auto-hide (pixels)
-   * Default: 50
+   * Default: GAME_CONFIG.ui.headerScrollThreshold
    */
   autoHideThreshold?: number;
 }
@@ -76,7 +77,7 @@ export const Header = (props: HeaderProps) => {
 const HeaderRaw = ({
   currentPath,
   enableAutoHide = true,
-  autoHideThreshold = 50,
+  autoHideThreshold = GAME_CONFIG.ui.headerScrollThreshold,
 }: Omit<HeaderProps, 'locale' | 'translations'>) => {
   const { t } = useTranslate();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);

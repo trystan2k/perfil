@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import {
   calculatePoints,
   canAwardPoints,
@@ -38,7 +38,7 @@ describe('ScoringService', () => {
 
       it('should use default totalClues value when not provided', () => {
         const points = calculatePoints(1);
-        expect(points).toBe(DEFAULT_CLUES_PER_PROFILE);
+        expect(points).toBe(GAME_CONFIG.game.maxCluesPerProfile);
       });
 
       it('should calculate points correctly with custom totalClues', () => {
@@ -76,7 +76,10 @@ describe('ScoringService', () => {
       });
 
       it('should handle edge value at max clues', () => {
-        const points = calculatePoints(DEFAULT_CLUES_PER_PROFILE, DEFAULT_CLUES_PER_PROFILE);
+        const points = calculatePoints(
+          GAME_CONFIG.game.maxCluesPerProfile,
+          GAME_CONFIG.game.maxCluesPerProfile
+        );
         expect(points).toBe(1);
       });
     });
@@ -144,7 +147,7 @@ describe('ScoringService', () => {
     describe('happy path', () => {
       it('should return 20 with default totalClues', () => {
         const max = getMaximumPoints();
-        expect(max).toBe(DEFAULT_CLUES_PER_PROFILE);
+        expect(max).toBe(GAME_CONFIG.game.maxCluesPerProfile);
       });
 
       it('should return totalClues value', () => {
@@ -165,7 +168,7 @@ describe('ScoringService', () => {
     describe('consistency with scoring formula', () => {
       it('should equal points awarded for first clue', () => {
         const max = getMaximumPoints();
-        const firstCluePoints = calculatePoints(1, DEFAULT_CLUES_PER_PROFILE);
+        const firstCluePoints = calculatePoints(1, GAME_CONFIG.game.maxCluesPerProfile);
         expect(max).toBe(firstCluePoints);
       });
 
@@ -193,7 +196,7 @@ describe('ScoringService', () => {
     describe('consistency with scoring formula', () => {
       it('should equal points awarded for last clue', () => {
         const min = getMinimumPoints();
-        const lastCluePoints = calculatePoints(DEFAULT_CLUES_PER_PROFILE);
+        const lastCluePoints = calculatePoints(GAME_CONFIG.game.maxCluesPerProfile);
         expect(min).toBe(lastCluePoints);
       });
 
@@ -221,7 +224,7 @@ describe('ScoringService', () => {
       });
 
       it('should return true when all clues are read', () => {
-        expect(canAwardPoints(DEFAULT_CLUES_PER_PROFILE)).toBe(true);
+        expect(canAwardPoints(GAME_CONFIG.game.maxCluesPerProfile)).toBe(true);
       });
 
       it('should return true with custom totalClues', () => {
@@ -269,7 +272,7 @@ describe('ScoringService', () => {
 
     describe('consistency checks', () => {
       it('should return true for all values that calculatePoints accepts', () => {
-        for (let i = 1; i <= DEFAULT_CLUES_PER_PROFILE; i++) {
+        for (let i = 1; i <= GAME_CONFIG.game.maxCluesPerProfile; i++) {
           expect(canAwardPoints(i)).toBe(true);
         }
       });
@@ -295,7 +298,7 @@ describe('ScoringService', () => {
       });
 
       it('should return true for maximum points with default totalClues', () => {
-        expect(isValidPointValue(DEFAULT_CLUES_PER_PROFILE)).toBe(true);
+        expect(isValidPointValue(GAME_CONFIG.game.maxCluesPerProfile)).toBe(true);
       });
 
       it('should return true for points between min and max', () => {
@@ -305,7 +308,7 @@ describe('ScoringService', () => {
       });
 
       it('should return true for all achievable points with default', () => {
-        for (let i = 1; i <= DEFAULT_CLUES_PER_PROFILE; i++) {
+        for (let i = 1; i <= GAME_CONFIG.game.maxCluesPerProfile; i++) {
           expect(isValidPointValue(i)).toBe(true);
         }
       });
@@ -349,7 +352,7 @@ describe('ScoringService', () => {
 
       it('should return false for points exceeding maximum', () => {
         expect(isValidPointValue(6, 5)).toBe(false);
-        expect(isValidPointValue(21, DEFAULT_CLUES_PER_PROFILE)).toBe(false);
+        expect(isValidPointValue(21, GAME_CONFIG.game.maxCluesPerProfile)).toBe(false);
       });
 
       it('should return false for very large points', () => {
@@ -421,7 +424,7 @@ describe('ScoringService', () => {
       });
 
       it('should never award zero or negative points', () => {
-        const total = DEFAULT_CLUES_PER_PROFILE;
+        const total = GAME_CONFIG.game.maxCluesPerProfile;
         for (let cluesRead = 1; cluesRead <= total; cluesRead++) {
           const points = calculatePoints(cluesRead, total);
           expect(points).toBeGreaterThan(0);

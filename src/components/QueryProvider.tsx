@@ -1,14 +1,16 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
+import { GAME_CONFIG } from '@/config/gameConfig';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 10, // 10 minutes - data stays fresh longer
-      gcTime: 1000 * 60 * 60, // 60 minutes - keep data in cache longer for back/forward navigation
+      staleTime: GAME_CONFIG.cache.staleTime,
+      gcTime: GAME_CONFIG.cache.gcTime,
       refetchOnWindowFocus: false,
-      retry: 2, // Retry failed requests twice
-      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
+      retry: GAME_CONFIG.query.retryAttempts,
+      retryDelay: (attemptIndex) =>
+        Math.min(1000 * 2 ** attemptIndex, GAME_CONFIG.query.maxBackoffCap),
     },
   },
 });

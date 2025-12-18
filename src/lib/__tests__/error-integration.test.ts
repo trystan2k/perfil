@@ -11,7 +11,7 @@ import {
   type TelemetryProvider,
 } from '../../services/ErrorService';
 import { cancelPendingPersistence, useGameStore } from '../../stores/gameStore';
-import { DEFAULT_CLUES_PER_PROFILE } from '../constants';
+import { GAME_CONFIG } from '../../config/gameConfig';
 import {
   AppError,
   ErrorSeverity,
@@ -45,7 +45,7 @@ const resetGameStore = () => {
     players: [],
     currentTurn: null,
     remainingProfiles: [],
-    totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+    totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
     status: 'pending',
     category: undefined,
     profiles: [],

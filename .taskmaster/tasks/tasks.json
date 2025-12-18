@@ -4700,14 +4700,72 @@
         "id": "78",
         "title": "Extract Magic Numbers to Central Configuration",
         "description": "TS-007: Move hardcoded numeric constants (debounceMs, maxCluesPerProfile, maxPlayers, animation durations) into a typed GAME_CONFIG central module.",
-        "details": "Create src/config/gameConfig.ts with GAME_CONFIG as const and update usages across codebase. Ensure tests and docs reference config values.",
-        "testStrategy": "Run tests to ensure values used consistently, update test fixtures to use config, and integrate with documentation.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "75"
         ],
         "priority": "low",
-        "subtasks": []
+        "details": "Create src/config/gameConfig.ts with GAME_CONFIG as const and update usages across codebase. Ensure tests and docs reference config values.",
+        "testStrategy": "Run tests to ensure values used consistently, update test fixtures to use config, and integrate with documentation.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create GAME_CONFIG module with typed constants",
+            "description": "Add a new src/config/gameConfig.ts exporting a typed GAME_CONFIG const containing debounceMs, maxCluesPerProfile, maxPlayers, animation durations and any other numeric constants found.",
+            "dependencies": [],
+            "details": "Define an exported type for GAME_CONFIG, set sensible default values matching current behavior, add JSDoc comments and export both GAME_CONFIG and a getGameConfig() helper. Add unit test verifying exported values.",
+            "status": "pending",
+            "testStrategy": "Unit test to verify types and values are exported and used by other modules.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Identify and catalog magic numbers across the codebase",
+            "description": "Search the repository for hardcoded numeric literals used for game behavior (debounceMs, maxCluesPerProfile, maxPlayers, animation durations, timeouts) and produce a list with file locations and suggested config keys.",
+            "dependencies": [],
+            "details": "Create a spreadsheet or markdown file listing each occurrence, the suggested GAME_CONFIG key, and notes about intended semantics. Prioritize high-impact occurrences.",
+            "status": "pending",
+            "testStrategy": "None (documentation artifact).",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Replace magic number usages with GAME_CONFIG references",
+            "description": "For each identified occurrence, replace the hardcoded literal with an import from src/config/gameConfig.ts and reference GAME_CONFIG.<key>. Ensure no behavioral change.",
+            "dependencies": [
+              2
+            ],
+            "details": "Update modules incrementally, run tests after each batch, and ensure code compiles. For UI animation durations, prefer using the config value in style/animation utilities.",
+            "status": "pending",
+            "testStrategy": "Run unit tests and typecheck after each change.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Update all tests and fixtures to use GAME_CONFIG values",
+            "description": "Replace hardcoded numeric values in tests and fixtures with references to GAME_CONFIG or mocked config values so tests remain robust to config changes.",
+            "dependencies": [
+              3
+            ],
+            "details": "Update test helpers and fixtures; for tests that assert behavior dependent on timeouts, consider using jest fake timers or shorten timeouts via a TEST_GAME_CONFIG override.",
+            "status": "pending",
+            "testStrategy": "Run test suite and update failing tests to use config values or mocks.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Verify tests pass and update documentation",
+            "description": "Run the full test suite and E2E checks, update docs (README or relevant docs) to reference the new GAME_CONFIG module and its keys. Add a short migration note.",
+            "dependencies": [
+              4
+            ],
+            "details": "Ensure pnpm run complete-check passes. Update docs/PROFILE_LOADING_QUICK_REFERENCE.md or other affected docs to mention config.",
+            "status": "pending",
+            "testStrategy": "Full CI checks (pnpm run complete-check) and manual verification of key flows.",
+            "parentId": "undefined"
+          }
+        ],
+        "updatedAt": "2025-12-18T19:20:25.976Z"
       },
       {
         "id": "79",
@@ -5807,9 +5865,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-18T15:23:03.146Z",
+      "lastModified": "2025-12-18T19:20:25.978Z",
       "taskCount": 99,
-      "completedCount": 72,
+      "completedCount": 73,
       "tags": [
         "master"
       ]

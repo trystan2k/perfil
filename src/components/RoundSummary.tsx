@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { useReducedMotionContext } from './ReducedMotionProvider';
 import { useTranslate } from './TranslateProvider';
 
@@ -49,7 +50,11 @@ export function RoundSummary({
             className="p-4 rounded-lg bg-primary/10 border border-primary/20"
             initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, ease: 'easeOut' }}
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : { duration: GAME_CONFIG.animation.medium, ease: 'easeOut' }
+            }
           >
             <p className="text-sm font-medium text-muted-foreground mb-1">
               {t('gamePlay.roundSummary.correctAnswer')}
@@ -65,7 +70,7 @@ export function RoundSummary({
             transition={
               prefersReducedMotion
                 ? { duration: 0 }
-                : { duration: 0.5, delay: 0.2, ease: 'easeOut' }
+                : { duration: GAME_CONFIG.animation.slow, delay: 0.2, ease: 'easeOut' }
             }
           >
             {winnerName ? (
@@ -87,7 +92,9 @@ export function RoundSummary({
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={
-            prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: 0.3, ease: 'easeOut' }
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { duration: GAME_CONFIG.animation.medium, delay: 0.3, ease: 'easeOut' }
           }
         >
           <DialogFooter>

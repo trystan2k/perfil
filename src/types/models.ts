@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 
 // Zod Schemas
 export const playerSchema = z.object({
@@ -27,8 +27,8 @@ export const profileSchema = z.object({
   clues: z
     .array(z.string().min(1, 'Clue cannot be empty'))
     .length(
-      DEFAULT_CLUES_PER_PROFILE,
-      `Profile must have exactly ${DEFAULT_CLUES_PER_PROFILE} clues`
+      GAME_CONFIG.game.maxCluesPerProfile,
+      `Profile must have exactly ${GAME_CONFIG.game.maxCluesPerProfile} clues`
     ),
   metadata: profileMetadataSchema,
 });

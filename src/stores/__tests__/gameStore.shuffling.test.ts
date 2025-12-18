@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
-import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import { GAME_CONFIG } from '../../config/gameConfig';
 import type { Manifest } from '../../lib/manifest';
 import { fetchManifest } from '../../lib/manifest';
 import { selectProfileIdsByManifest } from '../../lib/manifestProfileSelection';
@@ -154,7 +154,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
       expect(shuffle).toBeDefined();
       expect(Array.isArray(shuffle)).toBe(true);
-      expect(shuffle).toHaveLength(DEFAULT_CLUES_PER_PROFILE);
+      expect(shuffle).toHaveLength(GAME_CONFIG.game.maxCluesPerProfile);
     });
 
     it('should create shuffle with valid indices (0 to length-1)', async () => {
@@ -169,13 +169,13 @@ describe('gameStore - Clue Shuffle Integration', () => {
       if (shuffle) {
         for (const index of shuffle) {
           expect(index).toBeGreaterThanOrEqual(0);
-          expect(index).toBeLessThan(DEFAULT_CLUES_PER_PROFILE);
+          expect(index).toBeLessThan(GAME_CONFIG.game.maxCluesPerProfile);
         }
       }
 
       // All indices should be unique
       const uniqueIndices = new Set(shuffle);
-      expect(uniqueIndices.size).toBe(DEFAULT_CLUES_PER_PROFILE);
+      expect(uniqueIndices.size).toBe(GAME_CONFIG.game.maxCluesPerProfile);
     });
 
     it('should typically produce different shuffle than sequential order', async () => {
@@ -193,7 +193,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
         const shuffle = state.clueShuffleMap.get(firstProfileId);
 
         const sequential = generateClues([
-          ...Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => String(i)),
+          ...Array.from({ length: GAME_CONFIG.game.maxCluesPerProfile }, (_, i) => String(i)),
         ]);
         if (shuffle?.join(',') !== sequential.join(',')) {
           differenceFound = true;
@@ -338,8 +338,8 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
       await useGameStore.getState().startGame(['movies'], 1, 'en');
 
-      // Wait for debounced save to complete
-      await new Promise((resolve) => setTimeout(resolve, 350));
+      // Wait for debounced save to complete (debounce + buffer)
+      await new Promise((resolve) => setTimeout(resolve, GAME_CONFIG.debounce.stateSave + 50));
 
       // saveGameSession should have been called with clueShuffleMap in the state
       expect(saveGameSession).toHaveBeenCalled();
@@ -366,7 +366,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
       await useGameStore.getState().startGame(['movies'], 1, 'en');
 
-      await new Promise((resolve) => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, GAME_CONFIG.debounce.stateSave + 50));
 
       const calls = vi.mocked(saveGameSession).mock.calls;
       const callArgs = calls[calls.length - 1][0];
@@ -396,7 +396,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
       useGameStore.getState().nextClue();
       await useGameStore.getState().awardPoints(useGameStore.getState().players[0].id);
 
-      await new Promise((resolve) => setTimeout(resolve, 350));
+      await new Promise((resolve) => setTimeout(resolve, GAME_CONFIG.debounce.stateSave + 50));
 
       const latestCall = vi.mocked(saveGameSession).mock.calls.pop();
       const serialized = latestCall?.[0].clueShuffleMap;
@@ -416,7 +416,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
         players: [{ id: 'p1', name: 'Alice', score: 10 }],
         currentTurn: { profileId: '1', cluesRead: 0, revealed: false },
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'active' as const,
         category: 'Movies',
         profiles: defaultMockProfiles,
@@ -460,7 +460,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
         players: [{ id: 'p1', name: 'Alice', score: 20 }],
         currentTurn: { profileId: '2', cluesRead: 0, revealed: false },
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'active' as const,
         category: 'Sports',
         profiles: defaultMockProfiles,
@@ -507,7 +507,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
         players: [{ id: 'p1', name: 'Alice', score: 10 }],
         currentTurn: { profileId: '1', cluesRead: 0, revealed: false },
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'active' as const,
         category: 'Movies',
         profiles: defaultMockProfiles,
@@ -682,12 +682,15 @@ describe('gameStore - Clue Shuffle Integration', () => {
       expect(game1Shuffle?.join(',') !== game2Shuffle?.join(',')).toBe(true);
     });
 
-    it('should handle profile with exactly DEFAULT_CLUES_PER_PROFILE clues', async () => {
+    it('should handle profile with exactly GAME_CONFIG.game.maxCluesPerProfile clues', async () => {
       const profile: Profile = {
         id: 'exact',
         category: 'Test',
         name: 'Exact Size',
-        clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1}`),
+        clues: Array.from(
+          { length: GAME_CONFIG.game.maxCluesPerProfile },
+          (_, i) => `Clue ${i + 1}`
+        ),
         metadata: { difficulty: 'medium' },
       };
 
@@ -697,7 +700,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
       const state = useGameStore.getState();
       const shuffle = state.clueShuffleMap.get('exact');
 
-      expect(shuffle).toHaveLength(DEFAULT_CLUES_PER_PROFILE);
+      expect(shuffle).toHaveLength(GAME_CONFIG.game.maxCluesPerProfile);
     });
   });
 
@@ -725,7 +728,7 @@ describe('gameStore - Clue Shuffle Integration', () => {
 
       for (const [_profileId, shuffle] of state.clueShuffleMap.entries()) {
         const sorted = shuffle.slice().sort((a, b) => a - b);
-        const expected = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => i);
+        const expected = Array.from({ length: GAME_CONFIG.game.maxCluesPerProfile }, (_, i) => i);
 
         expect(sorted).toEqual(expected);
       }

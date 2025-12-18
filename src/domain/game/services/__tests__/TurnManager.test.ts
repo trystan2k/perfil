@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { createTurn, advanceClue as advanceClueInTurn } from '@/domain/game/entities/Turn';
 import type { Profile } from '@/types/models';
 import {
@@ -113,11 +113,11 @@ describe('TurnManager', () => {
 
     describe('error conditions', () => {
       it('should throw error when advancing beyond maximum clues', () => {
-        const profile = createMockProfile('profile-1', DEFAULT_CLUES_PER_PROFILE);
+        const profile = createMockProfile('profile-1', GAME_CONFIG.game.maxCluesPerProfile);
         let turn = createTurn('profile-1');
 
         // Advance to max (20 clues)
-        for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+        for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
           turn = advanceClueInTurn(turn);
         }
 
@@ -125,11 +125,11 @@ describe('TurnManager', () => {
       });
 
       it('should provide meaningful error when at max capacity', () => {
-        const profile = createMockProfile('profile-1', DEFAULT_CLUES_PER_PROFILE);
+        const profile = createMockProfile('profile-1', GAME_CONFIG.game.maxCluesPerProfile);
         let turn = createTurn('profile-1');
 
         // Advance to max
-        for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+        for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
           turn = advanceClueInTurn(turn);
         }
 

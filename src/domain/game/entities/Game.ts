@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../../../lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { GameStatus as GameStatusConstants, GameStatusSchema } from '../value-objects/GameStatus';
 import { type Player, PlayerSchema } from './Player';
 import { type Turn, TurnSchema } from './Turn';
@@ -11,8 +11,14 @@ export const GameSchema = z.object({
   id: z.string().min(1, 'Game ID cannot be empty'),
   players: z
     .array(PlayerSchema)
-    .min(MIN_PLAYERS, `Game requires at least ${MIN_PLAYERS} players`)
-    .max(MAX_PLAYERS, `Game supports a maximum of ${MAX_PLAYERS} players`),
+    .min(
+      GAME_CONFIG.game.minPlayers,
+      `Game requires at least ${GAME_CONFIG.game.minPlayers} players`
+    )
+    .max(
+      GAME_CONFIG.game.maxPlayers,
+      `Game supports a maximum of ${GAME_CONFIG.game.maxPlayers} players`
+    ),
   currentTurn: TurnSchema.nullable(),
   remainingProfiles: z.array(z.string()),
   totalCluesPerProfile: z.number().positive(),
@@ -32,7 +38,7 @@ export function createGame(players: Player[]): Game {
     players,
     currentTurn: null,
     remainingProfiles: [],
-    totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+    totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
     status: GameStatusConstants.pending,
   });
 }

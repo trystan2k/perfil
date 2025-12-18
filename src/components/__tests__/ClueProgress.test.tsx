@@ -1,13 +1,17 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { customRender } from '../../__mocks__/test-utils';
-import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import { GAME_CONFIG } from '../../config/gameConfig';
 import { ClueProgress } from '../ClueProgress';
 
 describe('ClueProgress', () => {
   it('should render points remaining correctly', () => {
     customRender(
-      <ClueProgress cluesRevealed={3} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={18} />
+      <ClueProgress
+        cluesRevealed={3}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
+        pointsRemaining={18}
+      />
     );
 
     expect(screen.getByText('18 points remaining')).toBeInTheDocument();
@@ -15,16 +19,24 @@ describe('ClueProgress', () => {
 
   it('should render correct number of clue dots', () => {
     const { container } = customRender(
-      <ClueProgress cluesRevealed={5} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={16} />
+      <ClueProgress
+        cluesRevealed={5}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
+        pointsRemaining={16}
+      />
     );
 
     const dots = container.querySelectorAll('[aria-hidden="true"]');
-    expect(dots).toHaveLength(DEFAULT_CLUES_PER_PROFILE);
+    expect(dots).toHaveLength(GAME_CONFIG.game.maxCluesPerProfile);
   });
 
   it('should highlight revealed clues correctly', () => {
     const { container } = customRender(
-      <ClueProgress cluesRevealed={5} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={16} />
+      <ClueProgress
+        cluesRevealed={5}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
+        pointsRemaining={16}
+      />
     );
 
     const dots = container.querySelectorAll('[aria-hidden="true"]');
@@ -36,7 +48,7 @@ describe('ClueProgress', () => {
     }
 
     // Remaining 15 dots should be muted
-    for (let i = 5; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+    for (let i = 5; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
       expect(dots[i]).toHaveClass('bg-muted');
       expect(dots[i]).not.toHaveClass('bg-primary');
     }
@@ -46,7 +58,7 @@ describe('ClueProgress', () => {
     customRender(
       <ClueProgress
         cluesRevealed={10}
-        totalClues={DEFAULT_CLUES_PER_PROFILE}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
         pointsRemaining={11}
       />
     );
@@ -54,25 +66,32 @@ describe('ClueProgress', () => {
     const progressBar = screen.getByRole('progressbar');
     expect(progressBar).toHaveAttribute(
       'aria-label',
-      `Clue progress: 10 of ${DEFAULT_CLUES_PER_PROFILE} clues revealed`
+      `Clue progress: 10 of ${GAME_CONFIG.game.maxCluesPerProfile} clues revealed`
     );
     expect(progressBar).toHaveAttribute('aria-valuenow', '10');
     expect(progressBar).toHaveAttribute('aria-valuemin', '0');
-    expect(progressBar).toHaveAttribute('aria-valuemax', String(DEFAULT_CLUES_PER_PROFILE));
+    expect(progressBar).toHaveAttribute(
+      'aria-valuemax',
+      String(GAME_CONFIG.game.maxCluesPerProfile)
+    );
   });
 
   it('should handle no clues revealed', () => {
     const { container } = customRender(
-      <ClueProgress cluesRevealed={0} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={20} />
+      <ClueProgress
+        cluesRevealed={0}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
+        pointsRemaining={20}
+      />
     );
 
     expect(screen.getByText('20 points remaining')).toBeInTheDocument();
 
     const dots = container.querySelectorAll('[aria-hidden="true"]');
-    expect(dots).toHaveLength(DEFAULT_CLUES_PER_PROFILE);
+    expect(dots).toHaveLength(GAME_CONFIG.game.maxCluesPerProfile);
 
     // All dots should be muted
-    for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+    for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
       expect(dots[i]).toHaveClass('bg-muted');
       expect(dots[i]).not.toHaveClass('bg-primary');
     }
@@ -80,7 +99,11 @@ describe('ClueProgress', () => {
 
   it('should handle all clues revealed', () => {
     const { container } = customRender(
-      <ClueProgress cluesRevealed={20} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={1} />
+      <ClueProgress
+        cluesRevealed={20}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
+        pointsRemaining={1}
+      />
     );
 
     expect(screen.getByText('1 point remaining')).toBeInTheDocument();
@@ -88,7 +111,7 @@ describe('ClueProgress', () => {
     const dots = container.querySelectorAll('[aria-hidden="true"]');
 
     // All dots should be highlighted
-    for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+    for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
       expect(dots[i]).toHaveClass('bg-primary');
       expect(dots[i]).not.toHaveClass('bg-muted');
     }
@@ -96,7 +119,11 @@ describe('ClueProgress', () => {
 
   it('should handle first clue revealed', () => {
     const { container } = customRender(
-      <ClueProgress cluesRevealed={1} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={20} />
+      <ClueProgress
+        cluesRevealed={1}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
+        pointsRemaining={20}
+      />
     );
 
     expect(screen.getByText('20 points remaining')).toBeInTheDocument();
@@ -107,7 +134,7 @@ describe('ClueProgress', () => {
     expect(dots[0]).toHaveClass('bg-primary');
 
     // Remaining dots should be muted
-    for (let i = 1; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+    for (let i = 1; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
       expect(dots[i]).toHaveClass('bg-muted');
       expect(dots[i]).not.toHaveClass('bg-primary');
     }
@@ -115,7 +142,11 @@ describe('ClueProgress', () => {
 
   it('should update when clues are revealed dynamically', () => {
     const { container, rerender } = customRender(
-      <ClueProgress cluesRevealed={5} totalClues={DEFAULT_CLUES_PER_PROFILE} pointsRemaining={16} />
+      <ClueProgress
+        cluesRevealed={5}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
+        pointsRemaining={16}
+      />
     );
 
     let dots = container.querySelectorAll('[aria-hidden="true"]');
@@ -125,7 +156,7 @@ describe('ClueProgress', () => {
     rerender(
       <ClueProgress
         cluesRevealed={10}
-        totalClues={DEFAULT_CLUES_PER_PROFILE}
+        totalClues={GAME_CONFIG.game.maxCluesPerProfile}
         pointsRemaining={11}
       />
     );
