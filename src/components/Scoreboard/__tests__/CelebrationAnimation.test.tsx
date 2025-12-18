@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { GAME_CONFIG } from '../../../config/gameConfig';
 import { customRender } from '../../../__mocks__/test-utils';
+import { GAME_CONFIG } from '../../../config/gameConfig';
 import { CelebrationAnimation } from '../CelebrationAnimation';
 
 describe('CelebrationAnimation', () => {
@@ -437,7 +437,7 @@ describe('CelebrationAnimation', () => {
 
       customRender(<CelebrationAnimation trigger={true} />);
 
-      vi.advanceTimersByTime(6000);
+      vi.advanceTimersByTime(GAME_CONFIG.effects.celebrationTimeout + 1000);
 
       expect(true).toBe(true);
 
