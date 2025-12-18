@@ -1,4 +1,5 @@
 import { queryClient } from '../components/QueryProvider';
+import { GAME_CONFIG } from '../config/gameConfig';
 import type { Profile, ProfilesData } from '../types/models';
 import { profilesDataSchema } from '../types/models';
 import { fetchProfileDataFile } from './profileDataQuery';
@@ -59,8 +60,8 @@ export async function fetchManifest(): Promise<Manifest> {
 
       return response.json() as Promise<Manifest>;
     },
-    staleTime: 1000 * 60 * 60 * 6, // 6 hours - manifest is static
-    gcTime: 1000 * 60 * 60 * 24, // Keep in cache for 24 hours
+    staleTime: GAME_CONFIG.cacheHeaders.manifestStaleTime * 1000, // Convert seconds to milliseconds
+    gcTime: GAME_CONFIG.cacheHeaders.manifestGcTime * 1000, // Convert seconds to milliseconds
   });
 }
 

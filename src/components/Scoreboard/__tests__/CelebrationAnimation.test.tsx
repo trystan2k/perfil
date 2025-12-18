@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { customRender } from '../../../__mocks__/test-utils';
+import { GAME_CONFIG } from '../../../config/gameConfig';
 import { CelebrationAnimation } from '../CelebrationAnimation';
 
 describe('CelebrationAnimation', () => {
@@ -98,13 +99,13 @@ describe('CelebrationAnimation', () => {
       }
     });
 
-    it('should create 50 confetti pieces when triggered', () => {
+    it('should create confetti pieces when triggered', () => {
       const { container } = customRender(<CelebrationAnimation trigger={true} />);
 
       const celebContainer = container.querySelector('[id="celebration-container"]');
       if (celebContainer && celebContainer.children.length > 0) {
         const wrapper = celebContainer.children[0];
-        expect(wrapper.children.length).toBe(50);
+        expect(wrapper.children.length).toBe(GAME_CONFIG.effects.confettiPieceCount);
       }
     });
 
@@ -239,7 +240,7 @@ describe('CelebrationAnimation', () => {
 
       customRender(<CelebrationAnimation trigger={true} onComplete={onComplete} />);
 
-      vi.advanceTimersByTime(6000);
+      vi.advanceTimersByTime(GAME_CONFIG.effects.celebrationTimeout + 1000);
 
       expect(onComplete).toHaveBeenCalled();
 
@@ -271,7 +272,7 @@ describe('CelebrationAnimation', () => {
 
       rerender(<CelebrationAnimation trigger={true} onComplete={onComplete} />);
 
-      vi.advanceTimersByTime(6000);
+      vi.advanceTimersByTime(GAME_CONFIG.effects.celebrationTimeout + 1000);
 
       expect(onComplete).toHaveBeenCalled();
 
@@ -289,7 +290,7 @@ describe('CelebrationAnimation', () => {
 
       rerender(<CelebrationAnimation trigger={true} onComplete={onComplete2} />);
 
-      vi.advanceTimersByTime(6000);
+      vi.advanceTimersByTime(GAME_CONFIG.effects.celebrationTimeout + 1000);
 
       expect(onComplete2).toHaveBeenCalled();
       expect(onComplete1).not.toHaveBeenCalled();
@@ -403,7 +404,7 @@ describe('CelebrationAnimation', () => {
 
       rerender(<CelebrationAnimation trigger={true} onComplete={onComplete} />);
 
-      vi.advanceTimersByTime(6000);
+      vi.advanceTimersByTime(GAME_CONFIG.effects.celebrationTimeout + 1000);
 
       expect(onComplete).toHaveBeenCalled();
 
@@ -436,7 +437,7 @@ describe('CelebrationAnimation', () => {
 
       customRender(<CelebrationAnimation trigger={true} />);
 
-      vi.advanceTimersByTime(6000);
+      vi.advanceTimersByTime(GAME_CONFIG.effects.celebrationTimeout + 1000);
 
       expect(true).toBe(true);
 

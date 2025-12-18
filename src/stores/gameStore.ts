@@ -19,7 +19,7 @@ import {
   type GameStatus,
   GameStatus as GameStatusConstants,
 } from '../domain/game/value-objects/GameStatus';
-import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '../lib/constants';
+import { GAME_CONFIG } from '../config/gameConfig';
 import {
   deserializeClueShuffleMap,
   generateClueShuffleIndices,
@@ -97,7 +97,7 @@ const initialState: Omit<
   players: [],
   currentTurn: null,
   remainingProfiles: [],
-  totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+  totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
   status: GameStatusConstants.pending,
   category: undefined,
   profiles: [],
@@ -116,7 +116,7 @@ const initialState: Omit<
 // Initialize persistence service with IndexedDB repository
 const persistenceService = new GamePersistenceService(
   new IndexedDBGameSessionRepository(),
-  300 // 300ms debounce delay
+  GAME_CONFIG.debounce.stateSave // Debounce delay from GAME_CONFIG
 );
 
 /**
@@ -282,11 +282,11 @@ export const useGameStore = create<GameState>()(
       ...initialState,
       createGame: async (playerNames: string[]) => {
         // Validate player count limits
-        if (playerNames.length > MAX_PLAYERS) {
-          throw new Error(`Game supports a maximum of ${MAX_PLAYERS} players`);
+        if (playerNames.length > GAME_CONFIG.game.maxPlayers) {
+          throw new Error(`Game supports a maximum of ${GAME_CONFIG.game.maxPlayers} players`);
         }
-        if (playerNames.length < MIN_PLAYERS) {
-          throw new Error(`Game requires at least ${MIN_PLAYERS} players`);
+        if (playerNames.length < GAME_CONFIG.game.minPlayers) {
+          throw new Error(`Game requires at least ${GAME_CONFIG.game.minPlayers} players`);
         }
 
         const players: Player[] = playerNames.map((name, index) => ({
@@ -300,7 +300,7 @@ export const useGameStore = create<GameState>()(
           players,
           currentTurn: null,
           remainingProfiles: [],
-          totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+          totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
           status: GameStatusConstants.pending as GameStatus,
           category: undefined,
           profiles: [],
@@ -567,7 +567,7 @@ export const useGameStore = create<GameState>()(
             selectedProfiles: [],
             currentProfile: null,
             category: undefined,
-            totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+            totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
             totalProfilesCount: 0,
             currentRound: 0,
             numberOfRounds: 0,

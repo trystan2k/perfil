@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { GAME_CONFIG } from '../../config/gameConfig';
 import {
   generateConfettiPieceConfig,
   createConfettiPieceElement,
@@ -145,10 +146,10 @@ describe('Confetti Utilities', () => {
       expect(container.className).toBe('fixed inset-0 pointer-events-none');
     });
 
-    it('should create default 50 confetti pieces', () => {
+    it('should create default confetti pieces', () => {
       const container = createConfettiContainer();
 
-      expect(container.children.length).toBe(50);
+      expect(container.children.length).toBe(GAME_CONFIG.effects.confettiPieceCount);
     });
 
     it('should create custom number of confetti pieces', () => {
@@ -199,7 +200,7 @@ describe('Confetti Utilities', () => {
     });
 
     it('should generate varied confetti pieces', () => {
-      const container = createConfettiContainer({ count: 50 });
+      const container = createConfettiContainer({ count: GAME_CONFIG.effects.confettiPieceCount });
       const sizes = new Set<string>();
       const positions = new Set<string>();
 

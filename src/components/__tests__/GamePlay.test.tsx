@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import type { Manifest } from '@/lib/manifest';
 import { fetchManifest } from '@/lib/manifest';
 import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
@@ -281,7 +281,9 @@ describe('GamePlay Component', () => {
 
       customRender(<GamePlay />);
 
-      expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Clue 1 of ${GAME_CONFIG.game.maxCluesPerProfile}`)
+      ).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places: current clue + history)
       expect(screen.getAllByText('Clue 1 text... 1').length).toBeGreaterThan(0);
     });
@@ -300,7 +302,9 @@ describe('GamePlay Component', () => {
 
       const { rerender } = customRender(<GamePlay />);
 
-      expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Clue 1 of ${GAME_CONFIG.game.maxCluesPerProfile}`)
+      ).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places: current clue + history)
       expect(screen.getAllByText('Clue 1 text... 1').length).toBeGreaterThan(0);
 
@@ -309,7 +313,9 @@ describe('GamePlay Component', () => {
 
       rerender(<GamePlay />);
 
-      expect(screen.getByText(`Clue 2 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Clue 2 of ${GAME_CONFIG.game.maxCluesPerProfile}`)
+      ).toBeInTheDocument();
       // Check that the clue text exists (may appear in multiple places: current clue + history)
       expect(screen.getAllByText('Clue 1 text... 2').length).toBeGreaterThan(0);
     });
@@ -331,7 +337,9 @@ describe('GamePlay Component', () => {
 
       customRender(<GamePlay />);
 
-      expect(screen.getByText(`Clue 5 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Clue 5 of ${GAME_CONFIG.game.maxCluesPerProfile}`)
+      ).toBeInTheDocument();
       // Use getAllByText and check the first one in the main clue display area
       const clueElements = screen.getAllByText('Clue 1 text... 5');
       expect(clueElements.length).toBeGreaterThanOrEqual(1);
@@ -403,7 +411,9 @@ describe('GamePlay Component', () => {
 
       // Should be at clue 3
       expect(useGameStore.getState().currentTurn?.cluesRead).toBe(3);
-      expect(screen.getByText(`Clue 3 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Clue 3 of ${GAME_CONFIG.game.maxCluesPerProfile}`)
+      ).toBeInTheDocument();
     });
 
     it('should display "No Winner" button when max clues reached', async () => {
@@ -415,8 +425,8 @@ describe('GamePlay Component', () => {
         expect(useGameStore.getState().status).toBe('active');
       });
 
-      // Advance to max clues (DEFAULT_CLUES_PER_PROFILE)
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      // Advance to max clues (GAME_CONFIG.game.maxCluesPerProfile)
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         store.nextClue();
       }
 
@@ -440,8 +450,8 @@ describe('GamePlay Component', () => {
         expect(useGameStore.getState().status).toBe('active');
       });
 
-      // Advance to max clues (DEFAULT_CLUES_PER_PROFILE)
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      // Advance to max clues (GAME_CONFIG.game.maxCluesPerProfile)
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         store.nextClue();
       }
 
@@ -521,7 +531,7 @@ describe('GamePlay Component', () => {
         players: [],
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'pending',
         category: undefined,
       });
@@ -655,7 +665,7 @@ describe('GamePlay Component', () => {
                   currentRound: 1,
                   selectedCategories: ['Movies'],
                   remainingProfiles: [],
-                  totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+                  totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
                   status: 'active' as const,
                   category: 'Movies',
                   revealedClueHistory: [],
@@ -777,7 +787,7 @@ describe('GamePlay Component', () => {
         currentRound: 1,
         selectedCategories: ['Movies'],
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'active' as const,
         category: 'Sports',
         revealedClueHistory: [],
@@ -1571,7 +1581,9 @@ describe('GamePlay Component', () => {
       rerender(<GamePlay />);
 
       // Verify clue is shown
-      expect(screen.getByText(`Clue 1 of ${DEFAULT_CLUES_PER_PROFILE}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Clue 1 of ${GAME_CONFIG.game.maxCluesPerProfile}`)
+      ).toBeInTheDocument();
 
       // 4. MC taps Player A, verify score update
       let playerButton = screen.getAllByRole('button', { name: new RegExp(players[0].name) })[0];
@@ -1887,7 +1899,7 @@ describe('GamePlay Component', () => {
       await store.startGame(['Movies']);
 
       // Advance to max clues
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         store.nextClue();
       }
 

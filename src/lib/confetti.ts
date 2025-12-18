@@ -2,6 +2,8 @@
  * Confetti utilities for creating animated confetti pieces
  */
 
+import { GAME_CONFIG } from '@/config/gameConfig';
+
 interface ConfettiConfig {
   count?: number;
   colors?: string[];
@@ -16,7 +18,6 @@ interface ConfettiPieceConfig {
 }
 
 const DEFAULT_COLORS = ['#FCD34D', '#FBBF24', '#F59E0B', '#D97706', '#92400E'];
-const DEFAULT_CONFETTI_COUNT = 50;
 
 /**
  * Generates a random confetti piece configuration
@@ -54,7 +55,7 @@ export function createConfettiPieceElement(config: ConfettiPieceConfig): HTMLDiv
  * Creates a container with multiple confetti pieces
  */
 export function createConfettiContainer(config: ConfettiConfig = {}): HTMLDivElement {
-  const { count = DEFAULT_CONFETTI_COUNT, colors = DEFAULT_COLORS } = config;
+  const { count = GAME_CONFIG.effects.confettiPieceCount, colors = DEFAULT_COLORS } = config;
 
   const container = document.createElement('div');
   container.className = 'fixed inset-0 pointer-events-none';

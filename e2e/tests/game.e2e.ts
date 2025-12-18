@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { MAX_PLAYERS } from '../../src/lib/constants';
+import { GAME_CONFIG } from '../../src/config/gameConfig';
 
 test.describe('Full game flow', () => {
   test.beforeEach(async ({ page }) => {
@@ -312,17 +312,19 @@ test.describe('Full game flow', () => {
     expect(score).toBeGreaterThan(0);
   });
 
-  test(`full setup -> category -> gameplay -> scoreboard with ${MAX_PLAYERS} players and measure render`, async ({
+  test(`full setup -> category -> gameplay -> scoreboard with ${GAME_CONFIG.game.maxPlayers} players and measure render`, async ({
     page,
   }) => {
-    // Add MAX_PLAYERS players
-    for (let i = 1; i <= MAX_PLAYERS; i++) {
+    // Add GAME_CONFIG.game.maxPlayers players
+    for (let i = 1; i <= GAME_CONFIG.game.maxPlayers; i++) {
       await page.getByLabel('Player Name').fill(`Player ${i}`);
       await page.getByRole('button', { name: 'Add' }).click();
     }
 
-    // Sanity: ensure UI shows MAX_PLAYERS players in the list (game-setup shows count)
-    await expect(page.getByText(`Players (${MAX_PLAYERS}/${MAX_PLAYERS})`)).toBeVisible();
+    // Sanity: ensure UI shows GAME_CONFIG.game.maxPlayers players in the list (game-setup shows count)
+    await expect(
+      page.getByText(`Players (${GAME_CONFIG.game.maxPlayers}/${GAME_CONFIG.game.maxPlayers})`)
+    ).toBeVisible();
 
     // Start game
     await page.getByRole('button', { name: 'Start Game' }).click();
@@ -347,12 +349,12 @@ test.describe('Full game flow', () => {
 
     await expect(page.getByRole('heading', { name: 'Scoreboard' })).toBeVisible();
 
-    // Verify all MAX_PLAYERS players appear on the scoreboard using ScoreBars component
+    // Verify all GAME_CONFIG.game.maxPlayers players appear on the scoreboard using ScoreBars component
     const scoreBars = page.locator('[data-testid="score-bars"]');
     await expect(scoreBars).toBeVisible();
 
     // Verify each player appears as a player name element in the score bars
-    for (let i = 1; i <= MAX_PLAYERS; i++) {
+    for (let i = 1; i <= GAME_CONFIG.game.maxPlayers; i++) {
       // Get all player name elements and find the one with exact text match
       const playerNameElements = scoreBars.locator('[data-testid*="player-name-"]');
       const playerElement = playerNameElements.filter({ hasText: new RegExp(`^Player ${i}$`) });

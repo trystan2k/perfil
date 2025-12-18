@@ -3,7 +3,7 @@ import { type RenderOptions, render } from '@testing-library/react';
 import translations from '../../public/locales/en/translation.json';
 import { ReducedMotionProvider } from '../components/ReducedMotionProvider';
 import { TranslateProvider } from '../components/TranslateProvider';
-import { DEFAULT_CLUES_PER_PROFILE } from '../lib/constants';
+import { GAME_CONFIG } from '../config/gameConfig';
 
 const locale = 'en';
 
@@ -42,7 +42,7 @@ export const customRender = (
 };
 
 /**
- * Generates an array of clues with exactly DEFAULT_CLUES_PER_PROFILE (20) items.
+ * Generates an array of clues with exactly GAME_CONFIG.game.maxCluesPerProfile (20) items.
  *
  * @param customClues - Optional array of custom clues to include
  *   - If provided with < 20 items: fills remaining slots with generated clues
@@ -68,20 +68,20 @@ export function generateClues(customClues?: string[], label?: string): string[] 
   if (!customClues || customClues.length === 0) {
     // Generate default clues
     return Array.from(
-      { length: DEFAULT_CLUES_PER_PROFILE },
+      { length: GAME_CONFIG.game.maxCluesPerProfile },
       (_, i) => `${label || 'Clue'} ${i + 1}`
     );
   }
 
-  if (customClues.length >= DEFAULT_CLUES_PER_PROFILE) {
+  if (customClues.length >= GAME_CONFIG.game.maxCluesPerProfile) {
     // Trim to exact count if more than needed
-    return customClues.slice(0, DEFAULT_CLUES_PER_PROFILE);
+    return customClues.slice(0, GAME_CONFIG.game.maxCluesPerProfile);
   }
 
   // Fill remaining slots with generated clues
   const result = [...customClues];
   const customCount = customClues.length;
-  for (let i = customCount; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+  for (let i = customCount; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
     result.push(`Clue ${i + 1}`);
   }
   return result;

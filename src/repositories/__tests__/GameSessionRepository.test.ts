@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import * as gameSessionDB from '@/lib/gameSessionDB';
 import type { Profile } from '@/types/models';
 import {
@@ -43,7 +43,7 @@ describe('IndexedDBGameSessionRepository', () => {
       passedPlayerIds: [],
     },
     remainingProfiles: ['profile-2', 'profile-3'],
-    totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+    totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
     status: 'active' as const,
     category: 'Movies',
     profiles: [createMockProfile('profile-1')],

@@ -2,7 +2,7 @@ import { act, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { customRender } from '../../__mocks__/test-utils';
-import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
+import { GAME_CONFIG } from '../../config/gameConfig';
 import { GameError } from '../../lib/errors';
 import { useGameStore } from '../../stores/gameStore';
 import { ErrorStateProvider } from '../ErrorStateProvider';
@@ -39,7 +39,7 @@ describe('ErrorStateProvider', () => {
       players: [],
       currentTurn: null,
       remainingProfiles: [],
-      totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+      totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
       status: 'pending',
       category: undefined,
       profiles: [],

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { navigateWithLocale } from '@/i18n/locales';
-import { MAX_PLAYERS } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { useGameStore } from '@/stores/gameStore';
 import { useTranslate } from './TranslateProvider';
 
@@ -58,7 +58,7 @@ export function PlayersAdd() {
     }
 
     // Validate player limit
-    if (playerNames.length >= MAX_PLAYERS) {
+    if (playerNames.length >= GAME_CONFIG.game.maxPlayers) {
       return;
     }
 
@@ -119,7 +119,7 @@ export function PlayersAdd() {
                 />
                 <Button
                   onClick={handleAddPlayer}
-                  disabled={!playerName.trim() || playerNames.length >= MAX_PLAYERS}
+                  disabled={!playerName.trim() || playerNames.length >= GAME_CONFIG.game.maxPlayers}
                 >
                   {t('playersAdd.addButton')}
                 </Button>
@@ -130,7 +130,10 @@ export function PlayersAdd() {
             {playerNames.length > 0 && (
               <div className="space-y-2">
                 <Label>
-                  {t('playersAdd.playersLabel', { count: playerNames.length, max: MAX_PLAYERS })}
+                  {t('playersAdd.playersLabel', {
+                    count: playerNames.length,
+                    max: GAME_CONFIG.game.maxPlayers,
+                  })}
                 </Label>
                 <div className="space-y-2">
                   {playerNames.map((name, index) => (

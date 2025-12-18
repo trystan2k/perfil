@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { useReducedMotionContext } from './ReducedMotionProvider';
 import { useTranslate } from './TranslateProvider';
 
@@ -26,7 +27,11 @@ export function ClueProgress({ cluesRevealed, totalClues, pointsRemaining }: Clu
         className="text-center"
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: 'easeOut' }}
+        transition={
+          prefersReducedMotion
+            ? { duration: 0 }
+            : { duration: GAME_CONFIG.animation.normal, ease: 'easeOut' }
+        }
       >
         <p className="text-2xl font-bold text-primary">
           {t('gamePlay.clueProgress.pointsRemaining', { count: pointsRemaining })}
@@ -58,8 +63,8 @@ export function ClueProgress({ cluesRevealed, totalClues, pointsRemaining }: Clu
               prefersReducedMotion
                 ? { duration: 0 }
                 : {
-                    duration: 0.3,
-                    delay: index * 0.05,
+                    duration: GAME_CONFIG.animation.normal,
+                    delay: index * GAME_CONFIG.stagger.itemDelay,
                     ease: 'easeOut',
                   }
             }

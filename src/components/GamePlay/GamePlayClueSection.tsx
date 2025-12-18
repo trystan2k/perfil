@@ -3,6 +3,7 @@ import { ClueProgress } from '@/components/ClueProgress';
 import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { useReducedMotionContext } from '@/components/ReducedMotionProvider';
 
 interface GamePlayClueSectionProps {
@@ -71,7 +72,11 @@ export function GamePlayClueSection({
           key={`clue-container-${cluesRead}`}
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: 'easeOut' }}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { duration: GAME_CONFIG.animation.normal, ease: 'easeOut' }
+          }
         >
           {cluesRead > 0 ? (
             <div className="text-center">

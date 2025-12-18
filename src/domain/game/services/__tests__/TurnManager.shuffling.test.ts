@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
 import { createTurn } from '@/domain/game/entities/Turn';
-import { DEFAULT_CLUES_PER_PROFILE } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import type { Profile } from '@/types/models';
 import {
   advanceToNextClue,
@@ -13,7 +13,7 @@ import {
 /**
  * Helper to create a test profile with specified number of clues
  */
-function createTestProfile(clueCount: number = DEFAULT_CLUES_PER_PROFILE): Profile {
+function createTestProfile(clueCount: number = GAME_CONFIG.game.maxCluesPerProfile): Profile {
   return {
     id: 'test-profile',
     category: 'Test',
@@ -206,7 +206,7 @@ describe('TurnManager - Clue Shuffling', () => {
       let turn = createTurn(profile.id);
 
       // Read all clues
-      for (let i = 0; i < DEFAULT_CLUES_PER_PROFILE; i++) {
+      for (let i = 0; i < GAME_CONFIG.game.maxCluesPerProfile; i++) {
         turn = advanceToNextClue(turn, profile, shuffle).turn;
       }
 
@@ -300,15 +300,15 @@ describe('TurnManager - Clue Shuffling', () => {
     it('should handle requesting all clues', () => {
       const profile = createTestProfile();
       const turn = createTurn(profile.id);
-      turn.cluesRead = DEFAULT_CLUES_PER_PROFILE;
+      turn.cluesRead = GAME_CONFIG.game.maxCluesPerProfile;
       const shuffle = createSequentialShuffle(profile.clues.length);
 
       const clues = getRevealedClues(turn, profile, shuffle);
 
-      expect(clues).toHaveLength(DEFAULT_CLUES_PER_PROFILE);
+      expect(clues).toHaveLength(GAME_CONFIG.game.maxCluesPerProfile);
       // Should be in reverse order
       expect(clues[0]).toBe('Clue 20');
-      expect(clues[DEFAULT_CLUES_PER_PROFILE - 1]).toBe('Clue 1');
+      expect(clues[GAME_CONFIG.game.maxCluesPerProfile - 1]).toBe('Clue 1');
     });
 
     it('should work with single-clue profile and shuffle', () => {
@@ -332,7 +332,7 @@ describe('TurnManager - Clue Shuffling', () => {
   describe('getRevealedClueIndices with Shuffle', () => {
     it('should return empty array when no clues have been read', () => {
       const turn = createTurn('profile-1');
-      const shuffle = createSequentialShuffle(DEFAULT_CLUES_PER_PROFILE);
+      const shuffle = createSequentialShuffle(GAME_CONFIG.game.maxCluesPerProfile);
 
       const indices = getRevealedClueIndices(turn, shuffle);
 
@@ -342,7 +342,7 @@ describe('TurnManager - Clue Shuffling', () => {
     it('should return shuffled indices in reverse order', () => {
       const turn = createTurn('profile-1');
       turn.cluesRead = 3;
-      const shuffle = createSequentialShuffle(DEFAULT_CLUES_PER_PROFILE);
+      const shuffle = createSequentialShuffle(GAME_CONFIG.game.maxCluesPerProfile);
 
       const indices = getRevealedClueIndices(turn, shuffle);
 
@@ -353,7 +353,7 @@ describe('TurnManager - Clue Shuffling', () => {
     it('should return correct shuffled indices with reversed shuffle', () => {
       const turn = createTurn('profile-1');
       turn.cluesRead = 3;
-      const shuffle = createReversedShuffle(DEFAULT_CLUES_PER_PROFILE);
+      const shuffle = createReversedShuffle(GAME_CONFIG.game.maxCluesPerProfile);
 
       const indices = getRevealedClueIndices(turn, shuffle);
 
@@ -375,17 +375,17 @@ describe('TurnManager - Clue Shuffling', () => {
 
     it('should return all indices when all clues read', () => {
       const turn = createTurn('profile-1');
-      turn.cluesRead = DEFAULT_CLUES_PER_PROFILE;
-      const shuffle = createReversedShuffle(DEFAULT_CLUES_PER_PROFILE);
+      turn.cluesRead = GAME_CONFIG.game.maxCluesPerProfile;
+      const shuffle = createReversedShuffle(GAME_CONFIG.game.maxCluesPerProfile);
 
       const indices = getRevealedClueIndices(turn, shuffle);
 
-      expect(indices).toHaveLength(DEFAULT_CLUES_PER_PROFILE);
+      expect(indices).toHaveLength(GAME_CONFIG.game.maxCluesPerProfile);
       // All indices should be present in reverse of the reversed shuffle
       // Reversed shuffle means last position (20) maps to index 0
       // So reading all 20 should return indices 0-19 in reverse order
       expect(indices[0]).toBe(0); // Last position -> first index
-      expect(indices[DEFAULT_CLUES_PER_PROFILE - 1]).toBe(19); // First position -> last index
+      expect(indices[GAME_CONFIG.game.maxCluesPerProfile - 1]).toBe(19); // First position -> last index
     });
 
     it('should handle single-clue profile with shuffle', () => {

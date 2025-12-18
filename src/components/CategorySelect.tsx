@@ -3,6 +3,7 @@ import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { ProfileLoadingSkeleton } from '@/components/ProfileLoadingSkeleton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { useCategoriesFromManifest } from '@/hooks/useCategoriesFromManifest';
 import { navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
@@ -157,7 +158,8 @@ export function CategorySelect({ sessionId, locale }: CategorySelectProps) {
       setRoundsInputError(null);
     } else {
       const numValue = Number.parseInt(value, 10);
-      const maxAllowed = maxAvailableProfiles > 0 ? maxAvailableProfiles : 50;
+      const maxAllowed =
+        maxAvailableProfiles > 0 ? maxAvailableProfiles : GAME_CONFIG.game.defaultMaxProfiles;
       if (Number.isNaN(numValue) || numValue < 1 || numValue > maxAllowed) {
         setRoundsInputError(t('categorySelect.rounds.invalidInput'));
       } else {

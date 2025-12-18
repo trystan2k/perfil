@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Progress } from '@/components/ui/progress';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import { useReducedMotionContext } from './ReducedMotionProvider';
 import { useTranslate } from './TranslateProvider';
 
@@ -29,7 +30,7 @@ export function ProfileProgress({ currentProfileIndex, totalProfiles }: ProfileP
     let animationFrame: number;
     const startValue = displayPercentageRef.current;
     const endValue = Math.round(progressPercentage);
-    const duration = 600; // ms
+    const duration = GAME_CONFIG.animation.counterNumber * 1000; // Convert to ms
     const startTime = Date.now();
 
     const animate = () => {
@@ -66,7 +67,11 @@ export function ProfileProgress({ currentProfileIndex, totalProfiles }: ProfileP
           className="text-sm text-muted-foreground"
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2, ease: 'easeOut' }}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { duration: GAME_CONFIG.animation.fast, ease: 'easeOut' }
+          }
         >
           {displayPercentage}%
         </motion.p>

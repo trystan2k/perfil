@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_CLUES_PER_PROFILE, MAX_PLAYERS, MIN_PLAYERS } from '@/lib/constants';
+import { GAME_CONFIG } from '@/config/gameConfig';
 import {
   advanceProfileQueue,
   createGame,
@@ -25,7 +25,7 @@ describe('Game Entity', () => {
       expect(game.players).toEqual(players);
       expect(game.currentTurn).toBeNull();
       expect(game.remainingProfiles).toEqual([]);
-      expect(game.totalCluesPerProfile).toBe(DEFAULT_CLUES_PER_PROFILE);
+      expect(game.totalCluesPerProfile).toBe(GAME_CONFIG.game.maxCluesPerProfile);
       expect(game.status).toBe('pending');
     });
 
@@ -33,16 +33,16 @@ describe('Game Entity', () => {
       const players = createPlayers(['Alice', 'Bob']);
       const game = createGame(players);
 
-      expect(game.players).toHaveLength(MIN_PLAYERS);
+      expect(game.players).toHaveLength(GAME_CONFIG.game.minPlayers);
       expect(game.status).toBe('pending');
     });
 
     it('should create a game with maximum players', () => {
-      const names = Array.from({ length: MAX_PLAYERS }, (_, i) => `Player${i + 1}`);
+      const names = Array.from({ length: GAME_CONFIG.game.maxPlayers }, (_, i) => `Player${i + 1}`);
       const players = createPlayers(names);
       const game = createGame(players);
 
-      expect(game.players).toHaveLength(MAX_PLAYERS);
+      expect(game.players).toHaveLength(GAME_CONFIG.game.maxPlayers);
     });
 
     it('should generate unique game IDs', async () => {
@@ -60,7 +60,10 @@ describe('Game Entity', () => {
     });
 
     it('should throw when creating with too many players', () => {
-      const names = Array.from({ length: MAX_PLAYERS + 1 }, (_, i) => `Player${i + 1}`);
+      const names = Array.from(
+        { length: GAME_CONFIG.game.maxPlayers + 1 },
+        (_, i) => `Player${i + 1}`
+      );
       const players = createPlayers(names);
       expect(() => createGame(players)).toThrow();
     });
@@ -634,7 +637,7 @@ describe('Game Entity', () => {
         players,
         currentTurn: null,
         remainingProfiles: [],
-        totalCluesPerProfile: DEFAULT_CLUES_PER_PROFILE,
+        totalCluesPerProfile: GAME_CONFIG.game.maxCluesPerProfile,
         status: 'pending' as const,
       };
 

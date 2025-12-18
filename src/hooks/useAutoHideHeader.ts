@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { GAME_CONFIG } from '@/config/gameConfig';
 
 /**
  * useAutoHideHeader: Hook for auto-hide header on scroll
@@ -50,7 +51,11 @@ interface UseAutoHideHeaderReturn {
 }
 
 export function useAutoHideHeader(options: UseAutoHideHeaderOptions = {}): UseAutoHideHeaderReturn {
-  const { threshold = 50, enabled = true, debounceDelay = 150 } = options;
+  const {
+    threshold = GAME_CONFIG.ui.headerScrollThreshold,
+    enabled = true,
+    debounceDelay = GAME_CONFIG.debounce.headerAutoHide,
+  } = options;
 
   const [isVisible, setIsVisible] = useState(true);
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | 'none'>('none');
