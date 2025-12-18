@@ -1,9 +1,6 @@
 import { z } from 'zod';
 import { DEFAULT_CLUES_PER_PROFILE } from '../lib/constants';
 
-// Schema constants
-export const MAX_CLUES_PER_PROFILE = DEFAULT_CLUES_PER_PROFILE;
-
 // Zod Schemas
 export const playerSchema = z.object({
   id: z.string(),
@@ -29,7 +26,10 @@ export const profileSchema = z.object({
   name: z.string().min(1, 'Profile name cannot be empty'),
   clues: z
     .array(z.string().min(1, 'Clue cannot be empty'))
-    .length(MAX_CLUES_PER_PROFILE, `Profile must have exactly ${MAX_CLUES_PER_PROFILE} clues`),
+    .length(
+      DEFAULT_CLUES_PER_PROFILE,
+      `Profile must have exactly ${DEFAULT_CLUES_PER_PROFILE} clues`
+    ),
   metadata: profileMetadataSchema,
 });
 

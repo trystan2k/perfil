@@ -31,14 +31,15 @@ Single-layer consolidation (final implementation state):
 - Canonical Source: `src/types/models.ts` is now the ONLY source for schemas, types, constants, and helpers used by the codebase.
   - All Zod schemas (profileSchema, profileMetadataSchema, profilesDataSchema) live here.
   - All 7 helper functions are consolidated alongside the schemas in this file.
-  - Constants required for validation (including MAX_CLUES_PER_PROFILE derived from DEFAULT_CLUES_PER_PROFILE) are defined in this module for clarity and single-responsibility.
+  - Constants required for validation are defined in this module for clarity and single-responsibility.
 - Removal of legacy layer: `src/domain/game/entities/Profile.ts` was deleted entirely; there is no re-export or backward-compatibility layer — imports were migrated to the canonical module.
 - Migration: Updated all consumers and tests to import schemas, helpers, and constants from `src/types/models` directly. No runtime shims or aliasing remain.
 
 Rationale: a single canonical file reduces duplication and maintenance burden and makes the validation surface explicit and discoverable across the codebase.
 
 ## Files Changed
-- `src/types/models.ts` — Now the single canonical module. Includes enhanced canonical Zod schemas, all 7 helper functions, clearer validation messages, and the new exported constant `MAX_CLUES_PER_PROFILE` (derived from `DEFAULT_CLUES_PER_PROFILE`).
+
+- `src/types/models.ts` — Now the single canonical module. Includes enhanced canonical Zod schemas, all 7 helper functions, clearer validation messages.
 
 - `src/domain/game/entities/Profile.ts` — DELETED. Legacy compatibility re-export was removed as part of the migration.
 
@@ -61,7 +62,6 @@ Notes: The change set reflects a clean migration to a single canonical source an
 - Consolidation model: Single-layer consolidation (NOT two-layer). Duplication was removed cleanly by migrating definitions and helpers to `src/types/models.ts` and deleting legacy files.
 - No backward compatibility concerns remain: there is no compatibility re-export layer; all code now uses the canonical source directly.
 - Helpers: All 7 helper functions are consolidated in `src/types/models.ts` alongside the Zod schemas for locality and discoverability.
-- Constants: `MAX_CLUES_PER_PROFILE` was added to `src/types/models.ts` and derived from the existing `DEFAULT_CLUES_PER_PROFILE` to make validation limits explicit next to the schemas.
 - Imports: Updated across services and tests — TurnManager, ProfileSelectionService, and their tests now import directly from `src/types/models`.
 - Dependency graph: Verified no circular dependencies introduced by the consolidation.
 

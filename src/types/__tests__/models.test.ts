@@ -1,19 +1,19 @@
 import { describe, expect, it } from 'vitest';
 
 import { generateClues } from '@/__tests__/test-utils';
+import { DEFAULT_CLUES_PER_PROFILE } from '../../lib/constants';
 import {
+  type GameSession,
   gameSessionSchema,
-  MAX_CLUES_PER_PROFILE,
+  type Player,
+  type Profile,
+  type ProfilesData,
   playerSchema,
   profileMetadataSchema,
   profileSchema,
   profilesDataSchema,
-  turnStateSchema,
-  type GameSession,
-  type Player,
-  type Profile,
-  type ProfilesData,
   type TurnState,
+  turnStateSchema,
 } from '../models';
 
 describe('Player Schema', () => {
@@ -318,7 +318,7 @@ describe('Profile Schema', () => {
     });
 
     it('should validate profile with maximum clues', () => {
-      const clues = Array.from({ length: MAX_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1}`);
+      const clues = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) => `Clue ${i + 1}`);
       const profile = createValidProfile({ clues });
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(true);
@@ -461,7 +461,7 @@ describe('Profile Schema', () => {
 
     it('should reject profile with non-string clue items', () => {
       const profile = createValidProfile({
-        clues: Array.from({ length: MAX_CLUES_PER_PROFILE }, (_, i) =>
+        clues: Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) =>
           i === 5 ? (123 as unknown as string) : `Clue ${i + 1}`
         ),
       });
@@ -544,7 +544,7 @@ describe('Profile Schema', () => {
     });
 
     it('should reject profile with empty clue strings', () => {
-      const clues = Array.from({ length: MAX_CLUES_PER_PROFILE }, (_, i) =>
+      const clues = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) =>
         i === 5 ? '' : `Clue ${i + 1}`
       );
       const profile = createValidProfile({
@@ -574,7 +574,7 @@ describe('Profile Schema', () => {
 
     it('should validate profile with very long clue strings', () => {
       const longClue = 'C'.repeat(5000);
-      const clues = Array.from({ length: MAX_CLUES_PER_PROFILE }, (_, i) =>
+      const clues = Array.from({ length: DEFAULT_CLUES_PER_PROFILE }, (_, i) =>
         i === 0 ? longClue : `Clue ${i + 1}`
       );
       const profile = createValidProfile({
