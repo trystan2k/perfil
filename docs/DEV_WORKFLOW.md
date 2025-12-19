@@ -354,6 +354,8 @@ Based on your development guidelines, here are the **NO NO actions**:
 - **🚨 NEVER run multiple npm/pnpm scripts concurrently** - ALWAYS wait for scripts to finish before running other commands
 - **🚨 NEVER proceed with commit/push/PR without asking user first** - At EVERY gate (commit, push, PR), ALWAYS ask "Do you approve?" and WAIT for explicit response
 - Under **NO** circumstance commit code when there are issues from QA scripts (even warnings)  
+- Code that is not used should be deleted
+- **IMPORTANT**: The main branch will always be in a working state (all QA scripts pass), so if you do any change not matter in what part (code, document, etc) and a test fails or a lint error appears, **FIX IT**. **NEVER** say "I will fix it later" or "It has nothing to do with my changes". Also **NEVER** revert the change so test just pass, check why the test is failing and fix it, if the code change is ok (in case of doubt, ask me what to do).
 
 ---
 
