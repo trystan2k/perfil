@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import { GAME_CONFIG } from '../../config/gameConfig';
-import { ClueProgress } from '../ClueProgress';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { GAME_CONFIG } from '../../config/gameConfig.ts';
+import { ClueProgress } from '../ClueProgress.tsx';
 
 describe('ClueProgress', () => {
   it('should render points remaining correctly', () => {

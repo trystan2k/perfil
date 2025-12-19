@@ -28,7 +28,7 @@
  * @see docs/selector-audit-report.md for detailed analysis and rationale
  */
 
-export { useGamePlayState } from './useGamePlayState';
-export { useGamePlayActions } from './useGamePlayActions';
-export { useScoreboardState } from './useScoreboardState';
-export { useGameActions } from './useGameActions';
+export { useGamePlayState } from './useGamePlayState.ts';
+export { useGamePlayActions } from './useGamePlayActions.ts';
+export { useScoreboardState } from './useScoreboardState.ts';
+export { useGameActions } from './useGameActions.ts';

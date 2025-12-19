@@ -5,7 +5,7 @@ import {
   getOrCreateShuffleIndices,
   getShuffledClue,
   serializeClueShuffleMap,
-} from '../clueShuffling';
+} from '../clueShuffling.ts';
 
 describe('clueShuffling - Fisher-Yates Shuffle Utilities', () => {
   describe('generateClueShuffleIndices', () => {

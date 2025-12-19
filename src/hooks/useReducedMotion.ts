@@ -1,4 +1,4 @@
-import { useMediaQuery } from './useMediaQuery';
+import { useMediaQuery } from './useMediaQuery.ts';
 
 /**
  * useReducedMotion: Hook to check if user prefers reduced motion

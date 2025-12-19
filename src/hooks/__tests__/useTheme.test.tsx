@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { useTheme } from '../useTheme';
+import { useTheme } from '../useTheme.ts';
 
 const STORAGE_KEY = 'perfil-theme';
 

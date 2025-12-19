@@ -8,7 +8,7 @@
  */
 
 import { useShallow } from 'zustand/react/shallow';
-import { type GameState, useGameStore } from '../../stores/gameStore';
+import { type GameState, useGameStore } from '../../stores/gameStore.ts';
 
 export type GameActions = Pick<
   GameState,

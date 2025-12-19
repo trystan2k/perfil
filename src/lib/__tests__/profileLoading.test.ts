@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
-import { queryClient } from '../../components/QueryProvider';
-import type { Manifest } from '../manifest';
-import { loadProfilesByIds } from '../profileLoading';
+import { queryClient } from '../../components/QueryProvider.tsx';
+import type { Manifest } from '../manifest.ts';
+import { loadProfilesByIds } from '../profileLoading.ts';
 
 // Mock manifest data
 const mockManifest: Manifest = {

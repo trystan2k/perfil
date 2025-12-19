@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import { customRender } from '../../../__mocks__/test-utils';
-import { GamePlayClueSection } from '../GamePlayClueSection';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import { GamePlayClueSection } from '../GamePlayClueSection.tsx';
 
 describe('GamePlayClueSection', () => {
   const defaultProps = {

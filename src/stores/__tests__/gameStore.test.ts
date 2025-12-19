@@ -1,14 +1,14 @@
 import { waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
-import { GAME_CONFIG } from '../../config/gameConfig';
-import { GameError } from '../../lib/errors';
-import type { Manifest } from '../../lib/manifest';
-import { fetchManifest } from '../../lib/manifest';
-import { selectProfileIdsByManifest } from '../../lib/manifestProfileSelection';
-import { loadProfilesByIds } from '../../lib/profileLoading';
-import type { Profile } from '../../types/models';
-import { useGameStore } from '../gameStore';
+import { GAME_CONFIG } from '../../config/gameConfig.ts';
+import { GameError } from '../../lib/errors.ts';
+import type { Manifest } from '../../lib/manifest.ts';
+import { fetchManifest } from '../../lib/manifest.ts';
+import { selectProfileIdsByManifest } from '../../lib/manifestProfileSelection.ts';
+import { loadProfilesByIds } from '../../lib/profileLoading.ts';
+import type { Profile } from '../../types/models.ts';
+import { useGameStore } from '../gameStore.ts';
 
 // Mock the gameSessionDB module to avoid IndexedDB issues in Node test environment
 vi.mock('../../lib/gameSessionDB', () => ({

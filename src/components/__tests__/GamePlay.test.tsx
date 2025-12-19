@@ -9,10 +9,10 @@ import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
 import { loadProfilesByIds } from '@/lib/profileLoading';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
-import { customRender } from '../../__mocks__/test-utils';
-import * as gameSessionDB from '../../lib/gameSessionDB';
-import { ErrorStateProvider } from '../ErrorStateProvider';
-import { GamePlay } from '../GamePlay';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import * as gameSessionDB from '../../lib/gameSessionDB.ts';
+import { ErrorStateProvider } from '../ErrorStateProvider.tsx';
+import { GamePlay } from '../GamePlay.tsx';
 
 // Mock the gameSessionDB module to avoid IndexedDB issues in Node test environment
 vi.mock('../../lib/gameSessionDB', () => ({

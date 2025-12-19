@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchManifest } from '../lib/manifest';
+import { fetchManifest } from '../lib/manifest.ts';
 
 /**
  * Category information extracted from manifest

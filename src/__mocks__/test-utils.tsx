@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { type RenderOptions, render } from '@testing-library/react';
 import translations from '../../public/locales/en/translation.json';
-import { ReducedMotionProvider } from '../components/ReducedMotionProvider';
-import { TranslateProvider } from '../components/TranslateProvider';
-import { GAME_CONFIG } from '../config/gameConfig';
+import { ReducedMotionProvider } from '../components/ReducedMotionProvider.tsx';
+import { TranslateProvider } from '../components/TranslateProvider.tsx';
+import { GAME_CONFIG } from '../config/gameConfig.ts';
 
 const locale = 'en';
 

@@ -7,7 +7,7 @@ import { GAME_CONFIG } from '@/config/gameConfig';
 import { useCategoriesFromManifest } from '@/hooks/useCategoriesFromManifest';
 import { navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
-import { useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider.tsx';
 
 interface CategorySelectProps {
   sessionId: string;

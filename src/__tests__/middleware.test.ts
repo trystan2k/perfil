@@ -1,6 +1,6 @@
 import type { APIContext, MiddlewareNext } from 'astro';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { onRequest } from '../middleware';
+import { onRequest } from '../middleware.ts';
 
 /**
  * Middleware Test Suite

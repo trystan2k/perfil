@@ -1,10 +1,10 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import translations from '../../../public/locales/en/translation.json';
-import { customRender } from '../../__mocks__/test-utils';
-import type { SupportedLocale } from '../../i18n/locales';
-import { LanguageSwitcher, type LanguageSwitcherProps } from '../LanguageSwitcher';
-import { TranslateProvider } from '../TranslateProvider';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import type { SupportedLocale } from '../../i18n/locales.ts';
+import { LanguageSwitcher, type LanguageSwitcherProps } from '../LanguageSwitcher.tsx';
+import { TranslateProvider } from '../TranslateProvider.tsx';
 
 const defaultProps = {
   currentPath: '/game',

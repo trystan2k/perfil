@@ -2,7 +2,7 @@ import {
   type Profile,
   filterProfilesByCategory,
   groupProfilesByCategory,
-} from '../../../types/models';
+} from '../../../types/models.ts';
 
 /**
  * ProfileSelectionService handles profile selection and shuffling for game rounds

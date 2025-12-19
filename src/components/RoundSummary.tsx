@@ -9,8 +9,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { GAME_CONFIG } from '@/config/gameConfig';
-import { useReducedMotionContext } from './ReducedMotionProvider';
-import { useTranslate } from './TranslateProvider';
+import { useReducedMotionContext } from './ReducedMotionProvider.tsx';
+import { useTranslate } from './TranslateProvider.tsx';
 
 export interface RoundSummaryProps {
   open: boolean;

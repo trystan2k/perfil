@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { GAME_CONFIG } from '../../config/gameConfig';
+import { GAME_CONFIG } from '../../config/gameConfig.ts';
 import {
   generateConfettiPieceConfig,
   createConfettiPieceElement,
   createConfettiContainer,
-} from '../confetti';
+} from '../confetti.ts';
 
 describe('Confetti Utilities', () => {
   describe('generateConfettiPieceConfig', () => {

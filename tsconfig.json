@@ -4,6 +4,7 @@
   "exclude": ["dist", "dev-dist", "coverage", "src/**/coverage/*"],
   "compilerOptions": {
     "baseUrl": ".",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"]
     }

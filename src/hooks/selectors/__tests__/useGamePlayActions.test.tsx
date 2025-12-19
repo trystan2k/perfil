@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile, TurnState } from '@/types/models';
-import { useGamePlayActions } from '../useGamePlayActions';
+import { useGamePlayActions } from '../useGamePlayActions.ts';
 
 /**
  * Unit tests for useGamePlayActions selector hook

@@ -8,7 +8,7 @@ import {
   getCurrentClueWithShuffle,
   getRevealedClueIndices,
   getRevealedClues,
-} from '../TurnManager';
+} from '../TurnManager.ts';
 
 /**
  * Helper to create a test profile with specified number of clues

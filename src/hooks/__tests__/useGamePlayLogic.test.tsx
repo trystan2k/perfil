@@ -7,7 +7,7 @@ import { TranslateProvider } from '@/components/TranslateProvider';
 import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
 import translations from '../../../public/locales/en/translation.json';
-import { useGamePlayLogic } from '../useGamePlayLogic';
+import { useGamePlayLogic } from '../useGamePlayLogic.ts';
 
 // Mock the useProfiles hook
 vi.mock('../useProfiles', () => ({

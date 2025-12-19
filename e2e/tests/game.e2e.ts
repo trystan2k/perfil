@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { GAME_CONFIG } from '../../src/config/gameConfig';
+import { GAME_CONFIG } from '../../src/config/gameConfig.ts';
 
 test.describe('Full game flow', () => {
   test.beforeEach(async ({ page }) => {

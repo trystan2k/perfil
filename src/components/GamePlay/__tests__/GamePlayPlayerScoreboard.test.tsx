@@ -2,8 +2,8 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import type { Player } from '@/types/models';
-import { customRender } from '../../../__mocks__/test-utils';
-import { GamePlayPlayerScoreboard } from '../GamePlayPlayerScoreboard';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import { GamePlayPlayerScoreboard } from '../GamePlayPlayerScoreboard.tsx';
 
 describe('GamePlayPlayerScoreboard', () => {
   const mockPlayers: Player[] = [

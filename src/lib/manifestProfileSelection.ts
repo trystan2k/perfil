@@ -1,5 +1,5 @@
-import type { Manifest } from './manifest';
-import { getActualProfileIdsQuery } from './profileDataQuery';
+import type { Manifest } from './manifest.ts';
+import { getActualProfileIdsQuery } from './profileDataQuery.ts';
 
 /**
  * Select profile IDs from manifest based on categories and number of rounds

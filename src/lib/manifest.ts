@@ -1,8 +1,8 @@
-import { queryClient } from '../components/QueryProvider';
-import { GAME_CONFIG } from '../config/gameConfig';
-import type { Profile, ProfilesData } from '../types/models';
-import { profilesDataSchema } from '../types/models';
-import { fetchProfileDataFile } from './profileDataQuery';
+import { queryClient } from '../components/QueryProvider.tsx';
+import { GAME_CONFIG } from '../config/gameConfig.ts';
+import type { Profile, ProfilesData } from '../types/models.ts';
+import { profilesDataSchema } from '../types/models.ts';
+import { fetchProfileDataFile } from './profileDataQuery.ts';
 
 /**
  * Locale-specific category information

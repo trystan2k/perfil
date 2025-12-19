@@ -1,5 +1,5 @@
 import { type IDBPDatabase, openDB } from 'idb';
-import type { GameSession, Profile } from '../types/models';
+import type { GameSession, Profile } from '../types/models.ts';
 
 const DB_NAME = 'perfil-game-db';
 const DB_VERSION = 1;

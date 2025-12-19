@@ -9,9 +9,9 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Skeleton } from '@/components/ui/skeleton';
 import { GameStatus } from '@/domain/game/value-objects/GameStatus';
 import { useGamePlayLogic } from '@/hooks/useGamePlayLogic';
-import { GamePlayClueSection } from './GamePlay/GamePlayClueSection';
-import { GamePlayHeader } from './GamePlay/GamePlayHeader';
-import { GamePlayPlayerScoreboard } from './GamePlay/GamePlayPlayerScoreboard';
+import { GamePlayClueSection } from './GamePlay/GamePlayClueSection.tsx';
+import { GamePlayHeader } from './GamePlay/GamePlayHeader.tsx';
+import { GamePlayPlayerScoreboard } from './GamePlay/GamePlayPlayerScoreboard.tsx';
 
 interface GamePlayProps {
   sessionId?: string;

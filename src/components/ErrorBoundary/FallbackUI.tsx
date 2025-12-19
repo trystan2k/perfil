@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/card';
 import { navigateWithLocale } from '@/i18n/locales';
 import { cn } from '@/lib/utils';
-import { useTranslate } from '../TranslateProvider';
+import { useTranslate } from '../TranslateProvider.tsx';
 
 interface FallbackUIProps {
   error?: Error;

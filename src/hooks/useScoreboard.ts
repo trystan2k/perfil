@@ -2,8 +2,8 @@ import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
 import { navigateWithLocale } from '@/i18n/locales';
 import { forcePersist, useGameStore } from '@/stores/gameStore';
 import type { Player } from '@/types/models';
-import { useTranslate } from '../components/TranslateProvider';
-import { useScoreboardState, useGameActions } from './selectors';
+import { useTranslate } from '../components/TranslateProvider.tsx';
+import { useScoreboardState, useGameActions } from './selectors/index.ts';
 
 export interface RankedPlayer extends Player {
   rank: number;

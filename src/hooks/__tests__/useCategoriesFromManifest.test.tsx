@@ -2,9 +2,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { queryClient as globalQueryClient } from '../../components/QueryProvider';
-import { clearManifestCache } from '../../lib/manifest';
-import { useCategoriesFromManifest } from '../useCategoriesFromManifest';
+import { queryClient as globalQueryClient } from '../../components/QueryProvider.tsx';
+import { clearManifestCache } from '../../lib/manifest.ts';
+import { useCategoriesFromManifest } from '../useCategoriesFromManifest.ts';
 
 const mockManifest = {
   version: '1',

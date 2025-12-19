@@ -3,30 +3,30 @@ import { devtools } from 'zustand/middleware';
 import {
   awardPoints as awardPlayerPoints,
   removePoints as removePlayerPoints,
-} from '../domain/game/entities/Player';
-import { createTurn } from '../domain/game/entities/Turn';
-import { fetchManifest } from '../lib/manifest';
-import { selectProfileIdsByManifest } from '../lib/manifestProfileSelection';
-import { loadProfilesByIds } from '../lib/profileLoading';
+} from '../domain/game/entities/Player.ts';
+import { createTurn } from '../domain/game/entities/Turn.ts';
+import { fetchManifest } from '../lib/manifest.ts';
+import { selectProfileIdsByManifest } from '../lib/manifestProfileSelection.ts';
+import { loadProfilesByIds } from '../lib/profileLoading.ts';
 // Import domain services
-import { calculatePoints } from '../domain/game/services/ScoringService';
+import { calculatePoints } from '../domain/game/services/ScoringService.ts';
 import {
   advanceToNextClue,
   getRevealedClueIndices,
   getRevealedClues,
-} from '../domain/game/services/TurnManager';
+} from '../domain/game/services/TurnManager.ts';
 import {
   type GameStatus,
   GameStatus as GameStatusConstants,
-} from '../domain/game/value-objects/GameStatus';
-import { GAME_CONFIG } from '../config/gameConfig';
+} from '../domain/game/value-objects/GameStatus.ts';
+import { GAME_CONFIG } from '../config/gameConfig.ts';
 import {
   deserializeClueShuffleMap,
   generateClueShuffleIndices,
   serializeClueShuffleMap,
-} from '../lib/clueShuffling';
-import { type AppError, GameError, PersistenceError } from '../lib/errors';
-import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB';
+} from '../lib/clueShuffling.ts';
+import { type AppError, GameError, PersistenceError } from '../lib/errors.ts';
+import { loadGameSession, type PersistedGameState } from '../lib/gameSessionDB.ts';
 import {
   cleanupAllMachines,
   completeRehydration,
@@ -34,11 +34,11 @@ import {
   isRehydrating,
   resetRehydrationState,
   startRehydration,
-} from '../lib/rehydrationMachine';
-import { IndexedDBGameSessionRepository } from '../repositories/GameSessionRepository';
-import { getErrorService } from '../services/ErrorService';
-import { GamePersistenceService } from '../services/GamePersistenceService';
-import type { GameSession, Player, Profile } from '../types/models';
+} from '../lib/rehydrationMachine.ts';
+import { IndexedDBGameSessionRepository } from '../repositories/GameSessionRepository.ts';
+import { getErrorService } from '../services/ErrorService.ts';
+import { GamePersistenceService } from '../services/GamePersistenceService.ts';
+import type { GameSession, Player, Profile } from '../types/models.ts';
 
 export interface GameState extends GameSession {
   status: GameStatus;

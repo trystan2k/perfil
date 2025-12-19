@@ -1,7 +1,7 @@
-import type { PersistedGameState } from '../lib/gameSessionDB';
-import { isRehydrating } from '../lib/rehydrationMachine';
-import { GAME_CONFIG } from '../config/gameConfig';
-import type { IGameSessionRepository } from '../repositories/GameSessionRepository';
+import type { PersistedGameState } from '../lib/gameSessionDB.ts';
+import { isRehydrating } from '../lib/rehydrationMachine.ts';
+import { GAME_CONFIG } from '../config/gameConfig.ts';
+import type { IGameSessionRepository } from '../repositories/GameSessionRepository.ts';
 
 /**
  * Service that orchestrates game state persistence with debouncing.

@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
+import { customRender } from '../../__mocks__/test-utils.tsx';
 
 // Simple test component
 function TestButton() {

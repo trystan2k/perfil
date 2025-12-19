@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 import { afterAll, beforeAll, vi } from 'vitest';
-import { getErrorService, type TelemetryProvider } from './src/services/ErrorService';
+import { getErrorService, type TelemetryProvider } from './src/services/ErrorService.ts';
 
 vi.mock('zustand');
 

@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import { AdaptiveContainer } from '../AdaptiveContainer';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { AdaptiveContainer } from '../AdaptiveContainer.tsx';
 
 describe('AdaptiveContainer', () => {
   describe('Rendering', () => {

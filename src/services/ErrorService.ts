@@ -13,7 +13,7 @@ import {
   normalizeError,
   PersistenceError,
   ValidationError,
-} from '../lib/errors';
+} from '../lib/errors.ts';
 
 /**
  * Error handler function type

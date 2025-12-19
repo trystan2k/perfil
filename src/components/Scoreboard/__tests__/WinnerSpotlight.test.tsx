@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import type { RankedPlayer } from '@/hooks/useScoreboard';
-import { customRender } from '../../../__mocks__/test-utils';
-import { WinnerSpotlight } from '../WinnerSpotlight';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import { WinnerSpotlight } from '../WinnerSpotlight.tsx';
 
 describe('WinnerSpotlight', () => {
   const createWinner = (overrides?: Partial<RankedPlayer>): RankedPlayer => ({

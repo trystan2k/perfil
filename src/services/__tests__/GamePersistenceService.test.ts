@@ -3,7 +3,7 @@ import { generateClues } from '@/__mocks__/test-utils';
 import { GAME_CONFIG } from '@/config/gameConfig';
 import type { PersistedGameState } from '@/lib/gameSessionDB';
 import type { IGameSessionRepository } from '@/repositories/GameSessionRepository';
-import { GamePersistenceService } from '../GamePersistenceService';
+import { GamePersistenceService } from '../GamePersistenceService.ts';
 
 describe('GamePersistenceService', () => {
   let service: GamePersistenceService;

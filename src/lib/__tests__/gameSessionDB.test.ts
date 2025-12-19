@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, type Mock, type Mocked, vi
 import { generateClues } from '@/__mocks__/test-utils';
 import { GAME_CONFIG } from '@/config/gameConfig';
 import type { Profile } from '@/types/models';
-import type * as MockIDB from '../../__mocks__/idb';
+import type * as MockIDB from '../../__mocks__/idb.ts';
 
 describe('gameSessionDB', () => {
   let mockDB: Mocked<Awaited<ReturnType<typeof import('idb').openDB>>> & {

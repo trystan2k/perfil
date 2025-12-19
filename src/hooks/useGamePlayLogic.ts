@@ -3,8 +3,8 @@ import { useProfiles } from '@/hooks/useProfiles';
 import { getCurrentLocale, navigateWithLocale } from '@/i18n/locales';
 import { forcePersist } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
-import { useTranslate } from '../components/TranslateProvider';
-import { useGamePlayState, useGamePlayActions } from './selectors';
+import { useTranslate } from '../components/TranslateProvider.tsx';
+import { useGamePlayState, useGamePlayActions } from './selectors/index.ts';
 
 export interface UseGamePlayLogicReturn {
   // State

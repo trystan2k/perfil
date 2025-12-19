@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ReducedMotionProvider, useReducedMotionContext } from '../ReducedMotionProvider';
+import { ReducedMotionProvider, useReducedMotionContext } from '../ReducedMotionProvider.tsx';
 
 describe('ReducedMotionProvider & useReducedMotionContext', () => {
   let originalMatchMedia: typeof window.matchMedia;

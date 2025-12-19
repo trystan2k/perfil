@@ -7,8 +7,8 @@ import { useAutoHideHeader } from '@/hooks/useAutoHideHeader';
 import { GAME_CONFIG } from '@/config/gameConfig';
 import type { SupportedLocale } from '@/i18n/locales';
 import type { TranslationValue } from '@/i18n/utils';
-import { ErrorBoundary } from './ErrorBoundary';
-import { TranslateProvider, useTranslate } from './TranslateProvider';
+import { ErrorBoundary } from './ErrorBoundary/index.ts';
+import { TranslateProvider, useTranslate } from './TranslateProvider.tsx';
 
 interface HeaderProps {
   /**

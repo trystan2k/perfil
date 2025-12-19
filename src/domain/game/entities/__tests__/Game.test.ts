@@ -11,9 +11,9 @@ import {
   updatePlayer,
   updateTurn,
   validateGame,
-} from '../Game';
-import { createPlayer, createPlayers } from '../Player';
-import { createTurn } from '../Turn';
+} from '../Game.ts';
+import { createPlayer, createPlayers } from '../Player.ts';
+import { createTurn } from '../Turn.ts';
 
 describe('Game Entity', () => {
   describe('createGame', () => {

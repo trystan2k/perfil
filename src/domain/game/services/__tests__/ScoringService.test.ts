@@ -6,7 +6,7 @@ import {
   getMaximumPoints,
   getMinimumPoints,
   isValidPointValue,
-} from '../ScoringService';
+} from '../ScoringService.ts';
 
 describe('ScoringService', () => {
   describe('calculatePoints()', () => {

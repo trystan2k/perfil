@@ -3,10 +3,10 @@ import { renderHook, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
-import { queryClient as globalQueryClient } from '../../components/QueryProvider';
-import { clearManifestCache } from '../../lib/manifest';
-import type { ProfilesData } from '../../types/models';
-import { useProfiles } from '../useProfiles';
+import { queryClient as globalQueryClient } from '../../components/QueryProvider.tsx';
+import { clearManifestCache } from '../../lib/manifest.ts';
+import type { ProfilesData } from '../../types/models.ts';
+import { useProfiles } from '../useProfiles.ts';
 
 const mockProfilesData: ProfilesData = {
   version: '1',

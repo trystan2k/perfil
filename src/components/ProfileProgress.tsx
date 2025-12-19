@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Progress } from '@/components/ui/progress';
 import { GAME_CONFIG } from '@/config/gameConfig';
-import { useReducedMotionContext } from './ReducedMotionProvider';
-import { useTranslate } from './TranslateProvider';
+import { useReducedMotionContext } from './ReducedMotionProvider.tsx';
+import { useTranslate } from './TranslateProvider.tsx';
 
 export interface ProfileProgressProps {
   currentProfileIndex: number;

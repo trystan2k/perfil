@@ -2,7 +2,7 @@ import { Menu } from 'lucide-react';
 import type { HTMLAttributes } from 'react';
 import { Logo } from '@/components/Logo';
 import { cn } from '@/lib/utils';
-import { useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider.tsx';
 
 export interface CompactHeaderProps extends HTMLAttributes<HTMLDivElement> {
   /**

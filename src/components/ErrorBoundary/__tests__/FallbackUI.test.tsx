@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { customRender } from '../../../__mocks__/test-utils';
-import FallbackUI from '../FallbackUI';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import FallbackUI from '../FallbackUI.tsx';
 
 describe('FallbackUI Component', () => {
   const mockOnRetry = vi.fn();

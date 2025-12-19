@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { createRound, isFirstRound, validateRound } from '../Round';
-import type { Round } from '../Round';
+import { createRound, isFirstRound, validateRound } from '../Round.ts';
+import type { Round } from '../Round.ts';
 
 describe('Round Entity', () => {
   const createMockRound = (overrides?: Partial<Round>): Round => ({

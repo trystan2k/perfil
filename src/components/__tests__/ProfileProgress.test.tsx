@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import { ProfileProgress } from '../ProfileProgress';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { ProfileProgress } from '../ProfileProgress.tsx';
 
 describe('ProfileProgress', () => {
   it('should render profile progress label correctly', () => {

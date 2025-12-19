@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import { Logo } from '../Logo';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { Logo } from '../Logo.tsx';
 
 describe('Logo', () => {
   it('should render the logo image with correct src and alt', () => {

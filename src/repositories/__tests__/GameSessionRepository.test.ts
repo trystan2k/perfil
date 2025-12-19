@@ -6,7 +6,7 @@ import type { Profile } from '@/types/models';
 import {
   type IGameSessionRepository,
   IndexedDBGameSessionRepository,
-} from '../GameSessionRepository';
+} from '../GameSessionRepository.ts';
 
 // Mock the gameSessionDB module
 vi.mock('@/lib/gameSessionDB', () => ({

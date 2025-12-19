@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { generateClues } from '@/__mocks__/test-utils';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
-import { useScoreboardState } from '../useScoreboardState';
+import { useScoreboardState } from '../useScoreboardState.ts';
 
 /**
  * Unit tests for useScoreboardState selector hook

@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { PlayersAdd } from '@/components/PlayersAdd';
 import { useGameStore } from '@/stores/gameStore';
-import { customRender } from '../../__mocks__/test-utils';
+import { customRender } from '../../__mocks__/test-utils.tsx';
 
 // Mock the game store
 const mockGetState = vi.fn();

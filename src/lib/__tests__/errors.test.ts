@@ -13,7 +13,7 @@ import {
   normalizeError,
   PersistenceError,
   ValidationError,
-} from '../errors';
+} from '../errors.ts';
 
 describe('Error Classes', () => {
   describe('ErrorSeverity enum', () => {

@@ -11,7 +11,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { Player } from '@/types/models';
-import { useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider.tsx';
 
 interface RemovePointsDialogProps {
   open: boolean;

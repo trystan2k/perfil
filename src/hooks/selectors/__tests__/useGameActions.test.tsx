@@ -7,7 +7,7 @@ import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
 import { loadProfilesByIds } from '@/lib/profileLoading';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
-import { useGameActions } from '../useGameActions';
+import { useGameActions } from '../useGameActions.ts';
 
 // Mock the profile loading functions
 vi.mock('@/lib/profileLoading', () => ({

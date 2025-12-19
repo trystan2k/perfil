@@ -2,9 +2,9 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import translations from '../../../public/locales/en/translation.json';
-import { customRender } from '../../__mocks__/test-utils';
-import { SettingsSheet, type SettingsSheetProps } from '../SettingsSheet';
-import { TranslateProvider } from '../TranslateProvider';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { SettingsSheet, type SettingsSheetProps } from '../SettingsSheet.tsx';
+import { TranslateProvider } from '../TranslateProvider.tsx';
 
 const SettingsSheetTest = (props: SettingsSheetProps) => {
   return (

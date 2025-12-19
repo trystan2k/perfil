@@ -5,8 +5,8 @@ import { Component, type ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest';
 import { queryClient } from '@/components/QueryProvider';
 import { getErrorService } from '@/services/ErrorService';
-import { customRender } from '../../../__mocks__/test-utils';
-import ErrorBoundary from '../ErrorBoundary';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import ErrorBoundary from '../ErrorBoundary.tsx';
 
 // Mock the ErrorService with proper logging capture
 vi.mock('@/services/ErrorService', () => {

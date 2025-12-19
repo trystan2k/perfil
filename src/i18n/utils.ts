@@ -1,4 +1,4 @@
-import { SUPPORTED_LOCALES, type SupportedLocale } from './locales';
+import { SUPPORTED_LOCALES, type SupportedLocale } from './locales.ts';
 
 /**
  * Translation utilities for server-side i18n
@@ -135,4 +135,4 @@ export function getLangFromUrl(url: URL): SupportedLocale {
 }
 
 // Re-export client-safe utilities from locales.ts to maintain backward compatibility
-export { getCurrentLocale, getLocalizedPath, navigateWithLocale } from './locales';
+export { getCurrentLocale, getLocalizedPath, navigateWithLocale } from './locales.ts';

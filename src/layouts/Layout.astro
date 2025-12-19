@@ -1,12 +1,12 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import { pwaInfo } from 'virtual:pwa-info';
-import { ErrorStateProviderWrapper } from '../components/ErrorStateProviderWrapper';
-import { Header } from '../components/Header';
-import { PwaUpdater } from '../components/PwaUpdater';
-import type { SupportedLocale } from '../i18n/locales';
-import { getTranslateFunction, type TranslationValue } from '../i18n/utils';
-import { THEME_COLORS } from '../lib/theme-colors';
+import { ErrorStateProviderWrapper } from '../components/ErrorStateProviderWrapper.tsx';
+import { Header } from '../components/Header.tsx';
+import { PwaUpdater } from '../components/PwaUpdater.tsx';
+import type { SupportedLocale } from '../i18n/locales.ts';
+import { getTranslateFunction, type TranslationValue } from '../i18n/utils.ts';
+import { THEME_COLORS } from '../lib/theme-colors.ts';
 import '../styles/globals.css';
 import '../styles/theme.css';
 
