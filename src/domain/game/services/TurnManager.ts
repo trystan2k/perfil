@@ -1,6 +1,10 @@
-import { getShuffledClue } from '../../../lib/clueShuffling';
-import { type Profile, getClue } from '../../../types/models';
-import { type Turn, advanceClue as advanceClueInTurn, getCurrentClueIndex } from '../entities/Turn';
+import { getShuffledClue } from '../../../lib/clueShuffling.ts';
+import { type Profile, getClue } from '../../../types/models.ts';
+import {
+  type Turn,
+  advanceClue as advanceClueInTurn,
+  getCurrentClueIndex,
+} from '../entities/Turn.ts';
 
 /**
  * TurnManager handles turn progression and clue management

@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { navigateWithLocale } from '@/i18n/locales';
 import { GAME_CONFIG } from '@/config/gameConfig';
 import { useGameStore } from '@/stores/gameStore';
-import { useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider.tsx';
 
 type StartGameState = {
   error: string | null;

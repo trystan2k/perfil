@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import { PreviousCluesDisplay } from '../PreviousCluesDisplay';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { PreviousCluesDisplay } from '../PreviousCluesDisplay.tsx';
 
 // Mock useTranslation hook
 vi.mock('react-i18next', () => ({

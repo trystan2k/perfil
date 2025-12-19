@@ -1,9 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import * as useMediaQueryModule from '../../hooks/useMediaQuery';
-import { CompactHeader } from '../CompactHeader';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import * as useMediaQueryModule from '../../hooks/useMediaQuery.ts';
+import { CompactHeader } from '../CompactHeader.tsx';
 
 // Mock useMediaQuery hook
 vi.mock('../../hooks/useMediaQuery');

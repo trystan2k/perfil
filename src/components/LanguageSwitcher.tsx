@@ -1,11 +1,11 @@
 import { navigate } from 'astro:transitions/client';
 import { type MouseEvent, useActionState, useState } from 'react';
-import { useGameActions, useScoreboardState } from '../hooks/selectors';
-import type { SupportedLocale } from '../i18n/locales';
-import { removeLocalePrefix } from '../i18n/locales';
-import { useGameStore } from '../stores/gameStore';
-import { useTranslate } from './TranslateProvider';
-import { Button } from './ui/button';
+import { useGameActions, useScoreboardState } from '../hooks/selectors/index.ts';
+import type { SupportedLocale } from '../i18n/locales.ts';
+import { removeLocalePrefix } from '../i18n/locales.ts';
+import { useGameStore } from '../stores/gameStore.ts';
+import { useTranslate } from './TranslateProvider.tsx';
+import { Button } from './ui/button.tsx';
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from './ui/dialog';
+} from './ui/dialog.tsx';
 
 const locales = [
   { code: 'en', name: 'English', flag: '🇺🇸' },

@@ -7,9 +7,9 @@ import {
   GameStatsCard,
   ScoreBars,
   WinnerSpotlight,
-} from './Scoreboard/index';
-import { Button } from './ui/button';
-import { Card } from './ui/card';
+} from './Scoreboard/index.ts';
+import { Button } from './ui/button.tsx';
+import { Card } from './ui/card.tsx';
 
 interface ScoreboardProps {
   sessionId?: string;

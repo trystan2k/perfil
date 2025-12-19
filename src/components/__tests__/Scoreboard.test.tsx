@@ -7,8 +7,8 @@ import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
 import { loadProfilesByIds } from '@/lib/profileLoading';
 import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile } from '@/types/models';
-import { customRender } from '../../__mocks__/test-utils';
-import { Scoreboard } from '../Scoreboard';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { Scoreboard } from '../Scoreboard.tsx';
 
 // Mock the profile loading functions
 vi.mock('@/lib/profileLoading', () => ({

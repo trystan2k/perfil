@@ -1,5 +1,5 @@
 import { type SyntheticEvent, useRef, useState } from 'react';
-import { useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider.tsx';
 
 interface PreviousCluesDisplayProps {
   clues: string[];

@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
 import { type ReactNode, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider.tsx';
 
 export interface SettingsSheetProps {
   /**

@@ -5,7 +5,7 @@ import {
   hasEnoughProfiles,
   selectProfilesForGame,
   shuffleProfiles,
-} from '../ProfileSelectionService';
+} from '../ProfileSelectionService.ts';
 
 describe('ProfileSelectionService', () => {
   // Helper to create mock profiles

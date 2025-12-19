@@ -9,7 +9,7 @@ import {
   getRevealedClueIndices,
   isFirstClue,
   isLastClue,
-} from '../TurnManager';
+} from '../TurnManager.ts';
 
 describe('TurnManager', () => {
   // Helper to create mock profile

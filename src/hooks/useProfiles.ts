@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { getCurrentLocale } from '@/i18n/locales';
-import { fetchManifest, fetchProfilesByCategory } from '../lib/manifest';
-import type { Profile, ProfilesData } from '../types/models';
-import { profilesDataSchema } from '../types/models';
+import { fetchManifest, fetchProfilesByCategory } from '../lib/manifest.ts';
+import type { Profile, ProfilesData } from '../types/models.ts';
+import { profilesDataSchema } from '../types/models.ts';
 
 /**
  * Fetch all profiles for a locale

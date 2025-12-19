@@ -1,7 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { getErrorService } from '@/services/ErrorService';
-import { CompactHeader } from '../CompactHeader';
-import FallbackUI from './FallbackUI';
+import { CompactHeader } from '../CompactHeader.tsx';
+import FallbackUI from './FallbackUI.tsx';
 
 interface ErrorBoundaryProps {
   children: ReactNode;

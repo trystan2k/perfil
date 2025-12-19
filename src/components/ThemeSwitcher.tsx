@@ -1,7 +1,7 @@
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { useEffect } from 'react';
 import { THEMES, useTheme } from '@/hooks/useTheme';
-import { useTranslate } from './TranslateProvider';
+import { useTranslate } from './TranslateProvider.tsx';
 
 const themes = [
   { code: THEMES.light, icon: Sun },

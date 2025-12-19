@@ -3,8 +3,8 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ReactElement } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import { CategorySelect } from '../CategorySelect';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { CategorySelect } from '../CategorySelect.tsx';
 
 // Use vi.hoisted to declare mocks before vi.mock is called
 const {

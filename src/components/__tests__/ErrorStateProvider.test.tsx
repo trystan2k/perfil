@@ -1,11 +1,11 @@
 import { act, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import { GAME_CONFIG } from '../../config/gameConfig';
-import { GameError } from '../../lib/errors';
-import { useGameStore } from '../../stores/gameStore';
-import { ErrorStateProvider } from '../ErrorStateProvider';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { GAME_CONFIG } from '../../config/gameConfig.ts';
+import { GameError } from '../../lib/errors.ts';
+import { useGameStore } from '../../stores/gameStore.ts';
+import { ErrorStateProvider } from '../ErrorStateProvider.tsx';
 
 // Mock useTranslation hook
 vi.mock('react-i18next', () => ({

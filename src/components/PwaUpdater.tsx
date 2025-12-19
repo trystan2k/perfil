@@ -1,7 +1,7 @@
 import { useRegisterSW } from 'virtual:pwa-register/react';
-import type { SupportedLocale } from '../i18n/locales';
-import type { TranslationValue } from '../i18n/utils';
-import { TranslateProvider, useTranslate } from './TranslateProvider';
+import type { SupportedLocale } from '../i18n/locales.ts';
+import type { TranslationValue } from '../i18n/utils.ts';
+import { TranslateProvider, useTranslate } from './TranslateProvider.tsx';
 
 type PwaUpdaterProps = {
   locale: SupportedLocale;

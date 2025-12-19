@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { customRender } from '../../../__mocks__/test-utils';
-import { GamePlayHeader } from '../GamePlayHeader';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import { GamePlayHeader } from '../GamePlayHeader.tsx';
 
 describe('GamePlayHeader', () => {
   const defaultProps = {

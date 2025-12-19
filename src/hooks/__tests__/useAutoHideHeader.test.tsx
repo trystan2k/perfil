@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useAutoHideHeader } from '../useAutoHideHeader';
+import { useAutoHideHeader } from '../useAutoHideHeader.ts';
 
 describe('useAutoHideHeader', () => {
   beforeEach(() => {

@@ -1,8 +1,8 @@
-import { queryClient } from '../components/QueryProvider';
-import { GAME_CONFIG } from '../config/gameConfig';
-import type { Profile, ProfilesData } from '../types/models';
-import { profilesDataSchema } from '../types/models';
-import type { Manifest } from './manifest';
+import { queryClient } from '../components/QueryProvider.tsx';
+import { GAME_CONFIG } from '../config/gameConfig.ts';
+import type { Profile, ProfilesData } from '../types/models.ts';
+import { profilesDataSchema } from '../types/models.ts';
+import type { Manifest } from './manifest.ts';
 
 const getLocaleInfo = (
   manifest: Manifest,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { generateClues } from '@/__mocks__/test-utils';
-import { GAME_CONFIG } from '../../config/gameConfig';
+import { GAME_CONFIG } from '../../config/gameConfig.ts';
 import {
   type GameSession,
   gameSessionSchema,
@@ -14,7 +14,7 @@ import {
   profilesDataSchema,
   type TurnState,
   turnStateSchema,
-} from '../models';
+} from '../models.ts';
 
 describe('Player Schema', () => {
   it('should validate a valid player', () => {

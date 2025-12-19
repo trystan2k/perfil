@@ -12,7 +12,7 @@ import {
   ErrorService,
   getErrorService,
   type TelemetryProvider,
-} from '../ErrorService';
+} from '../ErrorService.ts';
 
 const silentTelemetryProvider: TelemetryProvider = {
   captureError: () => {},

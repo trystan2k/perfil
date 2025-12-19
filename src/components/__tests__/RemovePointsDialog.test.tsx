@@ -2,8 +2,8 @@ import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Player } from '@/types/models';
-import { customRender } from '../../__mocks__/test-utils';
-import { RemovePointsDialog } from '../RemovePointsDialog';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { RemovePointsDialog } from '../RemovePointsDialog.tsx';
 
 const createPlayer = (id: string, name: string, score = 10): Player => ({
   id,

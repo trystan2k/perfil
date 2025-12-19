@@ -6,7 +6,7 @@ import {
   removePoints,
   resetPlayerScore,
   validatePlayer,
-} from '../Player';
+} from '../Player.ts';
 
 describe('Player Entity', () => {
   describe('createPlayer', () => {

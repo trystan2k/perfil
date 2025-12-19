@@ -1,5 +1,5 @@
 import type { ReactElement, ReactNode } from 'react';
-import ErrorBoundary from './ErrorBoundary';
+import ErrorBoundary from './ErrorBoundary.tsx';
 
 interface ErrorBoundaryWrapperProps {
   children: ReactNode;

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { GAME_CONFIG } from '../../src/config/gameConfig';
+import { GAME_CONFIG } from '../../src/config/gameConfig.ts';
 
 /**
  * E2E Test Suite: GAME_CONFIG Validation

@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { customRender } from '../../../__mocks__/test-utils';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../card';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../card.tsx';
 
 describe('Card Components', () => {
   it('renders Card component', () => {

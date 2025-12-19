@@ -1,7 +1,7 @@
-import type { SupportedLocale } from '../i18n/locales';
-import type { TranslationValue } from '../i18n/utils';
-import { ErrorStateProvider } from './ErrorStateProvider';
-import { TranslateProvider } from './TranslateProvider';
+import type { SupportedLocale } from '../i18n/locales.ts';
+import type { TranslationValue } from '../i18n/utils.ts';
+import { ErrorStateProvider } from './ErrorStateProvider.tsx';
+import { TranslateProvider } from './TranslateProvider.tsx';
 
 interface ErrorStateProviderWrapperProps {
   translations: TranslationValue;

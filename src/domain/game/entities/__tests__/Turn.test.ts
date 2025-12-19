@@ -9,8 +9,8 @@ import {
   hasReadClues,
   revealTurn,
   validateTurn,
-} from '../Turn';
-import type { Turn } from '../Turn';
+} from '../Turn.ts';
+import type { Turn } from '../Turn.ts';
 
 describe('Turn Entity', () => {
   const createMockTurn = (overrides?: Partial<Turn>): Turn => ({

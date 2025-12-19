@@ -2,8 +2,8 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest';
 import { getErrorService } from '@/services/ErrorService';
-import { customRender } from '../../../__mocks__/test-utils';
-import ErrorBoundary from '../ErrorBoundary';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import ErrorBoundary from '../ErrorBoundary.tsx';
 
 // Mock the ErrorService
 vi.mock('@/services/ErrorService', () => {

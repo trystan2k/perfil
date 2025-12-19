@@ -6,7 +6,7 @@
  * @deprecated Use GAME_CONFIG.game instead
  */
 
-import { GAME_CONFIG } from '../config/gameConfig';
+import { GAME_CONFIG } from '../config/gameConfig.ts';
 
 /**
  * Maximum number of players allowed in a single game session

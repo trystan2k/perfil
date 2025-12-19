@@ -7,7 +7,7 @@ import { TranslateProvider } from '@/components/TranslateProvider';
 import { useGameStore } from '@/stores/gameStore';
 import type { Player, Profile } from '@/types/models';
 import translations from '../../../public/locales/en/translation.json';
-import { useScoreboard } from '../useScoreboard';
+import { useScoreboard } from '../useScoreboard.ts';
 
 // Mock the gameSessionDB module to avoid IndexedDB issues
 vi.mock('@/lib/gameSessionDB', () => ({

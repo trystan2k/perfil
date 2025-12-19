@@ -1,14 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { GAME_CONFIG } from '../../config/gameConfig';
-import * as gameSessionDB from '../../lib/gameSessionDB';
-import type { IGameSessionRepository } from '../../repositories/GameSessionRepository';
-import { GamePersistenceService } from '../../services/GamePersistenceService';
+import { GAME_CONFIG } from '../../config/gameConfig.ts';
+import * as gameSessionDB from '../../lib/gameSessionDB.ts';
+import type { IGameSessionRepository } from '../../repositories/GameSessionRepository.ts';
+import { GamePersistenceService } from '../../services/GamePersistenceService.ts';
 import {
   cancelPendingPersistence,
   cleanupRehydrationMachines,
   isSessionRehydrating,
   useGameStore,
-} from '../gameStore';
+} from '../gameStore.ts';
 
 // Mock the gameSessionDB module
 vi.mock('../../lib/gameSessionDB', () => ({

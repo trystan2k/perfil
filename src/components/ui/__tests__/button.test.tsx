@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { customRender } from '../../../__mocks__/test-utils';
-import { Button } from '../button';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import { Button } from '../button.tsx';
 
 describe('Button', () => {
   it('renders as a button element by default', () => {

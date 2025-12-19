@@ -1,6 +1,6 @@
-import { loadProfilesByIdsQuery } from './profileDataQuery';
-import type { Profile } from '../types/models';
-import type { Manifest } from './manifest';
+import { loadProfilesByIdsQuery } from './profileDataQuery.ts';
+import type { Profile } from '../types/models.ts';
+import type { Manifest } from './manifest.ts';
 
 /**
  * Build a map of ID prefixes to category slugs from the manifest

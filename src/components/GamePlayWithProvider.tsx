@@ -1,9 +1,9 @@
-import type { SupportedLocale } from '../i18n/locales';
-import type { TranslationValue } from '../i18n/utils';
-import { ErrorBoundary } from './ErrorBoundary';
-import { GamePlay } from './GamePlay';
-import { QueryProvider } from './QueryProvider';
-import { TranslateProvider } from './TranslateProvider';
+import type { SupportedLocale } from '../i18n/locales.ts';
+import type { TranslationValue } from '../i18n/utils.ts';
+import { ErrorBoundary } from './ErrorBoundary/index.ts';
+import { GamePlay } from './GamePlay.tsx';
+import { QueryProvider } from './QueryProvider.tsx';
+import { TranslateProvider } from './TranslateProvider.tsx';
 
 interface GamePlayWithProviderProps {
   sessionId?: string;

@@ -7,7 +7,7 @@ import {
   isRehydrating,
   resetRehydrationState,
   startRehydration,
-} from '../rehydrationMachine';
+} from '../rehydrationMachine.ts';
 
 describe('RehydrationMachine', () => {
   afterEach(() => {

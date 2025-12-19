@@ -9,9 +9,9 @@ import {
   ErrorService,
   getErrorService,
   type TelemetryProvider,
-} from '../../services/ErrorService';
-import { cancelPendingPersistence, useGameStore } from '../../stores/gameStore';
-import { GAME_CONFIG } from '../../config/gameConfig';
+} from '../../services/ErrorService.ts';
+import { cancelPendingPersistence, useGameStore } from '../../stores/gameStore.ts';
+import { GAME_CONFIG } from '../../config/gameConfig.ts';
 import {
   AppError,
   ErrorSeverity,
@@ -19,7 +19,7 @@ import {
   NetworkError,
   PersistenceError,
   ValidationError,
-} from '../errors';
+} from '../errors.ts';
 
 const silentTelemetryProvider: TelemetryProvider = {
   captureError: () => {},

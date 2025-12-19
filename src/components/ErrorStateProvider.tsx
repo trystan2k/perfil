@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { navigateWithLocale } from '@/i18n/locales';
-import { useGameStore } from '../stores/gameStore';
-import { useTranslate } from './TranslateProvider';
-import { Button } from './ui/button';
+import { useGameStore } from '../stores/gameStore.ts';
+import { useTranslate } from './TranslateProvider.tsx';
+import { Button } from './ui/button.tsx';
 import {
   Dialog,
   DialogContent,
@@ -10,7 +10,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from './ui/dialog';
+} from './ui/dialog.tsx';
 
 /**
  * Global error state provider that displays error overlays when errors occur

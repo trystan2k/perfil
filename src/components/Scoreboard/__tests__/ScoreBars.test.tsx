@@ -1,8 +1,8 @@
 import { screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import type { RankedPlayer } from '@/hooks/useScoreboard';
-import { customRender } from '../../../__mocks__/test-utils';
-import { ScoreBars } from '../ScoreBars';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import { ScoreBars } from '../ScoreBars.tsx';
 
 describe('ScoreBars', () => {
   const createPlayer = (overrides?: Partial<RankedPlayer>): RankedPlayer => ({

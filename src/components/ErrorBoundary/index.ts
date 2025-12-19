@@ -1,3 +1,3 @@
-export { default as ErrorBoundary } from './ErrorBoundary';
-export { ErrorBoundaryWrapper } from './ErrorBoundaryWrapper';
-export { default as FallbackUI } from './FallbackUI';
+export { default as ErrorBoundary } from './ErrorBoundary.tsx';
+export { ErrorBoundaryWrapper } from './ErrorBoundaryWrapper.tsx';
+export { default as FallbackUI } from './FallbackUI.tsx';

@@ -1,8 +1,11 @@
 import { z } from 'zod';
 import { GAME_CONFIG } from '@/config/gameConfig';
-import { GameStatus as GameStatusConstants, GameStatusSchema } from '../value-objects/GameStatus';
-import { type Player, PlayerSchema } from './Player';
-import { type Turn, TurnSchema } from './Turn';
+import {
+  GameStatus as GameStatusConstants,
+  GameStatusSchema,
+} from '../value-objects/GameStatus.ts';
+import { type Player, PlayerSchema } from './Player.ts';
+import { type Turn, TurnSchema } from './Turn.ts';
 
 /**
  * Game entity schema representing the complete game state

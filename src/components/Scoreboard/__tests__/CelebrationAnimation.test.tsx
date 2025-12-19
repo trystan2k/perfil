@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { customRender } from '../../../__mocks__/test-utils';
-import { GAME_CONFIG } from '../../../config/gameConfig';
-import { CelebrationAnimation } from '../CelebrationAnimation';
+import { customRender } from '../../../__mocks__/test-utils.tsx';
+import { GAME_CONFIG } from '../../../config/gameConfig.ts';
+import { CelebrationAnimation } from '../CelebrationAnimation.tsx';
 
 describe('CelebrationAnimation', () => {
   const originalMatchMedia = window.matchMedia;

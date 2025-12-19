@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import translations from '../../../public/locales/en/translation.json';
-import { getLangFromUrl, translateFunction } from '../utils';
+import { getLangFromUrl, translateFunction } from '../utils.ts';
 
 describe('translateFunction', () => {
   beforeEach(() => {

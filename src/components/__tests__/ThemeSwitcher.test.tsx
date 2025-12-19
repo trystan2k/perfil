@@ -2,10 +2,10 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import translations from '../../../public/locales/en/translation.json';
-import { customRender } from '../../__mocks__/test-utils';
-import { useTheme } from '../../hooks/useTheme';
-import { ThemeSwitcher } from '../ThemeSwitcher';
-import { TranslateProvider } from '../TranslateProvider';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { useTheme } from '../../hooks/useTheme.ts';
+import { ThemeSwitcher } from '../ThemeSwitcher.tsx';
+import { TranslateProvider } from '../TranslateProvider.tsx';
 
 // Mock the hook
 vi.mock(import('../../hooks/useTheme'), async (importOriginal) => {

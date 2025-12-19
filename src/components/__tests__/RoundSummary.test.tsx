@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import { customRender } from '../../__mocks__/test-utils';
-import { RoundSummary } from '../RoundSummary';
+import { customRender } from '../../__mocks__/test-utils.tsx';
+import { RoundSummary } from '../RoundSummary.tsx';
 
 describe('RoundSummary', () => {
   it('should render with winner information', () => {

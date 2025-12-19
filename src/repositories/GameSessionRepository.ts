@@ -1,4 +1,4 @@
-import { loadGameSession, type PersistedGameState, saveGameSession } from '../lib/gameSessionDB';
+import { loadGameSession, type PersistedGameState, saveGameSession } from '../lib/gameSessionDB.ts';
 
 /**
  * Repository interface for game session persistence.
