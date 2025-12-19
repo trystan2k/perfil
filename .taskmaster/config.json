@@ -8,7 +8,7 @@
     },
     "research": {
       "provider": "openrouter",
-      "modelId": "google/gemini-2.0-flash-exp:free",
+      "modelId": "mistralai/devstral-2512:free",
       "maxTokens": 524000,
       "temperature": 0.1
     },
