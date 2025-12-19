@@ -15,14 +15,19 @@ export interface UseGamePlayLogicReturn {
   setShowAnswerDialog: (show: boolean) => void;
   removePointsDialogOpen: boolean;
   setRemovePointsDialogOpen: (open: boolean) => void;
+  /** null = no player selected for removal (explicit empty state) */
   selectedPlayerForRemoval: { id: string; name: string; score: number } | null;
+  /** null = no round summary data to display (explicit empty state) */
   roundSummaryData: { winnerId: string | null; pointsAwarded: number; profileName: string } | null;
 
   // Game state
+  /** null = no game session loaded (explicit empty state) */
   id: string | null;
+  /** null = no turn active (explicit empty state) */
   currentTurn: TurnState | null;
   players: Player[];
   status: 'pending' | 'active' | 'completed';
+  /** null = no profile currently active (explicit empty state) */
   currentProfile: Profile | null;
   selectedProfiles: string[];
   totalProfilesCount: number;
@@ -35,6 +40,7 @@ export interface UseGamePlayLogicReturn {
   setGlobalError: (error: string) => void;
 
   // Computed values
+  /** null = no clue to display yet (explicit empty state) */
   currentClueText: string | null;
   isMaxCluesReached: boolean;
   isOnFinalClue: boolean;

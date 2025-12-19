@@ -410,6 +410,68 @@ Based on your development guidelines, here are the **NO NO actions**:
 
 ---
 
+## Null vs. Undefined Convention
+
+**Convention**: Use `undefined` for optional/missing values and `null` for explicit "no value" states.
+
+**Rationale**:
+
+- `undefined` represents "value not provided" or "not yet assigned" (default for optional parameters/properties)
+- `null` represents an intentional, explicit "no value" state (more semantic)
+- Clearer intent in type signatures and easier to distinguish between optional and nullable
+
+**Usage Examples**:
+
+### ❌ Anti-patterns (Discouraged)
+
+```typescript
+// Mixing null for optional - unclear intent
+interface User {
+  name: string;
+  nickname: string | null;        // Should be undefined
+  email: string | null;           // Should be undefined
+}
+
+// Undefined for explicit empty state - less semantic
+const result = {
+  data: undefined,                // Should be null for explicit "no data" state
+};
+```
+
+### ✅ Recommended Patterns
+
+```typescript
+// Optional properties use undefined
+interface User {
+  name: string;
+  nickname?: string;              // Implicitly User | undefined
+  email?: string;                 // Implicitly string | undefined
+}
+
+// Explicit empty states use null
+type DataResult = {
+  data: Record<string, unknown> | null;    // Null = intentional "no data"
+  error: Error | null;                     // Null = no error occurred
+};
+
+// Function parameters - optional uses undefined
+function greet(name: string, title?: string) {
+  // title is undefined if not provided
+}
+
+// Object property nullability with null
+const config = {
+  apiKey: null,  // Explicitly set to null (vs never providing the key)
+  timeout: 5000,
+};
+```
+
+**Exception**: DOM attributes may require `undefined` (e.g., `aria-describedby={condition ? "id" : undefined}`).
+
+**Enforcement**: Biome linting rules will catch violations and provide actionable feedback.
+
+---
+
 These are the absolute prohibitions that will break your development workflow, code quality, or project standards.
 
 ---

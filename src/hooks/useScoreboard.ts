@@ -10,6 +10,7 @@ export interface RankedPlayer extends Player {
 }
 
 type ActionState = {
+  /** null = no error occurred (explicit empty state) */
   error: string | null;
 };
 
@@ -17,6 +18,7 @@ export interface UseScoreboardReturn {
   // State
   isLoading: boolean;
   isHydrated: boolean;
+  /** null = no error occurred (explicit empty state) */
   error: string | null;
 
   // Pending states for actions
