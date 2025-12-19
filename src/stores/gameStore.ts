@@ -45,6 +45,7 @@ export interface GameState extends GameSession {
   category?: string;
   profiles: Profile[];
   selectedProfiles: string[];
+  /** Current profile being played; null = no profile loaded (explicit empty state) */
   currentProfile: Profile | null;
   totalProfilesCount: number;
   numberOfRounds: number;
@@ -53,6 +54,7 @@ export interface GameState extends GameSession {
   revealedClueHistory: string[];
   revealedClueIndices: number[];
   clueShuffleMap: Map<string, number[]>;
+  /** Error state; null = no error (explicit empty state) */
   error: AppError | null;
   createGame: (playerNames: string[]) => Promise<void>;
   loadProfiles: (profiles: Profile[]) => void;

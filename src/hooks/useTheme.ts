@@ -13,6 +13,11 @@ type ThemeMode = (typeof THEMES)[keyof typeof THEMES];
 const isValidTheme = (value: unknown): value is ThemeMode => {
   return typeof value === 'string' && Object.values(THEMES).includes(value as ThemeMode);
 };
+/**
+ * Parse stored theme value from storage
+ * @param raw - Raw theme value from storage
+ * @returns Parsed theme mode or null if not found/invalid (explicit empty state)
+ */
 const parseStoredTheme = (raw: string | null): ThemeMode | null => {
   if (!raw) return null;
   if (isValidTheme(raw)) return raw;
@@ -24,6 +29,10 @@ const calculateThemeFromSystem = (): ThemeMode => {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? THEMES.dark : THEMES.light;
 };
 
+/**
+ * Get theme from browser storage
+ * @returns Theme mode or null if not stored/inaccessible (explicit empty state)
+ */
 export const getThemeFromStorage = (): ThemeMode | null => {
   if (typeof window === 'undefined') return null;
   return parseStoredTheme(window.localStorage.getItem(STORAGE_KEY));
@@ -67,6 +76,7 @@ export const updateSelectedTheme = (value: ThemeMode | null) => {
 };
 
 export const useTheme = () => {
+  /** null = theme not yet loaded from storage (explicit empty state) */
   const [theme, setThemeState] = useState<ThemeMode | null>(null);
 
   useEffect(() => {

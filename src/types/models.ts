@@ -86,7 +86,7 @@ export function validateProfilesData(data: unknown): data is ProfilesData {
  * Get a specific clue from a profile by index
  * @param profile - The profile to get the clue from
  * @param index - The clue index (0-based)
- * @returns The clue text or null if index is out of bounds
+ * @returns The clue text or null if index is out of bounds (explicit empty state)
  */
 export function getClue(profile: Profile, index: number): string | null {
   if (index < 0 || index >= profile.clues.length) {
