@@ -1,7 +1,6 @@
 ---
 description: Create new profiles for the Perfil project.
 agent: build
-model: github-copilot/gpt-5-mini
 ---
 
 ## PREPARATION
@@ -49,17 +48,23 @@ The profile clues **MUST NOT** have the name of the profile in them and should b
 
 - Movies: Try to create profiles not only about movies, but also about the actors, characters from a movie, directors, and other relevant people.
 - Animals: Try to create profiles not only about real animals, but also about fictional animals, and the different habitats they live in.
-- Famous People: Try to create profiles not only about real people (live or already dead), but also about fictional people from Books, for example.
+- Famous Personalities: Try to create profiles of famous personalities (live or already dead).
 - Sports: Try to create profiles not only about sports, but also about the different teams, players, and events in that sport (like the soccer world cup).
-- Countries: Try to create profiles not only about countries, but also about cities, languages, and other relevant things, like the capital city, currency,  population, tourism, and other things.
+- Geography: Try to create profiles not only about countries, but also about cities (famous ones), languages, and other relevant things, like the capital city, currency,  population, tourism, and other things.
 - Technology: Try to create profiles not only about technologies, but also about the different companies, products, and events in that technology (like the iPhone 14) and also about fictional technologies, like the Star Trek enterprise, etc.
+- Music: Try to create profiles not only about music, but also about the different artists, albums, and events in that music (like the concert in the park).
+- Brands: It should contains profiles about brands (like Coca-Cola, Kia, etc), all kind of brands. The clues could be about its origin, its products, famous facts, etc. Try to avoid having its name in the clues, or any other too much obvious info.
+- Literacture: It should contains profiles about literacture, like books, but also, authors, the book story or famous caracters (for example Jack Torrance from The Shining). Try to avoid too much obvious info in the clues.
+- History: It should create profiles about history, like events, people, and places. Try to avoid too much obvious info in the clues.
 
 ## RULES TO FOLLOW
 
 **VERY IMPORTANT** All profiles createed **MUST** have exactly 20 clues, no more, no less. Once you have created the profiles, please review this and make sure it is the case (remove or add clues if needed).
 
+**DO** Use idPrefix (from manifest.json) to create the profile ID, no the slug.
 **NEVER** Remove, modify or substitute any profile from the existing data files.
 **DO** Use the profiles.config.json file to get the list of categories, languages, and current profiles (to avoid creating duplicates - you don't need to read all data files to get this list, they will be here in profiles.config)
+**IMPORTANT** Use the manifest.json file to get the `idPrefix` to be used to create the ID of the new profiles. It should follow the same format for each category and it is `profile-{category}-{number}` (e.g., `profile-animal-001`).
 **DO NOT** Put more than 100 profiles in the same data file. If a profile category has more than 100 profiles, create a new data file for that category.
 **DO** create the profile in the public/data folder, in the correct category folder, in the correct language folder, and with the correct data file name.
 **NEVER** Create more profiles than requested by the user.
@@ -77,5 +82,12 @@ The profile clues **MUST NOT** have the name of the profile in them and should b
 **DO NOT** create any other data file if the last one, in the order, does not have more than 100 profiles. So for example if the last one is data-3.json check if it has more than 100 profiles before create the data-4.json.
 **IMPORTANT** Be sure to check if the profile you are creating is not already in the existing data files.
 **IMPORTANT** Be sure to use correct language in the profile name, category and clues.
+**DO NOT** create other files that are not needed (no documentation, no scripts, etc). If you need them to support the creation, create but once you generate all profiles, please remove it.
+**DO** Check if any data-X.json has more than 100 profiles. If it does, create a new data file for that category.
+**DO NOT** create any other data file if the last one, in the order, does not have more than 100 profiles. So for example if the last one is data-3.json check if it has more than 100 profiles before create the data-4.json.
+**DO** If the amount of profiles request is too high, split the work in batches. For example, if user request 500 profiles, split the work in 5 batches of 100 profiles each.
+**DO NOT** escape any text - keep all clues exactly as written with proper accented characters (no HTML escapes, no special character modifications).
+**DO** Use serena MCP to write the files and save tokens.
+**DO NOT** follow the Dev workflow in this process, only rules applied should be the ones listed in this file.
 
 Once you have all the information, create the profiles as requested by the user.

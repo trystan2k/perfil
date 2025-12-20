@@ -1,7 +1,6 @@
 ---
 description: Create new categories for the Perfil project with initial profiles and all necessary configuration.
 agent: build
-model: github-copilot/gpt-4o-mini
 ---
 
 ## PREPARATION
