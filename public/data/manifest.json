@@ -169,6 +169,27 @@
           "profileAmount": 5
         }
       }
+    },
+    {
+      "slug": "literature",
+      "idPrefix": "literature",
+      "locales": {
+        "en": {
+          "name": "Literature",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        },
+        "es": {
+          "name": "Literatura",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        },
+        "pt-BR": {
+          "name": "Literatura",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        }
+      }
     }
   ]
 }

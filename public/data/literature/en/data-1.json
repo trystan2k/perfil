@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-literature-001",
+      "category": "Literature",
+      "name": "Jane Eyre",
+      "clues": [
+        "Published during the Victorian era under a male pseudonym",
+        "The protagonist works as a governess for a mysterious employer",
+        "Features a character with a hidden past locked away in an attic",
+        "Explores themes of independence and social class in 19th century England",
+        "Written by a British author from the Brontë family",
+        "The main character experiences a significant fire that changes her fate",
+        "Contains a romantic relationship between the governess and employer",
+        "The narrative is told from the protagonist's perspective",
+        "Set partially in a mansion called Thornfield Hall",
+        "Features a love triangle with St. John Rivers",
+        "The heroine refuses to compromise her principles for love",
+        "Contains supernatural elements including mysterious laughter",
+        "The title character's first name becomes her identity throughout the story",
+        "Published in 1847 as a novel",
+        "Influenced many feminist literary works that followed",
+        "The protagonist is orphaned and mistreated in her youth",
+        "Features gothic atmosphere and dark secrets",
+        "The story explores what equality means in marriage",
+        "A classic of English literature still widely taught in schools",
+        "The ending suggests hope and equality for the main character"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-002",
+      "category": "Literature",
+      "name": "The Great Gatsby",
+      "clues": [
+        "Set during the Jazz Age in 1920s New York",
+        "Features a narrator who moves to Long Island",
+        "The protagonist is a self-made millionaire with mysterious wealth",
+        "Explores themes of wealth, love, and the American Dream",
+        "Contains lavish parties in a mansion",
+        "The main character fell in love with a woman from his past",
+        "Green light symbolizes the protagonist's desire and longing",
+        "Written by an American author known for depicting excess",
+        "The love interest is married to a wealthy but brutal man",
+        "Set in fictional towns based on Long Island",
+        "The story ends tragically with the protagonist's death",
+        "Features East Egg and West Egg as contrasting settings",
+        "The narrator is a bond salesman",
+        "Published in 1925",
+        "Contains a doctor as one of the main characters",
+        "The protagonist's real name is not Gatsby",
+        "Explores the corruption of the American Dream",
+        "Features a yellow car that becomes symbolically important",
+        "The woman at the center of the story is careless with her power",
+        "Considered one of the greatest American novels ever written"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-003",
+      "category": "Literature",
+      "name": "Jack Torrance",
+      "clues": [
+        "Character from a horror novel by Stephen King",
+        "Works as a winter caretaker in an isolated setting",
+        "Struggles with alcoholism throughout his life",
+        "Possesses a supernatural ability called the shining",
+        "His violent outbursts are influenced by his surroundings",
+        "Wife is named Wendy",
+        "Has a young son with similar psychic abilities",
+        "Gradually loses his sanity due to isolation and supernatural forces",
+        "The setting includes a hedge maze",
+        "Features a famous typewriter in the narrative",
+        "His descent into madness is both psychological and supernatural",
+        "Becomes increasingly dangerous as the story progresses",
+        "The spirits of the location manipulate his thoughts",
+        "He is portrayed as complex rather than purely evil",
+        "His story explores themes of addiction and domestic violence",
+        "The character's past includes traumatic childhood experiences",
+        "He attempts to harm his family members",
+        "The story is set during winter with no escape possible",
+        "His transformation is gradual and horrifying",
+        "The novel examines how environments can corrupt the human soul"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-004",
+      "category": "Literature",
+      "name": "Pride and Prejudice",
+      "clues": [
+        "Written by a British female author in the early 19th century",
+        "The story begins with a famous opening line about marriage",
+        "Features a protagonist who judges others too quickly",
+        "Set in Regency England with strict social hierarchies",
+        "The main character is named Elizabeth",
+        "Contains a proud and wealthy male character named Fitzwilliam",
+        "Features first proposals that are rejected",
+        "The story involves five sisters seeking advantageous marriages",
+        "Contains misunderstandings that drive the plot forward",
+        "The protagonist initially despises the male lead",
+        "Explores class differences and social expectations",
+        "Features letters that reveal important information",
+        "The main couple eventually sees past their initial impressions",
+        "Published in 1813",
+        "Contains themes of personal growth and self-awareness",
+        "Features visits to grand estates like Pemberley",
+        "The protagonist is headstrong and independent for her time",
+        "Contains comic relief through family members",
+        "The story emphasizes finding love based on genuine connection",
+        "Remains one of the most beloved romance novels in English literature"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-005",
+      "category": "Literature",
+      "name": "One Hundred Years of Solitude",
+      "clues": [
+        "Magical realism novel by a Colombian author",
+        "Set in the fictional town of Macondo",
+        "Features multiple generations of the same family",
+        "Characters often have the same names, creating cyclical patterns",
+        "Blends fantastical elements with realistic narrative",
+        "The town experiences various transformations throughout history",
+        "A woman ascends to heaven while folding laundry",
+        "Features an old gypsy who returns with magical discoveries",
+        "The narrative covers approximately 100 years of family history",
+        "Contains biblical and mythological references",
+        "A plague of insomnia affects the entire town",
+        "The story uses non-linear storytelling techniques",
+        "Published in 1967 and became an international bestseller",
+        "The narrative is told from a detached, all-knowing perspective",
+        "Features incest as a recurring theme within the family",
+        "The town is isolated from the outside world",
+        "A final manuscript reveals the story's conclusion",
+        "The novel influenced countless writers and defined a genre",
+        "Contains elements of solitude and isolation as central themes",
+        "Considered one of the greatest novels of the 20th century"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "Wikipedia"
+      }
+    }
+  ]
+}

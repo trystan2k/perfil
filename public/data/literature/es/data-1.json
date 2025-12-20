@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-literature-001",
+      "category": "Literatura",
+      "name": "Jane Eyre",
+      "clues": [
+        "Publicada durante la era victoriana bajo un seudónimo masculino",
+        "La protagonista trabaja como institutriz para un empleador misterioso",
+        "Presenta a un personaje con un pasado oculto encerrado en un ático",
+        "Explora temas de independencia y clase social en la Inglaterra del siglo XIX",
+        "Escrita por una autora británica de la familia Brontë",
+        "El personaje principal experimenta un fuego significativo que cambia su destino",
+        "Contiene una relación romántica entre la institutriz y el empleador",
+        "La narrativa se cuenta desde la perspectiva de la protagonista",
+        "Ambientada parcialmente en una mansión llamada Thornfield Hall",
+        "Presenta un triángulo amoroso con St. John Rivers",
+        "La heroína se niega a comprometer sus principios por amor",
+        "Contiene elementos sobrenaturales incluyendo risas misteriosas",
+        "El nombre del personaje titular se convierte en su identidad en toda la historia",
+        "Publicada en 1847 como novela",
+        "Influyó en muchas obras literarias feministas posteriores",
+        "La protagonista es huérfana y maltratada en su juventud",
+        "Presenta una atmósfera gótica y secretos oscuros",
+        "La historia explora lo que significa la igualdad en el matrimonio",
+        "Un clásico de la literatura inglesa que se enseña ampliamente en las escuelas",
+        "El final sugiere esperanza e igualdad para el personaje principal"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-002",
+      "category": "Literatura",
+      "name": "El Gran Gatsby",
+      "clues": [
+        "Ambientada durante la Época del Jazz en Nueva York de 1920",
+        "Presenta a un narrador que se muda a Long Island",
+        "El protagonista es un millonario hecho a sí mismo con riqueza misteriosa",
+        "Explora temas de riqueza, amor y el Sueño Americano",
+        "Contiene fiestas lujosas en una mansión",
+        "El personaje principal se enamoró de una mujer de su pasado",
+        "La luz verde simboliza el deseo y la añoranza del protagonista",
+        "Escrita por un autor estadounidense conocido por retratar el exceso",
+        "El interés amoroso está casado con un hombre rico pero brutal",
+        "Ambientada en pueblos ficticios basados en Long Island",
+        "La historia termina trágicamente con la muerte del protagonista",
+        "Presenta East Egg y West Egg como escenarios contrastantes",
+        "El narrador es un corredor de bonos",
+        "Publicada en 1925",
+        "Contiene a un médico como uno de los personajes principales",
+        "El nombre real del protagonista no es Gatsby",
+        "Explora la corrupción del Sueño Americano",
+        "Presenta un auto amarillo que se vuelve simbólicamente importante",
+        "La mujer en el centro de la historia es descuidada con su poder",
+        "Considerada una de las mejores novelas estadounidenses jamás escritas"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-003",
+      "category": "Literatura",
+      "name": "Jack Torrance",
+      "clues": [
+        "Personaje de una novela de horror de Stephen King",
+        "Trabaja como cuidador de invierno en un lugar aislado",
+        "Lucha contra el alcoholismo durante toda su vida",
+        "Posee una habilidad sobrenatural llamada el resplandor",
+        "Sus arrebatos violentos son influenciados por su entorno",
+        "Su esposa se llama Wendy",
+        "Tiene un hijo pequeño con habilidades psíquicas similares",
+        "Gradualmente pierde la cordura debido al aislamiento y fuerzas sobrenaturales",
+        "El escenario incluye un laberinto de setos",
+        "Presenta una máquina de escribir famosa en la narrativa",
+        "Su descenso a la locura es tanto psicológico como sobrenatural",
+        "Se vuelve cada vez más peligroso a medida que avanza la historia",
+        "Los espíritus del lugar manipulan sus pensamientos",
+        "Se retrata como complejo en lugar de puramente malvado",
+        "Su historia explora temas de adicción y violencia doméstica",
+        "El pasado del personaje incluye experiencias traumáticas de la infancia",
+        "Intenta hacer daño a los miembros de su familia",
+        "La historia está ambientada durante el invierno sin posibilidad de escape",
+        "Su transformación es gradual y aterradora",
+        "La novela examina cómo los entornos pueden corromper el alma humana"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-004",
+      "category": "Literatura",
+      "name": "Orgullo y Prejuicio",
+      "clues": [
+        "Escrita por una autora británica a principios del siglo XIX",
+        "La historia comienza con una famosa frase de apertura sobre el matrimonio",
+        "Presenta a una protagonista que juzga a otros demasiado rápidamente",
+        "Ambientada en la Inglaterra de la Regencia con jerarquías sociales estrictas",
+        "El personaje principal se llama Elizabeth",
+        "Contiene un personaje orgulloso y rico llamado Fitzwilliam",
+        "Presenta propuestas de matrimonio que son rechazadas",
+        "La historia involucra cinco hermanas que buscan matrimonios ventajosos",
+        "Contiene malentendidos que impulsan la trama hacia adelante",
+        "La protagonista inicialmente detesta al personaje masculino principal",
+        "Explora diferencias de clase y expectativas sociales",
+        "Presenta cartas que revelan información importante",
+        "La pareja principal eventualmente ve más allá de sus impresiones iniciales",
+        "Publicada en 1813",
+        "Contiene temas de crecimiento personal y autoconocimiento",
+        "Presenta visitas a grandes mansiones como Pemberley",
+        "La protagonista es terca e independiente para su época",
+        "Contiene alivio cómico a través de miembros de la familia",
+        "La historia enfatiza encontrar amor basado en conexión genuina",
+        "Sigue siendo una de las novelas románticas más queridas de la literatura inglesa"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-005",
+      "category": "Literatura",
+      "name": "Cien Años de Soledad",
+      "clues": [
+        "Novela de realismo mágico de un autor colombiano",
+        "Ambientada en el pueblo ficticio de Macondo",
+        "Presenta múltiples generaciones de la misma familia",
+        "Los personajes a menudo tienen los mismos nombres, creando patrones cíclicos",
+        "Mezcla elementos fantásticos con narrativa realista",
+        "El pueblo experimenta varias transformaciones a lo largo de la historia",
+        "Una mujer asciende al cielo mientras dobla ropa",
+        "Presenta a un viejo gitano que regresa con descubrimientos mágicos",
+        "La narrativa cubre aproximadamente 100 años de historia familiar",
+        "Contiene referencias bíblicas y mitológicas",
+        "Una plaga de insomnio afecta a todo el pueblo",
+        "La historia utiliza técnicas de narrativa no lineal",
+        "Publicada en 1967 y se convirtió en un bestseller internacional",
+        "La narrativa se cuenta desde una perspectiva omnisciente y distante",
+        "Presenta el incesto como un tema recurrente dentro de la familia",
+        "El pueblo está aislado del mundo exterior",
+        "Un manuscrito final revela la conclusión de la historia",
+        "La novela influyó en innumerables escritores y definió un género",
+        "Contiene elementos de soledad e aislamiento como temas centrales",
+        "Considerada una de las mejores novelas del siglo XX"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "Wikipedia"
+      }
+    }
+  ]
+}

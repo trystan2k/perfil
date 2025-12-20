@@ -1070,7 +1070,43 @@
           "availableIn": ["pt-BR"],
           "difficulty": "medium"
         }
-      ]
-    }
-  ]
+       ]
+     },
+     {
+       "slug": "literature",
+       "displayNames": {
+         "en": "Literature",
+         "es": "Literatura",
+         "pt-BR": "Literatura"
+       },
+       "description": "Literature profiles contain clues about books, authors, literary characters, and stories. Includes famous novels, celebrated authors, iconic characters like Jack Torrance from The Shining, and literary works from various genres and time periods. Clues avoid obvious information to maintain challenge.",
+       "profiles": [
+         {
+           "name": "Jane Eyre",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "The Great Gatsby",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Jack Torrance",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Pride and Prejudice",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "easy"
+         },
+         {
+           "name": "One Hundred Years of Solitude",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         }
+       ]
+     }
+   ]
 }

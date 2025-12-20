@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-literature-001",
+      "category": "Literatura",
+      "name": "Jane Eyre",
+      "clues": [
+        "Publicado durante a era vitoriana sob um pseudônimo masculino",
+        "A protagonista trabalha como governanta para um empregador misterioso",
+        "Apresenta um personagem com um passado oculto trancado em um sótão",
+        "Explora temas de independência e classe social na Inglaterra do século XIX",
+        "Escrito por uma autora britânica da família Brontë",
+        "O personagem principal experimenta um incêndio significativo que muda seu destino",
+        "Contém um relacionamento romântico entre a governanta e o empregador",
+        "A narrativa é contada da perspectiva da protagonista",
+        "Ambientado parcialmente em uma mansão chamada Thornfield Hall",
+        "Apresenta um triângulo amoroso com St. John Rivers",
+        "A heroína se recusa a comprometer seus princípios pelo amor",
+        "Contém elementos sobrenaturais incluindo risos misteriosos",
+        "O nome do personagem titular se torna sua identidade ao longo da história",
+        "Publicado em 1847 como romance",
+        "Influenciou muitas obras literárias feministas que se seguiram",
+        "A protagonista é órfã e maltratada em sua juventude",
+        "Apresenta atmosfera gótica e segredos obscuros",
+        "A história explora o que significa igualdade no casamento",
+        "Um clássico da literatura inglesa amplamente ensinado nas escolas",
+        "O final sugere esperança e igualdade para o personagem principal"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-002",
+      "category": "Literatura",
+      "name": "O Grande Gatsby",
+      "clues": [
+        "Ambientado durante a Era do Jazz em Nova York nos anos 1920",
+        "Apresenta um narrador que se muda para Long Island",
+        "O protagonista é um milionário que se fez sozinho com riqueza misteriosa",
+        "Explora temas de riqueza, amor e o Sonho Americano",
+        "Contém festas luxuosas em uma mansão",
+        "O personagem principal se apaixonou por uma mulher de seu passado",
+        "A luz verde simboliza o desejo e o anseio do protagonista",
+        "Escrito por um autor americano conhecido por retratar o excesso",
+        "O interesse amoroso é casado com um homem rico mas brutal",
+        "Ambientado em cidades fictícias baseadas em Long Island",
+        "A história termina tragicamente com a morte do protagonista",
+        "Apresenta East Egg e West Egg como cenários contrastantes",
+        "O narrador é um corretor de títulos",
+        "Publicado em 1925",
+        "Contém um médico como um dos personagens principais",
+        "O nome real do protagonista não é Gatsby",
+        "Explora a corrupção do Sonho Americano",
+        "Apresenta um carro amarelo que se torna simbolicamente importante",
+        "A mulher no centro da história é descuidada com seu poder",
+        "Considerado um dos maiores romances americanos jamais escritos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-003",
+      "category": "Literatura",
+      "name": "Jack Torrance",
+      "clues": [
+        "Personagem de um romance de horror de Stephen King",
+        "Trabalha como zelador de inverno em um local isolado",
+        "Luta contra o alcoolismo durante toda a sua vida",
+        "Possui uma habilidade sobrenatural chamada brilho",
+        "Seus acessos de raiva são influenciados por seu entorno",
+        "Sua esposa se chama Wendy",
+        "Tem um filho pequeno com habilidades psíquicas similares",
+        "Gradualmente perde a sanidade devido ao isolamento e forças sobrenaturais",
+        "O cenário inclui um labirinto de sebes",
+        "Apresenta uma máquina de escrever famosa na narrativa",
+        "Sua descida à loucura é tanto psicológica quanto sobrenatural",
+        "Fica cada vez mais perigoso conforme a história avança",
+        "Os espíritos do local manipulam seus pensamentos",
+        "É retratado como complexo ao invés de puramente maligno",
+        "Sua história explora temas de vício e violência doméstica",
+        "O passado do personagem inclui experiências traumáticas da infância",
+        "Tenta prejudicar os membros de sua família",
+        "A história está ambientada durante o inverno sem possibilidade de fuga",
+        "Sua transformação é gradual e aterradora",
+        "O romance examina como ambientes podem corromper a alma humana"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-004",
+      "category": "Literatura",
+      "name": "Orgulho e Preconceito",
+      "clues": [
+        "Escrito por uma autora britânica no início do século XIX",
+        "A história começa com uma famosa frase de abertura sobre casamento",
+        "Apresenta uma protagonista que julga os outros muito rapidamente",
+        "Ambientado na Inglaterra da Regência com hierarquias sociais rígidas",
+        "O personagem principal se chama Elizabeth",
+        "Contém um personagem orgulhoso e rico chamado Fitzwilliam",
+        "Apresenta propostas de casamento que são recusadas",
+        "A história envolve cinco irmãs buscando casamentos vantajosos",
+        "Contém desentendimentos que impulsionam a trama para frente",
+        "A protagonista inicialmente detesta o personagem masculino principal",
+        "Explora diferenças de classe e expectativas sociais",
+        "Apresenta cartas que revelam informações importantes",
+        "O casal principal eventualmente vê além de suas impressões iniciais",
+        "Publicado em 1813",
+        "Contém temas de crescimento pessoal e autoconsciência",
+        "Apresenta visitas a grandes mansões como Pemberley",
+        "A protagonista é teimosa e independente para sua época",
+        "Contém alívio cômico através de membros da família",
+        "A história enfatiza encontrar amor baseado em conexão genuína",
+        "Permanece como um dos romances românticos mais queridos da literatura inglesa"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-literature-005",
+      "category": "Literatura",
+      "name": "Cem Anos de Solidão",
+      "clues": [
+        "Romance de realismo mágico de um autor colombiano",
+        "Ambientado na cidade fictícia de Macondo",
+        "Apresenta múltiplas gerações da mesma família",
+        "Os personagens frequentemente têm os mesmos nomes, criando padrões cíclicos",
+        "Mistura elementos fantásticos com narrativa realista",
+        "A cidade experimenta várias transformações ao longo da história",
+        "Uma mulher ascende ao céu enquanto dobra roupa",
+        "Apresenta um velho cigano que retorna com descobertas mágicas",
+        "A narrativa cobre aproximadamente 100 anos de história familiar",
+        "Contém referências bíblicas e mitológicas",
+        "Uma praga de insônia afeta toda a cidade",
+        "A história usa técnicas de narrativa não linear",
+        "Publicado em 1967 e se tornou um bestseller internacional",
+        "A narrativa é contada de uma perspectiva onisciente e distante",
+        "Apresenta incesto como um tema recorrente dentro da família",
+        "A cidade está isolada do mundo exterior",
+        "Um manuscrito final revela a conclusão da história",
+        "O romance influenciou inúmeros escritores e definiu um gênero",
+        "Contém elementos de solidão e isolamento como temas centrais",
+        "Considerado um dos maiores romances do século XX"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "Wikipedia"
+      }
+    }
+  ]
+}
