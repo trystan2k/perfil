@@ -511,13 +511,118 @@
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
         },
-        {
-          "name": "Leonardo DiCaprio",
-          "availableIn": ["en", "es", "pt-BR"],
-          "difficulty": "easy"
-        }
-      ]
-    },
+         {
+           "name": "Leonardo DiCaprio",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "easy"
+         },
+         {
+           "name": "Marilyn Monroe",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Joan of Arc",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Gustave Eiffel",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Confucius",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Catherine the Great",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Jane Austen",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Charles Darwin",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Socrates",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Harriet Tubman",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Nikola Tesla",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Rosa Parks",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Vincent van Gogh",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Isaac Newton",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Audrey Hepburn",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Florence Nightingale",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Sigmund Freud",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Anne Frank",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Louis Armstrong",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Helen Keller",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Thomas Jefferson",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Galileo Galilei",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         }
+       ]
+     },
     {
       "slug": "movies",
       "displayNames": {

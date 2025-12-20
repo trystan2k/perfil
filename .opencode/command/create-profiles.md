@@ -61,7 +61,7 @@ Each profile MUST have:
 
 ## FILE MANAGEMENT
 
-- **Max 100 profiles per data file**: If exceeded, create new file (data-1.json, data-2.json, etc.)
+- **Max 100 profiles per data file**: If exceeded, create new file (data-1.json, data-2.json, etc.). The source of truth of the number of profiles in a file is the amount of entries in the data-json file (not the id number as some categories does not follow the numbering, so read the amount of entries in the file to know the number of profiles in that file).
 - **Only create new files if current file has 100+ profiles**
 - **Update `public/data/manifest.json`**: Add new files and update `profileAmount` for each category/language
 - **Files location**: `public/data/{category}/{language}/data-{number}.json`
