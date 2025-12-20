@@ -127,6 +127,27 @@
           "profileAmount": 30
         }
       }
+    },
+    {
+      "slug": "history",
+      "idPrefix": "history",
+      "locales": {
+        "en": {
+          "name": "History",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        },
+        "es": {
+          "name": "Historia",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        },
+        "pt-BR": {
+          "name": "História",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        }
+      }
     }
   ]
 }

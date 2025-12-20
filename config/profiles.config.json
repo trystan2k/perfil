@@ -949,6 +949,92 @@
           "difficulty": "hard"
         }
       ]
+    },
+    {
+      "slug": "history",
+      "displayNames": {
+        "en": "History",
+        "es": "Historia",
+        "pt-BR": "História"
+      },
+      "description": "History profiles contain clues about historical events, figures, and periods. Includes major transformations like the fall of empires, revolutions, wars, and ancient civilizations. Clues focus on lesser-known details and context to avoid obvious information.",
+      "profiles": [
+        {
+          "name": "Fall of the Roman Empire",
+          "availableIn": ["en"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Black Death",
+          "availableIn": ["en"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The French Revolution",
+          "availableIn": ["en"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Silk Road",
+          "availableIn": ["en"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Russian Revolution",
+          "availableIn": ["en"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Conquista de América",
+          "availableIn": ["es"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "La Inquisición Española",
+          "availableIn": ["es"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "El Renacimiento",
+          "availableIn": ["es"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "La Revolución Industrial",
+          "availableIn": ["es"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "El Imperio Mongol",
+          "availableIn": ["es"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "A Revolução Francesa",
+          "availableIn": ["pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "O Império Macedônico",
+          "availableIn": ["pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "O Iluminismo",
+          "availableIn": ["pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "A Queda de Constantinopla",
+          "availableIn": ["pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "A Abolição da Escravidão",
+          "availableIn": ["pt-BR"],
+          "difficulty": "medium"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-history-001",
+      "category": "History",
+      "name": "Fall of the Roman Empire",
+      "clues": [
+        "Culminated in 476 AD when the last Western Emperor was deposed",
+        "Economic collapse was triggered by debasement of currency and inflation",
+        "Military stretched thin defending thousands of miles of borders",
+        "Division into Eastern and Western halves accelerated the process",
+        "Barbarian invasions were a symptom, not the primary cause",
+        "The Eastern portion survived for another thousand years",
+        "Augustine wrote 'City of God' partly in response to this event",
+        "Trade networks that sustained the economy had already fragmented",
+        "The Visigoths, Ostrogoths, and Vandals filled the power vacuum",
+        "Constantinople remained a prosperous capital during Western decline",
+        "Latin evolved into Romance languages during this transition period",
+        "The Catholic Church filled administrative gaps left behind",
+        "Rome's slave-based economy became unsustainable over time",
+        "Germanic tribes gradually migrated into Roman territories",
+        "Taxation became impossible to collect across vast regions",
+        "Urban centers depopulated as trade networks collapsed",
+        "The Silk Road disruptions reduced Eastern wealth flowing West",
+        "Military reform attempts under Diocletian temporarily stabilized it",
+        "Lead poisoning from water pipes may have affected decision-making",
+        "This period marks the transition to the Medieval Age"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "Wikipedia, Historical Records"
+      }
+    },
+    {
+      "id": "profile-history-002",
+      "category": "History",
+      "name": "The Black Death",
+      "clues": [
+        "Killed an estimated 75-200 million people globally in the 14th century",
+        "Originated in Central Asia and spread via trade routes",
+        "Fleas on black rats were the primary vector of transmission",
+        "Wiped out 30-60% of Europe's population between 1347-1353",
+        "Caused massive labor shortages that increased workers' bargaining power",
+        "Flagellant movements emerged as people sought spiritual explanations",
+        "Jewish communities were scapegoated and massacred across Europe",
+        "Medical understanding was so poor that bloodletting was prescribed",
+        "Cities were hit harder than rural areas due to population density",
+        "Trade collapsed, reducing European prosperity for decades",
+        "The Great Mortality triggered the Peasants' Revolt in England",
+        "Artistic depictions became obsessed with 'danse macabre' themes",
+        "Recovery took over a century in many regions",
+        "Survived in animal reservoirs in Central Asian steppes",
+        "Mortality rates varied wildly by location and season",
+        "Created severe social upheaval and challenged feudal structures",
+        "Some historians argue it helped end the Medieval period",
+        "Spread faster along maritime trade routes than overland",
+        "Hygiene understanding didn't improve until centuries later",
+        "It caused the period to be called the 'Late Medieval Crisis'"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia, Medieval History"
+      }
+    },
+    {
+      "id": "profile-history-003",
+      "category": "History",
+      "name": "The French Revolution",
+      "clues": [
+        "Began in 1789 with the storming of the Bastille",
+        "Financial crisis and famine were major underlying causes",
+        "The Third Estate represented 98% of the population but had little power",
+        "The Declaration of the Rights of Man reflected Enlightenment ideals",
+        "Women marched on Versailles demanding bread and action",
+        "The Reign of Terror (1793-1794) claimed around 40,000 lives",
+        "Marie Antoinette was executed by guillotine in 1793",
+        "The Revolutionary Calendar was created to break with tradition",
+        "Robespierre was executed, ending the most violent phase",
+        "The metric system was introduced during this period",
+        "Changed government structures across all of Europe eventually",
+        "Feudalism was abolished and land redistributed",
+        "Church property was confiscated and sold",
+        "Nationalism became a driving force in European politics",
+        "Multiple constitutions were created and abandoned",
+        "Radical changes aimed to completely restructure society",
+        "Women's rights movements gained momentum from revolutionary ideals",
+        "Military campaigns spread revolutionary ideals beyond France",
+        "The Revolution inspired subsequent Latin American independence movements",
+        "It fundamentally transformed the relationship between state and citizen"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia, French History"
+      }
+    },
+    {
+      "id": "profile-history-004",
+      "category": "History",
+      "name": "The Silk Road",
+      "clues": [
+        "Not a single road but a network of trade routes spanning over 4,000 miles",
+        "Connected China with Central Asia, the Middle East, and Europe",
+        "Silk production was a closely guarded secret in China for centuries",
+        "Trade goods included spices, jade, glass, ceramics, and metals",
+        "Cultural exchange facilitated by traders was as important as goods",
+        "Buddhism spread along these routes from India to East Asia",
+        "The Venetian merchant family Polo traveled these routes in the 13th century",
+        "Nomadic tribes like the Mongols controlled portions and extracted taxes",
+        "Cities like Samarkand became prosperous trade hubs",
+        "Arab merchants often served as middlemen between Asia and Europe",
+        "Peak activity occurred during the Tang Dynasty (618-907 AD)",
+        "Mongol unification under Kublai Khan created unprecedented safety for traders",
+        "Maritime routes eventually competed with and partially replaced overland paths",
+        "Disease transmission was a downside of increased contact",
+        "Printing technology, gunpowder, and mathematics traveled westward",
+        "Caravanserais (roadside inns) provided shelter for traveling merchants",
+        "Political instability and wars eventually disrupted major trade flows",
+        "Portuguese seeking sea routes to Asia hoped to bypass middlemen",
+        "Archaeological evidence comes from trade cities and caravanserai remains",
+        "Economic impact on European markets was profound and transformative"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia, Trade History"
+      }
+    },
+    {
+      "id": "profile-history-005",
+      "category": "History",
+      "name": "The Russian Revolution",
+      "clues": [
+        "Occurred in two major phases: February and October revolutions of 1917",
+        "World War I losses and food shortages triggered initial unrest",
+        "The February Revolution forced Tsar Nicholas II to abdicate",
+        "Bolsheviks, led by Lenin, seized power in the October Revolution",
+        "The Russian Civil War lasted from 1918-1922 with approximately 8 million deaths",
+        "The Union of Soviet Socialist Republics was established in 1922",
+        "War Communism policies included grain requisitions that caused starvation",
+        "The New Economic Policy temporarily allowed limited capitalism",
+        "Trotsky and Stalin competed for power after Lenin's death",
+        "Stalin emerged victorious and implemented rapid industrialization",
+        "Collectivization of agriculture caused the Holodomor famine in Ukraine",
+        "Millions of 'kulaks' (wealthy farmers) were executed or deported",
+        "Inspired communist movements worldwide throughout the 20th century",
+        "The Trans-Siberian Railway became a crucial logistical tool",
+        "Women gained voting rights earlier than in many Western nations",
+        "Early educational reforms attempted to reshape Soviet society",
+        "The revolution represented a complete overhaul of the social order",
+        "Created ideological conflict that defined the 20th century",
+        "Marxist ideology was implemented for the first time at national scale",
+        "The Soviet model influenced decolonization movements in Asia and Africa"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "Wikipedia, Russian History"
+      }
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-history-001",
+      "category": "História",
+      "name": "A Revolução Francesa",
+      "clues": [
+        "Começou em 1789 com a storming da Bastilha",
+        "Crise financeira e fome foram causas subjacentes principais",
+        "O Terceiro Estado representava 98% da população mas tinha pouco poder",
+        "A Declaração dos Direitos do Homem refletia ideais iluministas",
+        "Mulheres marcharam em Versalhes exigindo pão e ação",
+        "O Reinado do Terror (1793-1794) causou cerca de 40.000 mortes",
+        "Maria Antonieta foi executada por guilhotina em 1793",
+        "O Calendário Revolucionário foi criado para romper com tradição",
+        "Robespierre foi executado, terminando a fase mais violenta",
+        "O sistema métrico foi introduzido durante este período",
+        "Mudou estruturas governamentais em toda Europa eventualmente",
+        "O feudalismo foi abolido e terras redistribuídas",
+        "Propriedades da Igreja foram confiscadas e vendidas",
+        "O nacionalismo tornou-se força motriz na política europeia",
+        "Múltiplas constituições foram criadas e abandonadas",
+        "Mudanças radicais visavam reestruturar completamente a sociedade",
+        "Movimentos pelos direitos das mulheres ganharam momento com ideias revolucionárias",
+        "Campanhas militares espalharam ideais revolucionários além da França",
+        "A Revolução inspirou subsequentes movimentos de independência latino-americana",
+        "Transformou fundamentalmente a relação entre estado e cidadão"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "Wikipedia, História Francesa"
+      }
+    },
+    {
+      "id": "profile-history-002",
+      "category": "História",
+      "name": "O Império Macedônico",
+      "clues": [
+        "Fundado pelo Rei Felipe II na década de 1330 AC",
+        "Alexandre, o Grande, expandiu-o para criar o maior império de sua era",
+        "Conquistas estenderam-se do Mediterrâneo até o noroeste da Índia",
+        "Alexandre estudou sob Aristóteles antes de herdar o trono",
+        "Morte prematura em 323 AC aos 32 anos deixou império fragmentado",
+        "Falange macedônia era formação militar revolucionária e eficaz",
+        "Fusão de cultura grega com oriental criou helenismo",
+        "Cidades fundadas como Alexandria tornaram-se centros de aprendizado",
+        "Sucessores de Alexandre dividiram o império em reinos helênicos",
+        "Influência cultural propagou-se por toda região do Mediterrâneo e Ásia",
+        "Filosofia platônica e aristotélica espalhou-se para o Oriente",
+        "Matemática grega e geometria transformaram conhecimento científico",
+        "Religião e tradições locais foram mantidas sob domínio macedônico",
+        "Casamento de Alexandre com Roxana refletia política de assimilação",
+        "Biblioteca de Alexandria tornou-se maior centro de conhecimento antigo",
+        "Império durou apenas 13 anos como entidade unificada",
+        "Legado durou séculos através de reinos helenísticos",
+        "Exército profissional permanente foi inovação importante",
+        "Educação helenística moldou elites em regiões conquistadas",
+        "Mudança paradigmática em pensamento filosófico e científico ocidental"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "Wikipedia, Império Macedônico"
+      }
+    },
+    {
+      "id": "profile-history-003",
+      "category": "História",
+      "name": "O Iluminismo",
+      "clues": [
+        "Movimento intelectual do século XVIII enfatizando razão e ciência",
+        "Desafiou autoridade tradicional da Igreja e monarquia absoluta",
+        "Filosofia empirista questionava conhecimento baseado apenas em revelação",
+        "Pensadores como Voltaire, Rousseau e Montesquieu influenciaram profundamente",
+        "Separação de poderes foi conceito revolucionário proposto",
+        "Direitos naturais dos homens foram reivindicados como inalienáveis",
+        "Educação pública foi vista como necessária para sociedade melhor",
+        "Enciclopédia de Diderot consolidou conhecimento do período",
+        "Crítica ao feudalismo preparou caminho para revoluções democráticas",
+        "Tolerância religiosa foi defendida como princípio moral fundamental",
+        "Crença no progresso através de razão caracterizava movimento",
+        "Salões parisienses eram centros de debate intelectual",
+        "Influência alcançou elite educada em toda Europa e América",
+        "Reformismo ilustrado levou a mudanças graduais em monarquias",
+        "Ciência experimental tornou-se modelo para buscar conhecimento",
+        "Questionamento de hierarquias sociais naturalizadas",
+        "Liberdade de expressão e imprensa foram conceitos avançados",
+        "Utilitarismo começou a moldar pensamento político econômico",
+        "Séculos XVIII e XIX foram profundamente influenciados por ideias iluministas",
+        "Fundação intelectual da modernidade e pensamento contemporâneo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "Wikipedia, Iluminismo"
+      }
+    },
+    {
+      "id": "profile-history-004",
+      "category": "História",
+      "name": "A Queda de Constantinopla",
+      "clues": [
+        "Ocorreu em 29 de maio de 1453 sob cerco otomano",
+        "Capital do Império Bizantino por mais de mil anos",
+        "Muralhas de Constantinopla resistiram a ataques por séculos",
+        "Canhões de Mehmed II foram decisivos para romper defesas",
+        "População defendendo-se era apenas alguns milhares contra dezenas de milhares",
+        "Último imperador Constantino XI morreu defendendo a cidade",
+        "Relíquias cristãs foram salvas e levadas para Ocidente",
+        "Igrejas foram convertidas em mesquitas após conquista",
+        "Êxodo de estudiosos gregos para Itália levou textos clássicos",
+        "Otomanos renomearam a cidade Istambul após conquista",
+        "Significou fim oficial do Império Bizantino/Romano do Oriente",
+        "Rota para Ásia foi efetivamente bloqueada para comerciantes europeus",
+        "Motivou exploração portuguesa de rotas marinhas alternativas",
+        "Símbolo de transição de poder medieval para moderno",
+        "Defesa heróica tornou-se tema literário e artístico importante",
+        "Tecnologia militar otomana foi superior em artilharia",
+        "Cristianismo ortodoxo foi suprimido em favor do islã",
+        "Cidade tornou-se centro administrativo do Império Otomano",
+        "Marcou transformação do Mediterrâneo em espaço multiconfessional",
+        "Evento que marcou transição da Idade Média para Idade Moderna"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "Wikipedia, Queda de Constantinopla"
+      }
+    },
+    {
+      "id": "profile-history-005",
+      "category": "História",
+      "name": "A Abolição da Escravidão",
+      "clues": [
+        "Processo gradual que levou séculos em diferentes sociedades",
+        "Haiti foi primeira colônia a abolir escravidão em 1794",
+        "Britânicos aboliram tráfico de escravos em 1807, escravidão em 1833",
+        "Movimento abolicionista ganhou força no século XIX",
+        "Quakers religiosos foram primeiros cristãos a condenar sistematicamente",
+        "França aboliu em 1848 após Revolução de fevereiro",
+        "Estados Unidos aboliram apenas em 1865 após Guerra Civil",
+        "Brasil foi último país americano a abolir em 1888",
+        "Argumentos religiosos, econômicos e morais foram usados por abolicionistas",
+        "Oposição vinha de proprietários e economias dependentes de escravidão",
+        "Movimentos de resistência escrava aceleraram processo de abolição",
+        "Fugas para territórios livres enfraqueceram sistemas escravistas",
+        "Literatura abolicionista como 'Cabana do Tio Tom' influenciou opinião pública",
+        "Escravidão foi substituída por peonagem e colonialismo em muitos lugares",
+        "Traumas históricos da escravidão continuam afetando sociedades",
+        "Reparações foram raramente implementadas em governos",
+        "Desigualdade racial foi perpetuada através de sistemas pós-abolição",
+        "Emancipação foi frequentemente acompanhada por violência e resistência",
+        "Leis discriminatórias continuaram após abolição legal",
+        "Herança de escravidão moldou desigualdades econômicas modernas"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "Wikipedia, Abolição da Escravidão"
+      }
+    }
+  ]
+}

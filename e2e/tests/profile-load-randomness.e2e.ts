@@ -23,7 +23,7 @@ test.describe('Profile Loading and Randomness', () => {
     page,
   }) => {
     const playerNames = ['Player1', 'Player2', 'Player3', 'Player4'];
-    const roundCount = 30;
+    const roundCount = 35;
 
     // ===== FIRST GAME =====
     // Add players

@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-history-001",
+      "category": "Historia",
+      "name": "Conquista de América",
+      "clues": [
+        "Comenzó en 1492 con la llegada de Cristóbal Colón a las Antillas",
+        "Los españoles utilizaban caballos y acero contra enemigos sin estas ventajas tecnológicas",
+        "Las enfermedades europeas mataron a millones de indígenas, más que las guerras",
+        "Moctezuma II fue capturado durante la conquista del Imperio Azteca",
+        "Cortés tenía solo alrededor de 600 soldados contra decenas de miles",
+        "Pizarro conquistó el Imperio Inca con fuerzas igualmente pequeñas",
+        "El colapso demográfico fue entre el 90-95% en algunas regiones",
+        "La Iglesia Católica jugó un papel central en la colonización",
+        "Los españoles dividieron territorios en encomiendas para control administrativo",
+        "Inquisición española fue establecida en América para asegurar conformidad religiosa",
+        "Mezcla de poblaciones creó nuevas identidades raciales y culturales",
+        "La plata de Potosí financió gran parte del imperio español",
+        "Resistencias indígenas continuaron durante siglos",
+        "Muchos pueblos mantuvieron idiomas y tradiciones a pesar de la presión",
+        "La esclavitud de indígenas fue posteriormente sustituida por trata africana",
+        "Civilizaciones precolombinas tenían avances astronómicos y matemáticos sofisticados",
+        "El comercio triangular conectó África, América y Europa económicamente",
+        "Transformación completa de los ecosistemas americanos por introducción de nuevas especies",
+        "Documentos indígenas fueron destruidos durante la conquista",
+        "El impacto global en culturas, economía y biología fue sin precedentes"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "Wikipedia, Historia de América"
+      }
+    },
+    {
+      "id": "profile-history-002",
+      "category": "Historia",
+      "name": "La Inquisición Española",
+      "clues": [
+        "Establecida en 1478 por los Reyes Católicos",
+        "Buscaba eliminar a conversos (judíos y musulmanes convertidos) sospechosos",
+        "Tortura era un método aceptado para obtener confesiones",
+        "Se estima que ejecutó entre 3,000 a 5,000 personas",
+        "Las acusaciones sin evidencia podían resultar en confiscación de propiedades",
+        "Autores de fe eran procesiones públicas de penitencia y castigo",
+        "El Tribunal del Santo Oficio vigilaba el comportamiento de los católicos",
+        "Libros fueron censurados y prohibidos durante siglos",
+        "La expulsión de judíos en 1492 coincidió con la llegada a América",
+        "Miedo generalizado creó una cultura de denuncias y secretismo",
+        "Jueces inquisidores tenían poder casi absoluto en sus territorios",
+        "Familiares de los acusados también eran investigados",
+        "El número de acusaciones fue mayor durante períodos de crisis económica",
+        "Herencia de trauma colectivo en comunidades españolas",
+        "Duró aproximadamente 350 años hasta su abolición formal",
+        "Influencia ideológica más importante que número de ejecuciones",
+        "Fue copiada en otros países católicos durante la Contrarreforma",
+        "Documentos de procesos proporcionan información sobre la vida cotidiana",
+        "Afectó desproporcionadamente a minorías religiosas y mujeres",
+        "Símbolo histórico de represión religiosa y persecución"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "Wikipedia, Inquisición Española"
+      }
+    },
+    {
+      "id": "profile-history-003",
+      "category": "Historia",
+      "name": "El Renacimiento",
+      "clues": [
+        "Movimiento intelectual que comenzó en Italia en el siglo XIV",
+        "Resurgimiento del interés en textos y filosofía clásica griega y romana",
+        "Humanismo enfatizaba el potencial y la dignidad humana",
+        "Florencia fue el centro principal de patrocinio artístico y financiero",
+        "La imprenta de Gutenberg permitió la distribución masiva de ideas",
+        "Perspectiva lineal revolucionó la pintura y el realismo artístico",
+        "Patronazgo de familias como los Medici financió grandes obras de arte",
+        "Artistas como Leonardo da Vinci combinaban arte, ciencia e ingeniería",
+        "Petrarca fue precursor con su estudio de textos antiguos",
+        "Traduucciones de autores griegos fueron cruciales para difundir ideas",
+        "Aumento en alfabetismo llevó a mayor demanda de libros",
+        "Ruptura con autoridad medieval en favor de indagación empírica",
+        "Anatomía fue estudiada mediante disección para mayor precisión",
+        "Mecenazgo de papas llevó a obras majestuosas en Roma",
+        "Secularismo creció mientras que autoridad religiosa fue cuestionada",
+        "Perspectiva burgués emergente reflejada en nuevos temas artísticos",
+        "Comercio y banca financiaron el movimiento intelectual",
+        "Difusión a través de Europa transformó pensamiento occidental",
+        "Transición del feudalismo medieval al mundo moderno",
+        "Fundó las bases del pensamiento científico moderno"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "Wikipedia, Renacimiento"
+      }
+    },
+    {
+      "id": "profile-history-004",
+      "category": "Historia",
+      "name": "La Revolución Industrial",
+      "clues": [
+        "Comenzó en Gran Bretaña a finales del siglo XVIII",
+        "La máquina de vapor transformó la producción y el transporte",
+        "Mano de obra manual fue gradualmente reemplazada por máquinas",
+        "Producción de textiles fue el primer sector mecanizado",
+        "Migración masiva de población rural a ciudades industriales",
+        "Condiciones laborales eran peligrosas con jornadas de 14-16 horas",
+        "Carbón se convirtió en la fuente de energía principal",
+        "Capital y emprendimiento se recompensaban ampliamente",
+        "Nuevo sistema de clases surgió: capitalistas, trabajadores, clase media",
+        "Ferrocarriles revolucionaron comercio y comunicación",
+        "Producción en masa redujo significativamente los costos de bienes",
+        "Contaminación urbana alcanzó niveles extremos en ciudades industriales",
+        "Movimientos de trabajadores y sindicalismo surgieron en respuesta",
+        "Colonialismo fue impulsado por demanda de materias primas",
+        "Cambios ecológicos globales fueron acelerados exponencialmente",
+        "Educación técnica y científica se volvió prioritaria",
+        "Exportación de tecnología industrial fue fuente de poder político",
+        "Segunda oleada llegó a Francia, Bélgica y posteriormente otros países",
+        "Brecha entre ricos y pobres se ensanchó dramáticamente",
+        "Transformación definitiva de la sociedad humana hacia modernidad"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "Wikipedia, Revolución Industrial"
+      }
+    },
+    {
+      "id": "profile-history-005",
+      "category": "Historia",
+      "name": "El Imperio Mongol",
+      "clues": [
+        "Fundado por Gengis Khan (Temüjin) en 1206",
+        "Se convirtió en el imperio contiguo más grande de la historia",
+        "Tácticas de caballería nómada fueron devastadoramente efectivas",
+        "Tolerancia religiosa permitía cierto nivel de coexistencia",
+        "Sistema postal de postas facilitaba comunicación rápida",
+        "Misterio sobre muerte de Gengis Khan sigue sin resolverse completamente",
+        "Invasión de ciudades fortificadas requería adopción de tecnología de asedio",
+        "Ruta de la Seda floreció bajo paz y seguridad mongola",
+        "División entre herederos llevó a fragmentación del imperio",
+        "Kublai Khan conquistó China y estableció la dinastía Yuan",
+        "Mujeres mongolas tenían más derechos que en culturas vecinas",
+        "Escritura vertical mongola fue creada para unificar imperio multilingüe",
+        "Ley mongola Yasa codificaba normas militares y civiles",
+        "Ejército profesional y centralizado fue precedente importante",
+        "Conquistas causaron mortalidad masiva en regiones conquistadas",
+        "Tecnología china fue adoptada y adaptada por mongoles",
+        "Expansión llevó a contacto prolongado entre Oriente y Occidente",
+        "Caída parcial fue debido a adopción de costumbres locales",
+        "Resistencia fue finalmente exitosa en varias regiones",
+        "Legado incluye modificaciones duraderas en geografía política"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "hard",
+        "source": "Wikipedia, Imperio Mongol"
+      }
+    }
+  ]
+}
