@@ -18,11 +18,11 @@ const mockManifest: Manifest = {
       },
     },
     {
-      slug: 'countries',
-      idPrefix: 'country',
+      slug: 'geography',
+      idPrefix: 'geography',
       locales: {
-        en: { name: 'Countries', files: ['data-1.json'], profileAmount: 29 },
-        es: { name: 'Países', files: ['data-1.json'], profileAmount: 29 },
+        en: { name: 'Geography', files: ['data-1.json'], profileAmount: 29 },
+        es: { name: 'Geografía', files: ['data-1.json'], profileAmount: 29 },
       },
     },
     {
@@ -61,7 +61,7 @@ const mockManifest: Manifest = {
 function generateMockProfiles(categorySlug: string, count: number) {
   const prefixes: Record<string, string> = {
     'famous-people': 'famous',
-    countries: 'country',
+    geography: 'geography',
     movies: 'movie',
     animals: 'animal',
     technology: 'tech',
@@ -147,11 +147,16 @@ describe('selectProfileIdsByManifest', () => {
         mockManifest,
         'en'
       );
-      const countryResult = await selectProfileIdsByManifest(['countries'], 3, mockManifest, 'en');
+      const geographyResult = await selectProfileIdsByManifest(
+        ['geography'],
+        3,
+        mockManifest,
+        'en'
+      );
       const movieResult = await selectProfileIdsByManifest(['movies'], 3, mockManifest, 'en');
 
       expect(famousResult[0]).toMatch(/^profile-famous-\d{3}$/);
-      expect(countryResult[0]).toMatch(/^profile-country-\d{3}$/);
+      expect(geographyResult[0]).toMatch(/^profile-geography-\d{3}$/);
       expect(movieResult[0]).toMatch(/^profile-movie-\d{3}$/);
     });
   });
@@ -159,7 +164,7 @@ describe('selectProfileIdsByManifest', () => {
   describe('Balanced Distribution Across Categories', () => {
     it('should distribute profiles evenly across categories', async () => {
       const result = await selectProfileIdsByManifest(
-        ['famous-people', 'countries', 'movies'],
+        ['famous-people', 'geography', 'movies'],
         9,
         mockManifest,
         'en'
@@ -168,25 +173,25 @@ describe('selectProfileIdsByManifest', () => {
       // Count profiles by category prefix
       const counts = {
         famous: 0,
-        country: 0,
+        geography: 0,
         movie: 0,
       };
 
       result.forEach((id) => {
         if (id.includes('-famous-')) counts.famous++;
-        else if (id.includes('-country-')) counts.country++;
+        else if (id.includes('-geography-')) counts.geography++;
         else if (id.includes('-movie-')) counts.movie++;
       });
 
       // With 9 rounds and 3 categories: 9 / 3 = 3 per category
       expect(counts.famous).toBe(3);
-      expect(counts.country).toBe(3);
+      expect(counts.geography).toBe(3);
       expect(counts.movie).toBe(3);
     });
 
     it('should handle remainder profiles correctly', async () => {
       const result = await selectProfileIdsByManifest(
-        ['famous-people', 'countries', 'movies'],
+        ['famous-people', 'geography', 'movies'],
         10,
         mockManifest,
         'en'
@@ -195,19 +200,19 @@ describe('selectProfileIdsByManifest', () => {
       // Count profiles by category prefix
       const counts = {
         famous: 0,
-        country: 0,
+        geography: 0,
         movie: 0,
       };
 
       result.forEach((id) => {
         if (id.includes('-famous-')) counts.famous++;
-        else if (id.includes('-country-')) counts.country++;
+        else if (id.includes('-geography-')) counts.geography++;
         else if (id.includes('-movie-')) counts.movie++;
       });
 
       // With 10 rounds and 3 categories: base = 10 / 3 = 3, remainder = 1
       // First remainder categories get an extra profile
-      const total = counts.famous + counts.country + counts.movie;
+      const total = counts.famous + counts.geography + counts.movie;
       expect(total).toBe(10);
       // Some categories should have 3, some should have 4
       const values = Object.values(counts);
@@ -218,7 +223,7 @@ describe('selectProfileIdsByManifest', () => {
 
     it('should distribute 5 rounds across 2 categories with remainder', async () => {
       const result = await selectProfileIdsByManifest(
-        ['famous-people', 'countries'],
+        ['famous-people', 'geography'],
         5,
         mockManifest,
         'en'
@@ -226,19 +231,19 @@ describe('selectProfileIdsByManifest', () => {
 
       const counts = {
         famous: 0,
-        country: 0,
+        geography: 0,
       };
 
       result.forEach((id) => {
         if (id.includes('-famous-')) counts.famous++;
-        else if (id.includes('-country-')) counts.country++;
+        else if (id.includes('-geography-')) counts.geography++;
       });
 
       // 5 rounds, 2 categories: base = 2, remainder = 1
       // First category gets extra: 3, second: 2
-      expect(counts.famous + counts.country).toBe(5);
-      expect([counts.famous, counts.country]).toContain(3);
-      expect([counts.famous, counts.country]).toContain(2);
+      expect(counts.famous + counts.geography).toBe(5);
+      expect([counts.famous, counts.geography]).toContain(3);
+      expect([counts.famous, counts.geography]).toContain(2);
     });
 
     it('should handle single category', async () => {
@@ -267,7 +272,7 @@ describe('selectProfileIdsByManifest', () => {
     it('should include category slug prefix in ID', async () => {
       const prefixes: Record<string, string> = {
         'famous-people': 'famous',
-        countries: 'country',
+        geography: 'geography',
         movies: 'movie',
         animals: 'animal',
         technology: 'tech',
@@ -301,9 +306,9 @@ describe('selectProfileIdsByManifest', () => {
     });
 
     it('should throw error when requesting more profiles than available', async () => {
-      // countries has 29 profiles, request 30
+      // geography has 29 profiles, request 30
       await expect(
-        selectProfileIdsByManifest(['countries'], 30, mockManifest, 'en')
+        selectProfileIdsByManifest(['geography'], 30, mockManifest, 'en')
       ).rejects.toThrow('has only 29 actual profiles but 30 were requested');
     });
 
@@ -320,9 +325,9 @@ describe('selectProfileIdsByManifest', () => {
     });
 
     it('should throw error when multi-category selection exceeds available profiles', async () => {
-      // Countries has 29 profiles, request 30
+      // Geography has 29 profiles, request 30
       await expect(
-        selectProfileIdsByManifest(['countries'], 30, mockManifest, 'en')
+        selectProfileIdsByManifest(['geography'], 30, mockManifest, 'en')
       ).rejects.toThrow('has only 29 actual profiles but 30 were requested');
     });
 
@@ -355,7 +360,7 @@ describe('selectProfileIdsByManifest', () => {
 
     it('should handle multiple categories with same locale', async () => {
       const result = await selectProfileIdsByManifest(
-        ['famous-people', 'countries', 'movies'],
+        ['famous-people', 'geography', 'movies'],
         9,
         mockManifest,
         'es'
@@ -363,7 +368,7 @@ describe('selectProfileIdsByManifest', () => {
 
       expect(result).toHaveLength(9);
       // All should be from available Spanish locales
-      const prefixes = ['famous', 'country', 'movie'];
+      const prefixes = ['famous', 'geography', 'movie'];
       expect(result.every((id) => prefixes.some((p) => id.includes(`-${p}-`)))).toBe(true);
     });
   });
@@ -387,7 +392,7 @@ describe('selectProfileIdsByManifest', () => {
 
     it('should handle large round count with multiple categories', async () => {
       const result = await selectProfileIdsByManifest(
-        ['famous-people', 'countries', 'movies', 'animals'],
+        ['famous-people', 'geography', 'movies', 'animals'],
         60,
         mockManifest,
         'en'
@@ -401,7 +406,7 @@ describe('selectProfileIdsByManifest', () => {
     it('should randomize across multiple calls with same params', async () => {
       const calls = await Promise.all(
         Array.from({ length: 5 }, () =>
-          selectProfileIdsByManifest(['famous-people', 'countries'], 10, mockManifest, 'en')
+          selectProfileIdsByManifest(['famous-people', 'geography'], 10, mockManifest, 'en')
         )
       );
 
@@ -423,7 +428,7 @@ describe('selectProfileIdsByManifest', () => {
     it('should correctly map all category slugs to prefixes', async () => {
       const mappings = [
         ['famous-people', 'famous'],
-        ['countries', 'country'],
+        ['geography', 'geography'],
         ['movies', 'movie'],
         ['animals', 'animal'],
         ['technology', 'tech'],
@@ -441,7 +446,7 @@ describe('selectProfileIdsByManifest', () => {
     it('should handle all 6 categories with 60 rounds', async () => {
       const allCategories = [
         'famous-people',
-        'countries',
+        'geography',
         'movies',
         'animals',
         'technology',
@@ -461,7 +466,7 @@ describe('selectProfileIdsByManifest', () => {
       // Use all 6 categories with 60 total rounds (efficient allocation)
       const allCategories = [
         'famous-people',
-        'countries',
+        'geography',
         'movies',
         'animals',
         'technology',

@@ -2,8 +2,8 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-country-001",
-      "category": "Países",
+      "id": "profile-geography-001",
+      "category": "Geografia",
       "name": "Japão",
       "clues": [
         "Nação insular no Leste Asiático",
@@ -34,8 +34,8 @@
       }
     },
     {
-      "id": "profile-country-002",
-      "category": "Países",
+      "id": "profile-geography-002",
+      "category": "Geografia",
       "name": "Brasil",
       "clues": [
         "Maior país da América do Sul",
@@ -66,8 +66,8 @@
       }
     },
     {
-      "id": "profile-country-003",
-      "category": "Países",
+      "id": "profile-geography-003",
+      "category": "Geografia",
       "name": "Egito",
       "clues": [
         "Localizado no norte da África",
@@ -98,8 +98,8 @@
       }
     },
     {
-      "id": "profile-country-004",
-      "category": "Países",
+      "id": "profile-geography-004",
+      "category": "Geografia",
       "name": "Estados Unidos",
       "clues": [
         "República federal na América do Norte",
@@ -130,8 +130,8 @@
       }
     },
     {
-      "id": "profile-country-005",
-      "category": "Países",
+      "id": "profile-geography-005",
+      "category": "Geografia",
       "name": "França",
       "clues": [
         "República europeia ocidental",
@@ -162,8 +162,8 @@
       }
     },
     {
-      "id": "profile-country-006",
-      "category": "Países",
+      "id": "profile-geography-006",
+      "category": "Geografia",
       "name": "Austrália",
       "clues": [
         "Continente ilha",
@@ -194,8 +194,8 @@
       }
     },
     {
-      "id": "profile-country-007",
-      "category": "Países",
+      "id": "profile-geography-007",
+      "category": "Geografia",
       "name": "Índia",
       "clues": [
         "Subcontinente do sul da Ásia",
@@ -226,8 +226,8 @@
       }
     },
     {
-      "id": "profile-country-008",
-      "category": "Países",
+      "id": "profile-geography-008",
+      "category": "Geografia",
       "name": "Canadá",
       "clues": [
         "Vizinho norte da América do Norte",
@@ -258,8 +258,8 @@
       }
     },
     {
-      "id": "profile-country-009",
-      "category": "Países",
+      "id": "profile-geography-009",
+      "category": "Geografia",
       "name": "Alemanha",
       "clues": [
         "República centro-europeia",
@@ -290,8 +290,8 @@
       }
     },
     {
-      "id": "profile-country-010",
-      "category": "Países",
+      "id": "profile-geography-010",
+      "category": "Geografia",
       "name": "México",
       "clues": [
         "Vizinho sul da América do Norte",
@@ -322,8 +322,8 @@
       }
     },
     {
-      "id": "profile-country-011",
-      "category": "Países",
+      "id": "profile-geography-011",
+      "category": "Geografia",
       "name": "Itália",
       "clues": [
         "Península sul da Europa",
@@ -354,8 +354,8 @@
       }
     },
     {
-      "id": "profile-country-012",
-      "category": "Países",
+      "id": "profile-geography-012",
+      "category": "Geografia",
       "name": "Coreia do Sul",
       "clues": [
         "Península leste da Ásia",
@@ -386,8 +386,8 @@
       }
     },
     {
-      "id": "profile-country-013",
-      "category": "Países",
+      "id": "profile-geography-013",
+      "category": "Geografia",
       "name": "Argentina",
       "clues": [
         "Cone sul da América do Sul",
@@ -418,8 +418,8 @@
       }
     },
     {
-      "id": "profile-country-014",
-      "category": "Países",
+      "id": "profile-geography-014",
+      "category": "Geografia",
       "name": "China",
       "clues": [
         "País mais populoso do mundo",
@@ -450,8 +450,8 @@
       }
     },
     {
-      "id": "profile-country-015",
-      "category": "Países",
+      "id": "profile-geography-015",
+      "category": "Geografia",
       "name": "Rússia",
       "clues": [
         "Maior país por área terrestre",
@@ -482,8 +482,8 @@
       }
     },
     {
-      "id": "profile-country-016",
-      "category": "Países",
+      "id": "profile-geography-016",
+      "category": "Geografia",
       "name": "Reino Unido",
       "clues": [
         "Nação insular no Noroeste Europeu",
@@ -514,8 +514,8 @@
       }
     },
     {
-      "id": "profile-country-018",
-      "category": "Países",
+      "id": "profile-geography-018",
+      "category": "Geografia",
       "name": "Espanha",
       "clues": [
         "Nação europeia sudoeste",
@@ -546,8 +546,8 @@
       }
     },
     {
-      "id": "profile-country-021",
-      "category": "Países",
+      "id": "profile-geography-021",
+      "category": "Geografia",
       "name": "África do Sul",
       "clues": [
         "Nação mais ao sul da África",
@@ -578,8 +578,8 @@
       }
     },
     {
-      "id": "profile-country-022",
-      "category": "Países",
+      "id": "profile-geography-022",
+      "category": "Geografia",
       "name": "Países Baixos",
       "clues": [
         "Nação europeia de baixa altitude",
@@ -610,8 +610,8 @@
       }
     },
     {
-      "id": "profile-country-023",
-      "category": "Países",
+      "id": "profile-geography-023",
+      "category": "Geografia",
       "name": "Tailândia",
       "clues": [
         "Nação do Sudeste Asiático",
@@ -642,8 +642,8 @@
       }
     },
     {
-      "id": "profile-country-024",
-      "category": "Países",
+      "id": "profile-geography-024",
+      "category": "Geografia",
       "name": "Turquia",
       "clues": [
         "Abrange Europa e Ásia",
@@ -674,8 +674,8 @@
       }
     },
     {
-      "id": "profile-country-026",
-      "category": "Países",
+      "id": "profile-geography-026",
+      "category": "Geografia",
       "name": "Indonésia",
       "clues": [
         "Maior nação arquipélago",
@@ -706,8 +706,8 @@
       }
     },
     {
-      "id": "profile-country-027",
-      "category": "Países",
+      "id": "profile-geography-027",
+      "category": "Geografia",
       "name": "Arábia Saudita",
       "clues": [
         "Nação desértica do Oriente Médio",
@@ -738,8 +738,8 @@
       }
     },
     {
-      "id": "profile-country-028",
-      "category": "Países",
+      "id": "profile-geography-028",
+      "category": "Geografia",
       "name": "Nova Zelândia",
       "clues": [
         "Nação insular Sudoeste Pacífico",
@@ -770,8 +770,8 @@
       }
     },
     {
-      "id": "profile-country-029",
-      "category": "Países",
+      "id": "profile-geography-029",
+      "category": "Geografia",
       "name": "Suécia",
       "clues": [
         "Nação nórdica escandinava",
@@ -802,8 +802,8 @@
       }
     },
     {
-      "id": "profile-country-030",
-      "category": "Países",
+      "id": "profile-geography-030",
+      "category": "Geografia",
       "name": "Suíça",
       "clues": [
         "Nação europeia sem litoral",

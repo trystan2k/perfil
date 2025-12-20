@@ -112,7 +112,7 @@ test.describe('Profile Caching with TanStack Query', () => {
       // Select multiple categories
       await expect(page.getByRole('heading', { name: 'Select Categories' })).toBeVisible();
       await page.getByLabel('Famous People').click();
-      await page.getByLabel('Countries').click();
+      await page.getByLabel('Geography').click();
       await page.getByRole('button', { name: 'Continue' }).click();
 
       // Select rounds (4 rounds for 2 categories = 2 per category)
@@ -239,7 +239,7 @@ test.describe('Profile Caching with TanStack Query', () => {
       await addPlayer(page, 'Alice');
       await addPlayer(page, 'Bob');
       await page.getByRole('button', { name: 'Start Game' }).click();
-      await selectCategory(page, 'Countries');
+      await selectCategory(page, 'Geography');
       await selectRounds(page, 3);
 
       await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
@@ -473,7 +473,7 @@ test.describe('Profile Caching with TanStack Query', () => {
       await addPlayer(page, 'Alice');
       await addPlayer(page, 'Bob');
       await page.getByRole('button', { name: 'Start Game' }).click();
-      await selectCategory(page, 'Countries');
+      await selectCategory(page, 'Geography');
       await selectRounds(page, 2);
 
       await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();
@@ -591,7 +591,7 @@ test.describe('Profile Caching with TanStack Query', () => {
       await addPlayer(page, 'Alice');
       await addPlayer(page, 'Bob');
       await page.getByRole('button', { name: 'Start Game' }).click();
-      await selectCategory(page, 'Countries');
+      await selectCategory(page, 'Geography');
       await selectRounds(page, 1);
 
       await expect(page.getByRole('heading', { name: 'Game Play' })).toBeVisible();

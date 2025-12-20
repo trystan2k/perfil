@@ -4,7 +4,7 @@
 
 ### Profile ID Pattern
 All profiles follow the pattern: `profile-{category}-{number}`
-- Example: `profile-animals-001`, `profile-animals-042`, `profile-countries-015`
+- Example: `profile-animals-001`, `profile-animals-042`, `profile-geography-015`
 - The `{number}` part is zero-padded to 3 digits (001-999)
 - Max count per category stored in manifest as `profileAmount`
 
@@ -36,8 +36,8 @@ export function selectProfileIdsByManifest(
   numberOfRounds: number,
   manifest: Manifest
 ): string[] {
-  // Input: ["animals", "countries"], 30, manifest
-  // Output: ["profile-animals-001", "profile-animals-042", ..., mixed and shuffled]
+   // Input: ["animals", "geography"], 30, manifest
+   // Output: ["profile-animals-001", "profile-animals-042", ..., mixed and shuffled]
   
   // Algorithm:
   // 1. Get max profile counts for each category from manifest
@@ -87,7 +87,7 @@ export function useCategoriesFromManifest() {
   // Returns: {
   //   categories: [
   //     { slug: "animals", name: "Animals", maxProfiles: 100 },
-  //     { slug: "countries", name: "Countries", maxProfiles: 150 }
+   //     { slug: "geography", name: "Geography", maxProfiles: 150 }
   //   ],
   //   isLoading: boolean,
   //   error: Error | null
@@ -146,7 +146,7 @@ startGame(categories, numberOfRounds) {
 **After**:
 ```typescript
 async startGame(categories, numberOfRounds) {
-  // categories: ["animals", "countries"]
+   // categories: ["animals", "geography"]
   // numberOfRounds: 30
   const manifest = await fetchManifest();
   const profileIds = selectProfileIdsByManifest(
@@ -267,29 +267,29 @@ startGame: async (selectedCategories: string[], numberOfRounds?: number) => {
 
 ```typescript
 const selectedIds = selectProfileIdsByManifest(
-  ["animals", "countries"],  // user selected categories
-  30,                         // user wants 30 rounds
-  manifest                    // from fetchManifest()
-);
-// Returns: [
-//   "profile-animals-015",
-//   "profile-countries-042",
-//   "profile-animals-088",
-//   ...
-// ]
+   ["animals", "geography"],  // user selected categories
+   30,                         // user wants 30 rounds
+   manifest                    // from fetchManifest()
+ );
+ // Returns: [
+ //   "profile-animals-015",
+ //   "profile-geography-042",
+ //   "profile-animals-088",
+ //   ...
+ // ]
 ```
 
 ### Example: loadProfilesByIds
 
 ```typescript
 const profiles = await loadProfilesByIds(
-  ["profile-animals-015", "profile-countries-042"],
+   ["profile-animals-015", "profile-geography-042"],
   "en",
   manifest
 );
 // Returns: [
-//   Profile{ id: "profile-animals-015", name: "Elephant", ... },
-//   Profile{ id: "profile-countries-042", name: "Brazil", ... }
+ //   Profile{ id: "profile-animals-015", name: "Elephant", ... },
+ //   Profile{ id: "profile-geography-042", name: "Brazil", ... }
 // ]
 ```
 
@@ -299,8 +299,8 @@ const profiles = await loadProfilesByIds(
 const { categories, isLoading, error } = useCategoriesFromManifest();
 // Returns:
 // categories = [
-//   { slug: "animals", name: "Animals", maxProfiles: 100 },
-//   { slug: "countries", name: "Countries", maxProfiles: 150 }
+ //   { slug: "animals", name: "Animals", maxProfiles: 100 },
+ //   { slug: "geography", name: "Geography", maxProfiles: 150 }
 // ]
 ```
 

@@ -18,11 +18,11 @@ const mockManifest: Manifest = {
       },
     },
     {
-      slug: 'countries',
-      idPrefix: 'country',
+      slug: 'geography',
+      idPrefix: 'geography',
       locales: {
-        en: { name: 'Countries', files: ['data-1.json'], profileAmount: 29 },
-        es: { name: 'Países', files: ['data-1.json'], profileAmount: 29 },
+        en: { name: 'Geography', files: ['data-1.json'], profileAmount: 29 },
+        es: { name: 'Geografía', files: ['data-1.json'], profileAmount: 29 },
       },
     },
     {
@@ -64,19 +64,19 @@ const mockFamousData = {
   ],
 };
 
-const mockCountryData = {
+const mockGeographyData = {
   version: '1',
   profiles: [
     {
-      id: 'profile-country-001',
-      category: 'Countries',
+      id: 'profile-geography-001',
+      category: 'Geography',
       name: 'Japan',
       clues: generateClues(),
       metadata: {},
     },
     {
-      id: 'profile-country-002',
-      category: 'Countries',
+      id: 'profile-geography-002',
+      category: 'Geography',
       name: 'Brazil',
       clues: generateClues(),
       metadata: {},
@@ -195,17 +195,17 @@ describe('loadProfilesByIds', () => {
             json: async () => mockFamousData,
           } as Response;
         }
-        if (urlStr.includes('/data/countries/en/data-1.json')) {
+        if (urlStr.includes('/data/geography/en/data-1.json')) {
           return {
             ok: true,
-            json: async () => mockCountryData,
+            json: async () => mockGeographyData,
           } as Response;
         }
         return { ok: false, statusText: 'Not Found' } as Response;
       });
 
       const result = await loadProfilesByIds(
-        ['profile-famous-001', 'profile-country-001', 'profile-famous-002'],
+        ['profile-famous-001', 'profile-geography-001', 'profile-famous-002'],
         'en',
         mockManifest
       );
@@ -230,27 +230,32 @@ describe('loadProfilesByIds', () => {
             json: async () => mockFamousData,
           } as Response;
         }
-        if (urlStr.includes('/data/countries/en/data-1.json')) {
+        if (urlStr.includes('/data/geography/en/data-1.json')) {
           return {
             ok: true,
-            json: async () => mockCountryData,
+            json: async () => mockGeographyData,
           } as Response;
         }
         return { ok: false, statusText: 'Not Found' } as Response;
       });
 
       await loadProfilesByIds(
-        ['profile-famous-001', 'profile-country-001', 'profile-famous-002', 'profile-country-002'],
+        [
+          'profile-famous-001',
+          'profile-geography-001',
+          'profile-famous-002',
+          'profile-geography-002',
+        ],
         'en',
         mockManifest
       );
 
       // Should fetch each category data file only once
-      const famousCalls = fetchCalls.filter((call) => call.includes('famous-people'));
-      const countryCalls = fetchCalls.filter((call) => call.includes('countries'));
+      const famousCalls = fetchCalls.filter((call: string) => call.includes('famous-people'));
+      const geographyCalls = fetchCalls.filter((call: string) => call.includes('geography'));
 
       expect(famousCalls).toHaveLength(1);
-      expect(countryCalls).toHaveLength(1);
+      expect(geographyCalls).toHaveLength(1);
     });
   });
 
@@ -594,17 +599,22 @@ describe('loadProfilesByIds', () => {
             json: async () => mockFamousData,
           } as Response;
         }
-        if (urlStr.includes('/data/countries/en/data-1.json')) {
+        if (urlStr.includes('/data/geography/en/data-1.json')) {
           return {
             ok: true,
-            json: async () => mockCountryData,
+            json: async () => mockGeographyData,
           } as Response;
         }
         return { ok: false, statusText: 'Not Found' } as Response;
       });
 
       const result = await loadProfilesByIds(
-        ['profile-famous-001', 'profile-country-001', 'profile-famous-002', 'profile-country-002'],
+        [
+          'profile-famous-001',
+          'profile-geography-001',
+          'profile-famous-002',
+          'profile-geography-002',
+        ],
         'en',
         mockManifest
       );
@@ -612,9 +622,9 @@ describe('loadProfilesByIds', () => {
       expect(result).toHaveLength(4);
       // Order should be preserved
       expect(result[0].id).toBe('profile-famous-001');
-      expect(result[1].id).toBe('profile-country-001');
+      expect(result[1].id).toBe('profile-geography-001');
       expect(result[2].id).toBe('profile-famous-002');
-      expect(result[3].id).toBe('profile-country-002');
+      expect(result[3].id).toBe('profile-geography-002');
     });
   });
 });

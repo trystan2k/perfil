@@ -29,7 +29,7 @@ const getLocaleInfo = (
  * - Automatic retry with exponential backoff
  * - Centralized cache management
  *
- * @param categorySlug - Category slug (e.g., 'countries')
+ * @param categorySlug - Category slug (e.g., 'geography')
  * @param locale - Locale (e.g., 'en')
  * @param filename - Data file name (e.g., 'data-1.json')
  * @returns Promise resolving to parsed ProfilesData

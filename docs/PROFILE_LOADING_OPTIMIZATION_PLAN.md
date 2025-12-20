@@ -91,7 +91,7 @@ This plan describes a significant optimization to how categories and profiles ar
      - Use category.slug pattern: `profile-{category}-{number}`
      - For each selected category, randomly select N profile IDs
      - Balance selection across categories (same as current ProfileSelectionService)
-     - Return array of profile IDs to load (e.g., `["profile-animals-001", "profile-animals-042", "profile-countries-015", ...]`)
+      - Return array of profile IDs to load (e.g., `["profile-animals-001", "profile-animals-042", "profile-geography-015", ...]`)
    - **Output**: Array of profile IDs in random order, ready to load
 
    ```typescript

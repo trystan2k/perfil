@@ -24,21 +24,21 @@
       }
     },
     {
-      "slug": "countries",
-      "idPrefix": "country",
+      "slug": "geography",
+      "idPrefix": "geography",
       "locales": {
         "en": {
-          "name": "Countries",
+          "name": "Geography",
           "files": ["data-1.json"],
           "profileAmount": 26
         },
         "es": {
-          "name": "Países",
+          "name": "Geografía",
           "files": ["data-1.json"],
           "profileAmount": 26
         },
         "pt-BR": {
-          "name": "Países",
+          "name": "Geografia",
           "files": ["data-1.json"],
           "profileAmount": 26
         }

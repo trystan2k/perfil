@@ -2,8 +2,8 @@
   "version": "1",
   "profiles": [
     {
-      "id": "profile-country-001",
-      "category": "Countries",
+      "id": "profile-geography-001",
+      "category": "Geography",
       "name": "Japan",
       "clues": [
         "Island nation in East Asia",
@@ -34,8 +34,8 @@
       }
     },
     {
-      "id": "profile-country-002",
-      "category": "Countries",
+      "id": "profile-geography-002",
+      "category": "Geography",
       "name": "Brazil",
       "clues": [
         "Largest country in South America",
@@ -66,8 +66,8 @@
       }
     },
     {
-      "id": "profile-country-003",
-      "category": "Countries",
+      "id": "profile-geography-003",
+      "category": "Geography",
       "name": "Egypt",
       "clues": [
         "Located in North Africa",
@@ -98,8 +98,8 @@
       }
     },
     {
-      "id": "profile-country-004",
-      "category": "Countries",
+      "id": "profile-geography-004",
+      "category": "Geography",
       "name": "United States",
       "clues": [
         "Federal republic in North America",
@@ -130,8 +130,8 @@
       }
     },
     {
-      "id": "profile-country-005",
-      "category": "Countries",
+      "id": "profile-geography-005",
+      "category": "Geography",
       "name": "France",
       "clues": [
         "Western European republic",
@@ -162,8 +162,8 @@
       }
     },
     {
-      "id": "profile-country-006",
-      "category": "Countries",
+      "id": "profile-geography-006",
+      "category": "Geography",
       "name": "Australia",
       "clues": [
         "Island continent",
@@ -194,8 +194,8 @@
       }
     },
     {
-      "id": "profile-country-007",
-      "category": "Countries",
+      "id": "profile-geography-007",
+      "category": "Geography",
       "name": "India",
       "clues": [
         "South Asian subcontinent",
@@ -226,8 +226,8 @@
       }
     },
     {
-      "id": "profile-country-008",
-      "category": "Countries",
+      "id": "profile-geography-008",
+      "category": "Geography",
       "name": "Canada",
       "clues": [
         "North American northern neighbor",
@@ -258,8 +258,8 @@
       }
     },
     {
-      "id": "profile-country-009",
-      "category": "Countries",
+      "id": "profile-geography-009",
+      "category": "Geography",
       "name": "Germany",
       "clues": [
         "Central European republic",
@@ -290,8 +290,8 @@
       }
     },
     {
-      "id": "profile-country-010",
-      "category": "Countries",
+      "id": "profile-geography-010",
+      "category": "Geography",
       "name": "Mexico",
       "clues": [
         "North American southern neighbor",
@@ -322,8 +322,8 @@
       }
     },
     {
-      "id": "profile-country-011",
-      "category": "Countries",
+      "id": "profile-geography-011",
+      "category": "Geography",
       "name": "Italy",
       "clues": [
         "Southern European peninsula",
@@ -354,8 +354,8 @@
       }
     },
     {
-      "id": "profile-country-012",
-      "category": "Countries",
+      "id": "profile-geography-012",
+      "category": "Geography",
       "name": "South Korea",
       "clues": [
         "East Asian peninsula",
@@ -386,8 +386,8 @@
       }
     },
     {
-      "id": "profile-country-013",
-      "category": "Countries",
+      "id": "profile-geography-013",
+      "category": "Geography",
       "name": "Argentina",
       "clues": [
         "South American southern cone",
@@ -418,8 +418,8 @@
       }
     },
     {
-      "id": "profile-country-014",
-      "category": "Countries",
+      "id": "profile-geography-014",
+      "category": "Geography",
       "name": "China",
       "clues": [
         "Most populous country in the world",
@@ -450,8 +450,8 @@
       }
     },
     {
-      "id": "profile-country-015",
-      "category": "Countries",
+      "id": "profile-geography-015",
+      "category": "Geography",
       "name": "Russia",
       "clues": [
         "Largest country by land area",
@@ -482,8 +482,8 @@
       }
     },
     {
-      "id": "profile-country-016",
-      "category": "Countries",
+      "id": "profile-geography-016",
+      "category": "Geography",
       "name": "United Kingdom",
       "clues": [
         "Island nation in Northwestern Europe",
@@ -514,8 +514,8 @@
       }
     },
     {
-      "id": "profile-country-018",
-      "category": "Countries",
+      "id": "profile-geography-018",
+      "category": "Geography",
       "name": "Spain",
       "clues": [
         "Southwestern European nation",
@@ -546,8 +546,8 @@
       }
     },
     {
-      "id": "profile-country-021",
-      "category": "Countries",
+      "id": "profile-geography-021",
+      "category": "Geography",
       "name": "South Africa",
       "clues": [
         "Southernmost nation in Africa",
@@ -578,8 +578,8 @@
       }
     },
     {
-      "id": "profile-country-022",
-      "category": "Countries",
+      "id": "profile-geography-022",
+      "category": "Geography",
       "name": "Netherlands",
       "clues": [
         "Low-lying European nation",
@@ -610,8 +610,8 @@
       }
     },
     {
-      "id": "profile-country-023",
-      "category": "Countries",
+      "id": "profile-geography-023",
+      "category": "Geography",
       "name": "Thailand",
       "clues": [
         "Southeast Asian nation",
@@ -642,8 +642,8 @@
       }
     },
     {
-      "id": "profile-country-024",
-      "category": "Countries",
+      "id": "profile-geography-024",
+      "category": "Geography",
       "name": "Turkey",
       "clues": [
         "Straddles Europe and Asia",
@@ -674,8 +674,8 @@
       }
     },
     {
-      "id": "profile-country-026",
-      "category": "Countries",
+      "id": "profile-geography-026",
+      "category": "Geography",
       "name": "Indonesia",
       "clues": [
         "Largest archipelago nation",
@@ -706,8 +706,8 @@
       }
     },
     {
-      "id": "profile-country-027",
-      "category": "Countries",
+      "id": "profile-geography-027",
+      "category": "Geography",
       "name": "Saudi Arabia",
       "clues": [
         "Middle Eastern desert nation",
@@ -738,8 +738,8 @@
       }
     },
     {
-      "id": "profile-country-028",
-      "category": "Countries",
+      "id": "profile-geography-028",
+      "category": "Geography",
       "name": "New Zealand",
       "clues": [
         "Island nation in Southwest Pacific",
@@ -770,8 +770,8 @@
       }
     },
     {
-      "id": "profile-country-029",
-      "category": "Countries",
+      "id": "profile-geography-029",
+      "category": "Geography",
       "name": "Sweden",
       "clues": [
         "Scandinavian Nordic nation",
@@ -802,8 +802,8 @@
       }
     },
     {
-      "id": "profile-country-030",
-      "category": "Countries",
+      "id": "profile-geography-030",
+      "category": "Geography",
       "name": "Switzerland",
       "clues": [
         "Landlocked European nation",

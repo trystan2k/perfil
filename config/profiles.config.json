@@ -202,13 +202,13 @@
       ]
     },
     {
-      "slug": "countries",
+      "slug": "geography",
       "displayNames": {
-        "en": "Countries",
-        "es": "Países",
-        "pt-BR": "Países"
+        "en": "Geography",
+        "es": "Geografía",
+        "pt-BR": "Geografia"
       },
-      "description": "Countries profiles can have clues about their history, culture, geography, and other important aspects. It could have all kind of countries, from small ones to large ones. It does not necessarily need to be a real country, but could be a fictional one in a movie, a historical one that could not even exist anymore or a character from a book.",
+      "description": "Geography profiles can include countries, famouse cities, famouse regions (like continents, oceans, etc.). The clues could be about their history, culture, famous events/stories, literature, and other important aspects. Try to avoid too much obvious info in the clues.",
       "profiles": [
         {
           "name": "Japan",

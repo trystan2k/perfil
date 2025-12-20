@@ -10,14 +10,14 @@ Implemented lazy profile loading with manifest-based selection and integrated Ta
 
 ### 98.1 - Enhanced Manifest with Profile Counts
 - Added `profileAmount` field to `public/data/manifest.json` for each category and locale.
-- Profile counts: famous-people (30), countries (29), movies (30), animals (30), technology (30), sports (30).
+- Profile counts: famous-people (30), geography (29), movies (30), animals (30), technology (30), sports (30).
 - Updated `src/lib/manifest.ts` TypeScript interfaces to include the new field.
 - Enables manifest-based profile ID selection without loading all data upfront.
 
 ### 98.2 - Profile Selection with Async Validation
 - Created `src/lib/manifestProfileSelection.ts` for manifest-based profile ID selection.
 - Implements async validation: fetches actual data files to verify selected IDs exist.
-- Handles critical edge case: manifest says 29 profiles but profile-country-017 doesn't exist.
+- Handles critical edge case: manifest says 29 profiles but profile-geography-017 doesn't exist.
 - Smart fallback: replaces non-existent IDs with available alternatives.
 - Balanced distribution: evenly distributes profiles across selected categories.
 - Random shuffling: ensures unpredictable profile order per game.

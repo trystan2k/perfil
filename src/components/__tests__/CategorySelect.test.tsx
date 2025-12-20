@@ -58,8 +58,8 @@ const mockCategoriesData = [
     profileAmount: 2,
   },
   {
-    slug: 'countries',
-    name: 'Countries',
+    slug: 'geography',
+    name: 'Geography',
     profileAmount: 1,
   },
   {
@@ -142,7 +142,7 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      expect(screen.getByText('Countries')).toBeInTheDocument();
+      expect(screen.getByText('Geography')).toBeInTheDocument();
       expect(screen.getByText('Movies')).toBeInTheDocument();
     });
 
@@ -193,15 +193,15 @@ describe('CategorySelect', () => {
         expect(screen.getByText('Famous People')).toBeInTheDocument();
       });
 
-      const famousCheckbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      const countriesCheckbox = screen.getByRole('checkbox', { name: /Countries/i });
+      const geographyCheckbox = screen.getByRole('checkbox', { name: /Geography/i });
 
-      await user.click(famousCheckbox);
-      await user.click(countriesCheckbox);
+      expect(geographyCheckbox).not.toBeChecked();
+      await user.click(geographyCheckbox);
 
-      // Both should be checked
-      expect(famousCheckbox).toBeChecked();
-      expect(countriesCheckbox).toBeChecked();
+      // Wait for the games to load
+      await waitFor(() => {
+        expect(geographyCheckbox).toBeChecked();
+      });
 
       // Continue button should be enabled
       const continueButton = screen.getByRole('button', { name: /Continue/i });
@@ -253,11 +253,11 @@ describe('CategorySelect', () => {
       });
 
       const famousCheckbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      const countriesCheckbox = screen.getByRole('checkbox', { name: /Countries/i });
+      const geographyCheckbox = screen.getByRole('checkbox', { name: /Geography/i });
       const moviesCheckbox = screen.getByRole('checkbox', { name: /Movies/i });
 
       await user.click(famousCheckbox);
-      await user.click(countriesCheckbox);
+      await user.click(geographyCheckbox);
       await user.click(moviesCheckbox);
 
       const continueButton = screen.getByRole('button', { name: /Continue/i });
@@ -276,7 +276,7 @@ describe('CategorySelect', () => {
 
       const [categoriesArg, roundsArg, localeArg] = mockStartGame.mock.calls[0];
       expect(categoriesArg).toEqual(
-        expect.arrayContaining(['famous-people', 'countries', 'movies'])
+        expect.arrayContaining(['famous-people', 'geography', 'movies'])
       );
       expect(categoriesArg).toHaveLength(3);
       expect(roundsArg).toBe(4); // min(5, 4 total profiles)
@@ -472,10 +472,10 @@ describe('CategorySelect', () => {
       });
 
       const famousCheckbox = screen.getByRole('checkbox', { name: /Famous People/i });
-      const countriesCheckbox = screen.getByRole('checkbox', { name: /Countries/i });
+      const geographyCheckbox = screen.getByRole('checkbox', { name: /Geography/i });
 
       await user.click(famousCheckbox);
-      await user.click(countriesCheckbox);
+      await user.click(geographyCheckbox);
 
       const continueButton = screen.getByRole('button', { name: /Continue/i });
       await user.click(continueButton);
@@ -492,7 +492,7 @@ describe('CategorySelect', () => {
       });
 
       const [categoriesArg, roundsArg] = mockStartGame.mock.calls[0];
-      expect(categoriesArg).toEqual(expect.arrayContaining(['famous-people', 'countries']));
+      expect(categoriesArg).toEqual(expect.arrayContaining(['famous-people', 'geography']));
       expect(roundsArg).toBe(3); // min(5, 3 total profiles from 2 categories)
     });
 
@@ -503,10 +503,10 @@ describe('CategorySelect', () => {
       renderWithProviders(<CategorySelect locale="en" sessionId="test-session" />);
 
       await waitFor(() => {
-        expect(screen.getByText('Countries')).toBeInTheDocument();
+        expect(screen.getByText('Geography')).toBeInTheDocument();
       });
 
-      const checkbox = screen.getByRole('checkbox', { name: /Countries/i });
+      const checkbox = screen.getByRole('checkbox', { name: /Geography/i });
       await user.click(checkbox);
 
       const continueButton = screen.getByRole('button', { name: /Continue/i });

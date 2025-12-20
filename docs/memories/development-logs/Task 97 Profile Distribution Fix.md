@@ -42,7 +42,7 @@ After:  profile-{category}-{number}
 
 Examples:
 - Animals: profile-animal-001 to profile-animal-030
-- Countries: profile-country-001 to profile-country-030
+- Geography: profile-geography-001 to profile-geography-030
 - Famous People: profile-famous-001 to profile-famous-030
 - Movies: profile-movie-001 to profile-movie-030
 - Sports: profile-sport-001 to profile-sport-030
@@ -53,7 +53,7 @@ Examples:
 
 **Data Files (18 total):**
 - `public/data/animals/{en,es,pt-BR}/data-1.json`
-- `public/data/countries/{en,es,pt-BR}/data-1.json`
+- `public/data/geography/{en,es,pt-BR}/data-1.json`
 - `public/data/famous-people/{en,es,pt-BR}/data-1.json`
 - `public/data/movies/{en,es,pt-BR}/data-1.json`
 - `public/data/sports/{en,es,pt-BR}/data-1.json`
