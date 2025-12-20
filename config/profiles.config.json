@@ -166,6 +166,42 @@
       ]
     },
     {
+      "slug": "brands",
+      "displayNames": {
+        "en": "Brands",
+        "es": "Marcas",
+        "pt-BR": "Marcas"
+      },
+      "description": "Brands profiles can have clues about their origin, products, history, and other important aspects. It could have all kind of brands, from tech companies to beverage manufacturers to automotive brands. Clues focus on brand characteristics, innovations, and notable facts without directly revealing the brand name.",
+      "profiles": [
+        {
+          "name": "Apple",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Coca-Cola",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Nike",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Mercedes-Benz",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Disney",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        }
+      ]
+    },
+    {
       "slug": "countries",
       "displayNames": {
         "en": "Countries",

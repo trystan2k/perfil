@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-brands-001",
+      "category": "Marcas",
+      "name": "Apple",
+      "clues": [
+        "Fundada en un garaje por Steve Jobs, Steve Wozniak y Ronald Wayne en 1976",
+        "Nombrada en honor a la fruta que inspiró la dieta fruteriana del fundador",
+        "Primera computadora presentaba caja de madera y se vendía por $666.66",
+        "Logo icónico fue diseñado por Rob Janoff e incluía originalmente colores arcoíris",
+        "La marca de mordisco fue agregada para evitar confusión con una cereza",
+        "Revolucionó la computación personal con interfaz gráfica en 1984",
+        "Introdujo el primer reproductor de música portátil comercialmente exitoso en 2001",
+        "Pionera del mercado de teléfonos inteligentes con pantalla táctil",
+        "Conocida por precios premium y estrategia de ecosistema cerrado",
+        "Sede principal ubicada en Cupertino, California",
+        "Famosa por filosofía de diseño minimalista y atención al detalle",
+        "Se convirtió en la empresa más valiosa en varios momentos",
+        "Ingresos anuales superan los $300 mil millones en años recientes",
+        "Conocida por integración vertical de hardware y software",
+        "Sistema operativo basado en núcleo Unix",
+        "Tiendas conocidas por arquitectura de vidrio elegante",
+        "Una de las primeras empresas tecnológicas en enfocarse en experiencia del usuario",
+        "Evento anual que presenta nuevos productos a base de clientes leales",
+        "Productos incluyen computadoras, teléfonos, tabletas, relojes y servicios",
+        "Eliminó el puerto de auriculares de teléfonos en 2016"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-002",
+      "category": "Marcas",
+      "name": "Coca-Cola",
+      "clues": [
+        "Inventada por un farmacéutico llamado John Pemberton en Atlanta, Georgia en 1886",
+        "Originalmente se vendía en fuentes de soda como tónico medicinal",
+        "Fórmula contiene colorante caramelo, agua carbonatada e ingredientes secretos",
+        "Primera bebida de marca en recibir marca registrada en EE.UU.",
+        "Diseño de botella contorneada icónica patentado en 1916",
+        "Esquema de color rojo y blanco se convirtió en marca registrada en 1969",
+        "Famosa campaña publicitaria navideña comenzó en 1931",
+        "Osos polares mascota han aparecido en comerciales desde 1993",
+        "Eslogan 'Abre la Felicidad' introducido en 2009",
+        "Ahora se vende en más de 200 países y territorios en todo el mundo",
+        "Contiene 39 gramos de azúcar por cada 12 onzas",
+        "Líder global en industria de bebidas con cartera diversa",
+        "Patrocinios incluyen Juegos Olímpicos y eventos deportivos importantes",
+        "Fundada por John Pemberton después de la Guerra Civil",
+        "Símbolo de bolsa es KO en la Bolsa de Valores de Nueva York",
+        "Sede de la empresa en Atlanta, Georgia",
+        "Variantes Zero y Diet introducidas para competir con opciones más saludables",
+        "Distribuida a través de red de socios embotelladores globales",
+        "Bebida refrescante carbonatada más consumida en el mundo",
+        "Presupuesto publicitario anual está entre los más altos del mundo"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-003",
+      "category": "Marcas",
+      "name": "Nike",
+      "clues": [
+        "Nombrada en honor a la diosa griega de la victoria y la fortaleza",
+        "Logo Swoosh fue diseñado por una estudiante de diseño por $35 en 1971",
+        "Cofundada por Bill Bowerman, entrenador de atletismo, y Phil Knight",
+        "Primer zapato fue llamado 'Moon Shoe' en 1972",
+        "Revolucionó el diseño y marketing de zapatos deportivos",
+        "Patrocinó atletas para promover productos y construir credibilidad de marca",
+        "Asociación con Michael Jordan creó línea Air Jordan en 1984",
+        "Conocida por eslogan 'Just Do It' desde 1988",
+        "Sede en Beaverton, Oregon",
+        "Mayor fabricante mundial de ropa y calzado deportivo",
+        "Introdujo tecnología Air para amortiguación y comodidad",
+        "Primera en usar endorsements de celebridades como estrategia principal de marketing",
+        "Operando en más de 190 países en todo el mundo",
+        "Ingresos superan los $40 mil millones anualmente",
+        "Conocida por innovación en materiales y manufactura",
+        "Programas extensos de iniciativas de sostenibilidad y responsabilidad corporativa",
+        "Produce zapatos, ropa, equipo para varios deportes",
+        "Tiendas minoristas cuentan con diseño experiencial y exhibiciones de atletas",
+        "Convención anual para atletas y medios llamada serie 'Innovate'",
+        "Adquirió marcas como Converse y Jordan Brand para expandir cartera"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-004",
+      "category": "Marcas",
+      "name": "Mercedes-Benz",
+      "clues": [
+        "Inventó el automóvil en 1885 por Karl Benz y Gottlieb Daimler",
+        "Nombrada en honor a la hija de Emil Jellinek, Mercedes, e inventor Benz",
+        "Logo de tres puntas representa ambición de motorizar el transporte",
+        "Fundada en Alemania en 1926 a través de fusión de dos empresas",
+        "Conocida por precisión de ingeniería y características de lujo",
+        "Innovaciones de seguridad pioneras como zonas de deformación y airbags",
+        "Primer automóvil de producción en masa con arranque eléctrico en 1912",
+        "Sede en Stuttgart, Alemania",
+        "Produce sedanes de lujo, SUVs, autos deportivos y vehículos comerciales",
+        "Uno de los fabricantes de automóviles más antiguos aún en operación",
+        "Famosa por estándares de confiabilidad y durabilidad",
+        "Punto de precio alto refleja calidad y estatus de marca prestigiosa",
+        "Éxito en automovilismo con Fórmula 1 y programas de carreras",
+        "Introdujo motores diesel en segmento de lujo",
+        "Conocida por tecnología de vanguardia y características de comodidad",
+        "Ingresos anuales superan los $150 mil millones",
+        "Parte del conglomerado Daimler AG",
+        "Red global de concesionarios con estándares de servicio premium",
+        "Línea de vehículos eléctricos llamada EQ lanzada en años recientes",
+        "Modelos icónicos incluyen sedán S-Class y SUV G-Class"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-005",
+      "category": "Marcas",
+      "name": "Disney",
+      "clues": [
+        "Fundada por Walt y Roy como estudio de animación en 1923",
+        "Primera película de animación lanzada en 1937",
+        "Creó el personaje animado más famoso de todos los tiempos en 1928",
+        "Parques temáticos comenzaron en California en 1955 con castillo icónico",
+        "Sede en Burbank, California",
+        "Adquirió activos de entretenimiento 20th Century Fox por $71 mil millones",
+        "Servicio de streaming lanzado en 2019 y se convirtió en líder de la industria",
+        "Conocida por narración que atrae a todos los grupos de edad",
+        "Las producciones incluyen películas, televisión, música y espectáculos en vivo",
+        "Gigante mundial de entretenimiento con ingresos que superan los $80 mil millones",
+        "Posee franquicias principales incluyendo Marvel y Lucasfilm",
+        "Parques temáticos ubicados en múltiples países en todo el mundo",
+        "Conocida por contenido familiar y valores íntegros",
+        "Símbolo de bolsa es DIS en la Bolsa de Valores de Nueva York",
+        "Red de televisión ABC es parte de la empresa",
+        "Los empleados se llaman 'Cast Members' no trabajadores",
+        "Estrategia de universo cinematográfico conecta múltiples franquicias de películas",
+        "Conocida por desfiles elaborados y espectáculos espectaculares",
+        "Merchandise y licensing generan ingresos significativos",
+        "Recientemente se convirtió en la empresa más grande de medios y entretenimiento globalmente"
+      ],
+      "metadata": {
+        "language": "es",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    }
+  ]
+}

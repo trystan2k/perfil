@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-brands-001",
+      "category": "Brands",
+      "name": "Apple",
+      "clues": [
+        "Founded in a garage by Steve Jobs, Steve Wozniak, and Ronald Wayne in 1976",
+        "Named after the fruit that inspired the founder's fruitarian diet",
+        "First computer featured a wooden case and sold for $666.66",
+        "Iconic logo was designed by Rob Janoff and originally featured a rainbow",
+        "The bite mark on the logo was added to avoid confusion with a cherry",
+        "Revolutionized personal computing with graphical user interface in 1984",
+        "Introduced the first commercially successful portable music player in 2001",
+        "Pioneered the smartphone market with a touch-screen device",
+        "Known for premium pricing and ecosystem lock-in strategy",
+        "Headquarters located in Cupertino, California",
+        "Famous for minimalist design philosophy and attention to detail",
+        "Created the world's most valuable company at various points",
+        "Annual revenue exceeds $300 billion in recent years",
+        "Known for vertical integration of hardware and software",
+        "Operating system is based on Unix kernel",
+        "Stores are known for their sleek glass architecture",
+        "One of the first tech companies to focus on user experience",
+        "Annual event showcases new products to loyal fan base",
+        "Products include computers, phones, tablets, watches, and services",
+        "Removed the headphone jack from phones in 2016"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-002",
+      "category": "Brands",
+      "name": "Coca-Cola",
+      "clues": [
+        "Invented by a pharmacist named John Pemberton in Atlanta, Georgia in 1886",
+        "Originally sold at soda fountains as a medicinal tonic",
+        "Formula contains caramel coloring, carbonated water, and secret ingredients",
+        "First branded drink to receive a registered trademark in the US",
+        "Iconic contour bottle design patented in 1916",
+        "Red and white color scheme became trademark in 1969",
+        "Famous Christmas advertising campaign started in 1931",
+        "Polar bear mascots have appeared in commercials since 1993",
+        "Slogan 'Open Happiness' introduced in 2009",
+        "Now sold in more than 200 countries and territories worldwide",
+        "Contains 39 grams of sugar per 12-ounce serving",
+        "Global leader in beverage industry with diverse product portfolio",
+        "Sponsorships include Olympics and major sporting events",
+        "Founded by John Pemberton after Civil War",
+        "Stock symbol is KO on the New York Stock Exchange",
+        "Company headquarters in Atlanta, Georgia",
+        "Zero and Diet variants introduced to compete with healthier options",
+        "Distributed through network of bottling partners globally",
+        "Most consumed carbonated soft drink in the world",
+        "Annual advertising budget is among the highest in the world"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-003",
+      "category": "Brands",
+      "name": "Nike",
+      "clues": [
+        "Named after the Greek goddess of victory and strength",
+        "Swoosh logo designed by a design student for $35 in 1971",
+        "Co-founded by Bill Bowerman, a track and field coach, and Phil Knight",
+        "First shoe was called the 'Moon Shoe' in 1972",
+        "Revolutionized athletic shoe design and marketing",
+        "Sponsored athletes to promote products and build brand credibility",
+        "Michael Jordan partnership created the Air Jordan line in 1984",
+        "Known for 'Just Do It' slogan since 1988",
+        "Headquarters in Beaverton, Oregon",
+        "World's largest athletic apparel and footwear manufacturer",
+        "Introduced Air technology for cushioning and comfort",
+        "First to use celebrity endorsements as primary marketing strategy",
+        "Operating in more than 190 countries worldwide",
+        "Revenue exceeds $40 billion annually",
+        "Known for innovation in materials and manufacturing",
+        "Extensive sustainability initiatives and corporate responsibility programs",
+        "Produces shoes, clothing, equipment for various sports",
+        "Retail stores feature experiential design and athlete displays",
+        "Annual convention for athletes and media called 'Innovate' series",
+        "Acquired brands like Converse and Jordan Brand to expand portfolio"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-004",
+      "category": "Brands",
+      "name": "Mercedes-Benz",
+      "clues": [
+        "Invented the automobile in 1885 by Karl Benz and Gottlieb Daimler",
+        "Named after Emil Jellinek's daughter Mercedes and inventor Benz",
+        "Three-pointed star logo represents ambition to motorize transportation",
+        "Founded in Germany in 1926 through merger of two companies",
+        "Known for engineering precision and luxury features",
+        "Pioneered safety innovations like crumple zones and airbags",
+        "First mass-produced automobile with electric start in 1912",
+        "Headquarters in Stuttgart, Germany",
+        "Produces luxury sedans, SUVs, sports cars, and commercial vehicles",
+        "One of the oldest automobile manufacturers still in operation",
+        "Famous for reliability and durability standards",
+        "High price point reflects quality and prestigious brand status",
+        "Motorsports success with Formula 1 and racing programs",
+        "Introduced diesel engines to luxury segment",
+        "Known for cutting-edge technology and comfort features",
+        "Annual revenue exceeds $150 billion",
+        "Part of Daimler AG conglomerate",
+        "Global dealership network with premium service standards",
+        "Electric vehicle line called EQ launched in recent years",
+        "Iconic models include S-Class sedan and G-Class SUV"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-005",
+      "category": "Brands",
+      "name": "Disney",
+      "clues": [
+        "Founded by Walt and Roy as animation studio in 1923",
+        "First animated feature film was released in 1937",
+        "Created the most famous animated character of all time in 1928",
+        "Theme parks began in California in 1955 with iconic castle landmark",
+        "Headquarters in Burbank, California",
+        "Acquired 20th Century Fox entertainment assets for $71 billion",
+        "Streaming service launched in 2019 and became industry leader",
+        "Known for storytelling that appeals to all age groups",
+        "Productions include films, television, music, and stage shows",
+        "Global entertainment giant with revenue exceeding $80 billion",
+        "Owns major franchises including Marvel and Lucasfilm",
+        "Theme parks located in multiple countries worldwide",
+        "Known for family-friendly content and wholesome values",
+        "Stock symbol is DIS on the New York Stock Exchange",
+        "ABC television network is part of the company",
+        "Employees are called 'Cast Members' not workers",
+        "Cinematic universe strategy connects multiple film franchises",
+        "Known for elaborate parades and spectacular shows",
+        "Merchandise and licensing generates significant revenue",
+        "Recently became the largest media and entertainment company globally"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    }
+  ]
+}
