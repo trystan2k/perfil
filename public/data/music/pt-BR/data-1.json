@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-music-001",
+      "category": "Música",
+      "name": "Ludwig van Beethoven",
+      "clues": [
+        "Compositor alemão do final do século XVIII e início do XIX",
+        "Famoso por suas nove sinfonias, sendo a última com a 'Ode à Alegria'",
+        "Apesar de ficar completamente surdo, continuou compondo obras-primas",
+        "Figura revolucionária na transição de música Clássica para Romântica",
+        "Sua Quinta Sinfonia abre com o famoso motivo 'ta-ta-ta-taaa'",
+        "Nasceu em Bonn e se mudou para Viena onde passou a maior parte de sua vida",
+        "Compôs a Sonata Claro de Lua, uma das peças de piano mais famosas",
+        "Sua Nona Sinfonia foi a primeira a incorporar um coro completo e solistas vocais",
+        "Conhecido por suas composições apaixonadas e dramáticas",
+        "Sua surdez foi causada por uma condição médica que começou em seus vinte anos",
+        "Compôs mais de 200 obras incluindo sinfonias, concertos e música de câmara",
+        "Sua perda auditiva não o impediu de alcançar suas maiores obras",
+        "O famoso 'Testamento de Heiligenstadt' foi escrito durante sua luta contra a surdez",
+        "Suas obras foram dedicadas a vários membros da nobreza e patrocinadores",
+        "Fechou a lacuna entre os períodos Clássico e Romântico na música clássica",
+        "Seu funeral foi frequentado por milhares de pessoas em Viena",
+        "Criou algumas das músicas mais emocionalmente poderosas já compostas",
+        "Seus esboços e notas mostram o processo detalhado de suas composições",
+        "Influenciou inúmeros compositores que vieram depois dele",
+        "Seu legado continua sendo celebrado em salas de concerto em todo o mundo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-music-002",
+      "category": "Música",
+      "name": "The Beatles",
+      "clues": [
+        "Banda de rock britânica formada em Liverpool em 1960",
+        "Consistia em quatro membros que se tornaram alguns dos músicos mais famosos da história",
+        "Seu álbum 'Sgt. Pepper's Lonely Hearts Club Band' revolucionou a música pop",
+        "Conhecida por experimentar constantemente com novas técnicas de gravação e sons",
+        "Se separaram em 1970 após uma década de sucesso incrível",
+        "Lançaram 'Abbey Road' que apresentava uma famosa faixa de zebra na capa",
+        "Seu álbum 'The White Album' é um dos álbuns mais vendidos de todos os tempos",
+        "Atuaram no 'Ed Sullivan Show' em 1964 para uma audiência televisiva recorde",
+        "Dois de seus membros continuaram carreiras solo e foram assassinados tragicamente",
+        "Sua música influenciou toda uma geração e além",
+        "Criaram vídeos musicais inovadores que ajudaram a estabelecer o formato",
+        "Seu estilo inicial foi influenciado pelo rock and roll e R&B americanos",
+        "Álbuns posteriores apresentavam arranjos orquestais e técnicas de vanguarda",
+        "Venceram múltiplos Prêmios Grammy durante sua carreira",
+        "Seu catálogo de canções é um dos mais valiosos na história da música",
+        "As tensões criativas internas da banda eventualmente levaram à sua separação",
+        "Atuaram no Festival de Woodstock de 1969 antes de sua separação oficial",
+        "Suas gravações acústicas continuam sendo algumas das canções mais amadas",
+        "O grupo revolucionou o conceito do álbum de rock como forma de arte",
+        "Sua influência na música, moda e cultura é imensurável"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-music-003",
+      "category": "Música",
+      "name": "Aretha Franklin",
+      "clues": [
+        "Cantora americana de soul e R&B conhecida como a 'Rainha do Soul'",
+        "Sua voz poderosa e entrega emocional influenciaram gerações de artistas",
+        "Nasceu em Memphis, Tennessee e foi criada em Detroit, Michigan",
+        "Seu pai era um famoso pregador de gospel que influenciou sua música inicial",
+        "Suas músicas de sucesso incluem 'Respect', 'Think' e 'I Say a Little Prayer'",
+        "Conhecida por sua incrível capacidade de transmitir emoção através de sua voz",
+        "Venceu 18 Prêmios Grammy ao longo de sua carreira lendária",
+        "Sua versão de 'Respect' se tornou um hino para os direitos das mulheres",
+        "Gravou música em múltiplas décadas desde os anos 1960 em diante",
+        "Conhecida por seu alcance vocal poderoso e habilidades de improvisação",
+        "Atuou na posse do Presidente Barack Obama",
+        "Começou cantando música gospel como criança na igreja de seu pai",
+        "Seu álbum 'I Never Loved a Man the Way I Love You' lançou sua carreira",
+        "Colaborou com muitos músicos famosos ao longo de sua carreira",
+        "Sua música misturava influências de soul, gospel, R&B e pop",
+        "Conhecida por seu estilo distinto e presença de palco dominante",
+        "Suas canções continuam sendo interpretadas por artistas de vários gêneros",
+        "Enfrentou desafios pessoais durante sua vida mas os utilizou em sua arte",
+        "Considerada uma das figuras mais importantes na história da música americana",
+        "Seu legado influenciou inúmeros artistas de soul e R&B que vieram depois"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-music-004",
+      "category": "Música",
+      "name": "Música Jazz",
+      "clues": [
+        "Um gênero musical americano que se originou em Nova Orleans no início do século XX",
+        "Combina elementos de ritmos africanos, harmonia europeia e blues",
+        "Caracterizado pela improvisação, harmonias complexas e ritmos sincopados",
+        "Evoluiu do ragtime, blues e influências de música clássica europeia",
+        "Apresenta instrumentos como trompete, saxofone, trombone, piano e contrabaixo",
+        "Conhecido por músicos tocando um ao outro em um estilo conversacional",
+        "Ganhou popularidade em speakeasies durante a era da Proibição",
+        "Se espalhou globalmente e influenciou música, moda e cultura mundial",
+        "Figuras-chave incluem Louis Armstrong, Duke Ellington e Charlie Parker",
+        "A improvisação livre é central para a identidade do gênero",
+        "Criou subgêneros distintos incluindo bebop, cool jazz e jazz modal",
+        "Músicos frequentemente se comunicam através de seus instrumentos durante apresentações",
+        "O gênero valoriza a expressão individual e a liberdade criativa",
+        "Desenvolveu standards que são interpretados e reinterpretados por inúmeros artistas",
+        "Conhecido por apresentações ao vivo que nunca são iguais duas vezes",
+        "Influenciou o desenvolvimento de música rock, funk e hip-hop",
+        "Apresenta progressões de acordes complexas e estruturas musicais sofisticadas",
+        "Representa uma contribuição únicamente americana para a cultura musical mundial",
+        "Continua evoluindo com artistas modernos experimentando estilos de fusão",
+        "Celebrado em festivais e salas de concerto em todo o mundo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-music-005",
+      "category": "Música",
+      "name": "David Bowie",
+      "clues": [
+        "Músico de rock britânico e ícone cultural conhecido por sua reinvenção constante",
+        "Famoso por seu estilo andrógino e apresentações teatrais",
+        "Criou o alter ego Ziggy Stardust no início dos anos 1970",
+        "Seu álbum 'The Rise and Fall of Ziggy Stardust and the Spiders from Mars' foi revolucionário",
+        "Conhecido por colaborar com outros artistas famosos e produtores",
+        "Suas músicas de sucesso incluem 'Space Oddity', 'Heroes' e 'Let's Dance'",
+        "Sua carreira abrangeu cinco décadas com evolução e experimentação contínuas",
+        "Morreu em janeiro de 2016 após uma luta privada contra o câncer",
+        "Lançou seu álbum final 'Blackstar' em seu aniversário, apenas dois dias antes de sua morte",
+        "Influenciou a moda tanto quanto influenciou a música",
+        "Conhecido por sua aparência impressionante e vídeos musicais inovadores",
+        "Trabalhou extensivamente em filmes, atuando em filmes e criando trilhas sonoras",
+        "Seu álbum 'Hunky Dory' apresentava clássicos atemporais como 'Changes'",
+        "Pioneiro em música rock eletrônica e baseada em sintetizadores",
+        "Colaborou extensivamente com Brian Eno em vários álbuns inovadores",
+        "Suas apresentações eram produções teatrais, não apenas concertos",
+        "Conhecido por seu alcance vocal distinto e abordagem experimental",
+        "Ajudou a estabelecer o conceito do rock como meio artístico e desafiador",
+        "Sua influência na música, moda e cultura permanece profunda",
+        "Frequentemente citado como um dos maiores artistas do século XX"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "hard",
+        "source": "Wikipedia"
+      }
+    }
+  ]
+}

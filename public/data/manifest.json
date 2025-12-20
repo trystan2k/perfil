@@ -190,6 +190,27 @@
           "profileAmount": 5
         }
       }
+    },
+    {
+      "slug": "music",
+      "idPrefix": "music",
+      "locales": {
+        "en": {
+          "name": "Music",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        },
+        "es": {
+          "name": "Musica",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        },
+        "pt-BR": {
+          "name": "Música",
+          "files": ["data-1.json"],
+          "profileAmount": 5
+        }
+      }
     }
   ]
 }

@@ -1,0 +1,165 @@
+{
+  "version": "1",
+  "profiles": [
+    {
+      "id": "profile-music-001",
+      "category": "Music",
+      "name": "Ludwig van Beethoven",
+      "clues": [
+        "German composer from the late 18th and early 19th centuries",
+        "Famous for his nine symphonies, with the final one featuring the 'Ode to Joy'",
+        "Despite becoming completely deaf, continued to compose masterpieces",
+        "Revolutionary figure in the transition from Classical to Romantic music",
+        "His Fifth Symphony opens with the famous 'ta-ta-ta-taaa' motif",
+        "Born in Bonn and later moved to Vienna where he spent most of his life",
+        "Composed the Moonlight Sonata, one of the most famous piano pieces",
+        "His Ninth Symphony was the first to incorporate a full chorus and vocal soloists",
+        "Known for his passionate and dramatic compositions",
+        "His deafness was caused by a medical condition that began in his late twenties",
+        "Composed over 200 works including symphonies, concertos, and chamber music",
+        "His hearing loss did not prevent him from achieving his greatest works",
+        "The famous 'Heiligenstadt Testament' was written during his struggle with deafness",
+        "His works were dedicated to various nobility and patrons",
+        "Bridged the gap between the Classical and Romantic periods in classical music",
+        "His funeral was attended by thousands of people in Vienna",
+        "Created some of the most emotionally powerful music ever written",
+        "His sketches and notes show the detailed process of his compositions",
+        "Influenced countless composers who came after him",
+        "His legacy continues to be celebrated in concert halls worldwide"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-music-002",
+      "category": "Music",
+      "name": "The Beatles",
+      "clues": [
+        "British rock band formed in Liverpool in 1960",
+        "Consisted of four members who became some of the most famous musicians in history",
+        "Their album 'Sgt. Pepper's Lonely Hearts Club Band' revolutionized pop music",
+        "Known for constantly experimenting with new recording techniques and sounds",
+        "Broke up in 1970 after a decade of incredible success",
+        "Released 'Abbey Road' which featured a famous zebra crossing on its cover",
+        "Their album 'The White Album' is one of the best-selling albums of all time",
+        "Performed on the 'Ed Sullivan Show' in 1964 to a record-breaking television audience",
+        "Two of their members continued solo careers and were tragically murdered",
+        "Their music influenced an entire generation and beyond",
+        "Created innovative music videos that helped establish the format",
+        "Their early style was influenced by American rock and roll and R&B",
+        "Later albums featured orchestral arrangements and avant-garde techniques",
+        "Won multiple Grammy Awards during their career",
+        "Their song catalog is one of the most valuable in music history",
+        "The band's internal creative tensions eventually led to their breakup",
+        "Performed at the 1969 Woodstock Festival before their official breakup",
+        "Their acoustic recordings remain some of the most beloved songs ever",
+        "The group revolutionized the concept of the rock album as an art form",
+        "Their influence on music, fashion, and culture is immeasurable"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "easy",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-music-003",
+      "category": "Music",
+      "name": "Aretha Franklin",
+      "clues": [
+        "American soul and R&B singer known as the 'Queen of Soul'",
+        "Her powerful voice and emotional delivery influenced generations of artists",
+        "Born in Memphis, Tennessee and raised in Detroit, Michigan",
+        "Father was a famous gospel preacher which influenced her early music",
+        "Hit songs include 'Respect', 'Think', and 'I Say a Little Prayer'",
+        "Known for her incredible ability to convey emotion through her singing",
+        "Won 18 Grammy Awards throughout her legendary career",
+        "Her rendition of 'Respect' became an anthem for women's rights",
+        "Recorded music across multiple decades from the 1960s onwards",
+        "Known for her powerful vocal range and improvisation skills",
+        "Performed at the inauguration of President Barack Obama",
+        "Started singing gospel music as a child in her father's church",
+        "Her album 'I Never Loved a Man the Way I Love You' launched her career",
+        "Collaborated with many famous musicians throughout her career",
+        "Her music blended soul, gospel, R&B, and pop influences",
+        "Known for her distinctive style and commanding stage presence",
+        "Her songs continue to be covered by artists of various genres",
+        "Faced personal challenges throughout her life but used them in her art",
+        "Regarded as one of the most important figures in American music history",
+        "Her legacy influenced countless soul and R&B artists who followed"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-music-004",
+      "category": "Music",
+      "name": "Jazz Music",
+      "clues": [
+        "An American musical genre that originated in New Orleans in the early 20th century",
+        "Combines elements of African rhythms, European harmony, and blues",
+        "Characterized by improvisation, complex harmonies, and syncopated rhythms",
+        "Evolved from ragtime, blues, and European classical music influences",
+        "Features instruments like trumpet, saxophone, trombone, piano, and double bass",
+        "Known for musicians playing off each other in a conversational style",
+        "Gained popularity in speakeasies during the Prohibition era",
+        "Spread globally and influenced music, fashion, and culture worldwide",
+        "Key figures include Louis Armstrong, Duke Ellington, and Charlie Parker",
+        "Free improvisation is central to the genre's identity and appeal",
+        "Created distinct subgenres including bebop, cool jazz, and modal jazz",
+        "Musicians often communicate through their instruments during performances",
+        "The genre values individual expression and creative freedom",
+        "Developed standards that are performed and reinterpreted by countless artists",
+        "Known for live performances that are never the same twice",
+        "Influenced the development of rock, funk, and hip-hop music",
+        "Features complex chord progressions and sophisticated musical structures",
+        "Represents a uniquely American contribution to world music culture",
+        "Continues to evolve with modern artists experimenting with fusion styles",
+        "Celebrated in festivals and concert halls around the world"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-music-005",
+      "category": "Music",
+      "name": "David Bowie",
+      "clues": [
+        "British rock musician and cultural icon known for constant reinvention",
+        "Famous for his androgynous style and theatrical performances",
+        "Created the alter ego Ziggy Stardust in the early 1970s",
+        "His album 'The Rise and Fall of Ziggy Stardust and the Spiders from Mars' was revolutionary",
+        "Known for collaborating with other famous artists and producers",
+        "Hit songs include 'Space Oddity', 'Heroes', and 'Let's Dance'",
+        "His career spanned five decades with continual evolution and experimentation",
+        "Died in January 2016 after a private battle with cancer",
+        "Released his final album 'Blackstar' on his birthday, just two days before his death",
+        "Influenced fashion as much as he influenced music",
+        "Known for his striking appearance and innovative music videos",
+        "Worked extensively in film, acting in movies and creating soundtracks",
+        "His album 'Hunky Dory' featured timeless classics like 'Changes'",
+        "Pioneered electronic and synthesizer-based rock music",
+        "Collaborated with Brian Eno on several groundbreaking albums",
+        "His performances were theatrical productions, not just concerts",
+        "Known for his distinctive vocal range and experimental approach",
+        "Helped establish the concept of rock as artistic and challenging medium",
+        "His influence on music, fashion, and culture remains profound",
+        "Often cited as one of the greatest artists of the 20th century"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "hard",
+        "source": "Wikipedia"
+      }
+    }
+  ]
+}
