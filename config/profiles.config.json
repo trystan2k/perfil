@@ -350,13 +350,133 @@
           "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
         },
-        {
-          "name": "Switzerland",
-          "availableIn": ["en", "es", "pt-BR"],
-          "difficulty": "medium"
-        }
-      ]
-    },
+         {
+           "name": "Switzerland",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Greece",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Portugal",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Poland",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Belgium",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Austria",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Denmark",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Norway",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Finland",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "medium"
+         },
+         {
+           "name": "Iceland",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Vietnam",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Philippines",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Malaysia",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Pakistan",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Colombia",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Peru",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Chile",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Nigeria",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Kenya",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Cyprus",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Morocco",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Tunisia",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Lebanon",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Israel",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         },
+         {
+           "name": "Singapore",
+           "availableIn": ["en", "es", "pt-BR"],
+           "difficulty": "hard"
+         }
+       ]
+     },
     {
       "slug": "famous-people",
       "displayNames": {
