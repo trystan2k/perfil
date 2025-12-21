@@ -3752,48 +3752,233 @@
       "profiles": [
         {
           "name": "Jane Eyre",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
+          "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
         },
         {
           "name": "The Great Gatsby",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
+          "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "medium"
         },
         {
           "name": "Jack Torrance",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
+          "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
         },
         {
           "name": "Pride and Prejudice",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
+          "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "easy"
         },
         {
           "name": "One Hundred Years of Solitude",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
+          "availableIn": ["en", "es", "pt-BR"],
           "difficulty": "hard"
+        },
+        {
+          "name": "To Kill a Mockingbird",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Catcher in the Rye",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "1984",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Odyssey",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Wuthering Heights",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Hobbit",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Invisible Man",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Jane Austen",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Moby Dick",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Picture of Dorian Gray",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Fahrenheit 451",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Anna Karenina",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Crime and Punishment",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Iliad",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Brothers Karamazov",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Count of Monte Cristo",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Frankenstein",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Metamorphosis",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Les Misérables",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Lolita",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Handmaid's Tale",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Silmarillion",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Name of the Rose",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "If Beale Street Could Talk",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Things Fall Apart",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Left Hand of Darkness",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Beloved",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Midnight's Children",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The God of Small Things",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "One Flew Over the Cuckoo's Nest",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Call of the Wild",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Bell Jar",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Slaughterhouse-Five",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Waiting for Godot",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "One Piece of String",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Lottery",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Handkerchief",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Stranger",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Siddhartha",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Plague",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Secret Garden",
+          "availableIn": ["en", "es", "pt-BR"],
+          "difficulty": "easy"
         }
       ]
     },
