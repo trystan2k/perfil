@@ -2890,6 +2890,186 @@
             "pt-BR"
           ],
           "difficulty": "hard"
+        },
+        {
+          "name": "Machine Learning",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Internet of Things",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Edge Computing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Metaverse",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Web3",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Cybernetics",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Natural Language Processing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Computer Vision",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Quantum Sensing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Synthetic Biology",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Mixed Reality",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Biotechnology Manufacturing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Haptic Technology",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Data Privacy Technology",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Sensor Networks",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Neuromorphic Computing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Affective Computing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Distributed Ledger Technology",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Holographic Display",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Ambient Intelligence",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
         }
       ]
     },
