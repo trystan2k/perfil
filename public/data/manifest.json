@@ -198,17 +198,17 @@
         "en": {
           "name": "Music",
           "files": ["data-1.json"],
-          "profileAmount": 5
+          "profileAmount": 50
         },
         "es": {
           "name": "Musica",
           "files": ["data-1.json"],
-          "profileAmount": 5
+          "profileAmount": 50
         },
         "pt-BR": {
           "name": "Música",
           "files": ["data-1.json"],
-          "profileAmount": 5
+          "profileAmount": 50
         }
       }
     }
