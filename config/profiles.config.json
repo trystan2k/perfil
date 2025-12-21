@@ -2618,6 +2618,213 @@
             "pt-BR"
           ],
           "difficulty": "hard"
+        },
+        {
+          "name": "Bowling",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Darts",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Cheerleading",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Squash",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Lacrosse",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Handball",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Curling",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Ping Pong (Advanced)",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Bobsleigh",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Racquetball",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Hurling",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Pentathlon (Modern)",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Luge",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Badminton (Advanced)",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Orienteering",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Netball",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Australian Rules Football",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Gaelic Football",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "American Handball",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Weightlifting",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Biathlon",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Snooker",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Decathlon",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
         }
       ]
     },
