@@ -1603,7 +1603,7 @@
     },
     {
       "id": "profile-animal-051",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Panda Vermelho",
       "clues": [
         "Pelagem marrom avermelhado com marcas distintivas",
@@ -1635,7 +1635,7 @@
     },
     {
       "id": "profile-animal-052",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Suricata",
       "clues": [
         "Pequena mangusta do sul da África",
@@ -1667,7 +1667,7 @@
     },
     {
       "id": "profile-animal-053",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Ouriço",
       "clues": [
         "Mamífero espinhoso que se enrola em bola quando ameaçado",
@@ -1699,7 +1699,7 @@
     },
     {
       "id": "profile-animal-054",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Lula Gigante",
       "clues": [
         "Invertebrado maior do mundo",
@@ -1731,7 +1731,7 @@
     },
     {
       "id": "profile-animal-055",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Bonobo",
       "clues": [
         "Grande macaco da República Democrática do Congo",
@@ -1763,7 +1763,7 @@
     },
     {
       "id": "profile-animal-056",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Wolverine",
       "clues": [
         "Carnívoro robusto e poderoso",
@@ -1795,7 +1795,7 @@
     },
     {
       "id": "profile-animal-057",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Lêmur-de-cauda-anelada",
       "clues": [
         "Cauda preta e branca anelada distintiva",
@@ -1827,7 +1827,7 @@
     },
     {
       "id": "profile-animal-058",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Emu",
       "clues": [
         "Grande ave não voadora da Austrália",
@@ -1859,7 +1859,7 @@
     },
     {
       "id": "profile-animal-059",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Dugongo",
       "clues": [
         "Mamífero marinho relacionado ao peixe-boi",
@@ -1891,7 +1891,7 @@
     },
     {
       "id": "profile-animal-060",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Rato-Toupeira-Pelado",
       "clues": [
         "Roedor pelado inusual sem pelos",
@@ -1923,7 +1923,7 @@
     },
     {
       "id": "profile-animal-061",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Macaco Capuchinho",
       "clues": [
         "Macaco inteligente do Novo Mundo",
@@ -1955,7 +1955,7 @@
     },
     {
       "id": "profile-animal-062",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Kiwi",
       "clues": [
         "Ave não voadora da Nova Zelândia",
@@ -1987,7 +1987,7 @@
     },
     {
       "id": "profile-animal-063",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Wombat",
       "clues": [
         "Marsupial robusto cavador",
@@ -2019,7 +2019,7 @@
     },
     {
       "id": "profile-animal-064",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Macaco-Narigudo",
       "clues": [
         "Macaco de nariz longo de Bornéu",
@@ -2051,7 +2051,7 @@
     },
     {
       "id": "profile-animal-065",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Rinoceronte-de-Java",
       "clues": [
         "Um dos mamíferos mais raros",
@@ -2083,7 +2083,7 @@
     },
     {
       "id": "profile-animal-066",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Orca",
       "clues": [
         "Maior espécie de golfinho",
@@ -2115,7 +2115,7 @@
     },
     {
       "id": "profile-animal-067",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Colhereiro-Rosado",
       "clues": [
         "Ave pernalta rosa",
@@ -2147,7 +2147,7 @@
     },
     {
       "id": "profile-animal-068",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Hiena",
       "clues": [
         "Carnívoro de mandíbula poderosa",
@@ -2179,7 +2179,7 @@
     },
     {
       "id": "profile-animal-069",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Dragão-de-Komodo",
       "clues": [
         "Maior lagarto vivo",
@@ -2211,7 +2211,7 @@
     },
     {
       "id": "profile-animal-070",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Gibão",
       "clues": [
         "Pequeno macaco do Sudeste Asiático",
@@ -2243,7 +2243,7 @@
     },
     {
       "id": "profile-animal-071",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Ave-Secretária",
       "clues": [
         "Única ave rapaz habitante do solo",
@@ -2275,7 +2275,7 @@
     },
     {
       "id": "profile-animal-072",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Texugo",
       "clues": [
         "Carnívoro robusto cavador",
@@ -2307,7 +2307,7 @@
     },
     {
       "id": "profile-animal-073",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Takin",
       "clues": [
         "Cabra-antílope do Himalaia",
@@ -2339,7 +2339,7 @@
     },
     {
       "id": "profile-animal-074",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Lêmur Voador",
       "clues": [
         "Mamífero planeador não verdadeiro lêmur",
@@ -2371,7 +2371,7 @@
     },
     {
       "id": "profile-animal-075",
-      "category": "Animals",
+      "category": "Animais",
       "name": "Águia-Arpía",
       "clues": [
         "Maior e mais poderosa águia",
@@ -2394,6 +2394,806 @@
         "Desflorestamento ameaça sobrevivência",
         "Significância cultural indígena",
         "Extremamente vulnerável à extinção"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-076",
+      "category": "Animais",
+      "name": "Jaguatirica",
+      "clues": [
+        "Gato selvagem manchado da América Central e do Sul",
+        "Tamanho similar ao gato doméstico, mas mais musculoso",
+        "Excelente visão noturna para caçar",
+        "Caça pequenos mamíferos e aves à noite",
+        "Animal solitário e territorial",
+        "Pelagem manchada proporciona camuflagem",
+        "Pode subir em árvores com agilidade",
+        "Orelhas redondas e distintivas",
+        "Em perigo em algumas regiões",
+        "Ameaçada pela perda de habitat",
+        "Encontrada em florestas tropicais e matas",
+        "Pesa 1,5-3 kg",
+        "Caça no chão e nas árvores",
+        "Depende de vegetação densa",
+        "Relacionada ao jaguarundi",
+        "Tem garras retráteis",
+        "Caçadora noturna",
+        "Dentes afiados para caçar",
+        "Usa marcação de odor para reivindicar território",
+        "Solitária, exceto durante o acasalamento"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-077",
+      "category": "Animais",
+      "name": "Papagaio-do-mar",
+      "clues": [
+        "Ave marinha colorida com rosto distintivo",
+        "Plumagem branca e preta",
+        "Bico e patas laranja brilhante",
+        "Encontrada em águas do Atlântico Norte",
+        "Vive em ilhas rochosas",
+        "Cava tocas para ninhada",
+        "Excelentes nadadores e mergulhadores",
+        "Come peixes pequenos como enguias de areia",
+        "Pode segurar vários peixes no bico",
+        "Acasala para a vida toda",
+        "Vive em grandes colônias reprodutivas",
+        "Passa o inverno no mar",
+        "Vem à terra apenas para se reproduzir",
+        "Tem penas à prova de água",
+        "Pés palmados para nadar",
+        "Aparência cômica e distintiva",
+        "Caça mergulhando na água",
+        "Filhotes chamados filhotes de papagaio-do-mar",
+        "Pode voar até 50 mph",
+        "Popular na Islândia e na Escócia"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-078",
+      "category": "Animais",
+      "name": "Cavalo-marinho",
+      "clues": [
+        "Peixe marinho pequeno com cabeça parecida com a de um cavalo",
+        "Postura de natação única e ereta",
+        "O macho carrega os ovos em uma bolsa",
+        "Acasala para a vida toda",
+        "Excelentes habilidades de camuflagem",
+        "Agarra capim-do-mar com cauda preênsil",
+        "Nadadores lentos, menos de 5 pés por hora",
+        "Se alimenta de plâncton minúsculo",
+        "Encontrado em águas costeiras rasas",
+        "Vive entre camas de capim-do-mar",
+        "Em perigo pela destruição do habitat",
+        "Nadadores deficientes, facilmente arrastados",
+        "Criaturas monogâmicas",
+        "Não consegue se alimentar em correntes fortes",
+        "Filhotes minúsculos chamados alevins",
+        "Ancestralidade antiga que remonta a milhões de anos",
+        "Armadura corporal distintiva",
+        "Encontrado em águas tropicais e temperadas",
+        "Focinho longo para caçar pequenas presas",
+        "Vulnerável à poluição e sobrepesca"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-079",
+      "category": "Animais",
+      "name": "Lince",
+      "clues": [
+        "Gato selvagem com tufos de orelhas distintivos",
+        "Pelagem espessa e fofuda para climas frios",
+        "Encontrado em florestas do Hemisfério Norte",
+        "Caça principalmente lebres de raquete de neve",
+        "Patas grandes e acolchoadas como raquetes de neve",
+        "Excelente escalador e nadador",
+        "Animal solitário e territorial",
+        "Pelagem manchada varia por subespécie",
+        "Cauda curta com ponta preta",
+        "Pode sobreviver a invernos rigorosos",
+        "Caçador silencioso perseguindo presas",
+        "Pesa 8-11 kg",
+        "Extremamente adaptável ao frio",
+        "Relacionado ao gato-selvagem e caracal",
+        "Visão aguçada e audição aguçada",
+        "Varia por florestas boreais",
+        "Marca território com odor",
+        "Vida útil 10-15 anos na natureza",
+        "Vulnerável à perda de habitat",
+        "Protegido em muitos países"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-080",
+      "category": "Animais",
+      "name": "Hiena",
+      "clues": [
+        "Grande carnívoro com mandíbulas poderosas",
+        "A força de mordida mais forte de qualquer mamífero",
+        "Encontrada em toda a África e Ásia",
+        "Vive em clãs similares aos leões",
+        "Carniça e caça por alimento",
+        "Emite chamadas de riso distinctas",
+        "Pelagem manchada em hiena manchada",
+        "Animais altamente inteligentes",
+        "Dentes que quebram ossos",
+        "Estrutura de clã dominada por fêmeas",
+        "Pode digerir ossos que outros não conseguem",
+        "Caçadores e necrófagos noturnos",
+        "Caçadores em bando ao perseguir presas",
+        "Se adaptam a vários habitats",
+        "Vida útil 20-25 anos",
+        "Sociais e comunicativos",
+        "Excelente sistema digestivo",
+        "Importantes limpadores do ecossistema",
+        "Mal compreendidos por humanos",
+        "Predadores ápice e necrófagos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-081",
+      "category": "Animais",
+      "name": "Boi-almiscarado",
+      "clues": [
+        "Grande mamífero ártico com chifres longos",
+        "Pelagem de lã espessa para frio extremo",
+        "Forma círculo protetor quando ameaçado",
+        "Os filhotes permanecem no centro do círculo",
+        "Pode sobreviver a temperaturas abaixo de -40°C",
+        "Pasce plantas da tundra ártica",
+        "Rebanhos protegem os jovens de predadores",
+        "Pesa até 400 kg",
+        "Chifres curvados varrem para baixo",
+        "Vive em regiões árticas",
+        "Pelagem inferior espessa chamada qiviut",
+        "A lã qiviut é extremamente quente",
+        "Os rebanhos migram sazonalmente",
+        "Excelentes nadadores",
+        "A construção muscular ajuda na sobrevivência",
+        "Come líquenes e gramas",
+        "Vivem 12-16 anos",
+        "Conhecido por odor almiscarado",
+        "Protegido em muitas regiões",
+        "Vulnerável à mudança climática"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-082",
+      "category": "Animais",
+      "name": "Texugo",
+      "clues": [
+        "Mamífero robusto que cava tocas",
+        "Rosto com listras branca e preta",
+        "Garras poderosas para cavar",
+        "Cria sistemas de tocas elaborados",
+        "Animais solitários ou em pares",
+        "Forrageiros noturnos",
+        "Come pequenos mamíferos, insetos, raízes",
+        "Pesa 7-14 kg dependendo da espécie",
+        "Excelentes escavadores",
+        "Pode cavar tocas com vários metros de profundidade",
+        "Feroz quando ameaçado",
+        "Raramente visto por humanos",
+        "Ativo durante o ano todo",
+        "Corpo musculoso e robusto",
+        "Patas curtas perto do solo",
+        "Excelente audição e olfato",
+        "Garras longas nas patas dianteiras",
+        "Vida útil 10-15 anos",
+        "Encontrado em muitos habitats",
+        "Dieta onívora adaptável"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-083",
+      "category": "Animais",
+      "name": "Cisne",
+      "clues": [
+        "Grande ave aquática branca",
+        "Uma das aves voadores mais pesadas",
+        "Pescoço longo e elegante",
+        "Acasala para a vida toda",
+        "Encontrado em lagos e rios",
+        "Dieta herbívora de plantas aquáticas",
+        "Migratório em muitas regiões",
+        "Nadadores graciosos",
+        "Sibilam quando ameaçados",
+        "Agressivos durante a estação de nidificação",
+        "Os filhotes permanecem com os pais",
+        "Plumagem branca pura em cisne mudo",
+        "Branca e preta em outras espécies",
+        "Pés palmados para nadar",
+        "Pode viver 20 anos ou mais",
+        "Envergadura das asas até 2,5 metros",
+        "Batidas de asas fortes produzem som",
+        "Simboliza graça e beleza",
+        "Associações da mitologia antiga",
+        "Popular em parques e jardins"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-084",
+      "category": "Animais",
+      "name": "Peixe-anjo",
+      "clues": [
+        "Peixe de água doce colorido para aquário",
+        "Forma de corpo triangular",
+        "Listras pretas verticais",
+        "Vive em águas tropicais",
+        "Nativo de rios sul-americanos",
+        "Peixes pais protegem os ovos",
+        "Peixe pacífico apesar de aparência predadora",
+        "Múltiplas variedades de cores existem",
+        "Nadadeiras espinhosas distintivas",
+        "Comportamento em cardume no estado selvagem",
+        "Pode viver 10 anos em cativeiro",
+        "Come peixes pequenos e insetos",
+        "Encontrado em ambientes de aquário com plantas",
+        "Popular entre aquaristas",
+        "Nadadores lentos",
+        "Social quando jovem",
+        "Tornam-se territoriais durante o acasalamento",
+        "Requerem água quente",
+        "Sensível à qualidade da água",
+        "Movimentos graciosos na água"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-085",
+      "category": "Animais",
+      "name": "Alpaca",
+      "clues": [
+        "Camelídeo domesticado sul-americano",
+        "Menor que a lhama",
+        "Pelagem espessa e fofuda",
+        "Utilizado para produção de fibra",
+        "Nativo das Montanhas dos Andes",
+        "Temperamento dócil",
+        "Vive em rebanhos",
+        "Produz lã macia",
+        "Pode viver 20-25 anos",
+        "Menos agressivo que lhamas",
+        "Cospe quando está chateado",
+        "Dieta herbívora",
+        "Animais sociais",
+        "Utilizado como animais de guarda para o gado",
+        "Pesa 100-200 libras",
+        "Vem em muitas cores",
+        "Amigável com socialização adequada",
+        "Excelente fonte de fibra",
+        "Crescente popularidade como animais de estimação",
+        "Patrimônio antigo no Peru"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-086",
+      "category": "Animais",
+      "name": "Secretário",
+      "clues": [
+        "Ave rapinante terrestre alta",
+        "Caça serpentes em savanas africanas",
+        "Pisoteia presas com patas poderosas",
+        "Caminha até 20 milhas por dia",
+        "Plumagem escura distintiva",
+        "Marcas faciais laranja",
+        "Crista de penas longas na cabeça",
+        "Caminha em vez de voar",
+        "Pode pisotear com força de 195 libras",
+        "Mata serpentes venenosas",
+        "Emite chamadas retumbantes altas",
+        "Faz ninhos em árvores",
+        "Acasala para a vida toda",
+        "Extremamente raro e especializado",
+        "Se alimenta de répteis e pequenos mamíferos",
+        "Se fica em pé até 5 pés de altura",
+        "Caça em savanas abertas",
+        "Tem cílios como humano",
+        "Símbolo de savanas africanas",
+        "Em perigo em muitas regiões"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-087",
+      "category": "Animais",
+      "name": "Peixe-lua",
+      "clues": [
+        "Peixe ósseo mais pesado do mundo",
+        "Pode pesar até 5.000 libras",
+        "Forma de corpo plana e arredondada",
+        "Vive em oceano aberto",
+        "Nada lentamente apesar do grande tamanho",
+        "Se alimenta de medusas",
+        "O nome vem do comportamento de se ensolarar",
+        "Nadadeira dorsal estende-se verticalmente",
+        "Aparência distintiva",
+        "Encontrado em águas tropicais e temperadas",
+        "Pode mergulhar extremamente profundo",
+        "Coloca milhões de ovos",
+        "Flutua perto da superfície frequentemente",
+        "Corpo coberto com parasitas",
+        "Linhagem evolutiva antiga",
+        "Cresce continuamente ao longo da vida",
+        "Viaja longas distâncias",
+        "Nadadores um tanto desajeitados",
+        "Principalmente solitário",
+        "Vulnerável a colisões de barcos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-088",
+      "category": "Animais",
+      "name": "Raposa-do-deserto",
+      "clues": [
+        "Menor espécie de raposa",
+        "Nativa do Deserto do Saara",
+        "Orelhas enormes em relação ao corpo",
+        "Usa orelhas para dissipação de calor",
+        "Pesa apenas 1-2 kg",
+        "Caçadora noturna",
+        "Caça pequenos mamíferos e insetos",
+        "Tem pelagem nos pés para a areia",
+        "Vive em tocas subterrâneas",
+        "Pelagem bege pálido",
+        "Audição excelente",
+        "Caçadora silenciosa",
+        "Pode sobreviver sem beber água",
+        "Vive em dunas e áreas rochosas",
+        "Animais sociais em cativeiro",
+        "Pares monogâmicos",
+        "Criam filhotes em tocas",
+        "Adaptada ao calor extremo",
+        "Olhos grandes para visão noturna",
+        "Aparência adorável popular em zoológicos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-089",
+      "category": "Animais",
+      "name": "Dragão-de-komodo",
+      "clues": [
+        "Maior espécie de lagarto vivente",
+        "Pode exceder 10 pés de comprimento",
+        "Mordida venenosa entrega veneno tóxico",
+        "Caça presas grandes como cervos",
+        "Encontrado apenas em ilhas indonésias",
+        "Aparência pré-histórica",
+        "Predador solitário de emboscada",
+        "Força de mordida extremamente forte",
+        "Pode pesar mais de 150 kg",
+        "Vive 30-50 anos",
+        "Taxa de reprodução lenta",
+        "Espécie em perigo",
+        "Poucos milhares permanecem",
+        "Carniça quando a caça falha",
+        "Termorregulação por insolação",
+        "Garras poderosas",
+        "Língua bifurcada",
+        "Reprodução por postura de ovos",
+        "Linhagem de réptil antigo",
+        "Parque nacional protegido"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-090",
+      "category": "Animais",
+      "name": "Coati",
+      "clues": [
+        "Parente do guaxinim da América Central e do Sul",
+        "Nariz longo e flexível distintivo",
+        "Usa o nariz para cavar e forragear",
+        "Caminha com cauda ereta",
+        "Coloração preta e bronzeada",
+        "Dieta onívora",
+        "Viaja em bandos de fêmeas",
+        "Os machos são solitários",
+        "Excelentes escaladores",
+        "Pesa 4-6 kg",
+        "Ativo durante o dia",
+        "Forrageia raízes e insetos",
+        "Come frutas e pequenos animais",
+        "Chamadas agudas e distintivas",
+        "Adaptável a vários habitats",
+        "Vive em árvores e chão",
+        "Curioso e inteligente",
+        "Pode viver 7-10 anos",
+        "Relacionado a guaxinins e kinkajous",
+        "Às vezes chamado coatimundí"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-091",
+      "category": "Animais",
+      "name": "Lêmur-voador",
+      "clues": [
+        "Mamífero planar da Ásia Sudeste",
+        "Não é realmente um lêmur",
+        "Membrana se estende entre os membros",
+        "Planeia entre árvores",
+        "Pode planear mais de 100 metros",
+        "Animal solitário noturno",
+        "Come folhas e casca",
+        "Reprodução mais lenta de mamíferos",
+        "Produz uma prole a cada 2-3 anos",
+        "Vive em florestas tropicais",
+        "Se alimenta principalmente de folhas",
+        "Camuflagem excelente",
+        "Pelagem marrom-acinzentada",
+        "Pesa apenas 1,3-1,6 kg",
+        "Cauda preênsil ajuda no equilíbrio",
+        "Tem pregas dérmicas para planar",
+        "Garras para se agarrar em árvores",
+        "Posição evolutiva única",
+        "Vive 7-13 anos",
+        "Vulnerável ao desflorestamento"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-092",
+      "category": "Animais",
+      "name": "Caracal",
+      "clues": [
+        "Gato selvagem de tamanho médio",
+        "Orelhas com tufos distintivos",
+        "Pelagem marrom-avermelhada lisa",
+        "Encontrado na África, Oriente Médio, Ásia Central",
+        "Saltador excelente",
+        "Pode saltar 10 pés verticalmente",
+        "Caça aves em voo",
+        "Predador rápido e ágil",
+        "Pesa 8-16 kg",
+        "Animal solitário e territorial",
+        "Audição excelente",
+        "Altamente adaptável a habitats",
+        "Noturno ou crepuscular",
+        "Garras retráteis",
+        "Mata presas com mordida no pescoço",
+        "Vive em vários terrenos",
+        "Vida útil 12-16 anos",
+        "Também chamado lince-do-deserto",
+        "Caça pequenos mamíferos",
+        "Pode sobreviver sem água"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-093",
+      "category": "Animais",
+      "name": "Peixe-lanterna",
+      "clues": [
+        "Peixe de águas profundas com isca bioluminescente",
+        "Dimorfismo sexual extremo",
+        "Os machos se fundem aos corpos das fêmeas",
+        "Vive em completa escuridão",
+        "Produz sua própria luz para caçar",
+        "Dentes grandes e estômago expansível",
+        "Engole presas maiores que si mesmo",
+        "Adaptação extrema a águas profundas",
+        "Encontrado em profundidades acima de 1000 metros",
+        "Estratégia de acasalamento bizarra",
+        "As fêmeas são muito maiores que os machos",
+        "A isca atrai presas na escuridão",
+        "Metabolismo lento em profundidades frias",
+        "Design evolutivo antigo",
+        "Criatura misteriosa do mar profundo",
+        "Aparência intimidante",
+        "Não consegue sobreviver em água rasa",
+        "Produz luz através de bactérias",
+        "Objeto de estudo científico",
+        "Raramente visto por humanos vivo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-094",
+      "category": "Animais",
+      "name": "Tarseiro",
+      "clues": [
+        "Pequeno primata da Ásia Sudeste",
+        "Pesa apenas 80-160 gramas",
+        "Olhos enormes para o tamanho",
+        "Os olhos são maiores que o cérebro",
+        "Pode girar a cabeça 180 graus",
+        "Caçador noturno",
+        "Caça insetos e pequenas presas",
+        "Emite vocalizações distintivas",
+        "Salta entre árvores",
+        "Se agarra a ramos verticais",
+        "Linhagem primata antiga",
+        "Dígitos especializados para se agarrar",
+        "Solitário ou em pares",
+        "Cauda longa ajuda no equilíbrio",
+        "Vivem 12-13 anos",
+        "Audição excelente",
+        "Caçam com precisão",
+        "Olhos vulneráveis indicam visão noturna",
+        "Listado como espécie vulnerável",
+        "Populações em declínio"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-095",
+      "category": "Animais",
+      "name": "Águia-filipina",
+      "clues": [
+        "Águia mais rara e poderosa nas Filipinas",
+        "Espécie criticamente em perigo",
+        "Apenas 400 pares permanecem",
+        "Caça mamíferos voadores e aves",
+        "Caça lêmures voadores e civetas-de-palma",
+        "Predador extremamente inteligente",
+        "Garras enormes para caçar",
+        "Emite chamadas distintivas",
+        "Acasala para a vida toda",
+        "Reprodução lenta",
+        "Vive 30-50 anos",
+        "Apenas dois filhotes criados na vida",
+        "Requer grandes territórios",
+        "Encontrada em florestas primárias",
+        "Caça com manobrabilidade incrível",
+        "Ave nacional das Filipinas",
+        "Espécie protegida",
+        "Destruição do habitat é ameaça principal",
+        "Pesa 4,6-6,3 kg",
+        "Simboliza esforços de conservação"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-096",
+      "category": "Animais",
+      "name": "Saola",
+      "clues": [
+        "Mamífero grande mais raro do mundo",
+        "Nativo do Vietnã e Laos",
+        "Parece um antílope com chifres curvados",
+        "Apenas 250 indivíduos estimados",
+        "Extremamente secreto",
+        "Raramente fotografado na natureza",
+        "Forrageiro noturno",
+        "Habita florestas densas",
+        "Dieta de arbustos e gramas",
+        "Animais solitários ou em pares",
+        "Pesa 35-55 kg",
+        "Chifres longos distintivos",
+        "Descoberto apenas em 1992",
+        "Conhecimento limitado sobre a espécie",
+        "Caçado por carne e chifres",
+        "Habitat em perigo",
+        "Sem reprodução bem-sucedida em cativeiro",
+        "Natureza elusiva",
+        "Patrimônio evolutivo único",
+        "Entre os mamíferos mais em perigo do mundo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-097",
+      "category": "Animais",
+      "name": "Macaco-narigudo",
+      "clues": [
+        "Macaco engraçado com nariz grande",
+        "Nativo das florestas tropicais de Bornéu",
+        "Anatomia nasal incomum",
+        "Nariz grande indica dominância",
+        "Nariz inchado em machos dominantes",
+        "Coloração marrom-avermelhada",
+        "Excelentes nadadores",
+        "Pode mergulhar de árvores na água",
+        "Vive em pequenos grupos",
+        "Come frutas e folhas imaturas",
+        "Aparência com barriga pronunciada",
+        "Sistema digestivo especializado",
+        "Excelentes nadadores com pés palmados",
+        "Se comunica com fortes grasnidos",
+        "Em perigo pela perda de habitat",
+        "Pesa 10-24 kg",
+        "Aparência distintiva",
+        "Estrutura social hierárquica",
+        "Vivem 20+ anos",
+        "Apresentado em muitos documentários de natureza"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-098",
+      "category": "Animais",
+      "name": "Caranguejo-ferradura",
+      "clues": [
+        "Artrópode marinho antigo",
+        "Remonta 450 milhões de anos",
+        "Sobreviveu a múltiplas extinções em massa",
+        "Tem sangue azul brilhante",
+        "O sangue azul é usado em testes médicos",
+        "Carapaça em forma de ferradura",
+        "Encontrado em águas costeiras",
+        "Se reproduz em grande número",
+        "Migra para praias para se reproduzir",
+        "Importante fonte de alimento para aves",
+        "Crucial para o ecossistema",
+        "Cauda longa chamada telson",
+        "Habitante do fundo",
+        "Pode viver 20+ anos",
+        "Múltiplos olhos compostos",
+        "Forrageiro noturno",
+        "Se alimenta de pequenos organismos",
+        "Vem à praia sazonalmente",
+        "Poucos predadores naturais",
+        "Ajuda numerosas espécies"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-099",
+      "category": "Animais",
+      "name": "Lula",
+      "clues": [
+        "Invertebrado altamente inteligente",
+        "Camaleão do mar",
+        "Muda de cor em milissegundos",
+        "Usa cromatóforos para camuflagem",
+        "Caça peixes e camarões",
+        "Três corações",
+        "Sangue azul",
+        "Pode cuspir tinta para defesa",
+        "Mestres do disfarce",
+        "Excelentes solucionadores de problemas",
+        "Vida curta 1-2 anos",
+        "Excelente visão",
+        "Manipula materiais do leito marinho",
+        "Sistema nervoso complexo",
+        "Vive em águas costeiras",
+        "Acasala em grandes agregações",
+        "Morre após reprodução",
+        "Uso inteligente de ferramentas",
+        "Se comunica através da cor",
+        "Nadadores graciosos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-animal-100",
+      "category": "Animais",
+      "name": "Serval",
+      "clues": [
+        "Gato selvagem esguio e manchado",
+        "Nativo das savanas africanas",
+        "Patas extremamente longas",
+        "Caça pequenos mamíferos e aves",
+        "Excelente saltador",
+        "Caçadora noturna",
+        "Pesa 2-2,5 kg",
+        "Animal solitário e territorial",
+        "Pelagem manchada bonita",
+        "Audição e visão aguçadas",
+        "Captura presas com precisão",
+        "Vive em campos e zonas úmidas",
+        "Acasala para a vida toda em algumas populações",
+        "Vida útil 10-20 anos",
+        "Marcas faciais distintivas",
+        "Recentemente domesticado como animal de estimação",
+        "Criação híbrida com gatos domésticos",
+        "Adaptado a habitats abertos",
+        "Caçador rápido e ágil",
+        "Em perigo em algumas regiões"
       ],
       "metadata": {
         "language": "pt-BR",
