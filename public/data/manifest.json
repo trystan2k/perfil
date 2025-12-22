@@ -93,17 +93,17 @@
         "en": {
           "name": "Brands",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         },
         "es": {
           "name": "Marcas",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         },
         "pt-BR": {
           "name": "Marcas",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         }
       }
     },

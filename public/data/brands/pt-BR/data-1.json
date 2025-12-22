@@ -3,7 +3,7 @@
   "profiles": [
     {
       "id": "profile-brands-001",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Apple",
       "clues": [
         "Fundada em garagem por Steve Jobs, Steve Wozniak e Ronald Wayne em 1976",
@@ -35,7 +35,7 @@
     },
     {
       "id": "profile-brands-002",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Coca-Cola",
       "clues": [
         "Inventada por farmacêutico John Pemberton em Atlanta, Geórgia em 1886",
@@ -67,7 +67,7 @@
     },
     {
       "id": "profile-brands-003",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Nike",
       "clues": [
         "Nomeada em homenagem à deusa grega da vitória e força",
@@ -99,7 +99,7 @@
     },
     {
       "id": "profile-brands-004",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Mercedes-Benz",
       "clues": [
         "Inventou o automóvel em 1885 por Karl Benz e Gottlieb Daimler",
@@ -131,7 +131,7 @@
     },
     {
       "id": "profile-brands-005",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Disney",
       "clues": [
         "Fundada por Walt e Roy como estúdio de animação em 1923",
@@ -163,7 +163,7 @@
     },
     {
       "id": "profile-brands-006",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Samsung",
       "clues": [
         "Fundada na Coreia do Sul por Lee Byung-chul em 1938 como empresa comercial",
@@ -195,7 +195,7 @@
     },
     {
       "id": "profile-brands-007",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Microsoft",
       "clues": [
         "Cofundada por Bill Gates e Paul Allen em 1975",
@@ -227,7 +227,7 @@
     },
     {
       "id": "profile-brands-008",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Google",
       "clues": [
         "Fundada por Larry Page e Sergey Brin em 1998 na Universidade Stanford",
@@ -259,7 +259,7 @@
     },
     {
       "id": "profile-brands-009",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Amazon",
       "clues": [
         "Fundada por Jeff Bezos em 1994 como loja de livros online",
@@ -291,7 +291,7 @@
     },
     {
       "id": "profile-brands-010",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Toyota",
       "clues": [
         "Fundada por Kiichiro Toyoda em 1937 no Japão",
@@ -323,7 +323,7 @@
     },
     {
       "id": "profile-brands-011",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "BMW",
       "clues": [
         "Nome completo é Bayerische Motoren Werke em alemão",
@@ -355,7 +355,7 @@
     },
     {
       "id": "profile-brands-012",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Volkswagen",
       "clues": [
         "Nome significa 'carro do povo' em alemão",
@@ -387,7 +387,7 @@
     },
     {
       "id": "profile-brands-013",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Ferrari",
       "clues": [
         "Fundada por Enzo Ferrari em 1947 na Itália",
@@ -419,7 +419,7 @@
     },
     {
       "id": "profile-brands-014",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Marcas de Luxo (LVMH)",
       "clues": [
         "Nome completo é Moët Hennessy Louis Vuitton",
@@ -451,7 +451,7 @@
     },
     {
       "id": "profile-brands-015",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Rolex",
       "clues": [
         "Fundada por Hans Wilsdorf em 1905 em Londres",
@@ -483,7 +483,7 @@
     },
     {
       "id": "profile-brands-016",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Starbucks",
       "clues": [
         "Fundada por Jerry Baldwin, Gordon Bowker e Zev Siegl em 1971",
@@ -515,7 +515,7 @@
     },
     {
       "id": "profile-brands-017",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "McDonald's",
       "clues": [
         "Fundada por Ray Kroc em 1940 como restaurante de hambúrgueres",
@@ -547,7 +547,7 @@
     },
     {
       "id": "profile-brands-018",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Netflix",
       "clues": [
         "Fundada por Reed Hastings e Marc Randolph em 1997",
@@ -579,7 +579,7 @@
     },
     {
       "id": "profile-brands-019",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Tesla",
       "clues": [
         "Fundada por Martin Eberhard e Marc Tarpenning em 2003",
@@ -611,7 +611,7 @@
     },
     {
       "id": "profile-brands-020",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Uber",
       "clues": [
         "Fundada por Travis Kalanick e Garrett Camp em 2009",
@@ -643,7 +643,7 @@
     },
     {
       "id": "profile-brands-021",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Airbnb",
       "clues": [
         "Fundada por Brian Chesky, Joe Gebbia e Nathan Blecharczyk em 2008",
@@ -675,7 +675,7 @@
     },
     {
       "id": "profile-brands-022",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Unilever",
       "clues": [
         "Formada pela fusão de União Margarineira Holandesa e Lever Brothers Britânica",
@@ -707,7 +707,7 @@
     },
     {
       "id": "profile-brands-023",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Nestlé",
       "clues": [
         "Fundada por Henri Nestlé em 1866 na Suíça",
@@ -739,7 +739,7 @@
     },
     {
       "id": "profile-brands-024",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Procter & Gamble",
       "clues": [
         "Fundada por William Procter e James Gamble em 1837",
@@ -771,7 +771,7 @@
     },
     {
       "id": "profile-brands-025",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Empresa Coca-Cola",
       "clues": [
         "Empresa-mãe da marca de refrigerante Coca-Cola",
@@ -803,7 +803,7 @@
     },
     {
       "id": "profile-brands-026",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "PepsiCo",
       "clues": [
         "Fundada por Caleb Bradham em 1893 como Pepsi-Cola",
@@ -835,7 +835,7 @@
     },
     {
       "id": "profile-brands-027",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "H&M",
       "clues": [
         "Nome completo é Hennes & Mauritz",
@@ -867,7 +867,7 @@
     },
     {
       "id": "profile-brands-028",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Zara",
       "clues": [
         "Fundada por Amancio Ortega em 1975 na Espanha",
@@ -899,7 +899,7 @@
     },
     {
       "id": "profile-brands-029",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "IKEA",
       "clues": [
         "Fundada por Ingvar Kamprad em 1943 na Suécia",
@@ -931,7 +931,7 @@
     },
     {
       "id": "profile-brands-030",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Lego",
       "clues": [
         "Fundada por Ole Kirk Kristiansen em 1932 na Dinamarca",
@@ -963,7 +963,7 @@
     },
     {
       "id": "profile-brands-031",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Mattel",
       "clues": [
         "Fundada por Elliot Handler, Ruth Mosko e Harold Matson em 1945",
@@ -995,7 +995,7 @@
     },
     {
       "id": "profile-brands-032",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Hasbro",
       "clues": [
         "Fundada por Merrill, Henry e Helal Hassenfeld em 1923",
@@ -1027,7 +1027,7 @@
     },
     {
       "id": "profile-brands-033",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Sony",
       "clues": [
         "Fundada por Akio Morita e Masaru Ibuka em 1946 no Japão",
@@ -1059,7 +1059,7 @@
     },
     {
       "id": "profile-brands-034",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Nintendo",
       "clues": [
         "Fundada por Fusajiro Yamauchi em 1889 no Japão",
@@ -1091,7 +1091,7 @@
     },
     {
       "id": "profile-brands-035",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Intel",
       "clues": [
         "Fundada por Gordon Moore e Robert Noyce em 1968",
@@ -1123,7 +1123,7 @@
     },
     {
       "id": "profile-brands-036",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "AMD",
       "clues": [
         "Nome completo é Dispositivos Microeletrônicos Avançados",
@@ -1155,7 +1155,7 @@
     },
     {
       "id": "profile-brands-037",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "NVIDIA",
       "clues": [
         "Fundada por Jensen Huang, Chris Malachowsky e Curtis Priem em 1993",
@@ -1187,7 +1187,7 @@
     },
     {
       "id": "profile-brands-038",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Sistemas Cisco",
       "clues": [
         "Fundada por Len Bosack e Sandy Lerner em 1984",
@@ -1219,7 +1219,7 @@
     },
     {
       "id": "profile-brands-039",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Pfizer",
       "clues": [
         "Fundada por Charles Pfizer e Charles Erhart em 1849",
@@ -1251,7 +1251,7 @@
     },
     {
       "id": "profile-brands-040",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Johnson & Johnson",
       "clues": [
         "Fundada por Robert Wood Johnson, James Wood Johnson e Edward Livingston em 1886",
@@ -1283,7 +1283,7 @@
     },
     {
       "id": "profile-brands-041",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Alibaba",
       "clues": [
         "Fundada por Jack Ma e colegas em 1999 em Hangzhou, China",
@@ -1315,7 +1315,7 @@
     },
     {
       "id": "profile-brands-042",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Tencent",
       "clues": [
         "Fundada por Zhang Xiaolong e outros em 1998 em Shenzhen, China",
@@ -1347,7 +1347,7 @@
     },
     {
       "id": "profile-brands-043",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Baidu",
       "clues": [
         "Fundada por Robin Li e Eric Xu em 2000 em Beijing, China",
@@ -1379,7 +1379,7 @@
     },
     {
       "id": "profile-brands-044",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Spotify",
       "clues": [
         "Fundada por Daniel Ek e Martin Lorentzon em 2006 na Suécia",
@@ -1411,7 +1411,7 @@
     },
     {
       "id": "profile-brands-045",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Twitter",
       "clues": [
         "Fundada por Jack Dorsey, Noah Glass e outros em 2006",
@@ -1443,7 +1443,7 @@
     },
     {
       "id": "profile-brands-046",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Meta",
       "clues": [
         "Fundada como Facebook por Mark Zuckerberg em 2004",
@@ -1475,7 +1475,7 @@
     },
     {
       "id": "profile-brands-047",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "LinkedIn",
       "clues": [
         "Fundada por Reid Hoffman e colegas em 2002",
@@ -1507,7 +1507,7 @@
     },
     {
       "id": "profile-brands-048",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "TikTok",
       "clues": [
         "Fundada por Zhang Yiming em 2012 em Beijing, China",
@@ -1539,7 +1539,7 @@
     },
     {
       "id": "profile-brands-049",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "Snapchat",
       "clues": [
         "Fundada por Evan Spiegel, Bobby Murphy e Reggie Brown em 2011",
@@ -1571,7 +1571,7 @@
     },
     {
       "id": "profile-brands-050",
-      "category": "Brands",
+      "category": "Marcas",
       "name": "WeChat",
       "clues": [
         "Operado por Tencent na China",
@@ -1599,6 +1599,1606 @@
         "language": "pt-BR",
         "difficulty": "hard",
         "source": "Wikipedia"
+      }
+    },
+    {
+      "id": "profile-brands-051",
+      "category": "Marcas",
+      "name": "Porsche",
+      "clues": [
+        "Fundada em 1931 por Ferdinand 'Ferry' Porsche, o engenheiro automotivo que também projetou o Volkswagen Beetle",
+        "O logotipo da empresa apresenta o brasão de Stuttgart-Württemberg, o estado onde foi fundada",
+        "Um modelo 917 venceu as 24 Horas de Le Mans duas vezes consecutivas em 1970 e 1971",
+        "O único fabricante de automóveis que produz consistentemente carros esportivos com motor traseiro como foco principal",
+        "Nomeada em homenagem ao sobrenome do fundador, não como a maioria das marcas de carros de luxo pela localização geográfica",
+        "Sede localizada em Stuttgart, Alemanha, um importante centro de fabricação da indústria automotiva",
+        "O modelo 911, apresentado em 1964, é um dos designs de carros esportivos mais produzidos na história automotiva",
+        "Conhecida por engenharia excepcional e padrões de fabricação de precisão em todos os modelos",
+        "Classificada consistentemente entre as melhores marcas em satisfação do cliente e confiabilidade na categoria de carros esportivos",
+        "Produz tanto carros esportivos de alto desempenho quanto SUVs de alto desempenho para diversos segmentos de mercado",
+        "Fabricante alemã de carros esportivos de luxo famosa por veículos de alto desempenho",
+        "Conhecida por modelos icônicos como o 911 e carros esportivos Cayman",
+        "Propriedade do Grupo Volkswagen como divisão de luxo",
+        "Compete com Ferrari e Lamborghini no mercado de supercarros",
+        "Representa a engenharia de precisão e excelência automotiva alemã",
+        "Apresenta um design distintivo com linhas de carroceria curvas e motores potentes",
+        "Popular entre entusiastas de corridas e colecionadores em todo o mundo",
+        "Conhecida pelo excelente manuseio e capacidades de aceleração",
+        "Oferece opções de personalização para configurações de veículos personalizados",
+        "Mantém um forte patrimônio de marca que remonta a quase um século"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-052",
+      "category": "Marcas",
+      "name": "Rolls-Royce",
+      "clues": [
+        "Fundada em 1906 por Henry Royce e Charles Rolls, sendo o primeiro modelo o Silver Ghost",
+        "O adorno do capô Spirit of Ecstasy foi originalmente baseado em uma escultura e é icônico no design automotivo",
+        "Cada veículo requer mais de 600 horas de confecção manual e montagem por artesãos qualificados",
+        "Utiliza um motor V12 com suavidade e refinamento sem precedentes, conhecido como 'o passeio mágico em tapete'",
+        "Serve como carro oficial do estado para numerosas famílias reais e chefes de estado em todo o mundo",
+        "Marca britânica de ultra luxo automotivo baseada em Goodwood, Inglaterra",
+        "Os preços excedem 300.000 USD, tornando-a um dos carros de produção mais caros",
+        "Interiores personalizados sob encomenda confeccionados de acordo com as especificações do proprietário individual",
+        "Apresenta tecnologia de ponta combinada com artesanato tradicional",
+        "Conhecida pelo silêncio absoluto e conforto durante a operação",
+        "Marca britânica de carro de luxo sinônima de riqueza extrema e status",
+        "Famosa por veículos confeccionados à mão com designs interiores exquisitos",
+        "Produz apenas um pequeno número de veículos por ano",
+        "Utilizada pela realeza e bilionários como símbolo de prestígio",
+        "Instantaneamente reconhecível pela figurinha Spirit of Ecstasy no capô",
+        "Representa o pico do luxo automotivo e artesanato",
+        "Conhecida pela suavidade perfeita e motores sussurrantes",
+        "Disponível em numerosas opções de cores personalizadas e materiais",
+        "Compete com Bentley no segmento de ultra luxo",
+        "Associada com exclusividade, refinamento e elegância"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-053",
+      "category": "Marcas",
+      "name": "Bentley",
+      "clues": [
+        "Fundada em 1919 como fabricante britânica de automóveis de luxo",
+        "Os carros de corrida desta empresa venceram as 24 Horas de Le Mans cinco vezes entre 1924 e 1930",
+        "O lema da empresa é 'Construir um carro rápido, um bom carro, o melhor de sua classe'",
+        "Propriedade do Grupo Volkswagen desde 1998, mantendo o patrimônio britânico apesar da propriedade alemã",
+        "Utiliza motores W12 biturbo produzindo mais de 600 cavalos de potência",
+        "Marca britânica de luxo posicionada entre segmentos de ultra luxo e luxo convencional",
+        "Enfoca em combinar alto desempenho com luxo supremo e conforto",
+        "Montado à mão em Crewe, Inglaterra com atenção meticulosa ao detalhe",
+        "Conhecida por interiores de couro, acabamento de madeira e materiais premium em toda a extensão",
+        "Oferece tanto carros de grande turismo quanto variantes SUV",
+        "Fabricante britânica de automóvel de ultra luxo conhecida pela elegância",
+        "Compete diretamente com Rolls-Royce no segmento de luxo",
+        "Famosa por interiores de couro confeccionados à mão e acabamento de madeira",
+        "Produz motores potentes com desempenho excepcional",
+        "Conhecida por esquemas de cores verde e creme na marca",
+        "Combina tradição britânica com tecnologia moderna",
+        "Utilizada extensamente por indivíduos ricos e dignitários",
+        "Apresenta um design de grade distintivo e silhueta elegante",
+        "Representa uma mistura de desempenho e luxo",
+        "Conhecida pela atenção meticulosa à qualidade e detalhes"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-054",
+      "category": "Marcas",
+      "name": "Aston Martin",
+      "clues": [
+        "Fundada em 1913, nomeada em homenagem à colina Aston onde o fundador venceu uma corrida",
+        "O carro oficial da franquia de James Bond, mais famosamente conduzido em Goldfinger",
+        "Produziu a série DB com DB significando o fundador da empresa David Brown",
+        "Conhecida por combinar elegância britânica com design inspirado em italiano",
+        "Utiliza motores de Mercedes-AMG para desempenho de vanguarda",
+        "Fabricante britânica de carros esportivos de luxo baseada em Warwickshire",
+        "Enfoca em elegância, estilo e desempenho refinado",
+        "Produz um número relativamente pequeno de veículos mantendo exclusividade",
+        "Conhecida por sua grade LED distintiva e design aerodinâmico elegante",
+        "Expandida recentemente com modelos SUV como o DBX",
+        "Marca britânica de carro esportivo de luxo conhecida por elegância e sofisticação",
+        "Famosa por sua associação com filmes e cultura de James Bond",
+        "Produz motores potentes combinados com interiores refinados",
+        "Conhecida por uma linguagem de design distintiva e estilo agressivo",
+        "Compete com Porsche e Ferrari no mercado de carros esportivos",
+        "Oferece uma mistura de desempenho e conforto de luxo",
+        "Apresenta couro costurado à mão e materiais premium",
+        "Conhecida por números de produção limitada e exclusividade",
+        "Representa a excelência e engenharia automotiva britânica",
+        "Popular entre celebridades e indivíduos de alto patrimônio líquido"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-055",
+      "category": "Marcas",
+      "name": "Bugatti",
+      "clues": [
+        "Fundada em 1909 em Molsheim, França por Ettore",
+        "O modelo Veyron se tornou o primeiro carro a exceder 250 mph (402 km/h)",
+        "Utiliza um motor W16 com quádruplo turbo de 8.0 litros que produz 1.000 cavalos de potência ou mais",
+        "Cada veículo leva aproximadamente 400 horas para ser montado à mão",
+        "Representa um dos veículos de produção mais caros e potentes jamais criados",
+        "Fabricante francesa de hipercarro de luxo propriedade do Grupo Volkswagen",
+        "Conhecida por empurrar os limites da engenharia e quebrar recordes de velocidade",
+        "Os preços típicamente excedem 1,5 milhão USD por veículo",
+        "Apresenta construção de fibra de carbono e materiais de grau aeroespacial",
+        "Combina desempenho extremo com interiores de luxo sob encomenda",
+        "Marca francesa de hipercarro famosa por velocidade extrema e potência",
+        "Conhecida por produzir alguns dos carros mais rápidos do mundo",
+        "Apresenta enormes motores com quádruplo turbo com mais de 1000 cavalos de potência",
+        "Associada com colecionadores ultra-ricos e celebridades",
+        "Representa o pico absoluto da engenharia automotiva",
+        "Conhecida pelo design distintivo de grade em forma de U",
+        "Produz apenas um punhado de veículos por ano",
+        "Símbolo de riqueza, potência e realização automotiva",
+        "Pode atingir velocidades que excedem 250 milhas por hora",
+        "Considerada uma obra de arte rodante por entusiastas de automóveis"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-056",
+      "category": "Marcas",
+      "name": "McLaren",
+      "clues": [
+        "Fundada em 1963 por Bruce McLaren, um piloto de corridas e engenheiro da Nova Zelândia",
+        "Originada de uma equipe de corridas que venceu 20 Campeonatos Mundiais de Fórmula 1",
+        "O modelo F1 produzido em 1992 manteve o recorde mundial de carro de produção mais rápido por 15 anos",
+        "Utiliza construção de chassi monocoque de fibra de carbono pioneira em corridas de Fórmula 1",
+        "Conhecida pela filosofia de design leve com ênfase na relação potência-peso",
+        "Fabricante britânica de carros esportivos de luxo e hipercarro",
+        "Enfoca em veículos de alto desempenho projetados com tecnologia de corrida",
+        "Produz veículos com aceleração de 0-60 mph em menos de 3 segundos",
+        "Conhecida por materiais inovadores e eficiência aerodinâmica",
+        "Combina expertise de Fórmula 1 com fabricação de carros de estrada",
+        "Fabricante britânica de supercarro conhecida por desempenho extremo",
+        "Famosa pelo patrimônio de corridas de Fórmula 1 e tecnologia",
+        "Produz carros esportivos de vanguarda com potência excepcional",
+        "Conhecida pela construção de fibra de carbono leve",
+        "Apresenta um design elegante com entradas de ar prominentes",
+        "Representa uma mistura de experiência de corrida e desempenho em estrada",
+        "Associada com velocidade, precisão e excelência em engenharia",
+        "Utiliza aerodinâmica avançada para estabilidade em alta velocidade",
+        "Popular entre entusiastas de desempenho e colecionadores",
+        "Compete com Ferrari e Lamborghini no segmento de supercarro"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-057",
+      "category": "Marcas",
+      "name": "Jaguar",
+      "clues": [
+        "Fundada em 1922 como Swallow Sidecar Company, se tornou fabricante de automóveis em 1945",
+        "O E-Type é considerado um dos carros mais bonitos jamais projetados",
+        "Venceu as 24 Horas de Le Mans cinco vezes, demonstrando excelência em corridas",
+        "O adorno do capô do gato saltador se tornou um símbolo icônico da marca",
+        "Conhecida por combinar estilo britânico com desempenho excepcional",
+        "Fabricante britânica de carros de luxo e esportivos",
+        "Parte de Jaguar Land Rover, propriedade da Tata Motors",
+        "Enfoca em design elegante com desempenho vibrante",
+        "Conhecida por estilo distintivo e interiores refinados",
+        "Produz tanto carros esportivos quanto sedãs de luxo",
+        "Marca britânica de carro de luxo conhecida por design elegante",
+        "Famosa pelo icônico carro esportivo E-Type",
+        "Conhecida por estilo agressivo e elegante com motores potentes",
+        "Representa uma mistura de luxo britânico e desempenho",
+        "Apresenta o logo distintivo do gato saltador",
+        "Produz tanto carros esportivos quanto sedãs de luxo",
+        "Associada com sofisticação e refinamento",
+        "Conhecida pelo manuseio responsivo e condução suave",
+        "Compete com BMW e Mercedes no segmento de luxo",
+        "Representa o patrimônio de excelência automotiva britânica"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-058",
+      "category": "Marcas",
+      "name": "Land Rover",
+      "clues": [
+        "Fundada em 1948 como continuação da produção de veículos pré-guerra da Rover Company",
+        "O original Série I foi projetado para competir com veículos Jeep americanos",
+        "Se tornou o veículo de escolha para equipes militares britânicas e de expedição em todo o mundo",
+        "O modelo Defender permaneceu em produção contínua por mais de 67 anos",
+        "Conhecida por capacidade off-road incomparável e durabilidade resistente",
+        "Fabricante britânica de SUVs de luxo e veículos off-road",
+        "Parte de Jaguar Land Rover, propriedade da Tata Motors",
+        "Conhecida por capacidade excepcional em todo terreno e confiabilidade",
+        "Produz tanto SUVs de luxo quanto veículos off-road resistentes",
+        "Apresenta sistemas 4WD avançados e tecnologia de resposta do terreno",
+        "Fabricante britânica de SUVs de luxo e veículos off-road",
+        "Famosa pelos modelos Defender e Range Rover",
+        "Conhecida por capacidade off-road excepcional",
+        "Associada com aventura, exploração e confiabilidade",
+        "Produz veículos utilizados por equipes militares e de expedição",
+        "Combina interiores de luxo com design exterior resistente",
+        "Apresenta tecnologia avançada de tração nas quatro rodas",
+        "Conhecida por estilo boxy icônico e marca de cor verde",
+        "Representa engenharia e durabilidade britânica",
+        "Popular entre aventureiros e compradores de SUVs de luxo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-059",
+      "category": "Marcas",
+      "name": "Audi",
+      "clues": [
+        "Fundada em 1909 por August Horch, que a estabeleceu após deixar sua empresa anterior",
+        "O logo de quatro anéis representa a fusão de quatro empresas automotrizes em 1932",
+        "Pioneira do sistema de tração total Quattro que revolucionou o manuseio de carros",
+        "Abriga o Goodwood Festival of Speed anual com demonstrações importantes de carros",
+        "Enfatiza 'Vorsprung durch Technik' (progresso através da tecnologia) como filosofia central",
+        "Fabricante alemã de automóveis de luxo parte do Grupo Volkswagen",
+        "Conhecida por tecnologia de vanguarda e design inovador",
+        "Produz uma ampla gama desde sedãs até carros esportivos e SUVs",
+        "Apresenta construção de alumínio em muitos modelos para desempenho leve",
+        "Conhecida por cockpit virtual e sistemas de infoentretenimento digital",
+        "Fabricante alemã de carros de luxo conhecida por tecnologia e desempenho",
+        "Famosa pela tecnologia de tração total Quattro",
+        "Conhecida por design moderno e elegante com linhas afiadas",
+        "Produz sedãs premium, carros esportivos e SUVs",
+        "Associada com inovação e excelência em engenharia",
+        "Apresenta interiores de alta qualidade com materiais premium",
+        "Conhecida por motores turbocargados potentes",
+        "Compete com BMW e Mercedes no segmento de luxo",
+        "Representa engenharia de precisão alemã",
+        "Popular entre profissionais e entusiastas de desempenho"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-060",
+      "category": "Marcas",
+      "name": "Hyundai",
+      "clues": [
+        "Fundada em 1967 como a divisão de automóveis de um conglomerado importante",
+        "O Pony (1975) foi o primeiro carro completamente projetado e fabricado pela Coréia",
+        "Se tornou o maior fabricante de automóveis da Coréia do Sul",
+        "Revolucionou o mercado ao oferecer preços competitivos com veículos de qualidade",
+        "Agora produz veículos tanto econômicos quanto de luxo através de múltiplas marcas",
+        "Fabricante de automóveis sul-coreano conhecido por valor e confiabilidade",
+        "Oferece preços competitivos com programas de garantia forte",
+        "Conhecida por design prático e motores de baixo consumo de combustível",
+        "Expandiu o segmento de luxo com a marca Genesis",
+        "Apresenta características de tecnologia e segurança cada vez mais avançadas",
+        "Fabricante de carros sul-coreano conhecido por acessibilidade e confiabilidade",
+        "Famosa por oferecer ótimo custo-benefício",
+        "Conhecida por veículos práticos com boa economia de combustível",
+        "Produz sedãs, SUVs e crossovers para mercados diversos",
+        "Associada com garantias e suporte amigáveis ao cliente",
+        "Representa a ascensão da indústria automotiva coreana",
+        "Conhecida por melhorar padrões de qualidade ao longo de décadas",
+        "Oferece designs modernos a preços competitivos",
+        "Popular entre consumidores conscientes do orçamento",
+        "Cada vez mais competindo em segmentos premium"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-061",
+      "category": "Marcas",
+      "name": "Kia",
+      "clues": [
+        "Fundada em 1944 como Kyungsung Precision Industry, mudou o nome em 1952",
+        "O nome significa 'ascender do Leste' em coreano",
+        "Se tornou propriedade majoritária do Grupo Hyundai em 1998",
+        "Foi pioneira da garantia de 10 anos/100.000 milhas no mercado americano",
+        "Conhecida pela linguagem de design audaz e integração de tecnologia inovadora",
+        "Fabricante de automóveis sul-coreano propriedade do Grupo Hyundai Motor",
+        "Conhecida por design atraente e funcionalidade prática",
+        "Oferece preços competitivos com recursos avançados",
+        "Produz sedãs, SUVs e crossovers em todos os segmentos",
+        "Apresenta tecnologia moderna e opções ecológicas",
+        "Fabricante de carros sul-coreano conhecida por design elegante",
+        "Famosa por designs audaciosos e modernos de veículos",
+        "Conhecida por oferecer bom valor e confiabilidade",
+        "Produz uma ampla gama de sedãs e SUVs",
+        "Associada com recursos inovadores a preços razoáveis",
+        "Representa design e engenharia sul-coreana",
+        "Conhecida por garantias generosas e atendimento ao cliente",
+        "Cada vez mais popular em mercados globais",
+        "Apresenta sistemas de infoentretenimento modernos",
+        "Conhecida por estilo prático e atraente"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-062",
+      "category": "Marcas",
+      "name": "Volvo",
+      "clues": [
+        "Fundada em 1927 por Assar Gabrielsson e Gustaf Larson na Suécia",
+        "Foi pioneira no cinto de segurança de três pontos, posteriormente colocado em domínio público por segurança",
+        "Conhecida pela ênfase na segurança como filosofia de design primária",
+        "Se tornou propriedade da Geely Holding, uma empresa automotiva chinesa, em 2010",
+        "Introduziu o primeiro sistema de airbag em veículos de produção",
+        "Fabricante de automóveis sueco conhecido por segurança e durabilidade",
+        "Enfoca em design prático com ênfase na segurança do motorista",
+        "Produz sedãs, SUVs e peruas com minimalismo escandinavo",
+        "Conhecida por confiabilidade e longa vida útil de veículos",
+        "Tecnologia de veículos elétricos e híbridos pioneering",
+        "Fabricante de carros sueco famoso por inovações de segurança",
+        "Conhecido por veículos robustos e confiáveis construídos para durar",
+        "Produz sedãs, peruas e SUVs com design prático",
+        "Associada com minimalismo e funcionalidade escandinava",
+        "Representa a filosofia automotiva de segurança em primeiro lugar",
+        "Conhecida por linguagem de design boxy e atemporal",
+        "Popular entre famílias conscientes da segurança",
+        "Apresenta sistemas avançados de assistência ao motorista",
+        "Produzindo veículos elétricos cada vez mais modernos",
+        "Representa engenharia e confiabilidade sueca"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-063",
+      "category": "Marcas",
+      "name": "Subaru",
+      "clues": [
+        "Fundada em 1953 por Kenji Kita, parte de Fuji Heavy Industries",
+        "O nome significa constelação 'Pleiades' na astronomia japonesa",
+        "Pioneira do motor de boxer opuesto horizontalmente para carros esportivos",
+        "Forte foco em tecnologia de tração total em toda a linha",
+        "Conhecida por confiabilidade consistente e longevidade na fabricação de veículos",
+        "Fabricante de automóveis japonês conhecida pelo foco de tração total",
+        "Produz sedãs, SUVs e carros esportivos com ênfase em AWD",
+        "Conhecida por design de motor de boxer e inovação técnica",
+        "Apresenta design prático com ênfase em confiabilidade",
+        "Forte reputação por segurança e durabilidade",
+        "Marca de carro japonesa famosa por veículos de tração total",
+        "Conhecida por veículos confiáveis e práticos",
+        "Produz sedãs, SUVs e carros esportivos",
+        "Associada com aventura e estilo de vida ao ar livre",
+        "Apresenta sistemas distintivos de tração total simétrica",
+        "Conhecida por motores de boxer com som único",
+        "Popular entre entusiastas de atividades ao ar livre e famílias",
+        "Representa excelência em engenharia japonesa",
+        "Conhecida por longevidade e depreciação mínima",
+        "Popular em mercados com condições climáticas desafiadoras"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-064",
+      "category": "Marcas",
+      "name": "Mazda",
+      "clues": [
+        "Fundada em 1920 como Toyo Kogyo, mudou o nome da empresa em 1927",
+        "Nomeada pela deidade zoroastriana Ahura por qualidade e inovação",
+        "Pioneira da tecnologia de motor rotativo em produção em massa",
+        "Conhecida pela filosofia 'Jinba Ittai' que significa 'carro e motorista como um'",
+        "Enfoca em design leve e envolvimento do motorista",
+        "Fabricante de automóveis japonês conhecido pelo prazer de condução",
+        "Enfoca em design leve e manuseio responsivo",
+        "Conhecida pela tecnologia de motor Skyactiv",
+        "Produz sedãs, carros esportivos e SUVs com ênfase no envolvimento",
+        "Apresenta confiabilidade japonesa prática com dinâmica de condução europeia",
+        "Fabricante de carros japonês conhecido por veículos divertidos de dirigir",
+        "Famosa pelo carro esportivo MX-5",
+        "Conhecida pelo foco no prazer de condução e manuseio",
+        "Produz veículos confiáveis com boa economia de combustível",
+        "Associada com envolvimento do motorista e direção responsiva",
+        "Apresenta design prático com estilo moderno",
+        "Conhecida pela tecnologia de motor Skyactiv",
+        "Representa qualidade e inovação japonesa",
+        "Popular entre entusiastas que buscam diversão acessível",
+        "Conhecida por valor e longa vida útil de veículos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-065",
+      "category": "Marcas",
+      "name": "Honda",
+      "clues": [
+        "Fundada em 1948 por Soichiro como empresa de fabricação de motores",
+        "Inicialmente produziu motocicletas antes de entrar no mercado de automóveis em 1963",
+        "Conhecida pela consistência em qualidade em todos os segmentos de veículos",
+        "Pioneira em tecnologia de motores eficientes e limpos em combustível",
+        "Um dos poucos fabricantes que fabrica seus próprios motores em todas as divisões",
+        "Fabricante de automóveis japonês conhecido por confiabilidade e eficiência",
+        "Produz sedãs, SUVs, carros esportivos e motocicletas",
+        "Conhecida por design prático com engenharia sólida",
+        "Apresenta excelente eficiência de combustível em toda a linha",
+        "Forte reputação por durabilidade e baixa manutenção",
+        "Fabricante de carros japonês famoso por confiabilidade e eficiência",
+        "Conhecida por veículos práticos e confiáveis",
+        "Produz sedãs, SUVs e carros esportivos como Civic e Accord",
+        "Associada com longevidade e custos de reparo mínimos",
+        "Apresenta excelente economia de combustível",
+        "Representa qualidade e engenharia japonesa",
+        "Escolha popular para famílias práticas em todo o mundo",
+        "Conhecida por valor de revenda e durabilidade",
+        "Produz motores confiáveis em toda a linha",
+        "Um dos maiores fabricantes de automóveis do mundo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-066",
+      "category": "Marcas",
+      "name": "Nissan",
+      "clues": [
+        "Fundada em 1933 como empresa automotriz de fusão de duas empresas",
+        "O nome significa 'sol' em japonês, simbolizando a ascensão do Japão na fabricação",
+        "Pioneira da tecnologia de tração total em veículos acessíveis",
+        "Conhecida por inovação contínua em tecnologia híbrida e elétrica",
+        "Produz marca acessível em alguns mercados como opção amigável ao orçamento",
+        "Fabricante de automóveis japonês conhecido por inovação e variedade",
+        "Produz sedãs, SUVs, carros esportivos e caminhões",
+        "Conhecida pelos supercarros GT-R e carros esportivos Z",
+        "Apresenta design prático com avanço tecnológico",
+        "Forte foco em sustentabilidade ambiental",
+        "Fabricante de carros japonês conhecido por variedade e inovação",
+        "Famosa por carros esportivos como GT-R e Z",
+        "Conhecida por veículos práticos com bom desempenho",
+        "Produz sedãs, SUVs e caminhões em todos os segmentos",
+        "Associada com engenharia confiável japonesa",
+        "Apresenta designs inovadores e tecnologia",
+        "Popular em mercados mundiais por valor e qualidade",
+        "Conhecida por ofertas esportivas e desempenho",
+        "Representa diversidade automotiva japonesa",
+        "Forte presença em mercados de carros esportivos e caminhões"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-067",
+      "category": "Marcas",
+      "name": "Mitsubishi",
+      "clues": [
+        "Fundada em 1917 pelo zaibatsu (conglomerado) Mitsubishi",
+        "O logo de três diamantes representa bênção tripla: negócio, tecnologia e pessoas",
+        "Pioneira da tecnologia de tração total em veículos compactos",
+        "Lancer Evolution conhecido como um dos melhores carros de rally jamais feitos",
+        "Forte patrimônio em automobilismo e engenharia de desempenho",
+        "Fabricante de automóveis japonês propriedade da Aliança Renault-Nissan",
+        "Conhecida pela tecnologia de tração total e patrimônio de rally",
+        "Produz SUVs, carros compactos e variantes de desempenho",
+        "Apresenta design prático com patrimônio de desempenho",
+        "Forte reputação em mercados emergentes",
+        "Fabricante de carros japonês conhecido por SUVs e patrimônio de rally",
+        "Famosa pelos carros esportivos Lancer Evolution",
+        "Conhecida por veículos de tração total",
+        "Produz sedãs e SUVs práticos",
+        "Associada com confiabilidade japonesa",
+        "Apresenta design resistente e veículos capazes",
+        "Popular em mercados globais diversos",
+        "Conhecida por capacidade em todo terreno",
+        "Representa engenharia e desempenho japonês",
+        "Forte presença em mercados automotrizes emergentes"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-068",
+      "category": "Marcas",
+      "name": "Suzuki",
+      "clues": [
+        "Fundada em 1909 como fabricante de teares, se diversificou em motocicletas em 1954",
+        "Conhecida pela filosofia de design leve em todos os veículos",
+        "Parceria na Índia tornou carros acessíveis para mercados emergentes",
+        "Pioneira de SUVs compactos e veículos econômicos",
+        "Conhecida por combinar practicidade com acessibilidade",
+        "Fabricante de automóveis e motocicletas japonês",
+        "Conhecida por veículos acessíveis e práticos",
+        "Enfoca em sedãs compactos, SUVs e motocicletas",
+        "Apresenta design leve para eficiência de combustível",
+        "Forte presença em mercados emergentes e segmento de carros compactos",
+        "Fabricante de carros japonês conhecido por acessibilidade",
+        "Famosa por veículos práticos e compactos",
+        "Produz sedãs, SUVs e motocicletas",
+        "Associada com valor pelo dinheiro",
+        "Apresenta design leve e eficiência de combustível",
+        "Popular em mercados emergentes em todo o mundo",
+        "Conhecida por veículos confiáveis e simples",
+        "Representa engenharia japonesa acessível",
+        "Forte presença no mercado de carros compactos",
+        "Conhecida pela abordagem prática e sem frills"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-069",
+      "category": "Marcas",
+      "name": "Prada",
+      "clues": [
+        "Fundada em 1913 como loja de artigos de couro de luxo",
+        "Foi pioneira no uso de nylon em moda de luxo durante os anos 70",
+        "Conhecida pela elegância discreta e estética minimalista",
+        "Etiqueta vermelha indica peças de alta costura",
+        "Frequentemente citada como uma das casas de moda de luxo mais influentes",
+        "Marca italiana de moda e acessórios de luxo",
+        "Conhecida pela filosofia de design elegante e minimalista",
+        "Produz bolsas, roupas, sapatos e acessórios",
+        "Apresenta uso inovador de materiais e artesanato",
+        "Associada com estilo atemporal e sofisticação",
+        "Marca italiana de moda de luxo conhecida por elegância",
+        "Famosa por bolsas e acessórios de alta gama",
+        "Conhecida por design minimalista e sofisticado",
+        "Produz roupas, sapatos e bens de luxo",
+        "Associada com lujo discreto e estilo",
+        "Apresenta moda inovadora e materiais de qualidade",
+        "Popular entre a elite consciente de moda em todo o mundo",
+        "Conhecida por designs icônicos de bolsas",
+        "Representa excelência em moda italiana",
+        "Símbolo de gosto refinado e sofisticação"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-070",
+      "category": "Marcas",
+      "name": "Gucci",
+      "clues": [
+        "Fundada em 1921 como fabricante de artigos de couro",
+        "O logo de double G se tornou um dos símbolos mais reconhecíveis da moda",
+        "Conhecida pelo elemento de design de faixa Web distintivo",
+        "Alessandro Michele se tornou diretor criativo, revolucionando a estética da marca",
+        "Frequentemente ultrapassa os limites com designs eclécticos e artísticos",
+        "Marca italiana de moda de luxo propriedade do Grupo Kering",
+        "Conhecida pelo logo icônico de double G e faixa web",
+        "Produz bolsas, roupas, sapatos, relógios e joias",
+        "Apresenta designs audaciosos com toque artístico",
+        "Forte influência cultural na indústria de moda",
+        "Marca italiana de moda de luxo conhecida por logo icônico",
+        "Famosa pelo símbolo distintivo de double G",
+        "Conhecida por bolsas, roupas e acessórios",
+        "Produz designs de moda audaciosos e criativos",
+        "Associada com luxo e estilo",
+        "Apresenta motivo de faixa web distintivo",
+        "Popular entre entusiastas de moda de luxo em todo o mundo",
+        "Conhecida por estética artística e audaciosa",
+        "Representa patrimônio e inovação de moda italiana",
+        "Símbolo de moda de luxo e relevância cultural"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-071",
+      "category": "Marcas",
+      "name": "Louis Vuitton",
+      "clues": [
+        "Fundada em 1854 como fabricante de baús",
+        "O padrão de lona monograma patenteado em 1896 se tornou icônico",
+        "Conhecida por designs de baú inovadores para viagens",
+        "Parte do grupo LVMH, o maior conglomerado de luxo do mundo",
+        "O monograma é um dos logos mais falsificados no mundo",
+        "Marca francesa de moda e artigos de couro de luxo",
+        "Conhecida pelo padrão monograma icônico e patrimônio de baú",
+        "Produz bolsas, bagagem, roupas e acessórios",
+        "Apresenta artesanato excepcional e materiais de qualidade",
+        "Forte patrimônio em viagens e artigos de luxo",
+        "Marca francesa de moda de luxo conhecida por padrão monograma",
+        "Famosa pelo monograma icônico e bolsas",
+        "Conhecida por artigos de couro de luxo e bagagem de viagem",
+        "Produz roupas, sapatos e acessórios",
+        "Associada com luxo e prestígio",
+        "Apresenta lona monograma distintiva em todos os produtos",
+        "A marca de luxo mais falsificada em todo o mundo",
+        "Popular entre colecionadores ricos em todo o mundo",
+        "Representa luxo e patrimônio francês",
+        "Símbolo de status e gosto sofisticado"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-072",
+      "category": "Marcas",
+      "name": "Chanel",
+      "clues": [
+        "Fundada em 1910 como revolucionária de moda",
+        "No. 5 se tornou a fragância mais vendida do mundo",
+        "Pioneira da libertação feminina através do design de moda",
+        "A bolsa acolchoada com alça de corrente se tornou um símbolo de status icônico",
+        "Conhecida pela elegância atemporal sobre tendências passageiras",
+        "Marca francesa de moda e fragância de luxo",
+        "Conhecida por designs atemporais e elegantes",
+        "Produz bolsas, roupas, fragrâncias e joias",
+        "Apresenta artesanato excepcional e materiais",
+        "Forte patrimônio de pioneirismo na moda feminina",
+        "Casa francesa de moda de luxo conhecida por elegância",
+        "Famosa pela perfuma No. 5",
+        "Conhecida por designs clássicos e atemporais",
+        "Produz bolsas, roupas e acessórios",
+        "Associada com sofisticação e feminilidade",
+        "Apresenta o design icônico de bolsa acolchoada",
+        "Popular entre mulheres em todo o mundo por artigos de luxo",
+        "Conhecida pela influência do fundador legendário",
+        "Representa excelência em moda francesa",
+        "Símbolo de elegância e estilo atemporal"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-073",
+      "category": "Marcas",
+      "name": "Dior",
+      "clues": [
+        "Fundada em 1946 após a Segunda Guerra Mundial",
+        "O 'New Look' revolucionou a moda do pós-guerra com saias volumosas",
+        "Conhecida por designs opulentos e femininos e alta costura",
+        "Parte do grupo LVMH, mantendo visão de design distintiva",
+        "Criou as icônicas bolsas 'Diorissimo' e 'Lady'",
+        "Casa francesa de moda de luxo propriedade do Grupo LVMH",
+        "Conhecida por designs opulentos e femininos",
+        "Produz bolsas, roupas, fragrâncias e acessórios",
+        "Apresenta bordado excepcional e artesanato",
+        "Forte associação com alta costura",
+        "Marca francesa de moda de luxo conhecida por designs opulentos",
+        "Famosa pelo 'New Look' e bolsa icônica",
+        "Conhecida por designs femininos e elegantes",
+        "Produz roupas, bolsas e fragrâncias",
+        "Associada com luxo e elegância",
+        "Apresenta estética de design sofisticado",
+        "Popular para ocasiões especiais e bens de luxo",
+        "Conhecida pelo patrimônio de alta costura",
+        "Representa excelência em moda francesa",
+        "Símbolo de luxo e estilo sofisticado"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-074",
+      "category": "Marcas",
+      "name": "Hermès",
+      "clues": [
+        "Fundada em 1837 como fabricante de selas",
+        "A bolsa Birkin se tornou a bolsa de mão mais exclusiva do mundo",
+        "Conhecida pela confecção meticulosa à mão e materiais de qualidade",
+        "A lista de espera para bolsas de assinatura pode exceder vários anos",
+        "Cada peça carrega a assinatura do artesão, demonstrando artesanato individual",
+        "Marca francesa de luxo conhecida por artesanato excepcional",
+        "Produz bolsas, roupas, artigos de couro e acessórios",
+        "Famosa por estilos de bolsas de assinatura",
+        "Apresenta construção costurada à mão e materiais premium",
+        "Forte patrimônio em artigos de couro e acessórios",
+        "Marca francesa de luxo famosa por bolsas excepcionais",
+        "Conhecida por estilos de bolsas icônicos",
+        "Produz artigos de couro e acessórios de luxo",
+        "Associada com artesanato excepcional",
+        "Apresenta produtos premium costurados à mão de qualidade",
+        "Popular entre colecionadores por valor de investimento",
+        "Conhecida pela produção exclusiva e limitada",
+        "Representa o pico do artesanato de luxo",
+        "Símbolo de status definitivo e sofisticação",
+        "Marca de luxo mais exclusiva em segmento de bolsas"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-075",
+      "category": "Marcas",
+      "name": "Burberry",
+      "clues": [
+        "Fundada em 1856 como casa de modas",
+        "Foi pioneira no tecido gabardine e no design de casaco trincheira",
+        "O padrão de xadrez se tornou um símbolo icônico de marca de patrimônio",
+        "Conhecida pelo patrimônio britânico e estilo clássico",
+        "Concedida Mandado Real por qualidade e excelência",
+        "Marca britânica de moda de luxo propriedade do Grupo Kering",
+        "Conhecida pelo padrão de xadrez icônico e casacos trincheira",
+        "Produz roupas, bolsas, acessórios e fragrâncias",
+        "Apresenta estilo britânico atemporal e patrimônio",
+        "Forte associação com qualidade e tradição",
+        "Marca britânica de luxo conhecida por padrão de xadrez icônico",
+        "Famosa por casacos trincheira clássicos",
+        "Conhecida pelo padrão de xadrez distintivo",
+        "Produz roupas, acessórios e bolsas",
+        "Associada com patrimônio e tradição britânica",
+        "Apresenta designs clássicos e elegantes",
+        "Popular por itens de moda atemporais",
+        "Conhecida por qualidade e patrimônio",
+        "Representa excelência em moda britânica",
+        "Símbolo de luxo tradicional e estilo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-076",
+      "category": "Marcas",
+      "name": "Versace",
+      "clues": [
+        "Fundada em 1978 como marca de designer revolucionária",
+        "Conhecida por impressões audaciosas e combinações de cores vibrantes",
+        "A cabeça de Medusa se tornou um símbolo icônico de marca",
+        "Foi pioneira da tendência 'logomania' em moda de luxo",
+        "Conhecida por apresentações de moda teatrais e artísticas",
+        "Marca italiana de moda de luxo propriedade do Grupo Kering",
+        "Conhecida por designs e padrões audaciosos e vibrantes",
+        "Produz roupas, acessórios, fragrâncias e joias",
+        "Apresenta logo distintivo de Medusa em toda parte",
+        "Forte associação com declarações de moda audaciosas",
+        "Marca italiana de luxo conhecida por designs audaciosos",
+        "Famosa pelo logo distintivo de Medusa",
+        "Conhecida por cores vibrantes e padrões audaciosos",
+        "Produz roupas, acessórios e fragrâncias",
+        "Associada com luxo e expressão artística",
+        "Apresenta designs distintivos inspirados na Grécia",
+        "Popular entre entusiastas de moda audaciosa",
+        "Conhecida por apresentações de moda teatrais",
+        "Representa luxo e criatividade italiana",
+        "Símbolo de luxo audacioso e visão artística"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-077",
+      "category": "Marcas",
+      "name": "Armani",
+      "clues": [
+        "Fundada em 1975 por Giorgio",
+        "Foi pioneira nos 'ternos de poder' com elegância relaxada",
+        "Conhecida pelo design minimalista com sastraria excepcional",
+        "Revolucionou a moda comercial com jaquetas não estruturadas",
+        "Um dos designers de moda mais influentes da história",
+        "Marca italiana de moda de luxo fundada em 1975",
+        "Conhecida por designs minimalistas e elegantes",
+        "Produz roupas, acessórios, fragrâncias e joias",
+        "Apresenta sastraria impecável e materiais de qualidade",
+        "Forte reputação por luxo discreto",
+        "Marca italiana de luxo conhecida por minimalismo elegante",
+        "Famosa por sofisticados ternos de poder",
+        "Conhecida por estética de design limpa e refinada",
+        "Produz roupas, acessórios e fragrâncias",
+        "Associada com elegância atemporal e estilo",
+        "Apresenta sastraria impecável",
+        "Popular entre profissionais e conscientes de moda",
+        "Conhecida por luxo discreto",
+        "Representa excelência em moda italiana",
+        "Símbolo de estilo sofisticado e atemporal"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-078",
+      "category": "Marcas",
+      "name": "Calvin Klein",
+      "clues": [
+        "Fundada em 1968 por Calvin Klein e Barry Schwartz",
+        "Pioneira da estética minimalista em moda de luxo",
+        "Obsession e CK One se tornaram fragrâncias icônicas",
+        "Conhecida por campanhas publicitárias provocativas",
+        "Revolucionou a indústria de roupa íntima com ofertas de designer",
+        "Marca americana de moda e fragância de luxo",
+        "Conhecida pela filosofia de design minimalista e limpo",
+        "Produz roupas, roupa íntima, fragrâncias e acessórios",
+        "Apresenta publicidade icônica e presença de marca",
+        "Forte reputação por qualidade e design",
+        "Marca americana de luxo conhecida por design minimalista",
+        "Famosa por fragrâncias icônicas e roupa íntima",
+        "Conhecida por estética limpa e moderna",
+        "Produz roupas, acessórios e fragrâncias",
+        "Associada com qualidade e estilo contemporâneo",
+        "Apresenta campanhas publicitárias audaciosas",
+        "Popular por roupa íntima de designer e itens essenciais",
+        "Conhecida pela filosofia de moda minimalista",
+        "Representa inovação em moda americana",
+        "Símbolo de luxo contemporâneo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-079",
+      "category": "Marcas",
+      "name": "Tommy Hilfiger",
+      "clues": [
+        "Fundada em 1985 como marca de luxo acessível",
+        "Foi pioneira na estética de roupa esportiva preppy americana",
+        "Conhecida pelo esquema de cores vermelho-branco-azul que representa patriotismo",
+        "Se tornou uma marca icônica para a cultura juvenil dos anos 90",
+        "Conhecida pela abordagem de luxo acessível à moda",
+        "Marca americana de moda conhecida por estilo preppy",
+        "Produz roupas, acessórios e fragrâncias",
+        "Conhecida pela estética de roupa esportiva americana clássica",
+        "Apresenta o design distintivo do logo de bandeira",
+        "Forte associação com luxo casual",
+        "Marca americana de moda conhecida por estilo preppy",
+        "Famosa pelo logo de bandeira de bloco de cores icônico",
+        "Conhecida por designs casual e esportivos",
+        "Produz roupas, acessórios e fragrâncias",
+        "Associada com luxo acessível",
+        "Apresenta roupa esportiva americana clássica",
+        "Popular para roupas casual e formal",
+        "Conhecida por estética preppy",
+        "Representa luxo casual americano",
+        "Símbolo de estilo acessível e qualidade"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-080",
+      "category": "Marcas",
+      "name": "Ralph Lauren",
+      "clues": [
+        "Fundada em 1967 como marca Polo",
+        "Criou uma marca de estilo de vida de luxo americana aspiracional",
+        "A linha Polo se tornou um símbolo do estilo preppy de Nova Inglaterra",
+        "Conhecida por ser pioneira no conceito de marca de estilo de vida",
+        "O logo do jogador de polo se tornou icônico em moda",
+        "Marca americana de moda e estilo de vida de luxo",
+        "Conhecida pela estética preppy e aspiracional",
+        "Produz roupas, acessórios, fragrâncias e bens para casa",
+        "Apresenta o logo distintivo do jogador de polo",
+        "Forte associação com estilo americano sofisticado",
+        "Marca americana de luxo conhecida por estilo preppy",
+        "Famosa pelo logo icônico do jogador de polo",
+        "Conhecida por designs sofisticados e atemporais",
+        "Produz roupas, acessórios e bens para casa",
+        "Associada com estilo de vida americano aspiracional",
+        "Apresenta estética preppy clássica",
+        "Popular por qualidade e patrimônio",
+        "Conhecida por estilo sofisticado",
+        "Representa estilo de vida de luxo americano",
+        "Símbolo de elegância e gosto atemporal"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-081",
+      "category": "Marcas",
+      "name": "Coach",
+      "clues": [
+        "Fundada em 1941 como fabricante de artigos de couro",
+        "Conhecida por artesanato americano e durabilidade",
+        "Foi pioneira no mercado de bolsas de luxo acessível",
+        "Se tornou propriedade da Tapestry Inc., agora um grande conglomerado de luxo",
+        "Conhecida por equilibrar qualidade com preços razoáveis",
+        "Marca americana de artigos de couro de moda e luxo",
+        "Conhecida por bolsas de qualidade a preços acessíveis",
+        "Produz bolsas, roupas, acessórios e joias",
+        "Apresenta um design distintivo do logo C",
+        "Forte reputação por durabilidade e artesanato",
+        "Marca americana de bolsas de luxo conhecida por qualidade",
+        "Famosa por bolsas de luxo acessíveis",
+        "Conhecida pelo logo icônico de C",
+        "Produz bolsas, acessórios e roupas",
+        "Associada com qualidade e durabilidade",
+        "Apresenta designs de luxo prático",
+        "Popular por bolsas de qualidade de investimento",
+        "Conhecida pelo artesanato americano",
+        "Representa luxo acessível",
+        "Símbolo de qualidade e valor"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-082",
+      "category": "Marcas",
+      "name": "Cartier",
+      "clues": [
+        "Fundada em 1847 como casa de joias",
+        "Conhecida como 'joalheiro de reis e rei de joalheiros'",
+        "Criou o icônico pulseira Love e design Panthère",
+        "Foi pioneira no design moderno de joias com diamantes e gemas",
+        "Relógios se tornaram símbolos de status em todo o mundo",
+        "Marca francesa de joias e relojería de luxo",
+        "Conhecida por diamantes e gemas excepcional",
+        "Produz joias, relojería e acessórios",
+        "Apresenta a pulseira icônica Love e designs Panthère",
+        "Forte associação com luxo e prestígio",
+        "Marca francesa de joias de luxo conhecida por diamantes",
+        "Famosa pela pulseira icônica Love",
+        "Conhecida por artesanato excepcional",
+        "Produz joias, relojería e acessórios",
+        "Associada com luxo e prestígio",
+        "Apresenta o design distintivo de Panthère",
+        "Popular entre colecionadores ricos em todo o mundo",
+        "Conhecida por diamantes e gemas finas",
+        "Representa patrimônio de luxo francês",
+        "Símbolo do máximo luxo em joias"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-083",
+      "category": "Marcas",
+      "name": "Bulgari",
+      "clues": [
+        "Fundada em 1884 como casa de joias",
+        "Conhecida por designs de gemas audaciosos e coloridos",
+        "Foi pioneira em joias de alta relojoería com combinações de gemas não convencionais",
+        "O motivo Serpenti se tornou um símbolo icônico de marca",
+        "Se tornou propriedade da LVMH, mantendo independência de design",
+        "Marca italiana de joias e relojería de luxo",
+        "Conhecida por designs de gemas audaciosos e coloridos",
+        "Produz joias, relojería, fragrâncias e acessórios",
+        "Apresenta o motivo icônico de serpente Serpenti",
+        "Forte associação com luxo audacioso",
+        "Marca italiana de joias de luxo conhecida por designs audaciosos",
+        "Famosa pelo motivo icônico de serpente Serpenti",
+        "Conhecida por gemas e diamantes coloridos",
+        "Produz joias, relojería e fragrâncias",
+        "Associada com luxo artístico e audacioso",
+        "Apresenta elementos de design de serpente distintiva",
+        "Popular entre colecionadores por peças únicas",
+        "Conhecida por designs de joias inovadores",
+        "Representa luxo e criatividade italiana",
+        "Símbolo do luxo de joias artístico e audacioso"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-084",
+      "category": "Marcas",
+      "name": "Tag Heuer",
+      "clues": [
+        "Fundada em 1860 como especialista em cronógrafos",
+        "Pioneira da tecnologia de relógio esportivo e cronógrafo",
+        "O Carrera se tornou o design icônico de relógio esportivo",
+        "Conhecida por precisão em cronometragem e patrimônio de esportes motorizados",
+        "Propriedade da LVMH, mantendo excelência de relojería independente",
+        "Marca suíça de relojería de luxo conhecida por relojería esportiva",
+        "Produz cronógrafos esportivos e relojería de luxo",
+        "Apresenta designs icônicos de Carrera e Fórmula 1",
+        "Conhecida por precisão e patrimônio de esportes motorizados",
+        "Forte associação com desempenho atlético",
+        "Marca suíça de relojería de luxo conhecida por cronógrafos esportivos",
+        "Famosa pelo relógio icônico Carrera",
+        "Conhecida por precisão e desempenho",
+        "Produz relojería esportiva e relógios de luxo",
+        "Associada com excelência em esportes motorizados e atletismo",
+        "Apresenta design distintivo e precisão",
+        "Popular entre entusiastas de esportes em todo o mundo",
+        "Conhecida por cronometragem confiável e preciso",
+        "Representa excelência em relojería suíça",
+        "Símbolo do luxo esportivo e desempenho"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-085",
+      "category": "Marcas",
+      "name": "Omega",
+      "clues": [
+        "Fundada em 1848 como relojería",
+        "Cronometrista oficial dos Jogos Olímpicos desde 1932",
+        "Pioneira da tecnologia de cronógrafo e relógio automático",
+        "O Seamaster se tornou o design icônico de relógio esportivo",
+        "Conhecida por precisão e confiabilidade em condições extremas",
+        "Marca suíça de relojería de luxo conhecida por precisão",
+        "Produz relojería esportiva e relógios de luxo",
+        "Famosa pelos modelos Seamaster e Speedmaster",
+        "Apresenta tecnologia de cronógrafo excepcional",
+        "Forte associação com Jogos Olímpicos e exploração espacial",
+        "Marca suíça de relojería de luxo conhecida por precisão",
+        "Famosa pelos relógios Seamaster e Speedmaster",
+        "Conhecida pela associação dos Jogos Olímpicos",
+        "Produz relojería esportiva e relógios de luxo",
+        "Associada com precisão e confiabilidade",
+        "Apresenta design distintivo e inovação",
+        "Popular entre colecionadores de relógios em todo o mundo",
+        "Conhecida por cronometragem preciso",
+        "Representa excelência em relojería suíça",
+        "Símbolo de precisão e desempenho"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-086",
+      "category": "Marcas",
+      "name": "Patek Philippe",
+      "clues": [
+        "Fundada em 1839 por Antoine Norbert de Patek e François Czapek",
+        "Conhecida como a marca de relojería mais prestigiosa globalmente",
+        "Pioneira nas complicações de calendário perpétuo e cronógrafo",
+        "O Nautilus se tornou o relógio esportivo mais icônico jamais criado",
+        "Conhecida por valor excepcional de revenda e colecionabilidade",
+        "Marca suíça de relojería de luxo, considerada a mais prestigiosa",
+        "Produz relojería ultra-luxo com complicações excepcionais",
+        "Famosa pelos designs icônicos Nautilus e Aquanaut",
+        "Apresenta qualidade incompromissível e artesanato",
+        "Forte associação com riqueza e prestígio",
+        "Marca suíça de relojería de luxo conhecida como a mais prestigiosa",
+        "Famosa pelo relógio icônico Nautilus",
+        "Conhecida por artesanato excepcional",
+        "Produz relojería ultra-luxo",
+        "Associada com riqueza e prestígio",
+        "Apresenta precisão e design excepcional",
+        "Popular entre colecionadores por valor de investimento",
+        "Conhecida como a marca de relojería de luxo definitiva",
+        "Representa o pico da relojería suíça",
+        "Símbolo do máximo luxo em relojería e prestígio"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-087",
+      "category": "Marcas",
+      "name": "Longines",
+      "clues": [
+        "Fundada em 1832 por Auguste Agassiz na Suíça",
+        "Pioneira da tecnologia de cronógrafo e relógio esportivo",
+        "Cronometrista oficial de vários eventos esportivos",
+        "Conhecida pelo equilíbrio entre luxo e acessibilidade",
+        "O relógio Lindbergh Hour Angle é lendário",
+        "Marca suíça de relojería de luxo conhecida por designs clássicos",
+        "Produz relojería esportiva e relógios elegantes",
+        "Apresenta movimentos automáticos e de quartzo confiáveis",
+        "Conhecida por designs atemporais e versáteis",
+        "Forte associação com eventos esportivos e cronometragem",
+        "Marca suíça de relojería conhecida por designs clássicos",
+        "Famosa por relojería esportiva e cronometragem",
+        "Conhecida por relógios confiáveis e elegantes",
+        "Produz relojería para diversas atividades",
+        "Associada com precisão e tradição",
+        "Apresenta relojería suíça clássica",
+        "Popular pela combinação de valor e qualidade",
+        "Conhecida por designs atemporais",
+        "Representa patrimônio de relojería suíça",
+        "Símbolo do luxo suíço acessível"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-088",
+      "category": "Marcas",
+      "name": "Tissot",
+      "clues": [
+        "Fundada em 1853 por Charles-Félicien na Suíça",
+        "Pioneira da tecnologia de relógio de quartzo",
+        "Cronometrista oficial de vários eventos esportivos",
+        "Conhecida por inovação tecnológica a preços acessíveis",
+        "O T-Race se tornou o design icônico de relógio esportivo",
+        "Marca suíça de relojería parte do Grupo Swatch",
+        "Conhecida por tecnologia de relojería inovadora",
+        "Produz relojería esportiva e relógios de luxo",
+        "Apresenta movimentos de quartzo e automático",
+        "Forte associação com inovação e valor",
+        "Marca suíça de relojería conhecida por inovação e valor",
+        "Famosa por relojería esportiva e precisão",
+        "Conhecida por relógios modernos e confiáveis",
+        "Produz relojería para diversas atividades",
+        "Associada com qualidade suíça a preços justos",
+        "Apresenta tecnologia moderna e design",
+        "Popular por qualidade e acessibilidade",
+        "Conhecida por designs de relojería inovadores",
+        "Representa relojería suíça acessível",
+        "Símbolo do valor e qualidade suíça"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-089",
+      "category": "Marcas",
+      "name": "Seiko",
+      "clues": [
+        "Fundada em 1881 por Kintaro Hattori no Japão",
+        "Pioneira da revolução de relógio de quartzo",
+        "Cronometrista oficial dos Jogos Olímpicos",
+        "Conhecida por qualidade excepcional em vários pontos de preço",
+        "O modelo Grand representa o pico de excelência em relojería",
+        "Fabricante japonês de relojería conhecido por qualidade e inovação",
+        "Produz relojería esportiva, relógios de luxo e relojería de mergulho",
+        "Apresenta tipos de movimento diversos e complicações",
+        "Conhecida por valor e confiabilidade",
+        "Forte reputação no mercado mundial de relojería",
+        "Marca japonesa de relojería conhecida por qualidade e valor",
+        "Famosa por relojería esportiva e precisão",
+        "Conhecida por relógios confiáveis e acessíveis",
+        "Produz relojería para diversas atividades",
+        "Associada com engenharia de qualidade japonesa",
+        "Apresenta estilos e tipos de relojería diversos",
+        "Popular por qualidade a preços razoáveis",
+        "Conhecida por durabilidade e precisão",
+        "Representa excelência em relojería japonesa",
+        "Símbolo de qualidade e valor"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-090",
+      "category": "Marcas",
+      "name": "Fossil",
+      "clues": [
+        "Fundada em 1984 por Tom Kartsotis como varejista de relógios",
+        "Conhecida por designs de relojería inspirados em vintage",
+        "Pioneira do mercado de relojería de moda acessível",
+        "Expandida para marcas diversas e estilos de relojería",
+        "Conhecida por equilibrar estilo com acessibilidade",
+        "Marca americana de relojería e acessórios",
+        "Conhecida por designs inspirados em vintage",
+        "Produz relojería de moda e acessórios",
+        "Apresenta estilos e marcas diversos",
+        "Forte associação com moda acessível",
+        "Marca americana de relojería conhecida por estilo e acessibilidade",
+        "Famosa por designs inspirados em vintage",
+        "Conhecida por relógios de moda acessíveis",
+        "Produz estilos diversos de relojería e acessórios",
+        "Associada com relojería casual e estilosa",
+        "Apresenta opções de design diversas",
+        "Popular por relógios com tendência de moda",
+        "Conhecida por valor e estilo",
+        "Representa moda de relojería acessível",
+        "Símbolo de estilo acessível e qualidade"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-091",
+      "category": "Marcas",
+      "name": "Timex",
+      "clues": [
+        "Fundada em 1854 como Waterbury Clock Company",
+        "Pioneira da produção de relojería acessível e durável",
+        "O Weekender se tornou o relógio casual icônico",
+        "Conhecida pela durabilidade com a filosofia de 'Dureza'",
+        "Manteve com sucesso a acessibilidade durante mais de 150 anos",
+        "Fabricante americana de relojería conhecida por acessibilidade",
+        "Produz relojería esportiva e relógios de bolso casual",
+        "Apresenta movimentos de quartzo confiáveis",
+        "Conhecida por designs resistentes e práticos",
+        "Forte associação com durabilidade e valor",
+        "Marca americana de relojería conhecida por acessibilidade e durabilidade",
+        "Famosa por relógios resistentes e confiáveis",
+        "Conhecida por relógios práticos de uso diário",
+        "Produz estilos diversos de relojería",
+        "Associada com valor e confiabilidade",
+        "Apresenta designs simples e práticos",
+        "Popular para uso diário",
+        "Conhecida por durabilidade e resistência",
+        "Representa qualidade de relojería acessível",
+        "Símbolo de relógios práticos e confiáveis"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-092",
+      "category": "Marcas",
+      "name": "Casio",
+      "clues": [
+        "Fundada em 1946 por Tadao Kashio como fabricante de calculadoras",
+        "Pioneira da tecnologia de relógio digital",
+        "O G-Shock revolucionou o mercado de relojería esportiva",
+        "Conhecida por inovação tecnológica em cronometragem",
+        "Relógios são valorizados por militares e atletas em todo o mundo",
+        "Fabricante japonês de eletrônica e relojería",
+        "Conhecida por relojería digital e esportiva",
+        "Produz G-Shock, relojería de mergulho e calculadoras",
+        "Apresenta inovação tecnológica e durabilidade",
+        "Forte associação com esportes e tecnologia digital",
+        "Marca japonesa de relojería conhecida por durabilidade",
+        "Famosa pelos relógios G-Shock resistentes a choques",
+        "Conhecida por recursos tecnológicos e resistência",
+        "Produz relojería esportiva e relógios digitais",
+        "Associada com durabilidade e inovação",
+        "Apresenta tecnologia inovadora e design",
+        "Popular entre atletas e aventureiros",
+        "Conhecida por relógios confiáveis e funcionais",
+        "Representa inovação em relojería japonesa",
+        "Símbolo de relógios resistentes e com muitos recursos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-093",
+      "category": "Marcas",
+      "name": "Adidas",
+      "clues": [
+        "Fundada em 1949 por Adolf Dassler após divisão da empresa familiar",
+        "As três listras se tornaram marca comercial icônica",
+        "Pioneira em parcerias de endosso de esportes com atletas",
+        "Conhecida por tecnologia inovadora de sapatos esportivos",
+        "Rival com competidor fundado por parente na mesma indústria",
+        "Fabricante alemã de roupas esportivas conhecida por roupas atlético",
+        "Produz sapatos, roupas e equipamento esportivo",
+        "Famosa pelo elemento de design de três listras",
+        "Apresenta tecnologia de esporte de vanguarda",
+        "Fortes associações com atletas e equipes",
+        "Marca esportiva alemã conhecida por roupas atlético",
+        "Famosa pelo logo icônico de três listras",
+        "Conhecida por sapatos esportivos e roupas de qualidade",
+        "Produz sapatos, roupas e equipamento esportivo",
+        "Associada com atletismo e desempenho",
+        "Apresenta tecnologia esportiva inovadora",
+        "Popular entre atletas e entusiastas de fitness",
+        "Conhecida por qualidade e desempenho",
+        "Representa excelência esportiva alemã",
+        "Símbolo de qualidade atlética e estilo"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-094",
+      "category": "Marcas",
+      "name": "Puma",
+      "clues": [
+        "Fundada em 1948 por Rudolf Dassler após disputa familiar",
+        "O logo do gato e o gato saltador se tornaram icônico",
+        "Conhecida por design inovador de sapatos esportivos",
+        "Pioneira no patrocínio de eventos esportivos internacionais",
+        "Criou o design moderno de bota de futebol",
+        "Fabricante alemã de roupas esportivas propriedade do Grupo Kering",
+        "Conhecida por sapatos esportivos e roupas atlético",
+        "Produz sapatos, roupas e equipamento esportivo",
+        "Apresenta tecnologia esportiva inovadora",
+        "Fortes associações com atletas em todo o mundo",
+        "Marca esportiva alemã conhecida por desempenho atlético",
+        "Famosa pelo logo icônico do gato saltador",
+        "Conhecida por sapatos esportivos e roupas de qualidade",
+        "Produz sapatos, roupas e equipamento esportivo",
+        "Associada com velocidade e desempenho",
+        "Apresenta tecnologia esportiva inovadora",
+        "Popular entre atletas e entusiastas de fitness",
+        "Conhecida por qualidade e estilo",
+        "Representa excelência atlética e inovação",
+        "Símbolo do desempenho esportivo alemão"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-095",
+      "category": "Marcas",
+      "name": "New Balance",
+      "clues": [
+        "Fundada em 1906 por William J. Riley como empresa de suporte de arco",
+        "Pioneira de tecnologia de sapatos esportivos especializados",
+        "Conhecida pela defesa de produção Made in USA",
+        "O modelo 990 se tornou o design icônico de sapato de corrida",
+        "Conhecida por focar em conforto e estabilidade",
+        "Marca americana de roupas esportivas conhecida por sapatos esportivos",
+        "Produz sapatos de corrida, roupas e equipamento",
+        "Famosa por designs de sapatos confortáveis e estáveis",
+        "Apresenta foco em ajuste e funcionalidade",
+        "Forte reputação por qualidade e conforto",
+        "Marca americana de esportes conhecida por sapatos confortáveis",
+        "Famosa por sapatos esportivos e de corrida de qualidade",
+        "Conhecida por foco em conforto e estabilidade",
+        "Produz sapatos, roupas e equipamento esportivo",
+        "Associada com roupas esportivas funcionais",
+        "Apresenta designs confortáveis e práticos",
+        "Popular entre corredores e atletas",
+        "Conhecida por qualidade e conforto",
+        "Representa excelência atlética americana",
+        "Símbolo de qualidade esportiva funcional"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-096",
+      "category": "Marcas",
+      "name": "Converse",
+      "clues": [
+        "Fundada em 1908 como empresa de sapatos de borracha",
+        "O All-Stars se tornou o sapato casual icônico",
+        "Pioneira do design de sapatos de atletismo de lona",
+        "Se tornou propriedade de competidor como marca casual icônica",
+        "Conhecida por décadas de influência cultural além dos esportes",
+        "Marca americana de sapatos conhecida por sapatos icônicos",
+        "Produz sapatos casual e calçado esportivo",
+        "Famosa pelo design de lona",
+        "Apresenta design de sapato prático e atemporal",
+        "Forte influência cultural e de moda",
+        "Marca americana de sapatos conhecida por tênis icônico",
+        "Famosa pelos sapatos All-Star de lona",
+        "Conhecida pelos sapatos de lona casual clássicos",
+        "Produz calçado diário e esportivo",
+        "Associada com estilo atemporal",
+        "Apresenta designs simples e práticos",
+        "Popular entre jovens e conscientes de moda",
+        "Conhecida por calçado casual versátil",
+        "Representa estilo casual americano",
+        "Símbolo dos tênis icônicos e atemporais"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-097",
+      "category": "Marcas",
+      "name": "Vans",
+      "clues": [
+        "Fundada em 1966 por Paul Van Doren e irmãos como empresa de sapatos de skate",
+        "O modelo #95 se tornou o sapato de skateboarding icônico",
+        "Conhecida por ser pioneira em tecnologia de sapatos de skate",
+        "Se tornou propriedade de competidor mantendo patrimônio de skate",
+        "Conhecida por forte conexão com cultura de skateboarding",
+        "Marca americana de sapatos de skate e casual",
+        "Conhecida por sapatos de skateboarding e cultura",
+        "Produz sapatos, roupas e equipamento de skate",
+        "Apresenta o design distintivo de sola waffle",
+        "Forte associação com comunidade de skateboarding",
+        "Marca americana de skate conhecida por sapatos de skate",
+        "Famosa pelos designs clássicos de sapatos de skate",
+        "Conhecida por calçado casual e de skateboarding",
+        "Produz sapatos, roupas e acessórios",
+        "Associada com cultura de skateboarding",
+        "Apresenta sola waffle distintiva",
+        "Popular entre patinadores e cultura juvenil",
+        "Conhecida por design de skate prático",
+        "Representa cultura e estilo de skateboarding",
+        "Símbolo do patrimônio de skateboarding"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-098",
+      "category": "Marcas",
+      "name": "Skechers",
+      "clues": [
+        "Fundada em 1992 por Robert Greenberg como empresa de sapatos casual",
+        "Pioneira do mercado de sapatos casual confortável",
+        "Shape-ups levou tecnologia de tonificação para sapatos casual",
+        "Conhecida por estilos diversos de sapatos e segmentos de mercado",
+        "Uma das marcas de calçado de mais rápido crescimento globalmente",
+        "Marca americana de sapatos casual e esportivo",
+        "Conhecida por sapatos casual e confortáveis",
+        "Produz estilos diversos desde casual até esportivo",
+        "Apresenta foco em conforto e acessibilidade",
+        "Forte presença no mercado de calçado casual",
+        "Marca americana de sapatos conhecida por conforto e estilo",
+        "Famosa por calçado casual e confortável",
+        "Conhecida por opções de estilo diversas de sapatos",
+        "Produz sapatos casual e calçado esportivo",
+        "Associada com conforto e praticidade",
+        "Apresenta preços acessíveis e qualidade",
+        "Popular para uso casual diário",
+        "Conhecida por designs confortáveis",
+        "Representa sucesso do mercado de sapatos casual",
+        "Símbolo de calçado confortável e acessível"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-099",
+      "category": "Marcas",
+      "name": "Dockers",
+      "clues": [
+        "Fundada em 1986 por Levi Strauss como marca de calças casual",
+        "Pioneira do código de vestimenta casual profissional",
+        "As calças khaki se tornaram um símbolo do profissionalismo casual",
+        "Conhecida por combinar a estética profissional com casual",
+        "Revolucionou os padrões de vestimenta no local de trabalho",
+        "Marca americana de roupas casual propriedade da Levi Strauss",
+        "Conhecida por calças khaki e roupas casual profissional",
+        "Produz calças, camisas e roupas casual",
+        "Apresenta estilo casual profissional confortável",
+        "Forte associação com movimento casual profissional",
+        "Marca americana de roupas casual conhecida por calças khaki",
+        "Famosa por calças casual profissional",
+        "Conhecida por roupas casual profissional confortável",
+        "Produz calças, camisas e acessórios",
+        "Associada com estilo casual no local de trabalho",
+        "Apresenta designs casual práticos",
+        "Popular para uso casual diário",
+        "Conhecida por roupas casual de qualidade",
+        "Representa estilo casual profissional",
+        "Símbolo do movimento casual profissional"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-brands-100",
+      "category": "Marcas",
+      "name": "Crocs",
+      "clues": [
+        "Fundada em 2002 por três amigos como empresa de sapatos tipo tamancos",
+        "O design distintivo de tamancos de espuma se tornou instantaneamente reconhecível",
+        "Pioneira de inovação de calçado casual confortável",
+        "Conhecida por equilibrar conforto com estilo apesar do ceticismo inicial",
+        "Se tornou querida por trabalhadores de saúde e usuários casual",
+        "Marca americana de calçado casual conhecida por tamancos distintivos",
+        "Produz tamancos de espuma e sapatos casual",
+        "Famosa por designs confortáveis e leves",
+        "Apresenta o design distintivo de tamancos com furos",
+        "Forte associação com conforto e praticidade",
+        "Marca americana de sapatos conhecida por tamancos distintivos de espuma",
+        "Famosa pelo design de tamancos com furos",
+        "Conhecida por calçado leve e confortável",
+        "Produz sapatos casual e acessórios",
+        "Associada com conforto e praticidade",
+        "Apresenta design leve e fácil de cuidar",
+        "Popular para uso casual diário",
+        "Conhecida pelo design distintivo",
+        "Representa inovação de calçado casual",
+        "Símbolo dos sapatos confortáveis e práticos"
+      ],
+      "metadata": {
+        "language": "pt-BR",
+        "difficulty": "medium",
+        "source": "entertainment"
       }
     }
   ]
