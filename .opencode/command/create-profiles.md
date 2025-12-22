@@ -11,7 +11,7 @@ This command follows a **markdown-first approach** with multiple approval gates 
 
 1. Ask user for category and number of profiles
 2. Read existing profiles from data JSON files to check for duplicates
-3. Generate N profile names in ENGLISH only (no clues yet)
+3. Generate N profile names in ENGLISH only (no clues yet), not less, not more than the number requested.
 4. Check for duplicates against existing profiles
 5. If duplicates found: remove and replace with new unique profiles
 6. **APPROVAL GATE 1**: Show list to user and wait for approval
@@ -132,6 +132,7 @@ For each approved profile name:
 - Include obvious giveaways in early clues
 - Repeat information across clues
 - Use profile name directly
+- Escape special characters (e.g., apostrophes, hyphens, accents), keep them as-is, always in all files/languages
 
 ### Step 2.3: Format as Markdown
 
@@ -453,6 +454,10 @@ Ready for commit!
 - ✅ **ALWAYS** verify across ALL languages
 - ✅ **ALWAYS** check case-insensitive (Lion = lion = LION)
 - ❌ **NEVER** skip duplicate checking
+- ❌ **NEVER** create profiles with names that differ only in case (e.g., "The Matrix" and "matrix")
+- ❌ **NEVER** create profiles with names that differ only in accents (e.g., "Café" and "Cafe")
+- ❌ **NEVER** create profiles with names that differ only in hyphens (e.g., "The Matrix" and "Matrix")
+
 
 ### Translation Quality
 
@@ -476,6 +481,7 @@ Ready for commit!
 - ✅ **ALWAYS** validate JSON after modifications
 - ❌ **NEVER** manually edit JSON (use script instead)
 - ❌ **NEVER** commit files (user does that manually)
+- ❌ **NEVER** escape special characters (e.g., apostrophes, hyphens, accents), keep them as-is, always in all files/languages
 
 ### Script Usage
 
@@ -484,6 +490,7 @@ Ready for commit!
 - ✅ **ALWAYS** verify script output shows success
 - ❌ **NEVER** create JSON manually
 - ❌ **NEVER** skip the Python script
+- ❌ **NEVER** escape special characters (e.g., apostrophes, hyphens, accents), keep them as-is, always in all files/languages
 
 ---
 
@@ -504,6 +511,10 @@ Before marking complete, verify:
 - [ ] profiles.config.json updated with new entries
 - [ ] Starting ID calculated correctly
 - [ ] User approved at all 3 gates
+- [ ] No special characters are escaped (e.g., apostrophes, hyphens, accents), keep them as-is, always in all files/languages
+- [ ] All profile names are unique (checked case-insensitive)
+- [ ] Check duplicates even in different forms (e.g., with/without accents, hyphens. Example: "The Matrix" and "Matrix")
+- [ ] Ensure the exactly number of profiles requested are created, not less, not more.
 
 ---
 
