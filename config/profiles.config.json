@@ -1793,6 +1793,51 @@
             "pt-BR"
           ],
           "difficulty": "easy"
+        },
+        {
+          "name": "Amazon River",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Sahara Desert",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Grand Canyon",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Mount Kilimanjaro",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Great Barrier Reef",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
         }
       ]
     },

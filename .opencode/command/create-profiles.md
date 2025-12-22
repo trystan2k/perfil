@@ -248,15 +248,13 @@ Do you approve these translations? (yes/no)
 
 ### Step 4.1: Determine Starting ID
 
-Read current data JSON files to determine next available ID:
+Read current data JSON files to determine next available ID. Check for the last profile id, not the count (since not necessary to start from 1 or it may be a gap in the sequence)
 
 ```python
 # Get current profile count
 en_data = read_json(f"public/data/{category}/en/data-1.json")
-current_count = len(en_data['profiles'])
-start_id = current_count + 1
-
-# For movies with 100 profiles, start_id would be 101
+last_id = en_data['profiles'][-1]['id']
+start_id = int(last_id.split('-')[-1]) + 1
 ```
 
 ### Step 4.2: Run markdown_to_json.py Script

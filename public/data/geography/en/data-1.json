@@ -3040,6 +3040,166 @@
         "difficulty": "easy",
         "source": "geography"
       }
+    },
+    {
+      "id": "profile-geography-105",
+      "category": "geography",
+      "name": "Amazon River",
+      "clues": [
+        "Discharges approximately 209,000 cubic meters of water per second into the Atlantic Ocean",
+        "Contains over 3,000 recognized species of fish, more than the entire Atlantic Ocean",
+        "The meeting of waters phenomenon occurs where it joins the Rio Negro near Manaus",
+        "Reversed flow direction multiple times throughout geological history",
+        "Has no bridges spanning its main stretch despite being thousands of kilometers long",
+        "Second longest river in the world after the Nile",
+        "Flows through nine South American countries",
+        "Basin covers about 40% of the South American continent",
+        "Contains pink river dolphins unique to its waters",
+        "Source was officially identified in Peru in 1971",
+        "Named after female warriors from Greek mythology",
+        "Runs through the world's largest tropical rainforest",
+        "Provides about 20% of Earth's fresh water flowing into oceans",
+        "Home to piranhas and anacondas",
+        "Surrounded by dense jungle on both banks",
+        "Major cities include Manaus and Belém",
+        "Used as primary transportation route in remote areas",
+        "Contains thousands of tributaries",
+        "Supports incredible biodiversity",
+        "Vital ecosystem for global climate regulation"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-geography-106",
+      "category": "geography",
+      "name": "Sahara Desert",
+      "clues": [
+        "Expanded and contracted significantly during African humid periods over past 11,000 years",
+        "Contains the Eye of the Sahara, a mysterious circular geological formation",
+        "Temperature can fluctuate by 40 degrees Celsius between day and night",
+        "Once had megalakes and supported hippos and crocodiles until about 5,000 years ago",
+        "Sand dunes cover only about 25% of its total area",
+        "Roughly the same size as the United States or China",
+        "Name comes from Arabic word for desert",
+        "Contains several mountain ranges including the Tibesti Mountains",
+        "Dust storms can carry sand across the Atlantic to the Americas",
+        "Home to Tuareg nomadic peoples",
+        "Largest hot desert in the world",
+        "Located in North Africa",
+        "Extremely dry with very little rainfall",
+        "Covers parts of eleven countries",
+        "Famous for vast sand dunes",
+        "Temperatures can exceed 50 degrees Celsius",
+        "Oases provide rare water sources",
+        "Camels are traditional transport",
+        "Ancient caravan trade routes crossed it",
+        "Expanding southward due to climate change"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-geography-107",
+      "category": "geography",
+      "name": "Grand Canyon",
+      "clues": [
+        "Carved primarily by the Colorado River over approximately 5 to 6 million years",
+        "Exposes nearly 2 billion years of Earth's geological history",
+        "Contains rock layers that tell story from Precambrian to Paleozoic eras",
+        "Inner gorge reaches depths of over 1,800 meters below rim",
+        "First European to view it was Spanish explorer García López de Cárdenas in 1540",
+        "Designated as a UNESCO World Heritage Site in 1979",
+        "Approximately 277 miles long and up to 18 miles wide",
+        "Home to California condors, one of the rarest birds",
+        "North Rim and South Rim offer different perspectives and climates",
+        "Receives about 5 million visitors annually",
+        "Located in Arizona, United States",
+        "One of the Seven Natural Wonders of the World",
+        "Massive gorge with colorful layered rock formations",
+        "Popular destination for hiking and rafting",
+        "Carved by river over millions of years",
+        "Stunning views from multiple lookout points",
+        "Protected as a National Park",
+        "Spectacular at sunrise and sunset",
+        "Visible from space",
+        "Iconic symbol of American Southwest"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-geography-108",
+      "category": "geography",
+      "name": "Mount Kilimanjaro",
+      "clues": [
+        "Has three volcanic cones named Kibo, Mawenzi, and Shira",
+        "Kibo's summit crater is approximately 2.5 kilometers wide",
+        "Last major eruption occurred approximately 360,000 years ago",
+        "Glaciers have lost more than 80% of their ice since early 1900s",
+        "Stands as a stratovolcano formed from volcanic activity over million years",
+        "Highest mountain in Africa at 5,895 meters",
+        "Located in Tanzania near the Kenyan border",
+        "Name possibly means \"Mountain of Greatness\" in Swahili",
+        "Five distinct ecological climate zones from base to summit",
+        "First successfully climbed by Hans Meyer and Ludwig Purtscheller in 1889",
+        "Tallest free-standing mountain in the world",
+        "Snow-capped peak near the equator",
+        "Does not require technical climbing skills for most routes",
+        "Popular trekking destination for adventurers",
+        "Takes about five to nine days to climb",
+        "Three peaks visible from distance",
+        "Featured in Ernest Hemingway's famous story",
+        "Wildlife including elephants live on lower slopes",
+        "Stunning views across African plains",
+        "UNESCO World Heritage Site"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
+    },
+    {
+      "id": "profile-geography-109",
+      "category": "geography",
+      "name": "Great Barrier Reef",
+      "clues": [
+        "Composed of approximately 2,900 individual reefs and 900 islands",
+        "Stretches over 2,300 kilometers along Queensland coast",
+        "Built by billions of tiny organisms called coral polyps over millions of years",
+        "Contains 400 types of coral and 1,500 species of fish",
+        "Visible from outer space, making it Earth's largest living structure",
+        "Located off the coast of Australia in the Coral Sea",
+        "Home to six species of sea turtles",
+        "Supports dugongs, also known as sea cows",
+        "Faces threats from climate change and coral bleaching",
+        "Generates billions in tourism revenue annually",
+        "World's largest coral reef system",
+        "UNESCO World Heritage Site since 1981",
+        "Incredibly diverse marine ecosystem",
+        "Popular destination for scuba diving and snorkeling",
+        "Contains colorful coral formations",
+        "Home to dolphins, whales, and sharks",
+        "Tropical waters with incredible visibility",
+        "Protected as a marine park",
+        "One of the Seven Natural Wonders",
+        "Famous for its stunning underwater beauty"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "entertainment"
+      }
     }
   ]
 }
