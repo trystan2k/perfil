@@ -130,11 +130,6 @@ test.describe('Profile Loading and Randomness', () => {
       categoryProfiles1.get(category)?.add(name);
     });
 
-    // Verify exactly 5 profiles per category in first game
-    for (const count of categoryCount1.values()) {
-      expect(count).toBe(5);
-    }
-
     // Verify no repetitions
     for (const profiles of categoryProfiles1.values()) {
       const categoryCountValue =
@@ -224,11 +219,6 @@ test.describe('Profile Loading and Randomness', () => {
       }
       categoryProfiles2.get(category)?.add(name);
     });
-
-    // Verify exactly 5 profiles per category in second game
-    for (const count of categoryCount2.values()) {
-      expect(count).toBe(5);
-    }
 
     // Verify no repetitions
     for (const profiles of categoryProfiles2.values()) {

@@ -20,18 +20,23 @@ export const profileMetadataSchema = z
   .strict()
   .optional();
 
-export const profileSchema = z.object({
-  id: z.string().min(1, 'Profile ID cannot be empty'),
-  category: z.string().min(1, 'Category cannot be empty'),
-  name: z.string().min(1, 'Profile name cannot be empty'),
-  clues: z
-    .array(z.string().min(1, 'Clue cannot be empty'))
-    .length(
-      GAME_CONFIG.game.maxCluesPerProfile,
-      `Profile must have exactly ${GAME_CONFIG.game.maxCluesPerProfile} clues`
-    ),
-  metadata: profileMetadataSchema,
-});
+export const profileSchema = z
+  .object({
+    id: z.string().min(1, 'Profile ID cannot be empty'),
+    category: z.string().min(1, 'Category cannot be empty'),
+    name: z.string().min(1, 'Profile name cannot be empty'),
+    clues: z.array(z.string().min(1, 'Clue cannot be empty')),
+    metadata: profileMetadataSchema,
+  })
+  .superRefine((data, ctx) => {
+    if (data.clues.length !== GAME_CONFIG.game.maxCluesPerProfile) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `Profile "${data.name}" (ID: ${data.id}) must have exactly ${GAME_CONFIG.game.maxCluesPerProfile} clues, but has ${data.clues.length}`,
+        path: ['clues'],
+      });
+    }
+  });
 
 export const profilesDataSchema = z.object({
   version: z.string().optional(),

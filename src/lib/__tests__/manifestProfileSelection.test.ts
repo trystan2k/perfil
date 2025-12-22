@@ -252,6 +252,55 @@ describe('selectProfileIdsByManifest', () => {
       expect(result).toHaveLength(5);
       expect(result.every((id) => id.includes('-famous-'))).toBe(true);
     });
+
+    it('should distribute rounds proportionally with uneven categories', async () => {
+      const unevenManifest: Manifest = {
+        ...mockManifest,
+        categories: [
+          {
+            slug: 'small-cat',
+            idPrefix: 'small',
+            locales: { en: { name: 'Small', files: ['data.json'], profileAmount: 100 } },
+          },
+          {
+            slug: 'large-cat',
+            idPrefix: 'large',
+            locales: { en: { name: 'Large', files: ['data.json'], profileAmount: 400 } },
+          },
+        ],
+      };
+
+      // Override fetch to return correct counts for these categories
+      vi.mocked(global.fetch).mockImplementation(async (url) => {
+        const urlStr = String(url);
+        if (urlStr.includes('/small-cat/')) {
+          return new Response(JSON.stringify(generateMockProfiles('small-cat', 100)), {
+            status: 200,
+          });
+        }
+        if (urlStr.includes('/large-cat/')) {
+          return new Response(JSON.stringify(generateMockProfiles('large-cat', 400)), {
+            status: 200,
+          });
+        }
+        return new Response(JSON.stringify({ profiles: [] }), { status: 404 });
+      });
+
+      const result = await selectProfileIdsByManifest(
+        ['small-cat', 'large-cat'],
+        50,
+        unevenManifest,
+        'en'
+      );
+
+      const counts = {
+        small: result.filter((id) => id.includes('small-cat')).length,
+        large: result.filter((id) => id.includes('large-cat')).length,
+      };
+
+      expect(counts.small).toBe(10);
+      expect(counts.large).toBe(40);
+    });
   });
 
   describe('Profile ID Format', () => {
@@ -309,7 +358,9 @@ describe('selectProfileIdsByManifest', () => {
       // geography has 29 profiles, request 30
       await expect(
         selectProfileIdsByManifest(['geography'], 30, mockManifest, 'en')
-      ).rejects.toThrow('has only 29 actual profiles but 30 were requested');
+      ).rejects.toThrow(
+        'Not enough profiles available in selected categories. Requested 30, but only 29 are available.'
+      );
     });
 
     it('should throw error for non-existent category', async () => {
@@ -328,7 +379,9 @@ describe('selectProfileIdsByManifest', () => {
       // Geography has 29 profiles, request 30
       await expect(
         selectProfileIdsByManifest(['geography'], 30, mockManifest, 'en')
-      ).rejects.toThrow('has only 29 actual profiles but 30 were requested');
+      ).rejects.toThrow(
+        'Not enough profiles available in selected categories. Requested 30, but only 29 are available.'
+      );
     });
 
     it('should throw error when fetch fails', async () => {

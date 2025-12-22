@@ -478,7 +478,7 @@ describe('Profile Schema', () => {
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].code).toBe('too_small');
+        expect(result.error.issues[0].code).toBe('custom');
       }
     });
 
@@ -510,7 +510,7 @@ describe('Profile Schema', () => {
       const result = profileSchema.safeParse(profile);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.issues[0].code).toBe('too_big');
+        expect(result.error.issues[0].code).toBe('custom');
       }
     });
   });
