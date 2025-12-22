@@ -9,17 +9,17 @@
         "en": {
           "name": "Famous People",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         },
         "es": {
           "name": "Personas Famosas",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         },
         "pt-BR": {
           "name": "Pessoas Famosas",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         }
       }
     },

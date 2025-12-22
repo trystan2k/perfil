@@ -928,8 +928,8 @@
           ],
           "difficulty": "hard"
         }
-       ]
-     },
+      ]
+    },
     {
       "slug": "geography",
       "displayNames": {
@@ -1653,15 +1653,6 @@
           "difficulty": "medium"
         },
         {
-          "name": "William Shakespeare",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
           "name": "Marie Antoinette",
           "availableIn": [
             "en",
@@ -1885,6 +1876,456 @@
             "pt-BR"
           ],
           "difficulty": "medium"
+        },
+        {
+          "name": "Marianne Williamson",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Serena Williams",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Elon Musk",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Genghis Khan",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Aretha Franklin",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Alexander Hamilton",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Miley Cyrus",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Maya Angelou",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Donald Trump",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "David Bowie",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Albert Schweitzer",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Pelé",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Jane Goodall",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Usain Bolt",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Ludwig van Beethoven",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Jackie Robinson",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Che Guevara",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Cleopatra VII",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Emmeline Pankhurst",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Pablo Neruda",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Indira Gandhi",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Jimi Hendrix",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Rosa Luxemburg",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Marie Skłodowska Curie",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Josephine Baker",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Alan Turing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Audre Lorde",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Werner Heisenberg",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Lise Meitner",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Thich Nhat Hanh",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Leroy Anderson",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Dorothy Hodgkin",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Charlie Chaplin",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Carl Sagan",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Joan Crawford",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Simone de Beauvoir",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Rachel Carson",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Benny Goodman",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Martina Navratilova",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Greta Garbo",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Harriet Beecher Stowe",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Hedy Lamarr",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Frederick Douglass",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Malcolm X",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Isadora Duncan",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Golda Meir",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Johannes Gutenberg",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Emmett Till",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Grace Hopper",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Cleopatra VI",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
         }
       ]
     },
@@ -3752,232 +4193,416 @@
       "profiles": [
         {
           "name": "Jane Eyre",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "The Great Gatsby",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "Jack Torrance",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "Pride and Prejudice",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "One Hundred Years of Solitude",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "To Kill a Mockingbird",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "The Catcher in the Rye",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "1984",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "The Odyssey",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "Wuthering Heights",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "The Hobbit",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "The Invisible Man",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "Jane Austen",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "Moby Dick",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "The Picture of Dorian Gray",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "Fahrenheit 451",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         },
         {
           "name": "Anna Karenina",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "Crime and Punishment",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "The Iliad",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "The Brothers Karamazov",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "The Count of Monte Cristo",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "Frankenstein",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "The Metamorphosis",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "Les Misérables",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "Lolita",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Handmaid's Tale",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Silmarillion",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Name of the Rose",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "If Beale Street Could Talk",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "Things Fall Apart",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Left Hand of Darkness",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "Beloved",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "Midnight's Children",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The God of Small Things",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "One Flew Over the Cuckoo's Nest",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "The Call of the Wild",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "The Bell Jar",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "Slaughterhouse-Five",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "medium"
         },
         {
           "name": "Waiting for Godot",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "One Piece of String",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Lottery",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Handkerchief",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Stranger",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "Siddhartha",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Plague",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "hard"
         },
         {
           "name": "The Secret Garden",
-          "availableIn": ["en", "es", "pt-BR"],
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
           "difficulty": "easy"
         }
       ]
