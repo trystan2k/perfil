@@ -18,17 +18,17 @@ This command follows a **markdown-first approach** with multiple approval gates 
 
 ### Phase 2: Clues Generation (English Only)
 
-7. For each approved profile name, generate 20 clues in English
+7. For each approved profile name, generate 20 clues in English. DO NOT NEED TO SHOW ME, just generate and store in the markdown file, I will review the files directly.
 8. Clues must be natural, concise, comprehensive phrases (not just words)
 9. Follow difficulty progression: 5 hard → 5 medium → 10 easy
-10. **APPROVAL GATE 2**: Show all profiles with clues and wait for approval
+10. **APPROVAL GATE 2**: Once the file is written at the indicated location, I will review the file and approve it, do not need to show the clues in the screen, I will look directly in the file.
 
 ### Phase 3: Translations (Spanish & Portuguese)
 
 11. Create Spanish translations with natural localization
 12. Create Portuguese (pt-BR) translations with natural localization
 13. Save as markdown files: `{category}_en.md`, `{category}_es.md`, `{category}_pt-BR.md` in `docs/tmp/`
-14. **APPROVAL GATE 3**: Show user the 3 files and wait for approval
+14. **APPROVAL GATE 3**: Once the files are written at the indicated location, I will review the files and approve them, do not need to show the clues in the screen, I will look directly in the files.
 
 ### Phase 4: JSON Integration
 
@@ -275,7 +275,7 @@ python scripts/markdown_to_json.py \
 **Parameters:**
 
 - `--category`: Category name (e.g., "movies", "famous-people")
-- `--id-prefix`: Profile ID prefix (defaults to category lowercase)
+- `--id-prefix`: Profile ID prefix (use the same from already existing profiles)
 - `--markdown-dir`: Location of markdown files (`docs/tmp`)
 - `--json-dir`: Root of data directory (`public/data`)
 - `--start-id`: Starting ID number for new profiles
