@@ -64,10 +64,12 @@ Each profile MUST have:
      - Replace name with Spanish title: "Jaws" → "Tiburón"
      - Translate ALL 20 clues to Spanish (naturally, not word-for-word)
      - Set metadata language to "es"
+     - Use natural sentences not 'word-to-word' translations
    - For Portuguese (pt-BR): Same process with Portuguese translations
      - Replace name with Portuguese title: "Jaws" → "Tubarão"
      - Translate ALL 20 clues to Portuguese
      - Set metadata language to "pt-BR"
+     - Use natural sentences not 'word-to-word' translations
 
 3. **IMPORTANT: Full Localization, Not Lazy Translation**
    - ❌ DO NOT keep English clues in Spanish/Portuguese files
