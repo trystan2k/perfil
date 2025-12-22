@@ -2498,38 +2498,6 @@
       }
     },
     {
-      "id": "profile-geography-083",
-      "category": "Geografía",
-      "name": "Chipre",
-      "clues": [
-        "Isla nación en Mediterráneo",
-        "Nicosia es la capital dividida",
-        "Comunidades griega y turca",
-        "República de Chipre oficial",
-        "Ocupación turca en el norte",
-        "Miembro de la Unión Europea",
-        "Usa el Euro como moneda",
-        "No es miembro de OTAN",
-        "Mayoría grecochipriota",
-        "Minoría turcochipriota",
-        "Intervención militar en 1974",
-        "Zona de amortiguación de ONU",
-        "Disputa sin resolver",
-        "Turismo es industria mayor",
-        "Playas mediterráneas",
-        "Producción de vino tradicional",
-        "Cultivo de aceitunas",
-        "Sitios arqueológicos en Pafos",
-        "Montañas Tróodos",
-        "Ubicación estratégica mediterránea"
-      ],
-      "metadata": {
-        "language": "es",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
       "id": "profile-geography-084",
       "category": "Geografía",
       "name": "Malta",
@@ -2554,38 +2522,6 @@
         "Construcción de piedra caliza",
         "Clima mediterráneo",
         "Puerta de Europa a África"
-      ],
-      "metadata": {
-        "language": "es",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-geography-085",
-      "category": "Geografía",
-      "name": "Líbano",
-      "clues": [
-        "Ubicado en Asia Occidental",
-        "Beirut es la capital",
-        "Idioma árabe oficial",
-        "Fuerte influencia cultural francesa",
-        "Cedar árbol símbolo nacional",
-        "Sistema de gobierno confesional",
-        "Comunidades cristiana y musulmana",
-        "Población sunita chiita y druza",
-        "Historia de ocupación siria",
-        "Conflictos fronterizos israelíes",
-        "Presencia de Hezbollah",
-        "Cristianos maronitas",
-        "Cedros del Líbano bosques",
-        "Cadena del Monte Líbano",
-        "Valle de Bekaa agrícola",
-        "Tiro y Sidón ciudades antiguas",
-        "Destino turístico mediterráneo",
-        "Diversidad cultural histórica",
-        "Crisis económica política",
-        "Reconstrucción post-guerra civil"
       ],
       "metadata": {
         "language": "es",
@@ -2658,38 +2594,6 @@
       }
     },
     {
-      "id": "profile-geography-088",
-      "category": "Geografía",
-      "name": "Israel",
-      "clues": [
-        "Ubicado en Asia Occidental",
-        "Jerusalén capital espiritual",
-        "Tel Aviv metrópolis moderna",
-        "Idioma hebreo oficial",
-        "Mayoría de población judía",
-        "Minorías árabes cristianas musulmanas",
-        "Ocupación palestina disputada",
-        "Territorios Gaza y Cisjordania",
-        "Estado sionista fundado",
-        "Independencia en 1948",
-        "Contexto histórico del Holocausto",
-        "Conflictos y guerras árabe-israelíes",
-        "Muro de seguridad",
-        "Asentamientos controvertidos",
-        "Mar Muerto recursos minerales",
-        "Desierto del Néguev",
-        "Centro de innovación tecnológica",
-        "Agricultura de riego avanzada",
-        "Potencia militar regional",
-        "Importancia geopolítica de Oriente Medio"
-      ],
-      "metadata": {
-        "language": "es",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
       "id": "profile-geography-089",
       "category": "Geografía",
       "name": "Palestina",
@@ -2746,38 +2650,6 @@
         "Árabes de los pantanos cultura única",
         "Importancia geopolítica regional",
         "Economía basada en petróleo"
-      ],
-      "metadata": {
-        "language": "es",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-geography-091",
-      "category": "Geografía",
-      "name": "Arabia Saudita",
-      "clues": [
-        "Ubicado en la Península Arábiga",
-        "Riyadh es la capital",
-        "Idioma árabe oficial",
-        "Reino islámico teocracia",
-        "Casa de Saud familia reinante",
-        "Interpretación wahabí del islam",
-        "Meca ciudad santa del islam",
-        "Medina segunda ciudad sagrada",
-        "Peregrinación del Hajj anual",
-        "Abundancia de reservas de petróleo",
-        "Miembro importante de OPEP",
-        "Monarquía absoluta",
-        "Ley Sharia sistema legal",
-        "Restricciones de derechos de mujeres",
-        "Visión 2030 modernización",
-        "Costa Mar Rojo",
-        "Costa Golfo Pérsico",
-        "Clima desértico extremo",
-        "Influencia wahabí global",
-        "Potencia militar regional"
       ],
       "metadata": {
         "language": "es",
@@ -2974,38 +2846,6 @@
       "metadata": {
         "language": "es",
         "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-geography-098",
-      "category": "Geografía",
-      "name": "Pakistán",
-      "clues": [
-        "República islámica en Asia del Sur",
-        "Islamabad capital planificada",
-        "Karachi ciudad más grande",
-        "Idioma urdu oficial",
-        "Inglés ampliamente hablado",
-        "Mayoría población musulmana",
-        "Valle del río Indo",
-        "Partición de India en 1947",
-        "Disputa de Cachemira",
-        "Provincia Baluchistán",
-        "Montañas Hindu Kush",
-        "K2 segunda montaña más alta",
-        "Punjab provincia corazón",
-        "Sindh provincia sur",
-        "Capacidad nuclear",
-        "Talibán en frontera afgana",
-        "Desafíos de seguridad",
-        "Críquet deporte nacional",
-        "Influencia cultural de Bollywood",
-        "Desafíos de desarrollo económico"
-      ],
-      "metadata": {
-        "language": "es",
-        "difficulty": "easy",
         "source": "geography"
       }
     },

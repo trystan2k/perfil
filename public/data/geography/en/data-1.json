@@ -2498,38 +2498,6 @@
       }
     },
     {
-      "id": "profile-geography-083",
-      "category": "Geography",
-      "name": "Cyprus",
-      "clues": [
-        "Mediterranean island nation",
-        "Nicosia capital divided",
-        "Greek and Turkish communities",
-        "Republic of Cyprus",
-        "Turkish occupation northern",
-        "EU member state",
-        "Eurozone currency user",
-        "NATO not member",
-        "Greek Cypriot majority",
-        "Turkish Cypriot minority",
-        "1974 military intervention",
-        "UN buffer zone",
-        "Cyprus dispute unresolved",
-        "Tourism major industry",
-        "Mediterranean beaches",
-        "Wine production tradition",
-        "Olive oil agriculture",
-        "Paphos archaeological sites",
-        "Troodos mountains",
-        "Strategic Mediterranean location"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
       "id": "profile-geography-084",
       "category": "Geography",
       "name": "Malta",
@@ -2554,38 +2522,6 @@
         "Limestone construction",
         "Mediterranean climate",
         "European gateway Africa"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-geography-085",
-      "category": "Geography",
-      "name": "Lebanon",
-      "clues": [
-        "Western Asia Mediterranean coast",
-        "Beirut capital largest",
-        "Arabic official language",
-        "French cultural influence",
-        "Cedar tree national symbol",
-        "Confessional government system",
-        "Christian and Muslim communities",
-        "Sunni Shia Druze populations",
-        "Syrian occupation history",
-        "Israeli conflicts border",
-        "Hezbollah militant organization",
-        "Maronite Christians",
-        "Cedars of Lebanon forests",
-        "Mount Lebanon range",
-        "Bekaa Valley agricultural",
-        "Tyre Sidon ancient cities",
-        "Mediterranean tourist destination",
-        "Cultural diversity historical",
-        "Economic political crisis",
-        "Reconstruction post-civil war"
       ],
       "metadata": {
         "language": "en",
@@ -2658,38 +2594,6 @@
       }
     },
     {
-      "id": "profile-geography-088",
-      "category": "Geography",
-      "name": "Israel",
-      "clues": [
-        "Western Asia Mediterranean coast",
-        "Jerusalem spiritual capital",
-        "Tel Aviv modern metropolis",
-        "Hebrew official language",
-        "Jewish majority population",
-        "Arab Christian Muslim minorities",
-        "Palestinian dispute occupation",
-        "Gaza West Bank territories",
-        "Zionist state founding",
-        "1948 independence declared",
-        "Holocaust historical context",
-        "Arab-Israeli conflicts wars",
-        "Security wall barrier",
-        "Settlements controversial expansion",
-        "Dead Sea mineral resources",
-        "Negev Desert southern",
-        "Technology innovation hub",
-        "Agricultural irrigation advanced",
-        "Military regional power",
-        "Geopolitical Middle East significance"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
       "id": "profile-geography-089",
       "category": "Geography",
       "name": "Palestine",
@@ -2746,38 +2650,6 @@
         "Marsh Arabs unique culture",
         "Geopolitical regional importance",
         "Economic oil-dependent"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-geography-091",
-      "category": "Geography",
-      "name": "Saudi Arabia",
-      "clues": [
-        "Western Asia Arabian Peninsula",
-        "Riyadh capital largest",
-        "Arabic official language",
-        "Islamic kingdom theocratic",
-        "House of Saud ruling family",
-        "Wahhabi Islam interpretation",
-        "Mecca holiest Islamic city",
-        "Medina second holiest city",
-        "Hajj pilgrimage annual",
-        "Oil abundance wealth reserves",
-        "OPEC major member",
-        "Absolute monarchy governance",
-        "Sharia Islamic law",
-        "Women rights restrictions",
-        "Vision 2030 modernization",
-        "Red Sea western coast",
-        "Persian Gulf eastern coast",
-        "Desert climate harsh",
-        "Wahhabism export influence",
-        "Regional military power"
       ],
       "metadata": {
         "language": "en",
@@ -2974,38 +2846,6 @@
       "metadata": {
         "language": "en",
         "difficulty": "medium",
-        "source": "geography"
-      }
-    },
-    {
-      "id": "profile-geography-098",
-      "category": "Geography",
-      "name": "Pakistan",
-      "clues": [
-        "South Asia Islamic republic",
-        "Islamabad capital planned",
-        "Karachi largest city",
-        "Urdu official language",
-        "English widely spoken",
-        "Muslim majority population",
-        "Indus River valley",
-        "Partitioned India 1947",
-        "Kashmir dispute India",
-        "Balochistan province southwestern",
-        "Hindu Kush mountains northwestern",
-        "K2 second highest peak",
-        "Punjab heart province",
-        "Sindh southern province",
-        "Nuclear weapons capability",
-        "Taliban Afghan border",
-        "Terrorism security challenges",
-        "Cricket national sport",
-        "Bollywood cultural influence",
-        "Economic development challenges"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "easy",
         "source": "geography"
       }
     },

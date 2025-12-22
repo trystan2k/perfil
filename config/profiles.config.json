@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2025-12-14",
+  "lastUpdated": "2025-12-22",
   "description": "Central profile inventory - lists all existing profiles by name to prevent duplicates. Use this to check what profiles already exist before creating new ones.",
   "supportedLanguages": [
     "en",
@@ -459,7 +459,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Slow Loris",
+          "name": "Durian",
           "availableIn": [
             "en",
             "es",
@@ -946,7 +946,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "medium"
+          "difficulty": "easy"
         },
         {
           "name": "Brazil",
@@ -955,7 +955,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "medium"
+          "difficulty": "easy"
         },
         {
           "name": "Egypt",
@@ -1010,6 +1010,15 @@
             "pt-BR"
           ],
           "difficulty": "easy"
+        },
+        {
+          "name": "Germany",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
         },
         {
           "name": "Mexico",
@@ -1075,34 +1084,7 @@
           "difficulty": "easy"
         },
         {
-          "name": "Germany",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
           "name": "Spain",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "India",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Mexico",
           "availableIn": [
             "en",
             "es",
@@ -1145,15 +1127,6 @@
             "pt-BR"
           ],
           "difficulty": "hard"
-        },
-        {
-          "name": "Egypt",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
         },
         {
           "name": "Indonesia",
@@ -1669,25 +1642,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Cyprus",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
           "name": "Malta",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Lebanon",
           "availableIn": [
             "en",
             "es",
@@ -1714,15 +1669,6 @@
           "difficulty": "medium"
         },
         {
-          "name": "Israel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
           "name": "Palestine",
           "availableIn": [
             "en",
@@ -1733,15 +1679,6 @@
         },
         {
           "name": "Iraq",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Saudi Arabia",
           "availableIn": [
             "en",
             "es",
@@ -1802,15 +1739,6 @@
             "pt-BR"
           ],
           "difficulty": "medium"
-        },
-        {
-          "name": "Pakistan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
         },
         {
           "name": "Afghanistan",
@@ -1893,7 +1821,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
+          "difficulty": "easy"
         },
         {
           "name": "Marie Curie",
@@ -2352,7 +2280,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
+          "difficulty": "medium"
         },
         {
           "name": "Genghis Khan",
@@ -2370,7 +2298,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
+          "difficulty": "medium"
         },
         {
           "name": "Alexander Hamilton",
@@ -2388,7 +2316,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
+          "difficulty": "medium"
         },
         {
           "name": "Maya Angelou",
@@ -2604,7 +2532,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
+          "difficulty": "medium"
         },
         {
           "name": "Dorothy Hodgkin",
@@ -2640,7 +2568,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
+          "difficulty": "medium"
         },
         {
           "name": "Simone de Beauvoir",
@@ -2685,7 +2613,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
+          "difficulty": "medium"
         },
         {
           "name": "Harriet Beecher Stowe",
@@ -2789,43 +2717,7 @@
       "description": "Movies profiles can have clues about their plot, characters, actors, director, release date, genre, and other important aspects. It does not necessarily need to be a movie, but could be a character in a movie or a famous director.",
       "profiles": [
         {
-          "name": "2001: A Space Odyssey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Alien",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "American Beauty",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Avatar",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Back to the Future",
+          "name": "The Matrix",
           "availableIn": [
             "en",
             "es",
@@ -2834,7 +2726,7 @@
           "difficulty": "medium"
         },
         {
-          "name": "Blade Runner",
+          "name": "Inception",
           "availableIn": [
             "en",
             "es",
@@ -2843,52 +2735,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Casablanca",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Citizen Kane",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Die Hard",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "E.T. the Extra-Terrestrial",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Fight Club",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Finding Nemo",
+          "name": "Star Wars",
           "availableIn": [
             "en",
             "es",
@@ -2897,7 +2744,34 @@
           "difficulty": "easy"
         },
         {
-          "name": "Forrest Gump",
+          "name": "Titanic",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Godfather",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Avatar",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Jurassic Park",
           "availableIn": [
             "en",
             "es",
@@ -2915,6 +2789,105 @@
           "difficulty": "easy"
         },
         {
+          "name": "The Dark Knight",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Avengers",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Finding Nemo",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Parasite",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Shawshank Redemption",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Pulp Fiction",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Lord of the Rings: The Fellowship of the Ring",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Forrest Gump",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Silence of the Lambs",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Back to the Future",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Lion King",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "easy"
+        },
+        {
           "name": "Gladiator",
           "availableIn": [
             "en",
@@ -2924,7 +2897,16 @@
           "difficulty": "medium"
         },
         {
-          "name": "Goodfellas",
+          "name": "The Terminator",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Casablanca",
           "availableIn": [
             "en",
             "es",
@@ -2933,7 +2915,70 @@
           "difficulty": "hard"
         },
         {
-          "name": "Inception",
+          "name": "The Wizard of Oz",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Fight Club",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "E.T. the Extra-Terrestrial",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "name": "The Sound of Music",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Alien",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Spirited Away",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Die Hard",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Grand Budapest Hotel",
           "availableIn": [
             "en",
             "es",
@@ -2951,7 +2996,97 @@
           "difficulty": "medium"
         },
         {
-          "name": "Jurassic Park",
+          "name": "Goodfellas",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Schindler's List",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Saving Private Ryan",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Princess Bride",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Blade Runner",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Singin' in the Rain",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "American Beauty",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Green Mile",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Requiem for a Dream",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Sixth Sense",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Truman Show",
           "availableIn": [
             "en",
             "es",
@@ -2978,7 +3113,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Oppenheimer",
+          "name": "The Shining",
           "availableIn": [
             "en",
             "es",
@@ -2987,7 +3122,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Parasite",
+          "name": "The Breakfast Club",
           "availableIn": [
             "en",
             "es",
@@ -3005,16 +3140,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Pulp Fiction",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Requiem for a Dream",
+          "name": "Citizen Kane",
           "availableIn": [
             "en",
             "es",
@@ -3023,7 +3149,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Saving Private Ryan",
+          "name": "2001: A Space Odyssey",
           "availableIn": [
             "en",
             "es",
@@ -3032,7 +3158,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Schindler's List",
+          "name": "Oppenheimer",
           "availableIn": [
             "en",
             "es",
@@ -3041,7 +3167,52 @@
           "difficulty": "hard"
         },
         {
-          "name": "Singin' in the Rain",
+          "name": "The Shawshank Redemption 2: Tales from Prison",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Interstellar",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Matrix Resurrections",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Avengers: Endgame",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Dune",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Doctor Strange",
           "availableIn": [
             "en",
             "es",
@@ -3050,7 +3221,7 @@
           "difficulty": "medium"
         },
         {
-          "name": "Spirited Away",
+          "name": "Eternals",
           "availableIn": [
             "en",
             "es",
@@ -3059,7 +3230,7 @@
           "difficulty": "medium"
         },
         {
-          "name": "Star Wars",
+          "name": "The Suicide Squad",
           "availableIn": [
             "en",
             "es",
@@ -3068,7 +3239,34 @@
           "difficulty": "medium"
         },
         {
-          "name": "The Avengers",
+          "name": "Everything Everywhere All at Once",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Avatar: The Way of Water",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Top Gun: Maverick",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Barbie",
           "availableIn": [
             "en",
             "es",
@@ -3077,16 +3275,7 @@
           "difficulty": "easy"
         },
         {
-          "name": "The Breakfast Club",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Dark Knight",
+          "name": "The Last Duel",
           "availableIn": [
             "en",
             "es",
@@ -3095,79 +3284,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "The Godfather",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Grand Budapest Hotel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Green Mile",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Lion King",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Lord of the Rings: The Fellowship of the Ring",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Matrix",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Princess Bride",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Shawshank Redemption",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Shining",
+          "name": "Once Upon a Time in Hollywood",
           "availableIn": [
             "en",
             "es",
@@ -3176,7 +3293,16 @@
           "difficulty": "hard"
         },
         {
-          "name": "The Silence of the Lambs",
+          "name": "Knives Out",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Shape of Water",
           "availableIn": [
             "en",
             "es",
@@ -3185,7 +3311,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "The Sixth Sense",
+          "name": "Arrival",
           "availableIn": [
             "en",
             "es",
@@ -3194,7 +3320,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "The Sound of Music",
+          "name": "La La Land",
           "availableIn": [
             "en",
             "es",
@@ -3203,7 +3329,7 @@
           "difficulty": "medium"
         },
         {
-          "name": "The Terminator",
+          "name": "Call Me By Your Name",
           "availableIn": [
             "en",
             "es",
@@ -3212,7 +3338,25 @@
           "difficulty": "medium"
         },
         {
-          "name": "The Truman Show",
+          "name": "Moonlight",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Manchester by the Sea",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Get Out",
           "availableIn": [
             "en",
             "es",
@@ -3221,7 +3365,34 @@
           "difficulty": "medium"
         },
         {
-          "name": "The Wizard of Oz",
+          "name": "Hereditary",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Midsommar",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Uncut Gems",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Taxi Driver",
           "availableIn": [
             "en",
             "es",
@@ -3230,7 +3401,214 @@
           "difficulty": "medium"
         },
         {
-          "name": "Titanic",
+          "name": "Vertigo",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Apocalypse Now",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "A Clockwork Orange",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Rear Window",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Godfather Part II",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "One Flew Over the Cuckoo's Nest",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Sunset Boulevard",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Exorcist",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Rocky",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Network",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Barry Lyndon",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "In the Mood for Love",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Stalker",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Pan's Labyrinth",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Amélie",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Donnie Darko",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Kill Bill: Vol. 1",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Seventh Seal",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Bicycle Thieves",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "8½",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Tokyo Story",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Nosferatu",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Blade Runner 2049",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Lighthouse",
           "availableIn": [
             "en",
             "es",
@@ -3373,10 +3751,10 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "medium"
+          "difficulty": "hard"
         },
         {
-          "name": "Cycling",
+          "name": "Rugby",
           "availableIn": [
             "en",
             "es",
@@ -3394,7 +3772,7 @@
           "difficulty": "medium"
         },
         {
-          "name": "Surfing",
+          "name": "Cycling",
           "availableIn": [
             "en",
             "es",
@@ -3412,22 +3790,13 @@
           "difficulty": "medium"
         },
         {
-          "name": "Martial Arts",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
           "name": "Badminton",
           "availableIn": [
             "en",
             "es",
             "pt-BR"
           ],
-          "difficulty": "medium"
+          "difficulty": "easy"
         },
         {
           "name": "Table Tennis",
@@ -3436,7 +3805,25 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "medium"
+          "difficulty": "easy"
+        },
+        {
+          "name": "Martial Arts",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Sailing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
         },
         {
           "name": "Archery",
@@ -3445,7 +3832,7 @@
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
+          "difficulty": "medium"
         },
         {
           "name": "Fencing",
@@ -3466,43 +3853,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Rowing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Sailing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
           "name": "Rock Climbing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Esports",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Parkour",
           "availableIn": [
             "en",
             "es",
@@ -3518,6 +3869,15 @@
             "pt-BR"
           ],
           "difficulty": "easy"
+        },
+        {
+          "name": "Surfing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
         },
         {
           "name": "Darts",
@@ -3846,7 +4206,16 @@
           "difficulty": "hard"
         },
         {
-          "name": "5G Networks",
+          "name": "Social Media",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "name": "Electric Vehicle",
           "availableIn": [
             "en",
             "es",
@@ -3855,103 +4224,13 @@
           "difficulty": "medium"
         },
         {
-          "name": "Machine Learning",
+          "name": "Video Games",
           "availableIn": [
             "en",
             "es",
             "pt-BR"
           ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Augmented Reality",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Quantum Computing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Internet of Things",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Cryptocurrency",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Electric Vehicles",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Renewable Energy",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Gene Editing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Space Exploration",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Robotics",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Big Data",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
+          "difficulty": "easy"
         },
         {
           "name": "Cybersecurity",
@@ -3963,7 +4242,7 @@
           "difficulty": "hard"
         },
         {
-          "name": "Smart Home",
+          "name": "Streaming Services",
           "availableIn": [
             "en",
             "es",
@@ -3981,6 +4260,69 @@
           "difficulty": "medium"
         },
         {
+          "name": "5G Networks",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Cryptocurrency",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Smart Home",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Augmented Reality",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Renewable Energy",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Space Technology",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Gene Editing",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
           "name": "Autonomous Vehicles",
           "availableIn": [
             "en",
@@ -3988,6 +4330,33 @@
             "pt-BR"
           ],
           "difficulty": "hard"
+        },
+        {
+          "name": "Quantum Communication",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Brain-Computer Interface",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "Digital Twins",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
         },
         {
           "name": "Machine Learning",
@@ -4460,6 +4829,51 @@
           "difficulty": "hard"
         },
         {
+          "name": "The Great Depression",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Holocaust",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "name": "The Cold War",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The American Revolution",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "The Vienna Congress",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "hard"
+        },
+        {
           "name": "The Ancient Greek Civilization",
           "availableIn": [
             "en",
@@ -4578,51 +4992,6 @@
         },
         {
           "name": "The Scientific Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The American Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Congress of Vienna",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Great Depression",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Holocaust",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Cold War",
           "availableIn": [
             "en",
             "es",
@@ -5283,7 +5652,7 @@
           "difficulty": "easy"
         },
         {
-          "name": "The Rolling Stones Afterwards",
+          "name": "The Rolling Stones Aftermath",
           "availableIn": [
             "en",
             "es",

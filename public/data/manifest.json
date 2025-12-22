@@ -30,17 +30,17 @@
         "en": {
           "name": "Geography",
           "files": ["data-1.json"],
-          "profileAmount": 100
+          "profileAmount": 95
         },
         "es": {
           "name": "Geografía",
           "files": ["data-1.json"],
-          "profileAmount": 100
+          "profileAmount": 95
         },
         "pt-BR": {
           "name": "Geografia",
           "files": ["data-1.json"],
-          "profileAmount": 100
+          "profileAmount": 95
         }
       }
     },
@@ -51,17 +51,17 @@
         "en": {
           "name": "Movies",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         },
         "es": {
           "name": "Películas",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         },
         "pt-BR": {
           "name": "Filmes",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         }
       }
     },
@@ -177,17 +177,17 @@
         "en": {
           "name": "Literature",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 46
         },
         "es": {
           "name": "Literatura",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 46
         },
         "pt-BR": {
           "name": "Literatura",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 46
         }
       }
     },
@@ -198,17 +198,17 @@
         "en": {
           "name": "Music",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 45
         },
         "es": {
           "name": "Musica",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 45
         },
         "pt-BR": {
           "name": "Música",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 45
         }
       }
     }

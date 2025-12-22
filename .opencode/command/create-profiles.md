@@ -1,217 +1,617 @@
 ---
-description: Create new profiles for the Perfil project.
+description: Create new profiles for the Perfil project using markdown-first workflow.
 agent: build
 ---
 
-## WORKFLOW
+## 🔄 WORKFLOW OVERVIEW
 
-1. **Ask**: How many profiles does the user want? Create ONLY that number.
-2. **Prepare**: Read `@config/profiles.config.json` (categories, languages, existing profiles) and `@config/profiles.schema.json` (structure).
-3. **Create ENGLISH FIRST**: Generate profiles in English (EN) following rules below. This is the source of truth.
-4. **LOCALIZE**: For each English profile, create localized versions (ES, pt-BR) by:
-   - Translating the movie/book/person name to the target language (use official localized titles)
-   - Translating ALL 20 clues to the target language
-   - Keeping the same structure, difficulty, IDs, and metadata (only changing language and names)
-5. **Update**: Modify `profiles.config.json` and `public/data/manifest.json`.
-6. **Validate**: Check for JSON errors and exact rule compliance.
+This command follows a **markdown-first approach** with multiple approval gates to ensure quality and avoid duplicates.
 
-## PROFILE STRUCTURE
+### Phase 1: Profile Names Generation (English Only)
 
-Each profile MUST have:
-- **id**: Format `profile-{category}-{number}` (e.g., `profile-animal-001`)
-- **name**: Profile name (in target language)
-- **category**: From profiles.config.json
-- **clues**: Exactly 20 clues (no more, no less), hard→easy progression (5 hard, 5 medium, 10 easy)
-- **metadata**: 
-  - `language`: en, es, or pt-BR
-  - `difficulty`: easy, medium, or hard
-  - `source`: Wikipedia, IMDb, Fandom, etc.
+1. Ask user for category and number of profiles
+2. Read existing profiles from data JSON files to check for duplicates
+3. Generate N profile names in ENGLISH only (no clues yet)
+4. Check for duplicates against existing profiles
+5. If duplicates found: remove and replace with new unique profiles
+6. **APPROVAL GATE 1**: Show list to user and wait for approval
 
-## DATA SOURCES
+### Phase 2: Clues Generation (English Only)
 
-- Wikipedia
-- IMDb, Rotten Tomatoes
-- Fandom wikis (e.g., https://starwars.fandom.com/)
-- Celebrity wikis
-- Other relevant sources
+7. For each approved profile name, generate 20 clues in English
+8. Clues must be natural, concise, comprehensive phrases (not just words)
+9. Follow difficulty progression: 5 hard → 5 medium → 10 easy
+10. **APPROVAL GATE 2**: Show all profiles with clues and wait for approval
 
-## CATEGORY GUIDANCE
+### Phase 3: Translations (Spanish & Portuguese)
 
-- **Animals**: Real, fictional, mythical creatures; habitats (avoid obvious clues)
-- **Brands**: Origin, products, facts (avoid obvious clues)
-- **Famous People**: Historical and contemporary personalities (avoid obvious clues)
-- **Geography**: Countries, cities, capitals, languages, currencies, tourism (avoid obvious clues)
-- **History**: Events, people, places (avoid obvious clues)
-- **Literature**: Books, authors, characters (avoid obvious clues)
-- **Movies**: Films, actors, characters, directors (avoid obvious clues)
-- **Music**: Artists, albums, songs, events (avoid obvious clues)
-- **Sports**: Teams, players, events (e.g., World Cup)
-- **Technology**: Tech, companies, products, fictional tech (e.g., iPhone 14, Star Trek) (avoid obvious clues)
+11. Create Spanish translations with natural localization
+12. Create Portuguese (pt-BR) translations with natural localization
+13. Save as markdown files: `{category}_en.md`, `{category}_es.md`, `{category}_pt-BR.md` in `docs/tmp/`
+14. **APPROVAL GATE 3**: Show user the 3 files and wait for approval
 
-## MULTILINGUAL PROFILE CREATION (CRITICAL)
+### Phase 4: JSON Integration
 
-### ⚡ Key Principle: ENGLISH-FIRST APPROACH
+15. Use `@scripts/markdown_to_json.py` to convert markdown to JSON
+16. Update data JSON files for all languages (en, es, pt-BR)
+17. Update `public/data/manifest.json` with new profile counts
+18. Update `config/profiles.config.json` with new profile entries
+19. Validate all JSON files are correct and valid
+20. **FINAL VERIFICATION**: Report completion with file counts
 
-**ALWAYS follow this process:**
+---
 
-1. **CREATE IN ENGLISH FIRST**
-   - Generate all new profiles in English (EN) with English names and English clues
-   - This is the source of truth for the profile structure
-   - Example: Profile 31 = "Jaws" with 20 English clues
+## 📋 PHASE 1: PROFILE NAMES GENERATION
 
-2. **THEN LOCALIZE TO OTHER LANGUAGES**
-   - For Spanish (ES): Take the English profile and:
-     - Replace name with Spanish title: "Jaws" → "Tiburón"
-     - Translate ALL 20 clues to Spanish (naturally, not word-for-word)
-     - Set metadata language to "es"
-     - Use natural sentences not 'word-to-word' translations
-   - For Portuguese (pt-BR): Same process with Portuguese translations
-     - Replace name with Portuguese title: "Jaws" → "Tubarão"
-     - Translate ALL 20 clues to Portuguese
-     - Set metadata language to "pt-BR"
-     - Use natural sentences not 'word-to-word' translations
-
-3. **IMPORTANT: Full Localization, Not Lazy Translation**
-   - ❌ DO NOT keep English clues in Spanish/Portuguese files
-   - ✅ DO translate ALL 20 clues to each target language
-   - ✅ Use official/authentic titles (e.g., "Tiburón" for Jaws in Spanish, not "Jaws")
-   - ✅ Maintain difficulty progression in translated clues
-   - ✅ Keep natural language, not literal translations
-
-### Example Structure
+### Step 1.1: Read Configuration
 
 ```
-English Profile 31:
-  id: profile-movie-031
-  name: "Jaws"
-  clues: ["1975 thriller adventure film", "Directed by Steven Spielberg", ...]
-  metadata: { language: "en", difficulty: "medium" }
-
-Spanish Profile 31 (SAME ID):
-  id: profile-movie-031
-  name: "Tiburón"  ← Localized name
-  clues: ["Película de thriller de 1975", "Dirigida por Steven Spielberg", ...]  ← All translated
-  metadata: { language: "es", difficulty: "medium" }
-
-Portuguese Profile 31 (SAME ID):
-  id: profile-movie-031
-  name: "Tubarão"  ← Localized name
-  clues: ["Filme de thriller de 1975", "Dirigido por Steven Spielberg", ...]  ← All translated
-  metadata: { language: "pt-BR", difficulty: "medium" }
+Read: config/profiles.config.json
+Read: config/profiles.schema.json
+Read: public/data/{category}/{lang}/data-*.json (all files for the category)
 ```
 
-## CORE RULES (NON-NEGOTIABLE)
+### Step 1.2: Extract Existing Profile Names
 
-- ❌ **NEVER** create duplicate profiles (check profiles.config.json)
-- ❌ **NEVER** create more profiles than requested
-- ❌ **NEVER** remove/modify existing profiles
-- ❌ **NEVER** include profile name in clues
-- ❌ **NEVER** escape text (keep accented characters)
-- ❌ **NEVER** create extra files (documentation, scripts, etc.)
-- ❌ **NEVER** leave English clues in Spanish/Portuguese files (ALWAYS translate)
-- ❌ **NEVER** use English profile names in Spanish/Portuguese files (use localized titles)
-- ✅ **DO** create exactly 20 clues per profile
-- ✅ **DO** arrange clues: hard (5) → medium (5) → easy (10)
-- ✅ **DO** use correct language in names, categories, clues
-- ✅ **DO** create same profile structure for all languages (EN → ES → pt-BR)
-- ✅ **DO** translate ALL clues, not just the name
-- ✅ **DO** use official localized movie/book/person names
-- ✅ **DO** balance difficulty levels and categories
-- ✅ **MUST DO** use Serena MCP to write files (token efficiency)
+- Parse all JSON files for the requested category
+- Extract all existing profile names (for duplicate checking)
+- Note: Check across ALL languages to catch variations
 
-## FILE MANAGEMENT
+### Step 1.3: Generate Profile Names (English)
 
-- **Max 100 profiles per data file**: If exceeded, create new file (data-1.json, data-2.json, etc.). The source of truth of the number of profiles in a file is the amount of entries in the data-json file (not the id number as some categories does not follow the numbering, so read the amount of entries in the file to know the number of profiles in that file).
-- **Only create new files if current file has 100+ profiles**
-- **Update `public/data/manifest.json`**: Add new files and update `profileAmount` for each category/language
-- **Files location**: `public/data/{category}/{language}/data-{number}.json`
-- **No other files**: Only JSON profile files in public/data
+- Generate exactly N profile names (user requested amount)
+- Names should be in ENGLISH only
+- Follow category guidance (see below)
+- Ensure diversity and quality
 
-## ⚠️ COMMON MISTAKES TO AVOID
+### Step 1.4: Duplicate Check
 
-### ❌ Mistake 1: English Clues in Spanish/Portuguese Files
-**WRONG**: Copy English profiles to ES/pt-BR without translating clues
-```json
-// ❌ WRONG - Spanish file with English clues
-{
-  "id": "profile-movie-031",
-  "name": "Tiburón",
-  "clues": ["1975 thriller adventure film", ...],  // English clues!
-  "metadata": { "language": "es" }
-}
+```python
+# Pseudo-code for duplicate checking
+existing_names = get_all_existing_profile_names(category)
+new_names = generate_profile_names(count=N)
+
+duplicates = []
+for name in new_names:
+    if name.lower() in [e.lower() for e in existing_names]:
+        duplicates.append(name)
+
+if duplicates:
+    # Remove duplicates and generate replacements
+    new_names = remove_and_replace(new_names, duplicates)
 ```
 
-**CORRECT**: Translate all clues
-```json
-// ✅ CORRECT - Spanish file with Spanish clues
-{
-  "id": "profile-movie-031",
-  "name": "Tiburón",
-  "clues": ["Película de thriller de 1975", "Dirigida por Steven Spielberg", ...],  // Spanish!
-  "metadata": { "language": "es" }
-}
+### Step 1.5: Present to User (APPROVAL GATE 1)
+
+**Format:**
+
+```
+Generated {N} new {category} profiles:
+
+1. Profile Name 1
+2. Profile Name 2
+3. Profile Name 3
+...
+N. Profile Name N
+
+✓ No duplicates found (checked against {X} existing profiles)
+
+Do you approve these profile names? (yes/no)
 ```
 
-### ❌ Mistake 2: Using English Names in Localized Files
-**WRONG**: 
-```json
-{ "name": "Jaws" }  // In Spanish file - should be localized!
+**Wait for user response before proceeding.**
+
+---
+
+## 📝 PHASE 2: CLUES GENERATION
+
+### Step 2.1: Generate 20 Clues per Profile (English Only)
+
+For each approved profile name:
+
+- Research the profile topic thoroughly
+- Create exactly 20 clues following this structure:
+  - **Clues 1-5**: Hard (obscure facts, technical details, less known information)
+  - **Clues 6-10**: Medium (moderately known facts, specific details)
+  - **Clues 11-20**: Easy (well-known facts, obvious characteristics)
+
+### Step 2.2: Clue Quality Requirements
+
+✅ **DO:**
+
+- Write natural, complete sentences or phrases
+- Make clues comprehensible and informative
+- Include varied information (dates, people, events, characteristics)
+- Progress from hard to easy difficulty
+- Avoid profile name in clues
+
+❌ **DON'T:**
+
+- Use just words without context
+- Create word salads or fragments
+- Include obvious giveaways in early clues
+- Repeat information across clues
+- Use profile name directly
+
+### Step 2.3: Format as Markdown
+
+Create temporary markdown content:
+
+```markdown
+1. Profile Name 1
+- Clue 1 for profile 1
+- Clue 2 for profile 1
+...
+- Clue 20 for profile 1
+
+2. Profile Name 2
+- Clue 1 for profile 2
+...
 ```
 
-**CORRECT**:
-```json
-{ "name": "Tiburón" }  // Spanish file
-{ "name": "Tubarão" }  // Portuguese file
+### Step 2.4: Present to User (APPROVAL GATE 2)
+
+**Format:**
+
+```
+Generated 20 clues for each of the {N} profiles.
+
+Sample (first 3 profiles):
+
+1. Profile Name 1
+   - [Hard] Clue 1
+   - [Hard] Clue 2
+   ...
+   - [Easy] Clue 20
+
+2. Profile Name 2
+   ...
+
+[Show first 3 profiles in detail, mention rest are ready]
+
+Do you approve these clues? (yes/no)
 ```
 
-### ❌ Mistake 3: Creating Extra Profiles by Mistake
-**WRONG**: Creating 30 profiles when user asked for 20
-- Always count profiles in the file AFTER adding, not by ID numbers
-- Some categories don't have sequential IDs
+**Wait for user response before proceeding.**
 
-**CORRECT**: Count actual entries in data files:
+---
+
+## 🌍 PHASE 3: TRANSLATIONS
+
+### Step 3.1: Create Spanish Translations
+
+For each English profile:
+
+1. Translate profile name to Spanish (use official title if applicable)
+2. Translate ALL 20 clues to natural Spanish
+3. Maintain difficulty progression
+4. Use natural phrases, not word-for-word translation
+
+**Example:**
+
+```
+English: "The Matrix" with "Released in 1999"
+Spanish: "Matrix" with "Estrenada en 1999"
+```
+
+### Step 3.2: Create Portuguese (pt-BR) Translations
+
+Same process as Spanish:
+
+1. Translate profile name to Brazilian Portuguese
+2. Translate ALL 20 clues to natural Portuguese
+3. Maintain difficulty progression
+4. Use natural Brazilian Portuguese phrases
+
+### Step 3.3: Save Markdown Files
+
+Create 3 files in `docs/tmp/`:
+
+- `{category}_en.md` - English profiles with clues
+- `{category}_es.md` - Spanish profiles with clues  
+- `{category}_pt-BR.md` - Portuguese profiles with clues
+
+**File Format:**
+
+```markdown
+1. Profile Name
+- Clue 1
+- Clue 2
+...
+- Clue 20
+
+2. Next Profile Name
+...
+```
+
+### Step 3.4: Present to User (APPROVAL GATE 3)
+
+**Format:**
+
+```
+Created 3 markdown files with translations:
+
+✓ docs/tmp/{category}_en.md ({N} profiles, 549 lines)
+✓ docs/tmp/{category}_es.md ({N} profiles, 549 lines)
+✓ docs/tmp/{category}_pt-BR.md ({N} profiles, 549 lines)
+
+All translations completed with natural localization.
+
+Do you approve these translations? (yes/no)
+```
+
+**Wait for user response before proceeding.**
+
+---
+
+## 🔧 PHASE 4: JSON INTEGRATION
+
+### Step 4.1: Determine Starting ID
+
+Read current data JSON files to determine next available ID:
+
+```python
+# Get current profile count
+en_data = read_json(f"public/data/{category}/en/data-1.json")
+current_count = len(en_data['profiles'])
+start_id = current_count + 1
+
+# For movies with 100 profiles, start_id would be 101
+```
+
+### Step 4.2: Run markdown_to_json.py Script
+
+Execute the Python script to convert markdown files to JSON:
+
 ```bash
-jq '.profiles | length' public/data/movies/en/data-1.json
+python scripts/markdown_to_json.py \
+    --category {category} \
+    --id-prefix {id_prefix} \
+    --markdown-dir docs/tmp \
+    --json-dir public/data \
+    --start-id {start_id} \
+    --languages en es pt-BR \
+    --manifest public/data/manifest.json
 ```
 
-### ❌ Mistake 4: Not Updating Manifest for All Languages
-**WRONG**: Only updating manifest for English
+**Parameters:**
+
+- `--category`: Category name (e.g., "movies", "famous-people")
+- `--id-prefix`: Profile ID prefix (defaults to category lowercase)
+- `--markdown-dir`: Location of markdown files (`docs/tmp`)
+- `--json-dir`: Root of data directory (`public/data`)
+- `--start-id`: Starting ID number for new profiles
+- `--languages`: Languages to process (`en es pt-BR`)
+- `--manifest`: Path to manifest.json for automatic updates
+
+### Step 4.3: Update profiles.config.json
+
+Add new profile entries:
+
 ```json
-// ❌ WRONG - Only EN updated
 {
-  "en": { "profileAmount": 50 },
-  "es": { "profileAmount": 30 },  // Not updated!
-  "pt-BR": { "profileAmount": 30 }  // Not updated!
+  "{category}": [
+    "Profile Name 1",
+    "Profile Name 2",
+    ...
+  ]
 }
 ```
 
-**CORRECT**: Update for all languages
-```json
-// ✅ CORRECT - All languages updated
-{
-  "en": { "profileAmount": 50 },
-  "es": { "profileAmount": 50 },  // Updated
-  "pt-BR": { "profileAmount": 50 }  // Updated
-}
+### Step 4.4: Validate JSON Files
+
+Check all modified JSON files:
+
+```bash
+python3 -m json.tool public/data/{category}/en/data-1.json > /dev/null
+python3 -m json.tool public/data/{category}/es/data-1.json > /dev/null
+python3 -m json.tool public/data/{category}/pt-BR/data-1.json > /dev/null
+python3 -m json.tool public/data/manifest.json > /dev/null
+python3 -m json.tool config/profiles.config.json > /dev/null
 ```
 
-## BATCH PROCESSING
+All must return valid JSON.
 
-If profile count is high (e.g., 500+), split into batches of 100 each for efficiency.
+### Step 4.5: Verify Profile Counts
 
-## VALIDATION CHECKLIST
+```python
+# Verify counts match across all files
+en_count = len(read_json("public/data/{category}/en/data-1.json")['profiles'])
+es_count = len(read_json("public/data/{category}/es/data-1.json")['profiles'])
+pt_count = len(read_json("public/data/{category}/pt-BR/data-1.json")['profiles'])
 
-- [ ] No duplicate profile names (check profiles.config.json)
+assert en_count == es_count == pt_count, "Profile counts don't match!"
+
+# Verify manifest is updated
+manifest = read_json("public/data/manifest.json")
+manifest_count = manifest['categories'][category]['locales']['en']['profileAmount']
+
+assert manifest_count == en_count, "Manifest count doesn't match actual!"
+```
+
+### Step 4.6: Final Report
+
+**Format:**
+
+```
+✅ Profile Creation Complete!
+
+📊 Summary:
+- Profiles Created: {N} per language
+- Total Profiles Added: {N * 3} (across 3 languages)
+- Category: {category}
+- Starting ID: {start_id}
+- Ending ID: {start_id + N - 1}
+
+📁 Files Modified:
+✓ public/data/{category}/en/data-1.json ({old_count} → {new_count} profiles)
+✓ public/data/{category}/es/data-1.json ({old_count} → {new_count} profiles)
+✓ public/data/{category}/pt-BR/data-1.json ({old_count} → {new_count} profiles)
+✓ public/data/manifest.json (counts updated)
+✓ config/profiles.config.json ({N} entries added)
+
+📝 Markdown Files Created:
+✓ docs/tmp/{category}_en.md
+✓ docs/tmp/{category}_es.md
+✓ docs/tmp/{category}_pt-BR.md
+
+✅ All JSON files validated successfully
+✅ Profile counts verified across all languages
+✅ No duplicates detected
+
+Ready for commit!
+```
+
+---
+
+## 📚 CATEGORY GUIDANCE
+
+### Animals
+
+- Real animals (Lion, Dolphin, Eagle)
+- Fictional creatures (Dragons from specific stories)
+- Mythical creatures (Phoenix, Unicorn)
+- Avoid: Common pets without specificity
+
+### Brands
+
+- Global brands (Apple, Nike, Coca-Cola)
+- Historical brands with interesting stories
+- Tech, fashion, food & beverage brands
+- Avoid: Local-only or very obscure brands
+
+### Famous People
+
+- Historical figures (Albert Einstein, Cleopatra)
+- Contemporary celebrities (actors, musicians, athletes)
+- Political leaders, scientists, artists
+- Avoid: Controversial or offensive figures
+
+### Geography
+
+- Countries (France, Japan, Brazil)
+- Capital cities (Paris, Tokyo, Brasília)
+- Landmarks (Eiffel Tower, Great Wall)
+- Historical landmarks (Statue of Liberty, Sydney Opera House)
+- Natural wonders (Great Barrier Reef, Mount Everest)
+- Cultural landmarks (Colosseum, Notre-Dame Cathedral)
+- Geographic features (rivers, oceans, continents, mountains, valleys) - most famous ones
+- Avoid: Tiny villages or disputed territories
+
+### History
+
+- Major historical events (World War II, Moon Landing)
+- Ancient civilizations (Roman Empire, Egypt)
+- Historical periods (Renaissance, Industrial Revolution)
+- Historical people (Charles Darwin, Marie Curie)
+
+### Literature
+
+- Classic books (1984, Pride and Prejudice)
+- Famous authors (Shakespeare, Tolkien)
+- Literary characters (Sherlock Holmes, Harry Potter)
+- Avoid: Self-published or very niche books
+- Famous quotes (from literature)
+
+### Movies
+
+- Classic films (The Godfather, Casablanca)
+- Modern blockbusters (Avatar, Inception)
+- Award winners (Oscar, Cannes)
+- Avoid: Direct-to-video or very obscure films
+- Actors and actresses
+- Famous quotes (from movies)
+
+### Music
+
+- Famous artists (The Beatles, Mozart, Beyoncé)
+- Iconic albums (Dark Side of the Moon)
+- Music genres and movements
+- Avoid: One-hit wonders or very local artists
+- Famous quotes (from music)
+
+### Sports
+
+- Major sports (Football, Basketball, Tennis)
+- Famous athletes (Messi, Michael Jordan)
+- Historic events (World Cup, Olympics)
+- Avoid: Local teams or amateur sports
+
+### Technology
+
+- Tech products (iPhone, PlayStation, Windows)
+- Companies (Google, Microsoft, Tesla)
+- Inventions (Internet, Computer, Smartphone)
+- Fictional tech (Star Trek devices, Marvel tech)
+- Avoid: Beta products or failed technology
+
+---
+
+## ⚠️ CRITICAL RULES
+
+### Duplicate Prevention
+
+- ✅ **ALWAYS** check existing profiles before generating
+- ✅ **ALWAYS** verify across ALL languages
+- ✅ **ALWAYS** check case-insensitive (Lion = lion = LION)
+- ❌ **NEVER** skip duplicate checking
+
+### Translation Quality
+
+- ✅ **ALWAYS** use natural language in target language
+- ✅ **ALWAYS** translate ALL 20 clues (not just the name)
+- ✅ **ALWAYS** use official localized titles when available
+- ❌ **NEVER** use word-for-word literal translation
+- ❌ **NEVER** leave English text in Spanish/Portuguese files
+
+### Approval Gates
+
+- ✅ **ALWAYS** wait for user approval at each gate
+- ✅ **ALWAYS** show clear summaries before asking
+- ❌ **NEVER** proceed without explicit "yes" from user
+- ❌ **NEVER** skip approval gates
+
+### File Management
+
+- ✅ **ALWAYS** use markdown files in `docs/tmp/`
+- ✅ **ALWAYS** use the provided Python script for JSON conversion
+- ✅ **ALWAYS** validate JSON after modifications
+- ❌ **NEVER** manually edit JSON (use script instead)
+- ❌ **NEVER** commit files (user does that manually)
+
+### Script Usage
+
+- ✅ **ALWAYS** use `scripts/markdown_to_json.py` for JSON updates
+- ✅ **ALWAYS** pass `--manifest` parameter to update manifest
+- ✅ **ALWAYS** verify script output shows success
+- ❌ **NEVER** create JSON manually
+- ❌ **NEVER** skip the Python script
+
+---
+
+## 🔍 VALIDATION CHECKLIST
+
+Before marking complete, verify:
+
+- [ ] No duplicate profiles (checked against existing)
 - [ ] Exactly 20 clues per profile
-- [ ] Clue progression: hard→medium→easy
-- [ ] Profile name NOT in clues
-- [ ] Correct language for all text (EN clues in EN files, ES clues in ES files, PT clues in PT files)
-- [ ] Valid JSON (no syntax errors)
-- [ ] Spanish files have Spanish names AND Spanish clues (not English)
-- [ ] Portuguese files have Portuguese names AND Portuguese clues (not English)
-- [ ] profiles.config.json updated with new profiles
-- [ ] manifest.json updated with new files (if any) and profileAmount counts for ALL languages
-- [ ] No extra files created
-- [ ] Profile count matches actual entries in files (use `jq '.profiles | length'`)
+- [ ] Clue progression: 5 hard → 5 medium → 10 easy
+- [ ] Profile names not mentioned in their own clues
+- [ ] Natural language in all translations
+- [ ] All 3 markdown files created (`_en.md`, `_es.md`, `_pt-BR.md`)
+- [ ] Python script executed successfully
+- [ ] All JSON files valid (no syntax errors)
+- [ ] Profile counts match across all languages
+- [ ] Manifest.json updated with correct counts
+- [ ] profiles.config.json updated with new entries
+- [ ] Starting ID calculated correctly
+- [ ] User approved at all 3 gates
 
-Once prepared, create profiles as requested.
+---
+
+## 📖 EXAMPLE WORKFLOW
+
+```
+USER: Create 5 new movie profiles
+
+AGENT: I'll create 5 new movie profiles. Let me start by checking existing profiles...
+
+[Reads public/data/movies/en/data-1.json, es/data-1.json, pt-BR/data-1.json]
+
+Current movie profiles: 100 (IDs 001-100)
+Next starting ID: 101
+
+Generating 5 new movie profile names...
+
+Generated 5 new movie profiles:
+1. The Shawshank Redemption
+2. 12 Angry Men
+3. Schindler's List
+4. The Green Mile
+5. Forrest Gump
+
+✓ No duplicates found (checked against 100 existing profiles)
+
+Do you approve these profile names?
+
+USER: yes
+
+AGENT: Great! Now generating 20 clues for each profile...
+
+[Generates clues with hard→medium→easy progression]
+
+Generated 20 clues for each of the 5 profiles.
+
+Sample (first profile):
+
+1. The Shawshank Redemption
+   - [Hard] Based on a Stephen King novella from Different Seasons
+   - [Hard] Features the Mexican beach town of Zihuatanejo as a symbolic destination
+   ...
+   - [Easy] Stars Morgan Freeman and Tim Robbins
+   - [Easy] Set primarily in a prison
+
+Do you approve these clues?
+
+USER: yes
+
+AGENT: Perfect! Now creating translations...
+
+[Creates Spanish and Portuguese translations]
+
+Created 3 markdown files with translations:
+✓ docs/tmp/movies_en.md (5 profiles, 137 lines)
+✓ docs/tmp/movies_es.md (5 profiles, 137 lines)
+✓ docs/tmp/movies_pt-BR.md (5 profiles, 137 lines)
+
+Do you approve these translations?
+
+USER: yes
+
+AGENT: Excellent! Now integrating into JSON files using the script...
+
+[Runs: python scripts/markdown_to_json.py --category movies --markdown-dir docs/tmp --json-dir public/data --start-id 101 --languages en es pt-BR --manifest public/data/manifest.json]
+
+Script output: ✓ Successfully added 5 profiles to each language
+
+Updating profiles.config.json...
+Validating all JSON files...
+
+✅ Profile Creation Complete!
+
+📊 Summary:
+- Profiles Created: 5 per language
+- Total Profiles Added: 15 (across 3 languages)
+- Category: movies
+- Starting ID: 101
+- Ending ID: 105
+
+📁 Files Modified:
+✓ public/data/movies/en/data-1.json (100 → 105 profiles)
+✓ public/data/movies/es/data-1.json (100 → 105 profiles)
+✓ public/data/movies/pt-BR/data-1.json (100 → 105 profiles)
+✓ public/data/manifest.json (counts updated)
+✓ config/profiles.config.json (5 entries added)
+
+✅ All JSON files validated successfully
+✅ Profile counts verified across all languages
+
+Ready for commit!
+```
+
+---
+
+## 🎯 SUCCESS CRITERIA
+
+A successful profile creation session must have:
+
+1. ✅ User approval at all 3 gates
+2. ✅ No duplicates in final profile list
+3. ✅ All JSON files valid and correctly formatted
+4. ✅ Profile counts matching across all languages
+5. ✅ Markdown files created in `docs/tmp/`
+6. ✅ Python script executed successfully
+7. ✅ All validations passing
+
+Once these criteria are met, the profiles are ready for user to commit.
+
