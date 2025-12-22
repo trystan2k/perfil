@@ -38,6 +38,7 @@ This command follows a **markdown-first approach** with multiple approval gates 
 18. Update `config/profiles.config.json` with new profile entries
 19. Validate all JSON files are correct and valid
 20. **FINAL VERIFICATION**: Report completion with file counts
+21. **NEVER** run the markdown_to_json.py script more than 1 time. If it report any error or you find any error after your validations, please fix them manually, WITHOUT running the script again or it will duplicate entries.
 
 ---
 
@@ -488,6 +489,7 @@ Ready for commit!
 - ✅ **ALWAYS** use `scripts/markdown_to_json.py` for JSON updates
 - ✅ **ALWAYS** pass `--manifest` parameter to update manifest
 - ✅ **ALWAYS** verify script output shows success
+- ❌ **NEVER** run the script more than 1 time. If it report any error or you find any error after your validations, please fix them manually, WITHOUT running the script again or it will duplicate entries.
 - ❌ **NEVER** create JSON manually
 - ❌ **NEVER** skip the Python script
 - ❌ **NEVER** escape special characters (e.g., apostrophes, hyphens, accents), keep them as-is, always in all files/languages

@@ -7412,7 +7412,98 @@
             "pt-BR"
           ],
           "difficulty": "easy"
+        },
+        {
+          "name": "Machado de Assis",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Clarice Lispector",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "João Guimarães Rosa",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Jorge Amado",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Carlos Drummond de Andrade",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Cecília Meireles",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Graciliano Ramos",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "José de Alencar",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Érico Veríssimo",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "name": "Ariano Suassuna",
+          "availableIn": [
+            "en",
+            "es",
+            "pt-BR"
+          ],
+          "difficulty": "medium"
         }
+
       ]
     },
     {
