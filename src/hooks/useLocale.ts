@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { SUPPORTED_LOCALES, type SupportedLocale } from '@/i18n/locales';
 import { clearPersistedLocale, getEffectiveLocale, setPersistedLocale } from '@/lib/localeStorage';
+import { STORAGE_PERFIL_LOCALE_KEY } from '../lib/constants';
 
 /**
  * Custom hook for managing persisted locale across sessions
@@ -29,7 +30,7 @@ export const useLocale = () => {
     if (typeof window === 'undefined') return;
 
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.key !== 'perfil-locale') return;
+      if (event.key !== STORAGE_PERFIL_LOCALE_KEY) return;
 
       // Use event.newValue directly instead of re-reading from localStorage
       const newValue = event.newValue;
