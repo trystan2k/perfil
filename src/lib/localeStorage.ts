@@ -50,8 +50,9 @@ export const setPersistedLocale = (locale: SupportedLocale): void => {
     // Cookie expires in 1 year
     const expiryDate = new Date();
     expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
     // biome-ignore lint/suspicious/noDocumentCookie: Cookie needed for SSR middleware locale detection
-    document.cookie = `${STORAGE_KEY}=${locale}; path=/; expires=${expiryDate.toUTCString()}; SameSite=Lax`;
+    document.cookie = `${STORAGE_KEY}=${locale}; path=/; expires=${expiryDate.toUTCString()}; SameSite=Lax${secure}`;
   } catch (error) {
     console.warn('Failed to write locale to localStorage:', error);
   }
@@ -65,8 +66,9 @@ export const clearPersistedLocale = (): void => {
   try {
     window.localStorage.removeItem(STORAGE_KEY);
     // Also clear cookie by setting expiry to past date
+    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
     // biome-ignore lint/suspicious/noDocumentCookie: Cookie needed for SSR middleware locale detection
-    document.cookie = `${STORAGE_KEY}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax`;
+    document.cookie = `${STORAGE_KEY}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax${secure}`;
   } catch (error) {
     console.warn('Failed to clear locale from localStorage:', error);
   }

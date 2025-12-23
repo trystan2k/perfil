@@ -336,7 +336,6 @@ describe('useLocale', () => {
 
     it('should update state when storage event received from another tab', () => {
       vi.mocked(localeStorage.getEffectiveLocale).mockReturnValue('en');
-      vi.mocked(localeStorage.getPersistedLocale).mockReturnValue('es');
 
       const { result } = renderHook(() => useLocale());
 
@@ -350,7 +349,6 @@ describe('useLocale', () => {
       });
 
       expect(result.current.locale).toBe('es');
-      expect(vi.mocked(localeStorage.getPersistedLocale)).toHaveBeenCalled();
     });
 
     it('should ignore storage events for other keys', () => {
@@ -475,34 +473,23 @@ describe('useLocale', () => {
       });
     });
 
-    it('should handle errors during event handling gracefully', () => {
+    it('should ignore invalid locale values from storage events', () => {
       vi.mocked(localeStorage.getEffectiveLocale).mockReturnValue('en');
-      vi.mocked(localeStorage.getPersistedLocale).mockImplementation(() => {
-        throw new Error('Failed to read locale');
-      });
-
-      const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
       const { result } = renderHook(() => useLocale());
 
       const storageEvent = new StorageEvent('storage', {
         key: 'perfil-locale',
-        newValue: 'es',
+        newValue: 'invalid-locale',
       });
 
-      // Should not throw
+      // Should not update state with invalid locale
       act(() => {
         window.dispatchEvent(storageEvent);
       });
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        'Failed to sync locale from storage event:',
-        expect.any(Error)
-      );
-
+      // Should remain in current state
       expect(result.current.locale).toBe('en');
-
-      consoleWarnSpy.mockRestore();
     });
 
     it('should sync locale from multiple sequential storage events', () => {
@@ -530,33 +517,22 @@ describe('useLocale', () => {
   });
 
   describe('Error Handling', () => {
-    it('should log warning when getPersistedLocale throws error', () => {
+    it('should ignore storage events with invalid locale values', () => {
       vi.mocked(localeStorage.getEffectiveLocale).mockReturnValue('en');
-      vi.mocked(localeStorage.getPersistedLocale).mockImplementation(() => {
-        throw new Error('localStorage is not available');
-      });
-
-      const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
       const { result } = renderHook(() => useLocale());
 
       const storageEvent = new StorageEvent('storage', {
         key: 'perfil-locale',
-        newValue: 'es',
+        newValue: 'invalid-value',
       });
 
       act(() => {
         window.dispatchEvent(storageEvent);
       });
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith(
-        'Failed to sync locale from storage event:',
-        expect.any(Error)
-      );
-
+      // Should remain in current state (not update to invalid locale)
       expect(result.current.locale).toBe('en');
-
-      consoleWarnSpy.mockRestore();
     });
   });
 

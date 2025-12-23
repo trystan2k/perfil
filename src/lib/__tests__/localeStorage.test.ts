@@ -419,8 +419,8 @@ describe('localeStorage', () => {
       delete global.window;
 
       // In SSR, should still return fallback
-      const sserResult = getEffectiveLocale();
-      expect(sserResult).toBe(FALLBACK_LOCALE);
+      const ssrResult = getEffectiveLocale();
+      expect(ssrResult).toBe(FALLBACK_LOCALE);
 
       // Restore window
       global.window = originalWindow;

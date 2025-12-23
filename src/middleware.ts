@@ -1,4 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
+import { SUPPORTED_LOCALES } from './i18n/locales.ts';
 
 // Security headers configuration - optimized for production vs development
 const SECURITY_HEADERS: Record<string, string> = {
@@ -76,11 +77,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     if (url.pathname === '/' && cookies && redirect) {
       // Read stored locale from cookie (set by client-side localeStorage)
       const storedLocale = cookies.get('perfil-locale')?.value;
-      const supportedLocales = ['en', 'es', 'pt-BR'];
 
       // Validate and use stored locale, fallback to 'en'
       const targetLocale =
-        storedLocale && supportedLocales.includes(storedLocale) ? storedLocale : 'en';
+        storedLocale && (SUPPORTED_LOCALES as readonly string[]).includes(storedLocale)
+          ? storedLocale
+          : 'en';
 
       // Redirect to the appropriate locale path
       return redirect(`/${targetLocale}/`, 302);

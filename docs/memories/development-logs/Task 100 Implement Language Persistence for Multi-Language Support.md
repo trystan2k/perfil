@@ -55,7 +55,7 @@ Modified Files:
 ## Key Implementation Details
 
 1. **Storage Mechanism**: localStorage with key 'perfil-locale'
-2. **Default Behavior**: First time users default to English (en)
+2. **Default Behavior**: First-time users default to English (en)
 3. **Validation**: Stored values validated against SUPPORTED_LOCALES
 4. **Error Handling**: Graceful fallback on storage access errors
 5. **SSR Safety**: All storage operations guard against SSR context
