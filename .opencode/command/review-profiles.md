@@ -1,15 +1,41 @@
 ---
-description: Review profiles for data quality and consistency across all categories in the Perfil project.
+description: Review profiles for data quality and consistency across a given categories in the Perfil project.
 agent: build
+---
+
+## ⚠️ CRITICAL: FILE READING REQUIREMENTS
+
+**🚨 MANDATORY - READ BEFORE STARTING ANY REVIEW 🚨**
+
+Profile data files typically contain **3000+ lines** (approximately 3206 lines for 100 profiles with 5 clues each).
+
+### File Reading Rules (MUST FOLLOW)
+1. ✅ **ALWAYS read files to EOF (End of File)**
+2. ✅ **NEVER work with partial data** - default Read tool limit is 2000 lines
+3. ✅ **Use offset parameter** to read beyond line 2000 when needed
+4. ✅ **Verify "End of file" message** appears before processing data
+5. ✅ **Read all three language files completely** (EN, ES, PT-BR)
+
+### Example: How to Read Complete Files
+```
+1. Read file from line 0 (default limit: 2000 lines)
+2. Check if message says "End of file" or shows more lines available
+3. If more lines exist: Read again with offset=2000 to get remaining lines
+4. Repeat until "End of file" message appears
+5. Only then proceed with validation
+```
+
+**❌ CRITICAL ERROR: Starting validation without reading complete files will produce invalid results!**
+
 ---
 
 ## 🔍 PROFILE REVIEW WORKFLOW
 
-This command provides a comprehensive review of profile data across all categories to ensure quality, consistency, and correctness.
+This command provides a comprehensive review of profile data across a given categories to ensure quality, consistency, and correctness.
 
 ### Overview
 
-The review checks 22 critical validation points across all categories:
+The review checks 24 critical validation points across a given categories:
 - **Data Structure**: Profile counts, IDs, sequences
 - **Content Quality**: Clues, translations, duplicates
 - **Configuration Sync**: manifest.json and profiles.config.json alignment
@@ -25,7 +51,12 @@ The review checks 22 critical validation points across all categories:
 #### Check 1: Profile Count
 - **Description**: All categories must have exactly 100 profiles in each language file
 - **Action**: Count profile objects in EN, ES, PT-BR data files
-- **Command**: Read entire data-1.json file and count profiles array
+- **CRITICAL**: Read complete file to EOF before counting (files exceed 2000 lines)
+- **Method**: 
+  1. Read entire data-1.json file using Read tool with offset to read beyond line 2000
+  2. Confirm "End of file" message appears
+  3. Parse complete JSON and count profiles array length
+- **Command**: Read entire data-1.json file to EOF and count profiles array
 - **Expected**: EN: 100, ES: 100, PT-BR: 100
 
 #### Check 2: Profile ID Format
@@ -162,17 +193,43 @@ The review checks 22 critical validation points across all categories:
 - **Action**: Sample and review clue content for quality
 - **Expected**: Natural language, informative, varied content
 
-#### Check 21: Orphaned Profiles Check
+#### Check 21: Clue Clarity - Repeated Words Detection
+- **Description**: Clues must be clear without confusing repeated words in the same phrase
+- **Action**: Scan all clues for problematic word repetition patterns
+- **Repetition Issues to Flag**:
+  - Same word repeated unnecessarily (e.g., "ability ability" or "has has")
+  - Multiple instances of the same word within a single clue that make it unclear
+  - Stuttering-like patterns (e.g., "can can", "does does")
+  - Awkward repetitions that reduce clarity
+- **Allowed Patterns** (not flagged):
+  - Natural emphasis: "very very popular" or "really really important"
+  - Proper grammatical repetition: "more and more people", "faster and faster"
+  - Articles/prepositions: "the the" only if genuinely needed (rare)
+  - Technical terms: "data data structures" or "file file system"
+  - Intentional rhyme/rhythm: Acceptable if improves clarity
+- **Detection Method**:
+  - Split clue into words
+  - Compare adjacent and nearby words for exact matches
+  - Flag confusing patterns that harm readability
+  - Exclude natural linguistic constructs
+- **Examples of Issues**:
+  - ❌ "The system system handles requests" (confusing repetition)
+  - ❌ "Has has been been used for years" (grammatical error)
+  - ✅ "More and more people use it" (natural repetition)
+  - ✅ "Used for data data structures in computing" (technical context)
+- **Expected**: No confusing repeated words that harm clarity
+
+#### Check 22: Orphaned Profiles Check
 - **Description**: No orphaned profiles in config that don't exist in data files
 - **Action**: Verify all profiles in config exist in EN data file
 - **Expected**: 100% match between config and data files
 
-#### Check 22: Profile Metadata Fields
+#### Check 23: Profile Metadata Fields
 - **Description**: All profiles should have metadata fields (language, difficulty, source)
 - **Action**: Check metadata object for each profile
 - **Expected**: Present fields: language, difficulty, source
 
-#### Check 23: Summary Report & Actionable TODO List
+#### Check 24: Summary Report & Actionable TODO List
 - **Description**: Generate comprehensive summary with any issues and action items
 - **Action**: Compile all check results and create actionable TODO list
 - **Expected**: Clear report identifying any problems and next steps
@@ -258,7 +315,7 @@ Manual fix may be needed if:
 @.opencode/command/review-profiles technology check-6
 ```
 
-**Review all categories:**
+**Review a given categories:**
 ```
 @.opencode/command/review-profiles all
 ```
@@ -278,13 +335,16 @@ Manual fix may be needed if:
 
 ### Step 2: Load Data Files
 For each category:
-- Load EN data file: `public/data/{category}/en/data-1.json`
-- Load ES data file: `public/data/{category}/es/data-1.json`
-- Load PT-BR data file: `public/data/{category}/pt-BR/data-1.json`
+- **CRITICAL**: Read files to EOF - profile data files typically have 3000+ lines
+- Load EN data file: `public/data/{category}/en/data-1.json` (read to EOF)
+- Load ES data file: `public/data/{category}/es/data-1.json` (read to EOF)
+- Load PT-BR data file: `public/data/{category}/pt-BR/data-1.json` (read to EOF)
+- **Important**: Use Read tool with offset parameter to read beyond line 2000 if needed
+- **Verify**: Confirm "End of file" message appears before proceeding
 - Load manifest.json and profiles.config.json
 
 ### Step 3: Execute Checks
-Run all 23 checks for each category:
+Run all 24 checks for each category:
 1. Profile count (EN, ES, PT-BR)
 2. ID format validation
 3. Sequential ID check
@@ -305,9 +365,10 @@ Run all 23 checks for each category:
 18. ID sequence gaps detection and auto-fix
 19. ID prefix matching
 20. Clue quality assessment
-21. Orphaned profiles
-22. Metadata fields
-23. Generate summary report
+21. Clue clarity - repeated words detection
+22. Orphaned profiles
+23. Metadata fields
+24. Generate summary report
 
 ### Step 4: Report Results
 
@@ -381,7 +442,8 @@ NEXT STEPS
 ## 🎯 SUCCESS CRITERIA
 
 A successful review results in:
-- ✅ 23/23 checks passed for all categories
+
+- ✅ 24/24 checks passed for a given categories
 - ✅ 0 critical issues
 - ✅ 0 warnings
 - ✅ All profile counts: 100 per language
@@ -395,11 +457,14 @@ A successful review results in:
 ## ⚠️ CRITICAL RULES FOR REVIEW
 
 ### Data Integrity
-- ✅ **ALWAYS** read entire JSON files (they can be large)
-- ✅ **ALWAYS** check all three languages
-- ✅ **ALWAYS** verify counts programmatically
+- ✅ **ALWAYS** read entire JSON files to EOF (profile files typically exceed 2000+ lines)
+- ✅ **CRITICAL**: When using Read tool, use offset parameter to read beyond line 2000 if needed
+- ✅ **CRITICAL**: Verify you have read complete file by checking for "End of file" message
+- ✅ **ALWAYS** check all three languages (EN, ES, PT-BR)
+- ✅ **ALWAYS** verify counts programmatically on complete data
 - ❌ **NEVER** assume data integrity without verification
 - ❌ **NEVER** skip checking any category
+- ❌ **NEVER** work with partial file data - always read to EOF first
 
 ### Reporting
 - ✅ **ALWAYS** provide actionable recommendations
@@ -427,9 +492,9 @@ PROFILE REVIEW REPORT - technology
 - Total Profiles Checked: 100
 - Critical Issues: 0
 - Warnings: 0
-- Checks Passed: 22/22
+- Checks Passed: 24/24
 
-✅ PASSED CHECKS (23/23)
+✅ PASSED CHECKS (24/24)
 ✓ Check 1: Profile Count (EN: 100, ES: 100, PT-BR: 100)
 ✓ Check 2: Profile ID Format (all use profile-tech-XXX)
 ✓ Check 3: Sequential ID Sequence (001-100, no gaps)
@@ -503,7 +568,7 @@ All 100 profiles in Technology category are valid and consistent!
 
 **Recommended Review Frequency:**
 - After creating new profiles (every time)
-- Monthly comprehensive audit (all categories)
+- Monthly comprehensive audit (a given categories)
 - Before production releases
 - After merging profile changes
 - When user reports data issues
