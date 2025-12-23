@@ -1,6 +1,5 @@
 import { FALLBACK_LOCALE, SUPPORTED_LOCALES, type SupportedLocale } from '@/i18n/locales';
-
-const STORAGE_KEY = 'perfil-locale';
+import { STORAGE_PERFIL_LOCALE_KEY } from './constants';
 
 /**
  * Validate if a value is a supported locale
@@ -29,7 +28,7 @@ const parseStoredLocale = (raw: string | null): SupportedLocale | null => {
 export const getPersistedLocale = (): SupportedLocale | null => {
   if (typeof window === 'undefined') return null;
   try {
-    return parseStoredLocale(window.localStorage.getItem(STORAGE_KEY));
+    return parseStoredLocale(window.localStorage.getItem(STORAGE_PERFIL_LOCALE_KEY));
   } catch (error) {
     console.warn('Failed to read locale from localStorage:', error);
     return null;
@@ -44,7 +43,7 @@ export const setPersistedLocale = (locale: SupportedLocale): void => {
   if (typeof window === 'undefined') return;
   try {
     // Store in localStorage for client-side access
-    window.localStorage.setItem(STORAGE_KEY, locale);
+    window.localStorage.setItem(STORAGE_PERFIL_LOCALE_KEY, locale);
 
     // Also store in cookie for SSR middleware access
     // Cookie expires in 1 year
@@ -52,7 +51,7 @@ export const setPersistedLocale = (locale: SupportedLocale): void => {
     expiryDate.setFullYear(expiryDate.getFullYear() + 1);
     const secure = window.location.protocol === 'https:' ? '; Secure' : '';
     // biome-ignore lint/suspicious/noDocumentCookie: Cookie needed for SSR middleware locale detection
-    document.cookie = `${STORAGE_KEY}=${locale}; path=/; expires=${expiryDate.toUTCString()}; SameSite=Lax${secure}`;
+    document.cookie = `${STORAGE_PERFIL_LOCALE_KEY}=${locale}; path=/; expires=${expiryDate.toUTCString()}; SameSite=Lax${secure}`;
   } catch (error) {
     console.warn('Failed to write locale to localStorage:', error);
   }
@@ -64,11 +63,11 @@ export const setPersistedLocale = (locale: SupportedLocale): void => {
 export const clearPersistedLocale = (): void => {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.removeItem(STORAGE_KEY);
+    window.localStorage.removeItem(STORAGE_PERFIL_LOCALE_KEY);
     // Also clear cookie by setting expiry to past date
     const secure = window.location.protocol === 'https:' ? '; Secure' : '';
     // biome-ignore lint/suspicious/noDocumentCookie: Cookie needed for SSR middleware locale detection
-    document.cookie = `${STORAGE_KEY}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax${secure}`;
+    document.cookie = `${STORAGE_PERFIL_LOCALE_KEY}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax${secure}`;
   } catch (error) {
     console.warn('Failed to clear locale from localStorage:', error);
   }
