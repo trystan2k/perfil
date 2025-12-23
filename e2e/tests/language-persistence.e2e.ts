@@ -578,10 +578,10 @@ test.describe('Language Persistence', () => {
 
       drawer = page.getByRole('dialog');
       await expect(drawer).toBeVisible({ timeout: 3000 });
-      await page.waitForTimeout(1000);
 
       languageNav = drawer.getByRole('navigation', { name: /language|idioma|lengua/i });
       const portugueseLink = languageNav.getByRole('link', { name: /português/i }).first();
+      await expect(portugueseLink).toBeVisible();
       await portugueseLink.click();
 
       await page.waitForURL(/\/pt-BR\//);

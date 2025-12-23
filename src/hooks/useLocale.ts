@@ -32,9 +32,15 @@ export const useLocale = () => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key !== STORAGE_PERFIL_LOCALE_KEY) return;
 
-      // Use event.newValue directly instead of re-reading from localStorage
+      // Handle locale being cleared in another tab (revert to fallback)
       const newValue = event.newValue;
-      if (newValue && (SUPPORTED_LOCALES as readonly string[]).includes(newValue)) {
+      if (newValue === null) {
+        setLocaleState(getEffectiveLocale());
+        return;
+      }
+
+      // Use event.newValue directly instead of re-reading from localStorage
+      if ((SUPPORTED_LOCALES as readonly string[]).includes(newValue)) {
         setLocaleState(newValue as SupportedLocale);
       }
     };

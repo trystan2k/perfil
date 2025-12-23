@@ -85,8 +85,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
           ? storedLocale
           : FALLBACK_LOCALE;
 
-      // Redirect to the appropriate locale path
-      return redirect(`/${targetLocale}/`, 302);
+      // Redirect to the appropriate locale path (307 preserves method)
+      return redirect(`/${targetLocale}/`, 307);
     }
 
     // Get response from next middleware or route
