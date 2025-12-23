@@ -2690,7 +2690,7 @@
       }
     },
     {
-      "id": "profile-history-064",
+      "id": "profile-history-085",
       "category": "História",
       "name": "Descoberta do Brasil",
       "clues": [
@@ -2722,7 +2722,7 @@
       }
     },
     {
-      "id": "profile-history-065",
+      "id": "profile-history-086",
       "category": "História",
       "name": "Brasil Colonial Português",
       "clues": [
@@ -2754,7 +2754,7 @@
       }
     },
     {
-      "id": "profile-history-066",
+      "id": "profile-history-087",
       "category": "História",
       "name": "Brasil Holandês",
       "clues": [
@@ -2786,7 +2786,7 @@
       }
     },
     {
-      "id": "profile-history-067",
+      "id": "profile-history-088",
       "category": "História",
       "name": "A Inconfidência Mineira",
       "clues": [
@@ -2818,7 +2818,7 @@
       }
     },
     {
-      "id": "profile-history-068",
+      "id": "profile-history-089",
       "category": "História",
       "name": "A Transferência da Corte Portuguesa para o Brasil",
       "clues": [
@@ -2850,7 +2850,7 @@
       }
     },
     {
-      "id": "profile-history-069",
+      "id": "profile-history-090",
       "category": "História",
       "name": "A Independência do Brasil",
       "clues": [
@@ -2882,7 +2882,7 @@
       }
     },
     {
-      "id": "profile-history-070",
+      "id": "profile-history-091",
       "category": "História",
       "name": "A Guerra da Cisplatina",
       "clues": [
@@ -2914,7 +2914,7 @@
       }
     },
     {
-      "id": "profile-history-071",
+      "id": "profile-history-092",
       "category": "História",
       "name": "O Período Regencial (Brasil)",
       "clues": [
@@ -2946,7 +2946,7 @@
       }
     },
     {
-      "id": "profile-history-072",
+      "id": "profile-history-093",
       "category": "História",
       "name": "A Guerra do Paraguai",
       "clues": [
@@ -2978,7 +2978,7 @@
       }
     },
     {
-      "id": "profile-history-073",
+      "id": "profile-history-094",
       "category": "História",
       "name": "A Proclamação da República (Brasil)",
       "clues": [
@@ -3010,7 +3010,7 @@
       }
     },
     {
-      "id": "profile-history-074",
+      "id": "profile-history-095",
       "category": "História",
       "name": "A República Velha (Brasil)",
       "clues": [
@@ -3042,7 +3042,7 @@
       }
     },
     {
-      "id": "profile-history-075",
+      "id": "profile-history-096",
       "category": "História",
       "name": "A Revolução de 1930 (Brasil)",
       "clues": [
@@ -3074,7 +3074,7 @@
       }
     },
     {
-      "id": "profile-history-076",
+      "id": "profile-history-097",
       "category": "História",
       "name": "O Estado Novo (Brasil)",
       "clues": [
@@ -3106,7 +3106,7 @@
       }
     },
     {
-      "id": "profile-history-077",
+      "id": "profile-history-098",
       "category": "História",
       "name": "A Revolução dos Cravos (Portugal)",
       "clues": [
@@ -3138,7 +3138,7 @@
       }
     },
     {
-      "id": "profile-history-078",
+      "id": "profile-history-099",
       "category": "História",
       "name": "A Guerra Colonial Portuguesa",
       "clues": [
@@ -3160,7 +3160,8 @@
         "O conflito destacou o anacronismo do colonialismo europeu.",
         "Contribuiu para o declínio da influência global de Portugal.",
         "A guerra foi a última grande guerra colonial travada por uma potência europeia.",
-        "A guerra causou baixas significativas em ambos os lados, incluindo civis."
+        "A guerra causou baixas significativas em ambos os lados, incluindo civis.",
+        "O legado da guerra continua influenciando as relações entre Portugal e suas antigas colônias"
       ],
       "metadata": {
         "language": "pt-BR",
@@ -3169,7 +3170,7 @@
       }
     },
     {
-      "id": "profile-history-079",
+      "id": "profile-history-100",
       "category": "História",
       "name": "O Grande Terremoto de Lisboa",
       "clues": [

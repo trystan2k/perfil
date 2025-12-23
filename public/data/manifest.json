@@ -114,17 +114,17 @@
         "en": {
           "name": "Technology",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         },
         "es": {
           "name": "Tecnología",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         },
         "pt-BR": {
           "name": "Tecnologia",
           "files": ["data-1.json"],
-          "profileAmount": 50
+          "profileAmount": 100
         }
       }
     },
@@ -177,17 +177,17 @@
         "en": {
           "name": "Literature",
           "files": ["data-1.json"],
-          "profileAmount": 60
+          "profileAmount": 100
         },
         "es": {
           "name": "Literatura",
           "files": ["data-1.json"],
-          "profileAmount": 60
+          "profileAmount": 100
         },
         "pt-BR": {
           "name": "Literatura",
           "files": ["data-1.json"],
-          "profileAmount": 60
+          "profileAmount": 100
         }
       }
     },

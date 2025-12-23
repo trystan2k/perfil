@@ -17,906 +17,106 @@
       },
       "description": "Animals profiles can have clues about their characteristics, behavior, and interactions with humans. It could have all kind of animals, from small mammals to large predators. It does not necessarily need to be a real animal, but could be a fictional character in a movie, a mythical creature or a character from a book.",
       "profiles": [
-        {
-          "name": "Octopus",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Lion",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Penguin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Elephant",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Dolphin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Eagle",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Tiger",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Giraffe",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Panda",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Wolf",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Koala",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Shark",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Chameleon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Zebra",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Cheetah",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Rhinoceros",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Hippopotamus",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Kangaroo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Platypus",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Snow Leopard",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Owl",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Crocodile",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Fox",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Peacock",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Otter",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Camel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Toucan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Arctic Fox",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Bald Eagle",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Sea Turtle",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Moose",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Flamingo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Grizzly Bear",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Anaconda",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Capybara",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Poison Dart Frog",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Sloth",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Porcupine",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Pangolin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Narwhal",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Axolotl",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Quokka",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Okapi",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Mandrill",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Manatee",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Cassowary",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Kakapo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Numbat",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Aye-aye",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Durian",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Red Panda",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Meerkat",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Hedgehog",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Giant Squid",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Bonobo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Wolverine",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ring-tailed Lemur",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Emu",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Dugong",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Naked Mole Rat",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Capuchin Monkey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Kiwi",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Wombat",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Proboscis Monkey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Javan Rhinoceros",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Orca",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Roseate Spoonbill",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Hyena",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Komodo Dragon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Gibbon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Secretary Bird",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Badger",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Takin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Flying Lemur",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Harpy Eagle",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ocelot",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Puffin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Seahorse",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Lynx",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Hyena",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Musk Ox",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Badger",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Swan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Angelfish",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Alpaca",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Secretary Bird",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Sunfish",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Fennec Fox",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Komodo Dragon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Coati",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Flying Lemur",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Caracal",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Anglerfish",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Tarsier",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Philippine Eagle",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Saola",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Proboscis Monkey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Horseshoe Crab",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Cuttlefish",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Serval",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        }
+        "Albatross",
+        "Alpaca",
+        "Anaconda",
+        "Angelfish",
+        "Anglerfish",
+        "Arctic Fox",
+        "Axolotl",
+        "Aye-aye",
+        "Badger",
+        "Bald Eagle",
+        "Bonobo",
+        "Camel",
+        "Capuchin Monkey",
+        "Capybara",
+        "Caracal",
+        "Cassowary",
+        "Chameleon",
+        "Cheetah",
+        "Coati",
+        "Crocodile",
+        "Cuttlefish",
+        "Dolphin",
+        "Dugong",
+        "Durian",
+        "Eagle",
+        "Elephant",
+        "Emu",
+        "Fennec Fox",
+        "Flamingo",
+        "Flying Lemur",
+        "Fox",
+        "Gharial",
+        "Giant Squid",
+        "Gibbon",
+        "Giraffe",
+        "Grizzly Bear",
+        "Harpy Eagle",
+        "Hedgehog",
+        "Hippopotamus",
+        "Horseshoe Crab",
+        "Hyena",
+        "Javan Rhinoceros",
+        "Kakapo",
+        "Kangaroo",
+        "Kiwi",
+        "Koala",
+        "Komodo Dragon",
+        "Lemming",
+        "Lion",
+        "Lynx",
+        "Macaque",
+        "Manatee",
+        "Mandrill",
+        "Meerkat",
+        "Moose",
+        "Musk Ox",
+        "Naked Mole Rat",
+        "Narwhal",
+        "Numbat",
+        "Ocelot",
+        "Octopus",
+        "Okapi",
+        "Orca",
+        "Otter",
+        "Owl",
+        "Panda",
+        "Pangolin",
+        "Peacock",
+        "Penguin",
+        "Philippine Eagle",
+        "Platypus",
+        "Poison Dart Frog",
+        "Porcupine",
+        "Proboscis Monkey",
+        "Puffin",
+        "Quokka",
+        "Red Panda",
+        "Rhinoceros",
+        "Ring-tailed Lemur",
+        "Roseate Spoonbill",
+        "Saola",
+        "Sea Turtle",
+        "Seahorse",
+        "Secretary Bird",
+        "Serval",
+        "Shark",
+        "Sloth",
+        "Snow Leopard",
+        "Sunfish",
+        "Swan",
+        "Takin",
+        "Tapir",
+        "Tarsier",
+        "Tiger",
+        "Toucan",
+        "Viper",
+        "Wolf",
+        "Wolverine",
+        "Wombat",
+        "Zebra"
       ]
     },
     {
@@ -928,906 +128,106 @@
       },
       "description": "Brands profiles can have clues about their origin, products, history, and other important aspects. It could have all kind of brands, from tech companies to beverage manufacturers to automotive brands. Clues focus on brand characteristics, innovations, and notable facts without directly revealing the brand name.",
       "profiles": [
-        {
-          "name": "Apple",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Coca-Cola",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Nike",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Mercedes-Benz",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Disney",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Samsung",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Microsoft",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Google",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Amazon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Toyota",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "BMW",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Volkswagen",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ferrari",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Luxury Brands (LVMH)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Rolex",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Starbucks",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "McDonald's",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Netflix",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Tesla",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Uber",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Airbnb",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Unilever",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Nestlé",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Procter & Gamble",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Coca-Cola Company",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "PepsiCo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "H&M",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Zara",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "IKEA",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Lego",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Mattel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Hasbro",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Sony",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Nintendo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Intel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "AMD",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "NVIDIA",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cisco Systems",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Pfizer",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Johnson & Johnson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Alibaba",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Tencent",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Baidu",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Spotify",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Twitter",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Meta",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "LinkedIn",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "TikTok",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Snapchat",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "WeChat",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Porsche",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Rolls-Royce",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Bentley",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Aston Martin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Bugatti",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "McLaren",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Jaguar",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Land Rover",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Audi",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Hyundai",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Kia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Volvo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Subaru",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Mazda",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Honda",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Nissan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Mitsubishi",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Suzuki",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Prada",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Gucci",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Louis Vuitton",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Chanel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Dior",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Hermès",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Burberry",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Versace",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Armani",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Calvin Klein",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Tommy Hilfiger",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Ralph Lauren",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Coach",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Cartier",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Bulgari",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Tag Heuer",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Omega",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Patek Philippe",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Longines",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Tissot",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Seiko",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Fossil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Timex",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Casio",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Adidas",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Puma",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "New Balance",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Converse",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Vans",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Skechers",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Dockers",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Crocs",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        }
+        "Adidas",
+        "Airbnb",
+        "Alibaba",
+        "Amazon",
+        "AMD",
+        "Apple",
+        "Armani",
+        "Aston Martin",
+        "Audi",
+        "Baidu",
+        "Bentley",
+        "BMW",
+        "Bugatti",
+        "Bulgari",
+        "Burberry",
+        "Calvin Klein",
+        "Cartier",
+        "Casio",
+        "Chanel",
+        "Cisco Systems",
+        "Coach",
+        "Coca-Cola",
+        "Coca-Cola Company",
+        "Converse",
+        "Crocs",
+        "Dior",
+        "Disney",
+        "Dockers",
+        "Ferrari",
+        "Fossil",
+        "Google",
+        "Gucci",
+        "H&M",
+        "Hasbro",
+        "Hermès",
+        "Honda",
+        "Hyundai",
+        "IKEA",
+        "Intel",
+        "Jaguar",
+        "Johnson & Johnson",
+        "Kia",
+        "Land Rover",
+        "Lego",
+        "LinkedIn",
+        "Longines",
+        "Louis Vuitton",
+        "Luxury Brands (LVMH)",
+        "Mattel",
+        "Mazda",
+        "McDonald's",
+        "McLaren",
+        "Mercedes-Benz",
+        "Meta",
+        "Microsoft",
+        "Mitsubishi",
+        "Nestlé",
+        "Netflix",
+        "New Balance",
+        "Nike",
+        "Nintendo",
+        "Nissan",
+        "NVIDIA",
+        "Omega",
+        "Patek Philippe",
+        "PepsiCo",
+        "Pfizer",
+        "Porsche",
+        "Prada",
+        "Procter & Gamble",
+        "Puma",
+        "Ralph Lauren",
+        "Rolex",
+        "Rolls-Royce",
+        "Samsung",
+        "Seiko",
+        "Skechers",
+        "Snapchat",
+        "Sony",
+        "Spotify",
+        "Starbucks",
+        "Subaru",
+        "Suzuki",
+        "Tag Heuer",
+        "Tencent",
+        "Tesla",
+        "TikTok",
+        "Timex",
+        "Tissot",
+        "Tommy Hilfiger",
+        "Toyota",
+        "Twitter",
+        "Uber",
+        "Unilever",
+        "Vans",
+        "Versace",
+        "Volkswagen",
+        "Volvo",
+        "WeChat",
+        "Zara"
       ]
     },
     {
@@ -1839,906 +239,106 @@
       },
       "description": "Geography profiles can include countries, famouse cities, famouse regions (like continents, oceans, etc.). The clues could be about their history, culture, famous events/stories, literature, and other important aspects. Try to avoid too much obvious info in the clues.",
       "profiles": [
-        {
-          "name": "Japan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Egypt",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "United States",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "France",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Australia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "India",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Canada",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Germany",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Mexico",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Italy",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "South Korea",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Argentina",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "China",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Russia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "United Kingdom",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Spain",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "South Africa",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Netherlands",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Thailand",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Turkey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Indonesia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Saudi Arabia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "New Zealand",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Sweden",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Switzerland",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Greece",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Portugal",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Poland",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Belgium",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Austria",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Denmark",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Norway",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Finland",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Iceland",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Vietnam",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Philippines",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Malaysia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Pakistan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Colombia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Peru",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Chile",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Nigeria",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Kenya",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cyprus",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Morocco",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Tunisia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Lebanon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Israel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Singapore",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Iceland's Glacial Valleys",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Greenland",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Montenegro",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Bosnia and Herzegovina",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Croatia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Serbia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Albania",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "North Macedonia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Kosovo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Hungary",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Czech Republic",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Slovakia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Romania",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Bulgaria",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Latvia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Lithuania",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Estonia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Belarus",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ukraine",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Moldova",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Kazakhstan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Uzbekistan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Tajikistan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Georgia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Armenia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Kyrgyzstan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Turkmenistan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Azerbaijan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Malta",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Syria",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Jordan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Palestine",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Iraq",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Iran",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Oman",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "United Arab Emirates",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Qatar",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Bahrain",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Yemen",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Afghanistan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Nepal",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Bhutan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Bangladesh",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Sri Lanka",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Maldives",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Amazon River",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Sahara Desert",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Grand Canyon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Mount Kilimanjaro",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Great Barrier Reef",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        }
+        "Afghanistan",
+        "Albania",
+        "Amazon River",
+        "Argentina",
+        "Armenia",
+        "Australia",
+        "Austria",
+        "Azerbaijan",
+        "Bahrain",
+        "Bangladesh",
+        "Belarus",
+        "Belgium",
+        "Bhutan",
+        "Bosnia and Herzegovina",
+        "Brazil",
+        "Bulgaria",
+        "Canada",
+        "Chile",
+        "China",
+        "Colombia",
+        "Croatia",
+        "Cyprus",
+        "Czech Republic",
+        "Denmark",
+        "Egypt",
+        "Estonia",
+        "Finland",
+        "France",
+        "Georgia",
+        "Germany",
+        "Grand Canyon",
+        "Great Barrier Reef",
+        "Greece",
+        "Greenland",
+        "Hungary",
+        "Iceland",
+        "Iceland's Glacial Valleys",
+        "India",
+        "Indonesia",
+        "Iran",
+        "Iraq",
+        "Israel",
+        "Italy",
+        "Japan",
+        "Jordan",
+        "Kazakhstan",
+        "Kenya",
+        "Kosovo",
+        "Kyrgyzstan",
+        "Latvia",
+        "Lebanon",
+        "Lithuania",
+        "Malaysia",
+        "Maldives",
+        "Malta",
+        "Mexico",
+        "Moldova",
+        "Montenegro",
+        "Morocco",
+        "Mount Kilimanjaro",
+        "Nepal",
+        "Netherlands",
+        "New Zealand",
+        "Nigeria",
+        "North Macedonia",
+        "Norway",
+        "Oman",
+        "Pakistan",
+        "Palestine",
+        "Peru",
+        "Philippines",
+        "Poland",
+        "Portugal",
+        "Qatar",
+        "Romania",
+        "Russia",
+        "Sahara Desert",
+        "Saudi Arabia",
+        "Serbia",
+        "Singapore",
+        "Slovakia",
+        "South Africa",
+        "South Korea",
+        "Spain",
+        "Sri Lanka",
+        "Sweden",
+        "Switzerland",
+        "Syria",
+        "Tajikistan",
+        "Thailand",
+        "Tunisia",
+        "Turkey",
+        "Turkmenistan",
+        "Ukraine",
+        "United Arab Emirates",
+        "United Kingdom",
+        "United States",
+        "Uzbekistan",
+        "Vietnam",
+        "Yemen"
       ]
     },
     {
@@ -2750,906 +350,106 @@
       },
       "description": "Famous people profiles can have clues about their history, achievements, physical aspects and other important aspects. It could have all kind of famous people, from historical figures to modern ones. It does not necessarily need to be a real person, but could be a fictional character in a movie, a historical figure not necessarily live anymore or a character from a book.",
       "profiles": [
-        {
-          "name": "Albert Einstein",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Leonardo da Vinci",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Marie Curie",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "William Shakespeare",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Nelson Mandela",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Martin Luther King Jr.",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Queen Elizabeth II",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Steve Jobs",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Oprah Winfrey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Michael Jordan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "J.K. Rowling",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Dwayne Johnson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Beyoncé",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Stephen Hawking",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Malala Yousafzai",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Winston Churchill",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Cleopatra",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Abraham Lincoln",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Coco Chanel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Mozart",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Frida Kahlo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Mahatma Gandhi",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Queen Victoria",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Pablo Picasso",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Amelia Earhart",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Marie Antoinette",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Elvis Presley",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Mother Teresa",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Leonardo DiCaprio",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Marilyn Monroe",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Joan of Arc",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Gustave Eiffel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Confucius",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Catherine the Great",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Jane Austen",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Charles Darwin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Socrates",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Harriet Tubman",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Nikola Tesla",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Rosa Parks",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Vincent van Gogh",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Isaac Newton",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Audrey Hepburn",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Florence Nightingale",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Sigmund Freud",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Anne Frank",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Louis Armstrong",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Helen Keller",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Thomas Jefferson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Galileo Galilei",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Marianne Williamson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Serena Williams",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Elon Musk",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Genghis Khan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Aretha Franklin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Alexander Hamilton",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Miley Cyrus",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Maya Angelou",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Donald Trump",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "David Bowie",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Albert Schweitzer",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Pelé",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Jane Goodall",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Usain Bolt",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ludwig van Beethoven",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Jackie Robinson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Che Guevara",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cleopatra VII",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Emmeline Pankhurst",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Pablo Neruda",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Indira Gandhi",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Jimi Hendrix",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Rosa Luxemburg",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Marie Skłodowska Curie",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Josephine Baker",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Alan Turing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Audre Lorde",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Werner Heisenberg",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Lise Meitner",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Thich Nhat Hanh",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Leroy Anderson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Dorothy Hodgkin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Charlie Chaplin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Carl Sagan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Joan Crawford",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Simone de Beauvoir",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Rachel Carson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Benny Goodman",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Martina Navratilova",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Greta Garbo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Harriet Beecher Stowe",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Hedy Lamarr",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Frederick Douglass",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Malcolm X",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Isadora Duncan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Golda Meir",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Johannes Gutenberg",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Emmett Till",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Grace Hopper",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cleopatra VI",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        }
+        "Abraham Lincoln",
+        "Alan Turing",
+        "Albert Einstein",
+        "Albert Schweitzer",
+        "Alexander Hamilton",
+        "Amelia Earhart",
+        "Anne Frank",
+        "Aretha Franklin",
+        "Audre Lorde",
+        "Audrey Hepburn",
+        "Benny Goodman",
+        "Beyoncé",
+        "Carl Sagan",
+        "Catherine the Great",
+        "Charles Darwin",
+        "Charlie Chaplin",
+        "Che Guevara",
+        "Cleopatra",
+        "Cleopatra VI",
+        "Cleopatra VII",
+        "Coco Chanel",
+        "Confucius",
+        "David Bowie",
+        "Donald Trump",
+        "Dorothy Hodgkin",
+        "Dwayne Johnson",
+        "Elon Musk",
+        "Elvis Presley",
+        "Emmeline Pankhurst",
+        "Emmett Till",
+        "Florence Nightingale",
+        "Frederick Douglass",
+        "Frida Kahlo",
+        "Galileo Galilei",
+        "Genghis Khan",
+        "Golda Meir",
+        "Grace Hopper",
+        "Greta Garbo",
+        "Gustave Eiffel",
+        "Harriet Beecher Stowe",
+        "Harriet Tubman",
+        "Hedy Lamarr",
+        "Helen Keller",
+        "Indira Gandhi",
+        "Isaac Newton",
+        "Isadora Duncan",
+        "J.K. Rowling",
+        "Jackie Robinson",
+        "Jane Austen",
+        "Jane Goodall",
+        "Jimi Hendrix",
+        "Joan Crawford",
+        "Joan of Arc",
+        "Johannes Gutenberg",
+        "Josephine Baker",
+        "Leonardo da Vinci",
+        "Leonardo DiCaprio",
+        "Leroy Anderson",
+        "Lise Meitner",
+        "Louis Armstrong",
+        "Ludwig van Beethoven",
+        "Mahatma Gandhi",
+        "Malala Yousafzai",
+        "Malcolm X",
+        "Marianne Williamson",
+        "Marie Antoinette",
+        "Marie Curie",
+        "Marie Skłodowska Curie",
+        "Marilyn Monroe",
+        "Martin Luther King Jr.",
+        "Martina Navratilova",
+        "Maya Angelou",
+        "Michael Jordan",
+        "Miley Cyrus",
+        "Mother Teresa",
+        "Mozart",
+        "Nelson Mandela",
+        "Nikola Tesla",
+        "Oprah Winfrey",
+        "Pablo Neruda",
+        "Pablo Picasso",
+        "Pelé",
+        "Queen Elizabeth II",
+        "Queen Victoria",
+        "Rachel Carson",
+        "Rosa Luxemburg",
+        "Rosa Parks",
+        "Serena Williams",
+        "Sigmund Freud",
+        "Simone de Beauvoir",
+        "Socrates",
+        "Stephen Hawking",
+        "Steve Jobs",
+        "Thich Nhat Hanh",
+        "Thomas Jefferson",
+        "Usain Bolt",
+        "Vincent van Gogh",
+        "Werner Heisenberg",
+        "William Shakespeare",
+        "Winston Churchill"
       ]
     },
     {
@@ -3661,906 +461,106 @@
       },
       "description": "Movies profiles can have clues about their plot, characters, actors, director, release date, genre, and other important aspects. It does not necessarily need to be a movie, but could be a character in a movie or a famous director.",
       "profiles": [
-        {
-          "name": "The Matrix",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Inception",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Star Wars",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Titanic",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Godfather",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Avatar",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Jurassic Park",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Frozen",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Dark Knight",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Avengers",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Finding Nemo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Parasite",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Shawshank Redemption",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Pulp Fiction",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Lord of the Rings: The Fellowship of the Ring",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Forrest Gump",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Silence of the Lambs",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Back to the Future",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Lion King",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Gladiator",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Terminator",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Casablanca",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Wizard of Oz",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Fight Club",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "E.T. the Extra-Terrestrial",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Sound of Music",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Alien",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Spirited Away",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Die Hard",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Grand Budapest Hotel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Jaws",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Goodfellas",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Schindler's List",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Saving Private Ryan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Princess Bride",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Blade Runner",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Singin' in the Rain",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "American Beauty",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Green Mile",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Requiem for a Dream",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Sixth Sense",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Truman Show",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Memento",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Mulholland Drive",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Shining",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Breakfast Club",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Psycho",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Citizen Kane",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "2001: A Space Odyssey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Oppenheimer",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Shawshank Redemption 2: Tales from Prison",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Interstellar",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Matrix Resurrections",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Avengers: Endgame",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Dune",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Doctor Strange",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Eternals",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Suicide Squad",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Everything Everywhere All at Once",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Avatar: The Way of Water",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Top Gun: Maverick",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Barbie",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Last Duel",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Once Upon a Time in Hollywood",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Knives Out",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Shape of Water",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Arrival",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "La La Land",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Call Me By Your Name",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Moonlight",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Manchester by the Sea",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Get Out",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Hereditary",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Midsommar",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Uncut Gems",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Taxi Driver",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Vertigo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Apocalypse Now",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "A Clockwork Orange",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Rear Window",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Godfather Part II",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "One Flew Over the Cuckoo's Nest",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Sunset Boulevard",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Exorcist",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Rocky",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Network",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Barry Lyndon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "In the Mood for Love",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Stalker",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Pan's Labyrinth",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Amélie",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Donnie Darko",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Kill Bill: Vol. 1",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Seventh Seal",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Bicycle Thieves",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "8½",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Tokyo Story",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Nosferatu",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Blade Runner 2049",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Lighthouse",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        }
+        "2001: A Space Odyssey",
+        "8½",
+        "A Clockwork Orange",
+        "Alien",
+        "Amélie",
+        "American Beauty",
+        "Apocalypse Now",
+        "Arrival",
+        "Avatar",
+        "Avatar: The Way of Water",
+        "Back to the Future",
+        "Barbie",
+        "Barry Lyndon",
+        "Bicycle Thieves",
+        "Blade Runner",
+        "Blade Runner 2049",
+        "Call Me By Your Name",
+        "Casablanca",
+        "Citizen Kane",
+        "Die Hard",
+        "Doctor Strange",
+        "Donnie Darko",
+        "Dune",
+        "E.T. the Extra-Terrestrial",
+        "Eternals",
+        "Everything Everywhere All at Once",
+        "Fight Club",
+        "Finding Nemo",
+        "Forrest Gump",
+        "Frozen",
+        "Get Out",
+        "Gladiator",
+        "Goodfellas",
+        "Hereditary",
+        "In the Mood for Love",
+        "Inception",
+        "Interstellar",
+        "Jaws",
+        "Jurassic Park",
+        "Kill Bill: Vol. 1",
+        "Knives Out",
+        "La La Land",
+        "Manchester by the Sea",
+        "Memento",
+        "Midsommar",
+        "Moonlight",
+        "Mulholland Drive",
+        "Network",
+        "Nosferatu",
+        "Once Upon a Time in Hollywood",
+        "One Flew Over the Cuckoo's Nest",
+        "Oppenheimer",
+        "Pan's Labyrinth",
+        "Parasite",
+        "Psycho",
+        "Pulp Fiction",
+        "Rear Window",
+        "Requiem for a Dream",
+        "Rocky",
+        "Saving Private Ryan",
+        "Schindler's List",
+        "Singin' in the Rain",
+        "Spirited Away",
+        "Stalker",
+        "Star Wars",
+        "Sunset Boulevard",
+        "Taxi Driver",
+        "The Avengers",
+        "The Avengers: Endgame",
+        "The Breakfast Club",
+        "The Dark Knight",
+        "The Exorcist",
+        "The Godfather",
+        "The Godfather Part II",
+        "The Grand Budapest Hotel",
+        "The Green Mile",
+        "The Last Duel",
+        "The Lighthouse",
+        "The Lion King",
+        "The Lord of the Rings: The Fellowship of the Ring",
+        "The Matrix",
+        "The Matrix Resurrections",
+        "The Princess Bride",
+        "The Seventh Seal",
+        "The Shape of Water",
+        "The Shawshank Redemption",
+        "The Shawshank Redemption 2: Tales from Prison",
+        "The Shining",
+        "The Silence of the Lambs",
+        "The Sixth Sense",
+        "The Sound of Music",
+        "The Suicide Squad",
+        "The Terminator",
+        "The Truman Show",
+        "The Wizard of Oz",
+        "Titanic",
+        "Tokyo Story",
+        "Top Gun: Maverick",
+        "Uncut Gems",
+        "Vertigo"
       ]
     },
     {
@@ -4572,906 +572,106 @@
       },
       "description": "Sports profiles can have clues about their history, rules, players, teams, and other important aspects. It not necessarily needs to be the name of the sport, but the profile could be about an player, a team, or a sport in general. It could have all kind of sports, from soccer to basketball. It does not necessarily need to be a real sport, but could be a fictional one in a movie.",
       "profiles": [
-        {
-          "name": "Soccer",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Basketball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Tennis",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Baseball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "American Football",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Golf",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Swimming",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Boxing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Hockey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Track and Field",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Volleyball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Figure Skating",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Gymnastics",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cricket",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Rugby",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Skiing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Cycling",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Wrestling",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Badminton",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Table Tennis",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Martial Arts",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Sailing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Archery",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Fencing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Equestrian",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Rock Climbing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Bowling",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Surfing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Darts",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Cheerleading",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Squash",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Lacrosse",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Handball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Curling",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ping Pong (Advanced)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Bobsleigh",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Racquetball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Hurling",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Pentathlon (Modern)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Luge",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Badminton (Advanced)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Orienteering",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Netball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Australian Rules Football",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Gaelic Football",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "American Handball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Weightlifting",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Biathlon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Snooker",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Decathlon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ice Climbing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Roller Derby",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Skateboarding",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Pickleball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Kabaddi",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Taekwondo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Parkour",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Capoeira",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Sumo Wrestling",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Speed Climbing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Mixed Martial Arts (MMA)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Triathlon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Fencing (Modern)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ice Hockey (Advanced)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Gymnastic Trampoline",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Skydiving",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Base Jumping",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Windsurfing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Kitesurfing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ultramarathon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cross-Country Skiing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Skeleton",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Sport Climbing (Bouldering)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Wheelchair Rugby",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Handball (Beach)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Paddleboarding (SUP Racing)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Bossaball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Netball (Advanced)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Australian Netball",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Esports (Professional Gaming)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Sumo Wrestling (Advanced)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Judo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Karate",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Muay Thai",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Taekwondo (Advanced)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Kendo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Aikido",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Field Hockey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Waterpolo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Futsal",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Ice Fishing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Speed Skating",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Short Track Speed Skating",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Skeleton",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Bobsled (Advanced)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Base Jumping",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Skydiving",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Whitewater Rafting",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Kayaking",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Canoe Racing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        }
+        "Aikido",
+        "American Football",
+        "American Handball",
+        "Archery",
+        "Australian Netball",
+        "Australian Rules Football",
+        "Badminton",
+        "Badminton (Advanced)",
+        "Base Jumping",
+        "Baseball",
+        "Basketball",
+        "Biathlon",
+        "Bobsled (Advanced)",
+        "Bobsleigh",
+        "Bossaball",
+        "Bowling",
+        "Boxing",
+        "Canoe Racing",
+        "Capoeira",
+        "Cheerleading",
+        "Cricket",
+        "Cross-Country Skiing",
+        "Curling",
+        "Cycling",
+        "Darts",
+        "Decathlon",
+        "Equestrian",
+        "Esports (Professional Gaming)",
+        "Fencing",
+        "Fencing (Modern)",
+        "Field Hockey",
+        "Figure Skating",
+        "Futsal",
+        "Gaelic Football",
+        "Golf",
+        "Gymnastic Trampoline",
+        "Gymnastics",
+        "Handball",
+        "Handball (Beach)",
+        "Hockey",
+        "Hurling",
+        "Ice Climbing",
+        "Ice Fishing",
+        "Ice Hockey (Advanced)",
+        "Judo",
+        "Kabaddi",
+        "Karate",
+        "Kayaking",
+        "Kendo",
+        "Kitesurfing",
+        "Lacrosse",
+        "Luge",
+        "Martial Arts",
+        "Mixed Martial Arts (MMA)",
+        "Muay Thai",
+        "Netball",
+        "Netball (Advanced)",
+        "Orienteering",
+        "Paddleboarding (SUP Racing)",
+        "Parkour",
+        "Pentathlon (Modern)",
+        "Pickleball",
+        "Ping Pong (Advanced)",
+        "Polo",
+        "Racquetball",
+        "Rock Climbing",
+        "Roller Derby",
+        "Rugby",
+        "Sailing",
+        "Sepak Takraw",
+        "Short Track Speed Skating",
+        "Skateboarding",
+        "Skeleton",
+        "Skiing",
+        "Skydiving",
+        "Snooker",
+        "Soccer",
+        "Speed Climbing",
+        "Speed Skating",
+        "Sport Climbing (Bouldering)",
+        "Squash",
+        "Sumo Wrestling",
+        "Sumo Wrestling (Advanced)",
+        "Surfing",
+        "Swimming",
+        "Table Tennis",
+        "Taekwondo",
+        "Taekwondo (Advanced)",
+        "Tennis",
+        "Track and Field",
+        "Triathlon",
+        "Ultimate Frisbee",
+        "Ultramarathon",
+        "Volleyball",
+        "Waterpolo",
+        "Weightlifting",
+        "Wheelchair Rugby",
+        "Whitewater Rafting",
+        "Windsurfing",
+        "Wrestling"
       ]
     },
     {
@@ -5483,456 +683,106 @@
       },
       "description": "Technologylogy profiles can have clues about their history, features, and other important aspects. It could have all kind of technologies, from smartphones to computers. It does not necessarily need to be a real technology, but could be a fictional one in a movie or a character from a book.",
       "profiles": [
-        {
-          "name": "Smartphone",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Internet",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Artificial Intelligence",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Computer",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Robot",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Virtual Reality",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Blockchain",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Drone",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "3D Printing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Quantum Computing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cloud Computing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Biotechnology",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Nanotechnology",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Social Media",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Electric Vehicle",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Video Games",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Cybersecurity",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Streaming Services",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Wearable Technology",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "5G Networks",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cryptocurrency",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Smart Home",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Augmented Reality",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Renewable Energy",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Space Technology",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Gene Editing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Autonomous Vehicles",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Quantum Communication",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Brain-Computer Interface",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Digital Twins",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Machine Learning",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Internet of Things",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Edge Computing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Metaverse",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Web3",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Cybernetics",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Natural Language Processing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Computer Vision",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Quantum Sensing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Synthetic Biology",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Mixed Reality",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Biotechnology Manufacturing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Haptic Technology",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Data Privacy Technology",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Sensor Networks",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Neuromorphic Computing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Affective Computing",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Distributed Ledger Technology",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Holographic Display",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Ambient Intelligence",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        }
+        "Smartphone",
+        "Internet",
+        "Artificial Intelligence",
+        "Computer",
+        "Robot",
+        "Virtual Reality",
+        "Blockchain",
+        "Drone",
+        "3D Printing",
+        "Quantum Computing",
+        "Cloud Computing",
+        "Biotechnology",
+        "Nanotechnology",
+        "Social Media",
+        "Electric Vehicle",
+        "Video Games",
+        "Cybersecurity",
+        "Streaming Services",
+        "Wearable Technology",
+        "5G Networks",
+        "Cryptocurrency",
+        "Smart Home",
+        "Augmented Reality",
+        "Renewable Energy",
+        "Space Technology",
+        "Gene Editing",
+        "Autonomous Vehicles",
+        "Quantum Communication",
+        "Brain-Computer Interface",
+        "Digital Twins",
+        "Machine Learning",
+        "Internet of Things",
+        "Edge Computing",
+        "Metaverse",
+        "Web3",
+        "Cybernetics",
+        "Natural Language Processing",
+        "Computer Vision",
+        "Quantum Sensing",
+        "Synthetic Biology",
+        "Mixed Reality",
+        "Biotechnology Manufacturing",
+        "Haptic Technology",
+        "Data Privacy Technology",
+        "Sensor Networks",
+        "Neuromorphic Computing",
+        "Affective Computing",
+        "Distributed Ledger Technology",
+        "Holographic Display",
+        "Ambient Intelligence",
+        "Television",
+        "Microwave Oven",
+        "Telephone",
+        "Refrigerator",
+        "Washing Machine",
+        "Air Conditioning",
+        "Radio",
+        "Dishwasher",
+        "Vacuum Cleaner",
+        "Toaster",
+        "Calculator",
+        "Elevator",
+        "Submarine",
+        "Spaceship",
+        "Train",
+        "Airplane",
+        "Bridge",
+        "Dam",
+        "Skyscraper",
+        "Cruise Ship",
+        "Printing Press",
+        "Lightbulb",
+        "Telescope",
+        "Microscope",
+        "Camera",
+        "GPS",
+        "Power Plant",
+        "Battery",
+        "Lightsaber",
+        "Warp Drive",
+        "Time Machine",
+        "Holodeck",
+        "Replicator",
+        "Universal Translator",
+        "Transporter",
+        "Invisibility Cloak",
+        "Phaser",
+        "Tractor Beam",
+        "Digital Camera",
+        "Bluetooth",
+        "USB Flash Drive",
+        "Wireless Headphones",
+        "Portable Speaker",
+        "Laptop",
+        "Printer",
+        "WiFi Router",
+        "Smartwatch",
+        "Power Bank",
+        "USB Cable",
+        "Webcam"
       ]
     },
     {
@@ -5944,1050 +794,106 @@
       },
       "description": "History profiles contain clues about historical events, figures, and periods. Includes major transformations like the fall of empires, revolutions, wars, and ancient civilizations. Clues focus on lesser-known details and context to avoid obvious information.",
       "profiles": [
-        {
-          "name": "Fall of the Roman Empire",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Black Death",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The French Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Silk Road",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Russian Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Hundred Years' War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Ottoman Empire",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The American Civil War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Crusades",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Age of Exploration",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Spanish Inquisition",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Byzantine Empire",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Magna Carta",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Mongol Invasion of Europe",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Harlem Renaissance",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Ming Dynasty",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Gutenberg Printing Press",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Industrial Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Triangular Trade",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Enlightenment",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Renaissance",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Napoleonic Wars",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Ancient Egyptian Civilization",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Islamic Golden Age",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Protestant Reformation",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The British Empire",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Magna Carta Successors",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Fall of Constantinople",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Abolition Movement",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Meiji Restoration",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Treaty of Westphalia",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Great Depression",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Holocaust",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Cold War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The American Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Vienna Congress",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Ancient Greek Civilization",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Chinese Civil War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Indian Independence Movement",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Ancient Roman Republic",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "World War II",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Feudal System",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Haitian Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Neolithic Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Korean War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Enlightened Despotism",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Suez Crisis",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Vietnam War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Chinese Dynasties",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Scientific Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Boer Wars",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Boxer Rebellion",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Crimean War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Cultural Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The English Civil War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Fall of the Berlin Wall",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Glorious Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Great Leap Forward",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Hungarian Revolution of 1956",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Iranian Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Jacobean Witch Hunts",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Khmer Rouge",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Latin American Wars of Independence",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The March on Rome",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Opium Wars",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Partition of India and Pakistan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Velvet Revolution",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Brazilian Independence",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Bandeirantes",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Jesuit Missions",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Coffee Cycle",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Marquês de Pombal",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Brazilian Baroque",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Gold Rush (Minas Gerais)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Pedro II and the Empire",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Abolition of Slavery in Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Military Dictatorship (1964-1985)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Cabanada Rebellion",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Brazilian Modernism",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Getúlio Vargas Era",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Rent of Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Real Plan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Tiradentes Conspiracy",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Anita Garibaldi",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Discovery of Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Portuguese Colonial Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Dutch Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Inconfid\u00eancia Mineira",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Transfer of the Portuguese Court to Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Independence of Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Cisplatine War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Regency Period (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Paraguayan War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Proclamation of the Republic (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Old Republic (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Revolution of 1930 (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Estado Novo (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Carnation Revolution (Portugal)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Portuguese Colonial War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Great Lisbon Earthquake",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Discovery of Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Portuguese Colonial Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Dutch Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Inconfid\u00eancia Mineira",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Transfer of the Portuguese Court to Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Independence of Brazil",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Cisplatine War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Regency Period (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Paraguayan War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Proclamation of the Republic (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Old Republic (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Revolution of 1930 (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Estado Novo (Brazil)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Carnation Revolution (Portugal)",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Portuguese Colonial War",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Great Lisbon Earthquake",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        }
+        "Anita Garibaldi",
+        "Brazilian Baroque",
+        "Brazilian Independence",
+        "Brazilian Modernism",
+        "Discovery of Brazil",
+        "Dutch Brazil",
+        "Fall of the Roman Empire",
+        "Getúlio Vargas Era",
+        "Pedro II and the Empire",
+        "Portuguese Colonial Brazil",
+        "The Abolition Movement",
+        "The Abolition of Slavery in Brazil",
+        "The Age of Exploration",
+        "The American Civil War",
+        "The American Revolution",
+        "The Ancient Egyptian Civilization",
+        "The Ancient Greek Civilization",
+        "The Ancient Roman Republic",
+        "The Bandeirantes",
+        "The Black Death",
+        "The Boer Wars",
+        "The Boxer Rebellion",
+        "The British Empire",
+        "The Byzantine Empire",
+        "The Cabanada Rebellion",
+        "The Carnation Revolution (Portugal)",
+        "The Chinese Civil War",
+        "The Chinese Dynasties",
+        "The Cisplatine War",
+        "The Coffee Cycle",
+        "The Cold War",
+        "The Crimean War",
+        "The Crusades",
+        "The Cultural Revolution",
+        "The English Civil War",
+        "The Enlightened Despotism",
+        "The Enlightenment",
+        "The Estado Novo (Brazil)",
+        "The Fall of Constantinople",
+        "The Fall of the Berlin Wall",
+        "The Feudal System",
+        "The French Revolution",
+        "The Glorious Revolution",
+        "The Gold Rush (Minas Gerais)",
+        "The Great Depression",
+        "The Great Leap Forward",
+        "The Great Lisbon Earthquake",
+        "The Gutenberg Printing Press",
+        "The Haitian Revolution",
+        "The Harlem Renaissance",
+        "The Holocaust",
+        "The Hundred Years' War",
+        "The Hungarian Revolution of 1956",
+        "The Inconfidência Mineira",
+        "The Independence of Brazil",
+        "The Indian Independence Movement",
+        "The Industrial Revolution",
+        "The Iranian Revolution",
+        "The Islamic Golden Age",
+        "The Jacobean Witch Hunts",
+        "The Jesuit Missions",
+        "The Khmer Rouge",
+        "The Korean War",
+        "The Latin American Wars of Independence",
+        "The Magna Carta",
+        "The Magna Carta Successors",
+        "The March on Rome",
+        "The Marquês de Pombal",
+        "The Meiji Restoration",
+        "The Military Dictatorship (1964-1985)",
+        "The Ming Dynasty",
+        "The Mongol Invasion of Europe",
+        "The Napoleonic Wars",
+        "The Neolithic Revolution",
+        "The Old Republic (Brazil)",
+        "The Opium Wars",
+        "The Ottoman Empire",
+        "The Paraguayan War",
+        "The Partition of India and Pakistan",
+        "The Portuguese Colonial War",
+        "The Proclamation of the Republic (Brazil)",
+        "The Protestant Reformation",
+        "The Real Plan",
+        "The Regency Period (Brazil)",
+        "The Renaissance",
+        "The Rent of Brazil",
+        "The Revolution of 1930 (Brazil)",
+        "The Russian Revolution",
+        "The Scientific Revolution",
+        "The Silk Road",
+        "The Spanish Inquisition",
+        "The Suez Crisis",
+        "The Tiradentes Conspiracy",
+        "The Transfer of the Portuguese Court to Brazil",
+        "The Treaty of Westphalia",
+        "The Triangular Trade",
+        "The Velvet Revolution",
+        "The Vienna Congress",
+        "The Vietnam War",
+        "World War II"
       ]
     },
     {
@@ -6999,511 +905,106 @@
       },
       "description": "Literature profiles contain clues about books, authors, literary characters, and stories. Includes famous novels, celebrated authors, iconic characters like Jack Torrance from The Shining, and literary works from various genres and time periods. Clues avoid obvious information to maintain challenge.",
       "profiles": [
-        {
-          "name": "Jane Eyre",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Great Gatsby",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Jack Torrance",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Pride and Prejudice",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "One Hundred Years of Solitude",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "To Kill a Mockingbird",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Catcher in the Rye",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "1984",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Odyssey",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Wuthering Heights",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Hobbit",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Invisible Man",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Jane Austen",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Moby Dick",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Picture of Dorian Gray",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Fahrenheit 451",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Anna Karenina",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Crime and Punishment",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Iliad",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Brothers Karamazov",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Count of Monte Cristo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Frankenstein",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Metamorphosis",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Les Misérables",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Lolita",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Handmaid's Tale",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Silmarillion",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Name of the Rose",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "If Beale Street Could Talk",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Things Fall Apart",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Left Hand of Darkness",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Beloved",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Midnight's Children",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The God of Small Things",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "One Flew Over the Cuckoo's Nest",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Call of the Wild",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Bell Jar",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Slaughterhouse-Five",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Waiting for Godot",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "One Piece of String",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Lottery",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Handkerchief",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Stranger",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Siddhartha",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Plague",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Secret Garden",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Machado de Assis",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Clarice Lispector",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "João Guimarães Rosa",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Jorge Amado",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Carlos Drummond de Andrade",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Cecília Meireles",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Graciliano Ramos",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "José de Alencar",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Érico Veríssimo",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Ariano Suassuna",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        }
-
+        "1984",
+        "A Cidade e as Serras",
+        "A Hora da Estrela",
+        "A Ilustre Casa de Ramires",
+        "A Paixão Segundo G.H.",
+        "A Relíquia",
+        "Amor de Perdição",
+        "Anna Karenina",
+        "Ariano Suassuna",
+        "Beloved",
+        "Capitães da Areia",
+        "Carlos Drummond de Andrade",
+        "Cecília Meireles",
+        "Clarice Lispector",
+        "Contos",
+        "Crime and Punishment",
+        "Dom Casmurro",
+        "Don Quixote",
+        "Érico Veríssimo",
+        "Fahrenheit 451",
+        "Frankenstein",
+        "Frei Luís de Sousa",
+        "Gabriela, Cravo e Canela",
+        "Graciliano Ramos",
+        "Grande Sertão: Veredas",
+        "História do Cerco de Lisboa",
+        "If Beale Street Could Talk",
+        "In Search of Lost Time",
+        "Invisible Man",
+        "Iracema",
+        "Jack Torrance",
+        "Jane Austen",
+        "Jane Eyre",
+        "João Guimarães Rosa",
+        "Jorge Amado",
+        "José de Alencar",
+        "Les Misérables",
+        "Livro do Desassossego",
+        "Lolita",
+        "Machado de Assis",
+        "Macunaíma",
+        "Madame Bovary",
+        "Memorial do Convento",
+        "Memórias Póstumas de Brás Cubas",
+        "Menino de Engenho",
+        "Mensagem",
+        "Midnight's Children",
+        "Moby Dick",
+        "Mrs Dalloway",
+        "O Cortiço",
+        "O Crime do Padre Amaro",
+        "O Primo Basílio",
+        "O Quinze",
+        "One Flew Over the Cuckoo's Nest",
+        "One Hundred Years of Solitude",
+        "One Piece of String",
+        "Os Lusíadas",
+        "Os Maias",
+        "Peregrinação",
+        "Pride and Prejudice",
+        "Quincas Borba",
+        "São Bernardo",
+        "Sentimento do Mundo",
+        "Sermão de Santo António aos Peixes",
+        "Siddhartha",
+        "Slaughterhouse-Five",
+        "The Bell Jar",
+        "The Brothers Karamazov",
+        "The Call of the Wild",
+        "The Catcher in the Rye",
+        "The Count of Monte Cristo",
+        "The Divine Comedy",
+        "The God of Small Things",
+        "The Great Gatsby",
+        "The Handkerchief",
+        "The Handmaid's Tale",
+        "The Hobbit",
+        "The Iliad",
+        "The Invisible Man",
+        "The Left Hand of Darkness",
+        "The Lottery",
+        "The Metamorphosis",
+        "The Name of the Rose",
+        "The Odyssey",
+        "The Picture of Dorian Gray",
+        "The Plague",
+        "The Secret Garden",
+        "The Silmarillion",
+        "The Sound and the Fury",
+        "The Stranger",
+        "The Trial",
+        "Things Fall Apart",
+        "To Kill a Mockingbird",
+        "Triste Fim de Policarpo Quaresma",
+        "Ulysses",
+        "Viagens na Minha Terra",
+        "Vidas Secas",
+        "Waiting for Godot",
+        "War and Peace",
+        "Wuthering Heights"
       ]
     },
     {
@@ -7515,411 +1016,106 @@
       },
       "description": "Music profiles can have clues about their history, achievements, styles, and other important aspects. It could have all kind of music-related subjects, from musicians to bands to music genres. It does not necessarily need to be a real musician, but could be a fictional character in a movie or a historical figure.",
       "profiles": [
-        {
-          "name": "Ludwig van Beethoven",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Beatles",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Aretha Franklin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Jazz Music",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "David Bowie",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Elvis Presley",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Michael Jackson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Prince",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Queen",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Rolling Stones",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Madonna",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Bob Dylan",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Jimi Hendrix",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Led Zeppelin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Who",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Louis Armstrong",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Billie Holiday",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Pink Floyd",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Adele",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Taylor Swift",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Kanye West",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Amy Winehouse",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Wolfgang Amadeus Mozart",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Beyoncé",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "The Rolling Stones Aftermath",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Freddie Mercury",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Johnny Cash",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Willie Nelson",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Joni Mitchell",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Kurt Cobain",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Miles Davis",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Stevie Wonder",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "John Lennon",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Paul McCartney",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Chuck Berry",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Janis Joplin",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Lady Gaga",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Metallica",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Rihanna",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Ed Sheeran",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "easy"
-        },
-        {
-          "name": "Tupac Shakur",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "Frank Sinatra",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "Björk",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        },
-        {
-          "name": "The Killers",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "medium"
-        },
-        {
-          "name": "The Who Extended",
-          "availableIn": [
-            "en",
-            "es",
-            "pt-BR"
-          ],
-          "difficulty": "hard"
-        }
+        "ABBA",
+        "Adele",
+        "Afrobeats",
+        "Amália Rodrigues",
+        "Amy Winehouse",
+        "Anitta",
+        "Arctic Monkeys",
+        "Aretha Franklin",
+        "Ariana Grande",
+        "Bethânia (Maria Bethânia)",
+        "Beyoncé",
+        "Billie Eilish",
+        "Billie Holiday",
+        "Björk",
+        "Bob Dylan",
+        "Bob Marley",
+        "Bossa Nova (Music Genre)",
+        "Brasília",
+        "Burna Boy",
+        "Caetano Veloso",
+        "Carlos Paredes",
+        "Chico Buarque",
+        "Chuck Berry",
+        "Coldplay",
+        "Daniela Mercury",
+        "David Bowie",
+        "Dua Lipa",
+        "Ed Sheeran",
+        "Elvis Presley",
+        "Emicida",
+        "Fado",
+        "Forró",
+        "Frank Sinatra",
+        "Freddie Mercury",
+        "Gal Costa",
+        "Gilberto Gil",
+        "Grime",
+        "Harry Styles",
+        "Ivete Sangalo",
+        "Janis Joplin",
+        "Jazz Music",
+        "Jimi Hendrix",
+        "João Gilberto",
+        "John Lennon",
+        "Johnny Cash",
+        "Joni Mitchell",
+        "K-pop",
+        "Kanye West",
+        "Kendrick Lamar",
+        "Khalid",
+        "Kurt Cobain",
+        "Lady Gaga",
+        "Led Zeppelin",
+        "Lena d'Água",
+        "Lil Nas X",
+        "Louis Armstrong",
+        "Ludwig van Beethoven",
+        "Madonna",
+        "Maria Rita",
+        "Mário Laginha",
+        "Marisa Monte",
+        "Metallica",
+        "Michael Jackson",
+        "Miles Davis",
+        "MPB (Música Popular Brasileira)",
+        "Nara Leão",
+        "Olivia Rodrigo",
+        "Pabllo Vittar",
+        "Paul McCartney",
+        "Pink Floyd",
+        "Portuguese Guitar (Music Tradition)",
+        "Post Malone",
+        "Prince",
+        "Queen",
+        "Radiohead",
+        "Reggae",
+        "Rihanna",
+        "Samba",
+        "Sepultura",
+        "Seu Jorge",
+        "Stevie Wonder",
+        "Taylor Swift",
+        "The 1975",
+        "The Beatles",
+        "The Killers",
+        "The Rolling Stones",
+        "The Rolling Stones Aftermath",
+        "The Weeknd",
+        "The Who",
+        "The Who Extended",
+        "Tom e João (Tom Jobim & João Gilberto Duo)",
+        "Tom Jobim",
+        "Toquinho",
+        "Tropicália",
+        "Tupac Shakur",
+        "Willie Nelson",
+        "Wizkid",
+        "Wolfgang Amadeus Mozart",
+        "Nirvana",
+        "AC/DC"
       ]
     }
   ]

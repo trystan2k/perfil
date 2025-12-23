@@ -55,7 +55,7 @@
         "Painted one of the most famous portraits ever",
         "Worked for powerful Italian families",
         "The subject has no eyebrows in the famous painting",
-        "Renaissance polymath",
+        "Renaissance polymath with mastery across art, engineering, and science",
         "Studied nature obsessively",
         "Mona Lisa is his most famous work"
       ],
@@ -71,7 +71,7 @@
       "name": "Marie Curie",
       "clues": [
         "Born in Poland in 1867",
-        "Pioneering scientist",
+        "Pioneering scientist who revolutionized the study of radioactivity",
         "First woman to win Nobel Prize",
         "Only person to win Nobel in two sciences",
         "Studied radioactivity",
@@ -107,7 +107,7 @@
         "Called 'The Bard of Avon'",
         "Wrote Romeo and Juliet",
         "Created Hamlet character",
-        "Wrote Macbeth",
+        "Wrote the tragic masterpiece Macbeth with profound themes of ambition and power",
         "Also wrote comedies like A Midsummer Night's Dream",
         "Introduced hundreds of words to English",
         "Wrote 154 sonnets",
@@ -135,7 +135,7 @@
       "name": "Nelson Mandela",
       "clues": [
         "Born in South Africa in 1918",
-        "Anti-apartheid revolutionary",
+        "Anti-apartheid revolutionary who fought against racial segregation and injustice",
         "Imprisoned for 27 years",
         "First Black president of South Africa",
         "Won Nobel Peace Prize in 1993",
@@ -148,7 +148,7 @@
         "Advocated reconciliation not revenge",
         "Became global symbol of peace",
         "Died in 2013 at age 95",
-        "International statesman",
+        "Respected as an international statesman known for reconciliation and peace",
         "Fought for racial equality",
         "Wrote autobiography 'Long Walk to Freedom'",
         "Studied law at University of Fort Hare",
@@ -172,7 +172,7 @@
         "Nobel Peace Prize winner",
         "I Have a Dream speech",
         "Assassinated in 1968",
-        "Nonviolent resistance advocate",
+        "Powerful advocate for nonviolent resistance and civil disobedience as a path to justice",
         "Montgomery Bus Boycott leader",
         "Southern Christian Leadership Conference founder",
         "March on Washington organizer",
@@ -184,7 +184,7 @@
         "Posthumous Presidential Medal of Freedom",
         "Morehouse College graduate",
         "Boston University PhD",
-        "Coretta Scott King wife",
+        "Married to activist Coretta Scott, who became a civil rights leader herself",
         "American icon of equality"
       ],
       "metadata": {
@@ -210,13 +210,13 @@
         "Windsor Castle resident",
         "Buckingham Palace official residence",
         "Royal Family head",
-        "United Kingdom queen",
-        "Canada, Australia, New Zealand queen",
+        "Reigned as the ruler of the United Kingdom for over 70 years",
+        "Also served as the monarch of Canada, Australia, and New Zealand",
         "Diamond Jubilee celebrated",
         "Platinum Jubilee celebrated",
         "Corgi dogs lover",
         "Horse racing enthusiast",
-        "Traditionalist",
+        "Known for her traditional values and adherence to royal protocols and customs",
         "Global symbol of stability"
       ],
       "metadata": {
@@ -230,23 +230,23 @@
       "category": "Famous People",
       "name": "Steve Jobs",
       "clues": [
-        "Apple co-founder",
-        "Technology entrepreneur",
+        "Co-founder of Apple Computer who transformed it into a global technology leader",
+        "Technology entrepreneur whose vision revolutionized multiple industries",
         "Born in San Francisco",
-        "College dropout",
-        "NeXT Computer founder",
+        "Made the unconventional decision to drop out of college to pursue his passions",
+        "Founded NeXT Computer, a company that pushed the boundaries of computer design",
         "Pixar Animation Studios CEO",
-        "iPhone creator",
-        "iPad visionary",
-        "Macintosh developer",
+        "Led Apple to create the visionary iPad, redefining portable computing",
+        "Known as a visionary for imagining the future of personal technology",
+        "Led the development of Macintosh, revolutionizing personal computing with graphical interfaces",
         "Reality distortion field",
         "Zen Buddhist practitioner",
-        "Adopted child",
+        "Had an adopted child and spoke openly about the importance of family bonds",
         "Reed College attendee",
         "Calligraphy influence on design",
         "Perfectionist leader",
-        "Marketing genius",
-        "Design philosophy advocate",
+        "Recognized as a marketing genius who understood consumer psychology and desire",
+        "Passionate advocate for minimalist design philosophy and elegant simplicity",
         "Think Different campaign",
         "Silicon Valley icon",
         "Co-founded Apple in a garage"
@@ -264,24 +264,24 @@
       "clues": [
         "American talk show host",
         "Born in Mississippi",
-        "Poverty-stricken childhood",
-        "Media mogul",
-        "The Oprah Winfrey Show",
-        "Harpo Productions founder",
+        "Overcame a challenging childhood marked by poverty, racism, and hardship",
+        "Rose from poverty to become one of the most influential media moguls",
+        "Hosted a hugely popular daily talk show that became a television phenomenon",
+        "Founded Harpo Productions, her own media company that produced her influential show",
         "Book Club creator",
-        "Philanthropist",
-        "Billionaire entrepreneur",
+        "Known for her philanthropic efforts and commitment to social causes",
+        "Became a billionaire entrepreneur through her business ventures and entertainment empire",
         "Academy Award nominated actress",
         "Weight loss journey public",
-        "Leadership Academy founder",
+        "Founded a prestigious leadership academy for girls in South Africa",
         "Magazine publisher",
-        "Network television pioneer",
-        "Influential voice",
-        "Chicago-based career",
-        "Baltimore early career",
+        "Founded and edited her own magazine, expanding her media and cultural influence",
+        "Pioneered network television as a platform for meaningful conversations and social change",
+        "Became an influential voice in American popular culture and social discourse",
+        "Built her career primarily from Chicago while maintaining a strong media presence",
         "Sexual abuse survivor advocate",
-        "Spiritual teacher",
-        "Cultural phenomenon"
+        "Served as a spiritual teacher and guide for millions seeking personal transformation",
+        "Became a cultural phenomenon whose influence transcends entertainment into social activism"
       ],
       "metadata": {
         "language": "en",
@@ -294,11 +294,11 @@
       "category": "Famous People",
       "name": "Michael Jordan",
       "clues": [
-        "Basketball legend",
+        "Widely regarded as the greatest basketball player of all time",
         "Chicago Bulls star",
         "Six NBA championships",
         "Five NBA MVP awards",
-        "Air Jordan brand",
+        "Created an iconic athletic shoe brand that revolutionized sports endorsements",
         "Space Jam movie star",
         "North Carolina Tar Heels",
         "Baseball career attempt",
@@ -310,8 +310,8 @@
         "Flu game performance",
         "Last shot champion",
         "Competitive drive legendary",
-        "Nike endorsement pioneer",
-        "Global icon",
+        "Pioneered athlete endorsements with Nike, creating an iconic basketball shoe brand",
+        "Became a global icon whose influence extends far beyond the sport of basketball",
         "Retirement multiple times",
         "Greatest basketball player debate"
       ],
@@ -332,12 +332,12 @@
         "Single mother on welfare",
         "Edinburgh coffee shop writer",
         "Philosopher's Stone rejection",
-        "Seven-book series",
-        "Billionaire author",
-        "Screenwriter",
+        "Wrote a series of seven interconnected books spanning thousands of pages",
+        "Became a billionaire author through unprecedented sales of her book series",
+        "Expanded her creative vision to screenwriting and storytelling beyond the written word",
         "Children's literature champion",
-        "Charity founder",
-        "Twitter presence",
+        "Founded charitable organizations to help disadvantaged communities and children",
+        "Active on social media, sharing her thoughts and advocating for various causes",
         "Robert Galbraith pseudonym",
         "Edinburgh University graduate",
         "French and classics degree",
@@ -390,26 +390,26 @@
       "category": "Famous People",
       "name": "Beyoncé",
       "clues": [
-        "American singer",
+        "Multi-talented American singer, dancer, and performer from Houston, Texas",
         "Destiny's Child member",
         "Solo career superstar",
         "Houston, Texas born",
         "Grammy Awards winner",
         "Lemonade visual album",
-        "Coachella performance",
-        "Jay-Z married",
+        "Delivered a groundbreaking visual performance at the Coachella music festival",
+        "Married to music mogul Jay-Z, forming one of the most powerful couples in entertainment",
         "Blue Ivy mother",
-        "Formation anthem",
+        "Released the powerful anthem \"Formation\" celebrating Black culture and Black power",
         "Single Ladies hit",
         "Crazy in Love duet",
         "Destiny Fulfilled album",
         "Survivor feminist anthem",
         "Bootylicious term creator",
-        "Parkwood Entertainment founder",
+        "Owns Parkwood Entertainment, her own entertainment production and management company",
         "Ivy Park clothing line",
-        "Black culture advocate",
+        "Consistently advocates for Black culture, representation, and social justice issues",
         "Feminist icon",
-        "Entertainment powerhouse"
+        "Recognized as an entertainment powerhouse with influence across music, fashion, and culture"
       ],
       "metadata": {
         "language": "en",
@@ -427,21 +427,21 @@
         "ALS disease survivor",
         "A Brief History of Time author",
         "Black hole researcher",
-        "Hawking radiation theory",
+        "Developed a revolutionary theory about radiation from black holes",
         "Motorized wheelchair user",
         "Speech synthesizer user",
         "Oxford University graduate",
         "Lucasian Professor of Mathematics",
         "Big Bang theory contributor",
-        "Cosmology pioneer",
+        "Became a pioneering figure in cosmology, studying the origins of the universe",
         "Popular science writer",
-        "Science communicator",
-        "Disability advocate",
+        "Worked as a science communicator, explaining complex physics to the general public",
+        "Became an inspiring advocate for people with disabilities, proving ability has no limits",
         "Zero gravity flight",
         "The Simpsons appearance",
         "Grand Design co-author",
         "Universe in a Nutshell author",
-        "Scientific genius"
+        "Recognized as a scientific genius whose contributions fundamentally changed our understanding of physics"
       ],
       "metadata": {
         "language": "en",
@@ -454,26 +454,26 @@
       "category": "Famous People",
       "name": "Malala Yousafzai",
       "clues": [
-        "Pakistani activist",
+        "Pakistani education activist and advocate for girls rights from the Swat Valley",
         "Nobel Peace Prize youngest winner",
-        "Education advocate",
+        "Powerful advocate for education as a fundamental human right, especially for girls",
         "Taliban attack survivor",
         "Swat Valley native",
-        "BBC blogger",
+        "Wrote blog posts for the BBC documenting life and education under Taliban rule",
         "Girls' education champion",
         "United Nations speaker",
         "Oxford University student",
-        "Malala Fund founder",
-        "I Am Malala memoir",
-        "Hejri family",
-        "Ziauddin Yousafzai father",
-        "Birmingham resident",
+        "Founded an international fund dedicated to providing education for girls worldwide",
+        "Wrote a powerful memoir about her life, activism, and fight for education",
+        "Born into a family committed to education and social activism in Pakistan",
+        "Her father is a poet and education activist who influenced her values",
+        "Studies at Oxford University while continuing her advocacy for global education",
         "Global education symbol",
-        "Women's rights advocate",
+        "Became a global symbol of the universal struggle for education and girls rights",
         "Peace prize recipient",
-        "Youth voice",
-        "Inspiration worldwide",
-        "Courage icon"
+        "Vocal advocate for womens rights and gender equality in education and society",
+        "Became an inspiration to millions of young people striving for positive change",
+        "Demonstrated extraordinary courage in standing up to oppression and tyranny"
       ],
       "metadata": {
         "language": "en",
@@ -491,7 +491,7 @@
         "Nobel Prize in Literature",
         "Famous speeches rallied Britain",
         "Painted as a hobby",
-        "Cigar smoker",
+        "Famous for his cigar smoking habit, which became part of his iconic image",
         "Served twice as Prime Minister",
         "Led Britain through darkest hours",
         "Iron Curtain speech",
@@ -567,7 +567,7 @@
         "Four score and seven years",
         "Government of the people",
         "By the people, for the people",
-        "Mary Todd Lincoln wife",
+        "Married to Mary Todd, who became an important historical figure herself",
         "Civil War leader",
         "American icon"
       ],
@@ -582,13 +582,13 @@
       "category": "Famous People",
       "name": "Coco Chanel",
       "clues": [
-        "Revolutionary fashion designer",
+        "Revolutionary fashion designer who liberated women from restrictive Victorian clothing",
         "Created little black dress",
-        "Chanel No. 5 perfume",
+        "Created an iconic perfume that became one of the worlds most famous fragrances",
         "Born in France in 1883",
         "Orphaned at young age",
-        "Coco nickname from cabaret days",
-        "Chanel suit iconic design",
+        "Got her childhood nickname from her days performing in cabarets",
+        "Designed an iconic tailored jacket that revolutionized womens fashion",
         "Pearl necklace signature",
         "Shortened women's hemlines",
         "Popularized trousers for women",
@@ -599,7 +599,7 @@
         "Quilted handbag design",
         "Boutique at 31 Rue Cambon",
         "Fashion empire builder",
-        "Style icon",
+        "Created an iconic style that transcended fashion and became a cultural phenomenon",
         "Changed women's clothing",
         "French fashion legend"
       ],
@@ -631,8 +631,8 @@
         "Rivalry with Salieri",
         "Vienna was his home",
         "Classical period composer",
-        "Prolific output",
-        "Musical innovator",
+        "Known for his prolific output, composing over 600 works in his short lifetime",
+        "Considered a musical innovator who expanded the possibilities of classical composition",
         "Eternal child prodigy"
       ],
       "metadata": {
@@ -714,7 +714,7 @@
         "Victorian era named after her",
         "Ruled British Empire at its height",
         "Married Prince Albert",
-        "Nine children",
+        "Gave birth to nine children, many of whom married into European royal families",
         "Wore black after Albert's death",
         "Empress of India title",
         "Born in 1819",
@@ -729,7 +729,7 @@
         "Mourning period famous",
         "Royal family model",
         "Symbol of monarchy",
-        "Victorian values"
+        "Gave her name to the Victorian era, a period defined by her values and reign"
       ],
       "metadata": {
         "language": "en",
@@ -755,13 +755,13 @@
         "Dove of peace symbol design",
         "Ceramic works later in life",
         "African art influences",
-        "Modern art pioneer",
+        "Became a pioneering figure in modern art, constantly challenging artistic conventions",
         "Longevity and productivity",
         "Changed art multiple times",
         "Most famous artist of 20th century",
         "Spanish Civil War response",
-        "Artistic genius",
-        "Constant reinvention"
+        "Demonstrated artistic genius through constant reinvention across different creative periods",
+        "Continuously evolved his artistic style, never settling into one approach or method"
       ],
       "metadata": {
         "language": "en",
@@ -774,7 +774,7 @@
       "category": "Famous People",
       "name": "Amelia Earhart",
       "clues": [
-        "Pioneering female aviator",
+        "Pioneering female aviator who broke gender barriers in aviation and exploration",
         "First woman to fly solo across Atlantic",
         "Disappeared over Pacific Ocean",
         "Born in 1897 in Kansas",
@@ -786,14 +786,14 @@
         "Around-the-world flight attempt",
         "Howland Island destination",
         "Mystery never solved",
-        "Women's rights advocate",
+        "Became a passionate advocate for womens rights and gender equality in aviation",
         "Aviation records setter",
         "Fashion designer pilot clothes",
         "Courage and determination",
-        "Aviation pioneer",
+        "Recognized as a pioneering figure in aviation history with lasting influence",
         "Role model for women",
         "Disappeared 1937",
-        "Aviation legend"
+        "Became an aviation legend whose disappearance remains one of histories greatest mysteries"
       ],
       "metadata": {
         "language": "en",
@@ -802,7 +802,7 @@
       }
     },
     {
-      "id": "profile-famous-027",
+      "id": "profile-famous-026",
       "category": "Famous People",
       "name": "Marie Antoinette",
       "clues": [
@@ -811,20 +811,20 @@
         "Married Louis XVI",
         "Let them eat cake quote",
         "Versailles Palace resident",
-        "Extravagant lifestyle",
+        "Lived an extravagant lifestyle that symbolized the excess and inequality of the monarchy",
         "French Revolution victim",
         "Guillotined in 1793",
         "Mother of four children",
         "Austrian-born French queen",
-        "Fashion trendsetter",
+        "Became a trendsetter in fashion, influencing European style during her reign",
         "Diamond necklace affair scandal",
         "Escape attempt failed",
         "Imprisoned in Temple",
         "Trial and execution",
         "Symbol of monarchy excess",
-        "Daughter of Maria Theresa",
-        "Habsburg dynasty",
-        "Tragic figure",
+        "Was the daughter of the Austrian empress, a strategic marriage alliance",
+        "Married into the Habsbur dynasty through a strategic union with the French king",
+        "Became a tragic figure whose execution during the Revolution symbolized the end of an era",
         "Historical controversy"
       ],
       "metadata": {
@@ -834,7 +834,7 @@
       }
     },
     {
-      "id": "profile-famous-028",
+      "id": "profile-famous-027",
       "category": "Famous People",
       "name": "Elvis Presley",
       "clues": [
@@ -850,14 +850,14 @@
         "Las Vegas performances",
         "White jumpsuit signature",
         "Pelvis shaking dance moves",
-        "Revolutionized music",
-        "Cultural phenomenon",
+        "Revolutionized popular music and became a symbol of cultural change and generational rebellion",
+        "Became a cultural phenomenon whose influence extended far beyond the music industry",
         "Died at age 42",
         "Memphis Tennessee base",
         "Sun Records discovery",
         "Colonel Tom Parker manager",
-        "Music icon",
-        "American legend"
+        "Remembered as a music icon whose impact on popular culture remains unmatched",
+        "Recognized as an American legend who embodied the spirit of rock and roll"
       ],
       "metadata": {
         "language": "en",
@@ -866,7 +866,7 @@
       }
     },
     {
-      "id": "profile-famous-029",
+      "id": "profile-famous-028",
       "category": "Famous People",
       "name": "Mother Teresa",
       "clues": [
@@ -875,21 +875,21 @@
         "Founded Missionaries of Charity",
         "Worked in Calcutta slums",
         "Born in Albania 1910",
-        "Teresa name taken from nun",
+        "Adopted the religious name inspired by a French saint devoted to missions",
         "Sari traditional clothing",
         "Homes for dying poor",
         "Orphanages established",
         "Leprosy treatment centers",
-        "Saint Teresa of Calcutta",
+        "Was canonized as a saint of the Catholic Church for her humanitarian work",
         "Canonized as saint",
-        "Humble lifestyle",
-        "International recognition",
+        "Maintained a humble lifestyle despite her international recognition and influence",
+        "Gained international recognition for her tireless work with the poorest and most vulnerable",
         "Controversial views on poverty",
         "Crisis of faith writings",
-        "Global humanitarian",
+        "Became a global humanitarian whose compassion for the suffering transcended religious boundaries",
         "Catholic Church hero",
         "Symbol of compassion",
-        "Charity work pioneer"
+        "Pioneered modern charitable work, establishing organizations dedicated to serving the destitute"
       ],
       "metadata": {
         "language": "en",
@@ -898,7 +898,7 @@
       }
     },
     {
-      "id": "profile-famous-030",
+      "id": "profile-famous-029",
       "category": "Famous People",
       "name": "Leonardo DiCaprio",
       "clues": [
@@ -912,14 +912,14 @@
         "Multiple Academy Award nominations",
         "Inception film success",
         "The Wolf of Wall Street",
-        "Django Unchained",
+        "Starred in Django Unchained, playing a complex character in a historical narrative",
         "Catch Me If You Can",
         "Romeo + Juliet early role",
         "Growing Pains TV show",
-        "DiCaprio Foundation charity",
-        "Climate change advocate",
-        "Documentary producer",
-        "Method acting",
+        "Established a charitable foundation dedicated to environmental protection",
+        "Became an outspoken advocate for climate change awareness and environmental protection",
+        "Produced documentaries that explore important environmental and social issues",
+        "Known for his commitment to method acting, fully immersing himself in roles",
         "A-list celebrity",
         "Box office draw"
       ],
@@ -930,7 +930,7 @@
       }
     },
     {
-      "id": "profile-famous-031",
+      "id": "profile-famous-030",
       "category": "Famous People",
       "name": "Marilyn Monroe",
       "clues": [
@@ -943,16 +943,16 @@
         "Los Angeles born 1926",
         "Platinum blonde hair signature",
         "Husky voice distinctive",
-        "Comedy film genius",
+        "Demonstrated genius-level talent for film comedy with impeccable comedic timing",
         "Some Like It Hot masterpiece",
-        "Multiple marriages",
+        "Married multiple times, seeking personal happiness while navigating public scrutiny",
         "Died young and mysteriously",
         "Mental health struggles",
-        "Method acting pioneer",
+        "Pioneered method acting techniques, bringing psychological depth to film roles",
         "American beauty icon",
-        "Fashion trendsetter",
-        "Cultural phenomenon",
-        "Timeless elegance",
+        "Established herself as a fashion icon whose style influenced generations",
+        "Became a cultural phenomenon whose image and legacy transcend her lifetime",
+        "Remembered as a tragic figure whose personal struggles reflected deeper issues",
         "Tragic figure"
       ],
       "metadata": {
@@ -962,7 +962,7 @@
       }
     },
     {
-      "id": "profile-famous-032",
+      "id": "profile-famous-031",
       "category": "Famous People",
       "name": "Joan of Arc",
       "clues": [
@@ -977,15 +977,15 @@
         "Canonized as saint",
         "English claimed she was witch",
         "Peasant girl rise to power",
-        "Spiritual warrior",
+        "Believed she received divine guidance from spiritual voices and heavenly messages",
         "Male armor and clothes",
         "Voice guidance claims",
         "Political prisoner",
-        "Martyrdom symbol",
+        "Became a symbol of martyrdom and sacrifice for religious and political causes",
         "French national hero",
         "Medieval France era",
         "Religious conviction strength",
-        "Immortal legacy"
+        "Left an immortal legacy as a national heroine and symbol of French resistance"
       ],
       "metadata": {
         "language": "en",
@@ -994,18 +994,18 @@
       }
     },
     {
-      "id": "profile-famous-033",
+      "id": "profile-famous-032",
       "category": "Famous People",
       "name": "Gustave Eiffel",
       "clues": [
         "French engineer and architect",
-        "Eiffel Tower designer",
+        "Designed the iconic iron tower that became the symbol of Paris",
         "1889 World's Fair creation",
         "Paris landmark engineer",
         "Built 300 meters tall structure",
         "Iron lattice tower pioneer",
         "Controversial initial reception",
-        "Structural engineering genius",
+        "Demonstrated extraordinary genius in structural engineering and innovative design",
         "Garabit Viaduct designed",
         "Born in Dijon 1832",
         "Industrial revolution figure",
@@ -1013,11 +1013,11 @@
         "Statue of Liberty framework",
         "Engineering marvels created",
         "Paris icon architect",
-        "International recognition",
+        "Gained international recognition for his groundbreaking engineering achievements",
         "Transformed urban skylines",
         "Technical innovation leader",
-        "Lasting legacy",
-        "Engineering excellence"
+        "Created iconic structures that transformed urban landscapes across the world",
+        "Left a lasting legacy in engineering innovation and architectural excellence"
       ],
       "metadata": {
         "language": "en",
@@ -1026,20 +1026,20 @@
       }
     },
     {
-      "id": "profile-famous-034",
+      "id": "profile-famous-033",
       "category": "Famous People",
       "name": "Confucius",
       "clues": [
-        "Chinese philosopher",
+        "Ancient Chinese philosopher whose teachings shaped Eastern thought for millennia",
         "551-479 BCE lived",
-        "Confucianism founder",
-        "Social harmony advocate",
+        "Founded Confucianism, a major philosophical tradition emphasizing morality and virtue",
+        "Championed social harmony and advocated for ethical conduct in all human relationships",
         "Ethics and morality teacher",
         "Family values emphasized",
         "Respect and tradition",
         "Eastern philosophy influence",
         "Golden Rule concept",
-        "Educational philosophy",
+        "Developed an educational philosophy focused on cultivating virtue and personal excellence",
         "Virtue cultivation focus",
         "Hierarchical society model",
         "Influence on East Asia",
@@ -1048,8 +1048,8 @@
         "Political advisor",
         "Wisdom traditions",
         "Moral excellence teaching",
-        "Ancient scholar",
-        "Timeless philosophy"
+        "Recognized as an ancient scholar whose influence extends across all of Eastern Asia",
+        "Created a timeless philosophy that continues to guide ethical thinking worldwide"
       ],
       "metadata": {
         "language": "en",
@@ -1058,30 +1058,30 @@
       }
     },
     {
-      "id": "profile-famous-035",
+      "id": "profile-famous-034",
       "category": "Famous People",
       "name": "Catherine the Great",
       "clues": [
-        "Russian Empress",
+        "Served as Russian Empress, transforming her nation into a major European power",
         "Born Sophie of Anhalt-Zerbst",
         "Ruled Russia 1762-1796",
         "Expanded Russian territory",
-        "Enlightened despot",
+        "Governed as an enlightened despot who balanced progressive ideals with absolute power",
         "German princess Russian queen",
         "Peter III married",
         "Seized throne in coup",
-        "Cultural patroness",
+        "Became a devoted patron of the arts and sciences, enriching Russian culture immensely",
         "Arts and sciences supporter",
         "Corresponded with Voltaire",
         "Urban development initiator",
-        "Palace constructor",
+        "Built magnificent palaces and monuments that became symbols of Russian imperial grandeur",
         "Winter Palace association",
-        "Military victories",
-        "Territorial expansion",
+        "Secured military victories that expanded Russian territory and international influence",
+        "Expanded her empire through strategic annexations and military conquest of regions",
         "Administrative reforms",
         "European power builder",
         "Russian greatness symbol",
-        "Legacy admired"
+        "Built a legacy of imperial power and cultural advancement that defines her reign"
       ],
       "metadata": {
         "language": "en",
@@ -1090,13 +1090,13 @@
       }
     },
     {
-      "id": "profile-famous-036",
+      "id": "profile-famous-035",
       "category": "Famous People",
       "name": "Jane Austen",
       "clues": [
         "English novelist",
         "Pride and Prejudice author",
-        "Romance literature pioneer",
+        "Pioneered the romance novel genre with intelligent social commentary and wit",
         "Born in Hampshire 1775",
         "Died at 41 years old",
         "Emma novel wrote",
@@ -1110,9 +1110,9 @@
         "Witty dialogue master",
         "Character development excellence",
         "Published anonymously initially",
-        "Literary genius",
+        "Recognized as a literary genius for her character development and dialogue mastery",
         "Regency era captured",
-        "Enduring popularity",
+        "Achieved enduring popularity, with her novels remaining widely read and beloved",
         "Influence on fiction"
       ],
       "metadata": {
@@ -1122,7 +1122,7 @@
       }
     },
     {
-      "id": "profile-famous-037",
+      "id": "profile-famous-036",
       "category": "Famous People",
       "name": "Charles Darwin",
       "clues": [
@@ -1131,21 +1131,21 @@
         "On the Origin of Species",
         "Beagle voyage naturalist",
         "1859 publication year",
-        "Evolution theory revolutionary",
+        "Pioneered evolutionary theory, revolutionizing the study of natural history",
         "Galapagos Islands observations",
         "Natural selection concept",
         "Finches adaptation studies",
-        "Religious controversy",
+        "Faced religious controversy for proposing that humans evolved from other species",
         "British naturalist",
-        "Scholarly methodology pioneer",
+        "Pioneered scholarly methodology through meticulous observation and documentation",
         "Decades research conducted",
         "Competing theory pressure",
-        "Wallace correspondence",
+        "Corresponded with fellow scientist Alfred Wallace, shaping evolutionary theory",
         "Scientific revolution initiator",
         "Victorian society shock",
         "Biology foundation layer",
-        "Modern science pioneer",
-        "Lasting influence"
+        "Founded modern science through revolutionary theories that explain biological diversity",
+        "Left a lasting influence on science, philosophy, and our understanding of life"
       ],
       "metadata": {
         "language": "en",
@@ -1154,19 +1154,19 @@
       }
     },
     {
-      "id": "profile-famous-038",
+      "id": "profile-famous-037",
       "category": "Famous People",
       "name": "Socrates",
       "clues": [
         "Ancient Greek philosopher",
         "Athens based 470-399 BCE",
-        "Socratic method founder",
+        "Founded the Socratic method, a teaching technique based on dialogue and questioning",
         "Questions knowledge pursuit",
         "Student Plato influence",
         "Written works none",
         "Dialogue through teaching",
         "Virtue knowledge connection",
-        "Self-examination advocate",
+        "Advocated for self-examination as a path to wisdom and personal understanding",
         "Hemlock poison death",
         "Trial and execution",
         "Philosophical dialogue master",
@@ -1177,7 +1177,7 @@
         "Classical philosophy foundation",
         "Western thought influence",
         "Wisdom pursuit",
-        "Immortal legacy"
+        "Left an immortal legacy as the father of Western philosophy and critical thinking"
       ],
       "metadata": {
         "language": "en",
@@ -1186,7 +1186,7 @@
       }
     },
     {
-      "id": "profile-famous-039",
+      "id": "profile-famous-038",
       "category": "Famous People",
       "name": "Harriet Tubman",
       "clues": [
@@ -1200,16 +1200,16 @@
         "Reward money offered",
         "Civil War nurse served",
         "Military scout work",
-        "Female leadership pioneer",
+        "Became a pioneering leader demonstrating courage and determination in resistance",
         "Courage and determination",
         "Religious faith foundation",
         "Freedom fighter icon",
         "North and South routes",
         "Safe house network",
-        "Self-taught education",
-        "Community leader",
-        "Equality advocate",
-        "American hero"
+        "Achieved self-education and literacy despite systemic barriers to enslaved people",
+        "Served as a community leader working to establish safe havens for freedom seekers",
+        "Became an advocate for equality and justice through direct action and resistance",
+        "Remembered as an American hero whose legacy inspires movements for freedom and equality"
       ],
       "metadata": {
         "language": "en",
@@ -1218,30 +1218,30 @@
       }
     },
     {
-      "id": "profile-famous-040",
+      "id": "profile-famous-039",
       "category": "Famous People",
       "name": "Nikola Tesla",
       "clues": [
         "Inventor and engineer",
-        "Alternating current pioneer",
+        "Pioneered alternating current technology that revolutionized electrical power distribution",
         "Electrical power revolutionized",
         "Born in Serbia 1856",
         "AC motor inventor",
         "Wireless transmission dreamed",
         "Light bulb innovations",
-        "X-ray experimentation",
-        "Eccentric personality",
+        "Conducted experimental research including early explorations of X-ray technology",
+        "Displayed an eccentric personality marked by unique habits and brilliant insights",
         "Multiple patents held",
         "Edison rivalry",
-        "Tesla coil invention",
+        "Invented a famous electrical coil used in wireless technology applications",
         "Electromagnetic field research",
         "Free energy vision",
-        "Visionary inventor",
+        "Recognized as a visionary inventor whose ideas transcended the technology of his time",
         "Sci-fi technology ideas",
-        "Scientific genius",
-        "Innovation pioneer",
-        "Modern technology founder",
-        "Underrated contributions"
+        "Achieved recognition as a scientific genius through his innovative experiments",
+        "Became a pioneer in technological innovation, shaping the modern electrical age",
+        "Founded the modern technology era through groundbreaking discoveries and innovations",
+        "Left underestimated contributions that remained influential despite limited recognition"
       ],
       "metadata": {
         "language": "en",
@@ -1250,11 +1250,11 @@
       }
     },
     {
-      "id": "profile-famous-041",
+      "id": "profile-famous-040",
       "category": "Famous People",
       "name": "Rosa Parks",
       "clues": [
-        "Civil rights activist",
+        "Became a civil rights activist dedicated to fighting racial discrimination and segregation",
         "Bus boycott catalyst",
         "Montgomery Alabama 1955",
         "Refused to give up seat",
@@ -1262,18 +1262,18 @@
         "Quiet strength symbol",
         "Courageous resistance",
         "Racial segregation challenged",
-        "Peaceful protest pioneer",
+        "Became a pioneer of peaceful protest through her courageous act of civil disobedience",
         "National attention gained",
-        "Movement inspiration",
+        "Inspired a movement that became a catalyst for national civil rights transformation",
         "Congressional Medal awarded",
         "Presidential Medal recipient",
         "Dignity and respect",
-        "Moral courage",
-        "Equality champion",
-        "Women's leadership",
-        "Silent hero",
-        "Pivotal moment",
-        "Legacy of change"
+        "Demonstrated extraordinary moral courage in standing against systemic oppression",
+        "Became a champion of equality whose simple act transformed the course of history",
+        "Emerged as a women leader in the struggle for civil rights and racial justice",
+        "Remembered as a silent hero whose quiet strength changed the nation forever",
+        "Marked a pivotal moment in history that sparked widespread resistance to segregation",
+        "Left a legacy of change demonstrating the power of nonviolent resistance"
       ],
       "metadata": {
         "language": "en",
@@ -1282,7 +1282,7 @@
       }
     },
     {
-      "id": "profile-famous-042",
+      "id": "profile-famous-041",
       "category": "Famous People",
       "name": "Vincent van Gogh",
       "clues": [
@@ -1292,7 +1292,7 @@
         "Ear cutting incident",
         "Born in 1853 Groningen",
         "Suicide by gunshot death",
-        "Vivid color revolutionary",
+        "Revolutionized painting through vivid use of color and emotional expression",
         "Emotional expression emphasis",
         "Sunflower series paintings",
         "Irises artistic work",
@@ -1303,8 +1303,8 @@
         "Poverty during life",
         "Brother Theo support",
         "Artistic legacy invaluable",
-        "Influence immeasurable",
-        "Misunderstood genius",
+        "Recognized as a misunderstood genius whose talent was overlooked during his lifetime",
+        "Created immortal paintings that have become some of the worlds most beloved artworks",
         "Immortal paintings"
       ],
       "metadata": {
@@ -1314,29 +1314,29 @@
       }
     },
     {
-      "id": "profile-famous-043",
+      "id": "profile-famous-042",
       "category": "Famous People",
       "name": "Isaac Newton",
       "clues": [
         "Mathematical and physics genius",
         "Gravity laws discovered",
         "Apple falling inspiration",
-        "Calculus developed",
+        "Developed calculus, a fundamental mathematical tool underlying modern science",
         "Principia work published",
         "Light spectrum analyzed",
         "Prism experiments conducted",
         "Laws of motion formulated",
-        "Scientific revolution pioneer",
+        "Pioneered the scientific revolution through rigorous observation and mathematical analysis",
         "Cambridge University professor",
         "Alchemy studied extensively",
         "Royal Society president",
         "Knighted honors received",
-        "Optical innovations",
+        "Made revolutionary optical innovations by studying light through prism experiments",
         "Telescope improvements made",
-        "Mathematical innovations",
+        "Achieved mathematical innovations that became the foundation of modern physics",
         "Particle light theory",
         "Absolute space concept",
-        "Scientific methodology",
+        "Established scientific methodology through systematic observation and mathematical proof",
         "Western science foundation"
       ],
       "metadata": {
@@ -1346,7 +1346,7 @@
       }
     },
     {
-      "id": "profile-famous-044",
+      "id": "profile-famous-043",
       "category": "Famous People",
       "name": "Audrey Hepburn",
       "clues": [
@@ -1355,7 +1355,7 @@
         "Breakfast at Tiffany's star",
         "Roman Holiday lead role",
         "Elegant fashion icon",
-        "UNICEF ambassador",
+        "Served as a UNICEF ambassador, dedicating herself to helping underprivileged children",
         "Ballet dancer training",
         "Refined sophistication symbol",
         "Little black dress popularized",
@@ -1364,12 +1364,12 @@
         "War survivor childhood",
         "Humanitarian work passion",
         "Charity fundraising",
-        "Cultural ambassador",
-        "Hollywood legend",
+        "Became a cultural ambassador whose elegance transcended film into real-world influence",
+        "Recognized as a Hollywood legend whose career spanned decades of acclaimed performances",
         "Grace and beauty",
-        "Timeless elegance",
-        "Inspiring legacy",
-        "Style influence"
+        "Established herself as a style icon whose fashion sense influenced generations",
+        "Left a legacy of timeless elegance and grace that continues to inspire",
+        "Influenced global fashion and culture through her distinctive style and presence"
       ],
       "metadata": {
         "language": "en",
@@ -1378,15 +1378,15 @@
       }
     },
     {
-      "id": "profile-famous-045",
+      "id": "profile-famous-044",
       "category": "Famous People",
       "name": "Florence Nightingale",
       "clues": [
-        "Nursing pioneer founder",
+        "Pioneered modern nursing as a profession dedicated to patient care and healing",
         "Crimean War nurse",
         "Hospital reform initiator",
         "Statistical analysis nursing",
-        "Sanitation improvement advocate",
+        "Became an advocate for sanitation improvement and public health reform initiatives",
         "Hygiene standards established",
         "Modern nursing creator",
         "Lady with lamp reputation",
@@ -1394,14 +1394,14 @@
         "Medical statistics revolutionized",
         "Training institutions founded",
         "Healthcare reform champion",
-        "Epidemiology contributions",
-        "Women's independence advocate",
+        "Made groundbreaking contributions to epidemiology through statistical analysis of health",
+        "Became a vocal advocate for womens independence and professional opportunities",
         "Social reform leader",
-        "Data visualization pioneer",
+        "Pioneered data visualization techniques to communicate complex health information",
         "Mortality rate reduction",
         "Patient care philosophy",
-        "Medical ethics",
-        "Healthcare legacy"
+        "Established ethical principles in medical care that remain foundational today",
+        "Left a lasting legacy that transformed healthcare and elevated the nursing profession"
       ],
       "metadata": {
         "language": "en",
@@ -1410,30 +1410,30 @@
       }
     },
     {
-      "id": "profile-famous-046",
+      "id": "profile-famous-045",
       "category": "Famous People",
       "name": "Sigmund Freud",
       "clues": [
-        "Psychoanalysis founder",
+        "Founded psychoanalysis as a revolutionary new approach to understanding human behavior",
         "Austrian neurologist psychiatrist",
-        "Unconscious mind pioneer",
+        "Pioneered exploration of the unconscious mind as a key to psychological understanding",
         "Dream analysis method",
         "Oedipus complex theory",
         "Talk therapy innovator",
-        "Psychology revolution",
+        "Revolutionized psychology through his development of talk therapy and analysis techniques",
         "Mental illness understanding",
         "Childhood trauma importance",
         "Free association technique",
         "Personality theory development",
-        "Scientific controversy",
+        "Triggered scientific controversy by challenging traditional views of human psychology",
         "Modern psychology influence",
         "Vienna based practice",
         "Nazi persecution refugee",
         "London final residence",
         "Theoretical framework creator",
-        "Psychological analysis pioneer",
-        "Controversial legacy",
-        "Influential thinker"
+        "Pioneered psychological analysis as an essential tool for understanding human development",
+        "Left a controversial but profoundly influential legacy shaping modern psychology",
+        "Recognized as an influential thinker whose ideas transformed psychological practice"
       ],
       "metadata": {
         "language": "en",
@@ -1442,7 +1442,7 @@
       }
     },
     {
-      "id": "profile-famous-047",
+      "id": "profile-famous-046",
       "category": "Famous People",
       "name": "Anne Frank",
       "clues": [
@@ -1454,18 +1454,18 @@
         "Daily journal kept",
         "Concentration camp death",
         "War crimes testimony",
-        "Hope symbol",
-        "Humanity connection",
+        "Became a universal symbol of hope and resilience through her courageous writings",
+        "Connected humanity across generations through her deeply personal and moving diary",
         "Teenage girl perspective",
-        "International impact",
-        "Book publication",
+        "Made international impact through her witness testimony to the horrors of the Holocaust",
+        "Published her diary posthumously, which became widely read and studied worldwide",
         "Human rights advocacy",
         "Peace movement inspiration",
-        "Educational curriculum",
-        "Moral courage",
-        "Young voice",
-        "Lost generation",
-        "Remembrance importance"
+        "Became part of educational curriculum to teach future generations about human rights",
+        "Demonstrated moral courage through her determination to preserve human dignity in captivity",
+        "Gave voice to millions through her powerful words and testament to human strength",
+        "Represents a lost generation whose experiences shaped post-war consciousness",
+        "Emphasized the importance of remembrance and vigilance against human cruelty"
       ],
       "metadata": {
         "language": "en",
@@ -1474,7 +1474,7 @@
       }
     },
     {
-      "id": "profile-famous-048",
+      "id": "profile-famous-047",
       "category": "Famous People",
       "name": "Louis Armstrong",
       "clues": [
@@ -1486,18 +1486,18 @@
         "Hello World recording artist",
         "What a Wonderful World",
         "Charismatic performer",
-        "International ambassador",
+        "Served as an international ambassador spreading jazz music and American culture worldwide",
         "Gravelly voice distinctive",
         "Hot Five group",
         "Musical expression revolution",
         "Stage presence dynamic",
-        "Jazz legacy founder",
+        "Founded the jazz legacy through his innovative approach to improvisation and performance",
         "Cultural bridge builder",
-        "Entertainment icon",
+        "Became a cultural and entertainment icon whose influence transcends music genres",
         "Racial barrier breaker",
-        "Swing era pioneer",
-        "Timeless recordings",
-        "Musical influence"
+        "Pioneered the swing era with innovative musical arrangements and energetic performances",
+        "Created timeless recordings that remain beloved and continue to inspire musicians",
+        "Left an indelible influence on music and culture that shaped generations of artists"
       ],
       "metadata": {
         "language": "en",
@@ -1506,30 +1506,62 @@
       }
     },
     {
-      "id": "profile-famous-049",
+      "id": "profile-famous-048",
       "category": "Famous People",
       "name": "Helen Keller",
       "clues": [
-        "Deaf-blind educator",
+        "Became a deaf-blind educator who overcame extraordinary limitations to teach others",
         "Multiple disabilities overcame",
         "Sign language communicator",
         "Radcliffe College graduate",
-        "Public speaker",
+        "Became a public speaker despite her disabilities, inspiring audiences worldwide",
         "Teacher Annie Sullivan",
         "Water word breakthrough",
-        "Autobiography writer",
-        "Disability rights advocate",
-        "Social reformer",
-        "Political activist",
-        "International lecturer",
+        "Wrote an autobiographical account of her remarkable journey and personal achievements",
+        "Became a passionate advocate for disability rights and accessibility in society",
+        "Worked as a social reformer dedicated to improving conditions for marginalized communities",
+        "Became a political activist advocating for progressive social policies and human rights",
+        "Emerged as an international lecturer sharing her experiences and inspiring change",
         "Human potential symbol",
-        "Education reform pioneer",
-        "Determination inspiring",
-        "Breaking barriers",
-        "Possibility expansion",
-        "Accessibility advocate",
-        "Independent living",
-        "Extraordinary achievement"
+        "Pioneered education reform by proving that extraordinary learning is possible for all",
+        "Demonstrated that human determination can overcome seemingly impossible challenges",
+        "Became a symbol of breaking barriers through resilience and unwavering commitment",
+        "Expanded possibilities for people with disabilities to participate in society fully",
+        "Advocated for accessible spaces and accommodations for people with diverse abilities",
+        "Embodied the principle that independence and self-determination are universal rights",
+        "Achieved extraordinary success that demonstrates the limitless potential of human resilience"
+      ],
+      "metadata": {
+        "language": "en",
+        "difficulty": "medium",
+        "source": "history"
+      }
+    },
+    {
+      "id": "profile-famous-049",
+      "category": "Famous People",
+      "name": "Thomas Jefferson",
+      "clues": [
+        "American founding father",
+        "Declaration of Independence author",
+        "Third US President",
+        "Virginia born 1743",
+        "Monticello mansion designer",
+        "Architect and inventor",
+        "Became a leading philosopher of the Enlightenment with progressive ideas",
+        "Championed human rights and worked to establish protections for personal freedom",
+        "Religious freedom champion",
+        "Advocated for education reform to ensure access to learning for all citizens",
+        "Louisiana Purchase negotiator",
+        "Practiced law and served as a respected statesman and political leader",
+        "Developed a political philosophy emphasizing limited government and democracy",
+        "Limited government believer",
+        "Agrarian democracy promoter",
+        "Slavery complex position",
+        "Maintained diverse intellectual interests including science, agriculture, and architecture",
+        "Book collector passionate",
+        "Founded the University of Virginia to promote learning and democratic ideals",
+        "Left a complex legacy that shaped American democracy despite personal contradictions"
       ],
       "metadata": {
         "language": "en",
@@ -1540,60 +1572,28 @@
     {
       "id": "profile-famous-050",
       "category": "Famous People",
-      "name": "Thomas Jefferson",
-      "clues": [
-        "American founding father",
-        "Declaration of Independence author",
-        "Third US President",
-        "Virginia born 1743",
-        "Monticello mansion designer",
-        "Architect and inventor",
-        "Enlightenment philosopher",
-        "Human rights advocate",
-        "Religious freedom champion",
-        "Education reform advocate",
-        "Louisiana Purchase negotiator",
-        "Lawyer and statesman",
-        "Political philosophy",
-        "Limited government believer",
-        "Agrarian democracy promoter",
-        "Slavery complex position",
-        "Scientific interests",
-        "Book collector passionate",
-        "University founder Virginia",
-        "Legacy complex"
-      ],
-      "metadata": {
-        "language": "en",
-        "difficulty": "medium",
-        "source": "history"
-      }
-    },
-    {
-      "id": "profile-famous-051",
-      "category": "Famous People",
       "name": "Galileo Galilei",
       "clues": [
         "Italian astronomer and physicist",
-        "Scientific revolution pioneer",
-        "Telescope innovations",
+        "Pioneered the scientific revolution through innovative use of the telescope",
+        "Made groundbreaking observations including discovery of Jupiters moons",
         "Jupiter moons discoverer",
         "Venus phases observation",
         "Heliocentrism supporter",
         "Catholic Church conflict",
         "House arrest imprisonment",
         "Inquisition trial",
-        "Kinematics laws",
-        "Motion studies",
-        "Experimental method founder",
+        "Developed laws of kinematics that formed the foundation of classical mechanics",
+        "Conducted experiments studying motion and gravity on inclined planes",
+        "Founded experimental methodology that became core to the scientific method",
         "Mathematics and physics bridge",
         "Pendulum law discovery",
         "Inclined plane experiments",
         "Free fall studies",
         "Leaning Tower of Pisa",
-        "Astronomical observations",
-        "Scientific methodology pioneer",
-        "Modern science founder"
+        "Made astronomical discoveries that provided evidence for the heliocentric model",
+        "Pioneered the scientific method through systematic observation and experimentation",
+        "Founded modern science through revolutionary approaches to understanding nature"
       ],
       "metadata": {
         "language": "en",
@@ -1602,18 +1602,18 @@
       }
     },
     {
-      "id": "profile-famous-053",
+      "id": "profile-famous-051",
       "category": "Famous People",
       "name": "Marianne Williamson",
       "clues": [
         "American author and activist",
-        "Spiritual teacher",
+        "Served as a spiritual teacher guiding millions toward personal transformation",
         "Return to Love book",
         "New Age movement voice",
         "Course in Miracles student",
         "Political candidate for president",
         "Los Angeles lecturer circuit",
-        "Peace movement advocate",
+        "Became an advocate for peace movements and nonviolent social change",
         "LGBTQ rights supporter",
         "Healing communities focus",
         "Modern spiritual teacher",
@@ -1621,9 +1621,9 @@
         "Self-help movement influencer",
         "Forgiveness and love themes",
         "Women empowerment champion",
-        "Social justice advocate",
+        "Championed womens empowerment and encouraged women to embrace their power",
         "Book sales millions",
-        "TED talks speaker",
+        "Became an inspiring writer whose books have touched millions of readers",
         "Inspirational writer",
         "Modern spiritual guru"
       ],
@@ -1634,14 +1634,14 @@
       }
     },
     {
-      "id": "profile-famous-054",
+      "id": "profile-famous-052",
       "category": "Famous People",
       "name": "Serena Williams",
       "clues": [
         "Tennis champion",
         "Grand Slam titles record",
         "Competitive fierce determination",
-        "Sisters Venus and Serena",
+        "Her sister is also a legendary professional tennis player",
         "Wimbledon victor multiple",
         "US Open winner",
         "Australian Open triumphs",
@@ -1655,9 +1655,9 @@
         "Race and gender advocate",
         "Tennis legend",
         "Athletic excellence symbol",
-        "Sports icon",
+        "Became a dominant force in tennis with unmatched skill and competitive spirit",
         "Motherhood and tennis balance",
-        "Retirement considerations"
+        "Balanced motherhood with athletic excellence, redefining what women athletes achieve"
       ],
       "metadata": {
         "language": "en",
@@ -1666,29 +1666,29 @@
       }
     },
     {
-      "id": "profile-famous-055",
+      "id": "profile-famous-053",
       "category": "Famous People",
       "name": "Elon Musk",
       "clues": [
-        "Tech entrepreneur visionary",
-        "Tesla founder CEO",
+        "Visionary technology entrepreneur whose innovations push the boundaries of possibility",
+        "Founded and leads Tesla, transforming the automotive industry toward electric vehicles",
         "SpaceX founder and CEO",
-        "Electric vehicle revolutionary",
+        "Revolutionized transportation through electric vehicle technology and innovation",
         "Reusable rocket developer",
         "Mars colonization dreamer",
         "Neuralink brain interface",
         "The Boring Company tunnels",
         "Twitter purchase controversial",
-        "PayPal co-founder",
+        "Co-founded PayPal, a pioneering digital payment platform that changed finance",
         "Starship development leading",
         "Bitcoin supporter enthusiast",
         "Controversial tweet personality",
-        "Workaholic reputation",
+        "Known for his intense work ethic and demanding standards for excellence",
         "Risk-taker entrepreneur",
-        "Clean energy advocate",
+        "Became an environmental advocate through promotion of clean energy technologies",
         "Billionaire status multiple times",
-        "Innovation visionary",
-        "Future-focused philosophy",
+        "Envisioned a future driven by innovation and technological transformation",
+        "Recognized as a visionary disruptor whose companies challenge established industries",
         "Industry disruptor"
       ],
       "metadata": {
@@ -1698,11 +1698,11 @@
       }
     },
     {
-      "id": "profile-famous-056",
+      "id": "profile-famous-054",
       "category": "Famous People",
       "name": "Genghis Khan",
       "clues": [
-        "Mongolian empire founder",
+        "Founded the vast Mongolian empire, connecting distant regions through conquest",
         "Temüjin original name",
         "Largest contiguous land empire",
         "Ruthless military conqueror",
@@ -1711,17 +1711,17 @@
         "Silk Road trade routes",
         "13th century warrior",
         "Descendants ruled vast lands",
-        "Military genius strategist",
+        "Demonstrated genius-level military strategy that unified nomadic tribes into a force",
         "Brutal conquest methods",
         "Nomadic tribe unifier",
         "Cultural impact lasting",
-        "Legacy controversial",
-        "Descendants Kublai Khan",
+        "Built a controversial legacy of both cultural exchange and military conquest",
+        "His descendants ruled vast territories for centuries after his death",
         "Asian continent transformed",
         "Trading network established",
         "Military innovations developed",
         "Empire administration system",
-        "Historical figure importance"
+        "Left an inspiring legacy as founder of one of histories greatest empires"
       ],
       "metadata": {
         "language": "en",
@@ -1730,7 +1730,7 @@
       }
     },
     {
-      "id": "profile-famous-057",
+      "id": "profile-famous-055",
       "category": "Famous People",
       "name": "Aretha Franklin",
       "clues": [
@@ -1749,10 +1749,10 @@
         "Influence on music generations",
         "Emotional vocal delivery",
         "Piano skills talented",
-        "Songwriting abilities",
+        "Demonstrated mastery in songwriting, composing and arranging her own music",
         "Live performance legend",
         "Recording artist prolific",
-        "Social justice advocate",
+        "Became a vocal advocate for social justice and civil rights throughout her career",
         "Cultural impact massive"
       ],
       "metadata": {
@@ -1762,7 +1762,7 @@
       }
     },
     {
-      "id": "profile-famous-058",
+      "id": "profile-famous-056",
       "category": "Famous People",
       "name": "Alexander Hamilton",
       "clues": [
@@ -1772,17 +1772,17 @@
         "Treasury Secretary first",
         "Federalist Papers author",
         "Banking system architect",
-        "Hamilton musical star",
+        "Was the subject of a hugely popular Broadway musical that won many awards",
         "Duel with Aaron Burr",
         "Financial policy innovator",
         "War correspondent youth",
         "Law practice successful",
-        "Political rival Alexander",
+        "Had a famous political rivalry with another founding father",
         "Legacy constitutional influence",
         "New York founding importance",
         "Tax system proponent",
         "Debt management philosophy",
-        "Federalist party founder",
+        "Founded the Federalist Party and shaped early American political ideologies",
         "Romantic relationship Angelica",
         "Tragic death circumstances",
         "Historical significance enduring"
@@ -1794,7 +1794,7 @@
       }
     },
     {
-      "id": "profile-famous-059",
+      "id": "profile-famous-057",
       "category": "Famous People",
       "name": "Miley Cyrus",
       "clues": [
@@ -1804,7 +1804,7 @@
         "Wrecking Ball hit song",
         "Controversy provocative performances",
         "Parental guidance negotiator",
-        "Comedown album",
+        "Released the album Younger Now showcasing her artistic evolution and maturity",
         "Voice acting animated films",
         "Blurred lines collaboration",
         "MTV VMA performances",
@@ -1826,13 +1826,13 @@
       }
     },
     {
-      "id": "profile-famous-061",
+      "id": "profile-famous-058",
       "category": "Famous People",
       "name": "Maya Angelou",
       "clues": [
         "American poet and writer",
         "I Know Why the Caged Bird Sings",
-        "Autobiography powerful",
+        "Wrote I Know Why the Caged Bird Sings, a powerful autobiography of resilience",
         "Civil rights movement figure",
         "Presidential inauguration poet",
         "Inspirational speaker tours",
@@ -1858,13 +1858,13 @@
       }
     },
     {
-      "id": "profile-famous-062",
+      "id": "profile-famous-059",
       "category": "Famous People",
       "name": "Donald Trump",
       "clues": [
         "American business magnate",
         "Real estate developer prominent",
-        "Trump Tower iconic building",
+        "Built a distinctive tallbuilding in New York that bears his brand",
         "The Apprentice TV show host",
         "45th United States President",
         "Controversial political figure",
@@ -1890,14 +1890,14 @@
       }
     },
     {
-      "id": "profile-famous-063",
+      "id": "profile-famous-060",
       "category": "Famous People",
       "name": "David Bowie",
       "clues": [
         "British rock musician legend",
         "Ziggy Stardust alter ego",
         "Starman song classic",
-        "Musical innovation pioneer",
+        "Pioneered musical innovation by continuously evolving his artistic sound and style",
         "Chameleon identity changes",
         "Fashion trendsetter icon",
         "Space Oddity recording artist",
@@ -1922,11 +1922,11 @@
       }
     },
     {
-      "id": "profile-famous-064",
+      "id": "profile-famous-061",
       "category": "Famous People",
       "name": "Albert Schweitzer",
       "clues": [
-        "German-French polymath philosopher",
+        "German-French polymath philosopher, physician, and humanitarian dedicated to service",
         "Medical doctor and missionary",
         "Nobel Peace Prize recipient",
         "Worked in Africa for decades",
@@ -1935,11 +1935,11 @@
         "Organ musician accomplished",
         "Theology and ethics scholar",
         "Built hospital in Gabon",
-        "Humanitarian aid pioneer",
+        "Pioneered humanitarian work by establishing medical facilities for underserved populations",
         "Pacifist beliefs strong",
         "Religious thought influential",
         "Medical care selfless service",
-        "Global peace advocate",
+        "Became a global advocate for peace through humanitarian action and ethical leadership",
         "Spiritual leader respected",
         "Organ performance masterful",
         "Cross-cultural understanding bridge",
@@ -1954,7 +1954,7 @@
       }
     },
     {
-      "id": "profile-famous-065",
+      "id": "profile-famous-062",
       "category": "Famous People",
       "name": "Pelé",
       "clues": [
@@ -1973,7 +1973,7 @@
         "Sports icon worldwide",
         "Performance consistency remarkable",
         "Brazil national team legend",
-        "Football innovation pioneer",
+        "Pioneered football innovation through his revolutionary playing style and techniques",
         "Inspiration youth programs",
         "Athlete transcending sport",
         "Legacy football immortal",
@@ -1986,24 +1986,24 @@
       }
     },
     {
-      "id": "profile-famous-066",
+      "id": "profile-famous-063",
       "category": "Famous People",
       "name": "Jane Goodall",
       "clues": [
         "British primatologist researcher",
-        "Chimpanzee study pioneer",
+        "Pioneered chimpanzee study through decades of patient field research and observation",
         "Tanzania field work decades",
         "Gombe Stream research site",
         "Animal behavior observation",
-        "Conservation advocate passionate",
+        "Became a passionate conservation advocate fighting to protect endangered species",
         "Ethical treatment animals champion",
         "Youth empowerment program founder",
-        "Environmental activist globally",
+        "Emerged as a global environmental activist promoting sustainable living and awareness",
         "Documentary films produced",
         "Book author bestselling",
         "TED talks keynote speaker",
         "Wildlife protection defender",
-        "Scientific method revolutionary",
+        "Revolutionized scientific methodology by humanizing animal research and observation",
         "Compassion for life shown",
         "Primates understanding changed",
         "Nature connection inspiring",
@@ -2018,7 +2018,7 @@
       }
     },
     {
-      "id": "profile-famous-067",
+      "id": "profile-famous-064",
       "category": "Famous People",
       "name": "Usain Bolt",
       "clues": [
@@ -2027,7 +2027,7 @@
         "Olympic gold medals multiple",
         "Lightning speed incredible",
         "100 meters under ten seconds",
-        "Lightning Bolt nickname",
+        "Nicknamed after the speed and power of a striking electrical discharge",
         "Track and field legend",
         "Caribbean athlete famous",
         "Victory celebration charismatic",
@@ -2050,15 +2050,15 @@
       }
     },
     {
-      "id": "profile-famous-068",
+      "id": "profile-famous-065",
       "category": "Famous People",
       "name": "Ludwig van Beethoven",
       "clues": [
         "German composer classical music",
         "Symphony Nine masterpiece",
         "Deafness overcome remarkably",
-        "Musical genius revolutionary",
-        "Romantic era founder",
+        "Demonstrated revolutionary genius in music despite profound deafness",
+        "Founded the Romantic era through innovative compositions that expanded musical forms",
         "Vienna Austria residency",
         "Emotional expression music powerful",
         "Ninth Symphony Ode Joy",
@@ -2071,7 +2071,7 @@
         "Personal struggle overcome",
         "Universality music expressed",
         "Legacy immortal compositions",
-        "Beethoven deafness paradox",
+        "Composed masterpieces while struggling with profound and progressive deafness",
         "Musical emotions profound",
         "Cultural treasure artistic"
       ],
@@ -2082,7 +2082,7 @@
       }
     },
     {
-      "id": "profile-famous-069",
+      "id": "profile-famous-066",
       "category": "Famous People",
       "name": "Jackie Robinson",
       "clues": [
@@ -2097,7 +2097,7 @@
         "Teammate acceptance earned",
         "Athletic courage demonstrated",
         "Career achievements notable",
-        "Social justice advocate",
+        "Became an advocate for social justice and civil rights throughout his life",
         "Sports history changed",
         "Discrimination fought against",
         "Legacy breaking barriers",
@@ -2114,13 +2114,13 @@
       }
     },
     {
-      "id": "profile-famous-070",
+      "id": "profile-famous-067",
       "category": "Famous People",
       "name": "Che Guevara",
       "clues": [
-        "Argentine revolutionary figure",
+        "Argentine revolutionary figure who became a symbol of radical social change",
         "Guerrilla warfare tactics",
-        "Communist revolutionary ideals",
+        "Championed communist revolutionary ideals and fought for social liberation",
         "Cuban Revolution participation",
         "Fidel Castro ally revolutionary",
         "Latin America activism",
@@ -2129,7 +2129,7 @@
         "Cold War figure important",
         "Military campaign led",
         "Bolivia involvement final",
-        "Martyrdom revolutionary legacy",
+        "Became a martyred revolutionary whose legacy continues to inspire movements",
         "Countercultural icon symbol",
         "Political philosophy Marxist",
         "Imperialism opposed strongly",
@@ -2137,7 +2137,7 @@
         "Poster image famous",
         "Historical significance debated",
         "Political passion dedication",
-        "Legacy revolutionary inspiring"
+        "Left an inspiring but controversial revolutionary legacy that shaped global politics"
       ],
       "metadata": {
         "language": "en",
@@ -2146,7 +2146,7 @@
       }
     },
     {
-      "id": "profile-famous-073",
+      "id": "profile-famous-068",
       "category": "Famous People",
       "name": "Cleopatra VII",
       "clues": [
@@ -2178,7 +2178,7 @@
       }
     },
     {
-      "id": "profile-famous-078",
+      "id": "profile-famous-069",
       "category": "Famous People",
       "name": "Emmeline Pankhurst",
       "clues": [
@@ -2197,11 +2197,11 @@
         "Legacy women's rights",
         "Political resistance persistent",
         "Injustice fought against",
-        "Gender equality advocate",
+        "Became a powerful advocate for gender equality and voting rights for women",
         "Sacrifice personal made",
         "Voting rights secured women",
-        "Feminism pioneering figure",
-        "Social change revolutionary"
+        "Emerged as a pioneering figure in feminism and womens liberation movements",
+        "Sparked social change through revolutionary activism and strategic civil disobedience"
       ],
       "metadata": {
         "language": "en",
@@ -2210,7 +2210,7 @@
       }
     },
     {
-      "id": "profile-famous-079",
+      "id": "profile-famous-070",
       "category": "Famous People",
       "name": "Pablo Neruda",
       "clues": [
@@ -2221,7 +2221,7 @@
         "Love themes poetic exploration",
         "Twenty Love Poems collection",
         "Surrealism poetry style",
-        "Social justice advocate",
+        "Became an advocate for social justice and used poetry as political activism",
         "Diplomat career political",
         "Spain Civil War supported",
         "Multiple residencies lived",
@@ -2242,7 +2242,7 @@
       }
     },
     {
-      "id": "profile-famous-081",
+      "id": "profile-famous-071",
       "category": "Famous People",
       "name": "Indira Gandhi",
       "clues": [
@@ -2274,14 +2274,14 @@
       }
     },
     {
-      "id": "profile-famous-082",
+      "id": "profile-famous-072",
       "category": "Famous People",
       "name": "Jimi Hendrix",
       "clues": [
         "American guitarist musician",
-        "Rock music revolutionary",
+        "Revolutionized rock music through innovative guitar techniques and sound exploration",
         "Electric guitar mastery",
-        "Psychedelic rock pioneer",
+        "Pioneered psychedelic rock music that expanded musical boundaries and consciousness",
         "Purple Haze iconic song",
         "Fender Stratocaster trademark",
         "Stage presence theatrical",
@@ -2306,13 +2306,13 @@
       }
     },
     {
-      "id": "profile-famous-084",
+      "id": "profile-famous-073",
       "category": "Famous People",
       "name": "Rosa Luxemburg",
       "clues": [
-        "Polish-Prussian revolutionary socialist",
+        "Polish-Prussian revolutionary socialist who advocated for workers rights and revolution",
         "Communist political theorist",
-        "Women rights advocate",
+        "Championed womens rights and gender equality within socialist movements",
         "Marxist ideology proponent",
         "German revolution participation",
         "Weimar Republic critic",
@@ -2322,10 +2322,10 @@
         "International socialism defender",
         "Polish heritage background",
         "Assassination brutal political",
-        "Spartacist League founder",
+        "Founded the Spartacist League to organize revolutionary activity and change",
         "Revolution failed tragic",
         "Legacy socialist inspiration",
-        "Feminist revolutionary pioneer",
+        "Became a pioneering figure in revolutionary feminism and socialist ideology",
         "Eloquent speaker powerful",
         "Political thought enduring",
         "Martyr socialist movement",
@@ -2338,12 +2338,12 @@
       }
     },
     {
-      "id": "profile-famous-085",
+      "id": "profile-famous-074",
       "category": "Famous People",
       "name": "Marie Skłodowska Curie",
       "clues": [
         "Polish physicist chemist",
-        "Radioactivity research pioneer",
+        "Pioneered radioactivity research that revolutionized modern physics and chemistry",
         "Nobel Prizes two winners",
         "First woman Nobel recipient",
         "Laboratory work dedicated",
@@ -2359,7 +2359,7 @@
         "Education barrier breaker",
         "Inspiration women scientists",
         "Determination persistence shown",
-        "Nuclear physics founder",
+        "Founded nuclear physics as a field of scientific study and investigation",
         "World changing discoveries",
         "Icon women empowerment"
       ],
@@ -2370,7 +2370,7 @@
       }
     },
     {
-      "id": "profile-famous-086",
+      "id": "profile-famous-075",
       "category": "Famous People",
       "name": "Josephine Baker",
       "clues": [
@@ -2379,10 +2379,10 @@
         "Banana skirt iconic costume",
         "French acceptance beloved",
         "African American performer",
-        "Civil rights activist",
+        "Became a vocal civil rights activist challenging racism and discrimination",
         "Performance talent extraordinary",
         "Paris cabaret sensation",
-        "Music entertainment pioneer",
+        "Pioneered music and entertainment while becoming a symbol of resistance",
         "Resistance movement France",
         "World War II spy",
         "Racial discrimination escape",
@@ -2402,29 +2402,29 @@
       }
     },
     {
-      "id": "profile-famous-087",
+      "id": "profile-famous-076",
       "category": "Famous People",
       "name": "Alan Turing",
       "clues": [
         "British mathematician computer scientist",
-        "Computing theory founder",
-        "Turing Machine concept",
-        "Artificial intelligence pioneer",
+        "Founded computing theory through mathematical innovations including the computing machine",
+        "Invented the concept of the universal computing machine in theoretical mathematics",
+        "Pioneered artificial intelligence concepts that shaped modern computer science",
         "World War II codebreaker",
         "Bletchley Park cryptanalysis",
         "Enigma machine decryption",
         "Mathematical logic research",
         "Philosophy mind consciousness",
-        "Turing Test artificial intelligence",
+        "Developed a famous test for artificial intelligence based on human conversation",
         "Computer science father",
         "Binary computing system",
         "Persecution homosexuality tragic",
         "Suicide controversial death",
-        "Genius mathematical prodigy",
+        "Recognized as a mathematical prodigy whose genius extended across multiple fields",
         "Legacy computing immortal",
         "Sexuality discrimination faced",
         "War contribution secret",
-        "Science visionary thinker",
+        "Emerged as a visionary science thinker whose ideas remain relevant today",
         "Icon LGBTQ rights"
       ],
       "metadata": {
@@ -2434,24 +2434,24 @@
       }
     },
     {
-      "id": "profile-famous-088",
+      "id": "profile-famous-077",
       "category": "Famous People",
       "name": "Audre Lorde",
       "clues": [
         "American poet writer",
         "Black feminist theorist",
-        "LGBTQ activist rights",
+        "Became an activist for LGBTQ rights and liberation within social movements",
         "African American literature",
-        "Intersectionality pioneer",
+        "Pioneered intersectionality as a framework for understanding complex identities",
         "Passion poetry powerful",
         "Sister Outsider writings",
         "Cancer battle illness",
         "Silence oppression breaking",
         "Lesbian identity pride",
         "Power difference celebrating",
-        "Social justice advocate",
+        "Became a vocal advocate for social justice and liberation for all people",
         "Caribbean heritage background",
-        "Biomythography concept",
+        "Created the concept of biomythography to explore identity and lived experience",
         "Essay collection influential",
         "Marginalized voices amplified",
         "Erotic power reclaiming",
@@ -2466,12 +2466,12 @@
       }
     },
     {
-      "id": "profile-famous-089",
+      "id": "profile-famous-078",
       "category": "Famous People",
       "name": "Werner Heisenberg",
       "clues": [
         "German theoretical physicist",
-        "Quantum mechanics pioneer",
+        "Pioneered quantum mechanics through revolutionary uncertainty principle",
         "Uncertainty principle foundational",
         "Nobel Prize Physics winner",
         "Atomic structure understanding",
@@ -2481,15 +2481,15 @@
         "Nazi Germany scientist",
         "Atomic bomb knowledge",
         "Philosophy epistemology physics",
-        "Copenhagen interpretation",
-        "Particle physics revolutionary",
+        "Developed the Copenhagen interpretation of quantum mechanics with colleagues",
+        "Revolutionized particle physics through breakthrough discoveries and innovations",
         "20th century physics giant",
         "Scientific legacy lasting",
-        "Modern physics founder",
+        "Founded modern physics through revolutionary advances in understanding matter",
         "Philosophical implications",
         "Moral dilemma complexity",
         "Physics revolution participation",
-        "Icon scientific genius"
+        "Recognized as a scientific genius whose theories revolutionized our understanding"
       ],
       "metadata": {
         "language": "en",
@@ -2498,14 +2498,14 @@
       }
     },
     {
-      "id": "profile-famous-090",
+      "id": "profile-famous-079",
       "category": "Famous People",
       "name": "Lise Meitner",
       "clues": [
         "Austrian physicist nuclear",
         "Nuclear fission discovery",
         "Scientific research groundbreaking",
-        "Female scientist pioneering",
+        "Pioneered female scientist achievements in physics during male-dominated eras",
         "Discrimination gender faced",
         "Credit recognition denied",
         "Nobel Prize nomination",
@@ -2516,7 +2516,7 @@
         "War against will",
         "Scientific integrity maintained",
         "Collaboration Otto Hahn",
-        "Einstein correspondence",
+        "Corresponded extensively with Einstein, contributing to theoretical physics discussions",
         "Legacy physics lasting",
         "Women science underestimated",
         "Humanitarian pacifist beliefs",
@@ -2530,16 +2530,16 @@
       }
     },
     {
-      "id": "profile-famous-091",
+      "id": "profile-famous-080",
       "category": "Famous People",
       "name": "Thich Nhat Hanh",
       "clues": [
         "Vietnamese Buddhist monk",
         "Mindfulness meditation teacher",
-        "Peace activism advocate",
+        "Became an advocate for peace activism during the Vietnam War conflict",
         "Vietnam War opposition",
-        "Engaged Buddhism founder",
-        "Thich Nhat Hanh writings",
+        "Founded engaged Buddhism as a philosophy combining spiritual practice with social action",
+        "Published numerous books and spiritual teachings that continue to influence people",
         "Plum Village monastery",
         "Zen Buddhism teacher",
         "Breathing meditation technique",
@@ -2549,7 +2549,7 @@
         "Spiritual wisdom sharing",
         "Exile France lived",
         "Reconciliation peace building",
-        "Environmental consciousness",
+        "Promoted environmental consciousness through teachings of interconnectedness",
         "Suffering understanding deep",
         "Harmony inner peace",
         "Living present moment",
@@ -2562,7 +2562,7 @@
       }
     },
     {
-      "id": "profile-famous-092",
+      "id": "profile-famous-081",
       "category": "Famous People",
       "name": "Leroy Anderson",
       "clues": [
@@ -2594,13 +2594,13 @@
       }
     },
     {
-      "id": "profile-famous-093",
+      "id": "profile-famous-082",
       "category": "Famous People",
       "name": "Dorothy Hodgkin",
       "clues": [
         "British chemist crystallographer",
         "Nobel Prize Chemistry winner",
-        "X-ray crystallography pioneer",
+        "Pioneered X-ray crystallography enabling breakthrough discoveries in molecular structure",
         "Vitamin B12 structure",
         "Insulin protein structure",
         "Female Nobel laureate",
@@ -2626,13 +2626,13 @@
       }
     },
     {
-      "id": "profile-famous-094",
+      "id": "profile-famous-083",
       "category": "Famous People",
       "name": "Charlie Chaplin",
       "clues": [
         "British silent film comedian",
         "Tramp character iconic",
-        "Silent cinema pioneer",
+        "Pioneered silent cinema through innovative comedy and physical performance artistry",
         "Physical comedy mastery",
         "Modern Times social critique",
         "Great Dictator satire",
@@ -2641,10 +2641,10 @@
         "Social commentary comedy",
         "Political activism controversial",
         "Persecution McCarthyism era",
-        "Immigration controversial",
-        "Paternity scandal",
+        "Faced controversy regarding his immigration background and political views",
+        "Navigated scandal involving paternity claims during his Hollywood career",
         "Hollywood legend status",
-        "Comedy genius legacy",
+        "Became a genius of comedy whose legacy continues to influence filmmakers",
         "Emotional expression gesture",
         "Tragedy comedy balance",
         "Film revolution influence",
@@ -2658,7 +2658,7 @@
       }
     },
     {
-      "id": "profile-famous-095",
+      "id": "profile-famous-084",
       "category": "Famous People",
       "name": "Carl Sagan",
       "clues": [
@@ -2667,17 +2667,17 @@
         "Science communication popularizer",
         "Universe wonder inspiring",
         "Pale Blue Dot concept",
-        "Scientific skepticism advocate",
+        "Became an advocate for scientific skepticism against pseudoscience claims",
         "Critical thinking promoter",
-        "Exobiology research pioneer",
+        "Pioneered exobiology research exploring the potential for life beyond Earth",
         "Drake Equation discussion",
         "Extraterrestrial life theory",
         "NASA Voyager project",
         "Intellectual deep thinker",
         "Poetic science communication",
-        "Pseudoscience debunker",
+        "Became renowned as a pseudoscience debunker protecting scientific integrity",
         "Philosophy epistemology engaging",
-        "Science literacy advocate",
+        "Championed science literacy and education for the general public",
         "Humanism secular humanist",
         "Wonder curiosity instilling",
         "Legacy science lasting",
@@ -2690,7 +2690,7 @@
       }
     },
     {
-      "id": "profile-famous-096",
+      "id": "profile-famous-085",
       "category": "Famous People",
       "name": "Joan Crawford",
       "clues": [
@@ -2704,7 +2704,7 @@
         "Glamorous style iconic",
         "Difficult reputation stories",
         "Motherhood family struggles",
-        "Personality strong-willed",
+        "Demonstrated a strong-willed and ambitious personality throughout her career",
         "Comeback career multiple",
         "Legacy controversial debates",
         "Performance talent skilled",
@@ -2722,13 +2722,13 @@
       }
     },
     {
-      "id": "profile-famous-097",
+      "id": "profile-famous-086",
       "category": "Famous People",
       "name": "Simone de Beauvoir",
       "clues": [
         "French existentialist philosopher",
-        "Feminist philosophy pioneer",
-        "Women liberation advocate",
+        "Pioneered feminist philosophy and challenged traditional gender roles",
+        "Became a prominent advocate for womens liberation and autonomy",
         "Second Sex groundbreaking",
         "Gender theory foundational",
         "Existentialism philosophy",
@@ -2754,15 +2754,15 @@
       }
     },
     {
-      "id": "profile-famous-098",
+      "id": "profile-famous-087",
       "category": "Famous People",
       "name": "Rachel Carson",
       "clues": [
         "American marine biologist writer",
-        "Environmental movement pioneer",
+        "Pioneered the environmental movement through her groundbreaking scientific work",
         "Silent Spring groundbreaking",
         "Pesticide dangers exposing",
-        "Wildlife conservation advocate",
+        "Became a passionate advocate for wildlife conservation and ecosystem protection",
         "Scientific writing accessible",
         "Nature connection deep",
         "Chemical industry opposition",
@@ -2774,7 +2774,7 @@
         "Female scientist achievement",
         "Nature poetry lyrical",
         "EPA establishment influence",
-        "Sustainability philosophy",
+        "Promoted sustainable living philosophy emphasizing harmony with nature",
         "Ethical responsibility environmental",
         "Icon environmental movement",
         "Future planet protecting"
@@ -2786,7 +2786,7 @@
       }
     },
     {
-      "id": "profile-famous-099",
+      "id": "profile-famous-088",
       "category": "Famous People",
       "name": "Benny Goodman",
       "clues": [
@@ -2796,7 +2796,7 @@
         "Big band orchestra leader",
         "Racial integration musician",
         "Performance skill masterful",
-        "Improvisation jazz genius",
+        "Demonstrated jazz genius through masterful improvisation and musical innovation",
         "Clarinet virtuosity incredible",
         "Recording artist prolific",
         "Concert performances legendary",
@@ -2818,7 +2818,7 @@
       }
     },
     {
-      "id": "profile-famous-100",
+      "id": "profile-famous-089",
       "category": "Famous People",
       "name": "Martina Navratilova",
       "clues": [
@@ -2850,7 +2850,7 @@
       }
     },
     {
-      "id": "profile-famous-101",
+      "id": "profile-famous-090",
       "category": "Famous People",
       "name": "Greta Garbo",
       "clues": [
@@ -2882,7 +2882,7 @@
       }
     },
     {
-      "id": "profile-famous-102",
+      "id": "profile-famous-091",
       "category": "Famous People",
       "name": "Harriet Beecher Stowe",
       "clues": [
@@ -2914,7 +2914,7 @@
       }
     },
     {
-      "id": "profile-famous-103",
+      "id": "profile-famous-092",
       "category": "Famous People",
       "name": "Hedy Lamarr",
       "clues": [
@@ -2923,20 +2923,20 @@
         "Beauty talent combined",
         "Patent inventor inventor",
         "Frequency hopping technology",
-        "Wireless communication pioneer",
+        "Pioneered wireless communication technology through frequency-hopping innovations",
         "Torpedo guidance system",
         "World War II contribution",
         "Glamorous screen presence",
         "Intelligence scientific mind",
         "Overlooked invention recognition",
-        "Multi-talented creative",
+        "Demonstrated multi-talented creative abilities in film and scientific invention",
         "Technology entertainment dual",
         "Legacy hidden innovation",
         "Unsung inventor actress",
         "Entertainment industry success",
         "Innovation underestimated women",
         "Military technology advancement",
-        "Brilliance unrecognized",
+        "Possessed extraordinary brilliance often unrecognized during her lifetime",
         "Icon women scientists"
       ],
       "metadata": {
@@ -2946,7 +2946,7 @@
       }
     },
     {
-      "id": "profile-famous-104",
+      "id": "profile-famous-093",
       "category": "Famous People",
       "name": "Frederick Douglass",
       "clues": [
@@ -2959,7 +2959,7 @@
         "Self-taught education achievement",
         "African American leader",
         "Anti-slavery activism fighting",
-        "Human rights advocate",
+        "Became an influential advocate for human rights and universal equality",
         "Political change influencer",
         "Reconstruction era politician",
         "Ambassador Haiti served",
@@ -2978,19 +2978,19 @@
       }
     },
     {
-      "id": "profile-famous-105",
+      "id": "profile-famous-094",
       "category": "Famous People",
       "name": "Malcolm X",
       "clues": [
         "American civil rights activist",
         "Nation Islam minister",
-        "Black nationalism advocate",
+        "Became an advocate for Black nationalism and self-empowerment",
         "Controversial figure political",
         "Assassination tragic death",
         "Autobiography written powerful",
-        "Self-improvement philosophy",
+        "Promoted self-improvement philosophy emphasizing education and personal development",
         "Black empowerment champion",
-        "Race relations advocate",
+        "Became a vocal advocate for race relations reform and racial justice",
         "Speech rhetoric powerful",
         "Prison conversion spiritual",
         "Transformation personal journey",
@@ -3010,15 +3010,15 @@
       }
     },
     {
-      "id": "profile-famous-106",
+      "id": "profile-famous-095",
       "category": "Famous People",
       "name": "Isadora Duncan",
       "clues": [
         "American dancer choreographer",
-        "Modern dance pioneer",
+        "Pioneered modern dance through revolutionary approaches to movement and expression",
         "Expressive movement innovator",
         "Classical music inspiration",
-        "Theatre performance revolutionary",
+        "Revolutionized theatre performance by liberating dance from classical constraints",
         "Free-form dancing style",
         "Flowing costume design",
         "Greece ancient inspiration",
@@ -3031,7 +3031,7 @@
         "Feminist movement connection",
         "Convention breaking artistic",
         "Authentic expression pursuing",
-        "Performance art pioneer",
+        "Became a performance artist whose innovative style influenced future dancers",
         "Movement grace beauty",
         "Dance revolution inspiration"
       ],
@@ -3042,7 +3042,7 @@
       }
     },
     {
-      "id": "profile-famous-107",
+      "id": "profile-famous-096",
       "category": "Famous People",
       "name": "Golda Meir",
       "clues": [
@@ -3074,7 +3074,7 @@
       }
     },
     {
-      "id": "profile-famous-108",
+      "id": "profile-famous-097",
       "category": "Famous People",
       "name": "Johannes Gutenberg",
       "clues": [
@@ -3106,7 +3106,7 @@
       }
     },
     {
-      "id": "profile-famous-109",
+      "id": "profile-famous-098",
       "category": "Famous People",
       "name": "Emmett Till",
       "clues": [
@@ -3115,9 +3115,9 @@
         "Civil rights martyr symbol",
         "Mississippi violence racism",
         "Murder trial acquittal unjust",
-        "Emmett Till case famous",
+        "His murder case became a pivotal moment in the civil rights movement",
         "Racial injustice exposing",
-        "Mother Mamie Till courage",
+        "His mother showed extraordinary courage in keeping his memory alive",
         "Open casket funeral",
         "Nation shocking murder",
         "Civil rights catalyst movement",
@@ -3138,7 +3138,7 @@
       }
     },
     {
-      "id": "profile-famous-110",
+      "id": "profile-famous-099",
       "category": "Famous People",
       "name": "Grace Hopper",
       "clues": [
@@ -3170,7 +3170,7 @@
       }
     },
     {
-      "id": "profile-famous-111",
+      "id": "profile-famous-100",
       "category": "Famous People",
       "name": "Cleopatra VI",
       "clues": [

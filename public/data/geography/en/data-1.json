@@ -170,7 +170,7 @@
         "Canberra capital",
         "Sydney largest city",
         "English official language",
-        "Australian dollar currency",
+        "Dollar currency in Southern Hemisphere island continent",
         "Commonwealth realm",
         "Unique wildlife",
         "Great Barrier Reef",
@@ -295,7 +295,7 @@
       "name": "Mexico",
       "clues": [
         "North American southern neighbor",
-        "Mexico City capital",
+        "North American capital city with ancient ruins",
         "Spanish official language",
         "Peso currency",
         "Federal republic",
@@ -438,7 +438,7 @@
         "Silk Road originated here",
         "World's largest exporter",
         "Ancient civilization over 4000 years old",
-        "Territorial disputes in South China Sea",
+        "Territorial disputes in East Asian sea",
         "High-speed rail network extensive",
         "Space program advancing rapidly",
         "Cultural revolution in 1960s"
@@ -514,7 +514,7 @@
       }
     },
     {
-      "id": "profile-geography-018",
+      "id": "profile-geography-017",
       "category": "Geography",
       "name": "Spain",
       "clues": [
@@ -546,7 +546,7 @@
       }
     },
     {
-      "id": "profile-geography-021",
+      "id": "profile-geography-018",
       "category": "Geography",
       "name": "South Africa",
       "clues": [
@@ -578,7 +578,7 @@
       }
     },
     {
-      "id": "profile-geography-022",
+      "id": "profile-geography-019",
       "category": "Geography",
       "name": "Netherlands",
       "clues": [
@@ -610,7 +610,7 @@
       }
     },
     {
-      "id": "profile-geography-023",
+      "id": "profile-geography-020",
       "category": "Geography",
       "name": "Thailand",
       "clues": [
@@ -642,7 +642,7 @@
       }
     },
     {
-      "id": "profile-geography-024",
+      "id": "profile-geography-021",
       "category": "Geography",
       "name": "Turkey",
       "clues": [
@@ -674,7 +674,7 @@
       }
     },
     {
-      "id": "profile-geography-026",
+      "id": "profile-geography-022",
       "category": "Geography",
       "name": "Indonesia",
       "clues": [
@@ -706,7 +706,7 @@
       }
     },
     {
-      "id": "profile-geography-027",
+      "id": "profile-geography-023",
       "category": "Geography",
       "name": "Saudi Arabia",
       "clues": [
@@ -738,7 +738,7 @@
       }
     },
     {
-      "id": "profile-geography-028",
+      "id": "profile-geography-024",
       "category": "Geography",
       "name": "New Zealand",
       "clues": [
@@ -770,7 +770,7 @@
       }
     },
     {
-      "id": "profile-geography-029",
+      "id": "profile-geography-025",
       "category": "Geography",
       "name": "Sweden",
       "clues": [
@@ -802,7 +802,7 @@
       }
     },
     {
-      "id": "profile-geography-030",
+      "id": "profile-geography-026",
       "category": "Geography",
       "name": "Switzerland",
       "clues": [
@@ -834,7 +834,7 @@
       }
     },
     {
-      "id": "profile-geography-031",
+      "id": "profile-geography-027",
       "category": "Geography",
       "name": "Greece",
       "clues": [
@@ -866,7 +866,7 @@
       }
     },
     {
-      "id": "profile-geography-032",
+      "id": "profile-geography-028",
       "category": "Geography",
       "name": "Portugal",
       "clues": [
@@ -898,7 +898,7 @@
       }
     },
     {
-      "id": "profile-geography-033",
+      "id": "profile-geography-029",
       "category": "Geography",
       "name": "Poland",
       "clues": [
@@ -930,7 +930,7 @@
       }
     },
     {
-      "id": "profile-geography-034",
+      "id": "profile-geography-030",
       "category": "Geography",
       "name": "Belgium",
       "clues": [
@@ -962,7 +962,7 @@
       }
     },
     {
-      "id": "profile-geography-035",
+      "id": "profile-geography-031",
       "category": "Geography",
       "name": "Austria",
       "clues": [
@@ -994,7 +994,7 @@
       }
     },
     {
-      "id": "profile-geography-036",
+      "id": "profile-geography-032",
       "category": "Geography",
       "name": "Denmark",
       "clues": [
@@ -1026,7 +1026,7 @@
       }
     },
     {
-      "id": "profile-geography-037",
+      "id": "profile-geography-033",
       "category": "Geography",
       "name": "Norway",
       "clues": [
@@ -1058,7 +1058,7 @@
       }
     },
     {
-      "id": "profile-geography-038",
+      "id": "profile-geography-034",
       "category": "Geography",
       "name": "Finland",
       "clues": [
@@ -1090,7 +1090,7 @@
       }
     },
     {
-      "id": "profile-geography-039",
+      "id": "profile-geography-035",
       "category": "Geography",
       "name": "Iceland",
       "clues": [
@@ -1122,7 +1122,7 @@
       }
     },
     {
-      "id": "profile-geography-040",
+      "id": "profile-geography-036",
       "category": "Geography",
       "name": "Vietnam",
       "clues": [
@@ -1154,7 +1154,7 @@
       }
     },
     {
-      "id": "profile-geography-041",
+      "id": "profile-geography-037",
       "category": "Geography",
       "name": "Philippines",
       "clues": [
@@ -1186,7 +1186,7 @@
       }
     },
     {
-      "id": "profile-geography-042",
+      "id": "profile-geography-038",
       "category": "Geography",
       "name": "Malaysia",
       "clues": [
@@ -1218,7 +1218,7 @@
       }
     },
     {
-      "id": "profile-geography-043",
+      "id": "profile-geography-039",
       "category": "Geography",
       "name": "Pakistan",
       "clues": [
@@ -1250,7 +1250,7 @@
       }
     },
     {
-      "id": "profile-geography-044",
+      "id": "profile-geography-040",
       "category": "Geography",
       "name": "Colombia",
       "clues": [
@@ -1282,7 +1282,7 @@
       }
     },
     {
-      "id": "profile-geography-045",
+      "id": "profile-geography-041",
       "category": "Geography",
       "name": "Peru",
       "clues": [
@@ -1314,7 +1314,7 @@
       }
     },
     {
-      "id": "profile-geography-046",
+      "id": "profile-geography-042",
       "category": "Geography",
       "name": "Chile",
       "clues": [
@@ -1346,7 +1346,7 @@
       }
     },
     {
-      "id": "profile-geography-047",
+      "id": "profile-geography-043",
       "category": "Geography",
       "name": "Nigeria",
       "clues": [
@@ -1378,7 +1378,7 @@
       }
     },
     {
-      "id": "profile-geography-048",
+      "id": "profile-geography-044",
       "category": "Geography",
       "name": "Kenya",
       "clues": [
@@ -1386,7 +1386,7 @@
         "Nairobi is capital",
         "Safari tourism famous",
         "Serengeti wildlife",
-        "Mount Kenya national symbol",
+        "Mountain national symbol in East Africa",
         "Rift Valley dramatic",
         "African elephant conservation",
         "Maasai warrior culture",
@@ -1410,16 +1410,16 @@
       }
     },
     {
-      "id": "profile-geography-049",
+      "id": "profile-geography-045",
       "category": "Geography",
       "name": "Cyprus",
       "clues": [
         "Island nation Mediterranean",
         "Nicosia is capital",
         "Divided north south",
-        "Cyprus dispute ongoing",
+        "Mediterranean island dispute ongoing",
         "Turkish invasion 1974",
-        "Cyprus conflict unresolved",
+        "Mediterranean island conflict unresolved",
         "Tourism major industry",
         "Beaches sandy famous",
         "Ancient Greek civilization",
@@ -1442,7 +1442,7 @@
       }
     },
     {
-      "id": "profile-geography-050",
+      "id": "profile-geography-046",
       "category": "Geography",
       "name": "Morocco",
       "clues": [
@@ -1474,7 +1474,7 @@
       }
     },
     {
-      "id": "profile-geography-051",
+      "id": "profile-geography-047",
       "category": "Geography",
       "name": "Tunisia",
       "clues": [
@@ -1506,7 +1506,7 @@
       }
     },
     {
-      "id": "profile-geography-052",
+      "id": "profile-geography-048",
       "category": "Geography",
       "name": "Lebanon",
       "clues": [
@@ -1538,7 +1538,7 @@
       }
     },
     {
-      "id": "profile-geography-053",
+      "id": "profile-geography-049",
       "category": "Geography",
       "name": "Israel",
       "clues": [
@@ -1570,7 +1570,7 @@
       }
     },
     {
-      "id": "profile-geography-054",
+      "id": "profile-geography-050",
       "category": "Geography",
       "name": "Singapore",
       "clues": [
@@ -1602,7 +1602,7 @@
       }
     },
     {
-      "id": "profile-geography-055",
+      "id": "profile-geography-051",
       "category": "Geography",
       "name": "Iceland's Glacial Valleys",
       "clues": [
@@ -1634,7 +1634,7 @@
       }
     },
     {
-      "id": "profile-geography-056",
+      "id": "profile-geography-052",
       "category": "Geography",
       "name": "Greenland",
       "clues": [
@@ -1666,7 +1666,7 @@
       }
     },
     {
-      "id": "profile-geography-057",
+      "id": "profile-geography-053",
       "category": "Geography",
       "name": "Montenegro",
       "clues": [
@@ -1674,7 +1674,7 @@
         "Podgorica largest city capital",
         "Bay of Kotor fjord stunning",
         "Adriatic Sea coastline pristine",
-        "Montenegro means black mountain",
+        "Name means black mountain in Slavic language",
         "Former Yugoslav republics",
         "Independence 2006 referendum",
         "Dinaric Alps mountain range",
@@ -1698,7 +1698,7 @@
       }
     },
     {
-      "id": "profile-geography-058",
+      "id": "profile-geography-054",
       "category": "Geography",
       "name": "Bosnia and Herzegovina",
       "clues": [
@@ -1730,7 +1730,7 @@
       }
     },
     {
-      "id": "profile-geography-059",
+      "id": "profile-geography-055",
       "category": "Geography",
       "name": "Croatia",
       "clues": [
@@ -1747,7 +1747,7 @@
         "NATO member joining",
         "Game of Thrones Dubrovnik filmed",
         "Dalmatian dog breed origin",
-        "Croatian language official",
+        "Official language of Adriatic coastal nation",
         "Roman ruins ancient heritage",
         "Venetian architecture colonial",
         "Tourism industry booming",
@@ -1762,7 +1762,7 @@
       }
     },
     {
-      "id": "profile-geography-060",
+      "id": "profile-geography-056",
       "category": "Geography",
       "name": "Serbia",
       "clues": [
@@ -1772,7 +1772,7 @@
         "Kosovo independence disputed",
         "Milosevic regime dictatorship",
         "Orthodox Christianity majority",
-        "Serbians Slavic people",
+        "Slavic people of Balkan Peninsula",
         "Danube river border",
         "Carpathian mountains region",
         "NATO bombing 1999",
@@ -1794,7 +1794,7 @@
       }
     },
     {
-      "id": "profile-geography-061",
+      "id": "profile-geography-057",
       "category": "Geography",
       "name": "Albania",
       "clues": [
@@ -1804,11 +1804,11 @@
         "Communist isolation decades",
         "Bunker dictatorship Enver Hoxha",
         "Adriatic and Ionian Sea",
-        "Albanian language unique",
+        "Language isolate in Europe",
         "Eagle symbol flag",
         "EU membership aspiration",
         "NATO member joining",
-        "Albanian mafia organized crime",
+        "Balkan organized crime networks",
         "Mediterranean beaches developing",
         "Durres coastal city",
         "Shkoder historic north",
@@ -1826,7 +1826,7 @@
       }
     },
     {
-      "id": "profile-geography-062",
+      "id": "profile-geography-058",
       "category": "Geography",
       "name": "North Macedonia",
       "clues": [
@@ -1858,7 +1858,7 @@
       }
     },
     {
-      "id": "profile-geography-063",
+      "id": "profile-geography-059",
       "category": "Geography",
       "name": "Kosovo",
       "clues": [
@@ -1868,7 +1868,7 @@
         "Serbian minority tensions",
         "Independence 2008 proclaimed",
         "International recognition partial",
-        "Kosovo War 1998-99",
+        "Balkan War in late 1990s",
         "NATO intervention bombing",
         "UNMIK peacekeeping forces",
         "EU membership aspiration",
@@ -1890,7 +1890,7 @@
       }
     },
     {
-      "id": "profile-geography-064",
+      "id": "profile-geography-060",
       "category": "Geography",
       "name": "Hungary",
       "clues": [
@@ -1922,7 +1922,7 @@
       }
     },
     {
-      "id": "profile-geography-065",
+      "id": "profile-geography-061",
       "category": "Geography",
       "name": "Czech Republic",
       "clues": [
@@ -1954,7 +1954,7 @@
       }
     },
     {
-      "id": "profile-geography-066",
+      "id": "profile-geography-062",
       "category": "Geography",
       "name": "Slovakia",
       "clues": [
@@ -1964,7 +1964,7 @@
         "Tatra Mountains high",
         "Austro-Hungarian empire",
         "Soviet occupation communist",
-        "Czechoslovakia partner history",
+        "Former partner in Central European federation",
         "EU member joining",
         "NATO member joining",
         "High Tatras trekking",
@@ -1986,13 +1986,13 @@
       }
     },
     {
-      "id": "profile-geography-067",
+      "id": "profile-geography-063",
       "category": "Geography",
       "name": "Romania",
       "clues": [
         "Eastern Europe Carpathians",
         "Bucharest capital largest",
-        "Romanian language Romance",
+        "Romance language of Eastern Europe",
         "Wallachian history principality",
         "Moldavian region autonomous",
         "Transylvania region cultural",
@@ -2018,13 +2018,13 @@
       }
     },
     {
-      "id": "profile-geography-068",
+      "id": "profile-geography-064",
       "category": "Geography",
       "name": "Bulgaria",
       "clues": [
         "Eastern Europe Balkan",
         "Sofia capital historic",
-        "Bulgarian language Slavic",
+        "Slavic language of Balkans",
         "Orthodox Christianity majority",
         "Ottoman occupation centuries",
         "Soviet occupation communist",
@@ -2050,13 +2050,13 @@
       }
     },
     {
-      "id": "profile-geography-069",
+      "id": "profile-geography-065",
       "category": "Geography",
       "name": "Latvia",
       "clues": [
         "Baltic region Northern Europe",
         "Riga capital medieval",
-        "Latvian language Baltic",
+        "Baltic language of Northern Europe",
         "Soviet occupation communist",
         "Independence 1991 restored",
         "EU member joining",
@@ -2082,13 +2082,13 @@
       }
     },
     {
-      "id": "profile-geography-070",
+      "id": "profile-geography-066",
       "category": "Geography",
       "name": "Lithuania",
       "clues": [
         "Baltic region Northern Europe",
         "Vilnius capital historic",
-        "Lithuanian language Baltic",
+        "Baltic language of Northern Europe",
         "Soviet occupation communist",
         "Independence 1991 restored",
         "EU member joining",
@@ -2114,13 +2114,13 @@
       }
     },
     {
-      "id": "profile-geography-071",
+      "id": "profile-geography-067",
       "category": "Geography",
       "name": "Estonia",
       "clues": [
         "Baltic region Northern Europe",
         "Tallinn capital medieval",
-        "Estonian language Finnic",
+        "Finnic language of Northern Europe",
         "Soviet occupation communist",
         "Independence 1991 declared",
         "EU member joining",
@@ -2146,13 +2146,13 @@
       }
     },
     {
-      "id": "profile-geography-072",
+      "id": "profile-geography-068",
       "category": "Geography",
       "name": "Belarus",
       "clues": [
         "Eastern Europe landlocked",
         "Minsk capital largest",
-        "Belarusian language Slavic",
+        "Slavic language of Eastern Europe",
         "Soviet occupation communist",
         "Independence 1991 declared",
         "Lukashenko authoritarian regime",
@@ -2178,7 +2178,7 @@
       }
     },
     {
-      "id": "profile-geography-073",
+      "id": "profile-geography-069",
       "category": "Geography",
       "name": "Ukraine",
       "clues": [
@@ -2210,13 +2210,13 @@
       }
     },
     {
-      "id": "profile-geography-074",
+      "id": "profile-geography-070",
       "category": "Geography",
       "name": "Moldova",
       "clues": [
         "Eastern Europe landlocked",
         "Chișinău capital city",
-        "Moldovan language Romance",
+        "Romance language of Eastern Europe",
         "Soviet occupation communist",
         "Independence 1991 declared",
         "Transnistria breakaway region",
@@ -2242,7 +2242,7 @@
       }
     },
     {
-      "id": "profile-geography-075",
+      "id": "profile-geography-071",
       "category": "Geography",
       "name": "Kazakhstan",
       "clues": [
@@ -2274,7 +2274,7 @@
       }
     },
     {
-      "id": "profile-geography-076",
+      "id": "profile-geography-072",
       "category": "Geography",
       "name": "Uzbekistan",
       "clues": [
@@ -2306,7 +2306,7 @@
       }
     },
     {
-      "id": "profile-geography-077",
+      "id": "profile-geography-073",
       "category": "Geography",
       "name": "Tajikistan",
       "clues": [
@@ -2338,13 +2338,13 @@
       }
     },
     {
-      "id": "profile-geography-078",
+      "id": "profile-geography-074",
       "category": "Geography",
       "name": "Georgia",
       "clues": [
         "Caucasus region strategic",
         "Tbilisi capital cultural",
-        "Georgian language unique",
+        "Unique language of Caucasus region",
         "Orthodox Christianity ancient",
         "Soviet occupation communist",
         "Independence 1991 declared",
@@ -2370,13 +2370,13 @@
       }
     },
     {
-      "id": "profile-geography-079",
+      "id": "profile-geography-075",
       "category": "Geography",
       "name": "Armenia",
       "clues": [
         "Caucasus region landlocked",
         "Yerevan capital oldest",
-        "Armenian language unique",
+        "Ancient unique language of Caucasus",
         "Apostolic Christianity ancient",
         "Soviet occupation communist",
         "Independence 1991 declared",
@@ -2385,7 +2385,7 @@
         "Turkey borders west",
         "Ararat symbol mountain",
         "Genocide Ottoman 1915",
-        "Armenian diaspora worldwide",
+        "Diaspora spread worldwide throughout history",
         "Mount Ararat historical",
         "Silk Road trade",
         "Apricot cultivation tradition",
@@ -2402,7 +2402,7 @@
       }
     },
     {
-      "id": "profile-geography-080",
+      "id": "profile-geography-076",
       "category": "Geography",
       "name": "Kyrgyzstan",
       "clues": [
@@ -2434,7 +2434,7 @@
       }
     },
     {
-      "id": "profile-geography-081",
+      "id": "profile-geography-077",
       "category": "Geography",
       "name": "Turkmenistan",
       "clues": [
@@ -2466,13 +2466,13 @@
       }
     },
     {
-      "id": "profile-geography-082",
+      "id": "profile-geography-078",
       "category": "Geography",
       "name": "Azerbaijan",
       "clues": [
         "South Caucasus region",
         "Baku capital largest",
-        "Azerbaijani language Turkic",
+        "Turkic language of Caucasus",
         "Soviet occupation communist",
         "Independence 1991 declared",
         "Caspian Sea eastern coast",
@@ -2498,7 +2498,7 @@
       }
     },
     {
-      "id": "profile-geography-084",
+      "id": "profile-geography-079",
       "category": "Geography",
       "name": "Malta",
       "clues": [
@@ -2530,7 +2530,7 @@
       }
     },
     {
-      "id": "profile-geography-086",
+      "id": "profile-geography-080",
       "category": "Geography",
       "name": "Syria",
       "clues": [
@@ -2562,7 +2562,7 @@
       }
     },
     {
-      "id": "profile-geography-087",
+      "id": "profile-geography-081",
       "category": "Geography",
       "name": "Jordan",
       "clues": [
@@ -2577,7 +2577,7 @@
         "Petra ancient wonder",
         "Nabataean city carved",
         "Wadi Rum desert landscape",
-        "Jordan River valley",
+        "River valley in Middle East",
         "Israel Palestinian border",
         "Saudi Arabia border",
         "Syrian conflict refugee influx",
@@ -2594,7 +2594,7 @@
       }
     },
     {
-      "id": "profile-geography-089",
+      "id": "profile-geography-082",
       "category": "Geography",
       "name": "Palestine",
       "clues": [
@@ -2626,7 +2626,7 @@
       }
     },
     {
-      "id": "profile-geography-090",
+      "id": "profile-geography-083",
       "category": "Geography",
       "name": "Iraq",
       "clues": [
@@ -2658,7 +2658,7 @@
       }
     },
     {
-      "id": "profile-geography-092",
+      "id": "profile-geography-084",
       "category": "Geography",
       "name": "Iran",
       "clues": [
@@ -2690,7 +2690,7 @@
       }
     },
     {
-      "id": "profile-geography-093",
+      "id": "profile-geography-085",
       "category": "Geography",
       "name": "Oman",
       "clues": [
@@ -2722,7 +2722,7 @@
       }
     },
     {
-      "id": "profile-geography-094",
+      "id": "profile-geography-086",
       "category": "Geography",
       "name": "United Arab Emirates",
       "clues": [
@@ -2754,7 +2754,7 @@
       }
     },
     {
-      "id": "profile-geography-095",
+      "id": "profile-geography-087",
       "category": "Geography",
       "name": "Qatar",
       "clues": [
@@ -2786,7 +2786,7 @@
       }
     },
     {
-      "id": "profile-geography-096",
+      "id": "profile-geography-088",
       "category": "Geography",
       "name": "Bahrain",
       "clues": [
@@ -2818,7 +2818,7 @@
       }
     },
     {
-      "id": "profile-geography-097",
+      "id": "profile-geography-089",
       "category": "Geography",
       "name": "Yemen",
       "clues": [
@@ -2850,7 +2850,7 @@
       }
     },
     {
-      "id": "profile-geography-099",
+      "id": "profile-geography-090",
       "category": "Geography",
       "name": "Afghanistan",
       "clues": [
@@ -2882,13 +2882,13 @@
       }
     },
     {
-      "id": "profile-geography-100",
+      "id": "profile-geography-091",
       "category": "Geography",
       "name": "Nepal",
       "clues": [
         "South Asia Himalayan region",
         "Kathmandu capital largest",
-        "Nepali official language",
+        "Official language of Himalayan nation",
         "Mount Everest highest peak",
         "Hindu majority population",
         "Buddhist minority significant",
@@ -2914,7 +2914,7 @@
       }
     },
     {
-      "id": "profile-geography-101",
+      "id": "profile-geography-092",
       "category": "Geography",
       "name": "Bhutan",
       "clues": [
@@ -2930,7 +2930,7 @@
         "Traditional dress gho",
         "Monastic Buddhism dominant",
         "Taktsang Tiger Nest monastery",
-        "Paro Bhutanese city",
+        "Major city in Eastern Himalayas",
         "Punakha Druk Zhong fortress",
         "Yak herding pastoral culture",
         "Prayer wheels religious",
@@ -2946,7 +2946,7 @@
       }
     },
     {
-      "id": "profile-geography-102",
+      "id": "profile-geography-093",
       "category": "Geography",
       "name": "Bangladesh",
       "clues": [
@@ -2978,7 +2978,7 @@
       }
     },
     {
-      "id": "profile-geography-103",
+      "id": "profile-geography-094",
       "category": "Geography",
       "name": "Sri Lanka",
       "clues": [
@@ -3010,7 +3010,7 @@
       }
     },
     {
-      "id": "profile-geography-104",
+      "id": "profile-geography-095",
       "category": "Geography",
       "name": "Maldives",
       "clues": [
@@ -3042,8 +3042,8 @@
       }
     },
     {
-      "id": "profile-geography-105",
-      "category": "geography",
+      "id": "profile-geography-096",
+      "category": "Geography",
       "name": "Amazon River",
       "clues": [
         "Discharges approximately 209,000 cubic meters of water per second into the Atlantic Ocean",
@@ -3074,8 +3074,8 @@
       }
     },
     {
-      "id": "profile-geography-106",
-      "category": "geography",
+      "id": "profile-geography-097",
+      "category": "Geography",
       "name": "Sahara Desert",
       "clues": [
         "Expanded and contracted significantly during African humid periods over past 11,000 years",
@@ -3106,8 +3106,8 @@
       }
     },
     {
-      "id": "profile-geography-107",
-      "category": "geography",
+      "id": "profile-geography-098",
+      "category": "Geography",
       "name": "Grand Canyon",
       "clues": [
         "Carved primarily by the Colorado River over approximately 5 to 6 million years",
@@ -3138,8 +3138,8 @@
       }
     },
     {
-      "id": "profile-geography-108",
-      "category": "geography",
+      "id": "profile-geography-099",
+      "category": "Geography",
       "name": "Mount Kilimanjaro",
       "clues": [
         "Has three volcanic cones named Kibo, Mawenzi, and Shira",
@@ -3170,8 +3170,8 @@
       }
     },
     {
-      "id": "profile-geography-109",
-      "category": "geography",
+      "id": "profile-geography-100",
+      "category": "Geography",
       "name": "Great Barrier Reef",
       "clues": [
         "Composed of approximately 2,900 individual reefs and 900 islands",

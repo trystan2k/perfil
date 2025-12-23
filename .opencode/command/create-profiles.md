@@ -329,7 +329,32 @@ manifest_count = manifest['categories'][category]['locales']['en']['profileAmoun
 assert manifest_count == en_count, "Manifest count doesn't match actual!"
 ```
 
-### Step 4.6: Final Report
+### Step 4.6 Complete review
+
+- Check all categories have exactly 100 profiles (count profile objects in each language file, read the whole file, they are big)
+- Verify all profiles use correct ID format: profile-{category-prefix}-XXX (e.g., profile-tech-001)
+- Confirm profile IDs are sequential from 001 to 100 with no gaps
+- Verify profile IDs are identical across all languages (EN, ES, PT-BR)
+- Check all profiles have exactly 20 clues each in every language
+- Verify category values are correct: 'Technology' for EN, 'Tecnología' for ES, 'Tecnologia' for PT-BR, for example
+- Check for duplicate profile names within each language file
+- Verify no English clues appear in Spanish or Portuguese files
+- Ensure profile names do not appear as clues within their own profiles
+- Confirm all clues are natural phrases (minimum 2+ words, not single words)
+- Verify clues do not have escaped characters (keep apostrophes, hyphens, accents as-is)
+- Check manifest.json has correct profile counts for all locales (en, es, pt-BR)
+- Verify profiles.config.json contains all English profile names matching data files
+- Confirm manifest.json and config.json use correct JSON syntax without escaping
+- Validate all JSON files have proper syntax (no parse errors)
+- Check same profile ID has same name across all languages (translations are correct)
+- Verify no corrupted profiles (mismatched names and clues, e.g., name says 'A' but clues describe 'B')
+- Confirm ID prefix in manifest.json matches the category (e.g., 'tech' for technology)
+- Review clue quality: natural phrasing, comprehensive, no single words
+- Check for any orphaned profiles in config that don't exist in data files
+- Verify all profile metadata fields are present (language, difficulty, source)
+- Create summary report of all categories reviewed with status, and actionable TODO list with possible issues
+
+### Step 4.7: Final Report
 
 **Format:**
 
