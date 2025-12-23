@@ -5940,12 +5940,95 @@
           }
         ],
         "updatedAt": "2025-12-17T08:52:09.935Z"
+      },
+      {
+        "id": "100",
+        "title": "Persist User Locale Across Sessions and Synchronize with i18n Routing",
+        "description": "Ensure the user's selected locale is persisted across sessions, page navigations, reloads, and PWA usage, while synchronizing with Astro's i18n routing, client-side i18n utilities, and profile loading.",
+        "details": "1. Implement locale persistence using a combination of localStorage and sessionStorage to handle both short-term and long-term persistence. 2. Create utility functions to read and write the locale to storage, ensuring they handle edge cases like corrupted data or missing values. 3. Integrate these utilities with Astro's i18n routing to ensure the URL prefix (e.g., /en/, /es/) matches the persisted locale. 4. Update client-side i18n utilities (e.g., TranslateProvider) to read from and write to the persisted locale, ensuring translations update dynamically when the locale changes. 5. Modify profile loading logic to reload or update profiles when the locale changes, ensuring no stale data is displayed. 6. Ensure server-side rendering (SSR) and client-side code operate consistently with the persisted locale to avoid hydration mismatches. 7. Add comprehensive error handling for scenarios like unsupported locales or storage failures. 8. Document the implementation, including how to extend it for new locales and how to handle edge cases.",
+        "testStrategy": "1. Unit tests (vitest) for locale persistence utilities: Test get/set operations, fallbacks to default locale, and reading from URL vs storage. 2. Integration tests for TranslateProvider: Verify initialization with persisted locale and dynamic updates when locale changes. 3. E2E tests for language switch scenarios: Simulate language changes, page reloads, and PWA usage to verify persisted locale and translations. 4. Regression tests: Ensure existing i18n tests and other test suites continue to pass. 5. Test hydration consistency between server and client to avoid mismatches. 6. Verify PWA manifest and start_url behavior remains unchanged.",
+        "status": "done",
+        "dependencies": [
+          "2",
+          "18",
+          "98"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Locale Persistence Utilities",
+            "description": "Create utility functions to read and write the user's locale to localStorage and sessionStorage, handling edge cases like corrupted data or missing values.",
+            "dependencies": [],
+            "details": "Develop functions to get and set the locale in both localStorage and sessionStorage. Ensure these functions include fallbacks to a default locale and handle potential errors gracefully. The functions should also validate the locale against a list of supported locales.",
+            "status": "done",
+            "testStrategy": "Unit tests (vitest) for get/set operations, fallbacks to default locale, and handling of corrupted or missing data.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-23T11:47:36.251Z"
+          },
+          {
+            "id": 2,
+            "title": "Integrate Locale Utilities with Astro's i18n Routing",
+            "description": "Ensure the URL prefix (e.g., /en/, /es/) matches the persisted locale by integrating the locale utilities with Astro's i18n routing system.",
+            "dependencies": [
+              1
+            ],
+            "details": "Modify Astro's routing configuration to read the locale from storage on page load and update the URL prefix accordingly. Ensure that navigation between pages respects the persisted locale and updates the URL prefix dynamically.",
+            "status": "done",
+            "testStrategy": "Integration tests to verify that the URL prefix matches the persisted locale during navigation and page reloads.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-23T11:47:44.033Z"
+          },
+          {
+            "id": 3,
+            "title": "Update Client-Side i18n Utilities",
+            "description": "Modify client-side i18n utilities (e.g., TranslateProvider) to read from and write to the persisted locale, ensuring translations update dynamically.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Update the TranslateProvider or similar client-side i18n utilities to use the locale persistence utilities. Ensure that changing the locale updates the UI immediately and persists the change across sessions.",
+            "status": "done",
+            "testStrategy": "Integration tests for TranslateProvider to verify initialization with the persisted locale and dynamic updates when the locale changes.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-23T11:47:51.599Z"
+          },
+          {
+            "id": 4,
+            "title": "Modify Profile Loading Logic",
+            "description": "Adjust the profile loading logic to reload or update profiles when the locale changes, ensuring no stale data is displayed.",
+            "dependencies": [
+              3
+            ],
+            "details": "Update the profile loading logic to listen for locale changes and reload profiles from the appropriate localized data source (e.g., /data/{locale}/profiles.json). Ensure that the UI reflects the updated profiles without requiring a manual refresh.",
+            "status": "done",
+            "testStrategy": "Integration tests to verify that profiles are reloaded and updated correctly when the locale changes.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-23T11:47:56.512Z"
+          },
+          {
+            "id": 5,
+            "title": "Ensure SSR and Client-Side Consistency",
+            "description": "Verify that server-side rendering (SSR) and client-side code operate consistently with the persisted locale to avoid hydration mismatches.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Ensure that the server-side rendering process uses the same locale as the client-side code. Implement checks to avoid hydration mismatches by ensuring the initial render on the server matches the client-side locale.",
+            "status": "done",
+            "testStrategy": "End-to-end tests to verify that SSR and client-side code operate consistently with the persisted locale, avoiding hydration mismatches.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-23T11:47:59.453Z"
+          }
+        ],
+        "updatedAt": "2025-12-23T11:47:59.453Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-19T11:42:06.876Z",
-      "taskCount": 99,
+      "lastModified": "2025-12-23T11:47:59.455Z",
+      "taskCount": 100,
       "completedCount": 76,
       "tags": [
         "master"

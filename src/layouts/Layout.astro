@@ -108,6 +108,40 @@ const t = getTranslateFunction(translations, currentLocale);
 
       setTheme();
     </script>
+    <script is:inline>
+      // CRITICAL: Persist locale preference across sessions
+      // This script runs early to ensure locale preference is applied before any rendering
+      (function () {
+        try {
+          const STORAGE_KEY = 'perfil-locale';
+          const SUPPORTED_LOCALES = ['en', 'es', 'pt-BR'];
+          const FALLBACK_LOCALE = 'en';
+
+          // Get the persisted locale from storage if available
+          const storedLocale = localStorage.getItem(STORAGE_KEY);
+
+          // Validate that stored locale is in supported locales
+          const isValidLocale = storedLocale && SUPPORTED_LOCALES.includes(storedLocale);
+          const persistedLocale = isValidLocale ? storedLocale : null;
+
+          // Get current locale from URL pathname
+          const pathParts = window.location.pathname.split('/').filter(Boolean);
+          const urlLocale =
+            pathParts.length > 0 && SUPPORTED_LOCALES.includes(pathParts[0])
+              ? pathParts[0]
+              : FALLBACK_LOCALE;
+
+          // If there's a persisted locale that differs from URL, update lang attribute
+          if (persistedLocale && persistedLocale !== urlLocale) {
+            // Note: We can't change the URL here without a navigation, but we can update
+            // the document lang attribute for consistency
+            document.documentElement.lang = persistedLocale;
+          }
+        } catch (e) {
+          // Fail silently to avoid blocking page load
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />

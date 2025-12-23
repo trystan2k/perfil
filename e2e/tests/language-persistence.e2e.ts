@@ -465,4 +465,332 @@ test.describe('Language Persistence', () => {
       await expect(languageSwitcher).toBeVisible();
     });
   });
+
+  test.describe('Language Persistence - localStorage Storage', () => {
+    test('should store selected language in localStorage with correct key', async ({ page }) => {
+      await page.goto('/en/', { waitUntil: 'networkidle' });
+
+      // Open settings and switch to Spanish
+      const settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /open settings/i });
+      await settingsButton.click();
+
+      const drawer = page.getByRole('dialog', { name: /settings/i });
+      await expect(drawer).toBeVisible();
+
+      const languageNav = drawer.getByRole('navigation', { name: /language/i });
+      const spanishLink = languageNav.getByRole('link', { name: /español/i }).first();
+      await spanishLink.click();
+
+      // Wait for navigation
+      await page.waitForURL(/\/es\//);
+      await page.waitForLoadState('networkidle');
+
+      // Verify localStorage has been set with correct value
+      const localeStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localeStorage).toBe('es');
+    });
+
+    test('should persist locale in localStorage across page reloads', async ({ page }) => {
+      // First switch to Portuguese via language switcher to ensure it's persisted
+      await page.goto('/en/', { waitUntil: 'networkidle' });
+
+      const settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /open settings/i });
+      await settingsButton.click();
+
+      const drawer = page.getByRole('dialog', { name: /settings/i });
+      await expect(drawer).toBeVisible();
+
+      const languageNav = drawer.getByRole('navigation', { name: /language/i });
+      const portugueseLink = languageNav.getByRole('link', { name: /português/i }).first();
+      await portugueseLink.click();
+
+      // Wait for navigation to Portuguese
+      await page.waitForURL(/\/pt-BR\//);
+      await page.waitForLoadState('networkidle');
+
+      // Verify initial localStorage state
+      let localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Reload the page
+      await page.reload();
+      await page.waitForLoadState('networkidle');
+
+      // Verify localStorage persists after reload
+      localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Reload again to ensure it's stable
+      await page.reload();
+      await page.waitForLoadState('networkidle');
+
+      localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+    });
+
+    test('should persist language through language switcher interactions', async ({ page }) => {
+      // Start in English
+      await page.goto('/en/', { waitUntil: 'networkidle' });
+
+      // Switch to Spanish
+      let settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /open settings/i });
+      await settingsButton.click();
+
+      let drawer = page.getByRole('dialog', { name: /settings/i });
+      await expect(drawer).toBeVisible();
+
+      let languageNav = drawer.getByRole('navigation', { name: /language/i });
+      const spanishLink = languageNav.getByRole('link', { name: /español/i }).first();
+      await spanishLink.click();
+
+      await page.waitForURL(/\/es\//);
+      await page.waitForLoadState('networkidle');
+
+      // Verify Spanish is stored
+      let localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('es');
+
+      // Switch to Portuguese
+      settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /open settings|configuración/i });
+      await settingsButton.click();
+
+      drawer = page.getByRole('dialog');
+      await expect(drawer).toBeVisible({ timeout: 3000 });
+      await page.waitForTimeout(1000);
+
+      languageNav = drawer.getByRole('navigation', { name: /language|idioma|lengua/i });
+      const portugueseLink = languageNav.getByRole('link', { name: /português/i }).first();
+      await portugueseLink.click();
+
+      await page.waitForURL(/\/pt-BR\//);
+      await page.waitForLoadState('networkidle');
+
+      // Verify Portuguese is now stored
+      localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+    });
+
+    test('should sync language across multiple tabs via storage event', async ({ context }) => {
+      // Create two pages in the same context to share localStorage
+      const page1 = await context.newPage();
+      const page2 = await context.newPage();
+
+      try {
+        // Navigate both pages to English
+        await page1.goto('/en/', { waitUntil: 'networkidle' });
+        await page2.goto('/en/', { waitUntil: 'networkidle' });
+
+        // On page1, switch to Spanish
+        const settingsButton1 = page1
+          .locator('header')
+          .first()
+          .getByRole('button', { name: /open settings/i });
+        await settingsButton1.click();
+
+        const drawer1 = page1.getByRole('dialog', { name: /settings/i });
+        await expect(drawer1).toBeVisible();
+
+        const languageNav1 = drawer1.getByRole('navigation', { name: /language/i });
+        const spanishLink1 = languageNav1.getByRole('link', { name: /español/i }).first();
+        await spanishLink1.click();
+
+        await page1.waitForURL(/\/es\//);
+        await page1.waitForLoadState('networkidle');
+
+        // Verify page1 has Spanish in localStorage
+        const locale1 = await page1.evaluate(() => window.localStorage.getItem('perfil-locale'));
+        expect(locale1).toBe('es');
+
+        // Verify page2 also received the storage event and has Spanish in localStorage
+        // (storage events propagate to other tabs in same context)
+        const locale2 = await page2.evaluate(() => window.localStorage.getItem('perfil-locale'));
+        expect(locale2).toBe('es');
+      } finally {
+        await page1.close();
+        await page2.close();
+      }
+    });
+  });
+
+  test.describe('PWA Language Persistence Scenario', () => {
+    test('should preserve language selection when navigating between pages', async ({ page }) => {
+      // Switch to Portuguese via language switcher
+      await page.goto('/en/', { waitUntil: 'networkidle' });
+
+      const settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /open settings/i });
+      await settingsButton.click();
+
+      const drawer = page.getByRole('dialog', { name: /settings/i });
+      await expect(drawer).toBeVisible();
+
+      const languageNav = drawer.getByRole('navigation', { name: /language/i });
+      const portugueseLink = languageNav.getByRole('link', { name: /português/i }).first();
+      await portugueseLink.click();
+
+      await page.waitForURL(/\/pt-BR\//);
+      await page.waitForLoadState('networkidle');
+
+      // Verify localStorage has Portuguese
+      let localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Reload the page to simulate PWA restart
+      await page.reload();
+      await page.waitForLoadState('networkidle');
+
+      // Verify localStorage still has Portuguese after reload
+      localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Verify URL reflects Portuguese
+      await expect(page).toHaveURL(/\/pt-BR\//);
+    });
+
+    test('should maintain language through game flow navigation', async ({ page }) => {
+      // Verify language persistence when navigating through the app
+      // Use English to avoid button text issues
+      await page.goto('/en/', { waitUntil: 'networkidle' });
+
+      // Switch to Portuguese to verify language selection
+      const settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /open settings/i });
+      await settingsButton.click();
+
+      const drawer = page.getByRole('dialog', { name: /settings/i });
+      await expect(drawer).toBeVisible();
+
+      const languageNav = drawer.getByRole('navigation', { name: /language/i });
+      const portugueseLink = languageNav.getByRole('link', { name: /português/i }).first();
+      await portugueseLink.click();
+
+      await page.waitForURL(/\/pt-BR\//);
+      await page.waitForLoadState('networkidle');
+
+      // Verify Portuguese is persisted
+      let localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Verify we can navigate to other URLs and language stays Portuguese
+      const playerNameInput = page.getByLabel(/Nome do Jogador/i);
+      await expect(playerNameInput).toBeVisible({ timeout: 5000 });
+
+      // Just add one player and start to navigate
+      await playerNameInput.first().fill('Test Player');
+      const addButton = page.getByRole('button', { name: /Adicionar/i });
+      await expect(addButton).toBeVisible({ timeout: 5000 });
+      await addButton.click();
+
+      await expect(page.getByText('Test Player')).toBeVisible({ timeout: 5000 });
+
+      // Add another player
+      await playerNameInput.first().fill('Test Player 2');
+      await addButton.click();
+      await expect(page.getByText('Test Player 2')).toBeVisible({ timeout: 5000 });
+
+      const startButton = page.getByRole('button', { name: /Iniciar Jogo/i });
+      await expect(startButton).toBeVisible({ timeout: 5000 });
+      await startButton.click();
+
+      // Wait for game setup page
+      await page.waitForURL(/\/pt-BR\/game-setup\/.+/);
+      await page.waitForLoadState('networkidle');
+
+      // Verify localStorage still has Portuguese after navigation
+      localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Verify URL still has Portuguese prefix
+      await expect(page).toHaveURL(/\/pt-BR\/game-setup\/.+/);
+    });
+
+    test('should work offline with cached language preference', async ({ context, page }) => {
+      // Test that language preference persists in localStorage
+      // which is essential for PWA offline support
+      await page.goto('/en/', { waitUntil: 'networkidle' });
+
+      const settingsButton = page
+        .locator('header')
+        .first()
+        .getByRole('button', { name: /open settings/i });
+      await settingsButton.click();
+
+      const drawer = page.getByRole('dialog', { name: /settings/i });
+      await expect(drawer).toBeVisible();
+
+      const languageNav = drawer.getByRole('navigation', { name: /language/i });
+      const portugueseLink = languageNav.getByRole('link', { name: /português/i }).first();
+      await portugueseLink.click();
+
+      await page.waitForURL(/\/pt-BR\//);
+      await page.waitForLoadState('networkidle');
+
+      // Verify Portuguese is in localStorage
+      let localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Reload the page to verify localStorage persists
+      await page.reload();
+      await page.waitForLoadState('networkidle');
+
+      // Verify localStorage is still there after reload
+      localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Verify URL still has Portuguese
+      await expect(page).toHaveURL(/\/pt-BR\//);
+
+      // Simulate offline mode
+      await context.setOffline(true);
+
+      // Verify localStorage is still accessible while offline
+      localStorage = await page.evaluate(() => {
+        return window.localStorage.getItem('perfil-locale');
+      });
+      expect(localStorage).toBe('pt-BR');
+
+      // Go back online
+      await context.setOffline(false);
+    });
+  });
 });

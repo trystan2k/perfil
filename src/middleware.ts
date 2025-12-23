@@ -68,6 +68,24 @@ const getCacheControlHeader = (url: URL): string => {
 
 export const onRequest = defineMiddleware(async (context, next) => {
   try {
+    // Intercept root path redirect to use stored locale preference
+    const { url, cookies, redirect } = context;
+
+    // Check if this is a root path request that Astro will redirect
+    // Only perform redirect if we have the necessary functions (not in test environment)
+    if (url.pathname === '/' && cookies && redirect) {
+      // Read stored locale from cookie (set by client-side localeStorage)
+      const storedLocale = cookies.get('perfil-locale')?.value;
+      const supportedLocales = ['en', 'es', 'pt-BR'];
+
+      // Validate and use stored locale, fallback to 'en'
+      const targetLocale =
+        storedLocale && supportedLocales.includes(storedLocale) ? storedLocale : 'en';
+
+      // Redirect to the appropriate locale path
+      return redirect(`/${targetLocale}/`, 302);
+    }
+
     // Get response from next middleware or route
     const response = await next();
 
