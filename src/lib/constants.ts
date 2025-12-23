@@ -26,3 +26,5 @@ export const MIN_PLAYERS = GAME_CONFIG.game.minPlayers;
  * @deprecated Use GAME_CONFIG.game.maxCluesPerProfile instead
  */
 export const DEFAULT_CLUES_PER_PROFILE = GAME_CONFIG.game.maxCluesPerProfile;
+
+export const STORAGE_PERFIL_LOCALE_KEY = 'perfil-locale';

@@ -1,8 +1,9 @@
 import { navigate } from 'astro:transitions/client';
 import { type MouseEvent, useActionState, useState } from 'react';
-import { useGameActions, useScoreboardState } from '../hooks/selectors/index.ts';
+import { setPersistedLocale } from '../lib/localeStorage.ts';
 import type { SupportedLocale } from '../i18n/locales.ts';
 import { removeLocalePrefix } from '../i18n/locales.ts';
+import { useGameActions, useScoreboardState } from '../hooks/selectors/index.ts';
 import { useGameStore } from '../stores/gameStore.ts';
 import { useTranslate } from './TranslateProvider.tsx';
 import { Button } from './ui/button.tsx';
@@ -40,6 +41,10 @@ export const LanguageSwitcher = ({ currentPath }: LanguageSwitcherProps) => {
   const [_samePlayersState, samePlayersAction] = useActionState<ActionState, FormData>(
     async (_prevState: ActionState, _formData: FormData): Promise<ActionState> => {
       try {
+        if (pendingLocale) {
+          // Persist the locale selection
+          setPersistedLocale(pendingLocale);
+        }
         const samePlayers = true;
         await resetGame(samePlayers);
         const newId = useGameStore.getState().id;
@@ -60,6 +65,9 @@ export const LanguageSwitcher = ({ currentPath }: LanguageSwitcherProps) => {
     e: MouseEvent<HTMLAnchorElement>,
     localeCode: SupportedLocale
   ) => {
+    // Persist the locale selection before any navigation
+    setPersistedLocale(localeCode);
+
     // If game is active, show warning dialog
     if (gameStatus === 'active') {
       e.preventDefault();

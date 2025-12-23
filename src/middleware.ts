@@ -1,4 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
+import { FALLBACK_LOCALE, SUPPORTED_LOCALES } from './i18n/locales.ts';
+import { STORAGE_PERFIL_LOCALE_KEY } from './lib/constants.ts';
 
 // Security headers configuration - optimized for production vs development
 const SECURITY_HEADERS: Record<string, string> = {
@@ -68,6 +70,25 @@ const getCacheControlHeader = (url: URL): string => {
 
 export const onRequest = defineMiddleware(async (context, next) => {
   try {
+    // Intercept root path redirect to use stored locale preference
+    const { url, cookies, redirect } = context;
+
+    // Check if this is a root path request that Astro will redirect
+    // Only perform redirect if we have the necessary functions (not in test environment)
+    if (url.pathname === '/' && cookies && redirect) {
+      // Read stored locale from cookie (set by client-side localeStorage)
+      const storedLocale = cookies.get(STORAGE_PERFIL_LOCALE_KEY)?.value;
+
+      // Validate and use stored locale, fallback to FALLBACK_LOCALE
+      const targetLocale =
+        storedLocale && (SUPPORTED_LOCALES as readonly string[]).includes(storedLocale)
+          ? storedLocale
+          : FALLBACK_LOCALE;
+
+      // Redirect to the appropriate locale path (307 preserves method)
+      return redirect(`/${targetLocale}/`, 307);
+    }
+
     // Get response from next middleware or route
     const response = await next();
 
