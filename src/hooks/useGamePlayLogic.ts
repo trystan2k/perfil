@@ -323,9 +323,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     await skipProfile();
   };
 
-  const handleSkipProfile = async () => {
-    await skipProfile();
-  };
+  const handleSkipProfile = handleNoWinner;
 
   const handleOpenRemovePoints = (player: { id: string; name: string; score: number }) => {
     setSelectedPlayerForRemoval(player);
