@@ -55,6 +55,7 @@ export interface UseGamePlayLogicReturn {
   handleAwardPoints: (playerId: string) => void;
   handleContinueToNextProfile: () => void;
   handleNoWinner: () => Promise<void>;
+  handleSkipProfile: () => Promise<void>;
   handleOpenRemovePoints: (player: { id: string; name: string; score: number }) => void;
   handleConfirmRemovePoints: (amount: number) => Promise<void>;
 
@@ -322,6 +323,8 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     await skipProfile();
   };
 
+  const handleSkipProfile = handleNoWinner;
+
   const handleOpenRemovePoints = (player: { id: string; name: string; score: number }) => {
     setSelectedPlayerForRemoval(player);
     setRemovePointsDialogOpen(true);
@@ -383,6 +386,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     handleAwardPoints,
     handleContinueToNextProfile,
     handleNoWinner,
+    handleSkipProfile,
     handleOpenRemovePoints,
     handleConfirmRemovePoints,
 

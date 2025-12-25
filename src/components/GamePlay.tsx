@@ -119,6 +119,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 revealedClueHistory={logic.revealedClueHistory}
                 noWinnerButtonText={logic.t('gamePlay.noWinnerButton')}
                 showNextClueButtonText={logic.t('gamePlay.showNextClueButton')}
+                skipProfileButtonText={logic.t('gamePlay.skipProfileButton')}
                 clueCountText={logic.t('gamePlay.clueCount', {
                   current: currentTurn.cluesRead,
                   total: currentProfile.clues.length,
@@ -127,6 +128,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 finishGameButtonText={logic.t('gamePlay.finishGameButton')}
                 onNoWinner={logic.handleNoWinner}
                 onNextClue={logic.nextClue}
+                onSkipProfile={logic.handleSkipProfile}
                 onFinishGame={logic.handleFinishGame}
               />
             </div>

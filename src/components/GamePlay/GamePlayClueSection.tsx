@@ -16,11 +16,13 @@ interface GamePlayClueSectionProps {
   revealedClueHistory: string[];
   noWinnerButtonText: string;
   showNextClueButtonText: string;
+  skipProfileButtonText: string;
   clueCountText: string;
   pressShowNextClueText: string;
   finishGameButtonText: string;
   onNoWinner: () => void;
   onNextClue: () => void;
+  onSkipProfile: () => void;
   onFinishGame: () => void;
 }
 
@@ -34,11 +36,13 @@ export function GamePlayClueSection({
   revealedClueHistory,
   noWinnerButtonText,
   showNextClueButtonText,
+  skipProfileButtonText,
   clueCountText,
   pressShowNextClueText,
   finishGameButtonText,
   onNoWinner,
   onNextClue,
+  onSkipProfile,
   onFinishGame,
 }: GamePlayClueSectionProps) {
   const { prefersReducedMotion } = useReducedMotionContext();
@@ -46,8 +50,8 @@ export function GamePlayClueSection({
   return (
     <Card>
       <CardContent className="pt-6 space-y-6">
-        {/* Show Next Clue or No Winner Button */}
-        <div className="flex justify-center">
+        {/* Show Next Clue or No Winner Button with Skip Profile */}
+        <div className="flex justify-center gap-3 flex-wrap">
           {isOnFinalClue ? (
             <Button onClick={onNoWinner} size="lg" variant="secondary">
               {noWinnerButtonText}
@@ -57,6 +61,9 @@ export function GamePlayClueSection({
               {showNextClueButtonText}
             </Button>
           )}
+          <Button onClick={onSkipProfile} size="lg" variant="outline">
+            {skipProfileButtonText}
+          </Button>
         </div>
 
         {/* Clue Progress Indicator */}

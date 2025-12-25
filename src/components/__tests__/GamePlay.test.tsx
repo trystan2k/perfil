@@ -480,33 +480,31 @@ describe('GamePlay Component', () => {
       store.loadProfiles(mockProfiles);
     });
 
-    it('should not render Skip Profile button when no clues have been read', async () => {
+    it('should render Skip Profile button when no clues have been read', async () => {
       const store = useGameStore.getState();
       await store.startGame(['Movies', 'Sports'], 2);
 
       customRender(<GamePlay />);
 
-      // Skip button is no longer part of the UI - skip functionality is now through Round Summary
-      const buttons = screen.getAllByRole('button');
-      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
-      expect(skipButton).toBeUndefined();
+      // Skip button should be visible next to Show Next Clue button
+      const skipButton = screen.getByText('Skip Profile');
+      expect(skipButton).toBeInTheDocument();
     });
 
-    it('should not render Skip Profile button after first clue is revealed', async () => {
+    it('should render Skip Profile button after first clue is revealed', async () => {
       const store = useGameStore.getState();
       await store.startGame(['Movies', 'Sports'], 2);
       store.nextClue(); // Show first clue
 
       customRender(<GamePlay />);
 
-      // Skip Profile button is no longer part of the main UI layout
-      // The skip functionality is still available through the Round Summary modal
-      const buttons = screen.getAllByRole('button');
-      const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
-      expect(skipButton).toBeUndefined();
+      // Skip Profile button should be visible next to Show Next Clue button
+      const skipButton = screen.getByText('Skip Profile');
+      expect(skipButton).toBeInTheDocument();
     });
 
-    it('should not skip profile when confirmation is cancelled', async () => {
+    it('should skip profile when Skip Profile button is clicked', async () => {
+      const user = userEvent.setup();
       const store = useGameStore.getState();
       await store.startGame(['Movies', 'Sports'], 2);
       store.nextClue();
@@ -515,11 +513,20 @@ describe('GamePlay Component', () => {
 
       customRender(<GamePlay />);
 
-      // Verify profile is still the same (no confirmation needed since button doesn't exist)
-      const finalProfileId = useGameStore.getState().currentProfile?.id;
+      // Click the Skip Profile button
+      const skipButton = screen.getByText('Skip Profile');
+      await user.click(skipButton);
 
-      // Profile should not change
-      expect(finalProfileId).toBe(initialProfileId);
+      // Wait a bit for state to update
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Profile should change to the next one
+      const finalProfileId = useGameStore.getState().currentProfile?.id;
+      expect(finalProfileId).not.toBe(initialProfileId);
+
+      // Should show the next profile's clue info
+      const currentProfile = useGameStore.getState().currentProfile;
+      expect(currentProfile).toBeDefined();
     });
   });
 

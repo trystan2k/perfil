@@ -15,11 +15,13 @@ describe('GamePlayClueSection', () => {
     revealedClueHistory: ['Previous clue 1', 'Previous clue 2'],
     noWinnerButtonText: 'No Winner',
     showNextClueButtonText: 'Show Next Clue',
+    skipProfileButtonText: 'Skip Profile',
     clueCountText: 'Clue 2 of 5',
     pressShowNextClueText: 'Press "Show Next Clue" to begin',
     finishGameButtonText: 'Finish Game',
     onNoWinner: vi.fn(),
     onNextClue: vi.fn(),
+    onSkipProfile: vi.fn(),
     onFinishGame: vi.fn(),
   };
 
@@ -27,6 +29,7 @@ describe('GamePlayClueSection', () => {
     customRender(<GamePlayClueSection {...defaultProps} isOnFinalClue={false} />);
 
     expect(screen.getByText('Show Next Clue')).toBeInTheDocument();
+    expect(screen.getByText('Skip Profile')).toBeInTheDocument();
     expect(screen.queryByText('No Winner')).not.toBeInTheDocument();
   });
 
@@ -34,6 +37,7 @@ describe('GamePlayClueSection', () => {
     customRender(<GamePlayClueSection {...defaultProps} isOnFinalClue={true} />);
 
     expect(screen.getByText('No Winner')).toBeInTheDocument();
+    expect(screen.getByText('Skip Profile')).toBeInTheDocument();
     expect(screen.queryByText('Show Next Clue')).not.toBeInTheDocument();
   });
 
@@ -73,6 +77,17 @@ describe('GamePlayClueSection', () => {
     await user.click(screen.getByText('No Winner'));
 
     expect(onNoWinner).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call onSkipProfile when skip profile button is clicked', async () => {
+    const user = userEvent.setup();
+    const onSkipProfile = vi.fn();
+
+    customRender(<GamePlayClueSection {...defaultProps} onSkipProfile={onSkipProfile} />);
+
+    await user.click(screen.getByText('Skip Profile'));
+
+    expect(onSkipProfile).toHaveBeenCalledTimes(1);
   });
 
   it('should display current clue text when clues have been read', () => {
@@ -152,6 +167,7 @@ describe('GamePlayClueSection', () => {
 
     // Should have button section
     expect(screen.getByText('Show Next Clue')).toBeInTheDocument();
+    expect(screen.getByText('Skip Profile')).toBeInTheDocument();
     expect(screen.getByText('Finish Game')).toBeInTheDocument();
   });
 
