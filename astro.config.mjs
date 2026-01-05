@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import AstroPWA from '@vite-pwa/astro';
 import { defineConfig } from 'astro/config';
+
 import { PRIMARY_COLORS, THEME_COLORS } from './src/lib/theme-colors.ts';
 
 // https://astro.build/config
@@ -50,7 +51,7 @@ export default defineConfig({
         theme_color: PRIMARY_COLORS.light,
         background_color: THEME_COLORS.light,
         display: 'standalone',
-        start_url: '/en/',
+        start_url: '/',
         icons: [
           {
             src: '/icons/icon-192x192.png',
