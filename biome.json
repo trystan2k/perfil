@@ -20,7 +20,9 @@
       "tailwind.config.mjs",
       "biome.json",
       "astro.config.mjs",
-      "package.json"
+      "package.json",
+      "!node_modules",
+      "!dist"
     ],
     "ignoreUnknown": true
   },
@@ -49,6 +51,31 @@
     "formatter": {
       "enabled": true,
       "trailingCommas": "none"
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              [":BUN:", ":NODE:"],
+              ":BLANK_LINE:",
+              [":PACKAGE:", "!@components/**", "!@/**", "!@public/**"],
+              ":BLANK_LINE:",
+              ["@/**"],
+              ":BLANK_LINE:",
+              [":ALIAS:", ":PATH:"]
+            ]
+          }
+        }
+      }
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "overrides": [
