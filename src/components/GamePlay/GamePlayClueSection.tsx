@@ -58,13 +58,20 @@ export function GamePlayClueSection({
               {noWinnerButtonText}
             </Button>
           ) : (
-            <Button onClick={onNextClue} disabled={isMaxCluesReached} size="lg" className="flex-1">
-              {showNextClueButtonText}
-            </Button>
+            <>
+              <Button
+                onClick={onNextClue}
+                disabled={isMaxCluesReached}
+                size="lg"
+                className="flex-1"
+              >
+                {showNextClueButtonText}
+              </Button>
+              <Button onClick={onSkipProfile} variant="outline" size="lg">
+                {skipProfileButtonText}
+              </Button>
+            </>
           )}
-          <Button onClick={onSkipProfile} variant="outline" size="lg">
-            {skipProfileButtonText}
-          </Button>
         </div>
 
         {/* Clue Progress Indicator */}
