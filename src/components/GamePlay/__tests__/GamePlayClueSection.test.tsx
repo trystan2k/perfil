@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+
 import { customRender } from '../../../__mocks__/test-utils.tsx';
 import { GamePlayClueSection } from '../GamePlayClueSection.tsx';
 
@@ -8,18 +9,21 @@ describe('GamePlayClueSection', () => {
   const defaultProps = {
     isOnFinalClue: false,
     isMaxCluesReached: false,
-    currentClueText: 'This is the current clue',
+    currentClueText: 'This is a current clue',
     cluesRead: 2,
     totalClues: 5,
     pointsRemaining: 3,
     revealedClueHistory: ['Previous clue 1', 'Previous clue 2'],
     noWinnerButtonText: 'No Winner',
     showNextClueButtonText: 'Show Next Clue',
+    skipProfileButtonText: 'Skip Profile',
+    skipProfileButtonAriaLabel: 'Skip current profile without awarding points',
     clueCountText: 'Clue 2 of 5',
     pressShowNextClueText: 'Press "Show Next Clue" to begin',
     finishGameButtonText: 'Finish Game',
     onNoWinner: vi.fn(),
     onNextClue: vi.fn(),
+    onSkipProfile: vi.fn(),
     onFinishGame: vi.fn(),
   };
 
@@ -142,6 +146,31 @@ describe('GamePlayClueSection', () => {
 
     // Should still render without errors
     expect(screen.getByText('Show Next Clue')).toBeInTheDocument();
+  });
+
+  it('should render skip profile button when at least one clue is revealed', () => {
+    customRender(<GamePlayClueSection {...defaultProps} cluesRead={1} />);
+
+    expect(screen.getByText('Skip Profile')).toBeInTheDocument();
+  });
+
+  it('should render skip profile button when no clues are revealed', () => {
+    customRender(<GamePlayClueSection {...defaultProps} cluesRead={0} />);
+
+    expect(screen.queryByText('Skip Profile')).toBeInTheDocument();
+  });
+
+  it('should call onSkipProfile when skip profile button is clicked', async () => {
+    const user = userEvent.setup();
+    const onSkipProfile = vi.fn();
+
+    customRender(
+      <GamePlayClueSection {...defaultProps} onSkipProfile={onSkipProfile} cluesRead={1} />
+    );
+
+    await user.click(screen.getByText('Skip Profile'));
+
+    expect(onSkipProfile).toHaveBeenCalledTimes(1);
   });
 
   it('should display all UI sections', () => {

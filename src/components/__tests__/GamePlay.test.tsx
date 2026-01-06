@@ -1,6 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { generateClues } from '@/__mocks__/test-utils';
 import { GAME_CONFIG } from '@/config/gameConfig';
 import type { Manifest } from '@/lib/manifest';
@@ -9,6 +10,7 @@ import { selectProfileIdsByManifest } from '@/lib/manifestProfileSelection';
 import { loadProfilesByIds } from '@/lib/profileLoading';
 import { useGameStore } from '@/stores/gameStore';
 import type { Profile } from '@/types/models';
+
 import { customRender } from '../../__mocks__/test-utils.tsx';
 import * as gameSessionDB from '../../lib/gameSessionDB.ts';
 import { ErrorStateProvider } from '../ErrorStateProvider.tsx';
@@ -480,46 +482,27 @@ describe('GamePlay Component', () => {
       store.loadProfiles(mockProfiles);
     });
 
-    it('should not render Skip Profile button when no clues have been read', async () => {
+    it('should render Skip Profile button when no clues have been read', async () => {
       const store = useGameStore.getState();
       await store.startGame(['Movies', 'Sports'], 2);
 
       customRender(<GamePlay />);
 
-      // Skip button is no longer part of the UI - skip functionality is now through Round Summary
       const buttons = screen.getAllByRole('button');
       const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
-      expect(skipButton).toBeUndefined();
+      expect(skipButton).toBeInTheDocument();
     });
 
-    it('should not render Skip Profile button after first clue is revealed', async () => {
+    it('should render Skip Profile button after first clue is revealed', async () => {
       const store = useGameStore.getState();
       await store.startGame(['Movies', 'Sports'], 2);
       store.nextClue(); // Show first clue
 
       customRender(<GamePlay />);
 
-      // Skip Profile button is no longer part of the main UI layout
-      // The skip functionality is still available through the Round Summary modal
       const buttons = screen.getAllByRole('button');
       const skipButton = buttons.find((btn) => btn.textContent?.includes('Skip'));
-      expect(skipButton).toBeUndefined();
-    });
-
-    it('should not skip profile when confirmation is cancelled', async () => {
-      const store = useGameStore.getState();
-      await store.startGame(['Movies', 'Sports'], 2);
-      store.nextClue();
-
-      const initialProfileId = useGameStore.getState().currentProfile?.id;
-
-      customRender(<GamePlay />);
-
-      // Verify profile is still the same (no confirmation needed since button doesn't exist)
-      const finalProfileId = useGameStore.getState().currentProfile?.id;
-
-      // Profile should not change
-      expect(finalProfileId).toBe(initialProfileId);
+      expect(skipButton).toBeInTheDocument();
     });
   });
 

@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
+
 import { ClueProgress } from '@/components/ClueProgress';
 import { PreviousCluesDisplay } from '@/components/PreviousCluesDisplay';
+import { useReducedMotionContext } from '@/components/ReducedMotionProvider';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { GAME_CONFIG } from '@/config/gameConfig';
-import { useReducedMotionContext } from '@/components/ReducedMotionProvider';
 
 interface GamePlayClueSectionProps {
   isOnFinalClue: boolean;
@@ -16,11 +17,14 @@ interface GamePlayClueSectionProps {
   revealedClueHistory: string[];
   noWinnerButtonText: string;
   showNextClueButtonText: string;
+  skipProfileButtonText: string;
+  skipProfileButtonAriaLabel: string;
   clueCountText: string;
   pressShowNextClueText: string;
   finishGameButtonText: string;
   onNoWinner: () => void;
   onNextClue: () => void;
+  onSkipProfile: () => Promise<void>;
   onFinishGame: () => void;
 }
 
@@ -34,11 +38,14 @@ export function GamePlayClueSection({
   revealedClueHistory,
   noWinnerButtonText,
   showNextClueButtonText,
+  skipProfileButtonText,
+  skipProfileButtonAriaLabel,
   clueCountText,
   pressShowNextClueText,
   finishGameButtonText,
   onNoWinner,
   onNextClue,
+  onSkipProfile,
   onFinishGame,
 }: GamePlayClueSectionProps) {
   const { prefersReducedMotion } = useReducedMotionContext();
@@ -47,15 +54,30 @@ export function GamePlayClueSection({
     <Card>
       <CardContent className="pt-6 space-y-6">
         {/* Show Next Clue or No Winner Button */}
-        <div className="flex justify-center">
+        <div className="flex gap-2 justify-center">
           {isOnFinalClue ? (
             <Button onClick={onNoWinner} size="lg" variant="secondary">
               {noWinnerButtonText}
             </Button>
           ) : (
-            <Button onClick={onNextClue} disabled={isMaxCluesReached} size="lg">
-              {showNextClueButtonText}
-            </Button>
+            <>
+              <Button
+                onClick={onNextClue}
+                disabled={isMaxCluesReached}
+                size="lg"
+                className="flex-1"
+              >
+                {showNextClueButtonText}
+              </Button>
+              <Button
+                onClick={onSkipProfile}
+                variant="outline"
+                size="lg"
+                aria-label={skipProfileButtonAriaLabel}
+              >
+                {skipProfileButtonText}
+              </Button>
+            </>
           )}
         </div>
 
