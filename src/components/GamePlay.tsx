@@ -1,4 +1,5 @@
 import { HelpCircle } from 'lucide-react';
+
 import { AdaptiveContainer } from '@/components/AdaptiveContainer';
 import { ReducedMotionProvider } from '@/components/ReducedMotionProvider';
 import { RemovePointsDialog } from '@/components/RemovePointsDialog';
@@ -9,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Skeleton } from '@/components/ui/skeleton';
 import { GameStatus } from '@/domain/game/value-objects/GameStatus';
 import { useGamePlayLogic } from '@/hooks/useGamePlayLogic';
+
 import { GamePlayClueSection } from './GamePlay/GamePlayClueSection.tsx';
 import { GamePlayHeader } from './GamePlay/GamePlayHeader.tsx';
 import { GamePlayPlayerScoreboard } from './GamePlay/GamePlayPlayerScoreboard.tsx';
@@ -119,6 +121,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 revealedClueHistory={logic.revealedClueHistory}
                 noWinnerButtonText={logic.t('gamePlay.noWinnerButton')}
                 showNextClueButtonText={logic.t('gamePlay.showNextClueButton')}
+                skipProfileButtonText={logic.t('gamePlay.skipProfileButton')}
                 clueCountText={logic.t('gamePlay.clueCount', {
                   current: currentTurn.cluesRead,
                   total: currentProfile.clues.length,
@@ -127,6 +130,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 finishGameButtonText={logic.t('gamePlay.finishGameButton')}
                 onNoWinner={logic.handleNoWinner}
                 onNextClue={logic.nextClue}
+                onSkipProfile={logic.handleSkipProfile}
                 onFinishGame={logic.handleFinishGame}
               />
             </div>

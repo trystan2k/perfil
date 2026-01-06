@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+
 import { useProfiles } from '@/hooks/useProfiles';
 import { getCurrentLocale, navigateWithLocale } from '@/i18n/locales';
 import { forcePersist } from '@/stores/gameStore';
 import type { Player, Profile, TurnState } from '@/types/models';
+
 import { useTranslate } from '../components/TranslateProvider.tsx';
-import { useGamePlayState, useGamePlayActions } from './selectors/index.ts';
+import { useGamePlayActions, useGamePlayState } from './selectors/index.ts';
 
 export interface UseGamePlayLogicReturn {
   // State
@@ -55,6 +57,7 @@ export interface UseGamePlayLogicReturn {
   handleAwardPoints: (playerId: string) => void;
   handleContinueToNextProfile: () => void;
   handleNoWinner: () => Promise<void>;
+  handleSkipProfile: () => Promise<void>;
   handleOpenRemovePoints: (player: { id: string; name: string; score: number }) => void;
   handleConfirmRemovePoints: (amount: number) => Promise<void>;
 
@@ -340,6 +343,15 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     }
   };
 
+  const handleSkipProfile = async () => {
+    try {
+      await skipProfile();
+    } catch (err) {
+      console.error('Failed to skip profile:', err);
+      throw err;
+    }
+  };
+
   return {
     // State
     isLoading,
@@ -383,6 +395,7 @@ export function useGamePlayLogic(sessionId?: string): UseGamePlayLogicReturn {
     handleAwardPoints,
     handleContinueToNextProfile,
     handleNoWinner,
+    handleSkipProfile,
     handleOpenRemovePoints,
     handleConfirmRemovePoints,
 
