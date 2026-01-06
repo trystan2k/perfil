@@ -1,1 +1,1 @@
-pnpm run complete-check
+pnpm run prepush-check
