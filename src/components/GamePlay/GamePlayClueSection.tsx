@@ -18,6 +18,7 @@ interface GamePlayClueSectionProps {
   noWinnerButtonText: string;
   showNextClueButtonText: string;
   skipProfileButtonText: string;
+  skipProfileButtonAriaLabel: string;
   clueCountText: string;
   pressShowNextClueText: string;
   finishGameButtonText: string;
@@ -38,6 +39,7 @@ export function GamePlayClueSection({
   noWinnerButtonText,
   showNextClueButtonText,
   skipProfileButtonText,
+  skipProfileButtonAriaLabel,
   clueCountText,
   pressShowNextClueText,
   finishGameButtonText,
@@ -67,7 +69,12 @@ export function GamePlayClueSection({
               >
                 {showNextClueButtonText}
               </Button>
-              <Button onClick={onSkipProfile} variant="outline" size="lg">
+              <Button
+                onClick={onSkipProfile}
+                variant="outline"
+                size="lg"
+                aria-label={skipProfileButtonAriaLabel}
+              >
                 {skipProfileButtonText}
               </Button>
             </>

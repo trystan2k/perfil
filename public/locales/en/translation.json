@@ -157,7 +157,8 @@
     "previousClues": {
       "title": "Previous Clues ({{count}})",
       "mostRecent": "Most Recent"
-    }
+    },
+    "skipProfileButtonAriaLabel": "Skip current profile without awarding points"
   },
   "categorySelect": {
     "title": "Select Categories",

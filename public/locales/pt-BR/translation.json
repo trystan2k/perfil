@@ -157,7 +157,8 @@
     "previousClues": {
       "title": "Dicas Anteriores ({{count}})",
       "mostRecent": "Mais Recente"
-    }
+    },
+    "skipProfileButtonAriaLabel": "Pular perfil atual sem conceder pontos"
   },
   "categorySelect": {
     "title": "Selecionar Categorias",

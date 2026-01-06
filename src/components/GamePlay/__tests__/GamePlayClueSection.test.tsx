@@ -17,6 +17,7 @@ describe('GamePlayClueSection', () => {
     noWinnerButtonText: 'No Winner',
     showNextClueButtonText: 'Show Next Clue',
     skipProfileButtonText: 'Skip Profile',
+    skipProfileButtonAriaLabel: 'Skip current profile without awarding points',
     clueCountText: 'Clue 2 of 5',
     pressShowNextClueText: 'Press "Show Next Clue" to begin',
     finishGameButtonText: 'Finish Game',

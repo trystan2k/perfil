@@ -122,6 +122,7 @@ export function GamePlay({ sessionId }: GamePlayProps) {
                 noWinnerButtonText={logic.t('gamePlay.noWinnerButton')}
                 showNextClueButtonText={logic.t('gamePlay.showNextClueButton')}
                 skipProfileButtonText={logic.t('gamePlay.skipProfileButton')}
+                skipProfileButtonAriaLabel={logic.t('gamePlay.skipProfileButtonAriaLabel')}
                 clueCountText={logic.t('gamePlay.clueCount', {
                   current: currentTurn.cluesRead,
                   total: currentProfile.clues.length,

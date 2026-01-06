@@ -157,7 +157,8 @@
     "previousClues": {
       "title": "Pistas Anteriores ({{count}})",
       "mostRecent": "Más Reciente"
-    }
+    },
+    "skipProfileButtonAriaLabel": "Saltar perfil actual sin otorgar puntos"
   },
   "categorySelect": {
     "title": "Seleccionar Categorías",
