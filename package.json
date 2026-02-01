@@ -60,7 +60,7 @@
     ]
   },
   "dependencies": {
-    "@astrojs/cloudflare": "~12.6.10",
+    "@astrojs/cloudflare": "~12.6.12",
     "@astrojs/react": "~4.4.2",
     "@astrojs/tailwind": "~6.0.2",
     "@radix-ui/react-dialog": "~1.1.15",
@@ -105,6 +105,6 @@
     "typescript": "~5.9.3",
     "vitest": "~4.0.8",
     "workbox-window": "~7.4.0",
-    "wrangler": "~4.59.1"
+    "wrangler": "~4.61.1"
   }
 }
